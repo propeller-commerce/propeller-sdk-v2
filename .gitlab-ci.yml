@@ -1,31 +1,32 @@
 # GitLab CI/CD Configuration
 # This pipeline automatically mirrors the repository to GitHub
+# NOTE: Currently disabled - enable shared runners or configure a runner to use this
 
-stages:
-  - mirror
+# stages:
+#   - mirror
 
 # Mirror to GitHub
 # This job runs whenever code is pushed to develop or main branches
-mirror_to_github:
-  stage: mirror
-  image: alpine/git:latest
-  only:
-    - develop
-    - main
-    - master
-  script:
-    - echo "Mirroring to GitHub..."
-    # Configure git
-    - git config --global user.email "ci@propeller-commerce.com"
-    - git config --global user.name "GitLab CI"
-    # Add GitHub as a remote
-    - git remote add github https://${GITHUB_TOKEN}@github.com/propeller-commerce/propeller-sdk-v2.git || true
-    # Fetch all branches and tags
-    - git fetch --unshallow || git fetch --all
-    # Push to GitHub (force push to ensure sync)
-    - git push github HEAD:${CI_COMMIT_REF_NAME} --force --tags
-  when: on_success
-  allow_failure: false
+# mirror_to_github:
+#   stage: mirror
+#   image: alpine/git:latest
+#   only:
+#     - develop
+#     - main
+#     - master
+#   script:
+#     - echo "Mirroring to GitHub..."
+#     # Configure git
+#     - git config --global user.email "ci@propeller-commerce.com"
+#     - git config --global user.name "GitLab CI"
+#     # Add GitHub as a remote
+#     - git remote add github https://${GITHUB_TOKEN}@github.com/propeller-commerce/propeller-sdk-v2.git || true
+#     # Fetch all branches and tags
+#     - git fetch --unshallow || git fetch --all
+#     # Push to GitHub (force push to ensure sync)
+#     - git push github HEAD:${CI_COMMIT_REF_NAME} --force --tags
+#   when: on_success
+#   allow_failure: false
 
 # Optional: Mirror all branches (not just develop/main)
 # Uncomment this job if you want to sync ALL branches
