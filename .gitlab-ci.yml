@@ -13,16 +13,17 @@ mirror_to_github:
     - develop
     - main
     - master
+  before_script:
+    - apk add --no-cache bash
+    - git --version
+    - pwd
+    - ls -la
   script:
     - echo "Mirroring to GitHub..."
-    # Configure git
     - git config --global user.email "ci@propeller-commerce.com"
     - git config --global user.name "GitLab CI"
-    # Add GitHub as a remote
     - git remote add github https://${GITHUB_TOKEN}@github.com/propeller-commerce/propeller-sdk-v2.git || true
-    # Fetch all branches and tags
     - git fetch --unshallow || git fetch --all
-    # Push to GitHub (force push to ensure sync)
     - git push github HEAD:${CI_COMMIT_REF_NAME} --force --tags
   when: on_success
   allow_failure: false
