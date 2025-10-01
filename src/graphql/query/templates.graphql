@@ -1,0 +1,5 @@
+query templates($input: TemplateSearchInput!) {
+  templates(input: $input) {
+    ...TemplateResponseFields
+  }
+}

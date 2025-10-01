@@ -1,0 +1,5 @@
+mutation mediaAttachmentUpdate($id: String!, $input: UpdateMediaAttachmentInput!) {
+  mediaAttachmentUpdate(id: $id, input: $input) {
+    ...MediaAttachmentFields
+  }
+}

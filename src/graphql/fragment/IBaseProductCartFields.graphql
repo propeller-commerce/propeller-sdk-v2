@@ -1,0 +1,18 @@
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ... LocalizedStringFields
+  }
+  descriptions {
+    ... LocalizedStringFields
+  }
+  shortDescriptions {
+    ... LocalizedStringFields
+  }
+  slugs {
+    ... LocalizedStringFields
+  }
+  sku
+}

@@ -1,0 +1,5 @@
+query machine($id: String, $slug: String, $language: String, $source: String, $sourceId: String) {
+  machine(id: $id, slug: $slug, language: $language, source: $source, sourceId: $sourceId) {
+    ...SparePartsMachineFields
+  }
+}

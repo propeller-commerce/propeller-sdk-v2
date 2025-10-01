@@ -1,0 +1,5 @@
+query warehouses($input: WarehousesSearchInput) {
+  warehouses(input: $input) {
+    ...WarehousesResponseFields
+  }
+}

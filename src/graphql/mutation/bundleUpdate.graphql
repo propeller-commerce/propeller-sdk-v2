@@ -1,0 +1,5 @@
+mutation bundleUpdate($id: String!, $input: BundleUpdateInput!) {
+  bundleUpdate(id: $id, input: $input) {
+    ...BundleFields
+  }
+}

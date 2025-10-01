@@ -1,0 +1,5 @@
+query authentication($email: String!) {
+  authentication(email: $email) {
+    ...GCIPUserFields
+  }
+}

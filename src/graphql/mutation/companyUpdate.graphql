@@ -1,0 +1,5 @@
+mutation companyUpdate($id: Int!, $input: UpdateCompanyInput!) {
+  companyUpdate(id: $id, input: $input) {
+    ...CompanyFields
+  }
+}

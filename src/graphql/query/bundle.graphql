@@ -1,0 +1,5 @@
+query bundle($id: String!, $taxZone: String) {
+  bundle(id: $id, taxZone: $taxZone) {
+    ...BundleFields
+  }
+}

@@ -1,0 +1,19 @@
+fragment InventoryResponseFields on InventoryResponse {
+  id
+  productId
+  quantity
+  costPrice
+  supplier
+  supplierCode
+  sku
+  dateModified
+  warehouseId
+  location
+  nextDeliveryDate
+  notes
+  messages
+  total
+  warehouse {
+    ... WarehouseFields
+  }
+}

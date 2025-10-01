@@ -1,0 +1,5 @@
+mutation documentTemplateCreate($input: DocumentTemplateCreateInput!) {
+  documentTemplateCreate(input: $input) {
+    ...DocumentTemplateFields
+  }
+}

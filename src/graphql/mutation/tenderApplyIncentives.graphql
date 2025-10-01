@@ -1,0 +1,5 @@
+mutation tenderApplyIncentives($id: String!) {
+  tenderApplyIncentives(id: $id) {
+    ...TenderFields
+  }
+}

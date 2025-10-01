@@ -1,0 +1,5 @@
+query machines($input: SearchSparePartsMachineInput) {
+  machines(input: $input) {
+    ...SparePartsMachineResponseFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation clusterProductUpdate($id: Int!, $productId: Int!, $input: UpdateProductInput!) {
+  clusterProductUpdate(id: $id, productId: $productId, input: $input) {
+    ...ProductFields
+  }
+}

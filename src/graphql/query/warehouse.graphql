@@ -1,0 +1,5 @@
+query warehouse($id: Int!) {
+  warehouse(id: $id) {
+    ...WarehouseFields
+  }
+}

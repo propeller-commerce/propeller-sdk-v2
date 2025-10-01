@@ -1,0 +1,5 @@
+query bundles($input: BundleSearchInput) {
+  bundles(input: $input) {
+    ...BundlesResponseFields
+  }
+}

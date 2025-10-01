@@ -1,0 +1,5 @@
+mutation emailTemplateAddAttachment($id: String!, $documentTemplateId: String!) {
+  emailTemplateAddAttachment(id: $id, documentTemplateId: $documentTemplateId) {
+    ...EmailTemplateFields
+  }
+}

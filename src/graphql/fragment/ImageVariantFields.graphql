@@ -1,0 +1,6 @@
+fragment ImageVariantFields on ImageVariant {
+  name
+  language
+  url
+  mimeType
+}

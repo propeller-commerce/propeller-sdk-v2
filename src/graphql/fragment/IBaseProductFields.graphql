@@ -1,0 +1,29 @@
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ... LocalizedStringFields
+  }
+  descriptions {
+    ... LocalizedStringFields
+  }
+  shortDescriptions {
+    ... LocalizedStringFields
+  }
+  slugs {
+    ... LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ... LocalizedStringFields
+  }
+  metadataDescriptions {
+    ... LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ... LocalizedStringFields
+  }
+}

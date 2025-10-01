@@ -1,0 +1,11 @@
+fragment SparePartsMachineResponseFields on SparePartsMachineResponse {
+  items {
+    ... SparePartsMachineFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

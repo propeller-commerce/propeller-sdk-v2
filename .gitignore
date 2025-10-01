@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+/dist
+/documentation
+
+# IDE and editor folders
+/.cursor
+/.vscode
+/.kiro
+
+# CI/CD
+# /.github
+
+# Serverless
+/serverless-proxy
+
+# Testing
+coverage/
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+

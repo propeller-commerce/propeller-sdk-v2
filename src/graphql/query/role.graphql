@@ -1,0 +1,5 @@
+query role($id: ID!) {
+  role(id: $id) {
+    ...RoleFields
+  }
+}

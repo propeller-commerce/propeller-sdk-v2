@@ -1,0 +1,11 @@
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}

@@ -1,0 +1,5 @@
+mutation trackAndTraceUpdate($id: String!, $input: TrackAndTraceUpdateInput!) {
+  trackAndTraceUpdate(id: $id, input: $input) {
+    ...TrackAndTraceFields
+  }
+}

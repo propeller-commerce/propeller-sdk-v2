@@ -1,0 +1,5 @@
+query magicToken($id: String!) {
+  magicToken(id: $id) {
+    ...MagicTokenFields
+  }
+}

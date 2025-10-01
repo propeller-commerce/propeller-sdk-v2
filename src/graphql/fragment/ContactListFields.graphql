@@ -1,0 +1,35 @@
+fragment ContactListFields on Contact {
+  contactId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  purchaseAuthorizationConfigs {
+    items {
+      ... PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

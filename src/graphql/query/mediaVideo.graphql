@@ -1,0 +1,5 @@
+query mediaVideo($mediaId: String!) {
+  mediaVideo(mediaId: $mediaId) {
+    ...MediaVideoFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation orderItemCreate($orderId: Int!, $orderItem: OrderItemCreateInput!) {
+  orderItemCreate(orderId: $orderId, orderItem: $orderItem) {
+    ...OrderItemFields
+  }
+}

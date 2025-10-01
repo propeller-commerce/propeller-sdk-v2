@@ -1,0 +1,66 @@
+{
+  "entryPoints": [
+    "src/index.ts"
+  ],
+  "out": "documentation",
+  "name": "Propeller SDK v2 - GraphQL TypeScript SDK",
+  "readme": "README.md",
+  "theme": "default",
+  "includeVersion": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "excludeNotDocumented": false,
+  "hideGenerator": true,
+  "disableSources": false,
+  "sourceLinkTemplate": "https://github.com/your-org/propeller-sdk-v2/blob/{gitRevision}/{path}#L{line}",
+  "gitRevision": "main",
+  "categorizeByGroup": true,
+  "defaultCategory": "Other",
+  "categoryOrder": [
+    "Client",
+    "Services", 
+    "Types",
+    "Enums",
+    "GraphQL",
+    "Other"
+  ],
+  "sort": ["source-order"],
+  "kindSortOrder": [
+    "Project",
+    "Module",
+    "Namespace",
+    "Class",
+    "Interface", 
+    "Enum",
+    "EnumMember",
+    "TypeAlias",
+    "Variable",
+    "Function",
+    "Constructor",
+    "Property",
+    "Accessor",
+    "Method"
+  ],
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true,
+    "includeFolders": true
+  },
+  "excludeInternal": false,
+  "excludePrivate": false,
+  "searchInComments": true,
+  "searchInDocuments": true,
+  "githubPages": true,
+  "visibilityFilters": {
+    "protected": true,
+    "private": true,
+    "inherited": true,
+    "external": true
+  },
+  "customCss": "./docs-theme.css",
+  "highlightLanguages": ["typescript", "javascript", "vue", "html", "css", "bash", "json"],
+  "validation": {
+    "invalidLink": false,
+    "notExported": false
+  }
+}

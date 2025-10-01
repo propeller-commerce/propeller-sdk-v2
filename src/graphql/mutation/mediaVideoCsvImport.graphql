@@ -1,0 +1,5 @@
+mutation mediaVideoCsvImport($input: VideoCsvInput!) {
+  mediaVideoCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

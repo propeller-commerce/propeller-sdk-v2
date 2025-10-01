@@ -1,0 +1,5 @@
+mutation contactRegister($input: RegisterContactInput!) {
+  contactRegister(input: $input) {
+    ...RegisterContactResponseFields
+  }
+}

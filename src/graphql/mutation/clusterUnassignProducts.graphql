@@ -1,0 +1,5 @@
+mutation clusterUnassignProducts($clusterId: Int!, $input: ClusterUnassignProductsInput!) {
+  clusterUnassignProducts(clusterId: $clusterId, input: $input) {
+    ...ClusterUnassignProductsResponseFields
+  }
+}

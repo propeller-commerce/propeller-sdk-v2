@@ -1,0 +1,7 @@
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}

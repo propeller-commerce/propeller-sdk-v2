@@ -1,0 +1,5 @@
+mutation shipmentUpdate($id: String!, $input: ShipmentUpdateInput!) {
+  shipmentUpdate(id: $id, input: $input) {
+    ...ShipmentFields
+  }
+}

@@ -1,0 +1,4 @@
+fragment CompanyAttributeDescriptionSearchFields on CompanyAttributeDescriptionSearch {
+  id
+  name
+}

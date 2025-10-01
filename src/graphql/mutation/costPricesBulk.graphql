@@ -1,0 +1,5 @@
+mutation costPricesBulk($input: [CostPriceCreateInput!]!) {
+  costPricesBulk(input: $input) {
+    ...BulkResponseDataFields
+  }
+}

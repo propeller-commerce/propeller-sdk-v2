@@ -1,0 +1,5 @@
+query mediaDocuments($search: MediaDocumentSearchInput) {
+  mediaDocuments(search: $search) {
+    ...PaginatedMediaDocumentResponseFields
+  }
+}

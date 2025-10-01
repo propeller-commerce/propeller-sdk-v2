@@ -1,0 +1,6 @@
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}

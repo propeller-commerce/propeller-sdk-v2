@@ -1,0 +1,11 @@
+fragment BulkPriceResponseFields on BulkPriceResponse {
+  items {
+    ... BulkPriceFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

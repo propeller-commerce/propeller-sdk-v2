@@ -1,0 +1,5 @@
+mutation costPriceCreate($input: CostPriceCreateInput!) {
+  costPriceCreate(input: $input) {
+    ...CostPriceFields
+  }
+}

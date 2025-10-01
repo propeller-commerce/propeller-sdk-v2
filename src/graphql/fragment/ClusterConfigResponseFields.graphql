@@ -1,0 +1,3 @@
+fragment ClusterConfigResponseFields on ClusterConfigResponse {
+  ... ClusterConfigFields
+}

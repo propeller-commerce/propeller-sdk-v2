@@ -1,0 +1,25 @@
+fragment MediaVideoFields on MediaVideo {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ... LocalizedStringFields
+  }
+  description {
+    ... LocalizedStringFields
+  }
+  tags {
+    ... LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  videos {
+    language
+    uri
+    mimeType
+  }
+}

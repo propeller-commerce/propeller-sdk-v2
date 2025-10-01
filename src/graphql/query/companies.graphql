@@ -1,0 +1,5 @@
+query companies($input: CompanySearchArguments) {
+  companies(input: $input) {
+    ...CompaniesResponseFields
+  }
+}

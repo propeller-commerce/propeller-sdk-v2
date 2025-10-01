@@ -1,0 +1,5 @@
+mutation pricesheetUnassign($id: String!, $input: PricesheetUnassignInput!) {
+  pricesheetUnassign(id: $id, input: $input) {
+    ...PricesheetFields
+  }
+}

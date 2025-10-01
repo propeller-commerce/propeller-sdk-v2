@@ -1,0 +1,11 @@
+fragment CategoryResponseFields on CategoryResponse {
+  items {
+    ... CategoryMinimalFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

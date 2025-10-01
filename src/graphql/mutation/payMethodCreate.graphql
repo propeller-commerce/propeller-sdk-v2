@@ -1,0 +1,5 @@
+mutation payMethodCreate($input: PayMethodCreateInput!) {
+  payMethodCreate(input: $input) {
+    ...PayMethodFields
+  }
+}

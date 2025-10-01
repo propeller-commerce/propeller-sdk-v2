@@ -1,0 +1,11 @@
+fragment CarriersResponseFields on CarriersResponse {
+  items {
+    ... CarrierFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

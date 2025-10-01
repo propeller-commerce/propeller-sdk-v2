@@ -1,0 +1,4 @@
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}

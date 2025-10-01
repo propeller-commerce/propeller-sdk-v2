@@ -1,0 +1,16 @@
+fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ... LocalizedStringFields
+  }
+  description {
+    ... LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}

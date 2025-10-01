@@ -1,0 +1,12 @@
+query products(
+  $input: ProductSearchInput
+  $language: String
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $filterAvailableAttributeInput: FilterAvailableAttributeInput
+) {
+  products(input: $input) {
+    ...ProductsResponseFields
+  }
+}

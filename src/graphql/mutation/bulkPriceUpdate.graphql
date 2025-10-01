@@ -1,0 +1,5 @@
+mutation bulkPriceUpdate($id: String!, $input: BulkPriceUpdateInput!) {
+  bulkPriceUpdate(id: $id, input: $input) {
+    ...BulkPriceFields
+  }
+}

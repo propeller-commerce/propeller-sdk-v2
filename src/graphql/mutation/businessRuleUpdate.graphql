@@ -1,0 +1,5 @@
+mutation businessRuleUpdate($id: ID!, $input: BusinessRuleUpdateInput!) {
+  businessRuleUpdate(id: $id, input: $input) {
+    ...BusinessRuleFields
+  }
+}

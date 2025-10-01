@@ -1,0 +1,5 @@
+query adminUserTenant($id: Int!) {
+  adminUserTenant(id: $id) {
+    ...AdminUserTenantFields
+  }
+}

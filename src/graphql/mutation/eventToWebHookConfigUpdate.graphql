@@ -1,0 +1,5 @@
+mutation eventToWebHookConfigUpdate($id: String!, $input: EventToWebHookConfigUpdateInput!) {
+  eventToWebHookConfigUpdate(id: $id, input: $input) {
+    ...EventToWebHookConfigFields
+  }
+}

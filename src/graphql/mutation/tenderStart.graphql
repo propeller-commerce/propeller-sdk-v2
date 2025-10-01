@@ -1,0 +1,5 @@
+mutation tenderStart($input: TenderStartInput!) {
+  tenderStart(input: $input) {
+    ...TenderFields
+  }
+}

@@ -1,0 +1,5 @@
+query crossupsell($id: String!) {
+  crossupsell(id: $id) {
+    ...CrossupsellFields
+  }
+}

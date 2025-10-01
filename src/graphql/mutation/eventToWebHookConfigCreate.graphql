@@ -1,0 +1,5 @@
+mutation eventToWebHookConfigCreate($input: EventToWebHookConfigCreateInput!) {
+  eventToWebHookConfigCreate(input: $input) {
+    ...EventToWebHookConfigFields
+  }
+}

@@ -1,0 +1,21 @@
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ... ProductGridFields
+  }
+  names {
+    ... LocalizedStringFields
+  }
+  descriptions {
+    ... LocalizedStringFields
+  }
+  shortDescriptions {
+    ... LocalizedStringFields
+  }
+}

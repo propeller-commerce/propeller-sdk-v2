@@ -1,0 +1,5 @@
+query addressesByOrderId($orderId: Int!, $type: AddressType) {
+  addressesByOrderId(orderId: $orderId, type: $type) {
+    ...AddressFields
+  }
+}

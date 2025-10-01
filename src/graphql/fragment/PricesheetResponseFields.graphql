@@ -1,0 +1,11 @@
+fragment PricesheetResponseFields on PricesheetResponse {
+  items {
+    ... PricesheetFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

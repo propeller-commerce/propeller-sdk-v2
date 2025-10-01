@@ -1,0 +1,25 @@
+fragment MediaAttachmentFields on MediaAttachment {
+  id
+  sparePartsMachineId
+  alt {
+    ... LocalizedStringArray
+  }
+  description {
+    ... LocalizedStringArray
+  }
+  tags {
+    ... LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  attachments {
+    language
+    originalUrl
+    mimeType
+  }
+  orderId
+  companyId
+  customerId
+}

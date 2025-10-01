@@ -1,0 +1,215 @@
+/* Custom documentation theme styles */
+
+/* Ensure sidebar is visible and properly positioned */
+.tsd-sidebar {
+  position: fixed !important;
+  top: 60px !important;
+  left: 0 !important;
+  width: 300px !important;
+  height: calc(100vh - 60px) !important;
+  overflow-y: auto !important;
+  z-index: 1000 !important;
+  background: var(--color-background) !important;
+  border-right: 1px solid var(--color-border) !important;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Main content area adjustment */
+.tsd-content {
+  margin-left: 300px !important;
+  padding: 20px !important;
+  max-width: none !important;
+}
+
+/* Fixed toolbar */
+.tsd-page-toolbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1001 !important;
+  background: var(--color-background) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Body padding for fixed toolbar */
+body {
+  padding-top: 60px !important;
+}
+
+/* Hide TypeDoc generator footer */
+.tsd-generator {
+  display: none !important;
+}
+
+/* Hide settings buttons */
+.tsd-toolbar-icon,
+button[title="Settings"],
+button[aria-label="Settings"],
+.settings,
+.tsd-toolbar-contents .settings {
+  display: none !important;
+}
+
+/* Enhanced navigation styling */
+.tsd-navigation {
+  padding: 16px !important;
+  height: 100% !important;
+  overflow-y: auto !important;
+}
+
+.tsd-navigation a {
+  color: var(--color-text) !important;
+  text-decoration: none !important;
+  padding: 10px 12px !important;
+  display: block !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+  margin: 8px 0 !important;
+  font-weight: 500 !important;
+  border: 1px solid transparent !important;
+}
+
+.tsd-navigation a:hover {
+  background-color: var(--color-background-secondary) !important;
+  color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* Right sidebar styling */
+.tsd-page-navigation {
+  position: fixed !important;
+  top: 60px !important;
+  right: 0 !important;
+  width: 280px !important;
+  height: calc(100vh - 60px) !important;
+  background: var(--color-background) !important;
+  border-left: 1px solid var(--color-border) !important;
+  overflow-y: auto !important;
+  padding: 16px !important;
+  z-index: 50 !important;
+}
+
+/* "On This Page" section styling */
+.on-this-page h4 {
+  margin: 0 0 16px 0 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--color-text) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  padding-bottom: 8px !important;
+}
+
+.on-this-page ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.on-this-page li {
+  margin: 6px 0 !important;
+}
+
+.on-this-page a {
+  color: var(--color-text-light) !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  padding: 6px 10px !important;
+  border-radius: 4px !important;
+  display: block !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+}
+
+.on-this-page a:hover {
+  color: var(--color-primary) !important;
+  background-color: rgba(3, 102, 214, 0.05) !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .tsd-sidebar {
+    display: none !important;
+  }
+  
+  .tsd-content {
+    margin-left: 0 !important;
+  }
+  
+  .tsd-page-navigation {
+    display: none !important;
+  }
+}
+
+/* Ensure proper scrolling */
+.tsd-sidebar::-webkit-scrollbar,
+.tsd-page-navigation::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tsd-sidebar::-webkit-scrollbar-track,
+.tsd-page-navigation::-webkit-scrollbar-track {
+  background: var(--color-background-secondary);
+}
+
+.tsd-sidebar::-webkit-scrollbar-thumb,
+.tsd-page-navigation::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.tsd-sidebar::-webkit-scrollbar-thumb:hover,
+.tsd-page-navigation::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-light);
+}
+
+/* Better typography */
+.tsd-page-title h1 {
+  font-size: 2.5em !important;
+  margin-bottom: 0.5em !important;
+  color: var(--color-text) !important;
+}
+
+.tsd-typography h1,
+.tsd-typography h2,
+.tsd-typography h3 {
+  color: var(--color-text) !important;
+  border-bottom: 1px solid var(--color-border) !important;
+  padding-bottom: 0.3em !important;
+}
+
+/* Code block styling */
+.tsd-typography code {
+  background: var(--color-background-secondary) !important;
+  padding: 2px 6px !important;
+  border-radius: 3px !important;
+  font-size: 0.9em !important;
+}
+
+.tsd-typography pre {
+  background: var(--color-background-secondary) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 6px !important;
+  padding: 16px !important;
+  overflow-x: auto !important;
+}
+
+/* Table styling */
+.tsd-typography table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin: 1em 0 !important;
+}
+
+.tsd-typography th,
+.tsd-typography td {
+  border: 1px solid var(--color-border) !important;
+  padding: 8px 12px !important;
+  text-align: left !important;
+}
+
+.tsd-typography th {
+  background: var(--color-background-secondary) !important;
+  font-weight: 600 !important;
+}

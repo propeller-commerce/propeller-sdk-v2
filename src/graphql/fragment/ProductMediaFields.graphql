@@ -1,0 +1,35 @@
+fragment ProductMediaFields on ProductMedia {
+  images(search: $imageSearchFilters) {
+    items {
+      ... MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  videos(search: $mediaVideoSearchInput) {
+    items {
+      ... MediaVideoFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  documents(search: $mediaDocumentSearchInput) {
+    items {
+      ... MediaDocumentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

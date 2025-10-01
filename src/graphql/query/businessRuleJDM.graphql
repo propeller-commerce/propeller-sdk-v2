@@ -1,0 +1,6 @@
+query businessRuleJDM(
+  $id: ID!
+  $language: String
+) {
+  businessRuleJDM(id: $id, language: $language)
+}

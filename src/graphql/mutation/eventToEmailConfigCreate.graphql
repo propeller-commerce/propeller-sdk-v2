@@ -1,0 +1,5 @@
+mutation eventToEmailConfigCreate($input: EventToEmailConfigCreateInput!) {
+  eventToEmailConfigCreate(input: $input) {
+    ...EventToEmailConfigFields
+  }
+}

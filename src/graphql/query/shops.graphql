@@ -1,0 +1,5 @@
+query shops {
+  shops {
+    ...ShopFields
+  }
+}

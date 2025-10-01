@@ -1,0 +1,5 @@
+mutation removeSurchargesFromProduct($input: RemoveSurchargesFromProductInput!) {
+  removeSurchargesFromProduct(input: $input) {
+    ...ConfirmationResponseFields
+  }
+}

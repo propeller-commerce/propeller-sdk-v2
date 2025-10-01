@@ -1,0 +1,12 @@
+fragment CompanyDataFields on Company {
+  companyId
+  addresses {
+    ... AddressFields
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}

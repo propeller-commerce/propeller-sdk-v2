@@ -1,0 +1,5 @@
+query taxes($input: TaxSearchInput) {
+  taxes(input: $input) {
+    ...TaxesResponseFields
+  }
+}

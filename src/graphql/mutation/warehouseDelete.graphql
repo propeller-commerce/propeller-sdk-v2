@@ -1,0 +1,5 @@
+mutation warehouseDelete($id: Float!) {
+  warehouseDelete(id: $id) {
+    ...WarehouseFields
+  }
+}

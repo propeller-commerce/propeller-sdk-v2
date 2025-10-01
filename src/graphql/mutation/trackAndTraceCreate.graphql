@@ -1,0 +1,5 @@
+mutation trackAndTraceCreate($input: TrackAndTraceCreateInput!) {
+  trackAndTraceCreate(input: $input) {
+    ...TrackAndTraceFields
+  }
+}

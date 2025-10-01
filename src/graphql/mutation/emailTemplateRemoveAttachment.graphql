@@ -1,0 +1,5 @@
+mutation emailTemplateRemoveAttachment($id: String!, $documentTemplateId: String!) {
+  emailTemplateRemoveAttachment(id: $id, documentTemplateId: $documentTemplateId) {
+    ...EmailTemplateFields
+  }
+}

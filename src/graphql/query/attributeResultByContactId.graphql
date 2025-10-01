@@ -1,0 +1,5 @@
+query attributeResultByContactId($contactId: Int!, $input: AttributeResultSearchInput!) {
+  attributeResultByContactId(contactId: $contactId, input: $input) {
+    ...AttributeResultResponseFields
+  }
+}

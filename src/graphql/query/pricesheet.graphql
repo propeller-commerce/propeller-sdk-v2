@@ -1,0 +1,5 @@
+query pricesheet($id: String!) {
+  pricesheet(id: $id) {
+    ...PricesheetFields
+  }
+}

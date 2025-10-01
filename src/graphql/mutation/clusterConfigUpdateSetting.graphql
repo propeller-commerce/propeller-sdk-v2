@@ -1,0 +1,5 @@
+mutation clusterConfigUpdateSetting($clusterConfigId: Int!, $settingId: Int!, $input: ClusterConfigSettingUpdateInput!) {
+  clusterConfigUpdateSetting(clusterConfigId: $clusterConfigId, settingId: $settingId, input: $input) {
+    ...UpdateClusterConfigSettingResponseFields
+  }
+}

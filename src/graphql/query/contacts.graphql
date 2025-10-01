@@ -1,0 +1,5 @@
+query contacts($input: ContactSearchArguments) {
+  contacts(input: $input) {
+    ...ContactsResponseFields
+  }
+}

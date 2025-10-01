@@ -1,0 +1,5 @@
+mutation customerUpdate($id: Int!, $input: UpdateCustomerInput!) {
+  customerUpdate(id: $id, input: $input) {
+    ...CustomerFields
+  }
+}

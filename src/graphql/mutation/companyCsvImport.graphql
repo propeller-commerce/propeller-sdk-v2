@@ -1,0 +1,5 @@
+mutation companyCsvImport($input: CompanyCsvInput!) {
+  companyCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

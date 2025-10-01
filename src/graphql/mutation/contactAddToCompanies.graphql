@@ -1,0 +1,5 @@
+mutation contactAddToCompanies($id: Int!, $input: ContactAddToCompaniesInput!) {
+  contactAddToCompanies(id: $id, input: $input) {
+    ...ContactAddToCompaniesResponseFields
+  }
+}

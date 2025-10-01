@@ -1,0 +1,5 @@
+mutation emailTemplateUpdate($id: String!, $input: EmailTemplateUpdateInput!) {
+  emailTemplateUpdate(id: $id, input: $input) {
+    ...EmailTemplateFields
+  }
+}

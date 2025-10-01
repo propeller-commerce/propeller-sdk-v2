@@ -1,0 +1,11 @@
+fragment CartUnOrderableItemFields on CartUnOrderableItem {
+  itemId
+  parentItemUUID
+  priceMode
+  quantity
+  price
+  notes
+  productId
+  clusterId
+  bundleId
+}

@@ -1,0 +1,16 @@
+fragment ClusterGridFields on Cluster {
+  ... IBaseProductFields
+  clusterId
+  categoryId
+  products {
+    ... ProductGridFields
+  }
+  createdAt
+  lastModifiedAt
+  options {
+    ... ClusterOptionFields
+  }
+  defaultProduct {
+    ... ProductGridFields
+  }
+}

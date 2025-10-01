@@ -1,0 +1,11 @@
+fragment CrossupsellsResponseFields on CrossupsellsResponse {
+  items {
+    ... CrossupsellFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

@@ -1,0 +1,5 @@
+mutation businessRuleDecisionTableMoveRow($input: BusinessRuleDecisionTableMoveRowInput!) {
+  businessRuleDecisionTableMoveRow(input: $input) {
+    ...BusinessRuleDecisionTableFields
+  }
+}

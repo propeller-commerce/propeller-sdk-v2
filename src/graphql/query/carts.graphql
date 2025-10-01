@@ -1,0 +1,5 @@
+query carts($input: CartSearchInput!) {
+  carts(input: $input) {
+    ...CartResponseFields
+  }
+}

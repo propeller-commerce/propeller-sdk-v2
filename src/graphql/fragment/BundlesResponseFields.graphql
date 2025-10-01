@@ -1,0 +1,11 @@
+fragment BundlesResponseFields on BundlesResponse {
+  items {
+    ... BundleFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

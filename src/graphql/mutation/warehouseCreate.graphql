@@ -1,0 +1,5 @@
+mutation warehouseCreate($input: CreateWarehouseInput!) {
+  warehouseCreate(input: $input) {
+    ...WarehouseFields
+  }
+}

@@ -1,0 +1,37 @@
+fragment CompanyFields on Company {
+  companyId
+  addresses {
+    ... AddressFields
+  }
+  attributes {
+    items {
+      ... AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+  contacts {
+    items {
+      ... ContactListFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  managers {
+    ... on Contact { ...ContactListFields }
+  }
+}

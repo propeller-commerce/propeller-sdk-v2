@@ -1,0 +1,13 @@
+fragment ShipmentItemFields on ShipmentItem {
+  id
+  createdAt
+  lastModifiedAt
+  name
+  sku
+  quantity
+  shipmentId
+  orderItemId
+  orderItem {
+    ... OrderItemFields
+  }
+}

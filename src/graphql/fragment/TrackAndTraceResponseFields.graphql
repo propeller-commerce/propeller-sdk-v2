@@ -1,0 +1,11 @@
+fragment TrackAndTraceResponseFields on TrackAndTraceResponse {
+  items {
+    ... TrackAndTraceFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

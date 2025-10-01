@@ -1,0 +1,5 @@
+mutation purchaseAuthorizationConfigCreate($input: PurchaseAuthorizationConfigCreateInput) {
+  purchaseAuthorizationConfigCreate(input: $input) {
+    ...PurchaseAuthorizationConfigFields
+  }
+}

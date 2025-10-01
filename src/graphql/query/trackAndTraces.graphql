@@ -1,0 +1,5 @@
+query trackAndTraces($input: TrackAndTraceSearchInput) {
+  trackAndTraces(input: $input) {
+    ...TrackAndTraceResponseFields
+  }
+}

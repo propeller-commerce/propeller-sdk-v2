@@ -1,0 +1,13 @@
+fragment TransactionFields on Transaction {
+  id
+  transactionId
+  paymentId
+  orderId
+  amount
+  currency
+  description
+  timestamp
+  type
+  provider
+  status
+}

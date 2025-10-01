@@ -1,0 +1,5 @@
+query pricesheets($input: PricesheetSearchInput) {
+  pricesheets(input: $input) {
+    ...PricesheetResponseFields
+  }
+}

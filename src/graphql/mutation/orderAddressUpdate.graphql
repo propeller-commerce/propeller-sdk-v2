@@ -1,0 +1,5 @@
+mutation orderAddressUpdate($id: Int!, $orderId: Int!, $input: OrderAddressUpdateInput!) {
+  orderAddressUpdate(id: $id, orderId: $orderId, input: $input) {
+    ...OrderAddressFields
+  }
+}

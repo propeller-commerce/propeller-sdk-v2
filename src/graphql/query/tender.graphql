@@ -1,0 +1,5 @@
+query tender($tenderId: String, $orderId: Int) {
+  tender(tenderId: $tenderId, orderId: $orderId) {
+    ...TenderFields
+  }
+}

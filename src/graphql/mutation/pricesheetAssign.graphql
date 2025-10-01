@@ -1,0 +1,5 @@
+mutation pricesheetAssign($id: String!, $input: PricesheetAssignInput!) {
+  pricesheetAssign(id: $id, input: $input) {
+    ...PricesheetFields
+  }
+}

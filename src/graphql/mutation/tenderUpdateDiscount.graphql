@@ -1,0 +1,5 @@
+mutation tenderUpdateDiscount($id: String!, $input: TenderDiscountInput!) {
+  tenderUpdateDiscount(id: $id, input: $input) {
+    ...TenderFields
+  }
+}

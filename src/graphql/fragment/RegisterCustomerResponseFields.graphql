@@ -1,0 +1,10 @@
+fragment RegisterCustomerResponseFields on RegisterCustomerResponse {
+  customer {
+    ... on Customer { ...CustomerFields }
+  }
+  session {
+    accessToken
+    refreshToken
+    expirationTime
+  }
+}

@@ -1,0 +1,5 @@
+query valuesetItems($input: ValuesetItemSearchInput) {
+  valuesetItems(input: $input) {
+    ...ValuesetItemResponseFields
+  }
+}

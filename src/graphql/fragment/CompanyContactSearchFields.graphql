@@ -1,0 +1,3 @@
+fragment CompanyContactSearchFields on CompanyContactSearch {
+  ... ContactFields
+}

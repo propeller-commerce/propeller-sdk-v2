@@ -1,0 +1,10 @@
+query cart(
+  $cartId: String!
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+) {
+  cart(id: $cartId) {
+    ...CartFields
+  }
+}

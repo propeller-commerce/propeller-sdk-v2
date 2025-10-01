@@ -1,0 +1,8 @@
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}

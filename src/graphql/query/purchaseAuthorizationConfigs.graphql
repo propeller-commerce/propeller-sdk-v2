@@ -1,0 +1,5 @@
+query purchaseAuthorizationConfigs($input: PurchaseAuthorizationConfigSearchInput) {
+  purchaseAuthorizationConfigs(input: $input) {
+    ...PurchaseAuthorizationConfigResponseFields
+  }
+}

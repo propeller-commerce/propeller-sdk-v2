@@ -1,0 +1,5 @@
+mutation zoneTaxCodesCreate($input: [ZoneTaxCodeCreateInput!]!) {
+  zoneTaxCodesCreate(input: $input) {
+    ...ZoneTaxCodeFields
+  }
+}

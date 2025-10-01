@@ -1,0 +1,11 @@
+fragment TaxesResponseFields on TaxesResponse {
+  items {
+    ... TaxFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

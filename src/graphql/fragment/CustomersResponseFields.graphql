@@ -1,0 +1,11 @@
+fragment CustomersResponseFields on CustomersResponse {
+  items {
+    ... CustomerFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

@@ -1,0 +1,5 @@
+query payments($input: PaymentsSearchInput) {
+  payments(input: $input) {
+    ...PaymentsResponseFields
+  }
+}

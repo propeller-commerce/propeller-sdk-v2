@@ -1,0 +1,5 @@
+query adminUsers($input: AdminUsersSearchInput) {
+  adminUsers(input: $input) {
+    ...UserResponseFields
+  }
+}

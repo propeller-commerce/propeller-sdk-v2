@@ -1,0 +1,6 @@
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}

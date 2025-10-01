@@ -1,0 +1,5 @@
+mutation inventoryCreate($input: CreateInventoryInput!) {
+  inventoryCreate(input: $input) {
+    ...InventoryResponseFields
+  }
+}

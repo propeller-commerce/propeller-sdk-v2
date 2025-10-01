@@ -1,0 +1,5 @@
+mutation paymentDelete($searchBy: SearchByInput!) {
+  paymentDelete(searchBy: $searchBy) {
+    ...PaymentFields
+  }
+}

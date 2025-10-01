@@ -1,0 +1,46 @@
+fragment SparePartsMachineMediaFields on SparePartsMachineMedia {
+  images (search: $machineimageSearchFilters) {
+    items {
+      ... MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  videos (search: $machineMediaVideoSearchInput) {
+    items {
+      ... MediaVideoFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  documents (search: $machineMediaDocumentSearchInput) {
+    items {
+      ... MediaDocumentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  attachments (search: $machineMediaAttachmentSearchInput) {
+    items {
+      ... MediaAttachmentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

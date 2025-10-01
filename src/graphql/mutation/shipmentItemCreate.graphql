@@ -1,0 +1,5 @@
+mutation shipmentItemCreate($input: ShipmentItemCreateInput!) {
+  shipmentItemCreate(input: $input) {
+    ...ShipmentItemFields
+  }
+}

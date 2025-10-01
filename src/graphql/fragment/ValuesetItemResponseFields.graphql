@@ -1,0 +1,11 @@
+fragment ValuesetItemResponseFields on ValuesetItemResponse {
+  items {
+    ValuesetItemFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

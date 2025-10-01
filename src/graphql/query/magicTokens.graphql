@@ -1,0 +1,5 @@
+query magicTokens($input: MagicTokenSearchInput) {
+  magicTokens(input: $input) {
+    ...MagicTokenResponseFields
+  }
+}

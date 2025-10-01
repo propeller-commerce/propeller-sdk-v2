@@ -1,0 +1,5 @@
+mutation customerRegister($input: RegisterCustomerInput!) {
+  customerRegister(input: $input) {
+    ...RegisterCustomerResponseFields
+  }
+}

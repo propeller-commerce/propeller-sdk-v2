@@ -1,0 +1,36 @@
+fragment ProductGridFields on Product {
+  ... IBaseProductFields
+  productId
+  categoryId
+  inventory {
+    ... ProductInventoryFields
+  }
+  media {
+    ... ProductMediaImagesOnlyFields
+  }
+  price (input: $priceCalculateProductInput) {
+    ... ProductPriceFields
+  }
+  priceData {
+    display
+  }
+  shortName
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+  containerClass
+}

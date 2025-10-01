@@ -1,0 +1,5 @@
+mutation eventToEmailConfigUpdate($id: String!, $input: EventToEmailConfigUpdateInput!) {
+  eventToEmailConfigUpdate(id: $id, input: $input) {
+    ...EventToEmailConfigFields
+  }
+}

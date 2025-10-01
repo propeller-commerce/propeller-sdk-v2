@@ -1,0 +1,5 @@
+mutation machineUpsert($input: UpsertSparePartsMachineInput!) {
+  machineUpsert(input: $input) {
+    ...SparePartsMachineFields
+  }
+}

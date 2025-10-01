@@ -1,0 +1,14 @@
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ... BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ... ProductCartFields
+  }
+}

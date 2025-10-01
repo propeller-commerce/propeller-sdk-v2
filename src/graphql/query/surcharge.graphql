@@ -1,0 +1,5 @@
+query surcharge($id: String!) {
+  surcharge(id: $id) {
+    ...SurchargeFields
+  }
+}

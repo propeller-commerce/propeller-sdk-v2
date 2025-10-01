@@ -1,0 +1,5 @@
+query prices($input: PriceSearchInput) {
+  prices(input: $input) {
+    ...PriceResponseFields
+  }
+}

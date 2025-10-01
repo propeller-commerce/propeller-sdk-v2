@@ -1,0 +1,5 @@
+query categories($filter: CategorySearchInput, $userId: Int) {
+  categories(filter: $filter, userId: $userId) {
+    ...CategoryResponseFields
+  }
+}

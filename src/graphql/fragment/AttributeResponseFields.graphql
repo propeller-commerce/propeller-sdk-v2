@@ -1,0 +1,16 @@
+fragment AttributeResponseFields on AttributeResponse {
+  items {
+    ... on CategoryAttribute { ...CategoryAttributeFields }
+    ... on ClusterAttribute { ...ClusterAttributeFields }
+    ... on CompanyAttribute { ...CompanyAttributeFields }
+    ... on ContactAttribute { ...ContactAttributeFields }
+    ... on CustomerAttribute { ...CustomerAttributeFields }
+    ... on ProductAttribute { ...ProductAttributeFields }
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

@@ -1,0 +1,5 @@
+mutation adminUserCreate($input: CreateUserDto!) {
+  adminUserCreate(input: $input) {
+    ...AdminUserFields
+  }
+}

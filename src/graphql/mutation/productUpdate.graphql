@@ -1,0 +1,5 @@
+mutation productUpdate($productId: Int!, $input: UpdateProductInput!) {
+  productUpdate(productId: $productId, input: $input) {
+    ...ProductFields
+  }
+}

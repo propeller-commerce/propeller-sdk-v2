@@ -1,0 +1,5 @@
+mutation mediaImageUpdate($input: UpdateMediaImageInput!) {
+  mediaImageUpdate(input: $input) {
+    ...MediaImageFields
+  }
+}

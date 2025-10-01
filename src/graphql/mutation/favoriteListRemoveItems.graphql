@@ -1,0 +1,5 @@
+mutation favoriteListRemoveItems($id: String!, $input: FavoriteListsItemsInput!) {
+  favoriteListRemoveItems(id: $id, input: $input) {
+    ...FavoriteListFields
+  }
+}

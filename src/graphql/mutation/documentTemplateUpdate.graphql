@@ -1,0 +1,5 @@
+mutation documentTemplateUpdate($id: String!, $input: DocumentTemplateUpdateInput!) {
+  documentTemplateUpdate(id: $id, input: $input) {
+    ...DocumentTemplateFields
+  }
+}

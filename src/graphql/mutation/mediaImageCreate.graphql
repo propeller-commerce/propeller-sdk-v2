@@ -1,0 +1,5 @@
+mutation mediaImageCreate($input: MediaImageInput!) {
+  mediaImageCreate(input: $input) {
+    ...MediaImageFields
+  }
+}

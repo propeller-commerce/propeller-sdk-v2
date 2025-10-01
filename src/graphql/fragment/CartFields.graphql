@@ -1,0 +1,81 @@
+fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ... CartVoucherFields
+  }
+  paymentData {
+    ... CartPaymentDataFields
+  }
+  postageData {
+    ... CartPostageDataFields
+  }
+  total {
+    ... CartTotalFields
+  }
+  items {
+    ... CartMainItemFields
+  }
+  bonusItems {
+    ... CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ... CartAddressFields
+  }
+  deliveryAddress {
+    ... CartAddressFields
+  }
+  taxLevels {
+    ... CartTaxLevelFields
+  }
+  payMethods {
+    ... CartPaymethodFields
+  }
+  carriers {
+    ... CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ... CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ... CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    ... ContactListFields
+  }
+  customer {
+    ... CustomerListFields
+  }
+  company {
+    ... CompanyListFields
+  }
+}

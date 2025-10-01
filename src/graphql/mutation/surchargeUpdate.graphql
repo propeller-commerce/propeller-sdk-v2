@@ -1,0 +1,5 @@
+mutation surchargeUpdate($id: String!, $input: UpdateSurchargeInput!) {
+  surchargeUpdate(id: $id, input: $input) {
+    ...SurchargeFields
+  }
+}

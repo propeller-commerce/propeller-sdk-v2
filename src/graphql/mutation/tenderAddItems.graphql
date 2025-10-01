@@ -1,0 +1,5 @@
+mutation tenderAddItems($id: String!, $input: TenderAddItemsInput!) {
+  tenderAddItems(id: $id, input: $input) {
+    ...TenderResponseFields
+  }
+}

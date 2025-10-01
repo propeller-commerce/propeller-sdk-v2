@@ -1,0 +1,21 @@
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}

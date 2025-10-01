@@ -1,0 +1,5 @@
+query mediaVideos($search: MediaVideoSearchInput) {
+  mediaVideos(search: $search) {
+    ...PaginatedMediaVideoResponseFields
+  }
+}

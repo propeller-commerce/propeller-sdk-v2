@@ -1,0 +1,7 @@
+fragment AttributeTextFilterFields on AttributeTextFilter {
+  value
+  count
+  countTotal
+  countActive
+  isSelected
+}

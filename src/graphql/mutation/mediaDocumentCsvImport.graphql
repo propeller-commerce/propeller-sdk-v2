@@ -1,0 +1,5 @@
+mutation mediaDocumentCsvImport($input: DocumentCsvInput!) {
+  mediaDocumentCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

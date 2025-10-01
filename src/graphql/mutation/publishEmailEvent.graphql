@@ -1,0 +1,5 @@
+mutation publishEmailEvent($input: EmailEventInput!) {
+  publishEmailEvent(input: $input) {
+    ...PublishEmailEventResponseFields
+  }
+}

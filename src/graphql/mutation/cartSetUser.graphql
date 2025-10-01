@@ -1,0 +1,5 @@
+mutation cartSetUser($id: String!, $input: CartSetUserInput!) {
+  cartSetUser(id: $id, input: $input) {
+    ...CartFields
+  }
+}

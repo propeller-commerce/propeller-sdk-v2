@@ -1,0 +1,16 @@
+fragment SparePartsResponseFields on SparePartsResponse {
+  items {
+    ... SparePartFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+  minPrice
+  maxPrice
+  filters {
+    ... AttributeFilterFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation magicTokenLogin($id: String!) {
+  magicTokenLogin(id: $id) {
+    ...LoginFields
+  }
+}

@@ -1,0 +1,20 @@
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}

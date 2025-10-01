@@ -1,0 +1,11 @@
+fragment MagicTokenResponseFields on MagicTokenResponse {
+  items {
+    ... MagicTokenFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

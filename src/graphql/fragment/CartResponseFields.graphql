@@ -1,0 +1,6 @@
+fragment CartResponseFields on CartResponse {
+  items {
+    cartId
+  }
+  itemsFound
+}

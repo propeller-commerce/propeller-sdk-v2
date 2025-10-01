@@ -1,0 +1,5 @@
+mutation orderStatusSetRemoveOrderStatuses($id: Int!, $input: RemoveOrderStatusesFromOrderStatusSetInput!) {
+  orderStatusSetRemoveOrderStatuses(id: $id, input: $input) {
+    ...OrderStatusSetFields
+  }
+}

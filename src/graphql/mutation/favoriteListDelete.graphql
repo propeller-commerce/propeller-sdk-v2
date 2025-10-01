@@ -1,0 +1,3 @@
+mutation favoriteListDelete($id: String!) {
+  favoriteListDelete(id: $id)
+}

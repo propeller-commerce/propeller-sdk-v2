@@ -1,0 +1,5 @@
+mutation categoryUpdate($categoryId: Float!, $input: UpdateCategoryInput!) {
+  categoryUpdate(categoryId: $categoryId, input: $input) {
+    ...CategoryFields
+  }
+}

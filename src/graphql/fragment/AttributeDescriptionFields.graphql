@@ -1,0 +1,31 @@
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    ... LocalizedStringFields
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  defaultValue {
+    ... on AttributeColorValue { ...AttributeColorValueFields }
+    ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
+    ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
+    ... on AttributeEnumValue { ...AttributeEnumValueFields }
+    ... on AttributeIntValue { ...AttributeIntValueFields }
+    ... on AttributeTextValue { ...AttributeTextValueFields }
+  }
+}

@@ -1,0 +1,5 @@
+mutation bulkPriceCreate($input: BulkPriceCreateInput!) {
+  bulkPriceCreate(input: $input) {
+    ...BulkPriceFields
+  }
+}

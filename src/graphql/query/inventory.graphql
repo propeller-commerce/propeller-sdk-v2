@@ -1,0 +1,5 @@
+query inventory($id: Int!) {
+  inventory(id: $id) {
+    ...InventoryResponseFields
+  }
+}

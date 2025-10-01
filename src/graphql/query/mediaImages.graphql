@@ -1,0 +1,5 @@
+query mediaImages($search: MediaImageProductSearchInput) {
+  mediaImages(search: $search) {
+    ...PaginatedMediaImageResponseFields
+  }
+}

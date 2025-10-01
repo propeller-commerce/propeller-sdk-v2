@@ -1,0 +1,7 @@
+fragment ClusterConfigFields on ClusterConfig {
+  id
+  name
+  settings {
+    ... ClusterConfigSettingFields
+  }
+}

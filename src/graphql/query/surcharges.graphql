@@ -1,0 +1,5 @@
+query surcharges($input: SurchargeSearchInput) {
+  surcharges(input: $input) {
+    ...SurchargesResponseFields
+  }
+}

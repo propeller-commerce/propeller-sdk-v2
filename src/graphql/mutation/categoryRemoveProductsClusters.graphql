@@ -1,0 +1,5 @@
+mutation categoryRemoveProductsClusters($id: Int!, $input: CategoryRemoveProductsClustersInput!) {
+  categoryRemoveProductsClusters(id: $id, input: $input) {
+    ...CategoryRemoveProductsClustersResponseFields
+  }
+}

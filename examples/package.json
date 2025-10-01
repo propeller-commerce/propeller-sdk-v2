@@ -1,0 +1,32 @@
+{
+  "name": "propeller-sdk-v2-examples",
+  "version": "1.0.0",
+  "description": "Examples for using Propeller V2 with different frontend frameworks",
+  "private": true,
+  "scripts": {
+    "dev:vanilla": "npx http-server . -p 3000 -o",
+    "dev:react": "npx create-react-app propeller-react-demo --template typescript && cd propeller-react-demo && npm install propeller-sdk-v2",
+    "dev:vue": "npx create-vue@latest propeller-vue-demo --typescript --router --pinia && cd propeller-vue-demo && npm install propeller-sdk-v2",
+    "dev:angular": "npx @angular/cli new propeller-angular-demo --routing --style=css --skip-git && cd propeller-angular-demo && npm install propeller-sdk-v2 rxjs",
+    "setup:all": "npm run setup:react && npm run setup:vue && npm run setup:angular",
+    "setup:react": "echo 'Copy react-example.tsx to your React project src folder'",
+    "setup:vue": "echo 'Copy vue-example.vue to your Vue project src/components folder'",
+    "setup:angular": "echo 'Copy angular-example.ts to your Angular project src/app folder'"
+  },
+  "dependencies": {
+    "propeller-sdk-v2": "^0.1.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "keywords": [
+    "propeller",
+    "examples",
+    "react",
+    "vue",
+    "angular",
+    "vanilla-js"
+  ],
+  "author": "Propeller Team",
+  "license": "MIT"
+} 

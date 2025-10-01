@@ -1,0 +1,23 @@
+fragment ProductCartFields on Product {
+  ... IBaseProductCartFields
+  productId
+  inventory {
+    ... ProductInventoryFields
+  }
+  media {
+    ... ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}

@@ -1,0 +1,31 @@
+fragment OrderDataFields on Order {
+  id
+  userId
+  accountManagerId
+  cartId
+  channelId
+  shopId
+  uuid
+  externalId
+  debtorId
+  status
+  type
+  source
+  email
+  emailDate
+  remarks
+  reference
+  extra3
+  extra4
+  currency
+  currencyRatio
+  language
+  createdAt
+  statusDate
+  total {
+    ... OrderTotalsFields
+  }
+  invoiceUserId
+  validUntil
+  companyId
+}

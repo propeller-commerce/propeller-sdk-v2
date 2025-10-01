@@ -1,0 +1,8 @@
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}

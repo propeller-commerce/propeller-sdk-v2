@@ -1,0 +1,12 @@
+fragment SparePartFields on SparePart {
+  id
+  sku
+  quantity
+  name {
+    ... LocalizedStringFields
+  }
+  product {
+    ... on Cluster { ...ClusterGridFields }
+    ... on Product { ...ProductGridFields }
+  }
+}

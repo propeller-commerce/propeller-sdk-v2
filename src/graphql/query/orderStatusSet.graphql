@@ -1,0 +1,5 @@
+query orderStatusSet($input: OrderStatusSetSearchByInput!) {
+  orderStatusSet(input: $input) {
+    ...OrderStatusSetFields
+  }
+}

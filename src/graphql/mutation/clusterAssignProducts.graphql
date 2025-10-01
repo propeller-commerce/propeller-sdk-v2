@@ -1,0 +1,5 @@
+mutation clusterAssignProducts($clusterId: Int!, $input: ClusterAssignProductsInput!) {
+  clusterAssignProducts(clusterId: $clusterId, input: $input) {
+    ...ClusterAssignProductsResponseFields
+  }
+}

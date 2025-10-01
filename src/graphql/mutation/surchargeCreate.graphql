@@ -1,0 +1,5 @@
+mutation surchargeCreate($input: CreateSurchargeInput!) {
+  surchargeCreate(input: $input) {
+    ...SurchargeFields
+  }
+}

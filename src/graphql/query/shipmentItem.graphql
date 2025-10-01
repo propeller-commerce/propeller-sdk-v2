@@ -1,0 +1,5 @@
+query shipmentItem($id: String!) {
+  shipmentItem(id: $id) {
+    ...ShipmentItemFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation orderCreate($order: OrderCreateInput!) {
+  orderCreate(order: $order) {
+    ...OrderFields
+  }
+}

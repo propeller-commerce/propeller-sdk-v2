@@ -1,0 +1,5 @@
+mutation clusterUpdate($id: Int!, $input: ClusterUpdateInput!) {
+  clusterUpdate(id: $id, input: $input) {
+    ...ClusterFields
+  }
+}

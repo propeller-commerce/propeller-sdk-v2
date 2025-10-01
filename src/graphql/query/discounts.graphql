@@ -1,0 +1,5 @@
+query discounts($input: DiscountSearchInput) {
+  discounts(input: $input) {
+    ...DiscountResponseFields
+  }
+}

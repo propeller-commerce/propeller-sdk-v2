@@ -1,0 +1,5 @@
+mutation machineCreate($input: CreateSparePartsMachineInput!) {
+  machineCreate(input: $input) {
+    ...SparePartsMachineFields
+  }
+}

@@ -1,0 +1,5 @@
+query addressesByUserId($userId: Float!, $type: AddressType) {
+  addressesByUserId(userId: $userId, type: $type) {
+    ...AddressFields
+  }
+}

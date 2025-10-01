@@ -1,0 +1,5 @@
+mutation orderStatusCreate($input: CreateOrderStatusInput!) {
+  orderStatusCreate(input: $input) {
+    ...OrderStatusFields
+  }
+}

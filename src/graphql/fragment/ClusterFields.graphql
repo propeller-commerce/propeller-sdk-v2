@@ -1,0 +1,40 @@
+fragment ClusterFields on Cluster {
+  ... IBaseProductFields
+  clusterId
+  categoryId
+  attributes {
+    ... AttributeResultResponseFields
+  }
+  categories {
+    ... CategoryResponseFields
+  }
+  category {
+    ... CategoryMinimalFields
+  }
+  categoryPath {
+    ... CategoryMinimalFields
+  }
+  crossupsellsFrom {
+    ... CrossupsellsResponseFields
+  }
+  crossupsellsTo {
+    ... CrossupsellsResponseFields
+  }
+  favoriteLists {
+    ... FavoriteListsResponseFields
+  }
+  products {
+    ... ProductFields
+  }
+  createdAt
+  lastModifiedAt
+  options {
+    ... ClusterOptionFields
+  }
+  defaultProduct {
+    ... ProductFields
+  }
+  config {
+    ... ClusterConfigFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation mediaDocumentUpdate($input: UpdateMediaDocumentInput!) {
+  mediaDocumentUpdate(input: $input) {
+    ...MediaDocumentFields
+  }
+}

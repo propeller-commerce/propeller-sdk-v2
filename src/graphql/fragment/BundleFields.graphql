@@ -1,0 +1,13 @@
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ... BundlePriceFields
+  }
+  items {
+    ... BundleItemFields
+  }
+}

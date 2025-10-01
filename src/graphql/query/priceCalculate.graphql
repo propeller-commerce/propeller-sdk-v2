@@ -1,0 +1,5 @@
+query priceCalculate($input: PriceCalculateInput!) {
+  priceCalculate(input: $input) {
+    ...ProductPriceFields
+  }
+}

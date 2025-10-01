@@ -1,0 +1,5 @@
+mutation inventoryCsvImport($input: InventoryCsvInput!) {
+  inventoryCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

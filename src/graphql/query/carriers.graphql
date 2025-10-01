@@ -1,0 +1,5 @@
+query carriers($input: CarriersSearchInput) {
+  carriers(input: $input) {
+    ...CarriersResponseFields
+  }
+}

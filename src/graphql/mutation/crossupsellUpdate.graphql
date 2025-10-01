@@ -1,0 +1,5 @@
+mutation crossupsellUpdate($id: String!, $input: CrossupsellUpdateInput!) {
+  crossupsellUpdate(id: $id, input: $input) {
+    ...CrossupsellFields
+  }
+}

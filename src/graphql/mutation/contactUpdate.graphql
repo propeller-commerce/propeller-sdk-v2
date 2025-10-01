@@ -1,0 +1,5 @@
+mutation contactUpdate($id: Int!, $input: UpdateContactInput!) {
+  contactUpdate(id: $id, input: $input) {
+    ...ContactFields
+  }
+}

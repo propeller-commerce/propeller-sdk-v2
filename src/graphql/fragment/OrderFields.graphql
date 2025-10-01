@@ -1,0 +1,58 @@
+fragment OrderFields on Order {
+  id
+  media {
+    ... OrderMediaFields
+  }
+  userId
+  accountManagerId
+  cartId
+  channelId
+  shopId
+  uuid
+  externalId
+  debtorId
+  status
+  type
+  source
+  email
+  emailDate
+  remarks
+  reference
+  extra3
+  extra4
+  currency
+  currencyRatio
+  language
+  date
+  createdAt
+  statusDate
+  postageData {
+    ... OrderPostageDataFields
+  }
+  paymentData {
+    ... OrderPaymentDataFields
+  }
+  total {
+    ... OrderTotalsFields
+  }
+  items {
+    ... OrderItemFields
+  }
+  shipments {
+    ... ShipmentFields
+  }
+  addresses {
+    ... AddressFields
+  }
+  invoiceUserId
+  validUntil
+  companyId
+  lastModifiedAt
+  originalOrderId
+  exportedAt
+  exportStatus
+  exportMessage
+  orderAddresses {
+    ... OrderAddressFields
+  }
+}

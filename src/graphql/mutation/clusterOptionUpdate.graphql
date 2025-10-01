@@ -1,0 +1,5 @@
+mutation clusterOptionUpdate($clusterId: Int!, $optionId: Int!, $input: ClusterOptionUpdateInput!) {
+  clusterOptionUpdate(clusterId: $clusterId, optionId: $optionId, input: $input) {
+    ...ClusterOptionFields
+  }
+}

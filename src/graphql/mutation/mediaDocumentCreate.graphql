@@ -1,0 +1,5 @@
+mutation mediaDocumentCreate($input: MediaDocumentInput!) {
+  mediaDocumentCreate(input: $input) {
+    ...MediaDocumentFields
+  }
+}

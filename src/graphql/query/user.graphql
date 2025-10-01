@@ -1,0 +1,11 @@
+query user($input: UserSearchInput!) {
+  user(input: $input) {
+    __typename
+    ... on Contact {
+        ... ContactFields
+    }
+    ... on Customer {
+        ... CustomerFields
+    }
+  }
+}

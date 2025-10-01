@@ -1,0 +1,16 @@
+fragment ProductPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on BulkCostPrice { ...BulkCostPriceFields }
+    ... on BulkPrice { ...BulkPriceFields }
+    ... on Discount { ...DiscountFields }
+  }
+  taxCode
+  quantity
+}

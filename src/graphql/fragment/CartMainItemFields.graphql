@@ -1,0 +1,61 @@
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ... BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ... ProductCartFields
+    }
+  }
+  product {
+    ... ProductCartFields
+  }
+}

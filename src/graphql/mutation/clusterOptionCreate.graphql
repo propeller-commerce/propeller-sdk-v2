@@ -1,0 +1,5 @@
+mutation clusterOptionCreate($clusterId: Int!, $input: ClusterOptionCreateInput!) {
+  clusterOptionCreate(clusterId: $clusterId, input: $input) {
+    ...ClusterOptionFields
+  }
+}

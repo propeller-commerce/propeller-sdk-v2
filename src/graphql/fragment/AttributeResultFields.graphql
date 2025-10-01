@@ -1,0 +1,51 @@
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute { ...CategoryAttributeFields }
+    ... on ClusterAttribute { ...ClusterAttributeFields }
+    ... on CompanyAttribute { ...CompanyAttributeFields }
+    ... on ContactAttribute { ...ContactAttributeFields }
+    ... on CustomerAttribute { ...CustomerAttributeFields }
+    ... on ProductAttribute { ...ProductAttributeFields }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+    defaultValue {
+      ... on AttributeColorValue { ...AttributeColorValueFields }
+      ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
+      ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
+      ... on AttributeEnumValue { ...AttributeEnumValueFields }
+      ... on AttributeIntValue { ...AttributeIntValueFields }
+      ... on AttributeTextValue { ...AttributeTextValueFields }
+    }
+  }
+  value {
+    ... on AttributeColorValue { ...AttributeColorValueFields }
+    ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
+    ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
+    ... on AttributeEnumValue { ...AttributeEnumValueFields }
+    ... on AttributeIntValue { ...AttributeIntValueFields }
+    ... on AttributeTextValue { ...AttributeTextValueFields }
+  }
+}

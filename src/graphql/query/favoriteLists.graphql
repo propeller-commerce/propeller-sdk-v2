@@ -1,0 +1,5 @@
+query favoriteLists($input: FavoriteListsSearchInput) {
+  favoriteLists(input: $input) {
+    ...FavoriteListsResponseFields
+  }
+}

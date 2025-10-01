@@ -1,0 +1,16 @@
+query category(
+  $categoryId: Float
+  $slug: String
+  $userId: Int
+  $hidden: YesNo
+  $language: String
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $categoryProductSearchInput: CategoryProductSearchInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $filterAvailableAttributeInput: FilterAvailableAttributeInput
+) {
+  category(categoryId: $categoryId, slug: $slug, userId: $userId, hidden: $hidden) {
+    ...CategoryFields
+  }
+}

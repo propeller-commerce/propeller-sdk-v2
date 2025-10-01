@@ -1,0 +1,7 @@
+fragment ClusterConfigSettingFields on ClusterConfigSetting {
+  id
+  name
+  type
+  displayType
+  priority
+}

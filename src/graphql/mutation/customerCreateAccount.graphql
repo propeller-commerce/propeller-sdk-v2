@@ -1,0 +1,5 @@
+mutation customerCreateAccount($id: Int!, $input: CreateAccountInput) {
+  customerCreateAccount(id: $id, input: $input) {
+    ...RegisterCustomerResponseFields
+  }
+}

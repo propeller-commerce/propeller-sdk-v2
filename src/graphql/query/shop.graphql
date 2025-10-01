@@ -1,0 +1,5 @@
+query shop($shopId: Int!) {
+  shop(shopId: $shopId) {
+    ...ShopFields
+  }
+}

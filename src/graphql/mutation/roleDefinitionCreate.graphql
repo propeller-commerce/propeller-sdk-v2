@@ -1,0 +1,5 @@
+mutation roleDefinitionCreate($input: RoleDefinitionCreateInput!) {
+  roleDefinitionCreate(input: $input) {
+    ...RoleDefinitionFields
+  }
+}

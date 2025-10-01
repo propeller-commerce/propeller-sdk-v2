@@ -1,0 +1,18 @@
+fragment PaymentFields on Payment {
+  id
+  userId
+  anonymousId
+  paymentId
+  orderId
+  amount
+  currency
+  method
+  status
+  transactions {
+    ... TransactionFields
+  }
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+}

@@ -1,0 +1,5 @@
+mutation categoryCsvImport($input: CategoryCsvInput!) {
+  categoryCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

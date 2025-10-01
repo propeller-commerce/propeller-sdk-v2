@@ -1,0 +1,11 @@
+fragment OrderPaymentDataFields on OrderPaymentData {
+  net
+  gross
+  tax
+  taxPercentage
+  method
+  status
+  statusDate
+  accountingId
+  overruled
+}

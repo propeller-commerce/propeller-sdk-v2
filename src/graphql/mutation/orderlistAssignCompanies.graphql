@@ -1,0 +1,5 @@
+mutation orderlistAssignCompanies($id: Int!, $input: OrderlistCompaniesInput!) {
+  orderlistAssignCompanies(id: $id, input: $input) {
+    ...OrderlistFields
+  }
+}

@@ -1,0 +1,5 @@
+query contact($id: Int!) {
+  contact(id: $id) {
+    ...ContactFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation contactCreate($input: CreateContactInput!) {
+  contactCreate(input: $input) {
+    ...ContactFields
+  }
+}

@@ -1,0 +1,5 @@
+fragment ProductOfferFields on ProductOffer {
+  price
+  validFrom
+  validTo
+}

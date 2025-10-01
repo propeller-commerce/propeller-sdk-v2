@@ -1,0 +1,5 @@
+mutation categoryAddProductsClusters($id: Int!, $input: CategoryAddProductsClustersInput!) {
+  categoryAddProductsClusters(id: $id, input: $input) {
+    ...CategoryAddProductsClustersResponseFields
+  }
+}

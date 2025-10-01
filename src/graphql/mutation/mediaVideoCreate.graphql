@@ -1,0 +1,5 @@
+mutation mediaVideoCreate($input: MediaVideoInput!) {
+  mediaVideoCreate(input: $input) {
+    ...MediaVideoFields
+  }
+}

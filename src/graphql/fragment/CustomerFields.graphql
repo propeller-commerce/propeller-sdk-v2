@@ -1,0 +1,51 @@
+fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ... AddressFields
+  }
+  attributes {
+    items {
+      ... AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ... FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentUsergroupId
+}

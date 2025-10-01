@@ -1,0 +1,7 @@
+fragment LoginFields on Login {
+  providerId
+  operationType
+  session {
+    ... GCIPUserFields
+  }
+}

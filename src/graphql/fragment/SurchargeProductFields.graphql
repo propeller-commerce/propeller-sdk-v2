@@ -1,0 +1,7 @@
+fragment SurchargeProductFields on SurchargeProduct {
+  surchargeId
+  productId
+  surcharge {
+    ... SurchargeFields
+  }
+}

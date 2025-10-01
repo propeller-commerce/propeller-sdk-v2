@@ -1,0 +1,5 @@
+query payment($searchBy: SearchByInput!) {
+  payment(searchBy: $searchBy) {
+    ...PaymentFields
+  }
+}

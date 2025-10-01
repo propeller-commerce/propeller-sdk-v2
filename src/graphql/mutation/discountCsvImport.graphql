@@ -1,0 +1,5 @@
+mutation discountCsvImport($input: DiscountCsvInput!) {
+  discountCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

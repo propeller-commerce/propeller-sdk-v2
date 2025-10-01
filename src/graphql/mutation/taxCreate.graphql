@@ -1,0 +1,5 @@
+mutation taxCreate($input: TaxCreateInput!) {
+  taxCreate(input: $input) {
+    ...TaxFields
+  }
+}

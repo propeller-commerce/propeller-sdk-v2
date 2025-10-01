@@ -1,0 +1,4 @@
+fragment SendOrderConfirmResponseTypeFields on SendOrderConfirmResponseType {
+  messageId
+  success
+}

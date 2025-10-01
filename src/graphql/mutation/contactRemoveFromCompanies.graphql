@@ -1,0 +1,5 @@
+mutation contactRemoveFromCompanies($id: Int!, $input: ContactRemoveFromCompaniesInput!) {
+  contactRemoveFromCompanies(id: $id, input: $input) {
+    ...ContactRemoveFromCompaniesResponseFields
+  }
+}

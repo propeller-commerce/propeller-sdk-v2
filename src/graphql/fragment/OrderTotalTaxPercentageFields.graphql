@@ -1,0 +1,4 @@
+fragment OrderTotalTaxPercentageFields on OrderTotalTaxPercentage {
+  percentage
+  total
+}

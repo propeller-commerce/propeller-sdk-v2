@@ -1,0 +1,15 @@
+fragment CategoryMinimalFields on Category {
+  categoryId
+  name (language: $language){
+    ... LocalizedStringFields
+  }
+  description (language: $language){
+    ... LocalizedStringFields
+  }
+  shortDescription (language: $language){
+    ... LocalizedStringFields
+  }
+  slug (language: $language){
+    ... LocalizedStringFields
+  }
+}

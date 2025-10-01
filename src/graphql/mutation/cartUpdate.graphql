@@ -1,0 +1,10 @@
+mutation cartUpdate(
+  $id: String!
+  $input: CartUpdateInput!
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!) {
+  cartUpdate(id: $id, input: $input) {
+    ...CartFields
+  }
+}

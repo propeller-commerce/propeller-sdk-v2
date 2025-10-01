@@ -1,0 +1,31 @@
+fragment CategoryFields on Category {
+  categoryId
+  urlId: categoryId
+  ... CategoryMinimalFields
+  attributes {
+    ... AttributeResultResponseFields
+  }
+  path
+  parent {
+    ... CategoryMinimalFields
+  }
+  metadataTitles {
+    ... LocalizedStringFields
+  }
+  metadataDescriptions {
+    ... LocalizedStringFields
+  }
+  metadataKeywords {
+    ... LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ... LocalizedStringFields
+  }
+  hidden
+  categoryPath {
+    ... CategoryMinimalFields
+  }
+  products (input: $categoryProductSearchInput) {
+    ... ProductsResponseFields
+  }
+}

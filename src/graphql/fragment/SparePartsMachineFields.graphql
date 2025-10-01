@@ -1,0 +1,62 @@
+fragment SparePartsMachineFields on SparePartsMachine {
+  id
+  media {
+    ... SparePartsMachineMediaImagesOnlyFields
+  }
+  sparePartProducts {
+    items {
+      ... SparePartFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+    minPrice
+    maxPrice
+    filters {
+      ... AttributeFilterFields
+    }
+  }
+  name {
+    ... LocalizedStringFields
+  }
+  description {
+    ... LocalizedStringFields
+  }
+  slug {
+    ... LocalizedStringFields
+  }
+  machines {
+    id
+    media {
+      ... SparePartsMachineMediaImagesOnlyFields
+    }
+    sparePartProducts {
+      items {
+        ... SparePartFields
+      }
+      itemsFound
+      offset
+      page
+      pages
+      start
+      end
+      minPrice
+      maxPrice
+      filters {
+        ... AttributeFilterFields
+      }
+    }
+    name {
+      ... LocalizedStringFields
+    }
+    description {
+      ... LocalizedStringFields
+    }
+    slug {
+      ... LocalizedStringFields
+    }
+  }
+}

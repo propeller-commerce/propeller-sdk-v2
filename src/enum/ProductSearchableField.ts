@@ -1,0 +1,20 @@
+/**
+ * @enum ProductSearchableField
+ Enumeration for ProductSearchableField values
+ */
+export enum ProductSearchableField {
+  NAME = "NAME",
+  DESCRIPTION = "DESCRIPTION",
+  SHORT_DESCRIPTION = "SHORT_DESCRIPTION",
+  KEYWORDS = "KEYWORDS",
+  CUSTOM_KEYWORDS = "CUSTOM_KEYWORDS",
+  SKU = "SKU",
+  MANUFACTURER = "MANUFACTURER",
+  MANUFACTURER_CODE = "MANUFACTURER_CODE",
+  SUPPLIER = "SUPPLIER",
+  SUPPLIER_CODE = "SUPPLIER_CODE",
+  EAN_CODE = "EAN_CODE",
+  BAR_CODE = "BAR_CODE",
+  PRODUCT_ID = "PRODUCT_ID",
+  CLUSTER_ID = "CLUSTER_ID",
+}

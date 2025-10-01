@@ -1,0 +1,23 @@
+fragment CompanyAddressSearchFields on CompanyAddressSearch {
+  id
+  firstName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  code
+  notes
+  name
+  isDefault
+  type
+  active
+  createdAt
+  lastModifiedAt
+}

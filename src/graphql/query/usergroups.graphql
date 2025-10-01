@@ -1,0 +1,5 @@
+query usergroups($input: UsergroupSearchArguments!) {
+  usergroups(input: $input) {
+    ...UsergroupsResponseFields
+  }
+}

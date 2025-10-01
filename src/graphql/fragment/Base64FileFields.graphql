@@ -1,0 +1,5 @@
+fragment Base64FileFields on Base64File {
+  base64
+  contentType
+  fileName
+}

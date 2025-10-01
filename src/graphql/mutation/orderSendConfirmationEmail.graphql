@@ -1,0 +1,5 @@
+mutation orderSendConfirmationEmail($orderId: Int!, $attachments: [Base64FileInput!]) {
+  orderSendConfirmationEmail(orderId: $orderId, attachments: $attachments) {
+    ...SendOrderConfirmResponseTypeFields
+  }
+}

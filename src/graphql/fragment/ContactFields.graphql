@@ -1,0 +1,73 @@
+fragment ContactFields on Contact {
+  contactId
+  attributes {
+    items {
+      ... AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ... FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ... CompanyDataFields
+  }
+  companies {
+    items {
+      ... CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs {
+    items {
+      ... PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

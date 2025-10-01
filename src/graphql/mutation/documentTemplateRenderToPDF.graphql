@@ -1,0 +1,5 @@
+mutation documentTemplateRenderToPDF($id: String!, $input: TemplateRenderInput!) {
+  documentTemplateRenderToPDF(id: $id, input: $input) {
+    ...Base64FileFields
+  }
+}

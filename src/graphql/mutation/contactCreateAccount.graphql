@@ -1,0 +1,5 @@
+mutation contactCreateAccount($id: Int!, $input: CreateAccountInput) {
+  contactCreateAccount(id: $id, input: $input) {
+    ...RegisterContactResponseFields
+  }
+}

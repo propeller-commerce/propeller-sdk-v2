@@ -1,0 +1,5 @@
+query carrier($id: Int!) {
+  carrier(id: $id) {
+    ...CarrierFields
+  }
+}

@@ -1,0 +1,8 @@
+fragment AttributeFields on Attribute {
+  ... on CategoryAttribute { ...CategoryAttributeFields }
+  ... on ClusterAttribute { ...ClusterAttributeFields }
+  ... on CompanyAttribute { ...CompanyAttributeFields }
+  ... on ContactAttribute { ...ContactAttributeFields }
+  ... on CustomerAttribute { ...CustomerAttributeFields }
+  ... on ProductAttribute { ...ProductAttributeFields }
+}

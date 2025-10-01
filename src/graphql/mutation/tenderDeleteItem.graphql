@@ -1,0 +1,5 @@
+mutation tenderDeleteItem($id: String!, $itemId: String!) {
+  tenderDeleteItem(id: $id, itemId: $itemId) {
+    ...TenderFields
+  }
+}

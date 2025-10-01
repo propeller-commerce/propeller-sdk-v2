@@ -1,0 +1,17 @@
+/**
+ * @enum VideoFieldName
+ Fields available for Video mapping
+ */
+export enum VideoFieldName {
+  ID = "ID",
+  LANGUAGE = "LANGUAGE",
+  ALT_VALUE = "ALT_VALUE",
+  DESCRIPTION_VALUE = "DESCRIPTION_VALUE",
+  TAGS_VALUES = "TAGS_VALUES",
+  VIDEO_URI = "VIDEO_URI",
+  PRIORITY = "PRIORITY",
+  PRODUCT_ID = "PRODUCT_ID",
+  CLUSTER_ID = "CLUSTER_ID",
+  CATEGORY_ID = "CATEGORY_ID",
+  SPAREPARTS_MACHINE_ID = "SPAREPARTS_MACHINE_ID",
+}

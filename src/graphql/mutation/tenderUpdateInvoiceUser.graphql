@@ -1,0 +1,5 @@
+mutation tenderUpdateInvoiceUser($id: String!, $userId: Int!) {
+  tenderUpdateInvoiceUser(id: $id, userId: $userId) {
+    ...TenderFields
+  }
+}

@@ -1,0 +1,17 @@
+/**
+ * @enum PriceSortField
+ Fields available for sorting Price records
+ */
+export enum PriceSortField {
+  ID = "ID",
+  PRODUCT_ID = "PRODUCT_ID",
+  PRICE_PER = "PRICE_PER",
+  PRICE = "PRICE",
+  SUGGESTED_PRICE = "SUGGESTED_PRICE",
+  STORE_PRICE = "STORE_PRICE",
+  BULK_PRICE_DISCOUNT_TYPE = "BULK_PRICE_DISCOUNT_TYPE",
+  DEFAULT_TAX_CODE = "DEFAULT_TAX_CODE",
+  LAST_MODIFIED_AT = "LAST_MODIFIED_AT",
+  CREATED_AT = "CREATED_AT",
+  COST_PRICE = "COST_PRICE",
+}

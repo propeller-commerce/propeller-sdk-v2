@@ -1,0 +1,5 @@
+mutation mediaVideoUpdate($input: UpdateMediaVideoInput!) {
+  mediaVideoUpdate(input: $input) {
+    ...MediaVideoFields
+  }
+}

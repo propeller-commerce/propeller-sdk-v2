@@ -1,0 +1,5 @@
+mutation bundleAddItems($id: String!, $input: BundleAddItemsInput!) {
+  bundleAddItems(id: $id, input: $input) {
+    ...BundleItemFields
+  }
+}

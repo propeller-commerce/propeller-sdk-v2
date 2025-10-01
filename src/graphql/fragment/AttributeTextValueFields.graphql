@@ -1,0 +1,9 @@
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}

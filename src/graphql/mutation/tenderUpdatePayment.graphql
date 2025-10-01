@@ -1,0 +1,5 @@
+mutation tenderUpdatePayment($id: String!, $input: TenderPaymentInput!) {
+  tenderUpdatePayment(id: $id, input: $input) {
+    ...TenderFields
+  }
+}

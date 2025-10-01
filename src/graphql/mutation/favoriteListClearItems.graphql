@@ -1,0 +1,5 @@
+mutation favoriteListClearItems($id: String!, $products: Boolean, $clusters: Boolean) {
+  favoriteListClearItems(id: $id, products: $products, clusters: $clusters) {
+    ...FavoriteListFields
+  }
+}

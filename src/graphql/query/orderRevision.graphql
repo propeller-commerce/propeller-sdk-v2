@@ -1,0 +1,30 @@
+query orderRevision($orderId: Int!, $revisionNumber: Int!) {
+  orderRevision(orderId: $orderId, revisionNumber: $revisionNumber) {
+    orderId
+    revisionNumber
+    createdByContactId
+    createdByCustomerId
+    createdByAdminUserId
+    createdByAdminUser {
+      userId
+      firstName
+      lastName
+      email
+    }
+    createdAt
+    createdFromRevisionNumber
+    snapshot
+    createdByContact {
+      contactId
+      firstName
+      lastName
+      email
+    }
+    createdByCustomer {
+      customerId
+      firstName
+      lastName
+      email
+    }
+  }
+} 

@@ -1,0 +1,21 @@
+fragment CarrierFields on Carrier {
+  id
+  name
+  type
+  descriptions {
+    ... LocalizedStringFields
+  }
+  shippingCost
+  trackAndTraceURL
+  logo
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  trackAndTraces {
+    ... TrackAndTraceFields
+  }
+  warehouses {
+    ... WarehouseFields
+  }
+}
