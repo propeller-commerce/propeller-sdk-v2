@@ -21,8 +21,9 @@ mirror_to_github:
     - git config --global user.email "ci@propeller-commerce.com"
     - git config --global user.name "GitLab CI"
     - git remote add github https://${GITHUB_TOKEN}@github.com/propeller-commerce/propeller-sdk-v2.git || true
-    - git fetch --unshallow || git fetch --all
-    - git push github HEAD:${CI_COMMIT_REF_NAME} --force --tags
+    - git fetch --all || true
+    - git push github HEAD:refs/heads/${CI_COMMIT_REF_NAME} --force
+    - git push github --tags --force
   when: on_success
   allow_failure: false
 
