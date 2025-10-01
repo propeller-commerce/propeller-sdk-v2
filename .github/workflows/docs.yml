@@ -56,6 +56,9 @@ jobs:
         name: documentation
         path: documentation/
         
+    - name: Add .nojekyll file
+      run: touch documentation/.nojekyll
+        
     - name: Setup Pages
       uses: actions/configure-pages@v4
       

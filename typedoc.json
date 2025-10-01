@@ -12,7 +12,7 @@
   "excludeNotDocumented": false,
   "hideGenerator": true,
   "disableSources": false,
-  "sourceLinkTemplate": "https://github.com/your-org/propeller-sdk-v2/blob/{gitRevision}/{path}#L{line}",
+  "sourceLinkTemplate": "https://github.com/propeller-commerce/propeller-sdk-v2/blob/{gitRevision}/{path}#L{line}",
   "gitRevision": "main",
   "categorizeByGroup": true,
   "defaultCategory": "Other",

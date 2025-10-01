@@ -496,7 +496,7 @@ All service classes extend `BaseService` and provide:
 
 Comprehensive TypeDoc-generated documentation is available with full API reference, examples, and guides:
 
-**🌐 [View Live Documentation](https://your-org.github.io/propeller-sdk-v2/)**
+**🌐 [View Live Documentation](https://propeller-commerce.github.io/propeller-sdk-v2/)**
 
 ### Documentation Features
 
@@ -511,12 +511,12 @@ Comprehensive TypeDoc-generated documentation is available with full API referen
 
 The documentation is organized into logical sections:
 
-#### 🛠️ **[Client](https://your-org.github.io/propeller-sdk-v2/classes/GraphQLClient.html)**
+#### 🛠️ **[Client](https://propeller-commerce.github.io/propeller-sdk-v2/classes/GraphQLClient.html)**
 - `GraphQLClient` - Core GraphQL client implementation
 - Connection management and authentication
 - Query execution and error handling
 
-#### 🔧 **[Services](https://your-org.github.io/propeller-sdk-v2/modules.html#services)**
+#### 🔧 **[Services](https://propeller-commerce.github.io/propeller-sdk-v2/modules.html#services)**
 52 service classes covering all eCommerce operations:
 - `ProductService` - Product management and search
 - `OrderService` - Order processing and fulfillment  
@@ -525,14 +525,14 @@ The documentation is organized into logical sections:
 - `PaymentService` - Payment processing
 - And 47 more specialized services...
 
-#### 📋 **[Types](https://your-org.github.io/propeller-sdk-v2/modules.html#types)**
+#### 📋 **[Types](https://propeller-commerce.github.io/propeller-sdk-v2/modules.html#types)**
 756+ TypeScript interfaces and type definitions:
 - Input types for mutations
 - Response types for queries
 - Complex nested object types
 - Union and intersection types
 
-#### 🏷️ **[Enums](https://your-org.github.io/propeller-sdk-v2/modules.html#enums)**
+#### 🏷️ **[Enums](https://propeller-commerce.github.io/propeller-sdk-v2/modules.html#enums)**
 135+ enumeration types:
 - Status codes and states
 - Configuration options
@@ -591,7 +591,7 @@ MIT License - see LICENSE file for details
 ## Support
 
 For support and questions:
-- GitHub Issues: [Report bugs or request features](https://github.com/propeller/propeller-sdk-v2/issues)
+- GitHub Issues: [Report bugs or request features](https://github.com/propeller-commerce/propeller-sdk-v2/issues)
 - Documentation: [Full API documentation](https://docs.propeller-commerce.com/graphql-v2)
 - Community: [Join our Discord](https://discord.gg/propeller)
 
