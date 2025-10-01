@@ -8,16 +8,14 @@ stages:
 # This job runs whenever code is pushed to develop or main branches
 mirror_to_github:
   stage: mirror
-  image: alpine/git:latest
+  image: ubuntu:22.04
   only:
     - develop
     - main
     - master
   before_script:
-    - apk add --no-cache bash
+    - apt-get update -qq && apt-get install -y -qq git
     - git --version
-    - pwd
-    - ls -la
   script:
     - echo "Mirroring to GitHub..."
     - git config --global user.email "ci@propeller-commerce.com"
