@@ -1,6 +1,6 @@
 fragment ContactFields on Contact {
   contactId
-  attributes {
+  attributes (input: $contactAttributesInput) {
     items {
       ... AttributeResultFields
     }
@@ -59,7 +59,7 @@ fragment ContactFields on Contact {
     start
     end
   }
-  purchaseAuthorizationConfigs {
+  purchaseAuthorizationConfigs (input: $contactPAConfigInput) {
     items {
       ... PurchaseAuthorizationConfigFields
     }

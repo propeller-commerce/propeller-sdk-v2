@@ -1,5 +1,16 @@
 fragment CompanyDataFields on Company {
   companyId
+  attributes (input: $companyAttributesInput) {
+    items {
+      ... AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
   addresses {
     ... AddressFields
   }

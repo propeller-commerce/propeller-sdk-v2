@@ -3,7 +3,7 @@ fragment CustomerFields on Customer {
   addresses {
     ... AddressFields
   }
-  attributes {
+  attributes (input: $customerAttributesInput) {
     items {
       ... AttributeResultFields
     }

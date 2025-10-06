@@ -5,6 +5,8 @@ import { Customer } from '../type/Customer';
 import { LoginInput } from '../type/LoginInput';
 import { Login } from '../type/Login';
 import { GCIPUser } from '../type/GCIPUser';
+import { AttributeResultSearchInput } from '../type/AttributeResultSearchInput';
+import { ContactPurchaseAuthorizationConfigSearchInput } from '../type/ContactPurchaseAuthorizationConfigSearchInput';
 import { RegisterContactInput } from '../type/RegisterContactInput';
 import { RegisterCustomerInput } from '../type/RegisterCustomerInput';
 import { RegisterContactResponse } from '../type/RegisterContactResponse';
@@ -70,6 +72,18 @@ export interface PasswordResetInput {
   /** The id of the site to use when sending the email (optional) */
   siteId?: number;
 }
+
+export interface ViewerInput {
+    /** Contact attributes input arguments */
+    contactAttributesInput?: AttributeResultSearchInput;
+    /** Contact purchase authorization config input arguments */
+    contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
+    /** Company attributes input arguments */
+    companyAttributesInput?: AttributeResultSearchInput;
+    /** CustomerAttributesInput attributes input arguments */
+    customerAttributesInput?: AttributeResultSearchInput;
+}
+
 /**
  * Service class for user-related GraphQL operations
  */
@@ -79,10 +93,11 @@ export class UserService extends BaseService {
     }
     /**
      * Get current viewer information (authenticated user)
+     * @param input Viewer input arguments
      * @returns Promise<ViewerResult> The current viewer
      */
-    async getViewer(): Promise<ViewerResult> {
-        const result = await this.executeQuery('viewer');
+    async getViewer(input: ViewerInput): Promise<ViewerResult> {
+        const result = await this.executeQuery('viewer', { input });
         const viewerData = result.data.viewer;
         // Return appropriate type based on __typename
         if (viewerData.__typename === 'Contact') {

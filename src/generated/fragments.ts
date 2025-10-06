@@ -1087,6 +1087,17 @@ export const CompanyContactSearchFields = `fragment CompanyContactSearchFields o
 
 export const CompanyDataFields = `fragment CompanyDataFields on Company {
   companyId
+  attributes (input: \$companyAttributesInput) {
+    items {
+      ... AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
   addresses {
     ... AddressFields
   }
@@ -1168,7 +1179,7 @@ export const ContactAttributeFields = `fragment ContactAttributeFields on Contac
 
 export const ContactFields = `fragment ContactFields on Contact {
   contactId
-  attributes {
+  attributes (input: \$contactAttributesInput) {
     items {
       ... AttributeResultFields
     }
@@ -1227,7 +1238,7 @@ export const ContactFields = `fragment ContactFields on Contact {
     start
     end
   }
-  purchaseAuthorizationConfigs {
+  purchaseAuthorizationConfigs (input: \$contactPAConfigInput) {
     items {
       ... PurchaseAuthorizationConfigFields
     }
@@ -1402,7 +1413,7 @@ export const CustomerFields = `fragment CustomerFields on Customer {
   addresses {
     ... AddressFields
   }
-  attributes {
+  attributes (input: \$customerAttributesInput) {
     items {
       ... AttributeResultFields
     }

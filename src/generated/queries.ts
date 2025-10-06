@@ -931,7 +931,12 @@ export const valuesets = `query valuesets(\$input: ValuesetSearchInput) {
   }
 }`;
 
-export const viewer = `query viewer {
+export const viewer = `query viewer(
+  \$contactAttributesInput: AttributeResultSearchInput
+  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  \$companyAttributesInput: AttributeResultSearchInput
+  \$customerAttributesInput: AttributeResultSearchInput
+) {
   viewer {
     __typename
     ... on Contact {
