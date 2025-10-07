@@ -1,16 +1,16 @@
 # Propeller V2 SDK
 
-A comprehensive TypeScript GraphQL client for the Propeller eCommerce Platform, providing full type safety and GraphQL operations.
+A comprehensive TypeScript GraphQL client for the Propeller Commerce Platform, providing full type safety and GraphQL operations.
 
 ## Features
 
-- 🎯 **Full Type Safety**: Complete TypeScript definitions for all GraphQL types
-- 🔄 **GraphQL Operations**: 230+ mutations and 125+ queries
-- 📦 **Service Layer**: 52 service classes with business logic
-- 🛡️ **Schema-driven**: Generated from GraphQL schema
-- 🔧 **Easy Integration**: Simple client configuration
-- 📖 **Complete Documentation**: JSDoc for all APIs
-- ⚛️ **Framework Agnostic**: Works with React, Vue, Angular, and vanilla JavaScript
+- **Full Type Safety**: Complete TypeScript definitions for all GraphQL types
+- **GraphQL Operations**: 230+ mutations and 125+ queries
+- **Service Layer**: 52 service classes with business logic
+- **Schema-driven**: Generated from GraphQL schema
+- **Easy Integration**: Simple client configuration
+- **Complete Documentation**: JSDoc for all APIs
+- **Framework Agnostic**: Works with React, Vue, Angular, and vanilla JavaScript
 
 ## Installation
 
@@ -283,7 +283,7 @@ Complete working examples for each framework are available in the `examples/` di
 
 ## Service Classes
 
-This package includes 52 service classes covering all major eCommerce operations:
+This package includes 52 service classes covering all major Commerce operations:
 
 ### Core Services
 - `ProductService` - Product management and search
@@ -500,12 +500,12 @@ Comprehensive TypeDoc-generated documentation is available with full API referen
 
 ### Documentation Features
 
-- **🔍 Full-text Search** - Find any class, method, or type instantly
-- **🔗 Cross-referenced Links** - Navigate between related types and methods
-- **📖 JSDoc Comments** - Detailed descriptions for all APIs
-- **💡 Code Examples** - Usage examples for all service methods
-- **🎨 Professional Theme** - Clean, GitHub-style interface
-- **📱 Mobile Responsive** - Works perfectly on all devices
+- ** Full-text Search** - Find any class, method, or type instantly
+- ** Cross-referenced Links** - Navigate between related types and methods
+- ** JSDoc Comments** - Detailed descriptions for all APIs
+- ** Code Examples** - Usage examples for all service methods
+- ** Professional Theme** - Clean, GitHub-style interface
+- ** Mobile Responsive** - Works perfectly on all devices
 
 ### Documentation Structure
 
@@ -517,7 +517,7 @@ The documentation is organized into logical sections:
 - Query execution and error handling
 
 #### 🔧 **[Services](https://propeller-commerce.github.io/propeller-sdk-v2/modules.html#services)**
-52 service classes covering all eCommerce operations:
+52 service classes covering all Commerce operations:
 - `ProductService` - Product management and search
 - `OrderService` - Order processing and fulfillment  
 - `UserService` - Authentication and user management
@@ -593,9 +593,3 @@ MIT License - see LICENSE file for details
 For support and questions:
 - GitHub Issues: [Report bugs or request features](https://github.com/propeller-commerce/propeller-sdk-v2/issues)
 - Documentation: [Full API documentation](https://docs.propeller-commerce.com/graphql-v2)
-- Community: [Join our Discord](https://discord.gg/propeller)
-
----
-
-Generated with ❤️ by the Propeller Team
-
