@@ -1,0 +1,30 @@
+# Mutation: Create Order
+# Creates a new order with the specified items and shipping information
+#
+# @param input - Order input data
+
+mutation CreateOrder($input: OrderInput!) {
+  createOrder(input: $input) {
+    id
+    orderNumber
+    status
+    total
+    items {
+      id
+      product {
+        ...ProductFields
+      }
+      quantity
+      price
+    }
+    shippingAddress {
+      street
+      city
+      state
+      postalCode
+      country
+    }
+    createdAt
+  }
+}
+

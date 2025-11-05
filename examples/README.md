@@ -1,242 +1,322 @@
-# Propeller V2 Frontend Framework Examples
+# Custom GraphQL Operations - Examples
 
-This directory contains examples showing how to use the `propeller-sdk-v2` GraphQL client with popular frontend frameworks.
+This directory contains examples demonstrating how to use custom GraphQL operations with the Propeller SDK.
 
-## Installation
+## Directory Structure
+
+```
+examples/
+├── README.md                          # This file
+├── custom-graphql-example.ts          # TypeScript examples
+└── graphql/                           # Sample GraphQL files
+    ├── fragments/
+    │   ├── ProductFields.graphql      # Basic product fragment
+    │   └── DetailedProductFields.graphql  # Extended product fragment
+    ├── queries/
+    │   ├── getProducts.graphql        # List products
+    │   ├── getProductsWithDetails.graphql  # Products with full details
+    │   └── searchProducts.graphql     # Product search
+    └── mutations/
+        ├── createOrder.graphql        # Create new order
+        └── updateProduct.graphql      # Update product
+```
+
+## Quick Start
+
+### 1. Install the SDK
 
 ```bash
-npm install propeller-sdk-v2
-# or
-yarn add propeller-sdk-v2
+npm install @propeller/sdk
 ```
 
-## Quick Setup
+### 2. Create Your GraphQL Directory Structure
 
-First, initialize the client in your application entry point:
+In your project root, create:
 
-```typescript
-import { initializeClient } from 'propeller-sdk-v2';
-
-// Initialize once in your app
-initializeClient({
-  endpoint: 'https://your-propeller-api.com/graphql',
-  apiKey: 'your-api-key',
-  orderEditorApiKey: 'your-order-editor-api-key' // Optional: for order operations
-});
+```bash
+mkdir -p graphql/fragments graphql/queries graphql/mutations
 ```
 
-## Framework Examples
+### 3. Add Custom GraphQL Files
 
-### React (TypeScript)
-See `react-example.tsx` for a complete React implementation featuring:
-- Custom hooks for service management
-- Product listing with state management
-- Category browsing with dynamic loading
-- User profile with union type handling
-- TypeScript integration with full type safety
+Copy the sample files from `examples/graphql/` or create your own:
 
-### Vue 3 (Composition API)
-See `vue-example.vue` for a complete Vue implementation featuring:
-- Composition API with reactive state
-- Product management
-- Category browser
-- Order creation
-- TypeScript support
-
-### Basic JavaScript Usage
-
-```javascript
-import { getClient, ProductService } from 'propeller-sdk-v2';
-
-const client = getClient();
-const productService = new ProductService(client);
-
-// Fetch products
-const products = await productService.getProducts({
-  limit: 10,
-  offset: 0
-});
-
-console.log('Products:', products);
+```bash
+# Copy sample files (if using this repo)
+cp -r examples/graphql/* ./graphql/
 ```
 
-## Available Services
+Or create your own `graphql/queries/getProducts.graphql`:
 
-The package provides the following services:
-
-### Core Services
-- `ProductService` - Product management and search
-- `CategoryService` - Category browsing and management
-- `OrderService` - Order creation and management
-- `UserService` - User authentication and profile management
-- `CartService` - Shopping cart operations
-- `PaymentService` - Payment processing
-
-### Example Service Usage
-
-```typescript
-import { 
-  ProductService, 
-  CategoryService, 
-  UserService, 
-  OrderService 
-} from 'propeller-sdk-v2';
-
-const client = getClient();
-
-// Product operations
-const productService = new ProductService(client);
-const products = await productService.getProducts({ limit: 20 });
-const product = await productService.getProduct(123);
-
-// Category operations
-const categoryService = new CategoryService(client);
-const category = await categoryService.getCategory({ slug: 'electronics' });
-const categories = await categoryService.getCategories();
-
-// User operations
-const userService = new UserService(client);
-const viewer = await userService.getViewer();
-const users = await userService.getUsers({ limit: 10 });
-
-// Order operations (requires Order Editor API key)
-const orderService = new OrderService(client);
-const order = await orderService.createOrder({
-  customerId: 123,
-  items: [{ productId: 456, quantity: 2 }]
-});
-```
-
-## TypeScript Support
-
-The package includes full TypeScript definitions:
-
-```typescript
-import type { 
-  Product, 
-  Category, 
-  Order, 
-  ViewerResult,
-  ProductSearchInput,
-  CategorySearchInput 
-} from 'propeller-sdk-v2';
-
-// All GraphQL types are available as TypeScript interfaces
-const handleProduct = (product: Product) => {
-  console.log(product.name, product.price);
-};
-
-// Union types are properly handled
-const handleViewer = (viewer: ViewerResult) => {
-  if (viewer.__typename === 'Customer') {
-    console.log('Customer:', viewer.companyName);
-  } else {
-    console.log('Contact:', viewer.firstName);
+```graphql
+query GetProducts($limit: Int) {
+  products(limit: $limit) {
+    id
+    name
+    price
   }
-};
+}
 ```
 
-## Framework-Specific Tips
+### 4. Initialize the Client
 
-### React
-- Use custom hooks to encapsulate service logic
-- Implement proper loading and error states
-- Consider using React Query or SWR for additional caching
-- Use useCallback for query functions to prevent unnecessary re-renders
-
-### Vue
-- Leverage the Composition API for reactive service management
-- Use computed properties for derived state
-- Implement proper error handling with try/catch
-- Consider using Pinia for global state management
-
-### Angular
 ```typescript
-import { Injectable } from '@angular/core';
-import { getClient, ProductService } from 'propeller-sdk-v2';
+import { initializeClient } from '@propeller/sdk';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class PropellerService {
-  private productService = new ProductService(getClient());
+initializeClient({
+  endpoint: 'https://api.propeller.com/graphql',
+  securityMode: 'proxy',
+  customFragmentsPath: './graphql/fragments',
+  customQueriesPath: './graphql/queries',
+  customMutationsPath: './graphql/mutations'
+});
+```
+
+### 5. Execute Operations
+
+```typescript
+import { getClient } from '@propeller/sdk';
+
+const client = getClient();
+
+// Execute by name
+const products = await client.queryByName('getProducts', { limit: 10 });
+console.log(products);
+```
+
+## Running the Examples
+
+### Prerequisites
+
+```bash
+npm install
+npm install chokidar --save-dev  # Optional, for hot reload example
+```
+
+### Run All Examples
+
+```bash
+# Compile TypeScript
+npx tsc examples/custom-graphql-example.ts --outDir ./dist
+
+# Run
+node dist/examples/custom-graphql-example.js
+```
+
+### Run Individual Examples
+
+Import and run specific examples:
+
+```typescript
+import { example2_QueryByName } from './examples/custom-graphql-example';
+
+// Run specific example
+await example2_QueryByName();
+```
+
+## Example Overview
+
+### Example 1: Basic Configuration
+Shows how to initialize the client with custom GraphQL paths.
+
+### Example 2: Query by Name
+Execute a registered query using its filename as the operation name.
+
+### Example 3: Mutation by Name
+Execute a registered mutation by name.
+
+### Example 4: Using Fragments
+Demonstrates automatic fragment resolution in queries.
+
+### Example 5: Manual Registration
+Register operations at runtime without files.
+
+### Example 6: Inspect Operations
+List all available queries, mutations, and fragments.
+
+### Example 7: Reload Operations
+Hot-reload operations when files change.
+
+### Example 8: Environment-Specific Configuration
+Configure different paths for different environments.
+
+### Example 9: Error Handling
+Handle missing operations and GraphQL errors gracefully.
+
+### Example 10: Type-Safe Queries
+Use TypeScript interfaces for type-safe results.
+
+### Example 11: Combined Approach
+Mix custom registered queries with inline queries.
+
+### Example 12: Hot Reload in Development
+Watch GraphQL files and auto-reload on changes.
+
+## Sample GraphQL Files
+
+### Fragments
+
+#### `ProductFields.graphql`
+Basic product information fragment.
+
+```graphql
+fragment ProductFields on Product {
+  id
+  name
+  sku
+  price
+}
+```
+
+#### `DetailedProductFields.graphql`
+Extended product fragment with inventory and categories.
+
+```graphql
+fragment DetailedProductFields on Product {
+  ...ProductFields
+  inventory { quantity status }
+  category { id name }
+}
+```
+
+### Queries
+
+#### `getProducts.graphql`
+Retrieve a list of products.
+
+```graphql
+query GetProducts($limit: Int, $offset: Int) {
+  products(limit: $limit, offset: $offset) {
+    ...ProductFields
+  }
+}
+```
+
+#### `searchProducts.graphql`
+Search for products by keyword.
+
+```graphql
+query SearchProducts($query: String!, $limit: Int) {
+  searchProducts(query: $query, limit: $limit) {
+    ...ProductFields
+  }
+}
+```
+
+### Mutations
+
+#### `createOrder.graphql`
+Create a new order.
+
+```graphql
+mutation CreateOrder($input: OrderInput!) {
+  createOrder(input: $input) {
+    id
+    orderNumber
+    status
+  }
+}
+```
+
+## Testing Your Custom Operations
+
+### Test Individual Operations
+
+```typescript
+import { getClient } from '@propeller/sdk';
+
+async function testQuery() {
+  const client = getClient();
   
-  async getProducts() {
-    return this.productService.getProducts({ limit: 20 });
+  // List available operations
+  console.log('Available queries:', client.getQueryNames());
+  
+  // Test a query
+  try {
+    const result = await client.queryByName('getProducts', { limit: 5 });
+    console.log('Success:', result);
+  } catch (error) {
+    console.error('Failed:', error.message);
   }
 }
+
+testQuery();
 ```
 
-### Svelte
-```javascript
-import { getClient, ProductService } from 'propeller-sdk-v2';
-import { writable } from 'svelte/store';
+### Validate GraphQL Syntax
 
-const client = getClient();
-const productService = new ProductService(client);
+You can use GraphQL CLI tools to validate your `.graphql` files:
 
-export const products = writable([]);
-
-export const loadProducts = async () => {
-  const data = await productService.getProducts({ limit: 20 });
-  products.set(data);
-};
-```
-
-## Error Handling
-
-The client provides comprehensive error handling:
-
-```typescript
-try {
-  const products = await productService.getProducts({ limit: 20 });
-} catch (error) {
-  if (error.message.includes('GraphQL')) {
-    // Handle GraphQL-specific errors
-    console.error('GraphQL Error:', error.message);
-  } else {
-    // Handle network or other errors
-    console.error('Network Error:', error.message);
-  }
-}
-```
-
-## Configuration Options
-
-```typescript
-initializeClient({
-  endpoint: 'https://api.example.com/graphql',
-  apiKey: 'your-api-key',
-  orderEditorApiKey: 'order-editor-key', // For order operations
-  headers: {
-    'Custom-Header': 'value'
-  },
-  timeout: 30000 // 30 seconds
-});
+```bash
+npm install -g graphql-cli
+graphql validate --schema schema.json --query graphql/**/*.graphql
 ```
 
 ## Best Practices
 
-1. **Initialize Once**: Call `initializeClient()` only once in your application
-2. **Service Reuse**: Create service instances as needed, they're lightweight
-3. **Error Handling**: Always wrap service calls in try/catch blocks
-4. **TypeScript**: Use the provided types for better development experience
-5. **Caching**: The client handles GraphQL query caching automatically
-6. **Authentication**: API keys are handled automatically per operation
+1. **Organize by Feature**: Group related queries/mutations in subdirectories
+2. **Use Descriptive Names**: Name files clearly (e.g., `getProductById.graphql`)
+3. **Document Operations**: Add comments explaining parameters and usage
+4. **Reuse Fragments**: Create reusable fragments for common field sets
+5. **Version Control**: Commit your `.graphql` files to version control
+6. **Environment-Specific**: Use different directories for dev/staging/prod if needed
 
-## Performance Tips
+## Troubleshooting
 
-- Services are lightweight and can be created as needed
-- GraphQL queries are cached automatically
-- Fragments are preloaded for optimal performance
-- Use appropriate pagination parameters to avoid large data sets
+### "Query not found" Error
+
+1. Check that the file exists in your `customQueriesPath`
+2. Verify the file has a `.graphql` or `.gql` extension
+3. Ensure the filename matches the operation name you're calling
+
+```typescript
+// If you have: ./graphql/queries/getProducts.graphql
+// Call it as:
+await client.queryByName('getProducts');  // ✅
+await client.queryByName('GetProducts');  // ❌ Case-sensitive
+```
+
+### Fragments Not Resolving
+
+1. Check that fragments are in the `customFragmentsPath`
+2. Verify fragment names match the spread syntax
+3. List loaded fragments: `client.getFragmentNames()`
+
+### Path Issues
+
+```typescript
+// Use absolute paths if relative paths don't work
+import path from 'path';
+
+const customPath = path.resolve(__dirname, 'graphql/queries');
+initializeClient({
+  endpoint: '...',
+  customQueriesPath: customPath
+});
+```
+
+## Additional Resources
+
+- [Full Documentation](../CUSTOM_GRAPHQL.md)
+- [GraphQL Client API Reference](../src/client/GraphQLClient.ts)
+- [Main SDK Documentation](../README.md)
+
+## Contributing
+
+To add more examples:
+
+1. Create a new example function in `custom-graphql-example.ts`
+2. Add corresponding GraphQL files in `examples/graphql/`
+3. Document the example in this README
+4. Submit a pull request
 
 ## Support
 
-For issues or questions:
-1. Check the main README.md
-2. Review the TypeScript definitions
-3. Examine the generated service methods
-4. Create an issue in the repository
+For questions or issues:
+- Open an issue on GitHub
+- Check the [main documentation](../CUSTOM_GRAPHQL.md)
+- Review the [API reference](../src/client/GraphQLClient.ts)
 
-The `propeller-sdk-v2` package is designed to work seamlessly with any JavaScript/TypeScript framework while providing excellent developer experience and type safety. 
+## License
+
+See the main SDK LICENSE file.

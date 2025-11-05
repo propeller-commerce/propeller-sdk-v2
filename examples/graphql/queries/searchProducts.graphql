@@ -1,0 +1,14 @@
+# Query: Search Products
+# Search for products by keyword
+#
+# @param query - Search query string
+# @param limit - Maximum number of results
+
+query SearchProducts($query: String!, $limit: Int) {
+  searchProducts(query: $query, limit: $limit) {
+    ...ProductFields
+    relevanceScore
+    matchedFields
+  }
+}
+

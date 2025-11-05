@@ -1,0 +1,12 @@
+# Mutation: Update Product
+# Updates an existing product's information
+#
+# @param id - Product ID
+# @param input - Product update data
+
+mutation UpdateProduct($id: ID!, $input: ProductUpdateInput!) {
+  updateProduct(id: $id, input: $input) {
+    ...DetailedProductFields
+  }
+}
+

@@ -46,6 +46,16 @@ export interface GraphQLClientConfig {
   proxyEndpoint?: string;
   /** Client identifier for proxy mode (optional) */
   clientId?: string;
+  /** Custom path for GraphQL fragments (overrides default SDK fragments) */
+  customFragmentsPath?: string;
+  /** Custom path for GraphQL queries (overrides default SDK queries) */
+  customQueriesPath?: string;
+  /** Custom path for GraphQL mutations (overrides default SDK mutations) */
+  customMutationsPath?: string;
+  /** Enable custom GraphQL file overrides (default: true) */
+  allowCustomOverride?: boolean;
+  /** Enable debug logging for custom GraphQL loading (default: false) */
+  debug?: boolean;
 }
 
 /**
@@ -64,6 +74,8 @@ export interface GraphQLClientConfig {
 export class GraphQLClient {
   private config: GraphQLClientConfig;
   private fragments: Map<string, string> = new Map();
+  private queries: Map<string, string> = new Map();
+  private mutations: Map<string, string> = new Map();
   
   /** Mutations that require Order Editor API key */
   private static readonly ORDER_EDITOR_MUTATIONS = new Set([
@@ -80,31 +92,230 @@ export class GraphQLClient {
     this.config = {
       timeout: 30000,
       securityMode: 'proxy', // Default to secure mode
+      allowCustomOverride: true,
       ...config
     };
+    
+    if (this.config.debug) {
+      console.log('\n[GraphQL Client] === Initialization ===');
+      console.log('[GraphQL Client] Config:', {
+        customQueriesPath: this.config.customQueriesPath,
+        customMutationsPath: this.config.customMutationsPath,
+        customFragmentsPath: this.config.customFragmentsPath,
+        allowCustomOverride: this.config.allowCustomOverride
+      });
+    }
+    
     this.loadFragments();
+    this.loadQueries();
+    this.loadMutations();
   }
 
   /**
-   * Load all fragments from the generated fragments
+   * Load a GraphQL file from the filesystem
+   * @private
+   * @param filePath - Path to the GraphQL file
+   * @returns GraphQL file content or null if not found
+   */
+  private loadGraphQLFile(filePath: string): string | null {
+    try {
+      // Check if we're in Node.js environment
+      if (typeof require !== 'undefined' && typeof require.resolve !== 'undefined') {
+        const fs = require('fs');
+        const path = require('path');
+        
+        // Try to resolve the path
+        const resolvedPath = path.isAbsolute(filePath) 
+          ? filePath 
+          : path.resolve(process.cwd(), filePath);
+        
+        if (fs.existsSync(resolvedPath)) {
+          return fs.readFileSync(resolvedPath, 'utf-8');
+        }
+      }
+    } catch (error) {
+      // Silently fail - this is expected for custom paths that don't exist
+    }
+    return null;
+  }
+
+  /**
+   * Load GraphQL files from a directory
+   * @private
+   * @param dirPath - Directory path
+   * @returns Map of filename (without extension) to content
+   */
+  private loadGraphQLDirectory(dirPath: string): Map<string, string> {
+    const files = new Map<string, string>();
+    
+    try {
+      if (typeof require !== 'undefined' && typeof require.resolve !== 'undefined') {
+        const fs = require('fs');
+        const path = require('path');
+        
+        const resolvedPath = path.isAbsolute(dirPath)
+          ? dirPath
+          : path.resolve(process.cwd(), dirPath);
+        
+        if (this.config.debug) {
+          console.log(`[GraphQL Client] Attempting to load from: ${resolvedPath}`);
+          console.log(`[GraphQL Client] process.cwd(): ${process.cwd()}`);
+          console.log(`[GraphQL Client] Path exists: ${fs.existsSync(resolvedPath)}`);
+        }
+        
+        if (fs.existsSync(resolvedPath) && fs.statSync(resolvedPath).isDirectory()) {
+          const fileList = fs.readdirSync(resolvedPath);
+          
+          if (this.config.debug) {
+            console.log(`[GraphQL Client] Files found:`, fileList);
+          }
+          
+          fileList.forEach((file: string) => {
+            if (file.endsWith('.graphql') || file.endsWith('.gql')) {
+              const filePath = path.join(resolvedPath, file);
+              const content = fs.readFileSync(filePath, 'utf-8');
+              const name = file.replace(/\.(graphql|gql)$/, '');
+              files.set(name, content);
+              
+              if (this.config.debug) {
+                console.log(`[GraphQL Client] ✓ Loaded: ${name} from ${file}`);
+              }
+            }
+          });
+          
+          if (this.config.debug) {
+            console.log(`[GraphQL Client] Total loaded: ${files.size} files`);
+          }
+        } else if (this.config.debug) {
+          console.log(`[GraphQL Client] ⚠ Directory not found or not accessible: ${resolvedPath}`);
+        }
+      }
+    } catch (error) {
+      if (this.config.debug) {
+        console.error(`[GraphQL Client] ❌ Error loading directory ${dirPath}:`, error);
+      }
+    }
+    
+    return files;
+  }
+
+  /**
+   * Load all fragments from custom path (if provided) and default SDK path
    * @private
    */
   private loadFragments(): void {
+    if (this.config.debug) {
+      console.log('\n[GraphQL Client] === Loading Fragments ===');
+    }
+    
+    // Load from custom path first (if enabled and provided)
+    if (this.config.allowCustomOverride && this.config.customFragmentsPath) {
+      if (this.config.debug) {
+        console.log(`[GraphQL Client] Loading custom fragments from: ${this.config.customFragmentsPath}`);
+      }
+      
+      const customFragments = this.loadGraphQLDirectory(this.config.customFragmentsPath);
+      customFragments.forEach((content, name) => {
+        this.fragments.set(name, content);
+      });
+      
+      if (this.config.debug) {
+        console.log(`[GraphQL Client] Loaded ${customFragments.size} custom fragments`);
+      }
+    }
+
+    // Load default fragments from SDK (these won't override custom ones due to Map behavior)
     try {
       // Import fragments dynamically to avoid circular dependencies
       const fragmentsModule = require('../generated/fragments');
+      
+      let defaultCount = 0;
       
       // Register all fragments (skip the 'fragments' and 'default' exports)
       Object.keys(fragmentsModule).forEach(fragmentName => {
         if (fragmentName !== 'fragments' && fragmentName !== 'default') {
           const fragmentContent = fragmentsModule[fragmentName];
-          if (typeof fragmentContent === 'string') {
+          if (typeof fragmentContent === 'string' && !this.fragments.has(fragmentName)) {
+            // Only add if not already loaded from custom path
             this.fragments.set(fragmentName, fragmentContent);
+            defaultCount++;
+          }
+        }
+      });
+      
+      if (this.config.debug) {
+        console.log(`[GraphQL Client] Loaded ${defaultCount} default SDK fragments`);
+      }
+    } catch (error) {
+      if (this.config.debug) {
+        console.warn('[GraphQL Client] Could not load default fragments:', error);
+      }
+    }
+    
+    if (this.config.debug) {
+      console.log(`[GraphQL Client] Total fragments registered: ${this.fragments.size}`);
+    }
+  }
+
+  /**
+   * Load all queries from custom path (if provided) and default SDK path
+   * @private
+   */
+  private loadQueries(): void {
+    // Load from custom path first (if enabled and provided)
+    if (this.config.allowCustomOverride && this.config.customQueriesPath) {
+      console.log('\u2605 \u2192 Loading custom queries from:', this.config.customQueriesPath);
+      const customQueries = this.loadGraphQLDirectory(this.config.customQueriesPath);
+      customQueries.forEach((content, name) => {
+        console.log('\u2605 \u2192 Loaded custom query:', name);
+        this.queries.set(name, content);
+      });
+    }
+
+    // Load default queries from SDK
+    try {
+      const queriesModule = require('../generated/queries');
+      
+      Object.keys(queriesModule).forEach(queryName => {
+        if (queryName !== 'queries' && queryName !== 'default') {
+          const queryContent = queriesModule[queryName];
+          if (typeof queryContent === 'string' && !this.queries.has(queryName)) {
+            this.queries.set(queryName, queryContent);
           }
         }
       });
     } catch (error) {
-      console.warn('Could not load fragments:', error);
+      // Default queries might not exist yet - that's okay
+    }
+  }
+
+  /**
+   * Load all mutations from custom path (if provided) and default SDK path
+   * @private
+   */
+  private loadMutations(): void {
+    // Load from custom path first (if enabled and provided)
+    if (this.config.allowCustomOverride && this.config.customMutationsPath) {
+      const customMutations = this.loadGraphQLDirectory(this.config.customMutationsPath);
+      customMutations.forEach((content, name) => {
+        this.mutations.set(name, content);
+      });
+    }
+
+    // Load default mutations from SDK
+    try {
+      const mutationsModule = require('../generated/mutations');
+      
+      Object.keys(mutationsModule).forEach(mutationName => {
+        if (mutationName !== 'mutations' && mutationName !== 'default') {
+          const mutationContent = mutationsModule[mutationName];
+          if (typeof mutationContent === 'string' && !this.mutations.has(mutationName)) {
+            this.mutations.set(mutationName, mutationContent);
+          }
+        }
+      });
+    } catch (error) {
+      // Default mutations might not exist yet - that's okay
     }
   }
 
@@ -115,6 +326,75 @@ export class GraphQLClient {
    */
   registerFragment(name: string, definition: string): void {
     this.fragments.set(name, definition);
+  }
+
+  /**
+   * Register a GraphQL query manually
+   * @param name - Query name
+   * @param definition - Query definition
+   */
+  registerQuery(name: string, definition: string): void {
+    this.queries.set(name, definition);
+  }
+
+  /**
+   * Register a GraphQL mutation manually
+   * @param name - Mutation name
+   * @param definition - Mutation definition
+   */
+  registerMutation(name: string, definition: string): void {
+    this.mutations.set(name, definition);
+  }
+
+  /**
+   * Get a registered fragment by name
+   * @param name - Fragment name
+   * @returns Fragment definition or undefined if not found
+   */
+  getFragment(name: string): string | undefined {
+    return this.fragments.get(name);
+  }
+
+  /**
+   * Get a registered query by name
+   * @param name - Query name
+   * @returns Query definition or undefined if not found
+   */
+  getQuery(name: string): string | undefined {
+    return this.queries.get(name);
+  }
+
+  /**
+   * Get a registered mutation by name
+   * @param name - Mutation name
+   * @returns Mutation definition or undefined if not found
+   */
+  getMutation(name: string): string | undefined {
+    return this.mutations.get(name);
+  }
+
+  /**
+   * Get all registered fragment names
+   * @returns Array of fragment names
+   */
+  getFragmentNames(): string[] {
+    return Array.from(this.fragments.keys());
+  }
+
+  /**
+   * Get all registered query names
+   * @returns Array of query names
+   */
+  getQueryNames(): string[] {
+    return Array.from(this.queries.keys());
+  }
+
+  /**
+   * Get all registered mutation names
+   * @returns Array of mutation names
+   */
+  getMutationNames(): string[] {
+    return Array.from(this.mutations.keys());
   }
 
   /**
@@ -358,6 +638,64 @@ export class GraphQLClient {
     }
 
     return result.data!;
+  }
+
+  /**
+   * Execute a registered query by name
+   * @param queryName - Name of the registered query
+   * @param variables - Query variables
+   * @returns Promise resolving to the query result data
+   * @throws Error if query is not registered
+   */
+  async queryByName<T = any>(
+    queryName: string,
+    variables?: Record<string, any>
+  ): Promise<T> {
+    const queryDefinition = this.queries.get(queryName);
+    
+    if (!queryDefinition) {
+      throw new Error(
+        `Query "${queryName}" not found. Available queries: ${Array.from(this.queries.keys()).join(', ')}`
+      );
+    }
+
+    return this.query<T>(queryDefinition, variables, queryName);
+  }
+
+  /**
+   * Execute a registered mutation by name
+   * @param mutationName - Name of the registered mutation
+   * @param variables - Mutation variables
+   * @returns Promise resolving to the mutation result data
+   * @throws Error if mutation is not registered
+   */
+  async mutateByName<T = any>(
+    mutationName: string,
+    variables?: Record<string, any>
+  ): Promise<T> {
+    const mutationDefinition = this.mutations.get(mutationName);
+    
+    if (!mutationDefinition) {
+      throw new Error(
+        `Mutation "${mutationName}" not found. Available mutations: ${Array.from(this.mutations.keys()).join(', ')}`
+      );
+    }
+
+    return this.mutate<T>(mutationDefinition, variables, mutationName);
+  }
+
+  /**
+   * Reload all GraphQL operations (queries, mutations, fragments) from configured paths
+   * Useful when custom GraphQL files are updated at runtime
+   */
+  reloadOperations(): void {
+    this.fragments.clear();
+    this.queries.clear();
+    this.mutations.clear();
+    
+    this.loadFragments();
+    this.loadQueries();
+    this.loadMutations();
   }
 
   /**

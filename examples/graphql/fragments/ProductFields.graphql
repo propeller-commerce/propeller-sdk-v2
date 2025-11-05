@@ -1,0 +1,12 @@
+# Fragment: Basic Product Fields
+# Use this fragment to include standard product information in your queries
+
+fragment ProductFields on Product {
+  id
+  name
+  sku
+  price
+  description
+  status
+}
+

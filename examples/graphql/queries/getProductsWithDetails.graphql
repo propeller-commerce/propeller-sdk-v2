@@ -1,0 +1,11 @@
+# Query: Get Products with Details
+# Retrieves products with full details including inventory and categories
+#
+# @param limit - Maximum number of products to return
+
+query GetProductsWithDetails($limit: Int) {
+  products(limit: $limit) {
+    ...DetailedProductFields
+  }
+}
+

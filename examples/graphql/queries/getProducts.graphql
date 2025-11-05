@@ -1,0 +1,13 @@
+# Query: Get Products
+# Retrieves a list of products with basic fields
+#
+# @param limit - Maximum number of products to return
+# @param offset - Number of products to skip
+# @param categoryId - Filter by category ID (optional)
+
+query GetProducts($limit: Int, $offset: Int, $categoryId: ID) {
+  products(limit: $limit, offset: $offset, categoryId: $categoryId) {
+    ...ProductFields
+  }
+}
+

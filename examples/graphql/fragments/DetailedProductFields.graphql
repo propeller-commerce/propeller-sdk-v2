@@ -1,0 +1,24 @@
+# Fragment: Detailed Product Fields
+# Extended fragment that includes inventory and category information
+
+fragment DetailedProductFields on Product {
+  ...ProductFields
+  inventory {
+    quantity
+    status
+    warehouse
+  }
+  category {
+    id
+    name
+    slug
+  }
+  images {
+    url
+    alt
+    position
+  }
+  createdAt
+  updatedAt
+}
+
