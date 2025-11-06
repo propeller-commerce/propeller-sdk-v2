@@ -118,6 +118,11 @@ export class GraphQLClient {
    * @returns GraphQL file content or null if not found
    */
   private loadGraphQLFile(filePath: string): string | null {
+    // Skip filesystem operations in browser environment
+    if (typeof window !== 'undefined') {
+      return null;
+    }
+    
     try {
       // Check if we're in Node.js environment
       if (typeof require !== 'undefined' && typeof require.resolve !== 'undefined') {
@@ -147,6 +152,14 @@ export class GraphQLClient {
    */
   private loadGraphQLDirectory(dirPath: string): Map<string, string> {
     const files = new Map<string, string>();
+    
+    // Skip filesystem operations in browser environment
+    if (typeof window !== 'undefined') {
+      if (this.config.debug) {
+        console.log(`[GraphQL Client] ⚠ Skipping directory load (browser environment): ${dirPath}`);
+      }
+      return files;
+    }
     
     try {
       if (typeof require !== 'undefined' && typeof require.resolve !== 'undefined') {
