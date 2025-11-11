@@ -12,6 +12,8 @@ import { AttributeResultResponse } from '../type/AttributeResultResponse';
 import { MediaImageProductSearchInput } from '../type/MediaImageProductSearchInput';
 import { TransformationsInput } from '../type/TransformationsInput';
 import { FilterAvailableAttributeInput } from '../type/FilterAvailableAttributeInput';
+import { PriceCalculateProductInput } from '../type/PriceCalculateProductInput';
+import { CategoryProductSearchInput } from '../type/CategoryProductSearchInput';
 /**
  * Category query variables interface
  Variables for the category query
@@ -27,6 +29,10 @@ export interface CategoryQueryVariables {
   hidden?: boolean;
   /** Language for localized content */
   language?: string;
+  /** Price calculation input for products */
+  priceCalculateProductInput?: PriceCalculateProductInput;
+  /** Category product search input */
+  categoryProductSearchInput?: CategoryProductSearchInput;
   /** Image search filters */
   imageSearchFilters?: MediaImageProductSearchInput;
   /** Image transformation filters */
@@ -57,9 +63,11 @@ export class CategoryService extends BaseService {
    *  - userId: number - User ID for personalization
    *  - hidden: boolean - Whether to include hidden categories
    *  - language: string - Language for localized content
-   *  - imageSearchFilters: MediaImageProductSearchInput
-   *  - imageVariantFilters: TransformationsInput!
-   *  - filterAvailableAttributeInput: FilterAvailableAttributeInput
+   *  - priceCalculateProductInput: PriceCalculateProductInput - Price calculation input
+   *  - categoryProductSearchInput: CategoryProductSearchInput - Category product search input
+   *  - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+   *  - imageVariantFilters: TransformationsInput! - Image transformation filters
+   *  - filterAvailableAttributeInput: FilterAvailableAttributeInput - Filter available attributes
    * @returns Promise<Category> The category data
    */
   async getCategory(variables: CategoryQueryVariables): Promise<Category> {

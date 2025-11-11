@@ -4,6 +4,7 @@ node_modules/
 # Build outputs
 /dist
 /documentation
+/tests
 
 # IDE and editor folders
 /.cursor
