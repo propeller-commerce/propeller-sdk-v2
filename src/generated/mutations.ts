@@ -1340,6 +1340,10 @@ export const trackAndTraceUpdate = `mutation trackAndTraceUpdate(\$id: String!, 
   }
 }`;
 
+export const triggerPasswordSendResetEmailEvent = `mutation triggerPasswordSendResetEmailEvent(\$input: PasswordRecoveryLinkInput!) {
+  triggerPasswordSendResetEmailEvent(input: \$input)
+}`;
+
 export const userAddressCreate = `mutation userAddressCreate(\$input: UserAddressCreateInput!) {
   userAddressCreate(input: \$input) {
     ...AddressFields
@@ -1663,6 +1667,7 @@ export const mutations = {
   tenderUpdatePostage,
   trackAndTraceCreate,
   trackAndTraceUpdate,
+  triggerPasswordSendResetEmailEvent,
   userAddressCreate,
   userAddressDelete,
   userAddressUpdate,
