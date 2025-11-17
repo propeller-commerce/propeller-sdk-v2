@@ -19,6 +19,7 @@ import { Address } from '../type/Address';
 import { PasswordResetLinkEmailInput } from '../type/PasswordResetLinkEmailInput';
 import { PublishEmailEventResponse } from '../type/PublishEmailEventResponse';
 import { EmailEventType } from '../enum/EmailEventType';
+import { PasswordRecoveryLinkInput } from '../type';
 /**
  * Viewer result type alias
  * @type ViewerResult
@@ -209,21 +210,17 @@ export class UserService extends BaseService {
     /**
      * Send a password reset email to the specified user
      * @param input Password reset request input data
-     * @returns Promise<PublishEmailEventResponse> The email send response
+     * @returns Promise<string> The email send response
      */
-    async sendPasswordResetEmail(input: PasswordResetInput): Promise<PublishEmailEventResponse> {
-        // Build the full PasswordResetLinkEmailInput from the simplified input
-        const passwordResetInput: PasswordResetLinkEmailInput = {
-            type: EmailEventType.PASSWORD_RESET,
+    async sendPasswordResetEmail(input: PasswordResetInput): Promise<string> {
+        // Build the full PasswordRecoveryLinkInput from the simplified input
+        const passwordResetInput: PasswordRecoveryLinkInput = {
             email: input.email,
             redirectUrl: input.redirectUrl,
-            linkText: input.linkText || 'Reset Your Password',
-            subject: input.subject,
-            language: input.language,
-            siteId: input.siteId
+            language: input.language
         };
-        const result = await this.executeMutation('publishPasswordResetEmailEvent', { input: passwordResetInput });
-        return new PublishEmailEventResponse(result.data.publishPasswordResetEmailEvent);
+        const result = await this.executeMutation('triggerPasswordSendResetEmailEvent', { input: passwordResetInput });
+        return result.data;
     }
     /**
      * Create user address
