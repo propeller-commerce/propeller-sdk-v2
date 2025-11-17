@@ -212,7 +212,7 @@ export class UserService extends BaseService {
      * @param input Password reset request input data
      * @returns Promise<string> The email send response
      */
-    async sendPasswordResetEmail(input: PasswordResetInput): Promise<string> {
+    async sendPasswordResetEmail(input: PasswordResetInput): Promise<boolean> {
         // Build the full PasswordRecoveryLinkInput from the simplified input
         const passwordResetInput: PasswordRecoveryLinkInput = {
             email: input.email,
@@ -220,7 +220,7 @@ export class UserService extends BaseService {
             language: input.language
         };
         const result = await this.executeMutation('triggerPasswordSendResetEmailEvent', { input: passwordResetInput });
-        return result.data;
+        return result.data.triggerPasswordSendResetEmailEvent;
     }
     /**
      * Create user address
