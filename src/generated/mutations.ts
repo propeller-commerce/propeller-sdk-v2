@@ -5,7 +5,8 @@
 
 export const addSurchargesToProduct = `mutation addSurchargesToProduct(\$input: AddSurchargesToProductInput!) {
   addSurchargesToProduct(input: \$input) {
-    ...ConfirmationResponseFields
+    status
+    message
   }
 }`;
 
