@@ -4,6 +4,7 @@ import { SurchargesResponse } from '../type/SurchargesResponse';
 import { SurchargeSearchInput } from '../type/SurchargeSearchInput';
 import { SurchargeInput } from '../type/SurchargeInput';
 import { UpdateSurchargeInput } from '../type/UpdateSurchargeInput';
+import { CreateSurchargeInput } from '../type/CreateSurchargeInput';
 /**
  Service class for Surcharge-related GraphQL operations
  */
@@ -33,7 +34,7 @@ export class SurchargeService extends BaseService {
    * @param input Surcharge creation input data
    * @returns Promise<Surcharge> The created surcharge
    */
-  async createSurcharge(input: SurchargeInput): Promise<Surcharge> {
+  async createSurcharge(input: CreateSurchargeInput): Promise<Surcharge> {
     const variables = { input };
     const result = await this.executeMutation('surchargeCreate', variables);
     return new Surcharge(result.data.surchargeCreate);
