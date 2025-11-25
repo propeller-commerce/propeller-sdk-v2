@@ -44,8 +44,8 @@ export class SurchargeService extends BaseService {
    * @param input Surcharge update input data
    * @returns Promise<Surcharge> The updated surcharge
    */
-  async updateSurcharge(input: UpdateSurchargeInput): Promise<Surcharge> {
-    const variables = { input };
+  async updateSurcharge(id: number, input: UpdateSurchargeInput): Promise<Surcharge> {
+    const variables = { id, input };
     const result = await this.executeMutation('surchargeUpdate', variables);
     return new Surcharge(result.data.surchargeUpdate);
   }
