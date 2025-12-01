@@ -2123,6 +2123,16 @@ export const OrderDataFields = `fragment OrderDataFields on Order {
   companyId
   items {
     quantity
+    class
+    productId
+    sku
+    isBonus
+    name
+    supplier
+    supplierCode
+    manufacturer
+    manufacturerCode
+    eanCode
   }
 }`;
 
