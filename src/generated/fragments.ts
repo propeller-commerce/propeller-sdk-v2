@@ -2121,6 +2121,9 @@ export const OrderDataFields = `fragment OrderDataFields on Order {
   invoiceUserId
   validUntil
   companyId
+  items {
+    quantity
+  }
 }`;
 
 export const OrderFields = `fragment OrderFields on Order {

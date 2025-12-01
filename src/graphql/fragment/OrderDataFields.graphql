@@ -28,4 +28,7 @@ fragment OrderDataFields on Order {
   invoiceUserId
   validUntil
   companyId
+  items {
+    quantity
+  }
 }
