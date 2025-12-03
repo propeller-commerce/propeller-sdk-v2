@@ -2182,6 +2182,9 @@ export const OrderFields = `fragment OrderFields on Order {
   addresses {
     ... AddressFields
   }
+  sources {
+    ... SourceFields
+  }
   invoiceUserId
   validUntil
   companyId
