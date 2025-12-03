@@ -8,6 +8,7 @@ import { OrderItem } from './OrderItem';
 import { Shipment } from './Shipment';
 import { Address } from './Address';
 import { OrderAddress } from './OrderAddress';
+import { Source } from './Source';
 /**
  Object class for Order
  */
@@ -95,6 +96,8 @@ export class Order {
   private _exportMessage?: string;
   /** orderAddresses field */
   private _orderAddresses: OrderAddress[];
+  /** Order sources */
+  private _sources?: Source[];
   /**
    Creates a new instance of Order
    */
@@ -139,6 +142,7 @@ export class Order {
     this._exportStatus = data.exportStatus;
     this._exportMessage = data.exportMessage;
     this._orderAddresses = data.orderAddresses!;
+    this._sources = data.sources ?? [];
   }
   /**
    The auto-incremental id for this order
@@ -623,5 +627,17 @@ export class Order {
    */
   set orderAddresses(value: OrderAddress[]) {
     this._orderAddresses = value;
+  }
+  /**
+   Order sources
+   */
+  get sources(): Source[] | undefined {
+    return this._sources;
+  }
+  /**
+   Order sources
+   */
+  set sources(value: Source[] | undefined) {
+    this._sources = value;
   }
 }
