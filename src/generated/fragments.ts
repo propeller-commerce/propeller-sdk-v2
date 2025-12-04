@@ -588,6 +588,9 @@ export const CartMainItemFields = `fragment CartMainItemFields on CartMainItem {
   deliveryDeadline
   discount
   discountPercentage
+  surcharges {
+    ... CartItemSurchargeFields
+  } 
   incentive {
     name
     quantity
@@ -619,9 +622,6 @@ export const CartMainItemFields = `fragment CartMainItemFields on CartMainItem {
     product {
       ... ProductCartFields
     }
-    surcharges {
-      ... CartItemSurchargeFields
-    } 
   }
   product {
     ... ProductCartFields
