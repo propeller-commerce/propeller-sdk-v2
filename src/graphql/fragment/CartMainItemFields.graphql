@@ -55,7 +55,7 @@ fragment CartMainItemFields on CartMainItem {
       ... ProductCartFields
     }
     surcharges {
-      ... SurchargeFields
+      ... CartItemSurchargeFields
     } 
   }
   product {

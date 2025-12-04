@@ -620,7 +620,7 @@ export const CartMainItemFields = `fragment CartMainItemFields on CartMainItem {
       ... ProductCartFields
     }
     surcharges {
-      ... SurchargeFields
+      ... CartItemSurchargeFields
     } 
   }
   product {
