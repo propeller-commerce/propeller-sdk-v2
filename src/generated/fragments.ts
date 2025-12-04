@@ -619,6 +619,9 @@ export const CartMainItemFields = `fragment CartMainItemFields on CartMainItem {
     product {
       ... ProductCartFields
     }
+    surcharges {
+      ... SurchargeFields
+    } 
   }
   product {
     ... ProductCartFields
