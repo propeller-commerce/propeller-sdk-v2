@@ -1486,7 +1486,6 @@ export const CustomerListFields = `fragment CustomerListFields on Customer {
   isLoggedIn
   createdAt
   lastModifiedAt
-  parentUsergroupId
 }`;
 
 export const CustomersResponseFields = `fragment CustomersResponseFields on CustomersResponse {
@@ -1525,7 +1524,6 @@ export const CustomerViewerFields = `fragment CustomerViewerFields on Customer {
   isLoggedIn
   createdAt
   lastModifiedAt
-  parentUsergroupId
 } `;
 
 export const DiscountFields = `fragment DiscountFields on Discount {
@@ -2567,7 +2565,6 @@ export const PricesheetFields = `fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  usergroups
   contacts {
     ... ContactFields
   }

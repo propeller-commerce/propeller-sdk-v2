@@ -22,5 +22,4 @@ fragment CustomerViewerFields on Customer {
   isLoggedIn
   createdAt
   lastModifiedAt
-  parentUsergroupId
 } 
