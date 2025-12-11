@@ -1460,7 +1460,6 @@ export const CustomerFields = `fragment CustomerFields on Customer {
   isLoggedIn
   createdAt
   lastModifiedAt
-  parentUsergroupId
 }`;
 
 export const CustomerListFields = `fragment CustomerListFields on Customer {

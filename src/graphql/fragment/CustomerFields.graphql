@@ -47,5 +47,4 @@ fragment CustomerFields on Customer {
   isLoggedIn
   createdAt
   lastModifiedAt
-  parentUsergroupId
 }
