@@ -1,0 +1,3 @@
+mutation pricesheetDelete($id: String!) {
+  pricesheetDelete(id: $id)
+}

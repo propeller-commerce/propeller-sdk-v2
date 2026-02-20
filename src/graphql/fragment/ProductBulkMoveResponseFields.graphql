@@ -1,0 +1,6 @@
+fragment ProductBulkMoveResponseFields on ProductBulkMoveResponse {
+  movedCount
+  errors {
+    ...ProductBulkMoveErrorFields
+  }
+}

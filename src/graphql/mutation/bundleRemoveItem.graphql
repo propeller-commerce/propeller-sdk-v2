@@ -1,0 +1,3 @@
+mutation bundleRemoveItem($id: String!, $productId: Int!) {
+  bundleRemoveItem(id: $id, productId: $productId)
+}

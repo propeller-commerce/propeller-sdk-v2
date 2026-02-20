@@ -76,6 +76,8 @@ export class Cluster implements IBaseProduct {
   private _metadataKeywords?: LocalizedString[];
   /** [SEO] Localized Metadata canonical url available in multiple languages */
   private _metadataCanonicalUrls?: LocalizedString[];
+  /** Short names for this cluster per language */
+  private _shortNames: LocalizedString[];
   /** sources field */
   private _sources: Source[];
   /** The requested language for this this resource, default to the
@@ -119,6 +121,7 @@ export class Cluster implements IBaseProduct {
     this._metadataDescriptions = data.metadataDescriptions;
     this._metadataKeywords = data.metadataKeywords;
     this._metadataCanonicalUrls = data.metadataCanonicalUrls;
+    this._shortNames = data.shortNames!;
     this._sources = data.sources!;
     this._language = data.language;
     this._class = data.class!;
@@ -471,6 +474,18 @@ export class Cluster implements IBaseProduct {
    */
   set metadataCanonicalUrls(value: LocalizedString[] | undefined) {
     this._metadataCanonicalUrls = value;
+  }
+  /**
+   Short names for this cluster per language
+   */
+  get shortNames(): LocalizedString[] {
+    return this._shortNames;
+  }
+  /**
+   Short names for this cluster per language
+   */
+  set shortNames(value: LocalizedString[]) {
+    this._shortNames = value;
   }
   /**
    sources field

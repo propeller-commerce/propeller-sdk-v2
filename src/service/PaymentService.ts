@@ -2,7 +2,6 @@ import { BaseService } from './BaseService';
 import { Payment } from '../type/Payment';
 import { PaymentsResponse } from '../type/PaymentsResponse';
 import { PaymentsSearchInput } from '../type/PaymentsSearchInput';
-import { PaymentInput } from '../type/PaymentInput';
 import { UpdatePaymentInput } from '../type/UpdatePaymentInput';
 /**
  Service for managing payments
@@ -34,7 +33,7 @@ export class PaymentService extends BaseService {
    * @param input Payment creation input
    * @returns Promise<Payment> The created payment
    */
-  async createPayment(input: PaymentInput): Promise<Payment> {
+  async createPayment(input: any): Promise<Payment> {
     const variables = { input };
     const result = await this.executeMutation('paymentCreate', variables);
     return new Payment(result.data.paymentCreate);

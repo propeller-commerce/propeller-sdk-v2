@@ -2,7 +2,8 @@ fragment AttributeDescriptionFields on AttributeDescription {
   id
   name
   descriptions {
-    ... LocalizedStringFields
+    language
+    value
   }
   units {
     language

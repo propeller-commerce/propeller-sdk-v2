@@ -8,9 +8,18 @@ import { MediaImageProductSearchInput } from '../type/MediaImageProductSearchInp
 import { MediaVideoProductSearchInput } from '../type/MediaVideoProductSearchInput';
 import { MediaDocumentProductSearchInput } from '../type/MediaDocumentProductSearchInput';
 import { TransformationsInput } from '../type/TransformationsInput';
-import { ClusterCreateVariables } from '../type/ClusterCreateVariables';
-import { ClusterUpdateVariables } from '../type/ClusterUpdateVariables';
-import { ClusterDeleteVariables } from '../type/ClusterDeleteVariables';
+import { ClusterCreateInput } from '../type/ClusterCreateInput';
+import { ClusterUpdateInput } from '../type/ClusterUpdateInput';
+export interface ClusterCreateVariables {
+  input: ClusterCreateInput;
+}
+export interface ClusterUpdateVariables {
+  id: number;
+  input: ClusterUpdateInput;
+}
+export interface ClusterDeleteVariables {
+  id: number;
+}
 /**
  * Cluster query variables interface
  Variables for the cluster query

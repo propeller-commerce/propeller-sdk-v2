@@ -1,0 +1,5 @@
+mutation channelUpdate($id: Int!, $input: ChannelUpdateInput!) {
+  channelUpdate(id: $id, input: $input) {
+    ...ChannelFields
+  }
+}

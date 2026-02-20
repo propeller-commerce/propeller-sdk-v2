@@ -1,5 +1,0 @@
-mutation usergroupUpdate($id: Int!, $input: UpdateUsergroupInput!) {
-  usergroupUpdate(id: $id, input: $input) {
-    ...UsergroupFields
-  }
-}

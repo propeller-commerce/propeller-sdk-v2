@@ -1,0 +1,3 @@
+mutation taxDelete($id: String!) {
+  taxDelete(id: $id)
+}

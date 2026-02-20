@@ -1,0 +1,3 @@
+mutation carrierUnassignWarehouse($id: Int!, $warehouseId: Int!) {
+  carrierUnassignWarehouse(id: $id, warehouseId: $warehouseId)
+}

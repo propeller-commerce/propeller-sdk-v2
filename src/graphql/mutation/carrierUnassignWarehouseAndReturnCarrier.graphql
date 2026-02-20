@@ -1,0 +1,5 @@
+mutation carrierUnassignWarehouseAndReturnCarrier($id: Int!, $warehouseId: Int!) {
+  carrierUnassignWarehouseAndReturnCarrier(id: $id, warehouseId: $warehouseId) {
+    ...CarrierFields
+  }
+}

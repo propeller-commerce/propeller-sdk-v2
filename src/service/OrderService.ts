@@ -2,7 +2,6 @@ import { BaseService } from './BaseService';
 import { Order } from '../type/Order';
 import { OrderResponse } from '../type/OrderResponse';
 import { OrderSearchArguments } from '../type/OrderSearchArguments';
-import { OrderInput } from '../type/OrderInput';
 import { OrderUpdateInput } from '../type/OrderUpdateInput';
 import { OrderSetStatusInput } from '../type/OrderSetStatusInput';
 import { OrderAddressUpdateInput } from '../type/OrderAddressUpdateInput';
@@ -81,7 +80,7 @@ export class OrderService extends BaseService {
    * @param input Order creation input data
    * @returns Promise<Order> The created order
    */
-  async createOrder(input: OrderInput): Promise<Order> {
+  async createOrder(input: any): Promise<Order> {
     const variables = { input };
     const result = await this.executeMutation('orderCreate', variables);
     return new Order(result.data.orderCreate);

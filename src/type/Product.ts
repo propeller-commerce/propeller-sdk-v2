@@ -101,6 +101,8 @@ export class Product implements IBaseProduct {
   private _metadataCanonicalUrls?: LocalizedString[];
   /** sources field */
   private _sources: Source[];
+  /** Short names for this product per language */
+  private _shortNames: LocalizedString[];
   /** The short name for the product, used for abbreviated orderlines */
   private _shortName: string;
   /** Additional keywords of this product per language. Added by the supplier */
@@ -216,6 +218,7 @@ export class Product implements IBaseProduct {
     this._metadataKeywords = data.metadataKeywords;
     this._metadataCanonicalUrls = data.metadataCanonicalUrls;
     this._sources = data.sources!;
+    this._shortNames = data.shortNames!;
     this._shortName = data.shortName!;
     this._keywords = data.keywords;
     this._customKeywords = data.customKeywords;
@@ -678,6 +681,18 @@ export class Product implements IBaseProduct {
    */
   set sources(value: Source[]) {
     this._sources = value;
+  }
+  /**
+   Short names for this product per language
+   */
+  get shortNames(): LocalizedString[] {
+    return this._shortNames;
+  }
+  /**
+   Short names for this product per language
+   */
+  set shortNames(value: LocalizedString[]) {
+    this._shortNames = value;
   }
   /**
    The short name for the product, used for abbreviated orderlines

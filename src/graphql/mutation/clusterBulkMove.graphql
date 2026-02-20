@@ -1,0 +1,5 @@
+mutation clusterBulkMove($input: ClusterBulkMoveInput!) {
+  clusterBulkMove(input: $input) {
+    ...ClusterBulkMoveResponseFields
+  }
+}

@@ -1,0 +1,3 @@
+mutation companySearchReindex($input: CompanySearchReindexInput!) {
+  companySearchReindex(input: $input)
+}

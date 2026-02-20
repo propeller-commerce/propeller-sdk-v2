@@ -1,0 +1,3 @@
+mutation clusterConfigRemoveSetting($clusterConfigId: Int!, $settingId: Int!) {
+  clusterConfigRemoveSetting(clusterConfigId: $clusterConfigId, settingId: $settingId)
+}

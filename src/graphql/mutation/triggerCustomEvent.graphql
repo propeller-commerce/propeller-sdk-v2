@@ -1,0 +1,3 @@
+mutation triggerCustomEvent($input: TriggerCustomEventInput!) {
+  triggerCustomEvent(input: $input)
+}

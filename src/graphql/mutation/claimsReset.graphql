@@ -1,0 +1,3 @@
+mutation claimsReset($uid: String!, $email: String!) {
+  claimsReset(uid: $uid, email: $email)
+}

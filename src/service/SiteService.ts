@@ -1,17 +1,16 @@
 import { BaseService } from './BaseService';
-import { Site } from '../type/Site';
 /**
  Service class for Site-related GraphQL operations
  */
 export class SiteService extends BaseService {
   /**
    Fetches site information
-   * @returns Promise<Site> The site data
+   * @returns Promise<any> The site data
    */
-  async getSite(): Promise<Site> {
+  async getSite(): Promise<any> {
     const variables = {};
     const result = await this.executeQuery('site', variables);
-    return new Site(result.data.site);
+    return result.data.site;
   }
   /**
    Initializes the service by preloading common fragments

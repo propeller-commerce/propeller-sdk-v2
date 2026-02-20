@@ -10,6 +10,7 @@ node_modules/
 /.cursor
 /.vscode
 /.kiro
+/.claude
 
 # CI/CD
 # /.github
@@ -33,5 +34,7 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 tsconfig.tsbuildinfo
+
+schema.json
 
 

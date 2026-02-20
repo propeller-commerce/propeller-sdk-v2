@@ -1,0 +1,3 @@
+mutation companySearchCleanupOrphanedIndices($input: CompanySearchReindexInput!) {
+  companySearchCleanupOrphanedIndices(input: $input)
+}

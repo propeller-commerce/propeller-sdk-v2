@@ -61,7 +61,8 @@ export const AttributeDescriptionFields = `fragment AttributeDescriptionFields o
   id
   name
   descriptions {
-    ... LocalizedStringFields
+    language
+    value
   }
   units {
     language
@@ -87,7 +88,8 @@ export const AttributeDescriptionFields = `fragment AttributeDescriptionFields o
     ... on AttributeIntValue { ...AttributeIntValueFields }
     ... on AttributeTextValue { ...AttributeTextValueFields }
   }
-}`;
+}
+`;
 
 export const AttributeDescriptionResponseFields = `fragment AttributeDescriptionResponseFields on AttributeDescriptionResponse {
   items {
@@ -289,6 +291,12 @@ export const BulkCostPriceResponseFields = `fragment BulkCostPriceResponseFields
   start
   end
 }`;
+
+export const BulkDeleteResponseFields = `fragment BulkDeleteResponseFields on BulkDeleteResponse {
+  deletedIds
+  failedIds
+}
+`;
 
 export const BulkPriceFields = `fragment BulkPriceFields on BulkPrice {
   value
@@ -902,6 +910,22 @@ export const ClusterAttributeFields = `fragment ClusterAttributeFields on Cluste
   clusterId
 }`;
 
+export const ClusterBulkMoveErrorFields = `fragment ClusterBulkMoveErrorFields on ClusterBulkMoveError {
+  code
+  messages
+  record
+  rowNumber
+}
+`;
+
+export const ClusterBulkMoveResponseFields = `fragment ClusterBulkMoveResponseFields on ClusterBulkMoveResponse {
+  movedCount
+  errors {
+    ...ClusterBulkMoveErrorFields
+  }
+}
+`;
+
 export const ClusterConfigFields = `fragment ClusterConfigFields on ClusterConfig {
   id
   name
@@ -1159,6 +1183,16 @@ export const CompanyListFields = `fragment CompanyListFields on Company {
   phone
   email
 }`;
+
+export const ComputedOrderlistsResponseFields = `fragment ComputedOrderlistsResponseFields on ComputedOrderlistsResponse {
+  positiveOrderlistsProductIds
+  negativeOrderListsProductIds
+  positiveOrderListsClusterIds
+  negativeOrderListsClusterIds
+  positiveOrderlistsCount
+  negativeOrderlistsCount
+}
+`;
 
 export const ContactAttributeFields = `fragment ContactAttributeFields on ContactAttribute {
   id
@@ -2403,6 +2437,21 @@ export const OrderResponseFields = `fragment OrderResponseFields on OrderRespons
   end
 }`;
 
+export const OrderRevisionFields = `fragment OrderRevisionFields on OrderRevision {
+  orderId
+  revisionNumber
+  createdByContactId
+  createdByCustomerId
+  createdByAdminUserId
+  lastModifiedByAdminUserId
+  lastModifiedByContactId
+  lastModifiedByCustomerId
+  createdAt
+  lastModifiedAt
+  createdFromRevisionNumber
+}
+`;
+
 export const OrderTotalsFields = `fragment OrderTotalsFields on OrderTotals {
   gross
   net
@@ -2640,6 +2689,22 @@ export const ProductAttributeFields = `fragment ProductAttributeFields on Produc
   }
   productId
 }`;
+
+export const ProductBulkMoveErrorFields = `fragment ProductBulkMoveErrorFields on ProductBulkMoveError {
+  code
+  messages
+  record
+  rowNumber
+}
+`;
+
+export const ProductBulkMoveResponseFields = `fragment ProductBulkMoveResponseFields on ProductBulkMoveResponse {
+  movedCount
+  errors {
+    ...ProductBulkMoveErrorFields
+  }
+}
+`;
 
 export const ProductCartFields = `fragment ProductCartFields on Product {
   ... IBaseProductCartFields
@@ -3251,6 +3316,69 @@ export const TaxFields = `fragment TaxFields on Tax {
   lastModifiedBy
 }`;
 
+export const TenantFields = `fragment TenantFields on Tenant {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  createdAt
+  lastModifiedAt
+  restrictSalesPricingVisibility
+  allowQuoteInvalidation
+  quoteDefaultExpiryPeriodDays
+}
+`;
+
+export const TicketFields = `fragment TicketFields on Ticket {
+  id
+  titles {
+    language
+    value
+  }
+  descriptions {
+    language
+    value
+  }
+  buttonLabels {
+    language
+    value
+  }
+  type
+  status
+  assignedToAdminUserId
+  contactId
+  customerId
+  productId
+  clusterId
+  orderId
+  companyId
+  email
+  phone
+  externalUrl
+  createdAt
+  lastModifiedAt
+  pickedUpAt
+  completedAt
+  lastModifiedByAdminUserId
+  createdByAdminUserId
+}
+`;
+
+export const TicketResponseFields = `fragment TicketResponseFields on TicketResponse {
+  items {
+    ...TicketFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+`;
+
 export const TrackAndTraceFields = `fragment TrackAndTraceFields on TrackAndTrace {
   carrierId
   id
@@ -3479,6 +3607,7 @@ export const fragments = {
   Base64FileFields,
   BulkCostPriceFields,
   BulkCostPriceResponseFields,
+  BulkDeleteResponseFields,
   BulkPriceFields,
   BulkPriceResponseFields,
   BundleFields,
@@ -3510,6 +3639,8 @@ export const fragments = {
   CategoryMinimalFields,
   CategoryResponseFields,
   ClusterAttributeFields,
+  ClusterBulkMoveErrorFields,
+  ClusterBulkMoveResponseFields,
   ClusterConfigFields,
   ClusterConfigResponseFields,
   ClusterConfigSettingFields,
@@ -3526,6 +3657,7 @@ export const fragments = {
   CompanyDataFields,
   CompanyFields,
   CompanyListFields,
+  ComputedOrderlistsResponseFields,
   ContactAttributeFields,
   ContactFields,
   ContactListFields,
@@ -3581,6 +3713,7 @@ export const fragments = {
   OrderPaymentDataFields,
   OrderPostageDataFields,
   OrderResponseFields,
+  OrderRevisionFields,
   OrderTotalsFields,
   OrderTotalTaxPercentageFields,
   PaginatedMediaAttachmentResponseFields,
@@ -3596,6 +3729,8 @@ export const fragments = {
   PricesheetFields,
   PricesheetResponseFields,
   ProductAttributeFields,
+  ProductBulkMoveErrorFields,
+  ProductBulkMoveResponseFields,
   ProductCartFields,
   ProductFields,
   ProductGridFields,
@@ -3628,6 +3763,9 @@ export const fragments = {
   SurchargesResponseFields,
   TaxesResponseFields,
   TaxFields,
+  TenantFields,
+  TicketFields,
+  TicketResponseFields,
   TrackAndTraceFields,
   TrackAndTraceResponseFields,
   TransactionFields,

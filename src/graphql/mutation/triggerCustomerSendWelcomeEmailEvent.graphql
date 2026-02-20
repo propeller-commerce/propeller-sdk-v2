@@ -1,0 +1,3 @@
+mutation triggerCustomerSendWelcomeEmailEvent($input: TriggerCustomerSendWelcomeEmailEventInput!) {
+  triggerCustomerSendWelcomeEmailEvent(input: $input)
+}

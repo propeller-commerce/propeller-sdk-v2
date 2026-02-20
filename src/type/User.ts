@@ -3,7 +3,6 @@ import { Gender } from '../enum/Gender';
 import { YesNo } from '../enum/YesNo';
 import { Address } from './Address';
 import { Company } from './Company';
-import { Usergroup } from './Usergroup';
 /**
  Object class for User
  */
@@ -62,16 +61,8 @@ export class User {
   private _loginRoot?: number;
   /** The company of the user. */
   private _company?: string;
-  /** The usergroup id of parent usergroup. */
-  private _parentUsergroupId: number;
   /** Companies managed by the user. */
   private _managedCompanies?: Company[];
-  /** usergroup field */
-  /** @deprecated This field is deprecated and will be removed in a future */
-  private _usergroup?: Usergroup;
-  /** usergroupPath field */
-  /** @deprecated This field is deprecated and will be removed in a future version */
-  private _usergroupPath: Usergroup[];
   /**
    Creates a new instance of User
    */
@@ -103,10 +94,7 @@ export class User {
     this._cocNumber = data.cocNumber;
     this._loginRoot = data.loginRoot;
     this._company = data.company;
-    this._parentUsergroupId = data.parentUsergroupId!;
     this._managedCompanies = data.managedCompanies;
-    this._usergroup = data.usergroup;
-    this._usergroupPath = data.usergroupPath!;
   }
   /**
    The id of the user.
@@ -433,18 +421,6 @@ export class User {
     this._company = value;
   }
   /**
-   The usergroup id of parent usergroup.
-   */
-  get parentUsergroupId(): number {
-    return this._parentUsergroupId;
-  }
-  /**
-   The usergroup id of parent usergroup.
-   */
-  set parentUsergroupId(value: number) {
-    this._parentUsergroupId = value;
-  }
-  /**
    Companies managed by the user.
    */
   get managedCompanies(): Company[] | undefined {
@@ -455,29 +431,5 @@ export class User {
    */
   set managedCompanies(value: Company[] | undefined) {
     this._managedCompanies = value;
-  }
-  /**
-   usergroup field
-   */
-  get usergroup(): Usergroup | undefined {
-    return this._usergroup;
-  }
-  /**
-   usergroup field
-   */
-  set usergroup(value: Usergroup | undefined) {
-    this._usergroup = value;
-  }
-  /**
-   usergroupPath field
-   */
-  get usergroupPath(): Usergroup[] {
-    return this._usergroupPath;
-  }
-  /**
-   usergroupPath field
-   */
-  set usergroupPath(value: Usergroup[]) {
-    this._usergroupPath = value;
   }
 }

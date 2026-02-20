@@ -1,0 +1,3 @@
+mutation clusterConfigDelete($id: Int!) {
+  clusterConfigDelete(id: $id)
+}

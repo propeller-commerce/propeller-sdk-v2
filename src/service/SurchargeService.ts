@@ -2,7 +2,6 @@ import { BaseService } from './BaseService';
 import { Surcharge } from '../type/Surcharge';
 import { SurchargesResponse } from '../type/SurchargesResponse';
 import { SurchargeSearchInput } from '../type/SurchargeSearchInput';
-import { SurchargeInput } from '../type/SurchargeInput';
 import { UpdateSurchargeInput } from '../type/UpdateSurchargeInput';
 import { CreateSurchargeInput } from '../type/CreateSurchargeInput';
 /**

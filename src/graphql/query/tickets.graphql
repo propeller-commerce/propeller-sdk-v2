@@ -1,0 +1,5 @@
+query tickets($input: TicketSearchInput) {
+  tickets(input: $input) {
+    ...TicketResponseFields
+  }
+}

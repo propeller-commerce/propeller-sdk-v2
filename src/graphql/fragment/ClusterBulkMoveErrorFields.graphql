@@ -1,0 +1,6 @@
+fragment ClusterBulkMoveErrorFields on ClusterBulkMoveError {
+  code
+  messages
+  record
+  rowNumber
+}

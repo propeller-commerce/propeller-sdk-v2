@@ -1,0 +1,3 @@
+mutation zoneTaxCodeDelete($id: String!) {
+  zoneTaxCodeDelete(id: $id)
+}

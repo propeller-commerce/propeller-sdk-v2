@@ -1,0 +1,3 @@
+mutation cartInvalidateCache($id: String) {
+  cartInvalidateCache(id: $id)
+}

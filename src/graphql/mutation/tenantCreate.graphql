@@ -1,0 +1,5 @@
+mutation tenantCreate($input: TenantCreateInput!) {
+  tenantCreate(input: $input) {
+    ...TenantFields
+  }
+}

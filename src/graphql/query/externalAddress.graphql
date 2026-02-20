@@ -1,5 +1,0 @@
-query externalAddress($id: Float!) {
-  externalAddress(id: $id) {
-    ...ExternalAddressFields
-  }
-}

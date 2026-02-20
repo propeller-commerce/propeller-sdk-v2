@@ -1,0 +1,3 @@
+mutation roleDefinitionDelete($id: ID!) {
+  roleDefinitionDelete(id: $id)
+}

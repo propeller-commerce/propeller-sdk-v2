@@ -1,5 +1,0 @@
-query usergroup($id: Int!) {
-  usergroup(id: $id) {
-    ...UsergroupFields
-  }
-}

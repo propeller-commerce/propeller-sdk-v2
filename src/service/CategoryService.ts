@@ -2,7 +2,6 @@ import { BaseService } from './BaseService';
 import { Category } from '../type/Category';
 import { CategoryResponse } from '../type/CategoryResponse';
 import { CategorySearchInput } from '../type/CategorySearchInput';
-import { CategoryInput } from '../type/CategoryInput';
 import { CategoryCsvInput } from '../type/CategoryCsvInput';
 import { CategoryAddProductsClustersInput } from '../type/CategoryAddProductsClustersInput';
 import { CategoryRemoveProductsClustersInput } from '../type/CategoryRemoveProductsClustersInput';
@@ -50,7 +49,7 @@ export class CategoryService extends BaseService {
    * @param userId User ID for personalization
    * @returns Promise<Category[]> Array of categories
    */
-  async getCategories(filter?: CategoryInput, userId?: number): Promise<Category[]> {
+  async getCategories(filter?: any, userId?: number): Promise<Category[]> {
     const variables = { filter, userId };
     const result = await this.executeQuery('categories', variables);
     return result.data.categories.map((category: any) => new Category(category));
@@ -79,7 +78,7 @@ export class CategoryService extends BaseService {
    * @param input Category creation input data
    * @returns Promise<Category> The created category
    */
-  async createCategory(input: CategoryInput): Promise<Category> {
+  async createCategory(input: any): Promise<Category> {
     const variables = { input };
     const result = await this.executeMutation('categoryCreate', variables);
     return new Category(result.data.categoryCreate);
@@ -89,7 +88,7 @@ export class CategoryService extends BaseService {
    * @param input Category update input data
    * @returns Promise<Category> The updated category
    */
-  async updateCategory(input: CategoryInput): Promise<Category> {
+  async updateCategory(input: any): Promise<Category> {
     const variables = { input };
     const result = await this.executeMutation('categoryUpdate', variables);
     return new Category(result.data.categoryUpdate);

@@ -1,0 +1,3 @@
+mutation businessRuleDelete($id: ID!) {
+  businessRuleDelete(id: $id)
+}

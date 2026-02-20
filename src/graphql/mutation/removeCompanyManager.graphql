@@ -1,0 +1,3 @@
+mutation removeCompanyManager($userId: Int!, $companyId: Int!) {
+  removeCompanyManager(userId: $userId, companyId: $companyId)
+}

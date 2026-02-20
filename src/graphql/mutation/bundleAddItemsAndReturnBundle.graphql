@@ -1,0 +1,5 @@
+mutation bundleAddItemsAndReturnBundle($id: String!, $input: BundleAddItemsInput!) {
+  bundleAddItemsAndReturnBundle(id: $id, input: $input) {
+    ...BundleFields
+  }
+}

@@ -1,0 +1,6 @@
+fragment ProductBulkMoveErrorFields on ProductBulkMoveError {
+  code
+  messages
+  record
+  rowNumber
+}

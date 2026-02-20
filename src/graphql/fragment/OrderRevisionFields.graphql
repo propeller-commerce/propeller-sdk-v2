@@ -1,0 +1,13 @@
+fragment OrderRevisionFields on OrderRevision {
+  orderId
+  revisionNumber
+  createdByContactId
+  createdByCustomerId
+  createdByAdminUserId
+  lastModifiedByAdminUserId
+  lastModifiedByContactId
+  lastModifiedByCustomerId
+  createdAt
+  lastModifiedAt
+  createdFromRevisionNumber
+}

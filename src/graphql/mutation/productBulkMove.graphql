@@ -1,0 +1,5 @@
+mutation productBulkMove($input: ProductBulkMoveInput!) {
+  productBulkMove(input: $input) {
+    ...ProductBulkMoveResponseFields
+  }
+}

@@ -8,17 +8,67 @@ import { CartSetUserInput } from '../type/CartSetUserInput';
 import { CartDeleteItemInput, CartProcessResponse, CartUpdateItemInput } from '../type';
 import { CartStartInput } from '../type/CartStartInput';
 import { CartAddItemInput } from '../type/CartAddItemInput';
+import { CartUpdateInput } from '../type/CartUpdateInput';
+import { CartUpdateAddressInput } from '../type/CartUpdateAddressInput';
+import { CartAddBundleInput } from '../type/CartAddBundleInput';
+import { CartProcessInput } from '../type/CartProcessInput';
+import { CartChildItemBulkInput } from '../type/CartChildItemBulkInput';
+import { CartAcceptPurchaseAuthorizationRequestInput } from '../type/CartAcceptPurchaseAuthorizationRequestInput';
 import { MediaImageProductSearchInput } from '../type/MediaImageProductSearchInput';
 import { TransformationsInput } from '../type/TransformationsInput';
-import { CartUpdateVariables } from '../type/CartUpdateVariables';
-import { CartUpdateAddressVariables } from '../type/CartUpdateAddressVariables';
-import { CartAddBundleVariables } from '../type/CartAddBundleVariables';
-import { CartProcessVariables } from '../type/CartProcessVariables';
-import { CartDeleteVariables } from '../type/CartDeleteVariables';
-import { CartActionCodeVariables } from '../type/CartActionCodeVariables';
-import { CartItemBulkVariables } from '../type/CartItemBulkVariables';
-import { CartPurchaseAuthorizationRequestVariables } from '../type/CartPurchaseAuthorizationRequestVariables';
-import { CartAcceptPurchaseAuthorizationVariables } from '../type/CartAcceptPurchaseAuthorizationVariables';
+export interface CartUpdateVariables {
+  id: string;
+  input: CartUpdateInput;
+  language?: string;
+  imageSearchFilters?: MediaImageProductSearchInput;
+  imageVariantFilters?: TransformationsInput;
+}
+export interface CartUpdateAddressVariables {
+  id: string;
+  input: CartUpdateAddressInput;
+  language?: string;
+  imageSearchFilters?: MediaImageProductSearchInput;
+  imageVariantFilters?: TransformationsInput;
+}
+export interface CartAddBundleVariables {
+  id: string;
+  input: CartAddBundleInput;
+  language?: string;
+  imageSearchFilters?: MediaImageProductSearchInput;
+  imageVariantFilters?: TransformationsInput;
+}
+export interface CartProcessVariables {
+  id: string;
+  input?: CartProcessInput;
+}
+export interface CartDeleteVariables {
+  id: string;
+}
+export interface CartActionCodeVariables {
+  id: string;
+  code: string;
+  language?: string;
+  imageSearchFilters?: MediaImageProductSearchInput;
+  imageVariantFilters?: TransformationsInput;
+}
+export interface CartItemBulkVariables {
+  id: string;
+  input?: CartChildItemBulkInput;
+  language?: string;
+  imageSearchFilters?: MediaImageProductSearchInput;
+  imageVariantFilters?: TransformationsInput;
+}
+export interface CartPurchaseAuthorizationRequestVariables {
+  id: string;
+  input?: any;
+}
+export interface CartAcceptPurchaseAuthorizationVariables {
+  id: string;
+  input?: CartAcceptPurchaseAuthorizationRequestInput;
+  language?: string;
+  imageSearchFilters?: MediaImageProductSearchInput;
+  imageVariantFilters?: TransformationsInput;
+}
 /**
  * Cart query variables interface
  Variables for the cart query

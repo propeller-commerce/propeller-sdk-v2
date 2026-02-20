@@ -1,0 +1,5 @@
+mutation channelCreate($input: ChannelCreateInput!) {
+  channelCreate(input: $input) {
+    ...ChannelFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation claimsResetAll {
+  claimsResetAll {
+    ...ClaimsResetAllResponseFields
+  }
+}

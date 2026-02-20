@@ -1,0 +1,5 @@
+mutation tenantUpdate($input: TenantUpdateInput!, $id: String) {
+  tenantUpdate(input: $input, id: $id) {
+    ...TenantFields
+  }
+}

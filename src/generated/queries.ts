@@ -21,12 +21,6 @@ export const addressesByOrderId = `query addressesByOrderId(\$orderId: Int!, \$t
   }
 }`;
 
-export const addressesByUserId = `query addressesByUserId(\$userId: Float!, \$type: AddressType) {
-  addressesByUserId(userId: \$userId, type: \$type) {
-    ...AddressFields
-  }
-}`;
-
 export const adminUser = `query adminUser(\$email: String!) {
   adminUser(email: \$email) {
     ...AdminUserFields
@@ -274,14 +268,6 @@ export const clusterConfigs = `query clusterConfigs {
   }
 }`;
 
-export const clusterGetConfig = `query clusterGetConfig(\$clusterId: Int) {
-  cluster(clusterId: \$clusterId) {
-    config {
-      ... ClusterConfigFields
-    }
-  }
-}`;
-
 export const companies = `query companies(\$input: CompanySearchArguments) {
   companies(input: \$input) {
     ...CompaniesResponseFields
@@ -299,6 +285,13 @@ export const companySearch = `query companySearch(\$input: CompanySearchInput) {
     ...CompanySearchResponseFields
   }
 }`;
+
+export const computedOrderlists = `query computedOrderlists(\$input: ComputedOrderlistsInput!) {
+  computedOrderlists(input: \$input) {
+    ...ComputedOrderlistsResponseFields
+  }
+}
+`;
 
 export const contact = `query contact(\$id: Int!) {
   contact(id: \$id) {
@@ -354,15 +347,16 @@ export const discounts = `query discounts(\$input: DiscountSearchInput) {
   }
 }`;
 
+export const eventActionConfig = `query eventActionConfig(\$id: String!) {
+  eventActionConfig(id: \$id) {
+    ...IBaseTemplateFields
+  }
+}
+`;
+
 export const eventActionConfigs = `query eventActionConfigs(\$input: EventActionConfigSearchInput!) {
   eventActionConfigs(input: \$input) {
     ...EventActionConfigResponseFields
-  }
-}`;
-
-export const externalAddress = `query externalAddress(\$id: Float!) {
-  externalAddress(id: \$id) {
-    ...ExternalAddressFields
   }
 }`;
 
@@ -663,6 +657,13 @@ export const pricesheets = `query pricesheets(\$input: PricesheetSearchInput) {
   }
 }`;
 
+export const pricesheetsEffective = `query pricesheetsEffective(\$input: PricesheetsEffectiveInput!) {
+  pricesheetsEffective(input: \$input) {
+    ...PricesheetResponseFields
+  }
+}
+`;
+
 export const product = `query product(
   \$productId: Int
   \$slug: String
@@ -780,12 +781,6 @@ export const shops = `query shops {
   }
 }`;
 
-export const site = `query site(\$siteId: Int!) {
-  site(siteId: \$siteId) {
-    ...SiteFields
-  }
-}`;
-
 export const surcharge = `query surcharge(\$id: String!) {
   surcharge(id: \$id) {
     ...SurchargeFields
@@ -870,11 +865,32 @@ export const templates = `query templates(\$input: TemplateSearchInput!) {
   }
 }`;
 
+export const tenant = `query tenant {
+  tenant {
+    ...TenantFields
+  }
+}
+`;
+
 export const tender = `query tender(\$tenderId: String, \$orderId: Int) {
   tender(tenderId: \$tenderId, orderId: \$orderId) {
     ...TenderFields
   }
 }`;
+
+export const ticket = `query ticket(\$id: ID!) {
+  ticket(id: \$id) {
+    ...TicketFields
+  }
+}
+`;
+
+export const tickets = `query tickets(\$input: TicketSearchInput) {
+  tickets(input: \$input) {
+    ...TicketResponseFields
+  }
+}
+`;
 
 export const trackAndTrace = `query trackAndTrace(\$id: String!) {
   trackAndTrace(id: \$id) {
@@ -900,18 +916,6 @@ export const user = `query user(\$input: UserSearchInput!) {
   }
 }
 `;
-
-export const usergroup = `query usergroup(\$id: Int!) {
-  usergroup(id: \$id) {
-    ...UsergroupFields
-  }
-}`;
-
-export const usergroups = `query usergroups(\$input: UsergroupSearchArguments!) {
-  usergroups(input: \$input) {
-    ...UsergroupsResponseFields
-  }
-}`;
 
 export const valueset = `query valueset(\$id: Int!) {
   valueset(id: \$id) {
@@ -978,7 +982,6 @@ export const queries = {
   addressesByCompanyId,
   addressesByCustomerId,
   addressesByOrderId,
-  addressesByUserId,
   adminUser,
   adminUsers,
   adminUserTenant,
@@ -1015,10 +1018,10 @@ export const queries = {
   cluster,
   clusterConfig,
   clusterConfigs,
-  clusterGetConfig,
   companies,
   company,
   companySearch,
+  computedOrderlists,
   contact,
   contacts,
   costPrices,
@@ -1028,8 +1031,8 @@ export const queries = {
   customers,
   discount,
   discounts,
+  eventActionConfig,
   eventActionConfigs,
-  externalAddress,
   favoriteList,
   favoriteLists,
   inventory,
@@ -1068,6 +1071,7 @@ export const queries = {
   prices,
   pricesheet,
   pricesheets,
+  pricesheetsEffective,
   product,
   products,
   productSurcharges,
@@ -1084,7 +1088,6 @@ export const queries = {
   shipments,
   shop,
   shops,
-  site,
   surcharge,
   surcharges,
   tax,
@@ -1094,12 +1097,13 @@ export const queries = {
   templateErrorLogs,
   templateErrorLogStats,
   templates,
+  tenant,
   tender,
+  ticket,
+  tickets,
   trackAndTrace,
   trackAndTraces,
   user,
-  usergroup,
-  usergroups,
   valueset,
   valuesetItems,
   valuesets,

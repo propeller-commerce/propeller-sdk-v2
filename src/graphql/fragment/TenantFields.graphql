@@ -1,0 +1,13 @@
+fragment TenantFields on Tenant {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  createdAt
+  lastModifiedAt
+  restrictSalesPricingVisibility
+  allowQuoteInvalidation
+  quoteDefaultExpiryPeriodDays
+}

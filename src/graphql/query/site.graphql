@@ -1,5 +1,0 @@
-query site($siteId: Int!) {
-  site(siteId: $siteId) {
-    ...SiteFields
-  }
-}

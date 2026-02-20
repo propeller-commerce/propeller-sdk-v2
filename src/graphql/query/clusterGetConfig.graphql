@@ -1,7 +1,0 @@
-query clusterGetConfig($clusterId: Int) {
-  cluster(clusterId: $clusterId) {
-    config {
-      ... ClusterConfigFields
-    }
-  }
-}

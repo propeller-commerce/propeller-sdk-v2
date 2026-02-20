@@ -1,0 +1,5 @@
+mutation orderRevisionRestore($orderId: Int!, $revisionNumber: Int!) {
+  orderRevisionRestore(orderId: $orderId, revisionNumber: $revisionNumber) {
+    ...OrderFields
+  }
+}

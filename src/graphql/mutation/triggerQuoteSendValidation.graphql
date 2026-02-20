@@ -1,0 +1,3 @@
+mutation triggerQuoteSendValidation($input: TriggerQuoteSendValidationEventInput!) {
+  triggerQuoteSendValidation(input: $input)
+}

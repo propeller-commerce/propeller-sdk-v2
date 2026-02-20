@@ -1,0 +1,5 @@
+mutation attributeCreate($input: AttributeCreateInput!) {
+  attributeCreate(input: $input) {
+    ...AttributeFields
+  }
+}

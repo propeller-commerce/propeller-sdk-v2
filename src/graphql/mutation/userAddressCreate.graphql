@@ -1,5 +1,0 @@
-mutation userAddressCreate($input: UserAddressCreateInput!) {
-  userAddressCreate(input: $input) {
-    ...AddressFields
-  }
-}

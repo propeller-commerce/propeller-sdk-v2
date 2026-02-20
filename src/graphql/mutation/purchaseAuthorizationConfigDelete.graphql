@@ -1,0 +1,3 @@
+mutation purchaseAuthorizationConfigDelete($id: String!) {
+  purchaseAuthorizationConfigDelete(id: $id)
+}

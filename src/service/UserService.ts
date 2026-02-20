@@ -12,9 +12,6 @@ import { RegisterCustomerInput } from '../type/RegisterCustomerInput';
 import { RegisterContactResponse } from '../type/RegisterContactResponse';
 import { RegisterCustomerResponse } from '../type/RegisterCustomerResponse';
 import { Logout } from '../type/Logout';
-import { UserAddressCreateInput } from '../type/UserAddressCreateInput';
-import { UserAddressUpdateInput } from '../type/UserAddressUpdateInput';
-import { UserAddressDeleteInput } from '../type/UserAddressDeleteInput';
 import { Address } from '../type/Address';
 import { PasswordResetLinkEmailInput } from '../type/PasswordResetLinkEmailInput';
 import { PublishEmailEventResponse } from '../type/PublishEmailEventResponse';
@@ -227,7 +224,7 @@ export class UserService extends BaseService {
      * @param input User address creation input data
      * @returns Promise<Address> The created address
      */
-    async createUserAddress(input: UserAddressCreateInput): Promise<Address> {
+    async createUserAddress(input: any): Promise<Address> {
         const result = await this.executeMutation('userAddressCreate', { input });
         return new Address(result.data.userAddressCreate);
     }
@@ -236,7 +233,7 @@ export class UserService extends BaseService {
      * @param input User address update input data
      * @returns Promise<Address> The updated address
      */
-    async updateUserAddress(input: UserAddressUpdateInput): Promise<Address> {
+    async updateUserAddress(input: any): Promise<Address> {
         const result = await this.executeMutation('userAddressUpdate', { input });
         return new Address(result.data.userAddressUpdate);
     }
@@ -245,7 +242,7 @@ export class UserService extends BaseService {
      * @param input User address deletion input data
      * @returns Promise<boolean> Success status of the deletion
      */
-    async deleteUserAddress(input: UserAddressDeleteInput): Promise<boolean> {
+    async deleteUserAddress(input: any): Promise<boolean> {
         const result = await this.executeMutation('userAddressDelete', { input });
         return result.data.userAddressDelete;
     }

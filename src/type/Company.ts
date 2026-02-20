@@ -4,7 +4,6 @@ import { AttributeResultResponse } from './AttributeResultResponse';
 import { FavoriteListsResponse } from './FavoriteListsResponse';
 import { OrderlistsResponse } from './OrderlistsResponse';
 import { Pricesheet } from './Pricesheet';
-import { Usergroup } from './Usergroup';
 import { ContactsResponse } from './ContactsResponse';
 import { IBaseUser } from './IBaseUser';
 import { Source } from './Source';
@@ -53,18 +52,12 @@ export class Company {
   private _createdAt?: string;
   /** lastModifiedAt field */
   private _lastModifiedAt?: string;
-  /** parentUsergroupId field */
-  private _parentUsergroupId: number;
-  /** Parent usergroup of the company. */
-  private _usergroup?: Usergroup;
   /** Children contacts of the company. */
   private _contacts?: ContactsResponse;
   /** Users/ contacts which are account managers of the company. */
   private _managers?: IBaseUser[];
   /** sources field */
   private _sources: Source[];
-  /** usergroupPath field */
-  private _usergroupPath: Usergroup[];
   /** All purchase authorization config entities for this company */
   private _purchaseAuthorizationConfigs?: PurchaseAuthorizationConfigResponse;
   /**
@@ -91,12 +84,9 @@ export class Company {
     this._tag = data.tag;
     this._createdAt = data.createdAt;
     this._lastModifiedAt = data.lastModifiedAt;
-    this._parentUsergroupId = data.parentUsergroupId!;
-    this._usergroup = data.usergroup;
     this._contacts = data.contacts;
     this._managers = data.managers;
     this._sources = data.sources!;
-    this._usergroupPath = data.usergroupPath!;
     this._purchaseAuthorizationConfigs = data.purchaseAuthorizationConfigs;
   }
   /**
@@ -340,30 +330,6 @@ export class Company {
     this._lastModifiedAt = value;
   }
   /**
-   parentUsergroupId field
-   */
-  get parentUsergroupId(): number {
-    return this._parentUsergroupId;
-  }
-  /**
-   parentUsergroupId field
-   */
-  set parentUsergroupId(value: number) {
-    this._parentUsergroupId = value;
-  }
-  /**
-   Parent usergroup of the company.
-   */
-  get usergroup(): Usergroup | undefined {
-    return this._usergroup;
-  }
-  /**
-   Parent usergroup of the company.
-   */
-  set usergroup(value: Usergroup | undefined) {
-    this._usergroup = value;
-  }
-  /**
    Children contacts of the company.
    */
   get contacts(): ContactsResponse | undefined {
@@ -398,18 +364,6 @@ export class Company {
    */
   set sources(value: Source[]) {
     this._sources = value;
-  }
-  /**
-   usergroupPath field
-   */
-  get usergroupPath(): Usergroup[] {
-    return this._usergroupPath;
-  }
-  /**
-   usergroupPath field
-   */
-  set usergroupPath(value: Usergroup[]) {
-    this._usergroupPath = value;
   }
   /**
    All purchase authorization config entities for this company

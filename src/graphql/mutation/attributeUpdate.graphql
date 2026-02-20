@@ -1,0 +1,5 @@
+mutation attributeUpdate($id: String!, $input: AttributeUpdateInput!) {
+  attributeUpdate(id: $id, input: $input) {
+    ...AttributeFields
+  }
+}

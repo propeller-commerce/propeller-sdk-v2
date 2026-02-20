@@ -1,0 +1,4 @@
+fragment BulkDeleteResponseFields on BulkDeleteResponse {
+  deletedIds
+  failedIds
+}

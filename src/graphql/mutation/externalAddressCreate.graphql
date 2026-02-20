@@ -1,5 +1,0 @@
-mutation externalAddressCreate($input: ExternalAddressCreateInput!) {
-  externalAddressCreate(input: $input) {
-    ...ExternalAddressFields
-  }
-}

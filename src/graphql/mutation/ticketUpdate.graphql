@@ -1,0 +1,5 @@
+mutation ticketUpdate($id: ID!, $input: TicketUpdateInput!) {
+  ticketUpdate(id: $id, input: $input) {
+    ...TicketFields
+  }
+}

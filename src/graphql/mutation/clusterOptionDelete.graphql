@@ -1,0 +1,3 @@
+mutation clusterOptionDelete($clusterId: Int!, $optionId: Int!) {
+  clusterOptionDelete(clusterId: $clusterId, optionId: $optionId)
+}

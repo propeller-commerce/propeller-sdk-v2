@@ -1,0 +1,8 @@
+fragment ComputedOrderlistsResponseFields on ComputedOrderlistsResponse {
+  positiveOrderlistsProductIds
+  negativeOrderListsProductIds
+  positiveOrderListsClusterIds
+  negativeOrderListsClusterIds
+  positiveOrderlistsCount
+  negativeOrderlistsCount
+}

@@ -6,7 +6,6 @@ import { MagicToken } from './MagicToken';
 import { FavoriteListsResponse } from './FavoriteListsResponse';
 import { OrderlistsResponse } from './OrderlistsResponse';
 import { Pricesheet } from './Pricesheet';
-import { Usergroup } from './Usergroup';
 import { Source } from './Source';
 import { CustomerFieldName } from '../enum/CustomerFieldName';
 import { IBaseUser } from './IBaseUser';
@@ -74,15 +73,8 @@ export class Customer {
   private _createdAt?: string;
   /** lastModifiedAt field */
   private _lastModifiedAt?: string;
-  /** The usergroup id of parent usergroup. */
-  private _parentUsergroupId: number;
-  /** usergroup field */
-  /** @deprecated This field is deprecated and will be removed in a future */
-  private _usergroup?: Usergroup;
   /** sources field */
   private _sources: Source[];
-  /** usergroupPath field */
-  private _usergroupPath: Usergroup[];
   /**
    Creates a new instance of Customer
    */
@@ -117,10 +109,7 @@ export class Customer {
     this._isLoggedIn = data.isLoggedIn;
     this._createdAt = data.createdAt;
     this._lastModifiedAt = data.lastModifiedAt;
-    this._parentUsergroupId = data.parentUsergroupId!;
-    this._usergroup = data.usergroup;
     this._sources = data.sources!;
-    this._usergroupPath = data.usergroupPath!;
   }
   /**
    The id of the customer.
@@ -483,30 +472,6 @@ export class Customer {
     this._lastModifiedAt = value;
   }
   /**
-   The usergroup id of parent usergroup.
-   */
-  get parentUsergroupId(): number {
-    return this._parentUsergroupId;
-  }
-  /**
-   The usergroup id of parent usergroup.
-   */
-  set parentUsergroupId(value: number) {
-    this._parentUsergroupId = value;
-  }
-  /**
-   usergroup field
-   */
-  get usergroup(): Usergroup | undefined {
-    return this._usergroup;
-  }
-  /**
-   usergroup field
-   */
-  set usergroup(value: Usergroup | undefined) {
-    this._usergroup = value;
-  }
-  /**
    sources field
    */
   get sources(): Source[] {
@@ -517,17 +482,5 @@ export class Customer {
    */
   set sources(value: Source[]) {
     this._sources = value;
-  }
-  /**
-   usergroupPath field
-   */
-  get usergroupPath(): Usergroup[] {
-    return this._usergroupPath;
-  }
-  /**
-   usergroupPath field
-   */
-  set usergroupPath(value: Usergroup[]) {
-    this._usergroupPath = value;
   }
 }

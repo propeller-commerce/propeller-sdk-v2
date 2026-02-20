@@ -1,0 +1,3 @@
+mutation orderlistDelete($id: Int!) {
+  orderlistDelete(id: $id)
+}

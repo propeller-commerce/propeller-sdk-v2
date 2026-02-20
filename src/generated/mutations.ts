@@ -3,6 +3,11 @@
  * This file is auto-generated. Do not edit manually.
  */
 
+export const addCompanyManager = `mutation addCompanyManager(\$userId: Int!, \$companyId: Int!) {
+  addCompanyManager(userId: \$userId, companyId: \$companyId)
+}
+`;
+
 export const addSurchargesToProduct = `mutation addSurchargesToProduct(\$input: AddSurchargesToProductInput!) {
   addSurchargesToProduct(input: \$input) {
     status
@@ -15,6 +20,11 @@ export const adminUserCreate = `mutation adminUserCreate(\$input: CreateUserDto!
     ...AdminUserFields
   }
 }`;
+
+export const adminUserDelete = `mutation adminUserDelete(\$email: String!) {
+  adminUserDelete(email: \$email)
+}
+`;
 
 export const adminUserTenantCreate = `mutation adminUserTenantCreate(\$input: CreateTenantDto!) {
   adminUserTenantCreate(input: \$input) {
@@ -34,11 +44,23 @@ export const adminUserUpdate = `mutation adminUserUpdate(\$email: String!, \$inp
   }
 }`;
 
+export const attributeCreate = `mutation attributeCreate(\$input: AttributeCreateInput!) {
+  attributeCreate(input: \$input) {
+    ...AttributeFields
+  }
+}
+`;
+
 export const attributeCsvImport = `mutation attributeCsvImport(\$input: AttributeCsvInput!) {
   attributeCsvImport(input: \$input) {
     ...CsvImportResponseFields
   }
 }`;
+
+export const attributeDelete = `mutation attributeDelete(\$id: String!) {
+  attributeDelete(id: \$id)
+}
+`;
 
 export const attributeDescriptionCreate = `mutation attributeDescriptionCreate(\$input: AttributeDescriptionCreateInput!) {
   attributeDescriptionCreate(input: \$input) {
@@ -52,17 +74,41 @@ export const attributeDescriptionCsvImport = `mutation attributeDescriptionCsvIm
   }
 }`;
 
+export const attributeDescriptionDelete = `mutation attributeDescriptionDelete(\$id: String!) {
+  attributeDescriptionDelete(id: \$id)
+}
+`;
+
+export const attributeDescriptionDeleteBulk = `mutation attributeDescriptionDeleteBulk(\$ids: [String!]!) {
+  attributeDescriptionDeleteBulk(ids: \$ids) {
+    ...BulkDeleteResponseFields
+  }
+}
+`;
+
 export const attributeDescriptionUpdate = `mutation attributeDescriptionUpdate(\$id: String!, \$input: AttributeDescriptionUpdateInput!) {
   attributeDescriptionUpdate(id: \$id, input: \$input) {
     ...AttributeDescriptionFields
   }
 }`;
 
+export const attributeUpdate = `mutation attributeUpdate(\$id: String!, \$input: AttributeUpdateInput!) {
+  attributeUpdate(id: \$id, input: \$input) {
+    ...AttributeFields
+  }
+}
+`;
+
 export const authenticationCreate = `mutation authenticationCreate(\$input: CreateAuthenticationInput!) {
   authenticationCreate(input: \$input) {
     ...LoginFields
   }
 }`;
+
+export const authenticationDelete = `mutation authenticationDelete(\$uid: String!) {
+  authenticationDelete(uid: \$uid)
+}
+`;
 
 export const bulkCostPriceCreate = `mutation bulkCostPriceCreate(\$input: BulkCostPriceCreateInput!) {
   bulkCostPriceCreate(input: \$input) {
@@ -76,11 +122,21 @@ export const bulkCostPriceCsvImport = `mutation bulkCostPriceCsvImport(\$input: 
   }
 }`;
 
+export const bulkCostPriceDelete = `mutation bulkCostPriceDelete(\$id: String!) {
+  bulkCostPriceDelete(id: \$id)
+}
+`;
+
 export const bulkCostPricesBulk = `mutation bulkCostPricesBulk(\$input: [BulkCostPriceCreateInput!]!) {
   bulkCostPricesBulk(input: \$input) {
     ...BulkResponseDataFields
   }
 }`;
+
+export const bulkCostPricesDelete = `mutation bulkCostPricesDelete(\$priceId: String!) {
+  bulkCostPricesDelete(priceId: \$priceId)
+}
+`;
 
 export const bulkCostPriceUpdate = `mutation bulkCostPriceUpdate(\$id: String!, \$input: BulkCostPriceUpdateInput!) {
   bulkCostPriceUpdate(id: \$id, input: \$input) {
@@ -100,11 +156,21 @@ export const bulkPriceCsvImport = `mutation bulkPriceCsvImport(\$input: BulkPric
   }
 }`;
 
+export const bulkPriceDelete = `mutation bulkPriceDelete(\$id: String!) {
+  bulkPriceDelete(id: \$id)
+}
+`;
+
 export const bulkPricesCreate = `mutation bulkPricesCreate(\$input: [BulkPriceCreateInput!]!) {
   bulkPricesCreate(input: \$input) {
     ...BulkResponseDataFields
   }
 }`;
+
+export const bulkPricesDelete = `mutation bulkPricesDelete(\$priceId: String!) {
+  bulkPricesDelete(priceId: \$priceId)
+}
+`;
 
 export const bulkPriceUpdate = `mutation bulkPriceUpdate(\$id: String!, \$input: BulkPriceUpdateInput!) {
   bulkPriceUpdate(id: \$id, input: \$input) {
@@ -118,11 +184,35 @@ export const bundleAddItems = `mutation bundleAddItems(\$id: String!, \$input: B
   }
 }`;
 
+export const bundleAddItemsAndReturnBundle = `mutation bundleAddItemsAndReturnBundle(\$id: String!, \$input: BundleAddItemsInput!) {
+  bundleAddItemsAndReturnBundle(id: \$id, input: \$input) {
+    ...BundleFields
+  }
+}
+`;
+
 export const bundleCreate = `mutation bundleCreate(\$input: BundleCreateInput!) {
   bundleCreate(input: \$input) {
     ...BundleFields
   }
 }`;
+
+export const bundleDelete = `mutation bundleDelete(\$id: String!) {
+  bundleDelete(id: \$id)
+}
+`;
+
+export const bundleRemoveItem = `mutation bundleRemoveItem(\$id: String!, \$productId: Int!) {
+  bundleRemoveItem(id: \$id, productId: \$productId)
+}
+`;
+
+export const bundleRemoveItemAndReturnBundle = `mutation bundleRemoveItemAndReturnBundle(\$id: String!, \$productId: Int!, \$taxZone: String) {
+  bundleRemoveItemAndReturnBundle(id: \$id, productId: \$productId, taxZone: \$taxZone) {
+    ...BundleFields
+  }
+}
+`;
 
 export const bundleUpdate = `mutation bundleUpdate(\$id: String!, \$input: BundleUpdateInput!) {
   bundleUpdate(id: \$id, input: \$input) {
@@ -178,17 +268,51 @@ export const businessRuleDecisionTableUpdate = `mutation businessRuleDecisionTab
   }
 }`;
 
+export const businessRuleDelete = `mutation businessRuleDelete(\$id: ID!) {
+  businessRuleDelete(id: \$id)
+}
+`;
+
 export const businessRuleUpdate = `mutation businessRuleUpdate(\$id: ID!, \$input: BusinessRuleUpdateInput!) {
   businessRuleUpdate(id: \$id, input: \$input) {
     ...BusinessRuleFields
   }
 }`;
 
+export const carrierAssignWarehouse = `mutation carrierAssignWarehouse(\$id: Int!, \$warehouseId: Int!) {
+  carrierAssignWarehouse(id: \$id, warehouseId: \$warehouseId)
+}
+`;
+
+export const carrierAssignWarehouseAndReturnCarrier = `mutation carrierAssignWarehouseAndReturnCarrier(\$id: Int!, \$warehouseId: Int!) {
+  carrierAssignWarehouseAndReturnCarrier(id: \$id, warehouseId: \$warehouseId) {
+    ...CarrierFields
+  }
+}
+`;
+
 export const carrierCreate = `mutation carrierCreate(\$input: CarrierCreateInput!) {
   carrierCreate(input: \$input) {
     ...CarrierFields
   }
 }`;
+
+export const carrierDelete = `mutation carrierDelete(\$id: Int!) {
+  carrierDelete(id: \$id)
+}
+`;
+
+export const carrierUnassignWarehouse = `mutation carrierUnassignWarehouse(\$id: Int!, \$warehouseId: Int!) {
+  carrierUnassignWarehouse(id: \$id, warehouseId: \$warehouseId)
+}
+`;
+
+export const carrierUnassignWarehouseAndReturnCarrier = `mutation carrierUnassignWarehouseAndReturnCarrier(\$id: Int!, \$warehouseId: Int!) {
+  carrierUnassignWarehouseAndReturnCarrier(id: \$id, warehouseId: \$warehouseId) {
+    ...CarrierFields
+  }
+}
+`;
 
 export const carrierUpdate = `mutation carrierUpdate(\$id: Int!, \$input: CarrierUpdateInput!) {
   carrierUpdate(id: \$id, input: \$input) {
@@ -254,6 +378,11 @@ export const cartDeleteItem = `mutation cartDeleteItem(
     ...CartFields
   }
 }`;
+
+export const cartInvalidateCache = `mutation cartInvalidateCache(\$id: String) {
+  cartInvalidateCache(id: \$id)
+}
+`;
 
 export const cartItemBulk = `mutation cartItemBulk(\$input: CartItemsBulkUpsertInput!) {
   cartItemBulk(input: \$input) {
@@ -368,6 +497,11 @@ export const categoryCsvImport = `mutation categoryCsvImport(\$input: CategoryCs
   }
 }`;
 
+export const categoryDelete = `mutation categoryDelete(\$categoryId: Float!) {
+  categoryDelete(categoryId: \$categoryId)
+}
+`;
+
 export const categoryRemoveProductsClusters = `mutation categoryRemoveProductsClusters(\$id: Int!, \$input: CategoryRemoveProductsClustersInput!) {
   categoryRemoveProductsClusters(id: \$id, input: \$input) {
     ...CategoryRemoveProductsClustersResponseFields
@@ -380,11 +514,49 @@ export const categoryUpdate = `mutation categoryUpdate(\$categoryId: Float!, \$i
   }
 }`;
 
+export const channelCreate = `mutation channelCreate(\$input: ChannelCreateInput!) {
+  channelCreate(input: \$input) {
+    ...ChannelFields
+  }
+}
+`;
+
+export const channelDelete = `mutation channelDelete(\$id: Int!) {
+  channelDelete(id: \$id)
+}
+`;
+
+export const channelUpdate = `mutation channelUpdate(\$id: Int!, \$input: ChannelUpdateInput!) {
+  channelUpdate(id: \$id, input: \$input) {
+    ...ChannelFields
+  }
+}
+`;
+
+export const claimsReset = `mutation claimsReset(\$uid: String!, \$email: String!) {
+  claimsReset(uid: \$uid, email: \$email)
+}
+`;
+
+export const claimsResetAll = `mutation claimsResetAll {
+  claimsResetAll {
+    ...ClaimsResetAllResponseFields
+  }
+}
+`;
+
 export const clusterAssignProducts = `mutation clusterAssignProducts(\$clusterId: Int!, \$input: ClusterAssignProductsInput!) {
   clusterAssignProducts(clusterId: \$clusterId, input: \$input) {
     ...ClusterAssignProductsResponseFields
   }
 }`;
+
+export const clusterBulkMove = `mutation clusterBulkMove(\$input: ClusterBulkMoveInput!) {
+  clusterBulkMove(input: \$input) {
+    ...ClusterBulkMoveResponseFields
+  }
+}
+`;
 
 export const clusterConfigAddSetting = `mutation clusterConfigAddSetting(\$clusterConfigId: Int!, \$input: ClusterConfigSettingInput!) {
   clusterConfigAddSetting(clusterConfigId: \$clusterConfigId, input: \$input) {
@@ -397,6 +569,16 @@ export const clusterConfigCreate = `mutation clusterConfigCreate(\$input: Cluste
     ...ClusterConfigResponseFields
   }
 }`;
+
+export const clusterConfigDelete = `mutation clusterConfigDelete(\$id: Int!) {
+  clusterConfigDelete(id: \$id)
+}
+`;
+
+export const clusterConfigRemoveSetting = `mutation clusterConfigRemoveSetting(\$clusterConfigId: Int!, \$settingId: Int!) {
+  clusterConfigRemoveSetting(clusterConfigId: \$clusterConfigId, settingId: \$settingId)
+}
+`;
 
 export const clusterConfigUpdateSetting = `mutation clusterConfigUpdateSetting(\$clusterConfigId: Int!, \$settingId: Int!, \$input: ClusterConfigSettingUpdateInput!) {
   clusterConfigUpdateSetting(clusterConfigId: \$clusterConfigId, settingId: \$settingId, input: \$input) {
@@ -416,11 +598,21 @@ export const clusterCsvImport = `mutation clusterCsvImport(\$input: ClusterCsvIn
   }
 }`;
 
+export const clusterDelete = `mutation clusterDelete(\$id: Int!) {
+  clusterDelete(id: \$id)
+}
+`;
+
 export const clusterOptionCreate = `mutation clusterOptionCreate(\$clusterId: Int!, \$input: ClusterOptionCreateInput!) {
   clusterOptionCreate(clusterId: \$clusterId, input: \$input) {
     ...ClusterOptionFields
   }
 }`;
+
+export const clusterOptionDelete = `mutation clusterOptionDelete(\$clusterId: Int!, \$optionId: Int!) {
+  clusterOptionDelete(clusterId: \$clusterId, optionId: \$optionId)
+}
+`;
 
 export const clusterOptionUpdate = `mutation clusterOptionUpdate(\$clusterId: Int!, \$optionId: Int!, \$input: ClusterOptionUpdateInput!) {
   clusterOptionUpdate(clusterId: \$clusterId, optionId: \$optionId, input: \$input) {
@@ -433,6 +625,11 @@ export const clusterProductCreate = `mutation clusterProductCreate(\$id: Int!, \
     ...ProductFields
   }
 }`;
+
+export const clusterProductDelete = `mutation clusterProductDelete(\$id: Int!, \$productId: Int!) {
+  clusterProductDelete(id: \$id, productId: \$productId)
+}
+`;
 
 export const clusterProductUpdate = `mutation clusterProductUpdate(\$id: Int!, \$productId: Int!, \$input: UpdateProductInput!) {
   clusterProductUpdate(id: \$id, productId: \$productId, input: \$input) {
@@ -480,6 +677,31 @@ export const companyCsvImport = `mutation companyCsvImport(\$input: CompanyCsvIn
   }
 }`;
 
+export const companyDelete = `mutation companyDelete(\$id: Int!) {
+  companyDelete(id: \$id)
+}
+`;
+
+export const companySearchCleanupOrphanedIndices = `mutation companySearchCleanupOrphanedIndices(\$input: CompanySearchReindexInput!) {
+  companySearchCleanupOrphanedIndices(input: \$input)
+}
+`;
+
+export const companySearchFixAliasWriteIndex = `mutation companySearchFixAliasWriteIndex(\$input: CompanySearchReindexInput!) {
+  companySearchFixAliasWriteIndex(input: \$input)
+}
+`;
+
+export const companySearchIndexUpdateMapping = `mutation companySearchIndexUpdateMapping(\$input: CompanySearchIndexUpdateMappingInput!) {
+  companySearchIndexUpdateMapping(input: \$input)
+}
+`;
+
+export const companySearchReindex = `mutation companySearchReindex(\$input: CompanySearchReindexInput!) {
+  companySearchReindex(input: \$input)
+}
+`;
+
 export const companyUpdate = `mutation companyUpdate(\$id: Int!, \$input: UpdateCompanyInput!) {
   companyUpdate(id: \$id, input: \$input) {
     ...CompanyFields
@@ -510,6 +732,16 @@ export const contactCsvImport = `mutation contactCsvImport(\$input: ContactCsvIn
   }
 }`;
 
+export const contactDelete = `mutation contactDelete(\$id: Int!) {
+  contactDelete(id: \$id)
+}
+`;
+
+export const contactDeleteAccount = `mutation contactDeleteAccount(\$id: Int!) {
+  contactDeleteAccount(id: \$id)
+}
+`;
+
 export const contactRegister = `mutation contactRegister(\$input: RegisterContactInput!) {
   contactRegister(input: \$input) {
     ...RegisterContactResponseFields
@@ -534,11 +766,21 @@ export const costPriceCreate = `mutation costPriceCreate(\$input: CostPriceCreat
   }
 }`;
 
+export const costPriceDelete = `mutation costPriceDelete(\$id: String!) {
+  costPriceDelete(id: \$id)
+}
+`;
+
 export const costPricesBulk = `mutation costPricesBulk(\$input: [CostPriceCreateInput!]!) {
   costPricesBulk(input: \$input) {
     ...BulkResponseDataFields
   }
 }`;
+
+export const costPricesDelete = `mutation costPricesDelete(\$priceId: String!) {
+  costPricesDelete(priceId: \$priceId)
+}
+`;
 
 export const costPriceUpdate = `mutation costPriceUpdate(\$id: String!, \$input: CostPriceUpdateInput!) {
   costPriceUpdate(id: \$id, input: \$input) {
@@ -551,6 +793,11 @@ export const crossupsellCreate = `mutation crossupsellCreate(\$input: Crossupsel
     ...CrossupsellFields
   }
 }`;
+
+export const crossupsellDelete = `mutation crossupsellDelete(\$id: String!) {
+  crossupsellDelete(id: \$id)
+}
+`;
 
 export const crossupsellUpdate = `mutation crossupsellUpdate(\$id: String!, \$input: CrossupsellUpdateInput!) {
   crossupsellUpdate(id: \$id, input: \$input) {
@@ -592,6 +839,16 @@ export const customerCsvImport = `mutation customerCsvImport(\$input: CustomerCs
   }
 }`;
 
+export const customerDelete = `mutation customerDelete(\$id: Int!) {
+  customerDelete(id: \$id)
+}
+`;
+
+export const customerDeleteAccount = `mutation customerDeleteAccount(\$id: Int!) {
+  customerDeleteAccount(id: \$id)
+}
+`;
+
 export const customerRegister = `mutation customerRegister(\$input: RegisterCustomerInput!) {
   customerRegister(input: \$input) {
     ...RegisterCustomerResponseFields
@@ -615,6 +872,16 @@ export const discountCsvImport = `mutation discountCsvImport(\$input: DiscountCs
     ...CsvImportResponseFields
   }
 }`;
+
+export const discountDelete = `mutation discountDelete(\$id: String!) {
+  discountDelete(id: \$id)
+}
+`;
+
+export const discountsDeleteByPricesheetId = `mutation discountsDeleteByPricesheetId(\$pricesheetId: String!) {
+  discountsDeleteByPricesheetId(pricesheetId: \$pricesheetId)
+}
+`;
 
 export const discountUpdate = `mutation discountUpdate(\$id: String!, \$input: DiscountUpdateInput!) {
   discountUpdate(id: \$id, input: \$input) {
@@ -658,11 +925,21 @@ export const emailTemplateRemoveAttachment = `mutation emailTemplateRemoveAttach
   }
 }`;
 
+export const emailTemplateRenderAndSend = `mutation emailTemplateRenderAndSend(\$id: String!, \$input: TemplateRenderInput!) {
+  emailTemplateRenderAndSend(id: \$id, input: \$input)
+}
+`;
+
 export const emailTemplateUpdate = `mutation emailTemplateUpdate(\$id: String!, \$input: EmailTemplateUpdateInput!) {
   emailTemplateUpdate(id: \$id, input: \$input) {
     ...EmailTemplateFields
   }
 }`;
+
+export const eventActionConfigDelete = `mutation eventActionConfigDelete(\$id: String!) {
+  eventActionConfigDelete(id: \$id)
+}
+`;
 
 export const eventToEmailConfigCreate = `mutation eventToEmailConfigCreate(\$input: EventToEmailConfigCreateInput!) {
   eventToEmailConfigCreate(input: \$input) {
@@ -691,18 +968,6 @@ export const eventToWebHookConfigUpdate = `mutation eventToWebHookConfigUpdate(\
 export const exchangeRefreshToken = `mutation exchangeRefreshToken(\$input: ExchangeRefreshTokenInput!) {
   exchangeRefreshToken(input: \$input) {
     ...RefreshTokenResponseFields
-  }
-}`;
-
-export const externalAddressCreate = `mutation externalAddressCreate(\$input: ExternalAddressCreateInput!) {
-  externalAddressCreate(input: \$input) {
-    ...ExternalAddressFields
-  }
-}`;
-
-export const externalAddressUpdate = `mutation externalAddressUpdate(\$input: ExternalAddressUpdateInput!) {
-  externalAddressUpdate(input: \$input) {
-    ...ExternalAddressFields
   }
 }`;
 
@@ -800,6 +1065,11 @@ export const machineCreate = `mutation machineCreate(\$input: CreateSparePartsMa
   }
 }`;
 
+export const machineDelete = `mutation machineDelete(\$id: String!) {
+  machineDelete(id: \$id)
+}
+`;
+
 export const machineUpsert = `mutation machineUpsert(\$input: UpsertSparePartsMachineInput!) {
   machineUpsert(input: \$input) {
     ...SparePartsMachineFields
@@ -811,6 +1081,11 @@ export const magicTokenCreate = `mutation magicTokenCreate(\$input: MagicTokenCr
     ...MagicTokenFields
   }
 }`;
+
+export const magicTokenDelete = `mutation magicTokenDelete(\$id: String!) {
+  magicTokenDelete(id: \$id)
+}
+`;
 
 export const magicTokenLogin = `mutation magicTokenLogin(\$id: String!) {
   magicTokenLogin(id: \$id) {
@@ -926,11 +1201,21 @@ export const orderCreate = `mutation orderCreate(\$order: OrderCreateInput!) {
   }
 }`;
 
+export const orderDelete = `mutation orderDelete(\$orderId: Int!) {
+  orderDelete(orderId: \$orderId)
+}
+`;
+
 export const orderItemCreate = `mutation orderItemCreate(\$orderId: Int!, \$orderItem: OrderItemCreateInput!) {
   orderItemCreate(orderId: \$orderId, orderItem: \$orderItem) {
     ...OrderItemFields
   }
 }`;
+
+export const orderItemDelete = `mutation orderItemDelete(\$orderId: Int!, \$orderItemId: Int!) {
+  orderItemDelete(orderId: \$orderId, orderItemId: \$orderItemId)
+}
+`;
 
 export const orderItemUpdate = `mutation orderItemUpdate(\$orderId: Int!, \$orderItem: OrderItemUpdateInput!) {
   orderItemUpdate(orderId: \$orderId, orderItem: \$orderItem) {
@@ -962,6 +1247,11 @@ export const orderlistCreate = `mutation orderlistCreate(\$input: OrderlistCreat
   }
 }`;
 
+export const orderlistDelete = `mutation orderlistDelete(\$id: Int!) {
+  orderlistDelete(id: \$id)
+}
+`;
+
 export const orderlistRemoveItems = `mutation orderlistRemoveItems(\$id: Int!, \$input: OrderlistItemsInput!) {
   orderlistRemoveItems(id: \$id, input: \$input) {
     ...OrderlistFields
@@ -986,6 +1276,18 @@ export const orderlistUpdate = `mutation orderlistUpdate(\$id: Int!, \$input: Or
   }
 }`;
 
+export const orderRevisionRestore = `mutation orderRevisionRestore(\$orderId: Int!, \$revisionNumber: Int!) {
+  orderRevisionRestore(orderId: \$orderId, revisionNumber: \$revisionNumber) {
+    ...OrderFields
+  }
+}
+`;
+
+export const orderRevisionsInvalidate = `mutation orderRevisionsInvalidate(\$input: OrderRevisionsInvalidateInput!) {
+  orderRevisionsInvalidate(input: \$input)
+}
+`;
+
 export const orderSendConfirmationEmail = `mutation orderSendConfirmationEmail(\$orderId: Int!, \$attachments: [Base64FileInput!]) {
   orderSendConfirmationEmail(orderId: \$orderId, attachments: \$attachments) {
     ...SendOrderConfirmResponseTypeFields
@@ -1004,6 +1306,11 @@ export const orderStatusCreate = `mutation orderStatusCreate(\$input: CreateOrde
   }
 }`;
 
+export const orderStatusDelete = `mutation orderStatusDelete(\$id: Int!) {
+  orderStatusDelete(id: \$id)
+}
+`;
+
 export const orderStatusSetAddOrderStatuses = `mutation orderStatusSetAddOrderStatuses(\$id: Int!, \$input: AddOrderStatusesToOrderStatusSetInput!) {
   orderStatusSetAddOrderStatuses(id: \$id, input: \$input) {
     ...OrderStatusSetFields
@@ -1015,6 +1322,11 @@ export const orderStatusSetCreate = `mutation orderStatusSetCreate(\$input: Crea
     ...OrderStatusSetFields
   }
 }`;
+
+export const orderStatusSetDelete = `mutation orderStatusSetDelete(\$id: Int!) {
+  orderStatusSetDelete(id: \$id)
+}
+`;
 
 export const orderStatusSetRemoveOrderStatuses = `mutation orderStatusSetRemoveOrderStatuses(\$id: Int!, \$input: RemoveOrderStatusesFromOrderStatusSetInput!) {
   orderStatusSetRemoveOrderStatuses(id: \$id, input: \$input) {
@@ -1040,6 +1352,16 @@ export const orderUpdate = `mutation orderUpdate(\$orderId: Int!, \$order: Order
   }
 }`;
 
+export const orderUpdateAddress = `mutation orderUpdateAddress(\$id: Int!, \$addressId: Int!, \$input: OrderUpdateAddressInput!) {
+  orderUpdateAddress(id: \$id, addressId: \$addressId, input: \$input)
+}
+`;
+
+export const passwordResetLink = `mutation passwordResetLink(\$input: PasswordRecoveryLinkInput) {
+  passwordResetLink(input: \$input)
+}
+`;
+
 export const paymentCreate = `mutation paymentCreate(\$input: CreatePaymentInput!) {
   paymentCreate(input: \$input) {
     ...PaymentFields
@@ -1064,6 +1386,11 @@ export const payMethodCreate = `mutation payMethodCreate(\$input: PayMethodCreat
   }
 }`;
 
+export const payMethodDelete = `mutation payMethodDelete(\$id: Int!) {
+  payMethodDelete(id: \$id)
+}
+`;
+
 export const payMethodUpdate = `mutation payMethodUpdate(\$id: Int!, \$input: PayMethodUpdateInput!) {
   payMethodUpdate(id: \$id, input: \$input) {
     ...PayMethodFields
@@ -1083,6 +1410,11 @@ export const priceCsvImport = `mutation priceCsvImport(\$input: PriceCsvInput!) 
   }
 }`;
 
+export const priceDelete = `mutation priceDelete(\$id: String!) {
+  priceDelete(id: \$id)
+}
+`;
+
 export const pricesheetAssign = `mutation pricesheetAssign(\$id: String!, \$input: PricesheetAssignInput!) {
   pricesheetAssign(id: \$id, input: \$input) {
     ...PricesheetFields
@@ -1100,6 +1432,11 @@ export const pricesheetCsvImport = `mutation pricesheetCsvImport(\$input: Prices
     ...CsvImportResponseFields
   }
 }`;
+
+export const pricesheetDelete = `mutation pricesheetDelete(\$id: String!) {
+  pricesheetDelete(id: \$id)
+}
+`;
 
 export const pricesheetUnassign = `mutation pricesheetUnassign(\$id: String!, \$input: PricesheetUnassignInput!) {
   pricesheetUnassign(id: \$id, input: \$input) {
@@ -1119,6 +1456,13 @@ export const priceUpdate = `mutation priceUpdate(\$id: String!, \$input: PriceUp
   }
 }`;
 
+export const productBulkMove = `mutation productBulkMove(\$input: ProductBulkMoveInput!) {
+  productBulkMove(input: \$input) {
+    ...ProductBulkMoveResponseFields
+  }
+}
+`;
+
 export const productCreate = `mutation productCreate(\$input: CreateProductInput!) {
   productCreate(input: \$input) {
     productId
@@ -1130,6 +1474,11 @@ export const productCsvImport = `mutation productCsvImport(\$input: ProductCsvIn
     ...CsvImportResponseFields
   }
 }`;
+
+export const productDelete = `mutation productDelete(\$productId: Int!) {
+  productDelete(productId: \$productId)
+}
+`;
 
 export const productUpdate = `mutation productUpdate(\$productId: Int!, \$input: UpdateProductInput!) {
   productUpdate(productId: \$productId, input: \$input) {
@@ -1161,11 +1510,21 @@ export const purchaseAuthorizationConfigCreate = `mutation purchaseAuthorization
   }
 }`;
 
+export const purchaseAuthorizationConfigDelete = `mutation purchaseAuthorizationConfigDelete(\$id: String!) {
+  purchaseAuthorizationConfigDelete(id: \$id)
+}
+`;
+
 export const purchaseAuthorizationConfigUpdate = `mutation purchaseAuthorizationConfigUpdate(\$id: String!, \$input: PurchaseAuthorizationConfigUpdateInput) {
   purchaseAuthorizationConfigUpdate(id: \$id, input: \$input) {
     ...PurchaseAuthorizationConfigFields
   }
 }`;
+
+export const removeCompanyManager = `mutation removeCompanyManager(\$userId: Int!, \$companyId: Int!) {
+  removeCompanyManager(userId: \$userId, companyId: \$companyId)
+}
+`;
 
 export const removeSurchargesFromProduct = `mutation removeSurchargesFromProduct(\$input: RemoveSurchargesFromProductInput!) {
   removeSurchargesFromProduct(input: \$input) {
@@ -1185,11 +1544,21 @@ export const roleDefinitionCreate = `mutation roleDefinitionCreate(\$input: Role
   }
 }`;
 
+export const roleDefinitionDelete = `mutation roleDefinitionDelete(\$id: ID!) {
+  roleDefinitionDelete(id: \$id)
+}
+`;
+
 export const roleDefinitionUpdate = `mutation roleDefinitionUpdate(\$id: ID!, \$input: RoleDefinitionUpdateInput!) {
   roleDefinitionUpdate(id: \$id, input: \$input) {
     ...RoleDefinitionFields
   }
 }`;
+
+export const roleDelete = `mutation roleDelete(\$id: ID!) {
+  roleDelete(id: \$id)
+}
+`;
 
 export const roleUpdate = `mutation roleUpdate(\$id: ID!, \$input: RoleUpdateInput!) {
   roleUpdate(id: \$id, input: \$input) {
@@ -1203,11 +1572,21 @@ export const shipmentCreate = `mutation shipmentCreate(\$input: ShipmentCreateIn
   }
 }`;
 
+export const shipmentDelete = `mutation shipmentDelete(\$id: String!) {
+  shipmentDelete(id: \$id)
+}
+`;
+
 export const shipmentItemCreate = `mutation shipmentItemCreate(\$input: ShipmentItemCreateInput!) {
   shipmentItemCreate(input: \$input) {
     ...ShipmentItemFields
   }
 }`;
+
+export const shipmentItemDelete = `mutation shipmentItemDelete(\$id: String!) {
+  shipmentItemDelete(id: \$id)
+}
+`;
 
 export const shipmentItemUpdate = `mutation shipmentItemUpdate(\$id: String!, \$input: ShipmentItemUpdateInput!) {
   shipmentItemUpdate(id: \$id, input: \$input) {
@@ -1220,6 +1599,11 @@ export const shipmentUpdate = `mutation shipmentUpdate(\$id: String!, \$input: S
     ...ShipmentFields
   }
 }`;
+
+export const shopInvalidateCache = `mutation shopInvalidateCache {
+  shopInvalidateCache
+}
+`;
 
 export const startSession = `mutation startSession(\$siteId: Int) {
   startSession(siteId: \$siteId) {
@@ -1251,11 +1635,45 @@ export const taxCreate = `mutation taxCreate(\$input: TaxCreateInput!) {
   }
 }`;
 
+export const taxDelete = `mutation taxDelete(\$id: String!) {
+  taxDelete(id: \$id)
+}
+`;
+
 export const taxUpdate = `mutation taxUpdate(\$id: String!, \$input: TaxUpdateInput!) {
   taxUpdate(id: \$id, input: \$input) {
     ...TaxFields
   }
 }`;
+
+export const templateDelete = `mutation templateDelete(\$id: String!) {
+  templateDelete(id: \$id)
+}
+`;
+
+export const templateRenderToHTML = `mutation templateRenderToHTML(\$id: String!, \$input: TemplateRenderInput!) {
+  templateRenderToHTML(id: \$id, input: \$input)
+}
+`;
+
+export const tenantCreate = `mutation tenantCreate(\$input: TenantCreateInput!) {
+  tenantCreate(input: \$input) {
+    ...TenantFields
+  }
+}
+`;
+
+export const tenantDelete = `mutation tenantDelete(\$id: String) {
+  tenantDelete(id: \$id)
+}
+`;
+
+export const tenantUpdate = `mutation tenantUpdate(\$input: TenantUpdateInput!, \$id: String) {
+  tenantUpdate(input: \$input, id: \$id) {
+    ...TenantFields
+  }
+}
+`;
 
 export const tenderAddItems = `mutation tenderAddItems(\$id: String!, \$input: TenderAddItemsInput!) {
   tenderAddItems(id: \$id, input: \$input) {
@@ -1268,6 +1686,18 @@ export const tenderApplyIncentives = `mutation tenderApplyIncentives(\$id: Strin
     ...TenderFields
   }
 }`;
+
+export const tenderDelete = `mutation tenderDelete(\$id: String!) {
+  tenderDelete(id: \$id)
+}
+`;
+
+export const tenderDeleteBonusItem = `mutation tenderDeleteBonusItem(\$id: String!, \$itemId: String!) {
+  tenderDeleteBonusItem(id: \$id, itemId: \$itemId) {
+    ...TenderFields
+  }
+}
+`;
 
 export const tenderDeleteItem = `mutation tenderDeleteItem(\$id: String!, \$itemId: String!) {
   tenderDeleteItem(id: \$id, itemId: \$itemId) {
@@ -1329,11 +1759,35 @@ export const tenderUpdatePostage = `mutation tenderUpdatePostage(\$id: String!, 
   }
 }`;
 
+export const ticketCreate = `mutation ticketCreate(\$input: TicketCreateInput!) {
+  ticketCreate(input: \$input) {
+    ...TicketFields
+  }
+}
+`;
+
+export const ticketDelete = `mutation ticketDelete(\$id: ID!) {
+  ticketDelete(id: \$id)
+}
+`;
+
+export const ticketUpdate = `mutation ticketUpdate(\$id: ID!, \$input: TicketUpdateInput!) {
+  ticketUpdate(id: \$id, input: \$input) {
+    ...TicketFields
+  }
+}
+`;
+
 export const trackAndTraceCreate = `mutation trackAndTraceCreate(\$input: TrackAndTraceCreateInput!) {
   trackAndTraceCreate(input: \$input) {
     ...TrackAndTraceFields
   }
 }`;
+
+export const trackAndTraceDelete = `mutation trackAndTraceDelete(\$id: String!) {
+  trackAndTraceDelete(id: \$id)
+}
+`;
 
 export const trackAndTraceUpdate = `mutation trackAndTraceUpdate(\$id: String!, \$input: TrackAndTraceUpdateInput!) {
   trackAndTraceUpdate(id: \$id, input: \$input) {
@@ -1341,37 +1795,49 @@ export const trackAndTraceUpdate = `mutation trackAndTraceUpdate(\$id: String!, 
   }
 }`;
 
+export const triggerContactSendWelcomeEmailEvent = `mutation triggerContactSendWelcomeEmailEvent(\$input: TriggerContactSendWelcomeEmailEventInput!) {
+  triggerContactSendWelcomeEmailEvent(input: \$input)
+}
+`;
+
+export const triggerCustomerSendWelcomeEmailEvent = `mutation triggerCustomerSendWelcomeEmailEvent(\$input: TriggerCustomerSendWelcomeEmailEventInput!) {
+  triggerCustomerSendWelcomeEmailEvent(input: \$input)
+}
+`;
+
+export const triggerCustomEvent = `mutation triggerCustomEvent(\$input: TriggerCustomEventInput!) {
+  triggerCustomEvent(input: \$input)
+}
+`;
+
+export const triggerOrderSendConfirm = `mutation triggerOrderSendConfirm(\$input: TriggerOrderSendConfirmEventInput!) {
+  triggerOrderSendConfirm(input: \$input)
+}
+`;
+
+export const triggerPasswordSendInitEmailEvent = `mutation triggerPasswordSendInitEmailEvent(\$input: PasswordRecoveryLinkInput!) {
+  triggerPasswordSendInitEmailEvent(input: \$input)
+}
+`;
+
 export const triggerPasswordSendResetEmailEvent = `mutation triggerPasswordSendResetEmailEvent(\$input: PasswordRecoveryLinkInput!) {
   triggerPasswordSendResetEmailEvent(input: \$input)
 }`;
 
-export const userAddressCreate = `mutation userAddressCreate(\$input: UserAddressCreateInput!) {
-  userAddressCreate(input: \$input) {
-    ...AddressFields
-  }
-}`;
+export const triggerQuoteSend = `mutation triggerQuoteSend(\$input: TriggerQuoteSendEventInput!) {
+  triggerQuoteSend(input: \$input)
+}
+`;
 
-export const userAddressDelete = `mutation userAddressDelete(\$addressId: String!) {
-  userAddressDelete(addressId: \$addressId)
-}`;
+export const triggerQuoteSendRequest = `mutation triggerQuoteSendRequest(\$input: TriggerQuoteSendRequestEventInput!) {
+  triggerQuoteSendRequest(input: \$input)
+}
+`;
 
-export const userAddressUpdate = `mutation userAddressUpdate(\$input: UserAddressUpdateInput!) {
-  userAddressUpdate(input: \$input) {
-    ...AddressFields
-  }
-}`;
-
-export const usergroupCreate = `mutation usergroupCreate(\$input: CreateUsergroupInput!) {
-  usergroupCreate(input: \$input) {
-    ...UsergroupFields
-  }
-}`;
-
-export const usergroupUpdate = `mutation usergroupUpdate(\$id: Int!, \$input: UpdateUsergroupInput!) {
-  usergroupUpdate(id: \$id, input: \$input) {
-    ...UsergroupFields
-  }
-}`;
+export const triggerQuoteSendValidation = `mutation triggerQuoteSendValidation(\$input: TriggerQuoteSendValidationEventInput!) {
+  triggerQuoteSendValidation(input: \$input)
+}
+`;
 
 export const valuesetCreate = `mutation valuesetCreate(\$input: ValuesetCreateInput!) {
   valuesetCreate(input: \$input) {
@@ -1379,11 +1845,21 @@ export const valuesetCreate = `mutation valuesetCreate(\$input: ValuesetCreateIn
   }
 }`;
 
+export const valuesetDelete = `mutation valuesetDelete(\$id: Int!) {
+  valuesetDelete(id: \$id)
+}
+`;
+
 export const valuesetItemCreate = `mutation valuesetItemCreate(\$input: ValuesetItemCreateInput!) {
   valuesetItemCreate(input: \$input) {
     ...ValuesetItemFields
   }
 }`;
+
+export const valuesetItemDelete = `mutation valuesetItemDelete(\$id: Int!) {
+  valuesetItemDelete(id: \$id)
+}
+`;
 
 export const valuesetItemUpdate = `mutation valuesetItemUpdate(\$id: Int!, \$input: ValuesetItemUpdateInput!) {
   valuesetItemUpdate(id: \$id, input: \$input) {
@@ -1408,6 +1884,11 @@ export const warehouseAddressCreate = `mutation warehouseAddressCreate(\$id: Flo
     ...WarehouseAddressFields
   }
 }`;
+
+export const warehouseAddressDelete = `mutation warehouseAddressDelete(\$id: Float!, \$input: DeleteWarehouseAddressInput!) {
+  warehouseAddressDelete(id: \$id, input: \$input)
+}
+`;
 
 export const warehouseAddressUpdate = `mutation warehouseAddressUpdate(\$id: Float!, \$input: UpdateWarehouseAddressInput!) {
   warehouseAddressUpdate(id: \$id, input: \$input) {
@@ -1439,11 +1920,21 @@ export const zoneTaxCodeCreate = `mutation zoneTaxCodeCreate(\$input: ZoneTaxCod
   }
 }`;
 
+export const zoneTaxCodeDelete = `mutation zoneTaxCodeDelete(\$id: String!) {
+  zoneTaxCodeDelete(id: \$id)
+}
+`;
+
 export const zoneTaxCodesCreate = `mutation zoneTaxCodesCreate(\$input: [ZoneTaxCodeCreateInput!]!) {
   zoneTaxCodesCreate(input: \$input) {
     ...ZoneTaxCodeFields
   }
 }`;
+
+export const zoneTaxCodesDelete = `mutation zoneTaxCodesDelete(\$priceId: String!) {
+  zoneTaxCodesDelete(priceId: \$priceId)
+}
+`;
 
 export const zoneTaxCodeUpdate = `mutation zoneTaxCodeUpdate(\$id: String!, \$input: ZoneTaxCodeUpdateInput!) {
   zoneTaxCodeUpdate(id: \$id, input: \$input) {
@@ -1453,26 +1944,42 @@ export const zoneTaxCodeUpdate = `mutation zoneTaxCodeUpdate(\$id: String!, \$in
 
 
 export const mutations = {
+  addCompanyManager,
   addSurchargesToProduct,
   adminUserCreate,
+  adminUserDelete,
   adminUserTenantCreate,
   adminUserTenantDelete,
   adminUserUpdate,
+  attributeCreate,
   attributeCsvImport,
+  attributeDelete,
   attributeDescriptionCreate,
   attributeDescriptionCsvImport,
+  attributeDescriptionDelete,
+  attributeDescriptionDeleteBulk,
   attributeDescriptionUpdate,
+  attributeUpdate,
   authenticationCreate,
+  authenticationDelete,
   bulkCostPriceCreate,
   bulkCostPriceCsvImport,
+  bulkCostPriceDelete,
   bulkCostPricesBulk,
+  bulkCostPricesDelete,
   bulkCostPriceUpdate,
   bulkPriceCreate,
   bulkPriceCsvImport,
+  bulkPriceDelete,
   bulkPricesCreate,
+  bulkPricesDelete,
   bulkPriceUpdate,
   bundleAddItems,
+  bundleAddItemsAndReturnBundle,
   bundleCreate,
+  bundleDelete,
+  bundleRemoveItem,
+  bundleRemoveItemAndReturnBundle,
   bundleUpdate,
   businessRuleCreate,
   businessRuleDecisionTableAddColumn,
@@ -1482,8 +1989,14 @@ export const mutations = {
   businessRuleDecisionTableMoveRow,
   businessRuleDecisionTableSetCell,
   businessRuleDecisionTableUpdate,
+  businessRuleDelete,
   businessRuleUpdate,
+  carrierAssignWarehouse,
+  carrierAssignWarehouseAndReturnCarrier,
   carrierCreate,
+  carrierDelete,
+  carrierUnassignWarehouse,
+  carrierUnassignWarehouseAndReturnCarrier,
   carrierUpdate,
   cartAcceptPurchaseAuthorizationRequest,
   cartAddActionCode,
@@ -1491,6 +2004,7 @@ export const mutations = {
   cartAddItem,
   cartDelete,
   cartDeleteItem,
+  cartInvalidateCache,
   cartItemBulk,
   cartProcess,
   cartRemoveActionCode,
@@ -1505,17 +2019,29 @@ export const mutations = {
   categoryAddProductsClusters,
   categoryCreate,
   categoryCsvImport,
+  categoryDelete,
   categoryRemoveProductsClusters,
   categoryUpdate,
+  channelCreate,
+  channelDelete,
+  channelUpdate,
+  claimsReset,
+  claimsResetAll,
   clusterAssignProducts,
+  clusterBulkMove,
   clusterConfigAddSetting,
   clusterConfigCreate,
+  clusterConfigDelete,
+  clusterConfigRemoveSetting,
   clusterConfigUpdateSetting,
   clusterCreate,
   clusterCsvImport,
+  clusterDelete,
   clusterOptionCreate,
+  clusterOptionDelete,
   clusterOptionUpdate,
   clusterProductCreate,
+  clusterProductDelete,
   clusterProductUpdate,
   clusterUnassignProducts,
   clusterUpdate,
@@ -1524,18 +2050,28 @@ export const mutations = {
   companyAddressUpdate,
   companyCreate,
   companyCsvImport,
+  companyDelete,
+  companySearchCleanupOrphanedIndices,
+  companySearchFixAliasWriteIndex,
+  companySearchIndexUpdateMapping,
+  companySearchReindex,
   companyUpdate,
   contactAddToCompanies,
   contactCreate,
   contactCreateAccount,
   contactCsvImport,
+  contactDelete,
+  contactDeleteAccount,
   contactRegister,
   contactRemoveFromCompanies,
   contactUpdate,
   costPriceCreate,
+  costPriceDelete,
   costPricesBulk,
+  costPricesDelete,
   costPriceUpdate,
   crossupsellCreate,
+  crossupsellDelete,
   crossupsellUpdate,
   customerAddressCreate,
   customerAddressDelete,
@@ -1543,10 +2079,14 @@ export const mutations = {
   customerCreate,
   customerCreateAccount,
   customerCsvImport,
+  customerDelete,
+  customerDeleteAccount,
   customerRegister,
   customerUpdate,
   discountCreate,
   discountCsvImport,
+  discountDelete,
+  discountsDeleteByPricesheetId,
   discountUpdate,
   documentTemplateCreate,
   documentTemplateRenderToPDF,
@@ -1554,14 +2094,14 @@ export const mutations = {
   emailTemplateAddAttachment,
   emailTemplateCreate,
   emailTemplateRemoveAttachment,
+  emailTemplateRenderAndSend,
   emailTemplateUpdate,
+  eventActionConfigDelete,
   eventToEmailConfigCreate,
   eventToEmailConfigUpdate,
   eventToWebHookConfigCreate,
   eventToWebHookConfigUpdate,
   exchangeRefreshToken,
-  externalAddressCreate,
-  externalAddressUpdate,
   favoriteListAddItems,
   favoriteListClearItems,
   favoriteListCreate,
@@ -1578,8 +2118,10 @@ export const mutations = {
   login,
   logout,
   machineCreate,
+  machineDelete,
   machineUpsert,
   magicTokenCreate,
+  magicTokenDelete,
   magicTokenLogin,
   magicTokenUpdate,
   mediaAttachmentCreate,
@@ -1599,63 +2141,92 @@ export const mutations = {
   mediaVideoUpdate,
   orderAddressUpdate,
   orderCreate,
+  orderDelete,
   orderItemCreate,
+  orderItemDelete,
   orderItemUpdate,
   orderlistAddItems,
   orderlistAssignCompanies,
   orderlistAssignUsers,
   orderlistCreate,
+  orderlistDelete,
   orderlistRemoveItems,
   orderlistUnassignCompanies,
   orderlistUnassignUsers,
   orderlistUpdate,
+  orderRevisionRestore,
+  orderRevisionsInvalidate,
   orderSendConfirmationEmail,
   orderSetStatus,
   orderStatusCreate,
+  orderStatusDelete,
   orderStatusSetAddOrderStatuses,
   orderStatusSetCreate,
+  orderStatusSetDelete,
   orderStatusSetRemoveOrderStatuses,
   orderStatusSetUpdate,
   orderStatusUpdate,
   orderUpdate,
+  orderUpdateAddress,
+  passwordResetLink,
   paymentCreate,
   paymentDelete,
   paymentUpdate,
   payMethodCreate,
+  payMethodDelete,
   payMethodUpdate,
   priceCreate,
   priceCsvImport,
+  priceDelete,
   pricesheetAssign,
   pricesheetCreate,
   pricesheetCsvImport,
+  pricesheetDelete,
   pricesheetUnassign,
   pricesheetUpdate,
   priceUpdate,
+  productBulkMove,
   productCreate,
   productCsvImport,
+  productDelete,
   productUpdate,
   publishEmailEvent,
   publishEmailSendEvent,
   publishPasswordResetEmailEvent,
   purchaseAuthorizationConfigCreate,
+  purchaseAuthorizationConfigDelete,
   purchaseAuthorizationConfigUpdate,
+  removeCompanyManager,
   removeSurchargesFromProduct,
   roleCreate,
   roleDefinitionCreate,
+  roleDefinitionDelete,
   roleDefinitionUpdate,
+  roleDelete,
   roleUpdate,
   shipmentCreate,
+  shipmentDelete,
   shipmentItemCreate,
+  shipmentItemDelete,
   shipmentItemUpdate,
   shipmentUpdate,
+  shopInvalidateCache,
   startSession,
   surchargeCreate,
   surchargeDelete,
   surchargeUpdate,
   taxCreate,
+  taxDelete,
   taxUpdate,
+  templateDelete,
+  templateRenderToHTML,
+  tenantCreate,
+  tenantDelete,
+  tenantUpdate,
   tenderAddItems,
   tenderApplyIncentives,
+  tenderDelete,
+  tenderDeleteBonusItem,
   tenderDeleteItem,
   tenderProcess,
   tenderStart,
@@ -1666,26 +2237,38 @@ export const mutations = {
   tenderUpdateItem,
   tenderUpdatePayment,
   tenderUpdatePostage,
+  ticketCreate,
+  ticketDelete,
+  ticketUpdate,
   trackAndTraceCreate,
+  trackAndTraceDelete,
   trackAndTraceUpdate,
+  triggerContactSendWelcomeEmailEvent,
+  triggerCustomerSendWelcomeEmailEvent,
+  triggerCustomEvent,
+  triggerOrderSendConfirm,
+  triggerPasswordSendInitEmailEvent,
   triggerPasswordSendResetEmailEvent,
-  userAddressCreate,
-  userAddressDelete,
-  userAddressUpdate,
-  usergroupCreate,
-  usergroupUpdate,
+  triggerQuoteSend,
+  triggerQuoteSendRequest,
+  triggerQuoteSendValidation,
   valuesetCreate,
+  valuesetDelete,
   valuesetItemCreate,
+  valuesetItemDelete,
   valuesetItemUpdate,
   valuesetUpdate,
   verifyToken,
   warehouseAddressCreate,
+  warehouseAddressDelete,
   warehouseAddressUpdate,
   warehouseCreate,
   warehouseDelete,
   warehouseUpdate,
   zoneTaxCodeCreate,
+  zoneTaxCodeDelete,
   zoneTaxCodesCreate,
+  zoneTaxCodesDelete,
   zoneTaxCodeUpdate
 };
 

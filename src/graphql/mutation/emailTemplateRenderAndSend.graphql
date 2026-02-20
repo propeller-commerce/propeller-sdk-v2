@@ -1,0 +1,3 @@
+mutation emailTemplateRenderAndSend($id: String!, $input: TemplateRenderInput!) {
+  emailTemplateRenderAndSend(id: $id, input: $input)
+}

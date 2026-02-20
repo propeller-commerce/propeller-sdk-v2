@@ -1,5 +1,0 @@
-mutation usergroupCreate($input: CreateUsergroupInput!) {
-  usergroupCreate(input: $input) {
-    ...UsergroupFields
-  }
-}

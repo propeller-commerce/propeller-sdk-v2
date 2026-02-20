@@ -1,0 +1,3 @@
+mutation authenticationDelete($uid: String!) {
+  authenticationDelete(uid: $uid)
+}
