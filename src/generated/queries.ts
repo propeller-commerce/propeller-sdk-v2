@@ -268,6 +268,14 @@ export const clusterConfigs = `query clusterConfigs {
   }
 }`;
 
+export const clusterGetConfig = `query clusterGetConfig(\$clusterId: Int) {
+  cluster(clusterId: \$clusterId) {
+    config {
+      ... ClusterConfigFields
+    }
+  }
+}`;
+
 export const companies = `query companies(\$input: CompanySearchArguments) {
   companies(input: \$input) {
     ...CompaniesResponseFields
@@ -1018,6 +1026,7 @@ export const queries = {
   cluster,
   clusterConfig,
   clusterConfigs,
+  clusterGetConfig,
   companies,
   company,
   companySearch,
