@@ -91,19 +91,11 @@ export interface ContactRegisterInput {
     contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
     /** Company attributes input arguments */
     companyAttributesInput?: AttributeResultSearchInput;
-    /** CustomerAttributesInput attributes input arguments */
-    customerAttributesInput?: AttributeResultSearchInput;
 }
 
 export interface CustomerRegisterInput {
     /** Contact registration input data */
     input: RegisterCustomerInput;
-    /** Contact attributes input arguments */
-    contactAttributesInput?: AttributeResultSearchInput;
-    /** Contact purchase authorization config input arguments */
-    contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
-    /** Company attributes input arguments */
-    companyAttributesInput?: AttributeResultSearchInput;
     /** CustomerAttributesInput attributes input arguments */
     customerAttributesInput?: AttributeResultSearchInput;
 }
