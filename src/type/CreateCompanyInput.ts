@@ -16,6 +16,4 @@ export interface CreateCompanyInput {
   phone?: string;
   /** notes input field */
   notes?: string;
-  /** The id of the usergroup the company should be created in. */
-  parentId: number;
 }

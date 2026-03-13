@@ -24,8 +24,6 @@ export interface RegisterCustomerInput {
   mailingList?: YesNo;
   /** The primary language of the customer. */
   primaryLanguage?: string;
-  /** The id of the usergroup the customer should be created in. */
-  parentId: number;
   /** Optionally create a prefilled password. When omitted the customer can set a new password using password reset(link) */
   password?: string;
 }
