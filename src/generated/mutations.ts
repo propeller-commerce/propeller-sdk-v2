@@ -742,7 +742,13 @@ export const contactDeleteAccount = `mutation contactDeleteAccount(\$id: Int!) {
 }
 `;
 
-export const contactRegister = `mutation contactRegister(\$input: RegisterContactInput!) {
+export const contactRegister = `mutation contactRegister(
+  \$contactAttributesInput: AttributeResultSearchInput,
+  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput,
+  \$companyAttributesInput: AttributeResultSearchInput,
+  \$customerAttributesInput: AttributeResultSearchInput,
+  \$input: RegisterContactInput!
+) {
   contactRegister(input: \$input) {
     ...RegisterContactResponseFields
   }
@@ -849,7 +855,13 @@ export const customerDeleteAccount = `mutation customerDeleteAccount(\$id: Int!)
 }
 `;
 
-export const customerRegister = `mutation customerRegister(\$input: RegisterCustomerInput!) {
+export const customerRegister = `mutation customerRegister(
+  \$contactAttributesInput: AttributeResultSearchInput,
+  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput,
+  \$companyAttributesInput: AttributeResultSearchInput,
+  \$customerAttributesInput: AttributeResultSearchInput,
+  \$input: RegisterCustomerInput!
+) {
   customerRegister(input: \$input) {
     ...RegisterCustomerResponseFields
   }

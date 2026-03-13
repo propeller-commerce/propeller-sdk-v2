@@ -27,48 +27,48 @@ export type ViewerResult = Contact | Customer;
  * Input object for searching users
  */
 export interface UserSearchInput {
-  /** User ID to search for */
-  userId?: number;
-  /** Email to search for */
-  email?: string;
-  /** Contact ID to search for */
-  contactId?: number;
-  /** Customer ID to search for */
-  customerId?: number;
+    /** User ID to search for */
+    userId?: number;
+    /** Email to search for */
+    email?: string;
+    /** Contact ID to search for */
+    contactId?: number;
+    /** Customer ID to search for */
+    customerId?: number;
 }
 /**
  * Input object for updating user information
  */
 export interface UserUpdateInput {
-  /** User ID */
-  userId: number;
-  /** First name */
-  firstName?: string;
-  /** Last name */
-  lastName?: string;
-  /** Email address */
-  email?: string;
-  /** Phone number */
-  phone?: string;
-  /** Mobile number */
-  mobile?: string;
+    /** User ID */
+    userId: number;
+    /** First name */
+    firstName?: string;
+    /** Last name */
+    lastName?: string;
+    /** Email address */
+    email?: string;
+    /** Phone number */
+    phone?: string;
+    /** Mobile number */
+    mobile?: string;
 }
 /**
  * Simplified input object for password reset requests
  */
 export interface PasswordResetInput {
-  /** The email address of the user to generate the recovery link for */
-  email: string;
-  /** The page the user will be redirected to after the user changed their password */
-  redirectUrl?: string;
-  /** Text to display that will lead to link when clicked */
-  linkText?: string;
-  /** The subject of the email (optional, will use default if not provided) */
-  subject?: string;
-  /** Language for the email (optional) */
-  language?: string;
-  /** The id of the site to use when sending the email (optional) */
-  siteId?: number;
+    /** The email address of the user to generate the recovery link for */
+    email: string;
+    /** The page the user will be redirected to after the user changed their password */
+    redirectUrl?: string;
+    /** Text to display that will lead to link when clicked */
+    linkText?: string;
+    /** The subject of the email (optional, will use default if not provided) */
+    subject?: string;
+    /** Language for the email (optional) */
+    language?: string;
+    /** The id of the site to use when sending the email (optional) */
+    siteId?: number;
 }
 
 export interface ViewerInput {
@@ -81,6 +81,33 @@ export interface ViewerInput {
     /** CustomerAttributesInput attributes input arguments */
     customerAttributesInput?: AttributeResultSearchInput;
 }
+
+export interface ContactRegisterInput {
+    /** Contact registration input data */
+    input: RegisterContactInput;
+    /** Contact attributes input arguments */
+    contactAttributesInput?: AttributeResultSearchInput;
+    /** Contact purchase authorization config input arguments */
+    contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
+    /** Company attributes input arguments */
+    companyAttributesInput?: AttributeResultSearchInput;
+    /** CustomerAttributesInput attributes input arguments */
+    customerAttributesInput?: AttributeResultSearchInput;
+}
+
+export interface CustomerRegisterInput {
+    /** Contact registration input data */
+    input: RegisterCustomerInput;
+    /** Contact attributes input arguments */
+    contactAttributesInput?: AttributeResultSearchInput;
+    /** Contact purchase authorization config input arguments */
+    contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
+    /** Company attributes input arguments */
+    companyAttributesInput?: AttributeResultSearchInput;
+    /** CustomerAttributesInput attributes input arguments */
+    customerAttributesInput?: AttributeResultSearchInput;
+}
+
 
 /**
  * Service class for user-related GraphQL operations
@@ -154,7 +181,7 @@ export class UserService extends BaseService {
      * @param input Contact registration input data
      * @returns Promise<RegisterContactResponse> The registration response
      */
-    async registerContact(input: RegisterContactInput): Promise<RegisterContactResponse> {
+    async registerContact(input: ContactRegisterInput): Promise<RegisterContactResponse> {
         const result = await this.executeMutation('contactRegister', { input });
         return new RegisterContactResponse(result.data.contactRegister);
     }
@@ -163,7 +190,7 @@ export class UserService extends BaseService {
      * @param input Customer registration input data
      * @returns Promise<RegisterCustomerResponse> The registration response
      */
-    async registerCustomer(input: RegisterCustomerInput): Promise<RegisterCustomerResponse> {
+    async registerCustomer(input: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
         const result = await this.executeMutation('customerRegister', { input });
         return new RegisterCustomerResponse(result.data.customerRegister);
     }
