@@ -2,10 +2,9 @@ mutation contactRegister(
   $contactAttributesInput: AttributeResultSearchInput,
   $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput,
   $companyAttributesInput: AttributeResultSearchInput,
-  $customerAttributesInput: AttributeResultSearchInput,
-  $input: RegisterContactInput!
+  $contactRegisterInput: RegisterContactInput!
 ) {
-  contactRegister(input: $input) {
+  contactRegister(input: $contactRegisterInput) {
     ...RegisterContactResponseFields
   }
 }

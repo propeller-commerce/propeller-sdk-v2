@@ -1,11 +1,8 @@
 mutation customerRegister(
-  $contactAttributesInput: AttributeResultSearchInput,
-  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput,
-  $companyAttributesInput: AttributeResultSearchInput,
   $customerAttributesInput: AttributeResultSearchInput,
-  $input: RegisterCustomerInput!
+  $customerRegisterInput: RegisterCustomerInput!
 ) {
-  customerRegister(input: $input) {
+  customerRegister(input: $customerRegisterInput) {
     ...RegisterCustomerResponseFields
   }
 }

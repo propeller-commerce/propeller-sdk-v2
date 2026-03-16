@@ -84,7 +84,7 @@ export interface ViewerInput {
 
 export interface ContactRegisterInput {
     /** Contact registration input data */
-    input: RegisterContactInput;
+    contactRegisterInput: RegisterContactInput;
     /** Contact attributes input arguments */
     contactAttributesInput?: AttributeResultSearchInput;
     /** Contact purchase authorization config input arguments */
@@ -95,7 +95,7 @@ export interface ContactRegisterInput {
 
 export interface CustomerRegisterInput {
     /** Contact registration input data */
-    input: RegisterCustomerInput;
+    customerRegisterInput: RegisterCustomerInput;
     /** CustomerAttributesInput attributes input arguments */
     customerAttributesInput?: AttributeResultSearchInput;
 }
@@ -170,20 +170,20 @@ export class UserService extends BaseService {
     }
     /**
      * Register new contact
-     * @param input Contact registration input data
+     * @param variables Contact registration input data
      * @returns Promise<RegisterContactResponse> The registration response
      */
-    async registerContact(input: ContactRegisterInput): Promise<RegisterContactResponse> {
-        const result = await this.executeMutation('contactRegister', { input });
+    async registerContact(variables: ContactRegisterInput): Promise<RegisterContactResponse> {
+        const result = await this.executeMutation('contactRegister', variables);
         return new RegisterContactResponse(result.data.contactRegister);
     }
     /**
      * Register new customer
-     * @param input Customer registration input data
+     * @param variables Customer registration input data
      * @returns Promise<RegisterCustomerResponse> The registration response
      */
-    async registerCustomer(input: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
-        const result = await this.executeMutation('customerRegister', { input });
+    async registerCustomer(variables: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
+        const result = await this.executeMutation('customerRegister', variables);
         return new RegisterCustomerResponse(result.data.customerRegister);
     }
     /**

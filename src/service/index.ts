@@ -49,7 +49,7 @@ export * from './TenantService';
 export * from './TenderService';
 export * from './TicketService';
 export * from './TrackAndTraceService';
-export { UserService, ViewerResult } from './UserService';
+export * from './UserService';
 export * from './ValuesetService';
 export * from './VerifyTokenService';
 export * from './WarehouseAddressService';
