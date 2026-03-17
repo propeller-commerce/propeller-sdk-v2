@@ -5,6 +5,14 @@ import { BundleSearchInput } from '../type/BundleSearchInput';
 import { BundleCreateInput } from '../type/BundleCreateInput';
 import { BundleUpdateInput } from '../type/BundleUpdateInput';
 import { BundleAddItemsInput } from '../type/BundleAddItemsInput';
+import { MediaImageProductSearchInput, PriceCalculateProductInput, TransformationsInput } from '../type';
+
+export interface BundleQueryVariables {
+  input: BundleSearchInput
+  language: String
+  imageSearchFilters: MediaImageProductSearchInput
+  imageVariantFilters: TransformationsInput
+}
 /**
  Service class for Bundle-related GraphQL operations
  */
@@ -21,11 +29,10 @@ export class BundleService extends BaseService {
   }
   /**
    Fetches a list of bundles with search criteria
-   * @param input Bundle search input parameters
+   * @param variables Bundle query variables
    * @returns Promise<BundlesResponse> The bundles response data
    */
-  async getBundles(input?: BundleSearchInput): Promise<BundlesResponse> {
-    const variables = { input };
+  async getBundles(variables?: BundleQueryVariables): Promise<BundlesResponse> {
     const result = await this.executeQuery('bundles', variables);
     return new BundlesResponse(result.data.bundles);
   }

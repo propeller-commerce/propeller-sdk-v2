@@ -4,6 +4,21 @@ import { CrossupsellsResponse } from '../type/CrossupsellsResponse';
 import { CrossupsellSearchInput } from '../type/CrossupsellSearchInput';
 import { CrossupsellCreateInput } from '../type/CrossupsellCreateInput';
 import { CrossupsellUpdateInput } from '../type/CrossupsellUpdateInput';
+import { MediaImageProductSearchInput, PriceCalculateProductInput, TransformationsInput } from '../type';
+
+export interface CrossupsellsQueryVariables {
+  /** Crossupsell search input parameters */
+  input?: CrossupsellSearchInput;
+  /** Language for localized content */
+  language?: string;
+  /** Image search filters */
+  imageSearchFilters?: MediaImageProductSearchInput;
+  /** Image transformation filters */
+  imageVariantFilters?: TransformationsInput;
+  /** Price calculate product input */
+  priceCalculateProductInput?: PriceCalculateProductInput;
+}
+
 /**
  Service class for Crossupsell-related GraphQL operations
  */
@@ -20,11 +35,10 @@ export class CrossupsellService extends BaseService {
   }
   /**
    Fetches a list of crossupsells with search criteria
-   * @param input Crossupsell search input parameters
+   * @param variables Crossupsell search input parameters
    * @returns Promise<CrossupsellsResponse> The crossupsells response data
    */
-  async getCrossupsells(input?: CrossupsellSearchInput): Promise<CrossupsellsResponse> {
-    const variables = { input };
+  async getCrossupsells(variables?: CrossupsellsQueryVariables): Promise<CrossupsellsResponse> {
     const result = await this.executeQuery('crossupsells', variables);
     return new CrossupsellsResponse(result.data.crossupsells);
   }

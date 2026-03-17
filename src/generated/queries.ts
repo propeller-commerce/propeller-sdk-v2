@@ -137,7 +137,12 @@ export const bundle = `query bundle(\$id: String!, \$taxZone: String) {
   }
 }`;
 
-export const bundles = `query bundles(\$input: BundleSearchInput) {
+export const bundles = `query bundles(
+  \$input: BundleSearchInput
+  \$language: String
+  \$imageSearchFilters: MediaImageProductSearchInput
+  \$imageVariantFilters: TransformationsInput!
+) {
   bundles(input: \$input) {
     ...BundlesResponseFields
   }
@@ -325,7 +330,13 @@ export const crossupsell = `query crossupsell(\$id: String!) {
   }
 }`;
 
-export const crossupsells = `query crossupsells(\$input: CrossupsellSearchInput) {
+export const crossupsells = `query crossupsells(
+  \$input: CrossupsellSearchInput
+  \$language: String
+  \$imageSearchFilters: MediaImageProductSearchInput
+  \$imageVariantFilters: TransformationsInput!
+  \$priceCalculateProductInput: PriceCalculateProductInput!
+) {
   crossupsells(input: \$input) {
     ...CrossupsellsResponseFields
   }
