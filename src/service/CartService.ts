@@ -5,7 +5,7 @@ import { CartSearchInput } from '../type/CartSearchInput';
 import { CartSetCustomerInput } from '../type/CartSetCustomerInput';
 import { CartSetContactInput } from '../type/CartSetContactInput';
 import { CartSetUserInput } from '../type/CartSetUserInput';
-import { CartDeleteItemInput, CartProcessResponse, CartUpdateItemInput } from '../type';
+import { CartActionCodeInput, CartDeleteItemInput, CartProcessResponse, CartUpdateItemInput } from '../type';
 import { CartStartInput } from '../type/CartStartInput';
 import { CartAddItemInput } from '../type/CartAddItemInput';
 import { CartUpdateInput } from '../type/CartUpdateInput';
@@ -46,7 +46,7 @@ export interface CartDeleteVariables {
 }
 export interface CartActionCodeVariables {
   id: string;
-  code: string;
+  input: CartActionCodeInput;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
   imageVariantFilters?: TransformationsInput;
