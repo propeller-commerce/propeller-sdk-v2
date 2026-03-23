@@ -403,7 +403,6 @@ export const cartRemoveActionCode = `mutation cartRemoveActionCode(
   \$id: String!
   \$input: CartActionCodeInput!
   \$language: String
-  \$priceCalculateProductInput: PriceCalculateProductInput
   \$imageSearchFilters: MediaImageProductSearchInput
   \$imageVariantFilters: TransformationsInput!) {
   cartRemoveActionCode(id: \$id, input: \$input) {
