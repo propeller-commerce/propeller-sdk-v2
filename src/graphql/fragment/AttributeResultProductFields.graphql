@@ -1,11 +1,7 @@
-fragment AttributeResultFields on AttributeResult {
+fragment AttributeResultProductFields on AttributeResult {
   attribute {
     __typename
-    ... on CategoryAttribute { ...CategoryAttributeFields }
     ... on ClusterAttribute { ...ClusterAttributeFields }
-    ... on CompanyAttribute { ...CompanyAttributeFields }
-    ... on ContactAttribute { ...ContactAttributeFields }
-    ... on CustomerAttribute { ...CustomerAttributeFields }
     ... on ProductAttribute { ...ProductAttributeFields }
   }
   attributeDescription {

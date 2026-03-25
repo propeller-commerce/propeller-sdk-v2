@@ -31,6 +31,39 @@ export const AddressFields = `fragment AddressFields on Address {
   name
 }`;
 
+export const AttributeCategoryResultFields = `fragment AttributeCategoryResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute { ...CategoryAttributeFields }
+    ... on ClusterAttribute { ...ClusterAttributeFields }
+    ... on ProductAttribute { ...ProductAttributeFields }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+  value {
+    ... on AttributeColorValue { ...AttributeColorValueFields }
+    ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
+    ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
+    ... on AttributeEnumValue { ...AttributeEnumValueFields }
+    ... on AttributeIntValue { ...AttributeIntValueFields }
+    ... on AttributeTextValue { ...AttributeTextValueFields }
+  }
+}`;
+
 export const AttributeColorValueFields = `fragment AttributeColorValueFields on AttributeColorValue {
   __typename
   id
@@ -80,14 +113,6 @@ export const AttributeDescriptionFields = `fragment AttributeDescriptionFields o
   lastModifiedAt
   createdBy
   lastModifiedBy
-  defaultValue {
-    ... on AttributeColorValue { ...AttributeColorValueFields }
-    ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
-    ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
-    ... on AttributeEnumValue { ...AttributeEnumValueFields }
-    ... on AttributeIntValue { ...AttributeIntValueFields }
-    ... on AttributeTextValue { ...AttributeTextValueFields }
-  }
 }
 `;
 
@@ -181,6 +206,18 @@ export const AttributeResponseFields = `fragment AttributeResponseFields on Attr
   end
 }`;
 
+export const AttributeResultCategoryResponseFields = `fragment AttributeResultCategoryResponseFields on AttributeResultResponse {
+  items {
+    ... AttributeCategoryResultFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}`;
+
 export const AttributeResultFields = `fragment AttributeResultFields on AttributeResult {
   attribute {
     __typename
@@ -214,14 +251,6 @@ export const AttributeResultFields = `fragment AttributeResultFields on Attribut
     lastModifiedAt
     createdBy
     lastModifiedBy
-    defaultValue {
-      ... on AttributeColorValue { ...AttributeColorValueFields }
-      ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
-      ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
-      ... on AttributeEnumValue { ...AttributeEnumValueFields }
-      ... on AttributeIntValue { ...AttributeIntValueFields }
-      ... on AttributeTextValue { ...AttributeTextValueFields }
-    }
   }
   value {
     ... on AttributeColorValue { ...AttributeColorValueFields }
@@ -231,6 +260,58 @@ export const AttributeResultFields = `fragment AttributeResultFields on Attribut
     ... on AttributeIntValue { ...AttributeIntValueFields }
     ... on AttributeTextValue { ...AttributeTextValueFields }
   }
+}`;
+
+export const AttributeResultProductFields = `fragment AttributeResultProductFields on AttributeResult {
+  attribute {
+    __typename
+    ... on ClusterAttribute { ...ClusterAttributeFields }
+    ... on ProductAttribute { ...ProductAttributeFields }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue { ...AttributeColorValueFields }
+    ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
+    ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
+    ... on AttributeEnumValue { ...AttributeEnumValueFields }
+    ... on AttributeIntValue { ...AttributeIntValueFields }
+    ... on AttributeTextValue { ...AttributeTextValueFields }
+  }
+}`;
+
+export const AttributeResultProductResponseFields = `fragment AttributeResultProductResponseFields on AttributeResultResponse {
+  items {
+    ... AttributeResultProductFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
 }`;
 
 export const AttributeResultResponseFields = `fragment AttributeResultResponseFields on AttributeResultResponse {
@@ -815,18 +896,6 @@ export const CategoryAttributeFields = `fragment CategoryAttributeFields on Attr
     isPublic
     isSystem
     isHidden
-    createdAt
-    lastModifiedAt
-    createdBy
-    lastModifiedBy
-    defaultValue {
-      ... on AttributeColorValue { ...AttributeColorValueFields }
-      ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
-      ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
-      ... on AttributeEnumValue { ...AttributeEnumValueFields }
-      ... on AttributeIntValue { ...AttributeIntValueFields }
-      ... on AttributeTextValue { ...AttributeTextValueFields }
-    }
   }
 }`;
 
@@ -835,7 +904,7 @@ export const CategoryFields = `fragment CategoryFields on Category {
   urlId: categoryId
   ... CategoryMinimalFields
   attributes {
-    ... AttributeResultResponseFields
+    ... AttributeResultCategoryResponseFields
   }
   path
   parent {
@@ -951,25 +1020,13 @@ export const ClusterFields = `fragment ClusterFields on Cluster {
   clusterId
   categoryId
   attributes {
-    ... AttributeResultResponseFields
-  }
-  categories {
-    ... CategoryResponseFields
+    ... AttributeResultProductResponseFields
   }
   category {
     ... CategoryMinimalFields
   }
   categoryPath {
     ... CategoryMinimalFields
-  }
-  crossupsellsFrom {
-    ... CrossupsellsResponseFields
-  }
-  crossupsellsTo {
-    ... CrossupsellsResponseFields
-  }
-  favoriteLists {
-    ... FavoriteListsResponseFields
   }
   products {
     ... ProductFields
@@ -994,8 +1051,6 @@ export const ClusterGridFields = `fragment ClusterGridFields on Cluster {
   products {
     ... ProductGridFields
   }
-  createdAt
-  lastModifiedAt
   options {
     ... ClusterOptionFields
   }
@@ -1013,7 +1068,7 @@ export const ClusterOptionFields = `fragment ClusterOptionFields on ClusterOptio
     productId
   }
   products {
-    ... ProductGridFields
+    ... ProductClusterOptionsFields
   }
   names {
     ... LocalizedStringFields
@@ -2733,12 +2788,55 @@ export const ProductCartFields = `fragment ProductCartFields on Product {
   purchaseMinimumQuantity
 }`;
 
+export const ProductClusterOptionsFields = `fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ... LocalizedStringFields
+  }
+  slugs {
+    ... LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ... ProductInventoryFields
+  }
+  media {
+    ... ProductMediaImagesOnlyFields
+  }
+  price (input: \$priceCalculateProductInput) {
+    ... ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}`;
+
 export const ProductFields = `fragment ProductFields on Product {
   ... IBaseProductFields
   productId
   categoryId
   attributes (input: \$attributeResultSearchInput) {
-    ... AttributeResultResponseFields
+    ... AttributeResultProductResponseFields
   }
   bundles {
     ... BundleFields
@@ -2748,17 +2846,6 @@ export const ProductFields = `fragment ProductFields on Product {
   }
   categoryPath {
     ... CategoryMinimalFields
-  }
-  favoriteLists {
-    items {
-      ... FavoriteListOnlyFields
-    }
-    itemsFound
-    offset
-    page
-    pages
-    start
-    end
   }
   inventory {
     ... ProductInventoryFields
@@ -2821,12 +2908,11 @@ export const ProductGridFields = `fragment ProductGridFields on Product {
     ... ProductMediaImagesOnlyFields
   }
   price (input: \$priceCalculateProductInput) {
-    ... ProductPriceFields
+    ... ProductGridPriceFields
   }
   priceData {
     display
   }
-  shortName
   manufacturerCode
   eanCode
   manufacturer
@@ -2845,6 +2931,21 @@ export const ProductGridFields = `fragment ProductGridFields on Product {
   orderableFrom
   orderableTo
   containerClass
+}`;
+
+export const ProductGridPriceFields = `fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount { ...DiscountFields }
+  }
+  taxCode
+  quantity
 }`;
 
 export const ProductInventoryFields = `fragment ProductInventoryFields on ProductInventory {
@@ -3591,6 +3692,7 @@ export const ZoneTaxCodeResponseFields = `fragment ZoneTaxCodeResponseFields on 
 
 export const fragments = {
   AddressFields,
+  AttributeCategoryResultFields,
   AttributeColorValueFields,
   AttributeDateTimeValueFields,
   AttributeDecimalRangeFilterFields,
@@ -3603,7 +3705,10 @@ export const fragments = {
   AttributeIntegerRangeFilterFields,
   AttributeIntValueFields,
   AttributeResponseFields,
+  AttributeResultCategoryResponseFields,
   AttributeResultFields,
+  AttributeResultProductFields,
+  AttributeResultProductResponseFields,
   AttributeResultResponseFields,
   AttributeTextFilterFields,
   AttributeTextValueFields,
@@ -3735,8 +3840,10 @@ export const fragments = {
   ProductBulkMoveErrorFields,
   ProductBulkMoveResponseFields,
   ProductCartFields,
+  ProductClusterOptionsFields,
   ProductFields,
   ProductGridFields,
+  ProductGridPriceFields,
   ProductInventoryFields,
   ProductMediaFields,
   ProductMediaImagesOnlyFields,

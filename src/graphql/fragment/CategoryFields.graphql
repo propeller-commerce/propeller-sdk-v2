@@ -3,7 +3,7 @@ fragment CategoryFields on Category {
   urlId: categoryId
   ... CategoryMinimalFields
   attributes {
-    ... AttributeResultResponseFields
+    ... AttributeResultCategoryResponseFields
   }
   path
   parent {

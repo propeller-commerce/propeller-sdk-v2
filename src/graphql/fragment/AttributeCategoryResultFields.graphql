@@ -1,21 +1,14 @@
-fragment AttributeResultFields on AttributeResult {
+fragment AttributeCategoryResultFields on AttributeResult {
   attribute {
     __typename
     ... on CategoryAttribute { ...CategoryAttributeFields }
     ... on ClusterAttribute { ...ClusterAttributeFields }
-    ... on CompanyAttribute { ...CompanyAttributeFields }
-    ... on ContactAttribute { ...ContactAttributeFields }
-    ... on CustomerAttribute { ...CustomerAttributeFields }
     ... on ProductAttribute { ...ProductAttributeFields }
   }
   attributeDescription {
     id
     name
     descriptions {
-      language
-      value
-    }
-    units {
       language
       value
     }
@@ -27,10 +20,6 @@ fragment AttributeResultFields on AttributeResult {
     isPublic
     isSystem
     isHidden
-    createdAt
-    lastModifiedAt
-    createdBy
-    lastModifiedBy
   }
   value {
     ... on AttributeColorValue { ...AttributeColorValueFields }

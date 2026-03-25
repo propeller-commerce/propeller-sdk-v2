@@ -1,0 +1,14 @@
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount { ...DiscountFields }
+  }
+  taxCode
+  quantity
+}

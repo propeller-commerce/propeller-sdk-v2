@@ -1,7 +1,15 @@
-fragment ProductGridFields on Product {
-  ... IBaseProductFields
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ... LocalizedStringFields
+  }
+  slugs {
+    ... LocalizedStringFields
+  }
+  sku
   productId
-  categoryId
   inventory {
     ... ProductInventoryFields
   }
@@ -31,5 +39,4 @@ fragment ProductGridFields on Product {
   purchaseMinimumQuantity
   orderableFrom
   orderableTo
-  containerClass
 }

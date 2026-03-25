@@ -1,0 +1,11 @@
+fragment AttributeResultProductResponseFields on AttributeResultResponse {
+  items {
+    ... AttributeResultProductFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

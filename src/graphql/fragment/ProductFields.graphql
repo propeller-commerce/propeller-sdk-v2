@@ -3,7 +3,7 @@ fragment ProductFields on Product {
   productId
   categoryId
   attributes (input: $attributeResultSearchInput) {
-    ... AttributeResultResponseFields
+    ... AttributeResultProductResponseFields
   }
   bundles {
     ... BundleFields
@@ -13,17 +13,6 @@ fragment ProductFields on Product {
   }
   categoryPath {
     ... CategoryMinimalFields
-  }
-  favoriteLists {
-    items {
-      ... FavoriteListOnlyFields
-    }
-    itemsFound
-    offset
-    page
-    pages
-    start
-    end
   }
   inventory {
     ... ProductInventoryFields

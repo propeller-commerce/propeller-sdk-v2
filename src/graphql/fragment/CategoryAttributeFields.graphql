@@ -31,17 +31,5 @@ fragment CategoryAttributeFields on Attribute {
     isPublic
     isSystem
     isHidden
-    createdAt
-    lastModifiedAt
-    createdBy
-    lastModifiedBy
-    defaultValue {
-      ... on AttributeColorValue { ...AttributeColorValueFields }
-      ... on AttributeDateTimeValue { ...AttributeDateTimeValueFields }
-      ... on AttributeDecimalValue { ...AttributeDecimalValueFields }
-      ... on AttributeEnumValue { ...AttributeEnumValueFields }
-      ... on AttributeIntValue { ...AttributeIntValueFields }
-      ... on AttributeTextValue { ...AttributeTextValueFields }
-    }
   }
 }
