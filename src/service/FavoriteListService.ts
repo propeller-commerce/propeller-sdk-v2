@@ -4,6 +4,7 @@ import { FavoriteListsResponse } from '../type/FavoriteListsResponse';
 import { FavoriteListsSearchInput } from '../type/FavoriteListsSearchInput';
 import { FavoriteListsCreateInput } from '../type/FavoriteListsCreateInput';
 import { FavoriteListsUpdateInput } from '../type/FavoriteListsUpdateInput';
+import { FavoriteListsItemsInput } from '../type/FavoriteListsItemsInput';
 /**
  Service for managing favorite lists
  * @extends BaseService
@@ -63,6 +64,40 @@ export class FavoriteListService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('favoriteListDelete', variables);
     return result.data.favoriteListDelete;
+  }
+  /**
+   Adds items to a favorite list
+   * @param id Favorite list ID
+   * @param input Items to add via FavoriteListsItemsInput
+   * @returns Promise<FavoriteList> The updated favorite list
+   */
+  async addFavoriteListItems(id: string, input: FavoriteListsItemsInput): Promise<FavoriteList> {
+    const variables = { id, input };
+    const result = await this.executeMutation('favoriteListAddItems', variables);
+    return new FavoriteList(result.data.favoriteListAddItems);
+  }
+  /**
+   Removes items from a favorite list
+   * @param id Favorite list ID
+   * @param input Items to remove via FavoriteListsItemsInput
+   * @returns Promise<FavoriteList> The updated favorite list
+   */
+  async removeFavoriteListItems(id: string, input: FavoriteListsItemsInput): Promise<FavoriteList> {
+    const variables = { id, input };
+    const result = await this.executeMutation('favoriteListRemoveItems', variables);
+    return new FavoriteList(result.data.favoriteListRemoveItems);
+  }
+  /**
+   Clears items from a favorite list
+   * @param id Favorite list ID
+   * @param products Whether to clear products
+   * @param clusters Whether to clear clusters
+   * @returns Promise<FavoriteList> The updated favorite list
+   */
+  async clearFavoriteListItems(id: string, products?: boolean, clusters?: boolean): Promise<FavoriteList> {
+    const variables = { id, products, clusters };
+    const result = await this.executeMutation('favoriteListClearItems', variables);
+    return new FavoriteList(result.data.favoriteListClearItems);
   }
   /**
    Initializes the service by preloading common fragments
