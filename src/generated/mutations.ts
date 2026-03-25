@@ -980,13 +980,13 @@ export const exchangeRefreshToken = `mutation exchangeRefreshToken(\$input: Exch
 
 export const favoriteListAddItems = `mutation favoriteListAddItems(\$id: String!, \$input: FavoriteListsItemsInput!) {
   favoriteListAddItems(id: \$id, input: \$input) {
-    ...FavoriteListFields
+    ...FavoriteListOnlyFields
   }
 }`;
 
 export const favoriteListClearItems = `mutation favoriteListClearItems(\$id: String!, \$products: Boolean, \$clusters: Boolean) {
   favoriteListClearItems(id: \$id, products: \$products, clusters: \$clusters) {
-    ...FavoriteListFields
+    ...FavoriteListOnlyFields
   }
 }`;
 
@@ -1002,7 +1002,7 @@ export const favoriteListDelete = `mutation favoriteListDelete(\$id: String!) {
 
 export const favoriteListRemoveItems = `mutation favoriteListRemoveItems(\$id: String!, \$input: FavoriteListsItemsInput!) {
   favoriteListRemoveItems(id: \$id, input: \$input) {
-    ...FavoriteListFields
+    ...FavoriteListOnlyFields
   }
 }`;
 

@@ -1,5 +1,5 @@
 mutation favoriteListAddItems($id: String!, $input: FavoriteListsItemsInput!) {
   favoriteListAddItems(id: $id, input: $input) {
-    ...FavoriteListFields
+    ...FavoriteListOnlyFields
   }
 }
