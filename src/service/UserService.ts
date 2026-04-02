@@ -16,7 +16,7 @@ import { Address } from '../type/Address';
 import { PasswordResetLinkEmailInput } from '../type/PasswordResetLinkEmailInput';
 import { PublishEmailEventResponse } from '../type/PublishEmailEventResponse';
 import { EmailEventType } from '../enum/EmailEventType';
-import { PasswordRecoveryLinkInput } from '../type';
+import { ClaimsResetAllResponse, PasswordRecoveryLinkInput } from '../type';
 /**
  * Viewer result type alias
  * @type ViewerResult
@@ -264,6 +264,16 @@ export class UserService extends BaseService {
     async deleteUserAddress(input: any): Promise<boolean> {
         const result = await this.executeMutation('userAddressDelete', { input });
         return result.data.userAddressDelete;
+    }
+    /**
+     * Resets all claims for a user by email
+     * @param uid The user ID
+     * @param email The user email address
+     * @returns Promise<boolean> The response containing reset statistics
+     */
+    async claimsReset(uid: string, email: string): Promise<boolean> {
+        const result = await this.executeMutation('claimsReset', { uid, email });
+        return result.data.claimsReset;
     }
     /**
      * Initializes the service by preloading common fragments
