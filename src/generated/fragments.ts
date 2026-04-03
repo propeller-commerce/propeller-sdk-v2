@@ -2404,6 +2404,26 @@ export const OrderlistFields = `fragment OrderlistFields on Orderlist {
   }
 }`;
 
+export const OrderlistOnlyFields = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}`;
+
 export const OrderlistsResponseFields = `fragment OrderlistsResponseFields on OrderlistsResponse {
   items {
     ... OrderlistFields
@@ -3816,6 +3836,7 @@ export const fragments = {
   OrderFields,
   OrderItemFields,
   OrderlistFields,
+  OrderlistOnlyFields,
   OrderlistsResponseFields,
   OrderMediaFields,
   OrderPaymentDataFields,

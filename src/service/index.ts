@@ -26,6 +26,7 @@ export * from './MediaImageService';
 export * from './MediaService';
 export * from './MediaVideoService';
 export * from './OrderService';
+export * from './OrderlistService';
 export * from './PayMethodService';
 export * from './PaymentService';
 export * from './PriceService';
