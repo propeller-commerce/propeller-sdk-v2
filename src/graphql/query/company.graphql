@@ -1,4 +1,9 @@
-query company($id: Int!) {
+query company(
+  $id: Int!
+  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  $companyAttributesInput: AttributeResultSearchInput
+  $contactSearchArguments: ContactSearchArguments
+) {
   company(id: $id) {
     ...CompanyFields
   }

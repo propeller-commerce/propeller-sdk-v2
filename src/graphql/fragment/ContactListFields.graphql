@@ -21,7 +21,7 @@ fragment ContactListFields on Contact {
   createdAt
   lastModifiedAt
   parentCompanyId
-  purchaseAuthorizationConfigs {
+  purchaseAuthorizationConfigs(input: $contactPAConfigInput) {
     items {
       ... PurchaseAuthorizationConfigFields
     }

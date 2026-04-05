@@ -3,7 +3,7 @@ fragment CompanyFields on Company {
   addresses {
     ... AddressFields
   }
-  attributes {
+  attributes(input: $companyAttributesInput) {
     items {
       ... AttributeResultFields
     }
@@ -20,7 +20,7 @@ fragment CompanyFields on Company {
   debtorId
   phone
   email
-  contacts {
+  contacts(input: $contactSearchArguments) {
     items {
       ... ContactListFields
     }

@@ -41,13 +41,24 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   }
   /**
    Updates an existing purchase authorization configuration
+   * @param id Configuration ID
    * @param input Configuration update input
    * @returns Promise<PurchaseAuthorizationConfig> The updated configuration
    */
-  async updatePurchaseAuthorizationConfig(input: PurchaseAuthorizationConfigUpdateInput): Promise<PurchaseAuthorizationConfig> {
-    const variables = { input };
+  async updatePurchaseAuthorizationConfig(id: string, input: PurchaseAuthorizationConfigUpdateInput): Promise<PurchaseAuthorizationConfig> {
+    const variables = { id, input };
     const result = await this.executeMutation('purchaseAuthorizationConfigUpdate', variables);
     return new PurchaseAuthorizationConfig(result.data.purchaseAuthorizationConfigUpdate);
+  }
+  /**
+   Deletes a purchase authorization configuration
+   * @param id Configuration ID
+   * @returns Promise<boolean> True if deletion was successful
+   */
+  async deletePurchaseAuthorizationConfig(id: string): Promise<boolean> {
+    const variables = { id };
+    const result = await this.executeMutation('purchaseAuthorizationConfigDelete', variables);
+    return result.data.purchaseAuthorizationConfigDelete;
   }
   /**
    Initializes the service by preloading common fragments

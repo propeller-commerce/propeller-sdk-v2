@@ -5,18 +5,29 @@ import { CompanySearchInput } from '../type/CompanySearchInput';
 import { CreateCompanyInput } from '../type/CreateCompanyInput';
 import { UpdateCompanyInput } from '../type/UpdateCompanyInput';
 import { CompanyCsvInput } from '../type/CompanyCsvInput';
+import { AttributeResultSearchInput, ContactPurchaseAuthorizationConfigSearchInput, ContactSearchArguments } from '../type';
 /**
  Service for managing companies
  * @extends BaseService
  */
+export interface CompanyVariables {
+  id: number;
+  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  $companyAttributesInput: AttributeResultSearchInput
+  $contactSearchArguments: ContactSearchArguments
+}
+
 export class CompanyService extends BaseService {
   /**
    Retrieves a specific company
-   * @param id Company ID
+   * @param variables
+   * - id: number - Company ID
+   * - $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
+   * - $companyAttributesInput: AttributeResultSearchInput - Company attributes search input
+   * - $contactSearchArguments: ContactSearchArguments - Contact search arguments
    * @returns Promise<Company> Company data
    */
-  async getCompany(id: number): Promise<Company> {
-    const variables = { id };
+  async getCompany(variables: CompanyVariables): Promise<Company> {
     const result = await this.executeQuery('company', variables);
     return new Company(result.data.company);
   }

@@ -287,7 +287,12 @@ export const companies = `query companies(\$input: CompanySearchArguments) {
   }
 }`;
 
-export const company = `query company(\$id: Int!) {
+export const company = `query company(
+  \$id: Int!
+  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  \$companyAttributesInput: AttributeResultSearchInput
+  \$contactSearchArguments: ContactSearchArguments
+) {
   company(id: \$id) {
     ...CompanyFields
   }

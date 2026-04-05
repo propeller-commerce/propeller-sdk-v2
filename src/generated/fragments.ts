@@ -1196,7 +1196,7 @@ export const CompanyFields = `fragment CompanyFields on Company {
   addresses {
     ... AddressFields
   }
-  attributes {
+  attributes(input: \$companyAttributesInput) {
     items {
       ... AttributeResultFields
     }
@@ -1213,7 +1213,7 @@ export const CompanyFields = `fragment CompanyFields on Company {
   debtorId
   phone
   email
-  contacts {
+  contacts(input: \$contactSearchArguments) {
     items {
       ... ContactListFields
     }
@@ -1366,7 +1366,7 @@ export const ContactListFields = `fragment ContactListFields on Contact {
   createdAt
   lastModifiedAt
   parentCompanyId
-  purchaseAuthorizationConfigs {
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
     items {
       ... PurchaseAuthorizationConfigFields
     }
