@@ -69,13 +69,4 @@ fragment CartFields on Cart {
   language
   purchaseAuthorizationRequired
   status
-  contact {
-    ... ContactListFields
-  }
-  customer {
-    ... CustomerListFields
-  }
-  company {
-    ... CompanyListFields
-  }
 }
