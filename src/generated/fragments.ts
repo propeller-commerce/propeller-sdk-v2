@@ -805,6 +805,59 @@ export const CartProcessResponseFields = `fragment CartProcessResponseFields on 
 export const CartResponseFields = `fragment CartResponseFields on CartResponse {
   items {
     cartId
+    channelId
+    shopId
+    contactId
+    customerId
+    companyId
+    notes
+    reference
+    extra3
+    extra4
+    orderStatus
+    actionCode
+    total {
+      ... CartTotalFields
+    }
+    items {
+      itemId
+      price
+      priceNet
+      priceMode
+      totalPrice
+      totalPriceNet
+      sum
+      sumNet
+      totalSum
+      totalSumNet
+      quantity
+    }
+    bonusItems {
+      itemId
+      price
+      priceNet
+      priceMode
+      totalPrice
+      totalPriceNet
+      sum
+      sumNet
+      totalSum
+      totalSumNet
+      quantity
+    }
+    invoiceAddress {
+      ... CartAddressFields
+    }
+    deliveryAddress {
+      ... CartAddressFields
+    }
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+    language
+    purchaseAuthorizationRequired
+    status
   }
   itemsFound
 }`;
