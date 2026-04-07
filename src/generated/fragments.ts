@@ -870,6 +870,18 @@ export const CartResponseFields = `fragment CartResponseFields on CartResponse {
     language
     purchaseAuthorizationRequired
     status
+    contact {
+      contactId
+      debtorId
+      gender
+      firstName
+      middleName
+      lastName
+      phone
+      mobile
+      email
+      login
+    }
   }
   itemsFound
 }`;
