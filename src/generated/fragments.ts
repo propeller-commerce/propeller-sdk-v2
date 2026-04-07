@@ -618,6 +618,18 @@ export const CartFields = `fragment CartFields on Cart {
   language
   purchaseAuthorizationRequired
   status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
 }`;
 
 export const CartIncentiveFields = `fragment CartIncentiveFields on CartIncentive {
