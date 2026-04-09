@@ -7,7 +7,4 @@ fragment ShipmentItemFields on ShipmentItem {
   quantity
   shipmentId
   orderItemId
-  orderItem {
-    ... OrderItemFields
-  }
 }

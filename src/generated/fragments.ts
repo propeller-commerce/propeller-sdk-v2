@@ -3234,9 +3234,6 @@ export const ShipmentItemFields = `fragment ShipmentItemFields on ShipmentItem {
   quantity
   shipmentId
   orderItemId
-  orderItem {
-    ... OrderItemFields
-  }
 }`;
 
 export const ShipmentItemResponseFields = `fragment ShipmentItemResponseFields on ShipmentItemResponse {
@@ -3573,6 +3570,17 @@ export const TicketResponseFields = `fragment TicketResponseFields on TicketResp
 
 export const TrackAndTraceFields = `fragment TrackAndTraceFields on TrackAndTrace {
   carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
   id
   createdAt
   lastModifiedAt
