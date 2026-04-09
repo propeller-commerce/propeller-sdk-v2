@@ -31,6 +31,7 @@ import { RemoveOrderStatusesFromOrderStatusSetInput } from '../type/RemoveOrderS
 import { Address } from '../type/Address';
 import { MediaImageProductSearchInput } from '../type/MediaImageProductSearchInput';
 import { TransformationsInput } from '../type/TransformationsInput';
+import { TriggerQuoteSendRequestEventInput } from '../type';
 /**
  * Order query variables interface
  Variables for the order query
@@ -385,6 +386,16 @@ export class OrderService extends BaseService {
     const variables = { input };
     const result = await this.executeMutation('orderStatusSetRemoveOrderStatuses', variables);
     return new OrderStatusSet(result.data.orderStatusSetRemoveOrderStatuses);
+  }
+  /**
+   Triggers the send request event for a quote
+   * @param input Quote send request event input data
+   * @returns Promise<boolean> Success status
+   */
+  async triggerQuoteSendRequest(input: TriggerQuoteSendRequestEventInput): Promise<boolean> {
+    const variables = { input };
+    const result = await this.executeMutation('triggerQuoteSendRequest', variables);
+    return result.data.triggerQuoteSendRequest;
   }
   /**
    Initializes the service by preloading common fragments
