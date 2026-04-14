@@ -137,6 +137,16 @@ export class OrderService extends BaseService {
     return result.data.orderGetPDF;
   }
   /**
+   Fetches quote PDF
+   * @param quoteId Quote ID
+   * @returns Promise<any> The PDF data
+   */
+  async getQuotePDF(quoteId: number): Promise<any> {
+    const variables = { quoteId };
+    const result = await this.executeQuery('quoteGetPDF', variables);
+    return result.data.quoteGetPDF;
+  }
+  /**
    Fetches order address
    * @param orderId Order ID
    * @param addressType Address type
