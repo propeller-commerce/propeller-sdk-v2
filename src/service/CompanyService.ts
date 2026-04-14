@@ -12,24 +12,24 @@ import { AttributeResultSearchInput, ContactPurchaseAuthorizationConfigSearchInp
  */
 export interface CompanyVariables {
   id: number;
-  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
-  $companyAttributesInput: AttributeResultSearchInput
-  $contactSearchArguments: ContactSearchArguments
+  contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  companyAttributesInput: AttributeResultSearchInput
+  contactSearchArguments: ContactSearchArguments
 }
 
 export interface CompanyCreateVariables {
   input: CreateCompanyInput;
-  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
-  $companyAttributesInput: AttributeResultSearchInput
-  $contactSearchArguments: ContactSearchArguments
+  contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  companyAttributesInput: AttributeResultSearchInput
+  contactSearchArguments: ContactSearchArguments
 }
 
 export interface CompanyUpdateVariables {
   id: number;
   input: UpdateCompanyInput;
-  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
-  $companyAttributesInput: AttributeResultSearchInput
-  $contactSearchArguments: ContactSearchArguments
+  contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  companyAttributesInput: AttributeResultSearchInput
+  contactSearchArguments: ContactSearchArguments
 }
 
 export class CompanyService extends BaseService {
@@ -37,9 +37,9 @@ export class CompanyService extends BaseService {
    Retrieves a specific company
    * @param variables
    * - id: number - Company ID
-   * - $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
-   * - $companyAttributesInput: AttributeResultSearchInput - Company attributes search input
-   * - $contactSearchArguments: ContactSearchArguments - Contact search arguments
+   * - contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
+   * - companyAttributesInput: AttributeResultSearchInput - Company attributes search input
+   * - contactSearchArguments: ContactSearchArguments - Contact search arguments
    * @returns Promise<Company> Company data
    */
   async getCompany(variables: CompanyVariables): Promise<Company> {
@@ -60,9 +60,9 @@ export class CompanyService extends BaseService {
    Creates a new company
    * @param variables
    * - input: CreateCompanyInput - Company creation input
-   * - $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
-   * - $companyAttributesInput: AttributeResultSearchInput - Company attributes search input
-   * - $contactSearchArguments: ContactSearchArguments - Contact search arguments
+   * - contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
+   * - companyAttributesInput: AttributeResultSearchInput - Company attributes search input
+   * - contactSearchArguments: ContactSearchArguments - Contact search arguments
    * @returns Promise<Company> The created company
    */
   async createCompany(variables: CompanyCreateVariables): Promise<Company> {
@@ -73,9 +73,9 @@ export class CompanyService extends BaseService {
    Updates an existing company
    * @param variables
    * - input: UpdateCompanyInput - Company update input
-   * - $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
-   * - $companyAttributesInput: AttributeResultSearchInput - Company attributes search input
-   * - $contactSearchArguments: ContactSearchArguments - Contact search arguments
+   * - contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
+   * - companyAttributesInput: AttributeResultSearchInput - Company attributes search input
+   * - contactSearchArguments: ContactSearchArguments - Contact search arguments
    * @returns Promise<Company> The updated company
    */
   async updateCompany(variables: CompanyUpdateVariables): Promise<Company> {
