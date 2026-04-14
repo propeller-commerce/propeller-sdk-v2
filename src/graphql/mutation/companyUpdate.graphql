@@ -1,5 +1,14 @@
-mutation companyUpdate($id: Int!, $input: UpdateCompanyInput!) {
-  companyUpdate(id: $id, input: $input) {
+mutation companyUpdate(
+  $id: Int!
+  $input: UpdateCompanyInput!
+  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  $companyAttributesInput: AttributeResultSearchInput
+  $contactSearchArguments: ContactSearchArguments
+) {
+  companyUpdate(
+    id: $id
+    input: $input
+  ) {
     ...CompanyFields
   }
 }

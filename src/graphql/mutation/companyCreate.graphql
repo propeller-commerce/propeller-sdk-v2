@@ -1,4 +1,9 @@
-mutation companyCreate($input: CreateCompanyInput!) {
+mutation companyCreate(
+  $input: CreateCompanyInput!
+  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  $companyAttributesInput: AttributeResultSearchInput
+  $contactSearchArguments: ContactSearchArguments
+) {
   companyCreate(input: $input) {
     ...CompanyFields
   }

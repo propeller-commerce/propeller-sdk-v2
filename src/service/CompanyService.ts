@@ -17,6 +17,21 @@ export interface CompanyVariables {
   $contactSearchArguments: ContactSearchArguments
 }
 
+export interface CompanyCreateVariables {
+  input: CreateCompanyInput;
+  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  $companyAttributesInput: AttributeResultSearchInput
+  $contactSearchArguments: ContactSearchArguments
+}
+
+export interface CompanyUpdateVariables {
+  id: number;
+  input: UpdateCompanyInput;
+  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  $companyAttributesInput: AttributeResultSearchInput
+  $contactSearchArguments: ContactSearchArguments
+}
+
 export class CompanyService extends BaseService {
   /**
    Retrieves a specific company
@@ -43,21 +58,27 @@ export class CompanyService extends BaseService {
   }
   /**
    Creates a new company
-   * @param input Company creation input
+   * @param variables
+   * - input: CreateCompanyInput - Company creation input
+   * - $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
+   * - $companyAttributesInput: AttributeResultSearchInput - Company attributes search input
+   * - $contactSearchArguments: ContactSearchArguments - Contact search arguments
    * @returns Promise<Company> The created company
    */
-  async createCompany(input: CreateCompanyInput): Promise<Company> {
-    const variables = { input };
+  async createCompany(variables: CompanyCreateVariables): Promise<Company> {
     const result = await this.executeMutation('companyCreate', variables);
     return new Company(result.data.companyCreate);
   }
   /**
    Updates an existing company
-   * @param input Company update input
+   * @param variables
+   * - input: UpdateCompanyInput - Company update input
+   * - $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
+   * - $companyAttributesInput: AttributeResultSearchInput - Company attributes search input
+   * - $contactSearchArguments: ContactSearchArguments - Contact search arguments
    * @returns Promise<Company> The updated company
    */
-  async updateCompany(input: UpdateCompanyInput): Promise<Company> {
-    const variables = { input };
+  async updateCompany(variables: CompanyUpdateVariables): Promise<Company> {
     const result = await this.executeMutation('companyUpdate', variables);
     return new Company(result.data.companyUpdate);
   }

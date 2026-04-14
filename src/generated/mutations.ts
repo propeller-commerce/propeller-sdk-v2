@@ -664,7 +664,12 @@ export const companyAddressUpdate = `mutation companyAddressUpdate(\$input: Comp
   }
 }`;
 
-export const companyCreate = `mutation companyCreate(\$input: CreateCompanyInput!) {
+export const companyCreate = `mutation companyCreate(
+  \$input: CreateCompanyInput!
+  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  \$companyAttributesInput: AttributeResultSearchInput
+  \$contactSearchArguments: ContactSearchArguments
+) {
   companyCreate(input: \$input) {
     ...CompanyFields
   }
@@ -701,8 +706,17 @@ export const companySearchReindex = `mutation companySearchReindex(\$input: Comp
 }
 `;
 
-export const companyUpdate = `mutation companyUpdate(\$id: Int!, \$input: UpdateCompanyInput!) {
-  companyUpdate(id: \$id, input: \$input) {
+export const companyUpdate = `mutation companyUpdate(
+  \$id: Int!
+  \$input: UpdateCompanyInput!
+  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  \$companyAttributesInput: AttributeResultSearchInput
+  \$contactSearchArguments: ContactSearchArguments
+) {
+  companyUpdate(
+    id: \$id
+    input: \$input
+  ) {
     ...CompanyFields
   }
 }`;
