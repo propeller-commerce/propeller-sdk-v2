@@ -739,8 +739,8 @@ export const purchaseAuthorizationConfigs = `query purchaseAuthorizationConfigs(
   }
 }`;
 
-export const quoteGetPDF = `query quoteGetPDF(\$orderId: Int!) {
-  quoteGetPDF(orderId: \$orderId) {
+export const quoteGetPDF = `query quoteGetPDF(\$quoteId: Int!) {
+  quoteGetPDF(orderId: \$quoteId) {
     ...Base64FileFields
   }
 }`;
