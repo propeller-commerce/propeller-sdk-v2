@@ -1,17 +1,23 @@
 import { BaseService } from './BaseService';
 import { Company } from '../type/Company';
 import { CompaniesResponse } from '../type/CompaniesResponse';
-import { CompanySearchInput } from '../type/CompanySearchInput';
 import { CreateCompanyInput } from '../type/CreateCompanyInput';
 import { UpdateCompanyInput } from '../type/UpdateCompanyInput';
 import { CompanyCsvInput } from '../type/CompanyCsvInput';
-import { AttributeResultSearchInput, ContactPurchaseAuthorizationConfigSearchInput, ContactSearchArguments } from '../type';
+import { AttributeResultSearchInput, CompanySearchArguments, ContactPurchaseAuthorizationConfigSearchInput, ContactSearchArguments } from '../type';
 /**
  Service for managing companies
  * @extends BaseService
  */
 export interface CompanyVariables {
   id: number;
+  contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  companyAttributesInput: AttributeResultSearchInput
+  contactSearchArguments: ContactSearchArguments
+}
+
+export interface CompanySearchVariables {
+  input: CompanySearchArguments;
   contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
   companyAttributesInput: AttributeResultSearchInput
   contactSearchArguments: ContactSearchArguments
@@ -48,11 +54,14 @@ export class CompanyService extends BaseService {
   }
   /**
    Retrieves companies with search criteria
-   * @param input Search input parameters
+   * @param variables
+   * - input: CompanySearchInput - Company search input
+   * - contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput - Contact purchase authorization config search input
+   * - companyAttributesInput: AttributeResultSearchInput - Company attributes search input
+   * - contactSearchArguments: ContactSearchArguments - Contact search arguments
    * @returns Promise<CompaniesResponse> Companies response
    */
-  async getCompanies(input?: CompanySearchInput): Promise<CompaniesResponse> {
-    const variables = { input };
+  async getCompanies(variables: CompanySearchVariables): Promise<CompaniesResponse> {
     const result = await this.executeQuery('companies', variables);
     return new CompaniesResponse(result.data.companies);
   }

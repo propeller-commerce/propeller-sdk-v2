@@ -1,4 +1,9 @@
-query companies($input: CompanySearchArguments) {
+query companies(
+  $input: CompanySearchArguments
+  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  $companyAttributesInput: AttributeResultSearchInput
+  $contactSearchArguments: ContactSearchArguments
+) {
   companies(input: $input) {
     ...CompaniesResponseFields
   }

@@ -16,7 +16,7 @@ import { Address } from '../type/Address';
 import { PasswordResetLinkEmailInput } from '../type/PasswordResetLinkEmailInput';
 import { PublishEmailEventResponse } from '../type/PublishEmailEventResponse';
 import { EmailEventType } from '../enum/EmailEventType';
-import { ClaimsResetAllResponse, PasswordRecoveryLinkInput } from '../type';
+import { ClaimsResetAllResponse, ContactCompaniesSearchInput, PasswordRecoveryLinkInput } from '../type';
 /**
  * Viewer result type alias
  * @type ViewerResult
@@ -80,6 +80,8 @@ export interface ViewerInput {
     companyAttributesInput?: AttributeResultSearchInput;
     /** CustomerAttributesInput attributes input arguments */
     customerAttributesInput?: AttributeResultSearchInput;
+    /** Contact companies search input arguments */
+    contactCompaniesSearchInput?: ContactCompaniesSearchInput;
 }
 
 export interface ContactRegisterInput {

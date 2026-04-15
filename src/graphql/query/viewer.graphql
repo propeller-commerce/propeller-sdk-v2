@@ -3,6 +3,7 @@ query viewer(
   $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
   $companyAttributesInput: AttributeResultSearchInput
   $customerAttributesInput: AttributeResultSearchInput
+  $contactCompaniesSearchInput: ContactCompaniesSearchInput
 ) {
   viewer {
     __typename

@@ -281,7 +281,12 @@ export const clusterGetConfig = `query clusterGetConfig(\$clusterId: Int) {
   }
 }`;
 
-export const companies = `query companies(\$input: CompanySearchArguments) {
+export const companies = `query companies(
+  \$input: CompanySearchArguments
+  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
+  \$companyAttributesInput: AttributeResultSearchInput
+  \$contactSearchArguments: ContactSearchArguments
+) {
   companies(input: \$input) {
     ...CompaniesResponseFields
   }
@@ -964,6 +969,7 @@ export const viewer = `query viewer(
   \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
   \$companyAttributesInput: AttributeResultSearchInput
   \$customerAttributesInput: AttributeResultSearchInput
+  \$contactCompaniesSearchInput: ContactCompaniesSearchInput
 ) {
   viewer {
     __typename

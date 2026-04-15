@@ -1387,7 +1387,7 @@ export const ContactFields = `fragment ContactFields on Contact {
   company {
     ... CompanyDataFields
   }
-  companies {
+  companies (input: \$contactCompaniesSearchInput) {
     items {
       ... CompanyDataFields
     }
