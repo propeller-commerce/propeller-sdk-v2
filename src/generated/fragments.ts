@@ -1251,6 +1251,17 @@ export const CompanyDataFields = `fragment CompanyDataFields on Company {
   addresses {
     ... AddressFields
   }
+  orderlists {
+    items {
+      ... OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
   name
   taxNumber
   cocNumber
@@ -2417,59 +2428,6 @@ export const OrderlistFields = `fragment OrderlistFields on Orderlist {
   type
   partnerEntity
   active
-  products {
-    items {
-      ... on Cluster { ...ClusterGridFields }
-      ... on Product { ...ProductGridFields }
-    }
-    itemsFound
-    offset
-    page
-    pages
-    start
-    end
-    minPrice
-    maxPrice
-    filters {
-      ... AttributeFilterFields
-    }
-  }
-  clusters {
-    items {
-      ... on Cluster { ...ClusterGridFields }
-      ... on Product { ...ProductGridFields }
-    }
-    itemsFound
-    offset
-    page
-    pages
-    start
-    end
-    minPrice
-    maxPrice
-    filters {
-      ... AttributeFilterFields
-    }
-  }
-  users {
-    ... on Contact { ...ContactFields }
-    ... on Customer { ...CustomerFields }
-  }
-  usersPaginated {
-    items {
-      ... on Contact { ...ContactFields }
-      ... on Customer { ...CustomerFields }
-    }
-    itemsFound
-    offset
-    page
-    pages
-    start
-    end
-  }
-  companies {
-    ... CompanyDataFields
-  }
 }`;
 
 export const OrderlistOnlyFields = `fragment OrderlistFields on Orderlist {
