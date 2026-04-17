@@ -8,12 +8,16 @@ stages:
 # This job runs whenever code is pushed to develop or main branches
 mirror_to_github:
   stage: mirror
-  image: alpine/git:latest  # Lightweight and git is pre-installed
+  image: ubuntu:22.04
+  variables:
+    DEBIAN_FRONTEND: noninteractive  # Prevents hanging on prompts
   only:
     - develop
     - main
     - master
   before_script:
+    - sed -i 's|http://ubuntu.com|http://steadfast.net|g' /etc/apt/sources.list
+    - apt-get update -qq && apt-get install -y -qq git
     - git --version
   script:
     - echo "Mirroring to GitHub..."
