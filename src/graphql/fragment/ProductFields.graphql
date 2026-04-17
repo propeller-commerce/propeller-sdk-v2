@@ -48,6 +48,10 @@ fragment ProductFields on Product {
   package
   packageUnit
   packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
   minimumQuantity
   unit
   purchaseUnit

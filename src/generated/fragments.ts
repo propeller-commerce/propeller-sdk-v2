@@ -2927,6 +2927,10 @@ export const ProductFields = `fragment ProductFields on Product {
   package
   packageUnit
   packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
   minimumQuantity
   unit
   purchaseUnit
@@ -2970,6 +2974,10 @@ export const ProductGridFields = `fragment ProductGridFields on Product {
   package
   packageUnit
   packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
   minimumQuantity
   unit
   purchaseUnit
