@@ -116,7 +116,7 @@ export class UserService extends BaseService {
      * @returns Promise<ViewerResult> The current viewer
      */
     async getViewer(input: ViewerInput): Promise<ViewerResult> {
-        const result = await this.executeQuery('viewer', { input });
+        const result = await this.executeQuery('viewer', input);
         const viewerData = result.data.viewer;
         // Return appropriate type based on __typename
         if (viewerData.__typename === 'Contact') {
