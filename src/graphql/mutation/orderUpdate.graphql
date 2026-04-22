@@ -3,7 +3,7 @@ mutation orderUpdate(
   $order: OrderUpdateInput!,
   $language: String,
   $imageSearchFilters: MediaImageProductSearchInput,
-  $imageVariantFilters: TransformationsInput
+  $imageVariantFilters: TransformationsInput!
 ) {
   orderUpdate(orderId: $orderId, order: $order) {
     ...OrderFields

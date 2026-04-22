@@ -3,7 +3,7 @@ mutation orderItemCreate(
   $orderItem: OrderItemCreateInput!,
   $language: String,
   $imageSearchFilters: MediaImageProductSearchInput,
-  $imageVariantFilters: TransformationsInput
+  $imageVariantFilters: TransformationsInput!
 ) {
   orderItemCreate(orderId: $orderId, orderItem: $orderItem) {
     ...OrderItemFields

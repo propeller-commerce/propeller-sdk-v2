@@ -1232,7 +1232,7 @@ export const orderItemCreate = `mutation orderItemCreate(
   \$orderItem: OrderItemCreateInput!,
   \$language: String,
   \$imageSearchFilters: MediaImageProductSearchInput,
-  \$imageVariantFilters: TransformationsInput
+  \$imageVariantFilters: TransformationsInput!
 ) {
   orderItemCreate(orderId: \$orderId, orderItem: \$orderItem) {
     ...OrderItemFields
@@ -1249,7 +1249,7 @@ export const orderItemUpdate = `mutation orderItemUpdate(
   \$orderItem: OrderItemUpdateInput!,
   \$language: String,
   \$imageSearchFilters: MediaImageProductSearchInput,
-  \$imageVariantFilters: TransformationsInput
+  \$imageVariantFilters: TransformationsInput!
 ) {
   orderItemUpdate(orderId: \$orderId, orderItem: \$orderItem) {
     ...OrderItemFields
@@ -1384,7 +1384,7 @@ export const orderUpdate = `mutation orderUpdate(
   \$order: OrderUpdateInput!,
   \$language: String,
   \$imageSearchFilters: MediaImageProductSearchInput,
-  \$imageVariantFilters: TransformationsInput
+  \$imageVariantFilters: TransformationsInput!
 ) {
   orderUpdate(orderId: \$orderId, order: \$order) {
     ...OrderFields
