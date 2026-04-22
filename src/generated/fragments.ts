@@ -2066,10 +2066,10 @@ export const MediaAttachmentFields = `fragment MediaAttachmentFields on MediaAtt
   id
   sparePartsMachineId
   alt {
-    ... LocalizedStringArray
+    ... LocalizedStringFields
   }
   description {
-    ... LocalizedStringArray
+    ... LocalizedStringFields
   }
   tags {
     ... LocalizedStringArrayFields

@@ -2,10 +2,10 @@ fragment MediaAttachmentFields on MediaAttachment {
   id
   sparePartsMachineId
   alt {
-    ... LocalizedStringArray
+    ... LocalizedStringFields
   }
   description {
-    ... LocalizedStringArray
+    ... LocalizedStringFields
   }
   tags {
     ... LocalizedStringArrayFields
