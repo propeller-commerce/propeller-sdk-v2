@@ -148,11 +148,15 @@ export class OrderService extends BaseService {
   }
   /**
    Updates an existing order
-   * @param input Order update input data
+   * @param variables Variables for the order update mutation
+   * - orderId: number - Order ID to update
+   * - order: OrderUpdateInput - Order update input data
+   * - language: string - Language for localized content
+   * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+   * - imageVariantFilters: TransformationsInput - Image transformation filters
    * @returns Promise<Order> The updated order
    */
-  async updateOrder(input: OrderUpdateInput): Promise<Order> {
-    const variables = { input };
+  async updateOrder(variables: OrderUpdateVariables): Promise<Order> {
     const result = await this.executeMutation('orderUpdate', variables);
     return new Order(result.data.orderUpdate);
   }

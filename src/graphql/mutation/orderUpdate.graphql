@@ -1,4 +1,10 @@
-mutation orderUpdate($orderId: Int!, $order: OrderUpdateInput!) {
+mutation orderUpdate(
+  $orderId: Int!,
+  $order: OrderUpdateInput!,
+  $language: String,
+  $imageSearchFilters: MediaImageProductSearchInput,
+  $imageVariantFilters: TransformationsInput
+) {
   orderUpdate(orderId: $orderId, order: $order) {
     ...OrderFields
   }

@@ -1227,7 +1227,13 @@ export const orderDelete = `mutation orderDelete(\$orderId: Int!) {
 }
 `;
 
-export const orderItemCreate = `mutation orderItemCreate(\$orderId: Int!, \$orderItem: OrderItemCreateInput!) {
+export const orderItemCreate = `mutation orderItemCreate(
+  \$orderId: Int!,
+  \$orderItem: OrderItemCreateInput!,
+  \$language: String,
+  \$imageSearchFilters: MediaImageProductSearchInput,
+  \$imageVariantFilters: TransformationsInput
+) {
   orderItemCreate(orderId: \$orderId, orderItem: \$orderItem) {
     ...OrderItemFields
   }
@@ -1238,7 +1244,13 @@ export const orderItemDelete = `mutation orderItemDelete(\$orderId: Int!, \$orde
 }
 `;
 
-export const orderItemUpdate = `mutation orderItemUpdate(\$orderId: Int!, \$orderItem: OrderItemUpdateInput!) {
+export const orderItemUpdate = `mutation orderItemUpdate(
+  \$orderId: Int!,
+  \$orderItem: OrderItemUpdateInput!,
+  \$language: String,
+  \$imageSearchFilters: MediaImageProductSearchInput,
+  \$imageVariantFilters: TransformationsInput
+) {
   orderItemUpdate(orderId: \$orderId, orderItem: \$orderItem) {
     ...OrderItemFields
   }
@@ -1367,7 +1379,13 @@ export const orderStatusUpdate = `mutation orderStatusUpdate(\$id: Int!, \$input
   }
 }`;
 
-export const orderUpdate = `mutation orderUpdate(\$orderId: Int!, \$order: OrderUpdateInput!) {
+export const orderUpdate = `mutation orderUpdate(
+  \$orderId: Int!,
+  \$order: OrderUpdateInput!,
+  \$language: String,
+  \$imageSearchFilters: MediaImageProductSearchInput,
+  \$imageVariantFilters: TransformationsInput
+) {
   orderUpdate(orderId: \$orderId, order: \$order) {
     ...OrderFields
   }

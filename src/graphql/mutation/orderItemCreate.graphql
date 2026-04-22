@@ -1,4 +1,10 @@
-mutation orderItemCreate($orderId: Int!, $orderItem: OrderItemCreateInput!) {
+mutation orderItemCreate(
+  $orderId: Int!,
+  $orderItem: OrderItemCreateInput!,
+  $language: String,
+  $imageSearchFilters: MediaImageProductSearchInput,
+  $imageVariantFilters: TransformationsInput
+) {
   orderItemCreate(orderId: $orderId, orderItem: $orderItem) {
     ...OrderItemFields
   }
