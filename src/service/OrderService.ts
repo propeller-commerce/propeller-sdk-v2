@@ -49,6 +49,66 @@ export interface OrderQueryVariables {
   imageVariantFilters?: TransformationsInput;
 }
 /**
+ * Order update mutation variables interface
+ Variables for the order update mutation
+ */
+export interface OrderUpdateVariables {
+  /** Order ID to update */
+  orderId: number;
+  /** Order update input data */
+  order: OrderUpdateInput;
+  /** Language for localized content */
+  language?: string;
+  /** Image search filters */
+  imageSearchFilters?: MediaImageProductSearchInput;
+  /** Image transformation filters */
+  imageVariantFilters?: TransformationsInput;
+}
+/**
+ * Order item creation mutation variables interface
+ Variables for the order item creation mutation
+ */
+export interface OrderItemCreateVariables {
+  /** Order ID to create order item for */
+  orderId: number;
+  /** Order item creation input data */
+  orderItem: OrderItemCreateInput;
+  /** Language for localized content */
+  language?: string;
+  /** Image search filters */
+  imageSearchFilters?: MediaImageProductSearchInput;
+  /** Image transformation filters */
+  imageVariantFilters?: TransformationsInput;
+}
+/**
+ * Order item update mutation variables interface
+ Variables for the order item update mutation
+ */
+export interface OrderItemUpdateVariables {
+  /** Order ID to update order item for */
+  orderId: number;
+  /** Order item update input data */
+  orderItem: OrderItemUpdateInput;
+  /** Language for localized content */
+  language?: string;
+  /** Image search filters */
+  imageSearchFilters?: MediaImageProductSearchInput;
+  /** Image transformation filters */
+  imageVariantFilters?: TransformationsInput;
+}
+/**
+ * Order address update mutation variables interface
+ Variables for the order address update mutation
+ */
+export interface OrderAddressUpdateVariables {
+  /** Id to identify address */
+  id: number;
+  /** Order ID to update order address for */
+  orderId: number;
+  /** Order address update input data */
+  input: OrderAddressUpdateInput;
+}
+/**
  Service class for Order-related GraphQL operations
  */
 export class OrderService extends BaseService {
@@ -108,11 +168,13 @@ export class OrderService extends BaseService {
   }
   /**
    Updates an order address
-   * @param input Order address update input data
+   * @param variables Variables for the order address update mutation
+   * - id: number - Id to identify address
+   * - orderId: number - Order ID to update order address for
+   * - input: OrderAddressUpdateInput - Order address update input data
    * @returns Promise<Order> The updated order
    */
-  async updateOrderAddress(input: OrderAddressUpdateInput): Promise<Order> {
-    const variables = { input };
+  async updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<Order> {
     const result = await this.executeMutation('orderAddressUpdate', variables);
     return new Order(result.data.orderAddressUpdate);
   }
@@ -179,21 +241,29 @@ export class OrderService extends BaseService {
   }
   /**
    Creates a new order item
-   * @param input Order item creation input data
+   * @param variables Variables for the order item creation mutation
+   * - orderId: number - Order ID to create order item for
+   * - orderItem: OrderItemCreateInput - Order item creation input data
+   * - language: string - Language for localized content
+   * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+   * - imageVariantFilters: TransformationsInput - Image transformation filters
    * @returns Promise<OrderItem> The created order item
    */
-  async createOrderItem(input: OrderItemCreateInput): Promise<OrderItem> {
-    const variables = { input };
+  async createOrderItem(variables: OrderItemCreateVariables): Promise<OrderItem> {
     const result = await this.executeMutation('orderItemCreate', variables);
     return new OrderItem(result.data.orderItemCreate);
   }
   /**
    Updates an existing order item
-   * @param input Order item update input data
+   * @param variables Variables for the order item update mutation
+   * - orderId: number - Order ID to update order item for
+   * - orderItem: OrderItemUpdateInput - Order item update input data
+   * - language: string - Language for localized content
+   * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+   * - imageVariantFilters: TransformationsInput - Image transformation filters
    * @returns Promise<OrderItem> The updated order item
    */
-  async updateOrderItem(input: OrderItemUpdateInput): Promise<OrderItem> {
-    const variables = { input };
+  async updateOrderItem(variables: OrderItemUpdateVariables): Promise<OrderItem> {
     const result = await this.executeMutation('orderItemUpdate', variables);
     return new OrderItem(result.data.orderItemUpdate);
   }
