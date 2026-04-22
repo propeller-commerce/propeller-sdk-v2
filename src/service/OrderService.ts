@@ -31,7 +31,7 @@ import { RemoveOrderStatusesFromOrderStatusSetInput } from '../type/RemoveOrderS
 import { Address } from '../type/Address';
 import { MediaImageProductSearchInput } from '../type/MediaImageProductSearchInput';
 import { TransformationsInput } from '../type/TransformationsInput';
-import { TriggerQuoteSendRequestEventInput } from '../type';
+import { OrderAddress, TriggerQuoteSendRequestEventInput } from '../type';
 /**
  * Order query variables interface
  Variables for the order query
@@ -108,6 +108,12 @@ export interface OrderAddressUpdateVariables {
   /** Order address update input data */
   input: OrderAddressUpdateInput;
 }
+export interface OrderItemDeleteVariables {
+  /** Order ID to delete order item for */
+  orderId: number;
+  /** Order item ID to delete */
+  orderItemId: number;
+}
 /**
  Service class for Order-related GraphQL operations
  */
@@ -176,11 +182,11 @@ export class OrderService extends BaseService {
    * - id: number - Id to identify address
    * - orderId: number - Order ID to update order address for
    * - input: OrderAddressUpdateInput - Order address update input data
-   * @returns Promise<Order> The updated order
+   * @returns Promise<OrderAddress> The updated order
    */
-  async updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<Order> {
+  async updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<OrderAddress> {
     const result = await this.executeMutation('orderAddressUpdate', variables);
-    return new Order(result.data.orderAddressUpdate);
+    return new OrderAddress(result.data.orderAddressUpdate);
   }
   /**
    Sends order confirmation email
@@ -270,6 +276,17 @@ export class OrderService extends BaseService {
   async updateOrderItem(variables: OrderItemUpdateVariables): Promise<OrderItem> {
     const result = await this.executeMutation('orderItemUpdate', variables);
     return new OrderItem(result.data.orderItemUpdate);
+  }
+  /**
+   Deletes an order item
+   * @param variables Variables for the order item deletion mutation
+   * - orderId: number - Order ID to delete order item for
+   * - orderItemId: number - Order item ID to delete
+   * @returns Promise<boolean> True if order item was deleted successfully
+   */
+  async deleteOrderItem(variables: OrderItemDeleteVariables): Promise<boolean> {
+    const result = await this.executeMutation('orderItemDelete', variables);
+    return result.data.orderItemDelete;
   }
   /**
    Fetches a single orderlist by ID
