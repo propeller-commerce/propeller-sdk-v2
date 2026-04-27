@@ -2813,6 +2813,13 @@ export const ProductBulkMoveResponseFields = `fragment ProductBulkMoveResponseFi
 export const ProductCartFields = `fragment ProductCartFields on Product {
   ... IBaseProductCartFields
   productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ... LocalizedStringFields
+    }
+  }
   inventory {
     ... ProductInventoryFields
   }
