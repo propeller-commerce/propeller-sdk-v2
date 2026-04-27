@@ -760,6 +760,7 @@ export const contactRegister = `mutation contactRegister(
   \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput,
   \$companyAttributesInput: AttributeResultSearchInput,
   \$contactRegisterInput: RegisterContactInput!
+  \$contactCompaniesSearchInput: ContactCompaniesSearchInput
 ) {
   contactRegister(input: \$contactRegisterInput) {
     ...RegisterContactResponseFields
