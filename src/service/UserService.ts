@@ -16,7 +16,7 @@ import { Address } from '../type/Address';
 import { PasswordResetLinkEmailInput } from '../type/PasswordResetLinkEmailInput';
 import { PublishEmailEventResponse } from '../type/PublishEmailEventResponse';
 import { EmailEventType } from '../enum/EmailEventType';
-import { ClaimsResetAllResponse, ContactCompaniesSearchInput, PasswordRecoveryLinkInput } from '../type';
+import { ClaimsResetAllResponse, ContactCompaniesSearchInput, PasswordRecoveryLinkInput, TriggerContactSendWelcomeEmailEventInput, TriggerCustomerSendWelcomeEmailEventInput } from '../type';
 /**
  * Viewer result type alias
  * @type ViewerResult
@@ -277,6 +277,27 @@ export class UserService extends BaseService {
         const result = await this.executeMutation('claimsReset', { uid, email });
         return result.data.claimsReset;
     }
+
+    /**
+     * Sends a welcome email to a contact
+     * @param input Contact welcome email event input data
+     * @returns Promise<any> The response containing event details
+     */
+    async triggerContactSendWelcomeEmailEvent(input: TriggerContactSendWelcomeEmailEventInput): Promise<any> {
+        const result = await this.executeMutation('triggerContactSendWelcomeEmailEvent', { input });
+        return result.data.triggerContactSendWelcomeEmailEvent;
+    }
+
+    /**
+     * Sends a welcome email to a customer
+     * @param input Customer welcome email event input data
+     * @returns Promise<any> The response containing event details
+     */
+    async triggerCustomerSendWelcomeEmailEvent(input: TriggerCustomerSendWelcomeEmailEventInput): Promise<any> {
+        const result = await this.executeMutation('triggerCustomerSendWelcomeEmailEvent', { input });
+        return result.data.triggerCustomerSendWelcomeEmailEvent;
+    }
+
     /**
      * Initializes the service by preloading common fragments
      */
