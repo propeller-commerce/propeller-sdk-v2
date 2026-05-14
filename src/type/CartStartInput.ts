@@ -2,9 +2,7 @@
  Input object for CartStartInput
  */
 export interface CartStartInput {
-  /** userId input field */
-  userId?: number;
-  /** Cart contact identifier. Goes in combination with companyId */
+/** Cart contact identifier. Goes in combination with companyId */
   contactId?: number;
   /** Cart customer identifier */
   customerId?: number;

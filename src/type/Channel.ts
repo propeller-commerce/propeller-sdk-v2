@@ -6,6 +6,7 @@ import { Tenant } from './Tenant';
  */
 export interface Channel {
   /** channelId field */
+  /** @deprecated Use id instead */
   channelId: number;
   /** id field */
   id: number;
@@ -18,6 +19,7 @@ export interface Channel {
   /** Channel anonymous user id */
   anonymousUserId?: number;
   /** Channel default letter id */
+  /** @deprecated To be removed */
   defaultLetterId?: number;
   /** Channel creation date */
   createdAt: string;
@@ -26,5 +28,6 @@ export interface Channel {
   /** Tenant this channel belongs to */
   tenant: Tenant;
   /** shop field */
+  /** @deprecated This field will be removed in a future version */
   shop?: Shop;
 }

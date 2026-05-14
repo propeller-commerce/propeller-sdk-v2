@@ -23,6 +23,7 @@ export interface Warehouse {
   /** Warehouse isPickupLocation status */
   isPickupLocation: boolean;
   /** Optional warehouse shopId */
+  /** @deprecated Shop is deprecated and will be removed in a future version */
   shopId?: number;
   /** Warehouse business hours per week day */
   businessHours: BusinessHours[];

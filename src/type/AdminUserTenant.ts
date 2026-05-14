@@ -8,6 +8,7 @@ export interface AdminUserTenant {
   /** tenant field */
   tenant: string;
   /** name field */
+  /** @deprecated Use federated field to get name */
   name: string;
   /** default field */
   default: boolean;

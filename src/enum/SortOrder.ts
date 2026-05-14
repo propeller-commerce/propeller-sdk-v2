@@ -4,8 +4,10 @@
  */
 export enum SortOrder {
   /** Ascending order (lowercase) */
+  /** @deprecated Use ASC instead */
   asc = "asc",
   /** Descending order (lowercase) */
+  /** @deprecated Use DESC instead */
   desc = "desc",
   /** Ascending order (uppercase) */
   ASC = "ASC",

@@ -13,5 +13,6 @@ export enum PriceSortField {
   DEFAULT_TAX_CODE = "DEFAULT_TAX_CODE",
   LAST_MODIFIED_AT = "LAST_MODIFIED_AT",
   CREATED_AT = "CREATED_AT",
+  /** @deprecated Deprecated in favor of price.costPrices. Price query itself can't be sorted on price.cost. Input will be ignored. */
   COST_PRICE = "COST_PRICE",
 }

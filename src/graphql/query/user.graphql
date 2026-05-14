@@ -1,5 +1,5 @@
-query user($input: UserSearchInput!) {
-  user(input: $input) {
+query user($id: Int, $login: String) {
+  user(id: $id, login: $login) {
     __typename
     ... on Contact {
         ... ContactFields

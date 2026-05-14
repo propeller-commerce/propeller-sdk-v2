@@ -16,10 +16,10 @@ import { ZoneTaxCodeUpdateInput } from '../type/ZoneTaxCodeUpdateInput';
 export class TaxService extends BaseService {
   /**
    Retrieves a specific tax
-   * @param id Tax ID
+   * @param id Tax ID (UUID string)
    * @returns Promise<Tax> Tax data
    */
-  async getTax(id: number): Promise<Tax> {
+  async getTax(id: string): Promise<Tax> {
     const variables = { id };
     const result = await this.executeQuery('tax', variables);
     return result.data.tax as Tax;

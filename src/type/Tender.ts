@@ -29,12 +29,14 @@ export interface Tender {
   type: OrderType;
   /** Legacy site identifier where the tender was created.
    * Historical reference maintained for compatibility purposes. */
+  /** @deprecated Deprecated in favor of channelId */
   siteId?: number;
   /** Sales channel identifier where the tender originated.
    * Identifies the specific sales channel (website, mobile app, etc.) used to create this tender. */
   channelId?: number;
   /** Shop identifier that owns this tender.
    * Determines which business unit or location is responsible for fulfilling this tender. */
+  /** @deprecated Deprecated, please use channelId instead */
   shopId: number;
   /** Timestamp when the tender was initially created.
    * Records the exact moment this tender was first established in the system. */

@@ -1,5 +1,5 @@
-mutation startSession($siteId: Int) {
-  startSession(siteId: $siteId) {
+mutation startSession {
+  startSession {
     ...LoginFields
   }
 }

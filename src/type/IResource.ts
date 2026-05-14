@@ -6,10 +6,4 @@ import { YesNo } from '../enum/YesNo';
 export interface IResource {
   /** Unique identifier */
   id: string;
-  /** Resource name */
-  name: string;
-  /** Creation timestamp */
-  dateCreated: string;
-  /** Last modification timestamp */
-  dateChanged: string;
 }

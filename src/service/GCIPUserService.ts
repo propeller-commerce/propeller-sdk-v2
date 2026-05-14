@@ -9,7 +9,7 @@ export class GCIPUserService extends BaseService {
    * @returns Promise resolving to user data
    */
   async getGCIPUser(id: number): Promise<any> {
-    const variables = { input: { id } };
+    const variables = { id };
     const result = await this.executeQuery('user', variables);
     return result.data.user;
   }

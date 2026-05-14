@@ -7,12 +7,4 @@ import { LocalizedString } from './LocalizedString';
 export interface IClusterOption {
   /** Option identifier */
   id: string;
-  /** Option name */
-  name: string;
-  /** Option description */
-  description?: string;
-  /** Option value */
-  value?: any;
-  /** Whether the option is enabled */
-  enabled: boolean;
 }

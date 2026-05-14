@@ -27,6 +27,4 @@ export interface IAttributeFilter {
   integerRangeFilter?: AttributeIntegerRangeFilter;
   /** Minimum and maximum value range for decimal attributes */
   decimalRangeFilter?: AttributeDecimalRangeFilter;
-  /** Whether this filter is enabled */
-  enabled?: boolean;
 }

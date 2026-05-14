@@ -9,9 +9,7 @@ import { Company } from './Company';
 export interface User {
   /** The id of the user. */
   userId: number;
-  /** addresses field */
-  addresses: Address[];
-  /** debtorId field */
+/** debtorId field */
   debtorId?: string;
   /** The gender of the user. */
   gender?: Gender;

@@ -6,17 +6,9 @@ import { LocalizedString } from './LocalizedString';
 export interface IBaseTemplate {
   /** Template identifier */
   id: string;
-  /** Template name */
-  name: string;
-  /** Template type */
-  type: string;
-  /** Template content */
+/** Template content */
   content: string;
-  /** Template description */
-  description?: string;
-  /** Whether the template is enabled */
-  enabled: boolean;
-  /** Uploaded handlebars template content, per given language */
+/** Uploaded handlebars template content, per given language */
   contents?: LocalizedTemplateContent[];
   /** The name of the template per given language */
   names: LocalizedString[];

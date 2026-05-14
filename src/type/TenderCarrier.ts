@@ -13,6 +13,7 @@ export interface TenderCarrier {
   /** Carrier's logo */
   logo?: string;
   /** Costs for delivery through this carrier. Use the costs as an indication, the actual costs are calculated through business rules */
+  /** @deprecated Deprecated, please use price instead */
   amount: number;
   /** Expected delivery deadline for this carrier */
   deliveryDeadline?: string;

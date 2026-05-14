@@ -48,5 +48,6 @@ export interface Surcharge {
   dateChanged: string;
   /** Shop identifier for surcharge application scope.
    * If not provided, the default shop will be inferred from the channel context. */
+  /** @deprecated Shop is deprecated and will be removed in the future. */
   shopId?: number;
 }

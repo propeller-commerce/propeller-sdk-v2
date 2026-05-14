@@ -1,5 +1,5 @@
-query tax($id: String, $code: Taxcode, $zone: String, $shopId: Int) {
-  tax(id: $id, code: $code, zone: $zone, shopId: $shopId) {
+query tax($id: String, $code: Taxcode, $zone: String) {
+  tax(id: $id, code: $code, zone: $zone) {
     ...TaxFields
   }
 }

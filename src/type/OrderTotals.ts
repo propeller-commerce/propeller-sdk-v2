@@ -5,6 +5,7 @@ import { OrderTotalTaxPercentage } from './OrderTotalTaxPercentage';
  */
 export interface OrderTotals {
   /** The orderId of this Order */
+  /** @deprecated Use the parent Order.id instead */
   orderId: number;
   /** The total of this Order excluding tax */
   gross: number;

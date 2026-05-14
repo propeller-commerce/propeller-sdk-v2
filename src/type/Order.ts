@@ -26,10 +26,12 @@ export interface Order {
   /** The channel identifier of the webshop this order originated from */
   channelId: number;
   /** The ID of the shop the Order belongs to */
+  /** @deprecated Use channelId instead */
   shopId: number;
   /** Unique identifier for this order */
   uuid: string;
   /** External identifier for this order from an external source like an ERP system */
+  /** @deprecated Use sources instead */
   externalId?: string;
   /** The debtorId of the Customer or Company that placed this Order */
   debtorId?: string;

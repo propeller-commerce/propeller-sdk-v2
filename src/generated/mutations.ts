@@ -93,7 +93,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -103,7 +102,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -493,7 +491,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -503,7 +500,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -8503,7 +8499,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -8513,7 +8508,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -9134,7 +9128,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -9144,7 +9137,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -13188,7 +13180,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -13198,7 +13189,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -13689,7 +13679,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -13699,7 +13688,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -14171,7 +14159,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -14181,7 +14168,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -14739,7 +14725,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -14749,7 +14734,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -15323,7 +15307,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -15333,7 +15316,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -15884,7 +15866,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -15894,7 +15875,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -17179,7 +17159,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -17189,7 +17168,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -17655,7 +17633,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -17665,7 +17642,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -18147,7 +18123,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -18157,7 +18132,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -18610,7 +18584,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -18620,7 +18593,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -23379,7 +23351,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -23389,7 +23360,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -24123,7 +24093,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -24133,7 +24102,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -24878,7 +24846,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -24888,7 +24855,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -25622,7 +25588,6 @@ fragment CategoryAttributeFields on Attribute {
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -25632,7 +25597,6 @@ fragment CategoryAttributeFields on Attribute {
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable
@@ -27168,8 +27132,8 @@ fragment GCIPUserFields on GCIPUser {
   }
 }
 
-mutation startSession(\$siteId: Int) {
-  startSession(siteId: \$siteId) {
+mutation startSession {
+  startSession {
     ...LoginFields
   }
 }`;

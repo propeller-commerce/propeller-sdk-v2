@@ -41,10 +41,13 @@ export interface Company {
   /** Shows whether this company is hidden and should only be used for background operations. */
   hidden?: YesNo;
   /** inheritProductList field */
+  /** @deprecated Deprecated, will be removed in the future */
   inheritProductList?: YesNo;
   /** The path in id's to the root of the inheritance tree. */
+  /** @deprecated Deprecated, will be removed in the future */
   path?: string;
   /** The slug of the company. */
+  /** @deprecated Deprecated, will be removed in the future */
   slug?: string;
   /** The tag of the company. */
   tag?: string;

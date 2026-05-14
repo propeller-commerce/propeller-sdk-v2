@@ -24,19 +24,6 @@ import { ClaimsResetAllResponse, ContactCompaniesSearchInput, PasswordRecoveryLi
  */
 export type ViewerResult = Contact | Customer;
 /**
- * Input object for searching users
- */
-export interface UserSearchInput {
-    /** User ID to search for */
-    userId?: number;
-    /** Email to search for */
-    email?: string;
-    /** Contact ID to search for */
-    contactId?: number;
-    /** Customer ID to search for */
-    customerId?: number;
-}
-/**
  * Input object for updating user information
  */
 export interface UserUpdateInput {
@@ -137,12 +124,14 @@ export class UserService extends BaseService {
         return result.data.login as Login;
     }
     /**
-     * Get user by search criteria
-     * @param input User search input parameters
+     * Get user by id or login (mutually exclusive — provide one).
+     * Upstream replaced the previous `input: UserSearchInput` argument with
+     * direct `id: Int` and `login: String` arguments.
+     * @param variables `{ id?: number; login?: string }`
      * @returns Promise<ViewerResult> The user information
      */
-    async getUser(input: UserSearchInput): Promise<ViewerResult> {
-        const result = await this.executeQuery('user', { input });
+    async getUser(variables: { id?: number; login?: string }): Promise<ViewerResult> {
+        const result = await this.executeQuery('user', variables);
         const userData = result.data.user;
         // Return appropriate type based on __typename
         if (userData.__typename === 'Contact') {
@@ -204,26 +193,6 @@ export class UserService extends BaseService {
         }
         // Default to Contact if typename is unclear
         return userData as Contact;
-    }
-    /**
-     * Get users with search and pagination
-     * @param searchInput Search criteria for users
-     * @param limit Maximum number of results to return
-     * @param offset Number of results to skip for pagination
-     * @returns Promise<(Contact | Customer)[]> Array of users
-     */
-    async getUsers(searchInput?: UserSearchInput, limit?: number, offset?: number): Promise<(Contact | Customer)[]> {
-        const result = await this.executeQuery('users', { searchInput, limit, offset });
-        // Map each user to appropriate type based on __typename
-        return result.data.users.map((userData: any) => {
-            if (userData.__typename === 'Contact') {
-                return userData as Contact;
-            } else if (userData.__typename === 'Customer') {
-                return userData as Customer;
-            }
-            // Default to Contact if typename is unclear
-            return userData as Contact;
-        });
     }
     /**
      * Send a password reset email to the specified user

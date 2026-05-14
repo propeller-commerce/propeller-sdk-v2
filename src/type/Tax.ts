@@ -6,6 +6,7 @@ export interface Tax {
   /** Tax primary identifier */
   id: string;
   /** Shop identifier for the tax to apply to */
+  /** @deprecated Shop is deprecated and will be removed in the future. */
   shopId: number;
   /** Tax code */
   code?: Taxcode;

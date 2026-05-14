@@ -13,6 +13,4 @@ export interface ITenderBaseItem {
   quantity: number;
   /** Item price */
   price: number;
-  /** Item description */
-  description?: string;
 }

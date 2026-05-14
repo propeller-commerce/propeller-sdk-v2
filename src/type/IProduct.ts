@@ -11,14 +11,6 @@ import { ProductOffer } from './ProductOffer';
 export interface IProduct {
   /** Product identifier */
   id: number;
-  /** Product name */
-  name: string;
-  /** Product description */
-  description?: string;
-  /** Product SKU */
+/** Product SKU */
   sku: string;
-  /** Whether the product is enabled */
-  enabled: boolean;
-  /** Product price */
-  price?: number;
 }

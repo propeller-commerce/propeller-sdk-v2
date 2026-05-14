@@ -7,9 +7,7 @@ import { Base64FileInput } from './Base64FileInput';
 export interface EmailEventInput {
   /** The type of email event to trigger */
   type: EmailEventType;
-  /** The id of the site to use when sending the email, required when the site can not be derived from other inputs */
-  siteId?: number;
-  /** The id of the order to use when triggering an event of type orderconfirm */
+/** The id of the order to use when triggering an event of type orderconfirm */
   orderId?: number;
   /** The id of the user to send to email to. Can be used to replace to, when the user can't be derived from other inputs */
   userId?: number;

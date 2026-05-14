@@ -25,6 +25,7 @@ export interface Cart {
   /** Channel identifier this cart belongs to. */
   channelId?: number;
   /** Shop identifier this cart belongs to. */
+  /** @deprecated Shop is deprecated and will be removed in the future. Use channelId instead */
   shopId: number;
   /** userId field */
   /** @deprecated This field will be removed in a future release, use contact+companyId or customerId instead */

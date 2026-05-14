@@ -24,6 +24,4 @@ export interface UpdateCustomerInput {
   mailingList?: YesNo;
   /** The primary language of the customer. */
   primaryLanguage?: string;
-  /** The id of the usergroup the customer should be created in. */
-  parentId?: number;
 }

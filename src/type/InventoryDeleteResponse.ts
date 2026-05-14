@@ -3,5 +3,6 @@
  */
 export interface InventoryDeleteResponse {
   /** Error messages */
+  /** @deprecated No longer used */
   messages: string[];
 }

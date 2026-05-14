@@ -18,6 +18,7 @@ export interface InventoryResponse {
   /** Inventory sku */
   sku: string;
   /** Inventory last modified date */
+  /** @deprecated Use lastModifiedAt instead */
   dateModified?: string;
   /** Inventory warehouse identifier */
   warehouseId: number;
@@ -28,8 +29,10 @@ export interface InventoryResponse {
   /** Inventory note */
   notes: string;
   /** Error messages */
+  /** @deprecated No longer used */
   messages: string[];
   /** Total */
+  /** @deprecated No longer used */
   total: number;
   /** warehouse field */
   warehouse?: Warehouse;

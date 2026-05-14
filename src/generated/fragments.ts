@@ -947,7 +947,6 @@ export const CategoryAttributeFields = `fragment CategoryAttributeFields on Attr
   lastModifiedBy
   attributeDescription {
     id
-    name
     descriptions {
       language
       value
@@ -957,7 +956,6 @@ export const CategoryAttributeFields = `fragment CategoryAttributeFields on Attr
       value
     }
     attributeClass
-    type
     valuesetId
     group
     isSearchable

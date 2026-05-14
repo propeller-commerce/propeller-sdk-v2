@@ -17,6 +17,7 @@ export interface Inventory {
   /** Inventory sku */
   sku: string;
   /** Inventory last modified date */
+  /** @deprecated Use lastModifiedAt instead */
   dateModified?: string;
   /** Inventory warehouse identifier */
   warehouseId: number;

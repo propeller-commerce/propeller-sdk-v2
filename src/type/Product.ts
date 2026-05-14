@@ -104,6 +104,7 @@ export interface Product extends IBaseProduct {
   /** Short names for this product per language */
   shortNames: LocalizedString[];
   /** The short name for the product, used for abbreviated orderlines */
+  /** @deprecated use shortNames instead. */
   shortName: string;
   /** Additional keywords of this product per language. Added by the supplier */
   keywords?: LocalizedString[];

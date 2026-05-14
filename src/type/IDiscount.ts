@@ -5,10 +5,6 @@ import { DiscountType } from '../enum/DiscountType';
 export interface IDiscount {
   /** Unique identifier */
   id: string;
-  /** Discount type */
-  type: DiscountType;
-  /** Discount value */
+/** Discount value */
   value: number;
-  /** Whether the discount is enabled */
-  enabled: boolean;
 }

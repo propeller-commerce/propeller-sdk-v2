@@ -4,9 +4,7 @@ import { DateSearchInput } from './DateSearchInput';
  Input object for OrderlistCompanySearchInput
  */
 export interface OrderlistCompanySearchInput {
-  /** Usergroup unique identifier */
-  usergroupId?: number;
-  /** Company's name */
+/** Company's name */
   name?: string;
   /** When true, only companies managed by the viewer will be listed */
   managedCompaniesOnly?: boolean;

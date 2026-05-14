@@ -4,6 +4,44 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.6.0] - 2026-05-14
+
+Schema alignment pass against the live Propeller v2 GraphQL endpoint (`https://api.helice.cloud/v2/graphql`). The fetched schema had drifted from the SDK's snapshot since v0.2.0 (Feb 19, 2026). This release applies the deletions, surfaces newly-deprecated fields, and updates `schema.json`.
+
+### BREAKING
+
+- **63 type fields removed** across `src/type/*.ts` interfaces. These fields no longer exist upstream; any consumer reading them was already getting `undefined` at runtime. TypeScript will now flag the reads at compile time.
+- **150 enum values removed** across `src/enum/*.ts`. Most are concentrated in `BusinessRule*`, `Template*`, `Inventory*`, and other admin/configuration enums.
+- **`UserSearchInput` removed** from `src/service/UserService.ts`. The upstream `user` query no longer accepts a `UserSearchInput`; it now takes direct `id: Int` and `login: String` arguments. The `UserService.getUser` signature changes from `getUser(input: UserSearchInput)` to `getUser({ id?: number; login?: string })`. The previously-exported `UserSearchInput` interface is also removed.
+- **`UserService.getUsers` removed.** The upstream `users` query no longer exists. The local `getUsers` method was not wired to a real `.graphql` file and not called by either active consumer.
+- **`TaxService.getTax(id)` signature changed** from `id: number` to `id: string`. Upstream `Tax.id` is `String!`.
+- **`query tax($shopId: Int)` argument removed**: upstream no longer accepts `shopId`.
+- **`mutation startSession($siteId: Int)` argument removed**: upstream `startSession` takes zero arguments now.
+
+### Deprecated
+
+- 26 type fields gained `@deprecated` JSDoc tags carrying the upstream `deprecationReason` text. These fields are still served by the API but flagged for removal; consumer code should plan to migrate off them.
+- 4 enum values gained `@deprecated` JSDoc tags for the same reason.
+
+### Updated
+
+- `schema.json` refreshed from upstream. Stored UTF-16 LE with BOM per existing convention. Size grew from 8.5 MB to a tighter representation (UTF-8 source converted on write).
+- Build pipeline (`scripts/build-graphql-bundle.js`) re-ran fragment inlining; `src/generated/queries.ts` and `mutations.ts` regenerated.
+
+### Not added
+
+- 6 new queries, 11 new mutations, 27 new types, and 6 new enums exist upstream (mostly `agent*` and `gqlApiKey*` / `restApiKey*` surface for AI-agent and API-key admin). These are inventoried but not added in this release. File issues for any that consumer apps need.
+
+### Migration
+
+For each `type_field_removed_from_ts` entry: if your code reads the field, the cleanest migration is to delete the read (the field has been `undefined` at runtime ever since the upstream removed it). If you genuinely need the data, check the upstream schema for the replacement field name — most removals correlate with a renamed/restructured equivalent.
+
+For `getUser`: replace `getUser({ userId: 123 } as UserSearchInput)` with `getUser({ id: 123 })`. For email-based lookup, use `getUser({ login: 'user@example.com' })`.
+
+For `getTax`: change the type of the `id` parameter from `number` to `string`.
+
+---
+
 ## [0.5.0] - 2026-05-14
 
 Coordinated breaking-change release. The SDK is now smaller, honest about its types, and uses idiomatic TypeScript shapes. Two consumer apps (`propeller-next`, `propeller-vue`) ship matching migration PRs alongside this tag.
