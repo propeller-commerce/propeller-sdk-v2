@@ -2,11 +2,11 @@ import { OrderDiscountType } from '../enum/OrderDiscountType';
 /**
  Object class for TenderTotal
  */
-export class TenderTotal {
+export interface TenderTotal {
   /** The total payable amount of all items in this tender/order, excluding postage costs, paymethod costs and discounts. VAT excluding */
-  subTotalGross!: number;
+  subTotalGross: number;
   /** The total payable amount of all items in this tender/order, excluding postage costs, paymethod costs and discounts. VAT including */
-  subTotalNet!: number;
+  subTotalNet: number;
   /** Discount value that is applied to the tender/order total through one or multiple incentives */
   discount?: number;
   /** Discount percentage that is applied to the tender/order total through one or multiple incentives */
@@ -14,16 +14,13 @@ export class TenderTotal {
   /** Discount type */
   discountType?: OrderDiscountType;
   /** The total payable amount for this tender/order. VAT including */
-  totalNet!: number;
+  totalNet: number;
   /** The total payable amount for this tender/order. VAT excluding */
-  totalGross!: number;
+  totalGross: number;
   /** Discount that is applied to the tender/order total through one or multiple incentives. VAT including */
-  discountNet!: number;
+  discountNet: number;
   /** Discount that is applied to the tender/order total through one or multiple incentives. VAT excluding */
-  discountGross!: number;
+  discountGross: number;
   /** Total amount of tax that applies to this tender/order */
-  totalTax!: number;
-  constructor(data: Partial<TenderTotal> = {}) {
-    Object.assign(this, data);
-  }
+  totalTax: number;
 }

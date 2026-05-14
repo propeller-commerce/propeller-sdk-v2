@@ -45,7 +45,7 @@ export class PriceService extends BaseService {
   async getPrices(input?: PriceSearchInput): Promise<PriceResponse> {
     const variables = { input };
     const result = await this.executeQuery('prices', variables);
-    return new PriceResponse(result.data.prices);
+    return result.data.prices as PriceResponse;
   }
   /**
    Fetches a single price by ID
@@ -55,7 +55,7 @@ export class PriceService extends BaseService {
    */
   async getPrice(variables: PriceQueryVariables): Promise<Price> {
     const result = await this.executeQuery('price', variables);
-    return new Price(result.data.price);
+    return result.data.price as Price;
   }
   /**
    Calculates price based on input parameters
@@ -65,7 +65,7 @@ export class PriceService extends BaseService {
    */
   async calculatePrice(variables: PriceCalculateQueryVariables): Promise<ProductPrice> {
     const result = await this.executeQuery('priceCalculate', variables);
-    return new ProductPrice(result.data.priceCalculate);
+    return result.data.priceCalculate as ProductPrice;
   }
   /**
    Gets the default price based on input parameters
@@ -75,7 +75,7 @@ export class PriceService extends BaseService {
    */
   async getDefaultPrice(variables: PriceDefaultQueryVariables): Promise<ProductPrice> {
     const result = await this.executeQuery('priceDefault', variables);
-    return new ProductPrice(result.data.priceDefault);
+    return result.data.priceDefault as ProductPrice;
   }
   /**
    Explains price calculation breakdown
@@ -85,7 +85,7 @@ export class PriceService extends BaseService {
    */
   async explainPrice(variables: PriceCalculateQueryVariables): Promise<ProductPrice> {
     const result = await this.executeQuery('priceExplain', variables);
-    return new ProductPrice(result.data.priceExplain);
+    return result.data.priceExplain as ProductPrice;
   }
   /**
    Creates a new price
@@ -95,7 +95,7 @@ export class PriceService extends BaseService {
   async createPrice(input: PriceCreateInput): Promise<Price> {
     const variables = { input };
     const result = await this.executeMutation('priceCreate', variables);
-    return new Price(result.data.priceCreate);
+    return result.data.priceCreate as Price;
   }
   /**
    Updates an existing price
@@ -106,7 +106,7 @@ export class PriceService extends BaseService {
   async updatePrice(id: string, input: PriceUpdateInput): Promise<Price> {
     const variables = { id, input };
     const result = await this.executeMutation('priceUpdate', variables);
-    return new Price(result.data.priceUpdate);
+    return result.data.priceUpdate as Price;
   }
   /**
    Imports prices from CSV file
@@ -116,6 +116,6 @@ export class PriceService extends BaseService {
   async importPricesFromCSV(input: PriceCsvInput): Promise<CsvImportResponse> {
     const variables = { input };
     const result = await this.executeMutation('priceCsvImport', variables);
-    return new CsvImportResponse(result.data.priceCsvImport);
+    return result.data.priceCsvImport as CsvImportResponse;
   }
 }

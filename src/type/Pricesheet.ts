@@ -8,41 +8,38 @@ import { CompaniesResponse } from './CompaniesResponse';
 /**
  Object class for Pricesheet
  */
-export class Pricesheet {
+export interface Pricesheet {
   /** Primary identifier */
-  id!: string;
+  id: string;
   /** Creation date */
-  createdAt!: string;
+  createdAt: string;
   /** Last modified date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Pricesheet code */
-  code!: string;
+  code: string;
   /** Pricesheet name */
   names?: LocalizedString[];
   /** Pricesheet description */
   descriptions?: LocalizedString[];
   /** Pricesheet priority */
-  priority!: number;
+  priority: number;
   /** Readonly */
-  readonly!: boolean;
+  readonly: boolean;
   /** usergroups field */
-  usergroups!: string[];
+  usergroups: string[];
   /** Use contactsPaginated. */
   /** @deprecated Use contactsPaginated. */
-  contacts!: Contact[];
+  contacts: Contact[];
   /** contactsPaginated field */
-  contactsPaginated!: ContactsResponse;
+  contactsPaginated: ContactsResponse;
   /** Use customersPaginated. */
   /** @deprecated Use customersPaginated. */
-  customers!: Customer[];
+  customers: Customer[];
   /** customersPaginated field */
-  customersPaginated!: CustomersResponse;
+  customersPaginated: CustomersResponse;
   /** Use companiesPaginated. */
   /** @deprecated Use companiesPaginated. */
-  companies!: Company[];
+  companies: Company[];
   /** companiesPaginated field */
-  companiesPaginated!: CompaniesResponse;
-  constructor(data: Partial<Pricesheet> = {}) {
-    Object.assign(this, data);
-  }
+  companiesPaginated: CompaniesResponse;
 }

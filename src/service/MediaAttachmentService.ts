@@ -17,7 +17,7 @@ export class MediaAttachmentService extends BaseService {
   async getMediaAttachment(id: number): Promise<MediaAttachment> {
     const variables = { id };
     const result = await this.executeQuery('mediaAttachment', variables);
-    return new MediaAttachment(result.data.mediaAttachment);
+    return result.data.mediaAttachment as MediaAttachment;
   }
   /**
    Retrieves media attachments with pagination
@@ -27,7 +27,7 @@ export class MediaAttachmentService extends BaseService {
   async getMediaAttachments(input?: MediaAttachmentSearchInput): Promise<PaginatedMediaAttachmentResponse> {
     const variables = { input };
     const result = await this.executeQuery('mediaAttachments', variables);
-    return new PaginatedMediaAttachmentResponse(result.data.mediaAttachments);
+    return result.data.mediaAttachments as PaginatedMediaAttachmentResponse;
   }
   /**
    Creates a new media attachment
@@ -37,7 +37,7 @@ export class MediaAttachmentService extends BaseService {
   async createMediaAttachment(input: MediaAttachmentInput): Promise<MediaAttachment> {
     const variables = { input };
     const result = await this.executeMutation('mediaAttachmentCreate', variables);
-    return new MediaAttachment(result.data.mediaAttachmentCreate);
+    return result.data.mediaAttachmentCreate as MediaAttachment;
   }
   /**
    Updates an existing media attachment
@@ -47,7 +47,7 @@ export class MediaAttachmentService extends BaseService {
   async updateMediaAttachment(input: UpdateMediaAttachmentInput): Promise<MediaAttachment> {
     const variables = { input };
     const result = await this.executeMutation('mediaAttachmentUpdate', variables);
-    return new MediaAttachment(result.data.mediaAttachmentUpdate);
+    return result.data.mediaAttachmentUpdate as MediaAttachment;
   }
   /**
    Deletes a media attachment
@@ -58,10 +58,5 @@ export class MediaAttachmentService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('mediaAttachmentDelete', variables);
     return result.data.mediaAttachmentDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

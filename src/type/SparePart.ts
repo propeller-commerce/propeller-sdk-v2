@@ -3,18 +3,15 @@ import { IBaseProduct } from './IBaseProduct';
 /**
  Object class for SparePart
  */
-export class SparePart {
+export interface SparePart {
   /** Spare Part identifier */
-  id!: string | number;
+  id: string | number;
   /** Spare Part SKU */
-  sku!: string;
+  sku: string;
   /** Spare Part quantity */
-  quantity!: number;
+  quantity: number;
   /** Spare Part name */
   name?: LocalizedString[];
   /** product field */
   product?: IBaseProduct;
-  constructor(data: Partial<SparePart> = {}) {
-    Object.assign(this, data);
-  }
 }

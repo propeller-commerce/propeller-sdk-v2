@@ -1,14 +1,11 @@
 /**
  Object class for LocalizedTemplateContent
  */
-export class LocalizedTemplateContent {
+export interface LocalizedTemplateContent {
   /** The language code */
-  language!: string;
+  language: string;
   /** Contents of the handlebars template file */
-  content!: string;
+  content: string;
   /** Contents of the the precompiled handlebars template file */
   precompiled?: string;
-  constructor(data: Partial<LocalizedTemplateContent> = {}) {
-    Object.assign(this, data);
-  }
 }

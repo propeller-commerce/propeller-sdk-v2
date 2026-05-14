@@ -1,12 +1,9 @@
 /**
  Object class for SendOrderConfirmResponseType
  */
-export class SendOrderConfirmResponseType {
+export interface SendOrderConfirmResponseType {
   /** messageId field */
-  messageId!: string;
+  messageId: string;
   /** success field */
-  success!: boolean;
-  constructor(data: Partial<SendOrderConfirmResponseType> = {}) {
-    Object.assign(this, data);
-  }
+  success: boolean;
 }

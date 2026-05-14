@@ -1,14 +1,11 @@
 /**
  Object class for CartTaxLevel
  */
-export class CartTaxLevel {
+export interface CartTaxLevel {
   /** Tax level's percentage */
-  taxPercentage!: number;
+  taxPercentage: number;
   /** Total tax added for to the cart for the tax level's tax code */
-  price!: number;
+  price: number;
   /** Total discount for the tax level's code */
   discount?: number;
-  constructor(data: Partial<CartTaxLevel> = {}) {
-    Object.assign(this, data);
-  }
 }

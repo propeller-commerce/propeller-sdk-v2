@@ -12,9 +12,4 @@ export class SiteService extends BaseService {
     const result = await this.executeQuery('site', variables);
     return result.data.site;
   }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
-  }
 }

@@ -1,7 +1,7 @@
 import { GraphQLClient } from '../../src/client/GraphQLClient';
 import { GraphQLOperationError } from '../../src/client/GraphQLOperationError';
 import { LogoutService } from '../../src/service/LogoutService';
-import { Logout } from '../../src/type/Logout';
+import type { Logout } from '../../src/type/Logout';
 
 const okResponse = (data: any) =>
   new Response(JSON.stringify({ data }), { status: 200 });
@@ -20,7 +20,7 @@ describe('LogoutService', () => {
     fetchSpy.mockRestore();
   });
 
-  it('logout() sends the bundled mutation and returns a Logout instance', async () => {
+  it('logout() sends the bundled mutation and returns the payload typed as Logout', async () => {
     fetchSpy.mockResolvedValueOnce(okResponse({ logout: { todo: 'ok' } }));
     const client = new GraphQLClient({
       endpoint: 'https://x.test/gql',
@@ -29,9 +29,9 @@ describe('LogoutService', () => {
     });
     const svc = new LogoutService(client);
 
-    const result = await svc.logout(123);
+    const result: Logout = await svc.logout(123);
 
-    expect(result).toBeInstanceOf(Logout);
+    expect(result).toEqual({ todo: 'ok' });
     const body = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
     expect(body.operationName).toBe('logout');
     expect(body.variables).toEqual({ userId: 123 });

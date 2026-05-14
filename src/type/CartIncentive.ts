@@ -3,16 +3,13 @@ import { CartIncentiveParams } from './CartIncentiveParams';
 /**
  Object class for CartIncentive
  */
-export class CartIncentive {
+export interface CartIncentive {
   /** Incentive name */
-  name!: string;
+  name: string;
   /** Incentive action */
-  action!: string;
+  action: string;
   /** List of affected items */
   affectedItems?: CartBaseItem[];
   /** Incentive parameters */
-  params!: CartIncentiveParams;
-  constructor(data: Partial<CartIncentive> = {}) {
-    Object.assign(this, data);
-  }
+  params: CartIncentiveParams;
 }

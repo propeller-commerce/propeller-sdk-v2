@@ -1,10 +1,7 @@
 /**
  Object class for Logout
  */
-export class Logout {
+export interface Logout {
   /** todo field */
   todo?: string;
-  constructor(data: Partial<Logout> = {}) {
-    Object.assign(this, data);
-  }
 }

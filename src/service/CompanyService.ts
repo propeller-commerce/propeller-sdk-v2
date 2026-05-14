@@ -50,7 +50,7 @@ export class CompanyService extends BaseService {
    */
   async getCompany(variables: CompanyVariables): Promise<Company> {
     const result = await this.executeQuery('company', variables);
-    return new Company(result.data.company);
+    return result.data.company as Company;
   }
   /**
    Retrieves companies with search criteria
@@ -63,7 +63,7 @@ export class CompanyService extends BaseService {
    */
   async getCompanies(variables: CompanySearchVariables): Promise<CompaniesResponse> {
     const result = await this.executeQuery('companies', variables);
-    return new CompaniesResponse(result.data.companies);
+    return result.data.companies as CompaniesResponse;
   }
   /**
    Creates a new company
@@ -76,7 +76,7 @@ export class CompanyService extends BaseService {
    */
   async createCompany(variables: CompanyCreateVariables): Promise<Company> {
     const result = await this.executeMutation('companyCreate', variables);
-    return new Company(result.data.companyCreate);
+    return result.data.companyCreate as Company;
   }
   /**
    Updates an existing company
@@ -89,7 +89,7 @@ export class CompanyService extends BaseService {
    */
   async updateCompany(variables: CompanyUpdateVariables): Promise<Company> {
     const result = await this.executeMutation('companyUpdate', variables);
-    return new Company(result.data.companyUpdate);
+    return result.data.companyUpdate as Company;
   }
   /**
    Imports companies from CSV file
@@ -99,11 +99,6 @@ export class CompanyService extends BaseService {
   async importCompaniesCsv(input: CompanyCsvInput): Promise<Company[]> {
     const variables = { input };
     const result = await this.executeMutation('companyCsvImport', variables);
-    return result.data.companyCsvImport.map((company: any) => new Company(company));
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.companyCsvImport as Company[];
   }
 }

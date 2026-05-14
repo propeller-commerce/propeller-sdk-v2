@@ -5,17 +5,17 @@ import { OrderStatusesResponse } from './OrderStatusesResponse';
 /**
  Object class for OrderStatus
  */
-export class OrderStatus {
+export interface OrderStatus {
   /** The primary order status identifier */
-  id!: number;
+  id: number;
   /** The order status name */
-  name!: string;
+  name: string;
   /** The order status code value */
-  code!: string;
+  code: string;
   /** The order status type */
-  type!: OrderStatusType;
+  type: OrderStatusType;
   /** The order status for order type */
-  orderType!: OrderStatusOrderType;
+  orderType: OrderStatusOrderType;
   /** The order status description */
   description?: string;
   /** The order status priority */
@@ -35,16 +35,13 @@ export class OrderStatus {
   /** Marks if the order can be archived */
   isArchivable?: boolean;
   /** The order status creation date */
-  createdAt!: string;
+  createdAt: string;
   /** The order status last modification date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** The order status set the current status belongs to */
   statusSet?: OrderStatusSet;
   /** nextStatuses field */
-  nextStatuses!: OrderStatusesResponse;
+  nextStatuses: OrderStatusesResponse;
   /** previousStatuses field */
-  previousStatuses!: OrderStatusesResponse;
-  constructor(data: Partial<OrderStatus> = {}) {
-    Object.assign(this, data);
-  }
+  previousStatuses: OrderStatusesResponse;
 }

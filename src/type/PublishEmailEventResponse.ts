@@ -1,12 +1,9 @@
 /**
  Object class for PublishEmailEventResponse
  */
-export class PublishEmailEventResponse {
+export interface PublishEmailEventResponse {
   /** Did the publish event succeed? */
-  success!: boolean;
+  success: boolean;
   /** The  Google Pub/Sub message id */
   messageId?: string;
-  constructor(data: Partial<PublishEmailEventResponse> = {}) {
-    Object.assign(this, data);
-  }
 }

@@ -14,9 +14,4 @@ export class VerifyTokenService extends BaseService {
     const result = await this.executeMutation('verifyToken', variables);
     return result.data.verifyToken;
   }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
-  }
 }

@@ -2,22 +2,19 @@ import { Pricesheet } from './Pricesheet';
 /**
  Object class for PricesheetResponse
  */
-export class PricesheetResponse {
+export interface PricesheetResponse {
   /** List of items of type Pricesheet */
-  items!: Pricesheet[];
+  items: Pricesheet[];
   /** Total number of items found */
-  itemsFound!: number;
+  itemsFound: number;
   /** The amount of items to show per page */
-  offset!: number;
+  offset: number;
   /** The current page */
-  page!: number;
+  page: number;
   /** Total amount of pages */
-  pages!: number;
+  pages: number;
   /** Start position of the current page */
-  start!: number;
+  start: number;
   /** End position of the current page */
-  end!: number;
-  constructor(data: Partial<PricesheetResponse> = {}) {
-    Object.assign(this, data);
-  }
+  end: number;
 }

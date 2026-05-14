@@ -5,19 +5,19 @@ import { CostPrice } from './CostPrice';
 /**
  Object class for Price
  */
-export class Price {
+export interface Price {
   /** Primary identifier */
-  id!: string;
+  id: string;
   /** Creation date */
-  createdAt!: string;
+  createdAt: string;
   /** Last modified date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Product Id */
-  productId!: number;
+  productId: number;
   /** The quantity of items that the listed price will purchase. */
-  per!: number;
+  per: number;
   /** The default sales price. */
-  list!: number;
+  list: number;
   /** costPrices field */
   costPrices?: CostPrice[];
   /** The manufacturer's or supplier's recommended retail price (RRP) for the product. */
@@ -25,15 +25,12 @@ export class Price {
   /** The price at which the product is sold in physical stores. This might differ from the standard price due to store-specific deals, overhead costs, or regional pricing strategies. */
   store?: number;
   /** The method used to apply discounts for bulk prices / volume discounts. */
-  bulkPriceDiscountType!: PriceDiscountType;
+  bulkPriceDiscountType: PriceDiscountType;
   /** Default tax code */
-  defaultTaxCode!: Taxcode;
+  defaultTaxCode: Taxcode;
   /** Describes how the price should be displayed on the Front-End. Default value is 'DEFAULT'. */
   display?: PriceDisplay;
   /** cost field */
   /** @deprecated Deprecated in favor of using costPrices (quantity 1) */
   cost?: number;
-  constructor(data: Partial<Price> = {}) {
-    Object.assign(this, data);
-  }
 }

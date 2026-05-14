@@ -44,9 +44,4 @@ export class ExternalAddressService extends BaseService {
     const result = await this.executeMutation('externalAddressDelete', variables);
     return result.data.externalAddressDelete;
   }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
-  }
 }

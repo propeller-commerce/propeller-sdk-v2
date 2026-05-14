@@ -120,12 +120,12 @@ export class UserService extends BaseService {
         const viewerData = result.data.viewer;
         // Return appropriate type based on __typename
         if (viewerData.__typename === 'Contact') {
-            return new Contact(viewerData);
+            return viewerData as Contact;
         } else if (viewerData.__typename === 'Customer') {
-            return new Customer(viewerData);
+            return viewerData as Customer;
         }
         // Default to Contact if typename is unclear
-        return new Contact(viewerData);
+        return viewerData as Contact;
     }
     /**
      * Login with credentials
@@ -134,7 +134,7 @@ export class UserService extends BaseService {
      */
     async login(input: LoginInput): Promise<Login> {
         const result = await this.executeMutation('login', { input });
-        return new Login(result.data.login);
+        return result.data.login as Login;
     }
     /**
      * Get user by search criteria
@@ -146,12 +146,12 @@ export class UserService extends BaseService {
         const userData = result.data.user;
         // Return appropriate type based on __typename
         if (userData.__typename === 'Contact') {
-            return new Contact(userData);
+            return userData as Contact;
         } else if (userData.__typename === 'Customer') {
-            return new Customer(userData);
+            return userData as Customer;
         }
         // Default to Contact if typename is unclear
-        return new Contact(userData);
+        return userData as Contact;
     }
     /**
      * Get authentication information for user by email
@@ -160,7 +160,7 @@ export class UserService extends BaseService {
      */
     async authenticate(email: string): Promise<GCIPUser> {
         const result = await this.executeQuery('authentication', { email });
-        return new GCIPUser(result.data.authentication);
+        return result.data.authentication as GCIPUser;
     }
     /**
      * Logout current user
@@ -168,7 +168,7 @@ export class UserService extends BaseService {
      */
     async logout(): Promise<Logout> {
         const result = await this.executeMutation('logout');
-        return new Logout(result.data.logout);
+        return result.data.logout as Logout;
     }
     /**
      * Register new contact
@@ -177,7 +177,7 @@ export class UserService extends BaseService {
      */
     async registerContact(variables: ContactRegisterInput): Promise<RegisterContactResponse> {
         const result = await this.executeMutation('contactRegister', variables);
-        return new RegisterContactResponse(result.data.contactRegister);
+        return result.data.contactRegister as RegisterContactResponse;
     }
     /**
      * Register new customer
@@ -186,7 +186,7 @@ export class UserService extends BaseService {
      */
     async registerCustomer(variables: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
         const result = await this.executeMutation('customerRegister', variables);
-        return new RegisterCustomerResponse(result.data.customerRegister);
+        return result.data.customerRegister as RegisterCustomerResponse;
     }
     /**
      * Update user information
@@ -198,12 +198,12 @@ export class UserService extends BaseService {
         const userData = result.data.updateUser;
         // Return appropriate type based on __typename
         if (userData.__typename === 'Contact') {
-            return new Contact(userData);
+            return userData as Contact;
         } else if (userData.__typename === 'Customer') {
-            return new Customer(userData);
+            return userData as Customer;
         }
         // Default to Contact if typename is unclear
-        return new Contact(userData);
+        return userData as Contact;
     }
     /**
      * Get users with search and pagination
@@ -217,12 +217,12 @@ export class UserService extends BaseService {
         // Map each user to appropriate type based on __typename
         return result.data.users.map((userData: any) => {
             if (userData.__typename === 'Contact') {
-                return new Contact(userData);
+                return userData as Contact;
             } else if (userData.__typename === 'Customer') {
-                return new Customer(userData);
+                return userData as Customer;
             }
             // Default to Contact if typename is unclear
-            return new Contact(userData);
+            return userData as Contact;
         });
     }
     /**
@@ -247,7 +247,7 @@ export class UserService extends BaseService {
      */
     async createUserAddress(input: any): Promise<Address> {
         const result = await this.executeMutation('userAddressCreate', { input });
-        return new Address(result.data.userAddressCreate);
+        return result.data.userAddressCreate as Address;
     }
     /**
      * Update user address
@@ -256,7 +256,7 @@ export class UserService extends BaseService {
      */
     async updateUserAddress(input: any): Promise<Address> {
         const result = await this.executeMutation('userAddressUpdate', { input });
-        return new Address(result.data.userAddressUpdate);
+        return result.data.userAddressUpdate as Address;
     }
     /**
      * Delete user address
@@ -298,10 +298,4 @@ export class UserService extends BaseService {
         return result.data.triggerCustomerSendWelcomeEmailEvent;
     }
 
-    /**
-     * Initializes the service by preloading common fragments
-     */
-    async initializeService(): Promise<void> {
-        // Service initialization logic if needed
-    }
 }

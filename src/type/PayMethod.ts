@@ -2,20 +2,17 @@ import { LocalizedString } from './LocalizedString';
 /**
  Object class for PayMethod
  */
-export class PayMethod {
+export interface PayMethod {
   /** Primary identifier */
-  id!: number;
+  id: number;
   /** Creation date */
-  createdAt!: string;
+  createdAt: string;
   /** Last modified date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Name per language */
-  names!: LocalizedString[];
+  names: LocalizedString[];
   /** External code */
-  externalCode!: string;
+  externalCode: string;
   /** Logo url */
   logo?: string;
-  constructor(data: Partial<PayMethod> = {}) {
-    Object.assign(this, data);
-  }
 }

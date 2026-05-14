@@ -4,6 +4,45 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.5.0] - 2026-05-14
+
+Coordinated breaking-change release. The SDK is now smaller, honest about its types, and uses idiomatic TypeScript shapes. Two consumer apps (`propeller-next`, `propeller-vue`) ship matching migration PRs alongside this tag.
+
+### BREAKING
+
+- **Response types are now `interface`s, not classes.** All 270 wrapper classes in `src/type/*.ts` (e.g. `Product`, `Cart`, `Order`, `Address`, `ProductsResponse`, etc.) are now TypeScript interfaces. The `Object.assign`-style constructor and the `!:` definite-assignment markers are gone.
+  - **Migration:** anywhere you wrote `new Cart(data)` or `new Product(data)`, replace with `data as Cart` / `data as Product`. Property access (`product.id`, `cart.items`, etc.) keeps working identically.
+  - **`instanceof Cart` checks no longer work** because the class is gone. Audit-verified: no consumer in either `propeller-next` or `propeller-vue` used `instanceof` against an SDK type. If you have such code outside those repos, you'll need to switch to a structural check (e.g. `__typename` discriminator on the response).
+- **Enums are now top-level exports.** The `export * as Enums from './enum'` namespace is removed; `export * from './enum'` takes its place. Existing consumer code using the `Enums.X.Y` qualified form keeps working *iff* the import is switched from `import { Enums } from 'propeller-sdk-v2'` to `import * as Enums from 'propeller-sdk-v2'`. No call-site edits are required — only the import line. Both consumer repos ship this change in their 0.5.0 migration PRs.
+- **`initializeService()` no-op method removed** from all 54 concrete services. The method has always been an empty stub; calling it was a no-op. Consumers calling `someService.initializeService()` must delete the call. Audit-verified: one such call in `propeller-next/app/checkout/page.tsx:101` is removed in the consumer migration PR.
+
+### Changed
+
+- Service methods that previously wrapped their responses with `new X(data)` now return `data as X`. Functionally identical (the 0.3.0 wrapper class only ran `Object.assign(this, data)` and added a prototype). Net effect: zero per-response allocations and slightly smaller `dist/`.
+- The six `Attribute*Value` types (`AttributeColorValue`, `AttributeDateTimeValue`, `AttributeDecimalValue`, `AttributeEnumValue`, `AttributeIntValue`, `AttributeTextValue`) had `get value()` / `set value()` getters that aliased their concrete value field. As interfaces these are flat fields now — `value: any` is declared on each. Reading `.value` continues to work; the runtime aliasing to the concrete field (`colorValue`, `dateTimeValue`, etc.) is no longer automatic — read the concrete field directly.
+
+### Migration recipe
+
+Per consumer file:
+
+```diff
+-import { Enums } from 'propeller-sdk-v2';
++import * as Enums from 'propeller-sdk-v2';
+```
+
+```diff
+-return new Cart(cartData);
++return cartData as Cart;
+```
+
+```diff
+-await cartService.initializeService();
+```
+
+Bump the SDK install ref to `#v0.5.0` (or pin to the commit SHA during testing).
+
+---
+
 ## [0.4.0] - 2026-05-14
 
 Internal cleanup pass that is intentionally **non-breaking** for existing consumers. The public surface (wrapper-class shape, service method signatures, `Enums.*` namespace, `client` singleton) is preserved. Highlights below.

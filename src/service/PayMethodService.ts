@@ -17,7 +17,7 @@ export class PayMethodService extends BaseService {
   async getPayMethod(id: number): Promise<PayMethod> {
     const variables = { id };
     const result = await this.executeQuery('payMethod', variables);
-    return new PayMethod(result.data.payMethod);
+    return result.data.payMethod as PayMethod;
   }
   /**
    Retrieves payment methods with search
@@ -27,7 +27,7 @@ export class PayMethodService extends BaseService {
   async getPayMethods(input?: PayMethodSearchInput): Promise<PayMethodsResponse> {
     const variables = { input };
     const result = await this.executeQuery('payMethods', variables);
-    return new PayMethodsResponse(result.data.payMethods);
+    return result.data.payMethods as PayMethodsResponse;
   }
   /**
    Creates a new payment method
@@ -37,7 +37,7 @@ export class PayMethodService extends BaseService {
   async createPayMethod(input: PayMethodCreateInput): Promise<PayMethod> {
     const variables = { input };
     const result = await this.executeMutation('payMethodCreate', variables);
-    return new PayMethod(result.data.payMethodCreate);
+    return result.data.payMethodCreate as PayMethod;
   }
   /**
    Updates an existing payment method
@@ -47,7 +47,7 @@ export class PayMethodService extends BaseService {
   async updatePayMethod(input: PayMethodUpdateInput): Promise<PayMethod> {
     const variables = { input };
     const result = await this.executeMutation('payMethodUpdate', variables);
-    return new PayMethod(result.data.payMethodUpdate);
+    return result.data.payMethodUpdate as PayMethod;
   }
   /**
    Deletes a payment method
@@ -58,10 +58,5 @@ export class PayMethodService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('payMethodDelete', variables);
     return result.data.payMethodDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

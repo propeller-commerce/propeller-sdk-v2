@@ -6,34 +6,34 @@ import { ProductsResponse } from './ProductsResponse';
 /**
  Object class for Category
  */
-export class Category {
+export interface Category {
   /** categoryId field */
-  categoryId!: number;
+  categoryId: number;
   /** Lists attributes for this category based on the search input. */
   attributes?: AttributeResultResponse;
   /** Localized category name as it is available in
         the supported language defaults to the category's default language. */
-  name!: LocalizedString[];
+  name: LocalizedString[];
   /** The long description for this category,
             this field can contain html formatting,
             this field can be translated is case of multilingual catalog */
-  description!: LocalizedString[];
+  description: LocalizedString[];
   /** The short description for this category,
             this field can contain html formatting,
             this field can be translated is case of multilingual catalog */
-  shortDescription!: LocalizedString[];
+  shortDescription: LocalizedString[];
   /** The slug for this category,
             each available language contains a different slug */
-  slug!: LocalizedString[];
+  slug: LocalizedString[];
   /** The path in id's to the root of the inheritance tree,
     can be passed as parameter to the productsearch API */
-  path!: string;
+  path: string;
   /** categories field */
   categories?: Category[];
   /** The category's parent Category when available */
   parent?: Category;
   /** defaultLanguage field */
-  defaultLanguage!: string;
+  defaultLanguage: string;
   /** [SEO] Localized Metadata title available in multiple languages */
   metadataTitles?: LocalizedString[];
   /** [SEO] Localized Metadata description available in multiple languages */
@@ -43,14 +43,11 @@ export class Category {
   /** [SEO] Localized Metadata canonical url available in multiple languages */
   metadataCanonicalUrls?: LocalizedString[];
   /** The hidden status of the category */
-  hidden!: YesNo;
+  hidden: YesNo;
   /** categoryPath field */
-  categoryPath!: Category[];
+  categoryPath: Category[];
   /** sources field */
-  sources!: Source[];
+  sources: Source[];
   /** products field */
-  products!: ProductsResponse;
-  constructor(data: Partial<Category> = {}) {
-    Object.assign(this, data);
-  }
+  products: ProductsResponse;
 }

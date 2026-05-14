@@ -93,7 +93,7 @@ export class ProductService extends BaseService {
    */
   async getProduct(variables: ProductQueryVariables): Promise<Product> {
     const result = await this.executeQuery('product', variables);
-    return new Product(result.data.product);
+    return result.data.product as Product;
   }
   /**
    Fetches a list of products with search criteria
@@ -108,7 +108,7 @@ export class ProductService extends BaseService {
    */
   async getProducts(variables: ProductsQueryVariables): Promise<ProductsResponse> {
     const result = await this.executeQuery('products', variables);
-    return new ProductsResponse(result.data.products);
+    return result.data.products as ProductsResponse;
   }
   /**
    Creates a new product
@@ -118,7 +118,7 @@ export class ProductService extends BaseService {
   async createProduct(input: CreateProductInput): Promise<Product> {
     const variables = { input };
     const result = await this.executeMutation('productCreate', variables);
-    return new Product(result.data.productCreate);
+    return result.data.productCreate as Product;
   }
   /**
    Updates an existing product
@@ -128,7 +128,7 @@ export class ProductService extends BaseService {
   async updateProduct(input: UpdateProductInput): Promise<Product> {
     const variables = { input };
     const result = await this.executeMutation('productUpdate', variables);
-    return new Product(result.data.productUpdate);
+    return result.data.productUpdate as Product;
   }
   /**
    Imports products from CSV
@@ -138,7 +138,7 @@ export class ProductService extends BaseService {
   async importProductsCsv(input: ProductCsvInput): Promise<CsvImportResponse> {
     const variables = { input };
     const result = await this.executeMutation('productCsvImport', variables);
-    return new CsvImportResponse(result.data.productCsvImport);
+    return result.data.productCsvImport as CsvImportResponse;
   }
   /**
    Adds surcharges to a product
@@ -158,7 +158,7 @@ export class ProductService extends BaseService {
   async getProductSurcharges(productId: number): Promise<SurchargesResponse> {
     const variables = { productId };
     const result = await this.executeQuery('productSurcharges', variables);
-    return new SurchargesResponse(result.data.productSurcharges);
+    return result.data.productSurcharges as SurchargesResponse;
   }
   /**
    Fetches attributes for a product
@@ -172,7 +172,7 @@ export class ProductService extends BaseService {
   ): Promise<AttributeResponse> {
     const variables = { productId, input };
     const result = await this.executeQuery('attributesByProductId', variables);
-    return new AttributeResponse(result.data.attributesByProductId);
+    return result.data.attributesByProductId as AttributeResponse;
   }
   /**
    Fetches attribute results for a product
@@ -186,11 +186,6 @@ export class ProductService extends BaseService {
   ): Promise<AttributeResultResponse> {
     const variables = { productId, input };
     const result = await this.executeQuery('attributeResultByProductId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByProductId);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.attributeResultByProductId as AttributeResultResponse;
   }
 }

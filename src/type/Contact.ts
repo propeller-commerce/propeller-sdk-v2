@@ -15,13 +15,13 @@ import { Address } from './Address';
 /**
  Object class for Contact
  */
-export class Contact {
+export interface Contact {
   /** The unique identifier of the contact. */
-  contactId!: number;
+  contactId: number;
   /** Lists attributes for this contacts based on the search input. */
   attributes?: AttributeResultResponse;
   /** Get all magic tokens for a contact */
-  magicTokens!: MagicToken[];
+  magicTokens: MagicToken[];
   /** favoriteLists field */
   favoriteLists?: FavoriteListsResponse;
   /** orderlists field */
@@ -36,17 +36,17 @@ export class Contact {
   /** The gender of the user. */
   gender?: Gender;
   /** The first name of the user. */
-  firstName!: string;
+  firstName: string;
   /** The middle name of the user. */
   middleName?: string;
   /** The last name of the user. */
-  lastName!: string;
+  lastName: string;
   /** The phone number of the user. */
   phone?: string;
   /** The mobile number of the user. */
   mobile?: string;
   /** The email of the user. */
-  email!: string;
+  email: string;
   /** The login name (email) the account is linked to, generally the same as email address. When null a account has not been linked yet. */
   login?: string;
   /** The International Bank Account Number of the user */
@@ -74,7 +74,7 @@ export class Contact {
   /** lastModifiedAt field */
   lastModifiedAt?: string;
   /** The company id of parent company. */
-  parentCompanyId!: number;
+  parentCompanyId: number;
   /** company field */
   company?: Company;
   /** Companies managed by the contact. */
@@ -82,10 +82,7 @@ export class Contact {
   /** All the companies that a contact belongs to */
   companies?: CompaniesResponse;
   /** sources field */
-  sources!: Source[];
+  sources: Source[];
   /** All purchase authorization config entities for this contact */
   purchaseAuthorizationConfigs?: PurchaseAuthorizationConfigResponse;
-  constructor(data: Partial<Contact> = {}) {
-    Object.assign(this, data);
-  }
 }

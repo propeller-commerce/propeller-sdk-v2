@@ -1,7 +1,7 @@
 /**
  Object class for BundlePrice
  */
-export class BundlePrice {
+export interface BundlePrice {
   /** Net price of the bundle after discounts applied */
   net?: number;
   /** Gross price of the bundle after discounts applied */
@@ -10,7 +10,4 @@ export class BundlePrice {
   originalNet?: number;
   /** Original gross price of the bundle before discounts applied */
   originalGross?: number;
-  constructor(data: Partial<BundlePrice> = {}) {
-    Object.assign(this, data);
-  }
 }

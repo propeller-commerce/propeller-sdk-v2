@@ -4,59 +4,59 @@ import { TenderItemSurcharge } from './TenderItemSurcharge';
 /**
  Object class for TenderBaseItem
  */
-export class TenderBaseItem {
+export interface TenderBaseItem {
   /** Id of the tender item, this id can be used for update or delete mutation for this tender item */
-  uuid!: string;
+  uuid: string;
   /** Id of the order item */
   orderItemId?: number;
   /** Tender/order item name */
-  name!: string;
+  name: string;
   /** The tender/order item's productId, if applicable */
-  productId!: number;
+  productId: number;
   /** Tender/order item SKU */
-  sku!: string;
+  sku: string;
   /** The quantity for this tender/order item */
-  quantity!: number;
+  quantity: number;
   /** Tender/order item supplier */
   supplier?: string;
   /** Tender/order item supplier code */
   supplierCode?: string;
   /** The gross sales price per UOM of this tender/order item, no item specific incentives and extra costs are applied to this price. VAT excluding */
-  price!: number;
+  price: number;
   /** The sales price per UOM of this tender/order item, no item specific incentives and extra costs are applied to this price. VAT including */
-  priceNet!: number;
+  priceNet: number;
   /** The total gross price of this tender/order item, no item specific incentives and extra costs are applied to this price. VAT excluding */
-  totalPrice!: number;
+  totalPrice: number;
   /** The total price of this tender/order item, no item specific incentives and extra costs are applied to this price. VAT including */
-  totalPriceNet!: number;
+  totalPriceNet: number;
   /** The tax code for this tender/order item */
-  taxCode!: Taxcode;
+  taxCode: Taxcode;
   /** The tax percentage for this tender/order item */
-  taxPercentage!: number;
+  taxPercentage: number;
   /** Customer discount (%) */
-  customerDiscountPercentage!: number;
+  customerDiscountPercentage: number;
   /** Sales discount (%) */
-  discountPercentage!: number;
+  discountPercentage: number;
   /** Total discount (%) */
-  totalDiscountPercentage!: number;
+  totalDiscountPercentage: number;
   /** Default margin amount (list price). VAT excluding */
-  marginAmount!: number;
+  marginAmount: number;
   /** Default margin percentage (list price) */
-  marginPercentage!: number;
+  marginPercentage: number;
   /** Margin amount. VAT excluding */
-  saleMarginAmount!: number;
+  saleMarginAmount: number;
   /** Margin percentage */
-  saleMarginPercentage!: number;
+  saleMarginPercentage: number;
   /** Extra item discount (%) calculated based on tender/order total discount */
-  attributedSaleDiscount!: number;
+  attributedSaleDiscount: number;
   /** Margin percentage calculated based on tender/order total discount */
-  attributedSaleMargin!: number;
+  attributedSaleMargin: number;
   /** Product list price per UOM of this tender/order item. VAT excluding */
-  originalPrice!: number;
+  originalPrice: number;
   /** Product cost price per UOM of this tender/order item. VAT excluding */
-  costPrice!: number;
+  costPrice: number;
   /** Customer special price per UOM of this tender/order item. VAT excluding */
-  customerPrice!: number;
+  customerPrice: number;
   /** Total amount of valuePoints that apply to this tender/order item */
   valuePoints?: number;
   /** The preferred delivery date for this order as requested by the user */
@@ -69,7 +69,4 @@ export class TenderBaseItem {
   incentive?: TenderItemIncentive;
   /** The surcharges applied to this tender item */
   surcharges?: TenderItemSurcharge[];
-  constructor(data: Partial<TenderBaseItem> = {}) {
-    Object.assign(this, data);
-  }
 }

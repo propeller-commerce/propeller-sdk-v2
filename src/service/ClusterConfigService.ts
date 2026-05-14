@@ -16,7 +16,7 @@ export class ClusterConfigService extends BaseService {
   async getClusterConfig(id: number): Promise<ClusterConfig> {
     const variables = { id };
     const result = await this.executeQuery('clusterConfig', variables);
-    return new ClusterConfig(result.data.clusterConfig);
+    return result.data.clusterConfig as ClusterConfig;
   }
   /**
    Retrieves cluster configurations
@@ -24,7 +24,7 @@ export class ClusterConfigService extends BaseService {
    */
   async getClusterConfigs(): Promise<ClusterConfigResponse[]> {
     const result = await this.executeQuery('clusterConfigs', {});
-    return result.data.clusterConfigs.map((config: any) => new ClusterConfigResponse(config));
+    return result.data.clusterConfigs as ClusterConfigResponse[];
   }
   /**
    Creates a new cluster configuration
@@ -34,7 +34,7 @@ export class ClusterConfigService extends BaseService {
   async createClusterConfig(input: ClusterConfigCreateInput): Promise<ClusterConfig> {
     const variables = { input };
     const result = await this.executeMutation('clusterConfigCreate', variables);
-    return new ClusterConfig(result.data.clusterConfigCreate);
+    return result.data.clusterConfigCreate as ClusterConfig;
   }
   /**
    Updates cluster configuration settings
@@ -44,11 +44,6 @@ export class ClusterConfigService extends BaseService {
   async updateClusterConfigSetting(input: ClusterConfigSettingUpdateInput): Promise<ClusterConfig> {
     const variables = { input };
     const result = await this.executeMutation('clusterConfigSettingUpdate', variables);
-    return new ClusterConfig(result.data.clusterConfigSettingUpdate);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.clusterConfigSettingUpdate as ClusterConfig;
   }
 }

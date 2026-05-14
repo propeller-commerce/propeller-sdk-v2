@@ -12,7 +12,7 @@ export class ChannelService extends BaseService {
   async getChannel(id: number): Promise<Channel> {
     const variables = { id };
     const result = await this.executeQuery('channel', variables);
-    return new Channel(result.data.channel);
+    return result.data.channel as Channel;
   }
   /**
    Fetches a list of channels
@@ -21,11 +21,6 @@ export class ChannelService extends BaseService {
   async getChannels(): Promise<Channel[]> {
     const variables = {};
     const result = await this.executeQuery('channels', variables);
-    return result.data.channels.map((channel: any) => new Channel(channel));
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.channels as Channel[];
   }
 }

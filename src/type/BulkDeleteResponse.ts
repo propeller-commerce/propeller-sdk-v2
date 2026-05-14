@@ -1,12 +1,9 @@
 /**
  Object class for BulkDeleteResponse
  */
-export class BulkDeleteResponse {
+export interface BulkDeleteResponse {
   /** List of deleted item ids */
-  deletedIds!: string[];
+  deletedIds: string[];
   /** List of failed item ids */
-  failedIds!: string[];
-  constructor(data: Partial<BulkDeleteResponse> = {}) {
-    Object.assign(this, data);
-  }
+  failedIds: string[];
 }

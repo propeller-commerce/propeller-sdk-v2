@@ -2,19 +2,15 @@ import { AttributeType } from '../enum/AttributeType';
 import { AttributeValue } from './AttributeValue';
 import { LocalizedStringArray } from './LocalizedStringArray';
 /**
- Object class for AttributeTextValue
+ Text attribute value
  */
-export class AttributeTextValue implements AttributeValue {
+export interface AttributeTextValue extends AttributeValue {
   /** Attribute value id */
-  id!: string;
+  id: string;
   /** Attribute text value type */
-  type!: AttributeType;
+  type: AttributeType;
   /** Attribute textValues per language */
-  textValues!: LocalizedStringArray[];
-  constructor(data: Partial<AttributeTextValue> = {}) {
-    Object.assign(this, data);
-  }
-  /** Attribute value (delegates to textValues) */
-  get value(): any { return this.textValues; }
-  set value(val: any) { this.textValues = val; }
+  textValues: LocalizedStringArray[];
+  /** Attribute value (mirrors textValues) */
+  value: any;
 }

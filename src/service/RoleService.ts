@@ -21,7 +21,7 @@ export class RoleService extends BaseService {
   async getRole(id: number): Promise<Role> {
     const variables = { id };
     const result = await this.executeQuery('role', variables);
-    return new Role(result.data.role);
+    return result.data.role as Role;
   }
   /**
    Fetches a list of roles with search criteria
@@ -31,7 +31,7 @@ export class RoleService extends BaseService {
   async getRoles(input?: RoleSearchInput): Promise<RoleResponse> {
     const variables = { input };
     const result = await this.executeQuery('roles', variables);
-    return new RoleResponse(result.data.roles);
+    return result.data.roles as RoleResponse;
   }
   /**
    Creates a new role
@@ -41,7 +41,7 @@ export class RoleService extends BaseService {
   async createRole(input: RoleCreateInput): Promise<Role> {
     const variables = { input };
     const result = await this.executeMutation('roleCreate', variables);
-    return new Role(result.data.roleCreate);
+    return result.data.roleCreate as Role;
   }
   /**
    Updates an existing role
@@ -51,7 +51,7 @@ export class RoleService extends BaseService {
   async updateRole(input: RoleUpdateInput): Promise<Role> {
     const variables = { input };
     const result = await this.executeMutation('roleUpdate', variables);
-    return new Role(result.data.roleUpdate);
+    return result.data.roleUpdate as Role;
   }
   /**
    Fetches a single role definition by ID
@@ -61,7 +61,7 @@ export class RoleService extends BaseService {
   async getRoleDefinition(id: number): Promise<RoleDefinition> {
     const variables = { id };
     const result = await this.executeQuery('roleDefinition', variables);
-    return new RoleDefinition(result.data.roleDefinition);
+    return result.data.roleDefinition as RoleDefinition;
   }
   /**
    Fetches a list of role definitions with search criteria
@@ -71,7 +71,7 @@ export class RoleService extends BaseService {
   async getRoleDefinitions(input?: RoleDefinitionSearchInput): Promise<RoleDefinitionResponse> {
     const variables = { input };
     const result = await this.executeQuery('roleDefinitions', variables);
-    return new RoleDefinitionResponse(result.data.roleDefinitions);
+    return result.data.roleDefinitions as RoleDefinitionResponse;
   }
   /**
    Creates a new role definition
@@ -81,7 +81,7 @@ export class RoleService extends BaseService {
   async createRoleDefinition(input: RoleDefinitionCreateInput): Promise<RoleDefinition> {
     const variables = { input };
     const result = await this.executeMutation('roleDefinitionCreate', variables);
-    return new RoleDefinition(result.data.roleDefinitionCreate);
+    return result.data.roleDefinitionCreate as RoleDefinition;
   }
   /**
    Updates an existing role definition
@@ -91,11 +91,6 @@ export class RoleService extends BaseService {
   async updateRoleDefinition(input: RoleDefinitionUpdateInput): Promise<RoleDefinition> {
     const variables = { input };
     const result = await this.executeMutation('roleDefinitionUpdate', variables);
-    return new RoleDefinition(result.data.roleDefinitionUpdate);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.roleDefinitionUpdate as RoleDefinition;
   }
 }

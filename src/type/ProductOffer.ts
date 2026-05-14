@@ -1,18 +1,15 @@
 /**
  Object class for ProductOffer
  */
-export class ProductOffer {
+export interface ProductOffer {
   /** The id of the offer. */
-  id!: string;
+  id: string;
   /** The calculated price for this offer. */
-  price!: number;
+  price: number;
   /** validFrom field */
-  validFrom!: string;
+  validFrom: string;
   /** validTo field */
-  validTo!: string;
+  validTo: string;
   /** formula field */
-  formula!: string;
-  constructor(data: Partial<ProductOffer> = {}) {
-    Object.assign(this, data);
-  }
+  formula: string;
 }

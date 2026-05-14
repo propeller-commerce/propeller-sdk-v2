@@ -17,7 +17,7 @@ export class MachineService extends BaseService {
   async getMachine(id: number): Promise<SparePartsMachine> {
     const variables = { id };
     const result = await this.executeQuery('machine', variables);
-    return new SparePartsMachine(result.data.machine);
+    return result.data.machine as SparePartsMachine;
   }
   /**
    Retrieves machines with search criteria
@@ -27,7 +27,7 @@ export class MachineService extends BaseService {
   async getMachines(input?: SearchSparePartsMachineInput): Promise<SparePartsMachineResponse> {
     const variables = { input };
     const result = await this.executeQuery('machines', variables);
-    return new SparePartsMachineResponse(result.data.machines);
+    return result.data.machines as SparePartsMachineResponse;
   }
   /**
    Creates a new machine
@@ -37,7 +37,7 @@ export class MachineService extends BaseService {
   async createMachine(input: CreateSparePartsMachineInput): Promise<SparePartsMachine> {
     const variables = { input };
     const result = await this.executeMutation('machineCreate', variables);
-    return new SparePartsMachine(result.data.machineCreate);
+    return result.data.machineCreate as SparePartsMachine;
   }
   /**
    Updates an existing machine
@@ -47,11 +47,6 @@ export class MachineService extends BaseService {
   async updateMachine(input: UpsertSparePartsMachineInput): Promise<SparePartsMachine> {
     const variables = { input };
     const result = await this.executeMutation('machineUpdate', variables);
-    return new SparePartsMachine(result.data.machineUpdate);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.machineUpdate as SparePartsMachine;
   }
 }

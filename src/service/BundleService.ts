@@ -25,7 +25,7 @@ export class BundleService extends BaseService {
   async getBundle(id: number): Promise<Bundle> {
     const variables = { id };
     const result = await this.executeQuery('bundle', variables);
-    return new Bundle(result.data.bundle);
+    return result.data.bundle as Bundle;
   }
   /**
    Fetches a list of bundles with search criteria
@@ -34,7 +34,7 @@ export class BundleService extends BaseService {
    */
   async getBundles(variables?: BundleQueryVariables): Promise<BundlesResponse> {
     const result = await this.executeQuery('bundles', variables);
-    return new BundlesResponse(result.data.bundles);
+    return result.data.bundles as BundlesResponse;
   }
   /**
    Creates a new bundle
@@ -44,7 +44,7 @@ export class BundleService extends BaseService {
   async createBundle(input: BundleCreateInput): Promise<Bundle> {
     const variables = { input };
     const result = await this.executeMutation('bundleCreate', variables);
-    return new Bundle(result.data.bundleCreate);
+    return result.data.bundleCreate as Bundle;
   }
   /**
    Updates an existing bundle
@@ -54,7 +54,7 @@ export class BundleService extends BaseService {
   async updateBundle(input: BundleUpdateInput): Promise<Bundle> {
     const variables = { input };
     const result = await this.executeMutation('bundleUpdate', variables);
-    return new Bundle(result.data.bundleUpdate);
+    return result.data.bundleUpdate as Bundle;
   }
   /**
    Adds items to a bundle
@@ -64,7 +64,7 @@ export class BundleService extends BaseService {
   async addItemsToBundle(input: BundleAddItemsInput): Promise<Bundle> {
     const variables = { input };
     const result = await this.executeMutation('bundleAddItems', variables);
-    return new Bundle(result.data.bundleAddItems);
+    return result.data.bundleAddItems as Bundle;
   }
   /**
    Deletes a bundle
@@ -75,10 +75,5 @@ export class BundleService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('bundleDelete', variables);
     return result.data.bundleDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

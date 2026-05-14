@@ -4,9 +4,9 @@ import { LocalizedDocument } from './LocalizedDocument';
 /**
  Object class for MediaDocument
  */
-export class MediaDocument {
+export interface MediaDocument {
   /** Media global unique identifier */
-  id!: string | number;
+  id: string | number;
   /** Unique product identifier that the media relates to */
   productId?: string | number;
   /** Unique cluster identifier that the media relates to */
@@ -16,11 +16,11 @@ export class MediaDocument {
   /** Unique sparePartsMachine identifier that the media relates to */
   sparePartsMachineId?: string | number;
   /** Media alt description that briefly explains the contents of the document. */
-  alt!: LocalizedString[];
+  alt: LocalizedString[];
   /** Media short description. */
-  description!: LocalizedString[];
+  description: LocalizedString[];
   /** Media tags. */
-  tags!: LocalizedStringArray[];
+  tags: LocalizedStringArray[];
   /** Media type */
   type?: string;
   /** The date and time (ISO 8601 format) when the media was created. */
@@ -31,7 +31,4 @@ export class MediaDocument {
   priority?: number;
   /** List of document objects */
   documents?: LocalizedDocument[];
-  constructor(data: Partial<MediaDocument> = {}) {
-    Object.assign(this, data);
-  }
 }

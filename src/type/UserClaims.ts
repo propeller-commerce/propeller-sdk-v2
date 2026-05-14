@@ -1,13 +1,13 @@
 /**
  Object class for UserClaims
  */
-export class UserClaims {
+export interface UserClaims {
   /** userId field */
-  userId!: number;
+  userId: number;
   /** userDirectoryId field */
-  userDirectoryId!: number;
+  userDirectoryId: number;
   /** adminUserId field */
-  adminUserId!: number;
+  adminUserId: number;
   /** contactId field */
   contactId?: number;
   /** customerId field */
@@ -17,18 +17,15 @@ export class UserClaims {
   /** companyIds field */
   companyIds?: number[];
   /** roles field */
-  roles!: string[];
+  roles: string[];
   /** discounts field */
-  discounts!: string[];
+  discounts: string[];
   /** acllist field */
-  acllist!: number[];
+  acllist: number[];
   /** class field */
-  class!: string;
+  class: string;
   /** loginRoot field */
   loginRoot?: number;
   /** dateCreated field */
-  dateCreated!: string;
-  constructor(data: Partial<UserClaims> = {}) {
-    Object.assign(this, data);
-  }
+  dateCreated: string;
 }

@@ -3,15 +3,15 @@ import { IBaseProduct } from './IBaseProduct';
 /**
  Object class for Crossupsell
  */
-export class Crossupsell {
+export interface Crossupsell {
   /** Primary identifier */
-  id!: string;
+  id: string;
   /** Creation date */
-  createdAt!: string;
+  createdAt: string;
   /** Last modified date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Cross/Upsell type */
-  type!: CrossupsellType;
+  type: CrossupsellType;
   /** Cross/Up Sell subtype */
   subType?: string;
   /** productTo field */
@@ -22,7 +22,4 @@ export class Crossupsell {
   clusterTo?: IBaseProduct;
   /** clusterFrom field */
   clusterFrom?: IBaseProduct;
-  constructor(data: Partial<Crossupsell> = {}) {
-    Object.assign(this, data);
-  }
 }

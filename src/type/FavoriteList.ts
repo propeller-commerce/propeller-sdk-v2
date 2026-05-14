@@ -5,11 +5,11 @@ import { Customer } from './Customer';
 /**
  Object class for FavoriteList
  */
-export class FavoriteList {
+export interface FavoriteList {
   /** Favorite List unique identifier */
-  id!: string | number;
+  id: string | number;
   /** Favorite List name */
-  name!: string;
+  name: string;
   /** Favorite List company ID */
   companyId?: number;
   /** Favorite List contact ID */
@@ -17,13 +17,13 @@ export class FavoriteList {
   /** Favorite List customer ID */
   customerId?: number;
   /** Default Favorite List */
-  isDefault!: boolean;
+  isDefault: boolean;
   /** Favorite List slug */
-  slug!: string;
+  slug: string;
   /** Favorite List date created */
-  createdAt!: string;
+  createdAt: string;
   /** Favorite List date modified */
-  updatedAt!: string;
+  updatedAt: string;
   /** products field */
   products?: ProductsResponse;
   /** clusters field */
@@ -34,7 +34,4 @@ export class FavoriteList {
   contact?: Contact;
   /** customer field */
   customer?: Customer;
-  constructor(data: Partial<FavoriteList> = {}) {
-    Object.assign(this, data);
-  }
 }

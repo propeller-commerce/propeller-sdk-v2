@@ -1,14 +1,11 @@
 /**
  Object class for LocalizedVideo
  */
-export class LocalizedVideo {
+export interface LocalizedVideo {
   /** Video language */
-  language!: string;
+  language: string;
   /** Video URI */
-  uri!: string;
+  uri: string;
   /** The MIME type of the video. */
   mimeType?: string;
-  constructor(data: Partial<LocalizedVideo> = {}) {
-    Object.assign(this, data);
-  }
 }

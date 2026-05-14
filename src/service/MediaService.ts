@@ -14,7 +14,7 @@ export class MediaService extends BaseService {
   async getMedia(id: number): Promise<Media> {
     const variables = { id };
     const result = await this.executeQuery('media', variables);
-    return new Media(result.data.media);
+    return result.data.media as Media;
   }
   /**
    Retrieves media items with optional search
@@ -24,11 +24,6 @@ export class MediaService extends BaseService {
   async getMediaList(input?: ObjectMediaSearchInput): Promise<Media[]> {
     const variables = { input };
     const result = await this.executeQuery('medias', variables);
-    return result.data.medias.map((media: any) => new Media(media));
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.medias as Media[];
   }
 }

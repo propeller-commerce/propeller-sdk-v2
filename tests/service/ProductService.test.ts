@@ -1,6 +1,6 @@
 import { GraphQLClient } from '../../src/client/GraphQLClient';
 import { ProductService } from '../../src/service/ProductService';
-import { Product } from '../../src/type/Product';
+import type { Product } from '../../src/type/Product';
 
 const okResponse = (data: any) =>
   new Response(JSON.stringify({ data }), { status: 200 });
@@ -16,7 +16,7 @@ describe('ProductService', () => {
     fetchSpy.mockRestore();
   });
 
-  it('instantiates and getProduct returns a Product instance', async () => {
+  it('getProduct returns the response payload typed as Product', async () => {
     fetchSpy.mockResolvedValueOnce(
       okResponse({ product: { id: 42, productId: 42, sku: 'SKU-42' } })
     );
@@ -28,9 +28,8 @@ describe('ProductService', () => {
     });
     const svc = new ProductService(client);
 
-    const product = await svc.getProduct({ productId: 42 } as any);
+    const product: Product = await svc.getProduct({ productId: 42 } as any);
 
-    expect(product).toBeInstanceOf(Product);
     expect(product.id).toBe(42);
     expect(product.sku).toBe('SKU-42');
 
@@ -39,7 +38,7 @@ describe('ProductService', () => {
     expect(body.variables).toMatchObject({ productId: 42 });
   });
 
-  it('JSON.stringify on returned Product produces a full payload (public-field shape)', async () => {
+  it('JSON.stringify on returned Product produces a full payload', async () => {
     fetchSpy.mockResolvedValueOnce(
       okResponse({ product: { id: 1, productId: 1, sku: 'A', categoryId: 5 } })
     );

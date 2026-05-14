@@ -2,22 +2,19 @@ import { OrderStatus } from './OrderStatus';
 /**
  Object class for OrderStatusesResponse
  */
-export class OrderStatusesResponse {
+export interface OrderStatusesResponse {
   /** List of items of type OrderStatus */
-  items!: OrderStatus[];
+  items: OrderStatus[];
   /** Total number of items found */
-  itemsFound!: number;
+  itemsFound: number;
   /** The amount of items to show per page */
-  offset!: number;
+  offset: number;
   /** The current page */
-  page!: number;
+  page: number;
   /** Total amount of pages */
-  pages!: number;
+  pages: number;
   /** Start position of the current page */
-  start!: number;
+  start: number;
   /** End position of the current page */
-  end!: number;
-  constructor(data: Partial<OrderStatusesResponse> = {}) {
-    Object.assign(this, data);
-  }
+  end: number;
 }

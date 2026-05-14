@@ -2,22 +2,19 @@ import { Category } from './Category';
 /**
  Object class for CategoryResponse
  */
-export class CategoryResponse {
+export interface CategoryResponse {
   /** List of items of type Category */
-  items!: Category[];
+  items: Category[];
   /** Total number of items found */
-  itemsFound!: number;
+  itemsFound: number;
   /** The amount of items to show per page */
-  offset!: number;
+  offset: number;
   /** The current page */
-  page!: number;
+  page: number;
   /** Total amount of pages */
-  pages!: number;
+  pages: number;
   /** Start position of the current page */
-  start!: number;
+  start: number;
   /** End position of the current page */
-  end!: number;
-  constructor(data: Partial<CategoryResponse> = {}) {
-    Object.assign(this, data);
-  }
+  end: number;
 }

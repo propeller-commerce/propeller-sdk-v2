@@ -22,7 +22,7 @@ export class ShipmentService extends BaseService {
   async getShipment(id: number): Promise<Shipment> {
     const variables = { id };
     const result = await this.executeQuery('shipment', variables);
-    return new Shipment(result.data.shipment);
+    return result.data.shipment as Shipment;
   }
   /**
    Retrieves shipments with search criteria
@@ -32,7 +32,7 @@ export class ShipmentService extends BaseService {
   async getShipments(input?: ShipmentSearchInput): Promise<ShipmentResponse> {
     const variables = { input };
     const result = await this.executeQuery('shipments', variables);
-    return new ShipmentResponse(result.data.shipments);
+    return result.data.shipments as ShipmentResponse;
   }
   /**
    Creates a new shipment
@@ -42,7 +42,7 @@ export class ShipmentService extends BaseService {
   async createShipment(input: ShipmentCreateInput): Promise<Shipment> {
     const variables = { input };
     const result = await this.executeMutation('shipmentCreate', variables);
-    return new Shipment(result.data.shipmentCreate);
+    return result.data.shipmentCreate as Shipment;
   }
   /**
    Updates an existing shipment
@@ -52,7 +52,7 @@ export class ShipmentService extends BaseService {
   async updateShipment(input: ShipmentUpdateInput): Promise<Shipment> {
     const variables = { input };
     const result = await this.executeMutation('shipmentUpdate', variables);
-    return new Shipment(result.data.shipmentUpdate);
+    return result.data.shipmentUpdate as Shipment;
   }
   /**
    Deletes a shipment
@@ -72,7 +72,7 @@ export class ShipmentService extends BaseService {
   async getShipmentItem(id: number): Promise<ShipmentItem> {
     const variables = { id };
     const result = await this.executeQuery('shipmentItem', variables);
-    return new ShipmentItem(result.data.shipmentItem);
+    return result.data.shipmentItem as ShipmentItem;
   }
   /**
    Retrieves shipment items with search criteria
@@ -82,7 +82,7 @@ export class ShipmentService extends BaseService {
   async getShipmentItems(input?: ShipmentItemSearchInput): Promise<ShipmentItemResponse> {
     const variables = { input };
     const result = await this.executeQuery('shipmentItems', variables);
-    return new ShipmentItemResponse(result.data.shipmentItems);
+    return result.data.shipmentItems as ShipmentItemResponse;
   }
   /**
    Creates a new shipment item
@@ -92,7 +92,7 @@ export class ShipmentService extends BaseService {
   async createShipmentItem(input: ShipmentItemCreateInput): Promise<ShipmentItem> {
     const variables = { input };
     const result = await this.executeMutation('shipmentItemCreate', variables);
-    return new ShipmentItem(result.data.shipmentItemCreate);
+    return result.data.shipmentItemCreate as ShipmentItem;
   }
   /**
    Updates an existing shipment item
@@ -102,7 +102,7 @@ export class ShipmentService extends BaseService {
   async updateShipmentItem(input: ShipmentItemUpdateInput): Promise<ShipmentItem> {
     const variables = { input };
     const result = await this.executeMutation('shipmentItemUpdate', variables);
-    return new ShipmentItem(result.data.shipmentItemUpdate);
+    return result.data.shipmentItemUpdate as ShipmentItem;
   }
   /**
    Deletes a shipment item
@@ -113,10 +113,5 @@ export class ShipmentService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('shipmentItemDelete', variables);
     return result.data.shipmentItemDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

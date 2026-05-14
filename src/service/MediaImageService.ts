@@ -17,7 +17,7 @@ export class MediaImageService extends BaseService {
   async getMediaImage(id: number): Promise<MediaImage> {
     const variables = { id };
     const result = await this.executeQuery('mediaImage', variables);
-    return new MediaImage(result.data.mediaImage);
+    return result.data.mediaImage as MediaImage;
   }
   /**
    Retrieves media images with pagination
@@ -27,7 +27,7 @@ export class MediaImageService extends BaseService {
   async getMediaImages(input?: MediaImageSearchInput): Promise<PaginatedMediaImageResponse> {
     const variables = { input };
     const result = await this.executeQuery('mediaImages', variables);
-    return new PaginatedMediaImageResponse(result.data.mediaImages);
+    return result.data.mediaImages as PaginatedMediaImageResponse;
   }
   /**
    Creates a new media image
@@ -37,7 +37,7 @@ export class MediaImageService extends BaseService {
   async createMediaImage(input: MediaImageInput): Promise<MediaImage> {
     const variables = { input };
     const result = await this.executeMutation('mediaImageCreate', variables);
-    return new MediaImage(result.data.mediaImageCreate);
+    return result.data.mediaImageCreate as MediaImage;
   }
   /**
    Updates an existing media image
@@ -47,7 +47,7 @@ export class MediaImageService extends BaseService {
   async updateMediaImage(input: UpdateMediaImageInput): Promise<MediaImage> {
     const variables = { input };
     const result = await this.executeMutation('mediaImageUpdate', variables);
-    return new MediaImage(result.data.mediaImageUpdate);
+    return result.data.mediaImageUpdate as MediaImage;
   }
   /**
    Deletes a media image
@@ -58,10 +58,5 @@ export class MediaImageService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('mediaImageDelete', variables);
     return result.data.mediaImageDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

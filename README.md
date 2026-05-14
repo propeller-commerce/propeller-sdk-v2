@@ -16,8 +16,7 @@ npm install propeller-sdk-v2
 ## Quick start
 
 ```typescript
-import { initializeClient, getClient, ProductService } from 'propeller-sdk-v2';
-import { Enums } from 'propeller-sdk-v2';
+import { initializeClient, getClient, ProductService, ProductStatus, Format, Fit } from 'propeller-sdk-v2';
 
 // Initialize once in your app entry point.
 initializeClient({
@@ -34,7 +33,7 @@ const products = await productService.getProducts({
     page: 1,
     offset: 20,
     term: 'laptop',
-    statuses: [Enums.ProductStatus.A, Enums.ProductStatus.N],
+    statuses: [ProductStatus.A, ProductStatus.N],
     language: 'NL',
   },
   imageSearchFilters: { page: 1, offset: 1 },
@@ -42,10 +41,10 @@ const products = await productService.getProducts({
     transformations: {
       name: 'product_thumb',
       transformation: {
-        format: Enums.Format.WEBP,
+        format: Format.WEBP,
         height: 300,
         width: 300,
-        fit: Enums.Fit.BOUNDS,
+        fit: Fit.BOUNDS,
       },
     },
   },
@@ -208,21 +207,29 @@ initializeClient({ endpoint: '/api/graphql', getAccessToken: () => token });
 
 ## Type definitions
 
-The SDK exports every input/response type used by Propeller's GraphQL schema as TypeScript classes (response objects) or interfaces (input objects). Enums are exported under the `Enums` namespace to avoid name conflicts with other types:
+The SDK exports every type used by Propeller's GraphQL schema as a TypeScript `interface`. Enums are exported at the top level. Service methods return the response payload typed as the relevant interface — no `new Foo(...)` wrapping is required (or supported, as of 0.5.0).
 
 ```typescript
-import { Product, CreateProductInput, Enums } from 'propeller-sdk-v2';
+import { Product, CreateProductInput, ProductStatus } from 'propeller-sdk-v2';
 
-const status: Enums.ProductStatus = Enums.ProductStatus.A;
+const status: ProductStatus = ProductStatus.A;
 
 const input: CreateProductInput = {
   /* fields */
 };
 
-const product = new Product({ id: 1, sku: 'A' });
+// Service methods return data already typed as the response interface.
+const product: Product = await productService.getProduct({ productId: 1 });
 ```
 
-Response objects use a public-field shape with an `Object.assign`-style constructor, so `JSON.stringify(product)` produces a full payload and Redux DevTools / IndexedDB / SSR rehydration all work normally.
+If you prefer the `Enums.X.Y` qualified call-site form, use a namespace import:
+
+```typescript
+import * as Enums from 'propeller-sdk-v2';
+const status = Enums.ProductStatus.A;
+```
+
+`JSON.stringify` on response objects produces a full payload (they're plain objects), and Redux DevTools / IndexedDB / SSR rehydration all work normally.
 
 ## Development
 

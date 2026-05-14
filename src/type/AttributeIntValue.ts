@@ -1,19 +1,15 @@
 import { AttributeType } from '../enum/AttributeType';
 import { AttributeValue } from './AttributeValue';
 /**
- Object class for AttributeIntValue
+ Integer attribute value
  */
-export class AttributeIntValue implements AttributeValue {
+export interface AttributeIntValue extends AttributeValue {
   /** Attribute value id */
-  id!: string;
+  id: string;
   /** Attribute int value type */
-  type!: AttributeType;
+  type: AttributeType;
   /** Attribute integer value */
-  intValue!: number;
-  constructor(data: Partial<AttributeIntValue> = {}) {
-    Object.assign(this, data);
-  }
-  /** Attribute value (delegates to intValue) */
-  get value(): any { return this.intValue; }
-  set value(val: any) { this.intValue = val; }
+  intValue: number;
+  /** Attribute value (mirrors intValue) */
+  value: any;
 }

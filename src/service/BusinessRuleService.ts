@@ -24,7 +24,7 @@ export class BusinessRuleService extends BaseService {
   async getBusinessRule(id: number): Promise<BusinessRule> {
     const variables = { id };
     const result = await this.executeQuery('businessRule', variables);
-    return new BusinessRule(result.data.businessRule);
+    return result.data.businessRule as BusinessRule;
   }
   /**
    Fetches a list of business rules with search criteria
@@ -34,7 +34,7 @@ export class BusinessRuleService extends BaseService {
   async getBusinessRules(input?: BusinessRuleSearchInput): Promise<BusinessRuleResponse> {
     const variables = { input };
     const result = await this.executeQuery('businessRules', variables);
-    return new BusinessRuleResponse(result.data.businessRules);
+    return result.data.businessRules as BusinessRuleResponse;
   }
   /**
    Fetches business rule decision table
@@ -44,7 +44,7 @@ export class BusinessRuleService extends BaseService {
   async getBusinessRuleDecisionTable(input?: BusinessRuleDecisionTableSearchInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeQuery('businessRuleDecisionTable', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTable);
+    return result.data.businessRuleDecisionTable as BusinessRuleDecisionTable;
   }
   /**
    Fetches business rule field definitions
@@ -73,7 +73,7 @@ export class BusinessRuleService extends BaseService {
   async createBusinessRule(input: BusinessRuleCreateInput): Promise<BusinessRule> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleCreate', variables);
-    return new BusinessRule(result.data.businessRuleCreate);
+    return result.data.businessRuleCreate as BusinessRule;
   }
   /**
    Updates an existing business rule
@@ -83,7 +83,7 @@ export class BusinessRuleService extends BaseService {
   async updateBusinessRule(input: BusinessRuleUpdateInput): Promise<BusinessRule> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleUpdate', variables);
-    return new BusinessRule(result.data.businessRuleUpdate);
+    return result.data.businessRuleUpdate as BusinessRule;
   }
   /**
    Updates a business rule decision table
@@ -93,7 +93,7 @@ export class BusinessRuleService extends BaseService {
   async updateBusinessRuleDecisionTable(input: BusinessRuleDecisionTableUpdateInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableUpdate', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableUpdate);
+    return result.data.businessRuleDecisionTableUpdate as BusinessRuleDecisionTable;
   }
   /**
    Adds a column to business rule decision table
@@ -103,7 +103,7 @@ export class BusinessRuleService extends BaseService {
   async addColumnToDecisionTable(input: BusinessRuleDecisionTableAddColumnInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableAddColumn', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableAddColumn);
+    return result.data.businessRuleDecisionTableAddColumn as BusinessRuleDecisionTable;
   }
   /**
    Deletes a column from business rule decision table
@@ -113,7 +113,7 @@ export class BusinessRuleService extends BaseService {
   async deleteColumnFromDecisionTable(input: BusinessRuleDecisionTableDeleteColumnInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableDeleteColumn', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableDeleteColumn);
+    return result.data.businessRuleDecisionTableDeleteColumn as BusinessRuleDecisionTable;
   }
   /**
    Adds a row to business rule decision table
@@ -122,7 +122,7 @@ export class BusinessRuleService extends BaseService {
   async addRowToDecisionTable(): Promise<BusinessRuleDecisionTable> {
     const variables = {};
     const result = await this.executeMutation('businessRuleDecisionTableAddRow', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableAddRow);
+    return result.data.businessRuleDecisionTableAddRow as BusinessRuleDecisionTable;
   }
   /**
    Deletes a row from business rule decision table
@@ -132,7 +132,7 @@ export class BusinessRuleService extends BaseService {
   async deleteRowFromDecisionTable(input: BusinessRuleDecisionTableDeleteRowInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableDeleteRow', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableDeleteRow);
+    return result.data.businessRuleDecisionTableDeleteRow as BusinessRuleDecisionTable;
   }
   /**
    Moves a row in business rule decision table
@@ -142,7 +142,7 @@ export class BusinessRuleService extends BaseService {
   async moveRowInDecisionTable(input: BusinessRuleDecisionTableMoveRowInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableMoveRow', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableMoveRow);
+    return result.data.businessRuleDecisionTableMoveRow as BusinessRuleDecisionTable;
   }
   /**
    Sets a cell value in business rule decision table
@@ -152,11 +152,6 @@ export class BusinessRuleService extends BaseService {
   async setCellInDecisionTable(input: BusinessRuleDecisionTableSetCellInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableSetCell', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableSetCell);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.businessRuleDecisionTableSetCell as BusinessRuleDecisionTable;
   }
 }

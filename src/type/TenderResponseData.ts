@@ -1,14 +1,11 @@
 /**
  Object class for TenderResponseData
  */
-export class TenderResponseData {
+export interface TenderResponseData {
   /** Response data */
-  data!: any;
+  data: any;
   /** Error */
-  error!: boolean;
+  error: boolean;
   /** Response message(s) */
   messages?: string[];
-  constructor(data: Partial<TenderResponseData> = {}) {
-    Object.assign(this, data);
-  }
 }

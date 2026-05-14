@@ -20,7 +20,7 @@ export class TenderService extends BaseService {
   async getTender(id: number): Promise<Tender> {
     const variables = { id };
     const result = await this.executeQuery('tender', variables);
-    return new Tender(result.data.tender);
+    return result.data.tender as Tender;
   }
   /**
    Starts a new tender
@@ -30,7 +30,7 @@ export class TenderService extends BaseService {
   async startTender(input: TenderStartInput): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderStart', variables);
-    return new Tender(result.data.tenderStart);
+    return result.data.tenderStart as Tender;
   }
   /**
    Updates an existing tender
@@ -40,7 +40,7 @@ export class TenderService extends BaseService {
   async updateTender(input: TenderUpdateInput): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderUpdate', variables);
-    return new Tender(result.data.tenderUpdate);
+    return result.data.tenderUpdate as Tender;
   }
   /**
    Updates a tender address
@@ -50,7 +50,7 @@ export class TenderService extends BaseService {
   async updateTenderAddress(input: TenderUpdateAddressInput): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderUpdateAddress', variables);
-    return new Tender(result.data.tenderUpdateAddress);
+    return result.data.tenderUpdateAddress as Tender;
   }
   /**
    Adds an item to a tender
@@ -60,7 +60,7 @@ export class TenderService extends BaseService {
   async addItemToTender(input: TenderAddItemInput): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderAddItem', variables);
-    return new Tender(result.data.tenderAddItem);
+    return result.data.tenderAddItem as Tender;
   }
   /**
    Adds multiple items to a tender
@@ -70,7 +70,7 @@ export class TenderService extends BaseService {
   async addItemsToTender(input: TenderAddItemsInput): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderAddItems', variables);
-    return new Tender(result.data.tenderAddItems);
+    return result.data.tenderAddItems as Tender;
   }
   /**
    Updates an item in a tender
@@ -80,7 +80,7 @@ export class TenderService extends BaseService {
   async updateTenderItem(input: TenderUpdateItemInput): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderUpdateItem', variables);
-    return new Tender(result.data.tenderUpdateItem);
+    return result.data.tenderUpdateItem as Tender;
   }
   /**
    Deletes an item from a tender
@@ -90,7 +90,7 @@ export class TenderService extends BaseService {
   async deleteTenderItem(input: any): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderDeleteItem', variables);
-    return new Tender(result.data.tenderDeleteItem);
+    return result.data.tenderDeleteItem as Tender;
   }
   /**
    Updates tender discount
@@ -100,7 +100,7 @@ export class TenderService extends BaseService {
   async updateTenderDiscount(input: any): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderUpdateDiscount', variables);
-    return new Tender(result.data.tenderUpdateDiscount);
+    return result.data.tenderUpdateDiscount as Tender;
   }
   /**
    Updates tender payment
@@ -110,7 +110,7 @@ export class TenderService extends BaseService {
   async updateTenderPayment(input: any): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderUpdatePayment', variables);
-    return new Tender(result.data.tenderUpdatePayment);
+    return result.data.tenderUpdatePayment as Tender;
   }
   /**
    Updates tender postage
@@ -120,7 +120,7 @@ export class TenderService extends BaseService {
   async updateTenderPostage(input: any): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderUpdatePostage', variables);
-    return new Tender(result.data.tenderUpdatePostage);
+    return result.data.tenderUpdatePostage as Tender;
   }
   /**
    Updates tender invoice user
@@ -130,7 +130,7 @@ export class TenderService extends BaseService {
   async updateTenderInvoiceUser(input: any): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderUpdateInvoiceUser', variables);
-    return new Tender(result.data.tenderUpdateInvoiceUser);
+    return result.data.tenderUpdateInvoiceUser as Tender;
   }
   /**
    Applies incentives to a tender
@@ -140,7 +140,7 @@ export class TenderService extends BaseService {
   async applyIncentivesToTender(input: any): Promise<Tender> {
     const variables = { input };
     const result = await this.executeMutation('tenderApplyIncentives', variables);
-    return new Tender(result.data.tenderApplyIncentives);
+    return result.data.tenderApplyIncentives as Tender;
   }
   /**
    Processes a tender (checkout)
@@ -150,11 +150,6 @@ export class TenderService extends BaseService {
   async processTender(input: any): Promise<TenderProcessResponse> {
     const variables = { input };
     const result = await this.executeMutation('tenderProcess', variables);
-    return new TenderProcessResponse(result.data.tenderProcess);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.tenderProcess as TenderProcessResponse;
   }
 }

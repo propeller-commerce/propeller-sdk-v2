@@ -16,7 +16,7 @@ export class PaymentService extends BaseService {
   async getPayment(id: number): Promise<Payment> {
     const variables = { id };
     const result = await this.executeQuery('payment', variables);
-    return new Payment(result.data.payment);
+    return result.data.payment as Payment;
   }
   /**
    Retrieves payments with search
@@ -26,7 +26,7 @@ export class PaymentService extends BaseService {
   async getPayments(input?: PaymentsSearchInput): Promise<PaymentsResponse> {
     const variables = { input };
     const result = await this.executeQuery('payments', variables);
-    return new PaymentsResponse(result.data.payments);
+    return result.data.payments as PaymentsResponse;
   }
   /**
    Creates a new payment
@@ -36,7 +36,7 @@ export class PaymentService extends BaseService {
   async createPayment(input: any): Promise<Payment> {
     const variables = { input };
     const result = await this.executeMutation('paymentCreate', variables);
-    return new Payment(result.data.paymentCreate);
+    return result.data.paymentCreate as Payment;
   }
   /**
    Updates an existing payment
@@ -46,7 +46,7 @@ export class PaymentService extends BaseService {
   async updatePayment(input: UpdatePaymentInput): Promise<Payment> {
     const variables = { input };
     const result = await this.executeMutation('paymentUpdate', variables);
-    return new Payment(result.data.paymentUpdate);
+    return result.data.paymentUpdate as Payment;
   }
   /**
    Deletes a payment
@@ -57,10 +57,5 @@ export class PaymentService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('paymentDelete', variables);
     return result.data.paymentDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

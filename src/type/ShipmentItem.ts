@@ -2,13 +2,13 @@ import { OrderItem } from './OrderItem';
 /**
  Object class for ShipmentItem
  */
-export class ShipmentItem {
+export interface ShipmentItem {
   /** Unique identifier */
-  id!: string;
+  id: string;
   /** Creation date */
-  createdAt!: string;
+  createdAt: string;
   /** Last modified date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Shipment item name */
   name?: string;
   /** Product SKU */
@@ -16,12 +16,9 @@ export class ShipmentItem {
   /** Shipment item quantity */
   quantity?: number;
   /** Shipment unique identifier */
-  shipmentId!: string;
+  shipmentId: string;
   /** Order item id */
   orderItemId?: number;
   /** orderItem field */
-  orderItem!: OrderItem;
-  constructor(data: Partial<ShipmentItem> = {}) {
-    Object.assign(this, data);
-  }
+  orderItem: OrderItem;
 }

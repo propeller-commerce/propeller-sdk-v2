@@ -1,14 +1,11 @@
 /**
  Object class for LocalizedAttachment
  */
-export class LocalizedAttachment {
+export interface LocalizedAttachment {
   /** Attachment language */
-  language!: string;
+  language: string;
   /** Original Attachment url */
-  originalUrl!: string;
+  originalUrl: string;
   /** The MIME type of the Attachment. */
-  mimeType!: string;
-  constructor(data: Partial<LocalizedAttachment> = {}) {
-    Object.assign(this, data);
-  }
+  mimeType: string;
 }

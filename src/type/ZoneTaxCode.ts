@@ -2,20 +2,17 @@ import { Taxcode } from '../enum/Taxcode';
 /**
  Object class for ZoneTaxCode
  */
-export class ZoneTaxCode {
+export interface ZoneTaxCode {
   /** Primary identifier */
-  id!: string;
+  id: string;
   /** Price foreign identifier */
-  priceId!: string;
+  priceId: string;
   /** Creation date */
-  createdAt!: string;
+  createdAt: string;
   /** Last modified date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Zone code */
-  zone!: string;
+  zone: string;
   /** Tax code for the specified zone */
-  taxCode!: Taxcode;
-  constructor(data: Partial<ZoneTaxCode> = {}) {
-    Object.assign(this, data);
-  }
+  taxCode: Taxcode;
 }

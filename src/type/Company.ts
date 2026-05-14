@@ -11,11 +11,11 @@ import { PurchaseAuthorizationConfigResponse } from './PurchaseAuthorizationConf
 /**
  Object class for Company
  */
-export class Company {
+export interface Company {
   /** The id of the company. */
-  companyId!: number;
+  companyId: number;
   /** addresses field */
-  addresses!: Address[];
+  addresses: Address[];
   /** Lists attributes for this company based on the search input. */
   attributes?: AttributeResultResponse;
   /** favoriteLists field */
@@ -25,7 +25,7 @@ export class Company {
   /** pricesheets field */
   pricesheets?: Pricesheet[];
   /** The name of the company. */
-  name!: string;
+  name: string;
   /** The tax number of the company. */
   taxNumber?: string;
   /** The coc number of the company. */
@@ -57,10 +57,7 @@ export class Company {
   /** Users/ contacts which are account managers of the company. */
   managers?: IBaseUser[];
   /** sources field */
-  sources!: Source[];
+  sources: Source[];
   /** All purchase authorization config entities for this company */
   purchaseAuthorizationConfigs?: PurchaseAuthorizationConfigResponse;
-  constructor(data: Partial<Company> = {}) {
-    Object.assign(this, data);
-  }
 }

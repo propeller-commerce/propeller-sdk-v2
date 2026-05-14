@@ -22,7 +22,7 @@ export class TemplateService extends BaseService {
   async getDocumentTemplate(id: number): Promise<DocumentTemplate> {
     const variables = { id };
     const result = await this.executeQuery('documentTemplate', variables);
-    return new DocumentTemplate(result.data.documentTemplate);
+    return result.data.documentTemplate as DocumentTemplate;
   }
   /**
    Retrieves a specific email template
@@ -32,7 +32,7 @@ export class TemplateService extends BaseService {
   async getEmailTemplate(id: number): Promise<EmailTemplate> {
     const variables = { id };
     const result = await this.executeQuery('emailTemplate', variables);
-    return new EmailTemplate(result.data.emailTemplate);
+    return result.data.emailTemplate as EmailTemplate;
   }
   /**
    Fetches a list of templates with search criteria
@@ -42,7 +42,7 @@ export class TemplateService extends BaseService {
   async getTemplates(input?: TemplateSearchInput): Promise<TemplateResponse> {
     const variables = { input };
     const result = await this.executeQuery('templates', variables);
-    return new TemplateResponse(result.data.templates);
+    return result.data.templates as TemplateResponse;
   }
   /**
    Creates a new document template
@@ -52,7 +52,7 @@ export class TemplateService extends BaseService {
   async createDocumentTemplate(input: DocumentTemplateCreateInput): Promise<DocumentTemplate> {
     const variables = { input };
     const result = await this.executeMutation('documentTemplateCreate', variables);
-    return new DocumentTemplate(result.data.documentTemplateCreate);
+    return result.data.documentTemplateCreate as DocumentTemplate;
   }
   /**
    Updates an existing document template
@@ -62,7 +62,7 @@ export class TemplateService extends BaseService {
   async updateDocumentTemplate(input: DocumentTemplateUpdateInput): Promise<DocumentTemplate> {
     const variables = { input };
     const result = await this.executeMutation('documentTemplateUpdate', variables);
-    return new DocumentTemplate(result.data.documentTemplateUpdate);
+    return result.data.documentTemplateUpdate as DocumentTemplate;
   }
   /**
    Renders a document template to PDF
@@ -82,7 +82,7 @@ export class TemplateService extends BaseService {
   async createEmailTemplate(input: EmailTemplateCreateInput): Promise<EmailTemplate> {
     const variables = { input };
     const result = await this.executeMutation('emailTemplateCreate', variables);
-    return new EmailTemplate(result.data.emailTemplateCreate);
+    return result.data.emailTemplateCreate as EmailTemplate;
   }
   /**
    Updates an existing email template
@@ -92,7 +92,7 @@ export class TemplateService extends BaseService {
   async updateEmailTemplate(input: EmailTemplateUpdateInput): Promise<EmailTemplate> {
     const variables = { input };
     const result = await this.executeMutation('emailTemplateUpdate', variables);
-    return new EmailTemplate(result.data.emailTemplateUpdate);
+    return result.data.emailTemplateUpdate as EmailTemplate;
   }
   /**
    Adds an attachment to email template
@@ -102,7 +102,7 @@ export class TemplateService extends BaseService {
   async addAttachmentToEmailTemplate(input: any): Promise<EmailTemplate> {
     const variables = { input };
     const result = await this.executeMutation('emailTemplateAddAttachment', variables);
-    return new EmailTemplate(result.data.emailTemplateAddAttachment);
+    return result.data.emailTemplateAddAttachment as EmailTemplate;
   }
   /**
    Removes an attachment from email template
@@ -112,11 +112,6 @@ export class TemplateService extends BaseService {
   async removeAttachmentFromEmailTemplate(input: any): Promise<EmailTemplate> {
     const variables = { input };
     const result = await this.executeMutation('emailTemplateRemoveAttachment', variables);
-    return new EmailTemplate(result.data.emailTemplateRemoveAttachment);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.emailTemplateRemoveAttachment as EmailTemplate;
   }
 }

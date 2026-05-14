@@ -5,9 +5,9 @@ import { LocalizedString } from './LocalizedString';
 /**
  Object class for SparePartsMachine
  */
-export class SparePartsMachine {
+export interface SparePartsMachine {
   /** The unique identifier for this Machine */
-  id!: string | number;
+  id: string | number;
   /** parts field */
   parts?: SparePart[];
   /** media field */
@@ -15,14 +15,11 @@ export class SparePartsMachine {
   /** sparePartProducts field */
   sparePartProducts?: SparePartsResponse;
   /** List of localized names for this Machine */
-  name!: LocalizedString[];
+  name: LocalizedString[];
   /** description field */
   description?: LocalizedString[];
   /** slug field */
   slug?: LocalizedString[];
   /** machines field */
   machines?: SparePartsMachine[];
-  constructor(data: Partial<SparePartsMachine> = {}) {
-    Object.assign(this, data);
-  }
 }

@@ -5,7 +5,7 @@ import { PaginatedMediaAttachmentResponse } from './PaginatedMediaAttachmentResp
 /**
  Object class for SparePartsMachineMedia
  */
-export class SparePartsMachineMedia {
+export interface SparePartsMachineMedia {
   /** Media images */
   images?: PaginatedMediaImageResponse;
   /** Media videos */
@@ -14,7 +14,4 @@ export class SparePartsMachineMedia {
   documents?: PaginatedMediaDocumentResponse;
   /** Media attachments */
   attachments?: PaginatedMediaAttachmentResponse;
-  constructor(data: Partial<SparePartsMachineMedia> = {}) {
-    Object.assign(this, data);
-  }
 }

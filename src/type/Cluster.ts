@@ -16,37 +16,37 @@ import { Source } from './Source';
 /**
  Object class for Cluster
  */
-export class Cluster implements IBaseProduct {
+export interface Cluster extends IBaseProduct {
   /** Resource primary identifier */
-  id!: number;
+  id: number;
   /** The classID of this cluster */
-  clusterId!: number;
+  clusterId: number;
   /** categoryId field */
-  categoryId!: number;
+  categoryId: number;
   /** Lists attributes for this cluster based on the search input. */
   attributes?: AttributeResultResponse;
   /** All the categories the cluster belongs to */
   categories?: CategoryResponse;
   /** category field */
-  category!: Category;
+  category: Category;
   /** categoryPath field */
-  categoryPath!: Category[];
+  categoryPath: Category[];
   /** crossupsellsFrom field */
-  crossupsellsFrom!: CrossupsellsResponse;
+  crossupsellsFrom: CrossupsellsResponse;
   /** crossupsellsTo field */
-  crossupsellsTo!: CrossupsellsResponse;
+  crossupsellsTo: CrossupsellsResponse;
   /** favoriteLists field */
   favoriteLists?: FavoriteListsResponse;
   /** orderlists field */
-  orderlists!: OrderlistsResponse;
+  orderlists: OrderlistsResponse;
   /** Array of selectable main products for this cluster, when the array contains more than one. Only one can be added per cart/order item */
-  products!: Product[];
+  products: Product[];
   /** The creation date of this product */
-  createdAt!: string;
+  createdAt: string;
   /** The last modified date of this product */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** options field */
-  options!: ClusterOption[];
+  options: ClusterOption[];
   /** The drilldown configuration for this cluster  */
   /** @deprecated Use config.setting instead */
   drillDowns?: ClusterDrillDown[];
@@ -55,17 +55,17 @@ export class Cluster implements IBaseProduct {
   /** config field */
   config?: ClusterConfig;
   /** names field */
-  names!: LocalizedString[];
+  names: LocalizedString[];
   /** descriptions field */
-  descriptions!: LocalizedString[];
+  descriptions: LocalizedString[];
   /** shortDescriptions field */
-  shortDescriptions!: LocalizedString[];
+  shortDescriptions: LocalizedString[];
   /** slugs field */
-  slugs!: LocalizedString[];
+  slugs: LocalizedString[];
   /** The SKU (stock keeping unit) of this product */
-  sku!: string;
+  sku: string;
   /** The default language for this product or cluster, this is the language to fall back too, when there is no translation available in a specific language. */
-  defaultLanguage!: string;
+  defaultLanguage: string;
   /** priority field */
   priority?: number;
   /** [SEO] Localized Metadata title available in multiple languages */
@@ -77,18 +77,15 @@ export class Cluster implements IBaseProduct {
   /** [SEO] Localized Metadata canonical url available in multiple languages */
   metadataCanonicalUrls?: LocalizedString[];
   /** Short names for this cluster per language */
-  shortNames!: LocalizedString[];
+  shortNames: LocalizedString[];
   /** sources field */
-  sources!: Source[];
+  sources: Source[];
   /** The requested language for this this resource, default to the
           products default language.
           ISO 639-1 format. */
   language?: string;
   /** The class of the request resource */
-  class!: ProductClass;
+  class: ProductClass;
   /** The hidden status of this resource. */
-  hidden!: YesNo;
-  constructor(data: Partial<Cluster> = {}) {
-    Object.assign(this, data);
-  }
+  hidden: YesNo;
 }

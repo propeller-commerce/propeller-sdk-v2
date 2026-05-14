@@ -2,11 +2,11 @@ import { Taxcode } from '../enum/Taxcode';
 /**
  Object class for CartPaymethod
  */
-export class CartPaymethod {
+export interface CartPaymethod {
   /** Paymethod code */
-  code!: string;
+  code: string;
   /** Paymethod name */
-  name!: string;
+  name: string;
   /** External code */
   externalCode?: string;
   /** Paymethod type */
@@ -14,8 +14,5 @@ export class CartPaymethod {
   /** Tax code */
   taxCode?: Taxcode;
   /** Paymethod price */
-  price!: number;
-  constructor(data: Partial<CartPaymethod> = {}) {
-    Object.assign(this, data);
-  }
+  price: number;
 }

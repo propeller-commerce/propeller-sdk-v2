@@ -13,11 +13,6 @@ export class RegisterCustomerResponseService extends BaseService {
   async registerCustomer(input: RegisterCustomerInput): Promise<RegisterCustomerResponse> {
     const variables = { input };
     const result = await this.executeMutation('registerCustomer', variables);
-    return new RegisterCustomerResponse(result.data.registerCustomer);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.registerCustomer as RegisterCustomerResponse;
   }
 }

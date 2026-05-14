@@ -58,7 +58,7 @@ export class ClusterService extends BaseService {
   async getClusterConfig(clusterId: number): Promise<Cluster> {
     const variables = { clusterId };
     const result = await this.executeQuery('clusterGetConfig', variables);
-    return new Cluster(result.data.cluster);
+    return result.data.cluster as Cluster;
   }
   /**
    Fetches a single cluster by ID or slug
@@ -77,7 +77,7 @@ export class ClusterService extends BaseService {
    */
   async getCluster(variables: ClusterQueryVariables): Promise<Cluster> {
     const result = await this.executeQuery('cluster', variables);
-    return new Cluster(result.data.cluster);
+    return result.data.cluster as Cluster;
   }
   /**
    Fetches a list of clusters with search criteria
@@ -87,7 +87,7 @@ export class ClusterService extends BaseService {
   async getClusters(input?: ClusterProductSearchInput): Promise<Cluster[]> {
     const variables = { input };
     const result = await this.executeQuery('clusters', variables);
-    return result.data.clusters.map((cluster: any) => new Cluster(cluster));
+    return result.data.clusters as Cluster[];
   }
   /**
    Creates a new cluster
@@ -96,7 +96,7 @@ export class ClusterService extends BaseService {
    */
   async createCluster(variables: ClusterCreateVariables): Promise<Cluster> {
     const result = await this.executeMutation('clusterCreate', variables);
-    return new Cluster(result.data.clusterCreate);
+    return result.data.clusterCreate as Cluster;
   }
   /**
    Updates an existing cluster
@@ -105,7 +105,7 @@ export class ClusterService extends BaseService {
    */
   async updateCluster(variables: ClusterUpdateVariables): Promise<Cluster> {
     const result = await this.executeMutation('clusterUpdate', variables);
-    return new Cluster(result.data.clusterUpdate);
+    return result.data.clusterUpdate as Cluster;
   }
   /**
    Deletes a cluster
@@ -115,10 +115,5 @@ export class ClusterService extends BaseService {
   async deleteCluster(variables: ClusterDeleteVariables): Promise<boolean> {
     const result = await this.executeMutation('clusterDelete', variables);
     return result.data.clusterDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

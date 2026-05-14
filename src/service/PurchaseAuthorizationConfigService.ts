@@ -17,7 +17,7 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   async getPurchaseAuthorizationConfig(id: number): Promise<PurchaseAuthorizationConfig> {
     const variables = { id };
     const result = await this.executeQuery('purchaseAuthorizationConfig', variables);
-    return new PurchaseAuthorizationConfig(result.data.purchaseAuthorizationConfig);
+    return result.data.purchaseAuthorizationConfig as PurchaseAuthorizationConfig;
   }
   /**
    Retrieves purchase authorization configurations with search
@@ -27,7 +27,7 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   async getPurchaseAuthorizationConfigs(input?: PurchaseAuthorizationConfigSearchInput): Promise<PurchaseAuthorizationConfigResponse[]> {
     const variables = { input };
     const result = await this.executeQuery('purchaseAuthorizationConfigs', variables);
-    return result.data.purchaseAuthorizationConfigs.map((config: any) => new PurchaseAuthorizationConfigResponse(config));
+    return result.data.purchaseAuthorizationConfigs as PurchaseAuthorizationConfigResponse[];
   }
   /**
    Creates a new purchase authorization configuration
@@ -37,7 +37,7 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   async createPurchaseAuthorizationConfig(input: PurchaseAuthorizationConfigCreateInput): Promise<PurchaseAuthorizationConfig> {
     const variables = { input };
     const result = await this.executeMutation('purchaseAuthorizationConfigCreate', variables);
-    return new PurchaseAuthorizationConfig(result.data.purchaseAuthorizationConfigCreate);
+    return result.data.purchaseAuthorizationConfigCreate as PurchaseAuthorizationConfig;
   }
   /**
    Updates an existing purchase authorization configuration
@@ -48,7 +48,7 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   async updatePurchaseAuthorizationConfig(id: string, input: PurchaseAuthorizationConfigUpdateInput): Promise<PurchaseAuthorizationConfig> {
     const variables = { id, input };
     const result = await this.executeMutation('purchaseAuthorizationConfigUpdate', variables);
-    return new PurchaseAuthorizationConfig(result.data.purchaseAuthorizationConfigUpdate);
+    return result.data.purchaseAuthorizationConfigUpdate as PurchaseAuthorizationConfig;
   }
   /**
    Deletes a purchase authorization configuration
@@ -59,10 +59,5 @@ export class PurchaseAuthorizationConfigService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('purchaseAuthorizationConfigDelete', variables);
     return result.data.purchaseAuthorizationConfigDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

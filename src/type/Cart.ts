@@ -19,13 +19,13 @@ import { Company } from './Company';
 /**
  Object class for Cart
  */
-export class Cart {
+export interface Cart {
   /** Cart's primary identifier */
-  cartId!: string;
+  cartId: string;
   /** Channel identifier this cart belongs to. */
   channelId?: number;
   /** Shop identifier this cart belongs to. */
-  shopId!: number;
+  shopId: number;
   /** userId field */
   /** @deprecated This field will be removed in a future release, use contact+companyId or customerId instead */
   userId?: number;
@@ -62,9 +62,9 @@ export class Cart {
   /** Items that are added to the Cart, but can't be ordered. */
   unOrderableItems?: CartUnOrderableItem[];
   /** Address the invoice for the order should be sent to. */
-  invoiceAddress!: CartAddress;
+  invoiceAddress: CartAddress;
   /** Address the order should be sent to. */
-  deliveryAddress!: CartAddress;
+  deliveryAddress: CartAddress;
   /** Amount of tax that applies to this cart per tax code */
   taxLevels?: CartTaxLevel[];
   /** List of selectable paymethods for this cart and applied user. */
@@ -88,7 +88,7 @@ export class Cart {
   /** Language of the order that will be created from this cart. Order confirmation email will be sent in that language. */
   language?: string;
   /** Indicates whether authorization is required to finalize the cart */
-  purchaseAuthorizationRequired!: boolean;
+  purchaseAuthorizationRequired: boolean;
   /** Indicates cart status */
   status?: CartStatus;
   /** Cart User */
@@ -100,7 +100,4 @@ export class Cart {
   customer?: Customer;
   /** Tender Company */
   company?: Company;
-  constructor(data: Partial<Cart> = {}) {
-    Object.assign(this, data);
-  }
 }

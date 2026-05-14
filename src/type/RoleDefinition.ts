@@ -4,26 +4,23 @@ import { Role } from './Role';
 /**
  Object class for RoleDefinition
  */
-export class RoleDefinition {
+export interface RoleDefinition {
   /** The unique identifier of the role definition */
-  id!: string | number;
+  id: string | number;
   /** The domain name of the role definition */
-  name!: string;
+  name: string;
   /** The descriptions of the role definition */
-  descriptions!: LocalizedString[];
+  descriptions: LocalizedString[];
   /** The default access for the role definition */
-  defaultAccess!: RoleAccess;
+  defaultAccess: RoleAccess;
   /** Creation date */
-  createdAt!: string;
+  createdAt: string;
   /** Last modified date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** createdBy field */
   createdBy?: number;
   /** lastModifiedBy field */
   lastModifiedBy?: number;
   /** roles field */
-  roles!: Role[];
-  constructor(data: Partial<RoleDefinition> = {}) {
-    Object.assign(this, data);
-  }
+  roles: Role[];
 }

@@ -2,22 +2,19 @@ import { Attribute } from './Attribute';
 /**
  Object class for AttributeResponse
  */
-export class AttributeResponse {
+export interface AttributeResponse {
   /** List of items of type Attribute */
-  items!: Attribute[];
+  items: Attribute[];
   /** Total number of items found */
-  itemsFound!: number;
+  itemsFound: number;
   /** The amount of items to show per page */
-  offset!: number;
+  offset: number;
   /** The current page */
-  page!: number;
+  page: number;
   /** Total amount of pages */
-  pages!: number;
+  pages: number;
   /** Start position of the current page */
-  start!: number;
+  start: number;
   /** End position of the current page */
-  end!: number;
-  constructor(data: Partial<AttributeResponse> = {}) {
-    Object.assign(this, data);
-  }
+  end: number;
 }

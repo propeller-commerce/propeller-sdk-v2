@@ -4,9 +4,9 @@ import { BundleItem } from './BundleItem';
 /**
  Object class for Bundle
  */
-export class Bundle {
+export interface Bundle {
   /** Bundle primary identifier */
-  id!: string;
+  id: string;
   /** Bundle name */
   name?: string;
   /** Bundle description */
@@ -27,7 +27,4 @@ export class Bundle {
   lastModifiedAt?: string;
   /** Last modified by */
   lastModifiedBy?: number;
-  constructor(data: Partial<Bundle> = {}) {
-    Object.assign(this, data);
-  }
 }

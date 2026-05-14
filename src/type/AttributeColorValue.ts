@@ -1,19 +1,15 @@
 import { AttributeType } from '../enum/AttributeType';
 import { AttributeValue } from './AttributeValue';
 /**
- Object class for AttributeColorValue
+ Color attribute value
  */
-export class AttributeColorValue implements AttributeValue {
+export interface AttributeColorValue extends AttributeValue {
   /** Attribute value id */
-  id!: string;
+  id: string;
   /** Attribute color value type */
-  type!: AttributeType;
+  type: AttributeType;
   /** colorValue field */
   colorValue?: string;
-  constructor(data: Partial<AttributeColorValue> = {}) {
-    Object.assign(this, data);
-  }
-  /** Attribute value (delegates to colorValue) */
-  get value(): any { return this.colorValue; }
-  set value(val: any) { this.colorValue = val; }
+  /** Attribute value (mirrors colorValue) */
+  value: any;
 }

@@ -1,9 +1,9 @@
 /**
  Object class for BusinessHours
  */
-export class BusinessHours {
+export interface BusinessHours {
   /** dayOfWeek field */
-  dayOfWeek!: number;
+  dayOfWeek: number;
   /** openingTime field */
   openingTime?: string;
   /** closingTime field */
@@ -12,7 +12,4 @@ export class BusinessHours {
   lunchBeakStartTime?: string;
   /** lunchBeakEndTime field */
   lunchBeakEndTime?: string;
-  constructor(data: Partial<BusinessHours> = {}) {
-    Object.assign(this, data);
-  }
 }

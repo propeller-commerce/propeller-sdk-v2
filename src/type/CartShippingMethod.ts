@@ -1,12 +1,9 @@
 /**
  Object class for CartShippingMethod
  */
-export class CartShippingMethod {
+export interface CartShippingMethod {
   /** Shipping method name */
-  name!: string;
+  name: string;
   /** Shipping method code */
-  code!: string;
-  constructor(data: Partial<CartShippingMethod> = {}) {
-    Object.assign(this, data);
-  }
+  code: string;
 }

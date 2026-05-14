@@ -3,9 +3,9 @@ import { Transaction } from './Transaction';
 /**
  Object class for Payment
  */
-export class Payment {
+export interface Payment {
   /** Payment primary identifier */
-  id!: string | number;
+  id: string | number;
   /** Logged in User ID */
   userId?: number;
   /** Guest User ID */
@@ -13,26 +13,23 @@ export class Payment {
   /** Unique paymentId reference for the Payment - provided by the PSP */
   paymentId?: string;
   /** Unique orderId reference for the Payment */
-  orderId!: number;
+  orderId: number;
   /** Payment amount [denomination in cents] */
-  amount!: number;
+  amount: number;
   /** Payment currency - ISO 4217 currency code => https://www.xe.com/iso4217.php */
-  currency!: string;
+  currency: string;
   /** Payment method used by the PSP */
-  method!: string;
+  method: string;
   /** Payment status */
-  status!: PaymentStatuses;
+  status: PaymentStatuses;
   /** Transaction(s) related to the specified payment */
   transactions?: Transaction[];
   /** Payment initial creation timestamp */
-  createdAt!: string;
+  createdAt: string;
   /** Reference to the user that created the payment initially */
   createdBy?: string;
   /** Payment last update timestamp */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Reference to the user that last modified the payment */
   lastModifiedBy?: string;
-  constructor(data: Partial<Payment> = {}) {
-    Object.assign(this, data);
-  }
 }

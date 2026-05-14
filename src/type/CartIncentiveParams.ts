@@ -3,7 +3,7 @@ import { YesNo } from '../enum/YesNo';
 /**
  Object class for CartIncentiveParams
  */
-export class CartIncentiveParams {
+export interface CartIncentiveParams {
   /** Minimum quantity of items to be affected by the incentive */
   quantity?: number;
   /** Incentive price */
@@ -20,7 +20,4 @@ export class CartIncentiveParams {
   repeat?: YesNo;
   /** Action code */
   actionCode?: string;
-  constructor(data: Partial<CartIncentiveParams> = {}) {
-    Object.assign(this, data);
-  }
 }

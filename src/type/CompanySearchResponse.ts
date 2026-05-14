@@ -2,22 +2,19 @@ import { CompanySearch } from './CompanySearch';
 /**
  Object class for CompanySearchResponse
  */
-export class CompanySearchResponse {
+export interface CompanySearchResponse {
   /** List of items of type CompanySearch */
-  items!: CompanySearch[];
+  items: CompanySearch[];
   /** Total number of items found */
-  itemsFound!: number;
+  itemsFound: number;
   /** The amount of items to show per page */
-  offset!: number;
+  offset: number;
   /** The current page */
-  page!: number;
+  page: number;
   /** Total amount of pages */
-  pages!: number;
+  pages: number;
   /** Start position of the current page */
-  start!: number;
+  start: number;
   /** End position of the current page */
-  end!: number;
-  constructor(data: Partial<CompanySearchResponse> = {}) {
-    Object.assign(this, data);
-  }
+  end: number;
 }

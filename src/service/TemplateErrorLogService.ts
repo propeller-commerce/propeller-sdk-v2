@@ -30,7 +30,7 @@ export class TemplateErrorLogService extends BaseService {
       }
     `;
     const result = await this.client.query(query, { id });
-    return new TemplateErrorLog(result.templateErrorLog);
+    return result.templateErrorLog as TemplateErrorLog;
   }
   /**
    Search for template error logs with filtering and pagination
@@ -62,10 +62,7 @@ export class TemplateErrorLogService extends BaseService {
       }
     `;
     const result = await this.client.query(query, { input });
-    return {
-      ...result.templateErrorLogs,
-      items: result.templateErrorLogs.items.map((item: any) => new TemplateErrorLog(item))
-    };
+    return result.templateErrorLogs as TemplateErrorLogResponse;
   }
   /**
    Retrieve statistical summary of template error logs

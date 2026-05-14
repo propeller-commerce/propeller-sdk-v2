@@ -3,17 +3,17 @@ import { LocalizedString } from './LocalizedString';
 /**
  Object class for CartItemSurcharge
  */
-export class CartItemSurcharge {
+export interface CartItemSurcharge {
   /** Localized names */
-  names!: LocalizedString[];
+  names: LocalizedString[];
   /** Localized descriptions */
-  descriptions!: LocalizedString[];
+  descriptions: LocalizedString[];
   /** Type */
-  type!: string;
+  type: string;
   /** Value */
-  value!: number;
+  value: number;
   /** Tax code */
-  taxCode!: Taxcode;
+  taxCode: Taxcode;
   /** Tax percentage */
   taxPercentage?: number;
   /** Quantity */
@@ -26,7 +26,4 @@ export class CartItemSurcharge {
   priceNet?: number;
   /** Total net price */
   totalPriceNet?: number;
-  constructor(data: Partial<CartItemSurcharge> = {}) {
-    Object.assign(this, data);
-  }
 }

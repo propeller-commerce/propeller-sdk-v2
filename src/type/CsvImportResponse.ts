@@ -2,12 +2,9 @@ import { CsvRecordError } from './CsvRecordError';
 /**
  Object class for CsvImportResponse
  */
-export class CsvImportResponse {
+export interface CsvImportResponse {
   /** importedCount field */
-  importedCount!: number;
+  importedCount: number;
   /** errors field */
   errors?: CsvRecordError[];
-  constructor(data: Partial<CsvImportResponse> = {}) {
-    Object.assign(this, data);
-  }
 }

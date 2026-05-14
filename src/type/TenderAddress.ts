@@ -3,7 +3,7 @@ import { YesNo } from '../enum/YesNo';
 /**
  Object class for TenderAddress
  */
-export class TenderAddress {
+export interface TenderAddress {
   /** Address company */
   company?: string;
   /** Address contact gender */
@@ -15,19 +15,19 @@ export class TenderAddress {
   /** Address contact last name */
   lastName?: string;
   /** Street */
-  street!: string;
+  street: string;
   /** Number */
   number?: string;
   /** Number extension */
   numberExtension?: string;
   /** Postal code */
-  postalCode!: string;
+  postalCode: string;
   /** City */
-  city!: string;
+  city: string;
   /** Region */
   region?: string;
   /** Country code */
-  country!: string;
+  country: string;
   /** Address code */
   code?: string;
   /** Address contact email */
@@ -40,7 +40,4 @@ export class TenderAddress {
   icp?: YesNo;
   /** Notes, remarks, etc. */
   notes?: string;
-  constructor(data: Partial<TenderAddress> = {}) {
-    Object.assign(this, data);
-  }
 }

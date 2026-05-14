@@ -14,10 +14,10 @@ import { Company } from './Company';
  Comprehensive tender entity representing a potential order in the system.
  * Tenders are draft orders that contain all necessary information for order processing including customer details, items, pricing, addresses, payment methods, and shipping information. They can be modified, processed into orders, or deleted as needed.
  */
-export class Tender {
+export interface Tender {
   /** Unique identifier for the tender.
    * This is the primary key used to reference and manage the tender throughout its lifecycle. */
-  tenderId!: string;
+  tenderId: string;
   /** Associated order identifier when tender was created from an existing order.
    * Links the tender to its source order for reference and audit purposes. */
   orderId?: number;
@@ -26,7 +26,7 @@ export class Tender {
   ownerId?: number;
   /** Classification of the tender type.
    * Determines the processing workflow and business rules that apply to this tender. */
-  type!: OrderType;
+  type: OrderType;
   /** Legacy site identifier where the tender was created.
    * Historical reference maintained for compatibility purposes. */
   siteId?: number;
@@ -35,16 +35,16 @@ export class Tender {
   channelId?: number;
   /** Shop identifier that owns this tender.
    * Determines which business unit or location is responsible for fulfilling this tender. */
-  shopId!: number;
+  shopId: number;
   /** Timestamp when the tender was initially created.
    * Records the exact moment this tender was first established in the system. */
-  createdAt!: string;
+  createdAt: string;
   /** Identifier of the user who created this tender.
    * Tracks the originator of the tender for audit and accountability purposes. */
   createdBy?: number;
   /** Timestamp of the most recent modification to the tender.
    * Updates automatically whenever any aspect of the tender is changed. */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Identifier of the user who last modified this tender.
    * Tracks the most recent editor for audit and accountability purposes. */
   lastModifiedBy?: number;
@@ -60,7 +60,7 @@ export class Tender {
   /** The invoice userId for this tender */
   invoiceUserId?: number;
   /** Tender/order status */
-  status!: string;
+  status: string;
   /** User's first name */
   firstName?: string;
   /** User's middle name */
@@ -68,7 +68,7 @@ export class Tender {
   /** User's last name */
   lastName?: string;
   /** User's email */
-  email!: string;
+  email: string;
   /** Invoice company debtor ID */
   debtorId?: string;
   /** The address the invoice for the order should be sent to */
@@ -152,7 +152,4 @@ export class Tender {
   createdByCustomerId?: number;
   /** Source revision number when tender was created from existing revision */
   createdFromRevisionNumber?: number;
-  constructor(data: Partial<Tender> = {}) {
-    Object.assign(this, data);
-  }
 }

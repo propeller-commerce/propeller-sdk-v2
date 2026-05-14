@@ -13,9 +13,4 @@ export class GCIPUserService extends BaseService {
     const result = await this.executeQuery('user', variables);
     return result.data.user;
   }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
-  }
 }

@@ -2,22 +2,19 @@ import { BulkPrice } from './BulkPrice';
 /**
  Object class for BulkPriceResponse
  */
-export class BulkPriceResponse {
+export interface BulkPriceResponse {
   /** List of items of type BulkPrice */
-  items!: BulkPrice[];
+  items: BulkPrice[];
   /** Total number of items found */
-  itemsFound!: number;
+  itemsFound: number;
   /** The amount of items to show per page */
-  offset!: number;
+  offset: number;
   /** The current page */
-  page!: number;
+  page: number;
   /** Total amount of pages */
-  pages!: number;
+  pages: number;
   /** Start position of the current page */
-  start!: number;
+  start: number;
   /** End position of the current page */
-  end!: number;
-  constructor(data: Partial<BulkPriceResponse> = {}) {
-    Object.assign(this, data);
-  }
+  end: number;
 }

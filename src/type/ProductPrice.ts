@@ -5,13 +5,13 @@ import { IDiscount } from './IDiscount';
 /**
  Object class for ProductPrice
  */
-export class ProductPrice {
+export interface ProductPrice {
   /** productId field */
-  productId!: number;
+  productId: number;
   /** type field */
-  type!: PriceElementType;
+  type: PriceElementType;
   /** discountType field */
-  discountType!: PriceDiscountType;
+  discountType: PriceDiscountType;
   /** list field */
   list?: number;
   /** cost field */
@@ -25,8 +25,5 @@ export class ProductPrice {
   /** taxCode field */
   taxCode?: Taxcode;
   /** quantity field */
-  quantity!: number;
-  constructor(data: Partial<ProductPrice> = {}) {
-    Object.assign(this, data);
-  }
+  quantity: number;
 }

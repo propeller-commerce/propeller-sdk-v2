@@ -13,5 +13,7 @@ export * from './service';
 // Export all GraphQL types and interfaces in a namespace to avoid conflicts
 export * from './type';
 
-// Export all GraphQL enums in a namespace to avoid conflicts
-export * as Enums from './enum';
+// Export all GraphQL enums at the top level. Consumers preferring the
+// `Enums.*` qualified call-site form can use a namespace import:
+//   import * as Enums from 'propeller-sdk-v2';
+export * from './enum';

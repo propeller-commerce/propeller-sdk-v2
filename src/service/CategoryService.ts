@@ -52,7 +52,7 @@ export class CategoryService extends BaseService {
   async getCategories(filter?: any, userId?: number): Promise<Category[]> {
     const variables = { filter, userId };
     const result = await this.executeQuery('categories', variables);
-    return result.data.categories.map((category: any) => new Category(category));
+    return result.data.categories as Category[];
   }
   /**
    Fetches a single category by ID or slug
@@ -71,7 +71,7 @@ export class CategoryService extends BaseService {
    */
   async getCategory(variables: CategoryQueryVariables): Promise<Category> {
     const result = await this.executeQuery('category', variables);
-    return new Category(result.data.category);
+    return result.data.category as Category;
   }
   /**
    Creates a new category
@@ -81,7 +81,7 @@ export class CategoryService extends BaseService {
   async createCategory(input: any): Promise<Category> {
     const variables = { input };
     const result = await this.executeMutation('categoryCreate', variables);
-    return new Category(result.data.categoryCreate);
+    return result.data.categoryCreate as Category;
   }
   /**
    Updates an existing category
@@ -91,7 +91,7 @@ export class CategoryService extends BaseService {
   async updateCategory(input: any): Promise<Category> {
     const variables = { input };
     const result = await this.executeMutation('categoryUpdate', variables);
-    return new Category(result.data.categoryUpdate);
+    return result.data.categoryUpdate as Category;
   }
   /**
    Imports categories from CSV
@@ -101,7 +101,7 @@ export class CategoryService extends BaseService {
   async importCategoriesCsv(input: CategoryCsvInput): Promise<CsvImportResponse> {
     const variables = { input };
     const result = await this.executeMutation('categoryCsvImport', variables);
-    return new CsvImportResponse(result.data.categoryCsvImport);
+    return result.data.categoryCsvImport as CsvImportResponse;
   }
   /**
    Adds products/clusters to a category
@@ -111,7 +111,7 @@ export class CategoryService extends BaseService {
   async addProductsClustersToCategory(input: CategoryAddProductsClustersInput): Promise<Category> {
     const variables = { input };
     const result = await this.executeMutation('categoryAddProductsClusters', variables);
-    return new Category(result.data.categoryAddProductsClusters);
+    return result.data.categoryAddProductsClusters as Category;
   }
   /**
    Removes products/clusters from a category
@@ -121,7 +121,7 @@ export class CategoryService extends BaseService {
   async removeProductsClustersFromCategory(input: CategoryRemoveProductsClustersInput): Promise<Category> {
     const variables = { input };
     const result = await this.executeMutation('categoryRemoveProductsClusters', variables);
-    return new Category(result.data.categoryRemoveProductsClusters);
+    return result.data.categoryRemoveProductsClusters as Category;
   }
   /**
    Fetches attribute results for a category
@@ -135,11 +135,6 @@ export class CategoryService extends BaseService {
   ): Promise<AttributeResultResponse> {
     const variables = { categoryId, input };
     const result = await this.executeQuery('attributeResultByCategoryId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByCategoryId);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.attributeResultByCategoryId as AttributeResultResponse;
   }
 }

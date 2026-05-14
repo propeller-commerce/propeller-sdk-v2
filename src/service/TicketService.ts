@@ -16,7 +16,7 @@ export class TicketService extends BaseService {
   async getTicket(id: string): Promise<Ticket> {
     const variables = { id };
     const result = await this.executeQuery('ticket', variables);
-    return new Ticket(result.data.ticket);
+    return result.data.ticket as Ticket;
   }
   /**
    Fetches a list of tickets with search criteria
@@ -26,7 +26,7 @@ export class TicketService extends BaseService {
   async getTickets(input?: TicketSearchInput): Promise<TicketResponse> {
     const variables = { input };
     const result = await this.executeQuery('tickets', variables);
-    return new TicketResponse(result.data.tickets);
+    return result.data.tickets as TicketResponse;
   }
   /**
    Creates a new ticket
@@ -36,7 +36,7 @@ export class TicketService extends BaseService {
   async createTicket(input: TicketCreateInput): Promise<Ticket> {
     const variables = { input };
     const result = await this.executeMutation('ticketCreate', variables);
-    return new Ticket(result.data.ticketCreate);
+    return result.data.ticketCreate as Ticket;
   }
   /**
    Updates an existing ticket
@@ -47,7 +47,7 @@ export class TicketService extends BaseService {
   async updateTicket(id: string, input: TicketUpdateInput): Promise<Ticket> {
     const variables = { id, input };
     const result = await this.executeMutation('ticketUpdate', variables);
-    return new Ticket(result.data.ticketUpdate);
+    return result.data.ticketUpdate as Ticket;
   }
   /**
    Deletes a ticket by ID
@@ -58,10 +58,5 @@ export class TicketService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('ticketDelete', variables);
     return result.data.ticketDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

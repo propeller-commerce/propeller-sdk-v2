@@ -13,7 +13,7 @@ export class SparePartsMachineMediaService extends BaseService {
   async getSparePartsMachineMedia(id: number): Promise<SparePartsMachineMedia> {
     const variables = { id };
     const result = await this.executeQuery('sparePartsMachineMedia', variables);
-    return new SparePartsMachineMedia(result.data.sparePartsMachineMedia);
+    return result.data.sparePartsMachineMedia as SparePartsMachineMedia;
   }
   /**
    Retrieves all spare parts machine media
@@ -22,11 +22,6 @@ export class SparePartsMachineMediaService extends BaseService {
   async getSparePartsMachineMedias(): Promise<SparePartsMachineMedia[]> {
     const variables = {};
     const result = await this.executeQuery('sparePartsMachineMedias', variables);
-    return result.data.sparePartsMachineMedias.map((media: any) => new SparePartsMachineMedia(media));
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.sparePartsMachineMedias as SparePartsMachineMedia[];
   }
 }

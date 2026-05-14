@@ -17,7 +17,7 @@ export class WarehouseAddressService extends BaseService {
   async getWarehouseAddress(id: number): Promise<WarehouseAddress> {
     const variables = { id };
     const result = await this.executeQuery('warehouseAddress', variables);
-    return new WarehouseAddress(result.data.warehouseAddress);
+    return result.data.warehouseAddress as WarehouseAddress;
   }
   /**
    Retrieves warehouse addresses with search
@@ -27,7 +27,7 @@ export class WarehouseAddressService extends BaseService {
   async getWarehouseAddresses(input?: WarehousesSearchInput): Promise<WarehousesResponse> {
     const variables = { input };
     const result = await this.executeQuery('warehouseAddresses', variables);
-    return new WarehousesResponse(result.data.warehouseAddresses);
+    return result.data.warehouseAddresses as WarehousesResponse;
   }
   /**
    Creates a new warehouse address
@@ -37,7 +37,7 @@ export class WarehouseAddressService extends BaseService {
   async createWarehouseAddress(input: CreateWarehouseAddressInput): Promise<WarehouseAddress> {
     const variables = { input };
     const result = await this.executeMutation('warehouseAddressCreate', variables);
-    return new WarehouseAddress(result.data.warehouseAddressCreate);
+    return result.data.warehouseAddressCreate as WarehouseAddress;
   }
   /**
    Updates an existing warehouse address
@@ -47,7 +47,7 @@ export class WarehouseAddressService extends BaseService {
   async updateWarehouseAddress(input: UpdateWarehouseAddressInput): Promise<WarehouseAddress> {
     const variables = { input };
     const result = await this.executeMutation('warehouseAddressUpdate', variables);
-    return new WarehouseAddress(result.data.warehouseAddressUpdate);
+    return result.data.warehouseAddressUpdate as WarehouseAddress;
   }
   /**
    Deletes a warehouse address
@@ -58,10 +58,5 @@ export class WarehouseAddressService extends BaseService {
     const variables = { id };
     const result = await this.executeMutation('warehouseAddressDelete', variables);
     return result.data.warehouseAddressDelete;
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
   }
 }

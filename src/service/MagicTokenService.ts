@@ -18,7 +18,7 @@ export class MagicTokenService extends BaseService {
   async getMagicToken(id: number): Promise<MagicToken> {
     const variables = { id };
     const result = await this.executeQuery('magicToken', variables);
-    return new MagicToken(result.data.magicToken);
+    return result.data.magicToken as MagicToken;
   }
   /**
    Retrieves magic tokens with search
@@ -28,7 +28,7 @@ export class MagicTokenService extends BaseService {
   async getMagicTokens(input?: MagicTokenSearchInput): Promise<MagicTokenResponse> {
     const variables = { input };
     const result = await this.executeQuery('magicTokens', variables);
-    return new MagicTokenResponse(result.data.magicTokens);
+    return result.data.magicTokens as MagicTokenResponse;
   }
   /**
    Creates a new magic token
@@ -38,7 +38,7 @@ export class MagicTokenService extends BaseService {
   async createMagicToken(input: MagicTokenCreateInput): Promise<MagicToken> {
     const variables = { input };
     const result = await this.executeMutation('magicTokenCreate', variables);
-    return new MagicToken(result.data.magicTokenCreate);
+    return result.data.magicTokenCreate as MagicToken;
   }
   /**
    Updates an existing magic token
@@ -49,7 +49,7 @@ export class MagicTokenService extends BaseService {
   async updateMagicToken(id: string, input: MagicTokenUpdateInput): Promise<MagicToken> {
     const variables = { id, input };
     const result = await this.executeMutation('magicTokenUpdate', variables);
-    return new MagicToken(result.data.magicTokenUpdate);
+    return result.data.magicTokenUpdate as MagicToken;
   }
   /**
    Authenticates a user using a magic token
@@ -59,11 +59,6 @@ export class MagicTokenService extends BaseService {
   async magicTokenLogin(id: string): Promise<Login> {
     const variables = { id };
     const result = await this.executeMutation('magicTokenLogin', variables);
-    return new Login(result.data.magicTokenLogin);
-  }
-  /**
-   Initializes the service by preloading common fragments
-   */
-  async initializeService(): Promise<void> {
+    return result.data.magicTokenLogin as Login;
   }
 }

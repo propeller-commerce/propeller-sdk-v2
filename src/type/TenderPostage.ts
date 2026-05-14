@@ -3,21 +3,21 @@ import { Warehouse } from './Warehouse';
 /**
  Object class for TenderPostage
  */
-export class TenderPostage {
+export interface TenderPostage {
   /** The selected shipping method for this tender/order */
-  method!: string;
+  method: string;
   /** Postage tax percentage */
-  taxPercentage!: number;
+  taxPercentage: number;
   /** The preferred delivery date for this order as requested by the user */
   requestDate?: string;
   /** The selected carrier for this tender/order */
   carrier?: string;
   /** The costs associated with the selected shipping method and business rules that apply to this tender/order. VAT excluding */
-  price!: number;
+  price: number;
   /** The costs associated with the selected shipping method and business rules that apply to this tender/order. VAT including */
-  priceNet!: number;
+  priceNet: number;
   /** The VAT associated with the selected shipping method and business rules that apply to this tender/order. */
-  tax!: number;
+  tax: number;
   /** If false, shipping costs are automatically calculated */
   overruled?: YesNo;
   /** This order can be shipped in parts when items different delivery dates */
@@ -26,7 +26,4 @@ export class TenderPostage {
   pickUpLocationId?: number;
   /** warehouse field */
   warehouse?: Warehouse;
-  constructor(data: Partial<TenderPostage> = {}) {
-    Object.assign(this, data);
-  }
 }

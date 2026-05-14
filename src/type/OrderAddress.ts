@@ -4,15 +4,15 @@ import { YesNo } from '../enum/YesNo';
 /**
  Object class for OrderAddress
  */
-export class OrderAddress {
+export interface OrderAddress {
   /** Address primary identifier */
-  id!: number;
+  id: number;
   /** The ID of the Order the address belongs to */
-  orderId!: number;
+  orderId: number;
   /** Creation date */
-  createdAt!: string;
+  createdAt: string;
   /** Last modified date */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** First name the address applies to */
   firstName?: string;
   /** Middle name the address applies to */
@@ -20,23 +20,23 @@ export class OrderAddress {
   /** Last name the address applies to */
   lastName?: string;
   /** Gender the address applies to */
-  gender!: Gender;
+  gender: Gender;
   /** Company the address applies to */
   company?: string;
   /** Address street */
-  street!: string;
+  street: string;
   /** Address street number */
   number?: string;
   /** Address street number extension */
   numberExtension?: string;
   /** Address postal code */
-  postalCode!: string;
+  postalCode: string;
   /** Address city */
-  city!: string;
+  city: string;
   /** Address region */
   region?: string;
   /** Address country */
-  country!: string;
+  country: string;
   /** Fixed phone number that applies to this address [min: 6, max: 30] */
   phone?: string;
   /** Mobile phone number that applies to this address [min: 6, max: 30] */
@@ -48,14 +48,11 @@ export class OrderAddress {
   /** Address delivery notes */
   notes?: string;
   /** Address type [one of: delivery, invoice, home] */
-  type!: AddressType;
+  type: AddressType;
   /** ICP address field defines whether tax should be applied to an order if the address is selected as a delivery address. Used when shipping b2b order abroad */
-  icp!: YesNo;
+  icp: YesNo;
   /** Address company domain url */
   url?: string;
   /** Address friendly descriptive name */
   name?: string;
-  constructor(data: Partial<OrderAddress> = {}) {
-    Object.assign(this, data);
-  }
 }

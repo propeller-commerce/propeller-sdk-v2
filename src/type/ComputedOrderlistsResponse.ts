@@ -3,20 +3,17 @@
  Computed orderlists result containing merged positive and negative product/cluster IDs.
  Positive orderlists are filtered to exclude any IDs that appear in negative orderlists.
  */
-export class ComputedOrderlistsResponse {
+export interface ComputedOrderlistsResponse {
   /** Merged product IDs from positive orderlists, excluding any IDs from negative orderlists */
-  positiveOrderlistsProductIds!: number[];
+  positiveOrderlistsProductIds: number[];
   /** Merged product IDs from negative orderlists */
-  negativeOrderListsProductIds!: number[];
+  negativeOrderListsProductIds: number[];
   /** Merged cluster IDs from positive orderlists, excluding any IDs from negative orderlists */
-  positiveOrderListsClusterIds!: number[];
+  positiveOrderListsClusterIds: number[];
   /** Merged cluster IDs from negative orderlists */
-  negativeOrderListsClusterIds!: number[];
+  negativeOrderListsClusterIds: number[];
   /** Count of positive orderlists that were merged */
-  positiveOrderlistsCount!: number;
+  positiveOrderlistsCount: number;
   /** Count of negative orderlists that were merged */
-  negativeOrderlistsCount!: number;
-  constructor(data: Partial<ComputedOrderlistsResponse> = {}) {
-    Object.assign(this, data);
-  }
+  negativeOrderlistsCount: number;
 }

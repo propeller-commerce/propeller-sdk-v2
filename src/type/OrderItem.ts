@@ -6,27 +6,27 @@ import { Product } from './Product';
 /**
  Object class for OrderItem
  */
-export class OrderItem {
+export interface OrderItem {
   /** The autoincerment ID for the OrderItem */
-  id!: number;
+  id: number;
   /** The ID of the Order the OrderItem belongs to */
-  orderId!: number;
+  orderId: number;
   /** The UUID for the OrderItem */
-  uuid!: string;
+  uuid: string;
   /** The class of the orderItem. Either product, incentive, surcharge, postage, payment */
-  class!: OrderItemClass;
+  class: OrderItemClass;
   /** The productId of the OrderItem */
   productId?: number;
   /** The ID of the parent OrderItem */
   parentOrderItemId?: number;
   /** The quantity of the OrderItem */
-  quantity!: number;
+  quantity: number;
   /** The SKU of the product of the OrderItem */
-  sku!: string;
+  sku: string;
   /** Remarks by the customer for the OrderItem */
   notes?: string;
   /** The name of the product of the OrderItem */
-  name!: string;
+  name: string;
   /** The supplier of the product of the OrderItem */
   supplier?: string;
   /** The supplierCode of the product of the OrderItem */
@@ -40,9 +40,9 @@ export class OrderItem {
   /** The original price of the OrderItem, before applying any discounts */
   originalPrice?: number;
   /** The calculated price per unit excluding tax */
-  price!: number;
+  price: number;
   /** The total price of the OrderItem excluding tax */
-  priceTotal!: number;
+  priceTotal: number;
   /** The calculated price per unit including tax */
   priceNet?: number;
   /** The total price of the OrderItem including tax */
@@ -56,11 +56,11 @@ export class OrderItem {
   /** The total tax of the OrderItem */
   tax?: number;
   /** The tax percentage of the OrderItem */
-  taxPercentage!: number;
+  taxPercentage: number;
   /** The tax code of the OrderItem */
-  taxCode!: Taxcode;
+  taxCode: Taxcode;
   /** Is the OrderItem a bonusItem? */
-  isBonus!: YesNo;
+  isBonus: YesNo;
   /** The minimum quantity of the product of the OrderItem */
   minimumQuantity?: number;
   /** The unit of the product of the OrderItem */
@@ -81,7 +81,4 @@ export class OrderItem {
   sources?: Source[];
   /** product field */
   product?: Product;
-  constructor(data: Partial<OrderItem> = {}) {
-    Object.assign(this, data);
-  }
 }

@@ -9,7 +9,7 @@ import { PaginatedMediaAttachmentResponse } from './PaginatedMediaAttachmentResp
 /**
  Object class for Media
  */
-export class Media {
+export interface Media {
   /** Media image */
   image?: MediaImage;
   /** List of media images */
@@ -23,10 +23,7 @@ export class Media {
   /** List of media documents */
   documents?: PaginatedMediaDocumentResponse;
   /** attachment field */
-  attachment!: MediaAttachment;
+  attachment: MediaAttachment;
   /** attachments field */
-  attachments!: PaginatedMediaAttachmentResponse;
-  constructor(data: Partial<Media> = {}) {
-    Object.assign(this, data);
-  }
+  attachments: PaginatedMediaAttachmentResponse;
 }

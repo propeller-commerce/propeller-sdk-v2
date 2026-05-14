@@ -28,7 +28,7 @@ export class PricesheetService extends BaseService {
   async getPricesheets(input?: PricesheetSearchInput): Promise<PricesheetResponse> {
     const variables = { input };
     const result = await this.executeQuery('pricesheets', variables);
-    return new PricesheetResponse(result.data.pricesheets);
+    return result.data.pricesheets as PricesheetResponse;
   }
   /**
    Fetches a single pricesheet by ID
@@ -38,7 +38,7 @@ export class PricesheetService extends BaseService {
    */
   async getPricesheet(variables: PricesheetQueryVariables): Promise<Pricesheet> {
     const result = await this.executeQuery('pricesheet', variables);
-    return new Pricesheet(result.data.pricesheet);
+    return result.data.pricesheet as Pricesheet;
   }
   /**
    Creates a new pricesheet
@@ -48,7 +48,7 @@ export class PricesheetService extends BaseService {
   async createPricesheet(input: PricesheetCreateInput): Promise<Pricesheet> {
     const variables = { input };
     const result = await this.executeMutation('pricesheetCreate', variables);
-    return new Pricesheet(result.data.pricesheetCreate);
+    return result.data.pricesheetCreate as Pricesheet;
   }
   /**
    Updates an existing pricesheet
@@ -59,7 +59,7 @@ export class PricesheetService extends BaseService {
   async updatePricesheet(id: string, input: PricesheetUpdateInput): Promise<Pricesheet> {
     const variables = { id, input };
     const result = await this.executeMutation('pricesheetUpdate', variables);
-    return new Pricesheet(result.data.pricesheetUpdate);
+    return result.data.pricesheetUpdate as Pricesheet;
   }
   /**
    Assigns a pricesheet to entities
@@ -70,7 +70,7 @@ export class PricesheetService extends BaseService {
   async assignPricesheet(id: string, input: PricesheetAssignInput): Promise<Pricesheet> {
     const variables = { id, input };
     const result = await this.executeMutation('pricesheetAssign', variables);
-    return new Pricesheet(result.data.pricesheetAssign);
+    return result.data.pricesheetAssign as Pricesheet;
   }
   /**
    Unassigns a pricesheet from entities
@@ -81,7 +81,7 @@ export class PricesheetService extends BaseService {
   async unassignPricesheet(id: string, input: PricesheetUnassignInput): Promise<Pricesheet> {
     const variables = { id, input };
     const result = await this.executeMutation('pricesheetUnassign', variables);
-    return new Pricesheet(result.data.pricesheetUnassign);
+    return result.data.pricesheetUnassign as Pricesheet;
   }
   /**
    Imports pricesheet data from CSV file
@@ -91,6 +91,6 @@ export class PricesheetService extends BaseService {
   async importPricesheetFromCSV(input: PricesheetCsvInput): Promise<CsvImportResponse> {
     const variables = { input };
     const result = await this.executeMutation('pricesheetCsvImport', variables);
-    return new CsvImportResponse(result.data.pricesheetCsvImport);
+    return result.data.pricesheetCsvImport as CsvImportResponse;
   }
 }
