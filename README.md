@@ -1,16 +1,11 @@
 # Propeller V2 SDK
 
-A comprehensive TypeScript GraphQL client for the Propeller Commerce Platform, providing full type safety and GraphQL operations.
+A TypeScript GraphQL client for the Propeller Commerce Platform. Bundles every supported query, mutation, and fragment so consumers don't need to maintain GraphQL documents themselves.
 
-## Features
-
-- **Full Type Safety**: Complete TypeScript definitions for all GraphQL types
-- **GraphQL Operations**: 230+ mutations and 125+ queries
-- **Service Layer**: 56 service classes with business logic
-- **Schema-driven**: Generated from GraphQL schema
-- **Easy Integration**: Simple client configuration
-- **Complete Documentation**: JSDoc for all APIs
-- **Framework Agnostic**: Works with React, Vue, Angular, and vanilla JavaScript
+- **Framework-agnostic.** Ships dual ESM + CJS builds. Works with Next.js, Vite, Webpack, Node, and bare browsers.
+- **No runtime GraphQL parser.** Fragments are inlined at build time; the SDK does not depend on the `graphql` package at runtime.
+- **Type-safe.** Full TypeScript definitions for every enum, input, and response type.
+- **Secure-by-default config.** Defaults to proxy mode so API keys can stay server-side.
 
 ## Installation
 
@@ -18,578 +13,245 @@ A comprehensive TypeScript GraphQL client for the Propeller Commerce Platform, p
 npm install propeller-sdk-v2
 ```
 
-## Quick Start
+## Quick start
 
 ```typescript
-import { GraphQLClient } from 'propeller-sdk-v2';
+import { initializeClient, getClient, ProductService } from 'propeller-sdk-v2';
+import { Enums } from 'propeller-sdk-v2';
 
-// Initialize the client
-const client = new GraphQLClient({
-  endpoint: 'https://your-propeller-api.com/graphql',
-  apiKey: 'your-api-key',
-  orderEditorApiKey: 'your-order-editor-api-key' // Optional
+// Initialize once in your app entry point.
+initializeClient({
+  endpoint: 'https://your-proxy.example.com/api/graphql',
+  securityMode: 'proxy',          // recommended — keep API keys server-side
+  clientId: 'my-storefront',      // optional, sent as X-Client-ID header
+  getAccessToken: () => localStorage.getItem('access_token') ?? undefined,
 });
 
-// Use a service
-import { ProductService, ProductStatus } from 'propeller-sdk-v2';
-import { Format, Fit } from 'propeller-sdk-v2/dist/enum';
+const productService = new ProductService(getClient());
 
-const productService = new ProductService(client);
-
-const searchParams: ProductsQueryVariables = {
+const products = await productService.getProducts({
   input: {
     page: 1,
     offset: 20,
-    term: "laptop",
-    statuses: [ProductStatus.A, ProductStatus.N, ProductStatus.P, ProductStatus.S, ProductStatus.R, ProductStatus.T],
-    language: 'NL'
+    term: 'laptop',
+    statuses: [Enums.ProductStatus.A, Enums.ProductStatus.N],
+    language: 'NL',
   },
-  imageSearchFilters: {
-    page: 1,
-    offset: 1
-  },
+  imageSearchFilters: { page: 1, offset: 1 },
   imageVariantFilters: {
     transformations: {
       name: 'product_thumb',
       transformation: {
-        format: Format.WEBP,
+        format: Enums.Format.WEBP,
         height: 300,
         width: 300,
-        fit: Fit.BOUNDS
-      }
-    }
-  },
-  language: 'NL'
-};
-
-const products = await this.productService.getProducts(searchParams);
-```
-
-## Frontend Framework Support
-
-This package is designed to work seamlessly with all popular frontend frameworks:
-
-### React
-```typescript
-import { useState, useEffect } from 'react';
-import { initializeClient, getClient, ProductService, ProductStatus } from 'propeller-sdk-v2';
-import { Format, Fit } from 'propeller-sdk-v2/dist/enum';
-// Initialize once in your app
-initializeClient({
-  endpoint: 'https://your-api.com/graphql',
-  apiKey: 'your-api-key'
-});
-
-function ProductList() {
-  const [products, setProducts] = useState([]);
-  const productService = new ProductService(getClient());
-
-  useEffect(() => {
-    const loadProducts = async () => {
-      const data = await productService.getProducts({ 
-        input: {
-          page: 1,
-          offset: 20,
-          term: "laptop",
-          statuses: [ProductStatus.A, ProductStatus.N, ProductStatus.P, ProductStatus.S, ProductStatus.R, ProductStatus.T],
-          language: 'NL'
-        },
-        imageSearchFilters: {
-          page: 1,
-          offset: 1
-        },
-        imageVariantFilters: {
-          transformations: {
-            name: 'product_thumb',
-            transformation: {
-              format: Format.WEBP,
-              height: 300,
-              width: 300,
-              fit: Fit.BOUNDS
-            }
-          }
-        },
-        language: 'NL'
-      });
-
-      setProducts(data);
-    };
-    loadProducts();
-  }, []);
-
-  return (
-    <div>
-      {products.map(product => (
-        <div key={product.id}>{product.name}</div>
-      ))}
-    </div>
-  );
-}
-```
-
-### Vue 3
-```vue
-<template>
-  <div>
-    <div v-for="product in products" :key="product.id">
-      {{ product.name }}
-    </div>
-  </div>
-</template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import { initializeClient, getClient, ProductService, ProductStatus } from 'propeller-sdk-v2';
-import { Format, Fit } from 'propeller-sdk-v2/dist/enum';
-
-// Initialize once in your app
-initializeClient({
-  endpoint: 'https://your-api.com/graphql',
-  apiKey: 'your-api-key'
-});
-
-const products = ref([]);
-const productService = new ProductService(getClient());
-
-onMounted(async () => {
-  const data = await productService.getProducts({ 
-    input: {
-      page: 1,
-      offset: 20,
-      term: "laptop",
-      statuses: [ProductStatus.A, ProductStatus.N, ProductStatus.P, ProductStatus.S, ProductStatus.R, ProductStatus.T],
-      language: 'NL'
-    },
-    imageSearchFilters: {
-      page: 1,
-      offset: 1
-    },
-    imageVariantFilters: {
-      transformations: {
-        name: 'product_thumb',
-        transformation: {
-          format: Format.WEBP,
-          height: 300,
-          width: 300,
-          fit: Fit.BOUNDS
-        }
-      }
-    },
-    language: 'NL'
-  });
-  products.value = data;
-});
-</script>
-```
-
-### Angular
-```typescript
-import { Injectable } from '@angular/core';
-import { initializeClient, getClient, ProductService, ProductStatus } from 'propeller-sdk-v2';
-import { Format, Fit } from 'propeller-sdk-v2/dist/enum';
-
-// Initialize in main.ts or app.module.ts
-initializeClient({
-  endpoint: 'https://your-api.com/graphql',
-  apiKey: 'your-api-key'
-});
-
-@Injectable({ providedIn: 'root' })
-export class PropellerService {
-  private productService = new ProductService(getClient());
-  
-  async getProducts() {
-    return this.productService.getProducts({ 
-      input: {
-        page: 1,
-        offset: 20,
-        term: "laptop",
-        statuses: [ProductStatus.A, ProductStatus.N, ProductStatus.P, ProductStatus.S, ProductStatus.R, ProductStatus.T],
-        language: 'NL'
+        fit: Enums.Fit.BOUNDS,
       },
-      imageSearchFilters: {
-        page: 1,
-        offset: 1
-      },
-      imageVariantFilters: {
-        transformations: {
-          name: 'product_thumb',
-          transformation: {
-            format: Format.WEBP,
-            height: 300,
-            width: 300,
-            fit: Fit.BOUNDS
-          }
-        }
-      },
-      language: 'NL'
-    });
-  }
-}
-```
-
-### Vanilla JavaScript
-```javascript
-import { initializeClient, getClient, ProductService, ProductStatus } from 'propeller-sdk-v2';
-import { Format, Fit } from 'propeller-sdk-v2/dist/enum';
-
-// Initialize the client
-initializeClient({
-  endpoint: 'https://your-api.com/graphql',
-  apiKey: 'your-api-key'
-});
-
-// Use services
-const productService = new ProductService(getClient());
-const products = await productService.getProducts({ 
-  input: {
-    page: 1,
-    offset: 20,
-    term: "laptop",
-    statuses: [ProductStatus.A, ProductStatus.N, ProductStatus.P, ProductStatus.S, ProductStatus.R, ProductStatus.T],
-    language: 'NL'
+    },
   },
-  imageSearchFilters: {
-    page: 1,
-    offset: 1
-  },
-  imageVariantFilters: {
-    transformations: {
-      name: 'product_thumb',
-      transformation: {
-        format: Format.WEBP,
-        height: 300,
-        width: 300,
-        fit: Fit.BOUNDS
-      }
-    }
-  },
-  language: 'NL'  
+  language: 'NL',
 });
-
-// Display products
-products.forEach(product => {
-  console.log(product.name, product.price);
-});
-```
-
-### Framework Examples
-Complete working examples for each framework are available in the `examples/` directory:
-- `examples/react-example.tsx` - React with hooks and TypeScript
-- `examples/vue-example.vue` - Vue 3 with Composition API
-- `examples/angular-example.ts` - Angular service with RxJS
-- `examples/vanilla-js-example.js` - Pure JavaScript implementation
-- `examples/vanilla-js-example.html` - HTML demo page
-
-## Service Classes
-
-This package includes 52 service classes covering all major Commerce operations:
-
-### Core Services
-- `ProductService` - Product management and search
-- `OrderService` - Order processing and management
-- `UserService` - User authentication and management
-- `CartService` - Shopping cart operations
-- `PaymentService` - Payment processing
-
-### Catalog Services
-- `CategoryService` - Category management
-- `AttributeService` - Product attributes
-- `DiscountService` - Discount and promotion management
-- `BundleService` - Product bundles
-- `CrossupsellService` - Cross-selling and upselling
-
-### Business Services
-- `CompanyService` - B2B company management
-- `TaxService` - Tax calculations and management
-- `ShipmentService` - Shipping and logistics
-- `WarehouseService` - Inventory management
-- `BusinessRuleService` - Business rules engine
-
-### And many more...
-
-## GraphQL Client Usage
-
-### Basic Operations
-
-```typescript
-import { GraphQLClient } from 'propeller-sdk-v2';
-
-const client = new GraphQLClient({
-  endpoint: 'https://api.propeller.com/graphql',
-  apiKey: 'your-api-key'
-});
-
-// Execute a query
-const result = await client.execute(`
-  query GetProducts($offset: Int!) {
-    products(input: { offset: $offset }) {
-      id
-      name
-      price
-    }
-  }
-`, { offset: 10 });
-
-// Execute a mutation
-const mutation = await client.execute(`
-  mutation CreateProduct($input: ProductCreateInput!) {
-    productCreate(input: $input) {
-      id
-      name
-    }
-  }
-`, { input: { name: 'New Product' } });
-```
-
-## Type Definitions
-
-The package includes comprehensive TypeScript definitions:
-
-### Enums
-- 135+ enum types for status codes, field names, and options
-- Full type safety for all enum values
-
-### Types
-- 756+ TypeScript interfaces and types
-- Complete coverage of GraphQL schema
-- Input types for mutations
-- Response types for queries
-
-### Examples
-
-```typescript
-import { 
-  ProductStatus, 
-  OrderStatus,
-  Product,
-  Order,
-  CreateProductInput 
-} from 'propeller-sdk-v2';
-
-// Type-safe enums
-const status: ProductStatus = ProductStatus.A;
-const orderStatus: OrderStatus = OrderStatus.PENDING;
-
-// Type-safe interfaces
-const product: Product = {
-  id: '123',
-  name: 'Sample Product',
-  status: ProductStatus.A,
-  price: 29.99
-};
-
-// Type-safe inputs
-const input: CreateProductInput = {
-  name: 'New Product',
-  price: 19.99,
-  status: ProductStatus.A
-};
 ```
 
 ## Configuration
 
-### API Keys
+`GraphQLClientConfig` accepts:
 
-The client supports two types of API keys:
+| Field | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `endpoint` | `string` | — | **Required.** Direct API URL or your proxy endpoint. |
+| `securityMode` | `'proxy' \| 'direct'` | `'proxy'` | Use `'proxy'` in production. `'direct'` exposes API keys client-side. |
+| `proxyEndpoint` | `string` | `endpoint` | Override for proxy URL when you want `endpoint` to point at the upstream. |
+| `clientId` | `string` | — | Sent as `X-Client-ID` in proxy mode. |
+| `apiKey` | `string` | — | **Direct mode only.** Ignored in proxy mode (with a warning). |
+| `orderEditorApiKey` | `string` | — | Direct mode only. Used for the mutations in `orderEditorMutations`. |
+| `orderEditorMutations` | `string[]` | `['orderSetStatus', 'passwordResetLink', 'triggerQuoteSendRequest', 'triggerOrderSendConfirm']` | Override to route additional mutations through `orderEditorApiKey`. |
+| `headers` | `Record<string, string>` | — | Merged into every request. |
+| `timeout` | `number` | `30000` | Request timeout (ms). Triggers `AbortController`. |
+| `debug` | `boolean` | `false` | Gates internal `[GraphQL Client]` logs. Config-validation warnings always fire. |
+| `getAccessToken` | `() => string \| undefined \| Promise<string \| undefined>` | reads `localStorage['access_token']` in browser | Use this for SSR (`getServerSession`, HTTP-only cookies) or in-memory token stores. |
 
-1. **Standard API Key**: For general operations
-2. **Order Editor API Key**: For order management operations
+### Proxy contract
+
+When `securityMode: 'proxy'`, the SDK posts to `proxyEndpoint || endpoint` with:
+
+- **Method:** `POST`
+- **Headers:**
+  - `Content-Type: application/json`
+  - `X-Client-ID: <clientId>` (if configured)
+  - `Authorization: Bearer <token>` (if `getAccessToken()` returns a token)
+  - Any `headers` you supplied in config
+- **Body:** `{ query, variables, operationName }`
+
+Your proxy is expected to:
+
+1. Attach the upstream `apikey` header (and `orderEditorApiKey` for the operations you allow-list).
+2. Forward the request to the upstream Propeller GraphQL endpoint.
+3. Return the upstream JSON response untouched.
+
+A minimal Node/Edge handler looks like:
+
+```ts
+export async function handler(req: Request) {
+  const upstream = await fetch('https://api.helice.cloud/v2/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: process.env.PROPELLER_API_KEY!,
+    },
+    body: await req.text(),
+  });
+  return new Response(await upstream.text(), {
+    status: upstream.status,
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+```
+
+## Services
+
+Services wrap related GraphQL operations and return typed response objects. Every service extends `BaseService` and takes a `GraphQLClient` in its constructor.
+
+Core services include `ProductService`, `OrderService`, `CartService`, `UserService`, `PaymentService`, `CategoryService`, `AttributeService`, `DiscountService`, `BundleService`, `CrossupsellService`, `CompanyService`, `TaxService`, `ShipmentService`, `WarehouseService`, `BusinessRuleService` — 58 in total covering catalog, cart, order, user, B2B, media, and admin domains. See [the documentation](https://propeller-commerce.github.io/propeller-sdk-v2/) for the full list.
 
 ```typescript
-const client = new GraphQLClient({
-  endpoint: 'https://api.propeller.com/graphql',
-  apiKey: 'your-standard-api-key',
-  orderEditorApiKey: 'your-order-editor-api-key'
+import { CartService } from 'propeller-sdk-v2';
+
+const cartService = new CartService(getClient());
+const cart = await cartService.getCart({
+  cartId: '...',
+  language: 'NL',
+  imageSearchFilters: { page: 1, offset: 1 },
+  imageVariantFilters: { /* ... */ },
 });
 ```
 
-### Environment Variables
+## Direct GraphQL access
 
-You can also configure using environment variables:
-
-```bash
-PROPELLER_API_ENDPOINT=https://api.propeller.com/graphql
-PROPELLER_API_KEY=your-api-key
-PROPELLER_ORDER_EDITOR_API_KEY=your-order-editor-key
-```
-
-## Error Handling
+For ad-hoc queries that aren't covered by a service:
 
 ```typescript
 import { GraphQLClient } from 'propeller-sdk-v2';
 
+const client = new GraphQLClient({
+  endpoint: 'https://api.propeller.com/graphql',
+  securityMode: 'direct',
+  apiKey: 'your-api-key',
+});
+
+// Object-form arguments (preferred):
+const result = await client.execute({
+  query: `query GetProducts($offset: Int!) {
+    products(input: { offset: $offset }) {
+      id
+      name
+    }
+  }`,
+  variables: { offset: 10 },
+});
+
+// Or higher-level helpers that throw on GraphQL errors:
+const data = await client.query<{ viewer: { id: number } }>(
+  `query Viewer { viewer { id } }`
+);
+```
+
+## Error handling
+
+Services and the `query` / `mutate` / `queryByName` / `mutateByName` helpers throw `GraphQLOperationError` when the server returns a non-empty `errors` array. `client.execute()` itself returns the raw response so callers who want to inspect partial responses can.
+
+```typescript
+import { GraphQLOperationError } from 'propeller-sdk-v2';
+
 try {
-  const result = await client.execute(query, variables);
-  console.log(result);
-} catch (error) {
-  if (error.response) {
-    // GraphQL errors
-    console.error('GraphQL errors:', error.response.errors);
+  const product = await productService.getProduct({ productId: 1 });
+} catch (err) {
+  if (err instanceof GraphQLOperationError) {
+    // err.errors      — GraphQLErrorEntry[]
+    // err.operationName — string | undefined
+    // err.variables    — Record<string, any> | undefined
+    console.error('Operation failed:', err.errors);
   } else {
-    // Network or other errors
-    console.error('Error:', error.message);
+    // Network, HTTP, or timeout error
+    console.error('Request failed:', err);
   }
 }
 ```
 
+HTTP errors (non-2xx) include the response body in the thrown message (truncated to 500 chars) so upstream GraphQL parse errors surface clearly.
+
+## Authentication
+
+In proxy mode, every request runs `config.getAccessToken()` and attaches `Authorization: Bearer <token>` when a token is returned. The provider may be sync or async.
+
+```typescript
+// Browser (default): reads localStorage['access_token']
+initializeClient({ endpoint: '/api/graphql' });
+
+// SSR (Next.js): read from cookies on each request
+initializeClient({
+  endpoint: '/api/graphql',
+  getAccessToken: async () => {
+    const session = await getServerSession();
+    return session?.accessToken;
+  },
+});
+
+// In-memory store
+let token: string | undefined;
+initializeClient({ endpoint: '/api/graphql', getAccessToken: () => token });
+```
+
+`client.setAccessToken(token)` and `client.clearAccessToken()` write to / clear `localStorage` only when the default provider is in use; with a custom `getAccessToken` you manage the storage yourself.
+
+`client.isAuthenticated()` is async and resolves to `true` iff the configured provider yields a token.
+
+## Type definitions
+
+The SDK exports every input/response type used by Propeller's GraphQL schema as TypeScript classes (response objects) or interfaces (input objects). Enums are exported under the `Enums` namespace to avoid name conflicts with other types:
+
+```typescript
+import { Product, CreateProductInput, Enums } from 'propeller-sdk-v2';
+
+const status: Enums.ProductStatus = Enums.ProductStatus.A;
+
+const input: CreateProductInput = {
+  /* fields */
+};
+
+const product = new Product({ id: 1, sku: 'A' });
+```
+
+Response objects use a public-field shape with an `Object.assign`-style constructor, so `JSON.stringify(product)` produces a full payload and Redux DevTools / IndexedDB / SSR rehydration all work normally.
+
 ## Development
 
-### Building from Source
-
 ```bash
-# Install dependencies
+# Install
 npm install
 
-# Build the package
+# Build (runs fragment inliner + dual ESM/CJS compile)
 npm run build
 
-# Type check
+# Typecheck without emit
 npm run typecheck
 
-# Clean build artifacts
-npm run clean
+# Test
+npm test
 ```
 
-### Project Structure
+The build pipeline:
 
-```
-src/
-├── client/           # GraphQL client implementation
-├── enum/             # 135+ TypeScript enums
-├── type/             # 756+ TypeScript types and interfaces
-├── service/          # 52 service classes
-├── graphql/          # GraphQL documents
-│   ├── query/        # 125+ query definitions
-│   ├── mutation/     # 230+ mutation definitions
-│   └── fragment/     # Reusable fragments
-└── index.ts          # Main exports
-```
+1. `npm run build:graphql` — `scripts/build-graphql-bundle.js` reads every file under `src/graphql/`, transitively inlines fragment spreads, and writes pre-resolved strings to `src/generated/`.
+2. `npm run build:cjs` — emits `dist/cjs/` (CommonJS).
+3. `npm run build:esm` — emits `dist/esm/` (ES modules).
 
-## API Reference
-
-### GraphQL Client
-
-- `GraphQLClient` - Main client class
-- `execute(query, variables)` - Execute GraphQL operations
-- `registerFragment(name, fragment)` - Register reusable fragments
-
-### Service Classes
-
-All service classes extend `BaseService` and provide:
-- Type-safe method signatures
-- Automatic GraphQL document loading
-- Error handling and validation
-- JSDoc documentation
-
-### Core Types
-
-- **Product Types**: `Product`, `ProductInput`, `ProductSearchInput`
-- **Order Types**: `Order`, `OrderInput`, `OrderItem`
-- **User Types**: `User`, `Customer`, `AdminUser`
-- **Cart Types**: `Cart`, `CartItem`, `CartInput`
-- **Payment Types**: `Payment`, `PaymentMethod`, `Transaction`
+The `graphql` package is only required at build time and lives in `devDependencies`.
 
 ## Documentation
 
-### 📚 Complete API Documentation
-
-Comprehensive TypeDoc-generated documentation is available with full API reference, examples, and guides:
-
-**🌐 [View Live Documentation](https://propeller-commerce.github.io/propeller-sdk-v2/)**
-
-### Documentation Features
-
-- ** Full-text Search** - Find any class, method, or type instantly
-- ** Cross-referenced Links** - Navigate between related types and methods
-- ** JSDoc Comments** - Detailed descriptions for all APIs
-- ** Code Examples** - Usage examples for all service methods
-- ** Professional Theme** - Clean, GitHub-style interface
-- ** Mobile Responsive** - Works perfectly on all devices
-
-### Documentation Structure
-
-The documentation is organized into logical sections:
-
-#### 🛠️ **[Client](https://propeller-commerce.github.io/propeller-sdk-v2/classes/GraphQLClient.html)**
-- `GraphQLClient` - Core GraphQL client implementation
-- Connection management and authentication
-- Query execution and error handling
-
-#### 🔧 **[Services](https://propeller-commerce.github.io/propeller-sdk-v2/modules.html#services)**
-52 service classes covering all Commerce operations:
-- `ProductService` - Product management and search
-- `OrderService` - Order processing and fulfillment  
-- `UserService` - Authentication and user management
-- `CartService` - Shopping cart operations
-- `PaymentService` - Payment processing
-- And 47 more specialized services...
-
-#### 📋 **[Types](https://propeller-commerce.github.io/propeller-sdk-v2/modules.html#types)**
-756+ TypeScript interfaces and type definitions:
-- Input types for mutations
-- Response types for queries
-- Complex nested object types
-- Union and intersection types
-
-#### 🏷️ **[Enums](https://propeller-commerce.github.io/propeller-sdk-v2/modules.html#enums)**
-135+ enumeration types:
-- Status codes and states
-- Configuration options
-- Field value constraints
-- API constants
-
-### Building Documentation Locally
-
-To build and serve the documentation locally:
-
-```bash
-# Build documentation
-npm run docs:build
-
-# Serve locally on http://localhost:8080
-npm run docs:serve
-
-# Watch for changes (development)
-npm run docs:watch
-
-# Clean documentation
-npm run docs:clean
-```
-
-### Documentation Scripts
-
-The project includes several documentation-related scripts:
-
-- `docs:build` - Generate TypeDoc documentation
-- `docs:serve` - Serve documentation locally
-- `docs:watch` - Watch for changes and rebuild
-- `docs:clean` - Clean generated documentation
-- `docs:full` - Full build with post-processing
-
-### GitHub Pages Deployment
-
-Documentation is automatically deployed to GitHub Pages on every push to the main branch via GitHub Actions. The workflow:
-
-1. **Build** - Generates TypeDoc documentation
-2. **Process** - Adds GitHub Pages configuration
-3. **Deploy** - Publishes to GitHub Pages
-4. **Optimize** - Includes SEO and mobile optimizations
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and type checking
-5. Submit a pull request
+See the [generated TypeDoc site](https://propeller-commerce.github.io/propeller-sdk-v2/) for the full API reference.
 
 ## License
 
-MIT License - see LICENSE file for details
-
-## Support
-
-For support and questions:
-- GitHub Issues: [Report bugs or request features](https://github.com/propeller-commerce/propeller-sdk-v2/issues)
-- Documentation: [Full API documentation](https://docs.propeller-commerce.com/graphql-v2)
+MIT — see `LICENSE`.

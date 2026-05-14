@@ -4,6 +4,48 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.4.0] - 2026-05-14
+
+Internal cleanup pass that is intentionally **non-breaking** for existing consumers. The public surface (wrapper-class shape, service method signatures, `Enums.*` namespace, `client` singleton) is preserved. Highlights below.
+
+### Added
+
+- **Dual ESM + CJS build.** Bundlers (Next.js, Vite, etc.) now resolve real `import` syntax via `dist/esm/`; Node `require()` continues to work via `dist/cjs/`. Driven by a new `exports` field in `package.json` with `import`/`require`/`types` conditions.
+- **`orderEditorMutations` config option.** Override the built-in list of mutations routed to `orderEditorApiKey` in direct mode without an SDK upgrade. The built-in list (`orderSetStatus`, `passwordResetLink`, `triggerQuoteSendRequest`, `triggerOrderSendConfirm`) remains the default.
+- **Config-validation warnings at construction.** `console.warn` (always-on, not gated by `debug`) when `securityMode: 'proxy'` is combined with `apiKey`/`orderEditorApiKey`, when `securityMode: 'direct'` is set without `apiKey`, and when deprecated config fields are supplied.
+- **CI workflow** (`.github/workflows/ci.yml`) running typecheck, build, and tests on Node 18 / 20 / 22.
+
+### Changed
+
+- **Build-time fragment inlining.** `scripts/build-graphql-bundle.js` now parses each operation, transitively inlines all referenced fragments at build time, and writes pre-resolved strings to `src/generated/queries.ts` and `mutations.ts`. The runtime fragment resolver (`src/client/fragmentResolver.ts`) and the runtime `graphql` parse/print step are gone. **`graphql` is now a devDependency**, not a runtime dependency — consumer bundles shed roughly the `graphql` package's footprint.
+- **HTTP error messages now include the response body** (truncated to 500 chars). Previously the SDK threw `HTTP error! status: 400` and discarded the body, hiding the GraphQL parse error or upstream error text.
+- **`extractOperationName` strips leading `#` comments** before matching the `query NAME`/`mutation NAME` pattern. Anonymous operations now cleanly return `undefined` instead of misidentifying themselves.
+- **Deprecated `client` Proxy export now binds `this` correctly.** Methods accessed through the singleton (`client.query(...)`) used to lose their `this` context; they now route through a bound function. `getClient()` remains the preferred path.
+
+### Deprecated
+
+- **`customFragmentsPath`, `customQueriesPath`, `customMutationsPath`, `allowCustomOverride`.** Build-time inlining replaces the runtime override path. These config fields are now silently ignored at runtime and emit a deprecation warning at construction.
+- **`GraphQLOperation.skipFragmentResolution`.** No-op since 0.4.0 — there is no runtime fragment resolution to skip. Kept on the interface for source-compatibility.
+
+### Removed
+
+- **`src/client/fragmentResolver.ts`** — runtime fragment AST registry and inlining. Functionality moved to build script.
+- **`loadGraphQLDirectory` / `loadFragments` / `loadQueries` / `loadMutations` private methods** on `GraphQLClient` and the runtime `require('fs')` / `require('path')` calls they made. Bundlers no longer flag the SDK for accessing the Node filesystem.
+
+### Fixed
+
+- README examples now match the actual API: `client.execute({ query, variables })` (object form, not positional args), `error.errors` on `GraphQLOperationError` (not `error.response.errors`), accurate service count.
+- `SECURITY_SOLUTION.md` removed. Replaced with a "Proxy contract" section in the README that documents the request/response shape consumers need their proxy to support, without referencing a serverless-proxy directory that never shipped.
+
+### Migration notes
+
+- **No code changes required** for typical consumers. Imports, service instantiation (`new ProductService(client)`), method calls, and response object shapes (`product.id`, `product.names`, etc.) are unchanged.
+- **Bundler users** will see a smaller bundle (`graphql` no longer ends up in your dependency graph through this SDK).
+- **If you used `customFragmentsPath` or related runtime overrides**, see the new build-time approach: edit `src/graphql/fragment/*.graphql` and rerun `npm run build:graphql`. The runtime config fields remain typed for source-compat but are ignored.
+- **If you relied on `console.log` from `GraphQLClient`**, pass `debug: true` in config. All internal logs are gated; the new config-validation warnings always fire because they indicate configuration mistakes.
+
+---
+
 ## [0.3.0] - 2026-05-14
 
 Architectural hygiene pass. Two behavior changes worth flagging in **BREAKING** below; the rest is internal cleanup that consumers should not notice except as better behavior.

@@ -44,12 +44,310 @@ export const adminUserUpdate = `mutation adminUserUpdate(\$email: String!, \$inp
   }
 }`;
 
-export const attributeCreate = `mutation attributeCreate(\$input: AttributeCreateInput!) {
+export const attributeCreate = `fragment AttributeFields on Attribute {
+  ... on CategoryAttribute {
+    ...CategoryAttributeFields
+  }
+  ... on ClusterAttribute {
+    ...ClusterAttributeFields
+  }
+  ... on CompanyAttribute {
+    ...CompanyAttributeFields
+  }
+  ... on ContactAttribute {
+    ...ContactAttributeFields
+  }
+  ... on CustomerAttribute {
+    ...CustomerAttributeFields
+  }
+  ... on ProductAttribute {
+    ...ProductAttributeFields
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+mutation attributeCreate(\$input: AttributeCreateInput!) {
   attributeCreate(input: \$input) {
     ...AttributeFields
   }
-}
-`;
+}`;
 
 export const attributeCsvImport = `mutation attributeCsvImport(\$input: AttributeCsvInput!) {
   attributeCsvImport(input: \$input) {
@@ -62,7 +360,32 @@ export const attributeDelete = `mutation attributeDelete(\$id: String!) {
 }
 `;
 
-export const attributeDescriptionCreate = `mutation attributeDescriptionCreate(\$input: AttributeDescriptionCreateInput!) {
+export const attributeDescriptionCreate = `fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+mutation attributeDescriptionCreate(\$input: AttributeDescriptionCreateInput!) {
   attributeDescriptionCreate(input: \$input) {
     ...AttributeDescriptionFields
   }
@@ -79,27 +402,405 @@ export const attributeDescriptionDelete = `mutation attributeDescriptionDelete(\
 }
 `;
 
-export const attributeDescriptionDeleteBulk = `mutation attributeDescriptionDeleteBulk(\$ids: [String!]!) {
+export const attributeDescriptionDeleteBulk = `fragment BulkDeleteResponseFields on BulkDeleteResponse {
+  deletedIds
+  failedIds
+}
+
+mutation attributeDescriptionDeleteBulk(\$ids: [String!]!) {
   attributeDescriptionDeleteBulk(ids: \$ids) {
     ...BulkDeleteResponseFields
   }
-}
-`;
+}`;
 
-export const attributeDescriptionUpdate = `mutation attributeDescriptionUpdate(\$id: String!, \$input: AttributeDescriptionUpdateInput!) {
+export const attributeDescriptionUpdate = `fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+mutation attributeDescriptionUpdate(\$id: String!, \$input: AttributeDescriptionUpdateInput!) {
   attributeDescriptionUpdate(id: \$id, input: \$input) {
     ...AttributeDescriptionFields
   }
 }`;
 
-export const attributeUpdate = `mutation attributeUpdate(\$id: String!, \$input: AttributeUpdateInput!) {
+export const attributeUpdate = `fragment AttributeFields on Attribute {
+  ... on CategoryAttribute {
+    ...CategoryAttributeFields
+  }
+  ... on ClusterAttribute {
+    ...ClusterAttributeFields
+  }
+  ... on CompanyAttribute {
+    ...CompanyAttributeFields
+  }
+  ... on ContactAttribute {
+    ...ContactAttributeFields
+  }
+  ... on CustomerAttribute {
+    ...CustomerAttributeFields
+  }
+  ... on ProductAttribute {
+    ...ProductAttributeFields
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+mutation attributeUpdate(\$id: String!, \$input: AttributeUpdateInput!) {
   attributeUpdate(id: \$id, input: \$input) {
     ...AttributeFields
   }
-}
-`;
+}`;
 
-export const authenticationCreate = `mutation authenticationCreate(\$input: CreateAuthenticationInput!) {
+export const authenticationCreate = `fragment LoginFields on Login {
+  providerId
+  operationType
+  session {
+    ...GCIPUserFields
+  }
+}
+
+fragment GCIPUserFields on GCIPUser {
+  uid
+  email
+  emailVerified
+  displayName
+  photoUrl
+  phoneNumber
+  disabled
+  isAnonymous
+  metadata {
+    lastSignInTime
+    creationTime
+    lastRefreshTime
+  }
+  tokensValidAfterTime
+  tenantId
+  providerData {
+    uid
+    providerId
+    displayName
+    photoUrl
+    federatedId
+    email
+    rawId
+    screenName
+    phoneNumber
+  }
+  passwordHash
+  passwordSalt
+  authDomain
+  lastLoginAt
+  createdAt
+  accessToken
+  refreshToken
+  expirationTime
+  multiFactor {
+    enrolledFactors {
+      factorId
+      phoneNumber
+    }
+  }
+}
+
+mutation authenticationCreate(\$input: CreateAuthenticationInput!) {
   authenticationCreate(input: \$input) {
     ...LoginFields
   }
@@ -110,7 +811,18 @@ export const authenticationDelete = `mutation authenticationDelete(\$uid: String
 }
 `;
 
-export const bulkCostPriceCreate = `mutation bulkCostPriceCreate(\$input: BulkCostPriceCreateInput!) {
+export const bulkCostPriceCreate = `fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+mutation bulkCostPriceCreate(\$input: BulkCostPriceCreateInput!) {
   bulkCostPriceCreate(input: \$input) {
     ...BulkCostPriceFields
   }
@@ -138,13 +850,32 @@ export const bulkCostPricesDelete = `mutation bulkCostPricesDelete(\$priceId: St
 }
 `;
 
-export const bulkCostPriceUpdate = `mutation bulkCostPriceUpdate(\$id: String!, \$input: BulkCostPriceUpdateInput!) {
+export const bulkCostPriceUpdate = `fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+mutation bulkCostPriceUpdate(\$id: String!, \$input: BulkCostPriceUpdateInput!) {
   bulkCostPriceUpdate(id: \$id, input: \$input) {
     ...BulkCostPriceFields
   }
 }`;
 
-export const bulkPriceCreate = `mutation bulkPriceCreate(\$input: BulkPriceCreateInput!) {
+export const bulkPriceCreate = `fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+mutation bulkPriceCreate(\$input: BulkPriceCreateInput!) {
   bulkPriceCreate(input: \$input) {
     ...BulkPriceFields
   }
@@ -172,26 +903,511 @@ export const bulkPricesDelete = `mutation bulkPricesDelete(\$priceId: String!) {
 }
 `;
 
-export const bulkPriceUpdate = `mutation bulkPriceUpdate(\$id: String!, \$input: BulkPriceUpdateInput!) {
+export const bulkPriceUpdate = `fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+mutation bulkPriceUpdate(\$id: String!, \$input: BulkPriceUpdateInput!) {
   bulkPriceUpdate(id: \$id, input: \$input) {
     ...BulkPriceFields
   }
 }`;
 
-export const bundleAddItems = `mutation bundleAddItems(\$id: String!, \$input: BundleAddItemsInput!) {
+export const bundleAddItems = `fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation bundleAddItems(\$id: String!, \$input: BundleAddItemsInput!) {
   bundleAddItems(id: \$id, input: \$input) {
     ...BundleItemFields
   }
 }`;
 
-export const bundleAddItemsAndReturnBundle = `mutation bundleAddItemsAndReturnBundle(\$id: String!, \$input: BundleAddItemsInput!) {
+export const bundleAddItemsAndReturnBundle = `fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation bundleAddItemsAndReturnBundle(\$id: String!, \$input: BundleAddItemsInput!) {
   bundleAddItemsAndReturnBundle(id: \$id, input: \$input) {
     ...BundleFields
   }
-}
-`;
+}`;
 
-export const bundleCreate = `mutation bundleCreate(\$input: BundleCreateInput!) {
+export const bundleCreate = `fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation bundleCreate(\$input: BundleCreateInput!) {
   bundleCreate(input: \$input) {
     ...BundleFields
   }
@@ -207,14 +1423,345 @@ export const bundleRemoveItem = `mutation bundleRemoveItem(\$id: String!, \$prod
 }
 `;
 
-export const bundleRemoveItemAndReturnBundle = `mutation bundleRemoveItemAndReturnBundle(\$id: String!, \$productId: Int!, \$taxZone: String) {
-  bundleRemoveItemAndReturnBundle(id: \$id, productId: \$productId, taxZone: \$taxZone) {
-    ...BundleFields
+export const bundleRemoveItemAndReturnBundle = `fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
   }
 }
-`;
 
-export const bundleUpdate = `mutation bundleUpdate(\$id: String!, \$input: BundleUpdateInput!) {
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation bundleRemoveItemAndReturnBundle(\$id: String!, \$productId: Int!, \$taxZone: String) {
+  bundleRemoveItemAndReturnBundle(
+    id: \$id
+    productId: \$productId
+    taxZone: \$taxZone
+  ) {
+    ...BundleFields
+  }
+}`;
+
+export const bundleUpdate = `fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation bundleUpdate(\$id: String!, \$input: BundleUpdateInput!) {
   bundleUpdate(id: \$id, input: \$input) {
     ...BundleFields
   }
@@ -284,14 +1831,213 @@ export const carrierAssignWarehouse = `mutation carrierAssignWarehouse(\$id: Int
 }
 `;
 
-export const carrierAssignWarehouseAndReturnCarrier = `mutation carrierAssignWarehouseAndReturnCarrier(\$id: Int!, \$warehouseId: Int!) {
+export const carrierAssignWarehouseAndReturnCarrier = `fragment CarrierFields on Carrier {
+  id
+  name
+  type
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shippingCost
+  trackAndTraceURL
+  logo
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+  warehouses {
+    ...WarehouseFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation carrierAssignWarehouseAndReturnCarrier(\$id: Int!, \$warehouseId: Int!) {
   carrierAssignWarehouseAndReturnCarrier(id: \$id, warehouseId: \$warehouseId) {
     ...CarrierFields
   }
-}
-`;
+}`;
 
-export const carrierCreate = `mutation carrierCreate(\$input: CarrierCreateInput!) {
+export const carrierCreate = `fragment CarrierFields on Carrier {
+  id
+  name
+  type
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shippingCost
+  trackAndTraceURL
+  logo
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+  warehouses {
+    ...WarehouseFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation carrierCreate(\$input: CarrierCreateInput!) {
   carrierCreate(input: \$input) {
     ...CarrierFields
   }
@@ -307,60 +2053,2079 @@ export const carrierUnassignWarehouse = `mutation carrierUnassignWarehouse(\$id:
 }
 `;
 
-export const carrierUnassignWarehouseAndReturnCarrier = `mutation carrierUnassignWarehouseAndReturnCarrier(\$id: Int!, \$warehouseId: Int!) {
+export const carrierUnassignWarehouseAndReturnCarrier = `fragment CarrierFields on Carrier {
+  id
+  name
+  type
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shippingCost
+  trackAndTraceURL
+  logo
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+  warehouses {
+    ...WarehouseFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation carrierUnassignWarehouseAndReturnCarrier(\$id: Int!, \$warehouseId: Int!) {
   carrierUnassignWarehouseAndReturnCarrier(id: \$id, warehouseId: \$warehouseId) {
     ...CarrierFields
   }
-}
-`;
+}`;
 
-export const carrierUpdate = `mutation carrierUpdate(\$id: Int!, \$input: CarrierUpdateInput!) {
+export const carrierUpdate = `fragment CarrierFields on Carrier {
+  id
+  name
+  type
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shippingCost
+  trackAndTraceURL
+  logo
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+  warehouses {
+    ...WarehouseFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation carrierUpdate(\$id: Int!, \$input: CarrierUpdateInput!) {
   carrierUpdate(id: \$id, input: \$input) {
     ...CarrierFields
   }
 }`;
 
-export const cartAcceptPurchaseAuthorizationRequest = `mutation cartAcceptPurchaseAuthorizationRequest(
-  \$id: String!
-  \$input: CartAcceptPurchaseAuthorizationRequestInput
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartAcceptPurchaseAuthorizationRequest = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartAcceptPurchaseAuthorizationRequest(\$id: String!, \$input: CartAcceptPurchaseAuthorizationRequestInput, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartAcceptPurchaseAuthorizationRequest(id: \$id, input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartAddActionCode = `mutation cartAddActionCode(
-  \$id: String!
-  \$input: CartActionCodeInput!
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartAddActionCode = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartAddActionCode(\$id: String!, \$input: CartActionCodeInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartAddActionCode(id: \$id, input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartAddBundle = `mutation cartAddBundle(
-  \$id: String!
-  \$input: CartAddBundleInput!
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartAddBundle = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartAddBundle(\$id: String!, \$input: CartAddBundleInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartAddBundle(id: \$id, input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartAddItem = `mutation cartAddItem(
-  \$id: String!
-  \$input: CartAddItemInput!
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartAddItem = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartAddItem(\$id: String!, \$input: CartAddItemInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartAddItem(id: \$id, input: \$input) {
-    ... CartFields
+    ...CartFields
   }
 }`;
 
@@ -368,12 +4133,467 @@ export const cartDelete = `mutation cartDelete(\$id: String!) {
   cartDelete(id: \$id)
 }`;
 
-export const cartDeleteItem = `mutation cartDeleteItem(
-  \$id: String!
-  \$input: CartDeleteItemInput!
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartDeleteItem = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartDeleteItem(\$id: String!, \$input: CartDeleteItemInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartDeleteItem(id: \$id, input: \$input) {
     ...CartFields
   }
@@ -399,12 +4619,467 @@ export const cartProcess = `mutation cartProcess(\$id: String!, \$input: CartPro
   }
 }`;
 
-export const cartRemoveActionCode = `mutation cartRemoveActionCode(
-  \$id: String!
-  \$input: CartActionCodeInput!
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartRemoveActionCode = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartRemoveActionCode(\$id: String!, \$input: CartActionCodeInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartRemoveActionCode(id: \$id, input: \$input) {
     ...CartFields
   }
@@ -416,63 +5091,3263 @@ export const cartRequestPurchaseAuthorization = `mutation cartRequestPurchaseAut
   }
 }`;
 
-export const cartSetContact = `mutation cartSetContact(\$id: String!, \$input: CartSetContactInput!) {
+export const cartSetContact = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartSetContact(\$id: String!, \$input: CartSetContactInput!) {
   cartSetContact(id: \$id, input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartSetCustomer = `mutation cartSetCustomer(\$id: String!, \$input: CartSetCustomerInput!) {
+export const cartSetCustomer = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartSetCustomer(\$id: String!, \$input: CartSetCustomerInput!) {
   cartSetCustomer(id: \$id, input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartSetUser = `mutation cartSetUser(\$id: String!, \$input: CartSetUserInput!) {
+export const cartSetUser = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartSetUser(\$id: String!, \$input: CartSetUserInput!) {
   cartSetUser(id: \$id, input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartStart = `mutation cartStart(
-  \$input: CartStartInput
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartStart = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartStart(\$input: CartStartInput, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartStart(input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartUpdate = `mutation cartUpdate(
-  \$id: String!
-  \$input: CartUpdateInput!
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartUpdate = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartUpdate(\$id: String!, \$input: CartUpdateInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartUpdate(id: \$id, input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartUpdateAddress = `mutation cartUpdateAddress(
-  \$id: String! 
-  \$input: CartUpdateAddressInput!
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartUpdateAddress = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartUpdateAddress(\$id: String!, \$input: CartUpdateAddressInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartUpdateAddress(id: \$id, input: \$input) {
     ...CartFields
   }
 }`;
 
-export const cartUpdateItem = `mutation cartUpdateItem(
-  \$id: String!
-  \$itemId: String!
-  \$input: CartUpdateItemInput!
-  \$language: String
-  \$imageSearchFilters: MediaImageProductSearchInput
-  \$imageVariantFilters: TransformationsInput!) {
+export const cartUpdateItem = `fragment CartFields on Cart {
+  cartId
+  channelId
+  shopId
+  contactId
+  customerId
+  companyId
+  notes
+  reference
+  extra3
+  extra4
+  orderStatus
+  actionCode
+  vouchers {
+    ...CartVoucherFields
+  }
+  paymentData {
+    ...CartPaymentDataFields
+  }
+  postageData {
+    ...CartPostageDataFields
+  }
+  total {
+    ...CartTotalFields
+  }
+  items {
+    ...CartMainItemFields
+  }
+  bonusItems {
+    ...CartBaseItemFields
+  }
+  unOrderableItems {
+    itemId
+    parentItemUUID
+    priceMode
+    quantity
+    price
+    notes
+    productId
+    clusterId
+    bundleId
+  }
+  invoiceAddress {
+    ...CartAddressFields
+  }
+  deliveryAddress {
+    ...CartAddressFields
+  }
+  taxLevels {
+    ...CartTaxLevelFields
+  }
+  payMethods {
+    ...CartPaymethodFields
+  }
+  carriers {
+    ...CartCarrierFields
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  appliedIncentives {
+    ...CartIncentiveFields
+  }
+  valuePoints
+  shippingMethods {
+    ...CartShippingMethodFields
+  }
+  language
+  purchaseAuthorizationRequired
+  status
+  contact {
+    contactId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+  }
+}
+
+fragment CartVoucherFields on CartVoucher {
+  code
+  name
+  description
+  ruleId
+  redeemed
+  combinable
+  partialRedemption
+  available
+  remaining
+}
+
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}
+
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}
+
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}
+
+fragment CartMainItemFields on CartMainItem {
+  itemId
+  productId
+  bundleId
+  bundle {
+    ...BundleFields
+  }
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  clusterId
+  taxCode
+  deliveryDate
+  deliveryDeadline
+  discount
+  discountPercentage
+  surcharges {
+    ...CartItemSurchargeFields
+  }
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  childItems {
+    itemId
+    parentItemUUID
+    notes
+    price
+    priceNet
+    priceMode
+    totalPrice
+    totalPriceNet
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    quantity
+    bundleId
+    clusterId
+    productId
+    taxCode
+    deliveryDate
+    deliveryDeadline
+    discount
+    discountPercentage
+    product {
+      ...ProductCartFields
+    }
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}
+
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment CartAddressFields on CartAddress {
+  company
+  gender
+  firstName
+  middleName
+  lastName
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  code
+  email
+  mobile
+  phone
+  icp
+  notes
+}
+
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}
+
+fragment CartPaymethodFields on CartPaymethod {
+  code
+  name
+  externalCode
+  type
+  taxCode
+  price
+}
+
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}
+
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}
+
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}
+
+mutation cartUpdateItem(\$id: String!, \$itemId: String!, \$input: CartUpdateItemInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cartUpdateItem(id: \$id, itemId: \$itemId, input: \$input) {
     ...CartFields
   }
@@ -484,7 +8359,615 @@ export const categoryAddProductsClusters = `mutation categoryAddProductsClusters
   }
 }`;
 
-export const categoryCreate = `mutation categoryCreate(\$input: CreateCategoryInput!) {
+export const categoryCreate = `fragment CategoryFields on Category {
+  categoryId
+  urlId: categoryId
+  ...CategoryMinimalFields
+  attributes {
+    ...AttributeResultCategoryResponseFields
+  }
+  path
+  parent {
+    ...CategoryMinimalFields
+  }
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataKeywords {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+  hidden
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  products(input: \$categoryProductSearchInput) {
+    ...ProductsResponseFields
+  }
+}
+
+fragment CategoryMinimalFields on Category {
+  categoryId
+  name(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description(language: \$language) {
+    ...LocalizedStringFields
+  }
+  shortDescription(language: \$language) {
+    ...LocalizedStringFields
+  }
+  slug(language: \$language) {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment AttributeResultCategoryResponseFields on AttributeResultResponse {
+  items {
+    ...AttributeCategoryResultFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+
+fragment AttributeCategoryResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment ProductsResponseFields on ProductsResponse {
+  items {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+  minPrice
+  maxPrice
+  filters(input: \$filterAvailableAttributeInput) {
+    ...AttributeFilterFields
+  }
+}
+
+fragment ClusterGridFields on Cluster {
+  ...IBaseProductFields
+  clusterId
+  categoryId
+  products {
+    ...ProductGridFields
+  }
+  options {
+    ...ClusterOptionFields
+  }
+  defaultProduct {
+    ...ProductGridFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductGridFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+  containerClass
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+fragment AttributeFilterFields on AttributeFilter {
+  id
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    type
+  }
+  type
+  textFilters {
+    value
+    count
+    countTotal
+    countActive
+    isSelected
+  }
+  integerRangeFilter {
+    min
+    max
+  }
+  decimalRangeFilter {
+    min
+    max
+  }
+}
+
+mutation categoryCreate(\$input: CreateCategoryInput!) {
   categoryCreate(input: \$input) {
     ...CategoryFields
   }
@@ -507,7 +8990,615 @@ export const categoryRemoveProductsClusters = `mutation categoryRemoveProductsCl
   }
 }`;
 
-export const categoryUpdate = `mutation categoryUpdate(\$categoryId: Float!, \$input: UpdateCategoryInput!) {
+export const categoryUpdate = `fragment CategoryFields on Category {
+  categoryId
+  urlId: categoryId
+  ...CategoryMinimalFields
+  attributes {
+    ...AttributeResultCategoryResponseFields
+  }
+  path
+  parent {
+    ...CategoryMinimalFields
+  }
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataKeywords {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+  hidden
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  products(input: \$categoryProductSearchInput) {
+    ...ProductsResponseFields
+  }
+}
+
+fragment CategoryMinimalFields on Category {
+  categoryId
+  name(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description(language: \$language) {
+    ...LocalizedStringFields
+  }
+  shortDescription(language: \$language) {
+    ...LocalizedStringFields
+  }
+  slug(language: \$language) {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment AttributeResultCategoryResponseFields on AttributeResultResponse {
+  items {
+    ...AttributeCategoryResultFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+
+fragment AttributeCategoryResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment ProductsResponseFields on ProductsResponse {
+  items {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+  minPrice
+  maxPrice
+  filters(input: \$filterAvailableAttributeInput) {
+    ...AttributeFilterFields
+  }
+}
+
+fragment ClusterGridFields on Cluster {
+  ...IBaseProductFields
+  clusterId
+  categoryId
+  products {
+    ...ProductGridFields
+  }
+  options {
+    ...ClusterOptionFields
+  }
+  defaultProduct {
+    ...ProductGridFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductGridFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+  containerClass
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+fragment AttributeFilterFields on AttributeFilter {
+  id
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    type
+  }
+  type
+  textFilters {
+    value
+    count
+    countTotal
+    countActive
+    isSelected
+  }
+  integerRangeFilter {
+    min
+    max
+  }
+  decimalRangeFilter {
+    min
+    max
+  }
+}
+
+mutation categoryUpdate(\$categoryId: Float!, \$input: UpdateCategoryInput!) {
   categoryUpdate(categoryId: \$categoryId, input: \$input) {
     ...CategoryFields
   }
@@ -550,12 +9641,25 @@ export const clusterAssignProducts = `mutation clusterAssignProducts(\$clusterId
   }
 }`;
 
-export const clusterBulkMove = `mutation clusterBulkMove(\$input: ClusterBulkMoveInput!) {
+export const clusterBulkMove = `fragment ClusterBulkMoveResponseFields on ClusterBulkMoveResponse {
+  movedCount
+  errors {
+    ...ClusterBulkMoveErrorFields
+  }
+}
+
+fragment ClusterBulkMoveErrorFields on ClusterBulkMoveError {
+  code
+  messages
+  record
+  rowNumber
+}
+
+mutation clusterBulkMove(\$input: ClusterBulkMoveInput!) {
   clusterBulkMove(input: \$input) {
     ...ClusterBulkMoveResponseFields
   }
-}
-`;
+}`;
 
 export const clusterConfigAddSetting = `mutation clusterConfigAddSetting(\$clusterConfigId: Int!, \$input: ClusterConfigSettingInput!) {
   clusterConfigAddSetting(clusterConfigId: \$clusterConfigId, input: \$input) {
@@ -563,7 +9667,27 @@ export const clusterConfigAddSetting = `mutation clusterConfigAddSetting(\$clust
   }
 }`;
 
-export const clusterConfigCreate = `mutation clusterConfigCreate(\$input: ClusterConfigCreateInput!) {
+export const clusterConfigCreate = `fragment ClusterConfigResponseFields on ClusterConfigResponse {
+  ...ClusterConfigFields
+}
+
+fragment ClusterConfigFields on ClusterConfig {
+  id
+  name
+  settings {
+    ...ClusterConfigSettingFields
+  }
+}
+
+fragment ClusterConfigSettingFields on ClusterConfigSetting {
+  id
+  name
+  type
+  displayType
+  priority
+}
+
+mutation clusterConfigCreate(\$input: ClusterConfigCreateInput!) {
   clusterConfigCreate(input: \$input) {
     ...ClusterConfigResponseFields
   }
@@ -585,7 +9709,778 @@ export const clusterConfigUpdateSetting = `mutation clusterConfigUpdateSetting(\
   }
 }`;
 
-export const clusterCreate = `mutation clusterCreate(\$input: ClusterCreateInput!) {
+export const clusterCreate = `fragment ClusterFields on Cluster {
+  ...IBaseProductFields
+  clusterId
+  categoryId
+  attributes {
+    ...AttributeResultProductResponseFields
+  }
+  category {
+    ...CategoryMinimalFields
+  }
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  products {
+    ...ProductFields
+  }
+  createdAt
+  lastModifiedAt
+  options {
+    ...ClusterOptionFields
+  }
+  defaultProduct {
+    ...ProductFields
+  }
+  config {
+    ...ClusterConfigFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment AttributeResultProductResponseFields on AttributeResultResponse {
+  items {
+    ...AttributeResultProductFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+
+fragment AttributeResultProductFields on AttributeResult {
+  attribute {
+    __typename
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment CategoryMinimalFields on Category {
+  categoryId
+  name(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description(language: \$language) {
+    ...LocalizedStringFields
+  }
+  shortDescription(language: \$language) {
+    ...LocalizedStringFields
+  }
+  slug(language: \$language) {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  attributes(input: \$attributeResultSearchInput) {
+    ...AttributeResultProductResponseFields
+  }
+  bundles {
+    ...BundleFields
+  }
+  category {
+    ...CategoryMinimalFields
+  }
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductPriceFields
+  }
+  priceData {
+    display
+  }
+  bulkPrices(input: \$userBulkPriceProductInput) {
+    ...ProductPriceFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  barCode
+  turnoverGroup
+  taxonomy
+  priceGroup
+  orderable
+  returnable
+  physical
+  hasBundle
+  isBundleLeader
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  economicOrderQuantity
+  orderableFrom
+  orderableTo
+  releaseDate
+  createdAt
+  lastModifiedAt
+  containerClass
+  surcharges {
+    ...SurchargeFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ProductMediaFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  videos(search: \$mediaVideoSearchInput) {
+    items {
+      ...MediaVideoFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  documents(search: \$mediaDocumentSearchInput) {
+    items {
+      ...MediaDocumentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaVideoFields on MediaVideo {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  videos {
+    language
+    uri
+    mimeType
+  }
+}
+
+fragment MediaDocumentFields on MediaDocument {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  documents {
+    language
+    originalUrl
+    mimeType
+  }
+}
+
+fragment ProductPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on BulkCostPrice {
+      ...BulkCostPriceFields
+    }
+    ... on BulkPrice {
+      ...BulkPriceFields
+    }
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}
+
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment ClusterConfigFields on ClusterConfig {
+  id
+  name
+  settings {
+    ...ClusterConfigSettingFields
+  }
+}
+
+fragment ClusterConfigSettingFields on ClusterConfigSetting {
+  id
+  name
+  type
+  displayType
+  priority
+}
+
+mutation clusterCreate(\$input: ClusterCreateInput!) {
   clusterCreate(input: \$input) {
     ...ClusterFields
   }
@@ -602,7 +10497,182 @@ export const clusterDelete = `mutation clusterDelete(\$id: Int!) {
 }
 `;
 
-export const clusterOptionCreate = `mutation clusterOptionCreate(\$clusterId: Int!, \$input: ClusterOptionCreateInput!) {
+export const clusterOptionCreate = `fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+mutation clusterOptionCreate(\$clusterId: Int!, \$input: ClusterOptionCreateInput!) {
   clusterOptionCreate(clusterId: \$clusterId, input: \$input) {
     ...ClusterOptionFields
   }
@@ -613,13 +10683,832 @@ export const clusterOptionDelete = `mutation clusterOptionDelete(\$clusterId: In
 }
 `;
 
-export const clusterOptionUpdate = `mutation clusterOptionUpdate(\$clusterId: Int!, \$optionId: Int!, \$input: ClusterOptionUpdateInput!) {
+export const clusterOptionUpdate = `fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+mutation clusterOptionUpdate(\$clusterId: Int!, \$optionId: Int!, \$input: ClusterOptionUpdateInput!) {
   clusterOptionUpdate(clusterId: \$clusterId, optionId: \$optionId, input: \$input) {
     ...ClusterOptionFields
   }
 }`;
 
-export const clusterProductCreate = `mutation clusterProductCreate(\$id: Int!, \$input: CreateProductInput!) {
+export const clusterProductCreate = `fragment ProductFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  attributes(input: \$attributeResultSearchInput) {
+    ...AttributeResultProductResponseFields
+  }
+  bundles {
+    ...BundleFields
+  }
+  category {
+    ...CategoryMinimalFields
+  }
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductPriceFields
+  }
+  priceData {
+    display
+  }
+  bulkPrices(input: \$userBulkPriceProductInput) {
+    ...ProductPriceFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  barCode
+  turnoverGroup
+  taxonomy
+  priceGroup
+  orderable
+  returnable
+  physical
+  hasBundle
+  isBundleLeader
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  economicOrderQuantity
+  orderableFrom
+  orderableTo
+  releaseDate
+  createdAt
+  lastModifiedAt
+  containerClass
+  surcharges {
+    ...SurchargeFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment AttributeResultProductResponseFields on AttributeResultResponse {
+  items {
+    ...AttributeResultProductFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+
+fragment AttributeResultProductFields on AttributeResult {
+  attribute {
+    __typename
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CategoryMinimalFields on Category {
+  categoryId
+  name(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description(language: \$language) {
+    ...LocalizedStringFields
+  }
+  shortDescription(language: \$language) {
+    ...LocalizedStringFields
+  }
+  slug(language: \$language) {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductMediaFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  videos(search: \$mediaVideoSearchInput) {
+    items {
+      ...MediaVideoFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  documents(search: \$mediaDocumentSearchInput) {
+    items {
+      ...MediaDocumentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaVideoFields on MediaVideo {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  videos {
+    language
+    uri
+    mimeType
+  }
+}
+
+fragment MediaDocumentFields on MediaDocument {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  documents {
+    language
+    originalUrl
+    mimeType
+  }
+}
+
+fragment ProductPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on BulkCostPrice {
+      ...BulkCostPriceFields
+    }
+    ... on BulkPrice {
+      ...BulkPriceFields
+    }
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}
+
+mutation clusterProductCreate(\$id: Int!, \$input: CreateProductInput!) {
   clusterProductCreate(id: \$id, input: \$input) {
     ...ProductFields
   }
@@ -630,7 +11519,651 @@ export const clusterProductDelete = `mutation clusterProductDelete(\$id: Int!, \
 }
 `;
 
-export const clusterProductUpdate = `mutation clusterProductUpdate(\$id: Int!, \$productId: Int!, \$input: UpdateProductInput!) {
+export const clusterProductUpdate = `fragment ProductFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  attributes(input: \$attributeResultSearchInput) {
+    ...AttributeResultProductResponseFields
+  }
+  bundles {
+    ...BundleFields
+  }
+  category {
+    ...CategoryMinimalFields
+  }
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductPriceFields
+  }
+  priceData {
+    display
+  }
+  bulkPrices(input: \$userBulkPriceProductInput) {
+    ...ProductPriceFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  barCode
+  turnoverGroup
+  taxonomy
+  priceGroup
+  orderable
+  returnable
+  physical
+  hasBundle
+  isBundleLeader
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  economicOrderQuantity
+  orderableFrom
+  orderableTo
+  releaseDate
+  createdAt
+  lastModifiedAt
+  containerClass
+  surcharges {
+    ...SurchargeFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment AttributeResultProductResponseFields on AttributeResultResponse {
+  items {
+    ...AttributeResultProductFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+
+fragment AttributeResultProductFields on AttributeResult {
+  attribute {
+    __typename
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CategoryMinimalFields on Category {
+  categoryId
+  name(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description(language: \$language) {
+    ...LocalizedStringFields
+  }
+  shortDescription(language: \$language) {
+    ...LocalizedStringFields
+  }
+  slug(language: \$language) {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductMediaFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  videos(search: \$mediaVideoSearchInput) {
+    items {
+      ...MediaVideoFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  documents(search: \$mediaDocumentSearchInput) {
+    items {
+      ...MediaDocumentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaVideoFields on MediaVideo {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  videos {
+    language
+    uri
+    mimeType
+  }
+}
+
+fragment MediaDocumentFields on MediaDocument {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  documents {
+    language
+    originalUrl
+    mimeType
+  }
+}
+
+fragment ProductPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on BulkCostPrice {
+      ...BulkCostPriceFields
+    }
+    ... on BulkPrice {
+      ...BulkPriceFields
+    }
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}
+
+mutation clusterProductUpdate(\$id: Int!, \$productId: Int!, \$input: UpdateProductInput!) {
   clusterProductUpdate(id: \$id, productId: \$productId, input: \$input) {
     ...ProductFields
   }
@@ -642,13 +12175,812 @@ export const clusterUnassignProducts = `mutation clusterUnassignProducts(\$clust
   }
 }`;
 
-export const clusterUpdate = `mutation clusterUpdate(\$id: Int!, \$input: ClusterUpdateInput!) {
+export const clusterUpdate = `fragment ClusterFields on Cluster {
+  ...IBaseProductFields
+  clusterId
+  categoryId
+  attributes {
+    ...AttributeResultProductResponseFields
+  }
+  category {
+    ...CategoryMinimalFields
+  }
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  products {
+    ...ProductFields
+  }
+  createdAt
+  lastModifiedAt
+  options {
+    ...ClusterOptionFields
+  }
+  defaultProduct {
+    ...ProductFields
+  }
+  config {
+    ...ClusterConfigFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment AttributeResultProductResponseFields on AttributeResultResponse {
+  items {
+    ...AttributeResultProductFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+
+fragment AttributeResultProductFields on AttributeResult {
+  attribute {
+    __typename
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment CategoryMinimalFields on Category {
+  categoryId
+  name(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description(language: \$language) {
+    ...LocalizedStringFields
+  }
+  shortDescription(language: \$language) {
+    ...LocalizedStringFields
+  }
+  slug(language: \$language) {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  attributes(input: \$attributeResultSearchInput) {
+    ...AttributeResultProductResponseFields
+  }
+  bundles {
+    ...BundleFields
+  }
+  category {
+    ...CategoryMinimalFields
+  }
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductPriceFields
+  }
+  priceData {
+    display
+  }
+  bulkPrices(input: \$userBulkPriceProductInput) {
+    ...ProductPriceFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  barCode
+  turnoverGroup
+  taxonomy
+  priceGroup
+  orderable
+  returnable
+  physical
+  hasBundle
+  isBundleLeader
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  economicOrderQuantity
+  orderableFrom
+  orderableTo
+  releaseDate
+  createdAt
+  lastModifiedAt
+  containerClass
+  surcharges {
+    ...SurchargeFields
+  }
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ProductMediaFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  videos(search: \$mediaVideoSearchInput) {
+    items {
+      ...MediaVideoFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  documents(search: \$mediaDocumentSearchInput) {
+    items {
+      ...MediaDocumentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaVideoFields on MediaVideo {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  videos {
+    language
+    uri
+    mimeType
+  }
+}
+
+fragment MediaDocumentFields on MediaDocument {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  documents {
+    language
+    originalUrl
+    mimeType
+  }
+}
+
+fragment ProductPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on BulkCostPrice {
+      ...BulkCostPriceFields
+    }
+    ... on BulkPrice {
+      ...BulkPriceFields
+    }
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}
+
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment ClusterConfigFields on ClusterConfig {
+  id
+  name
+  settings {
+    ...ClusterConfigSettingFields
+  }
+}
+
+fragment ClusterConfigSettingFields on ClusterConfigSetting {
+  id
+  name
+  type
+  displayType
+  priority
+}
+
+mutation clusterUpdate(\$id: Int!, \$input: ClusterUpdateInput!) {
   clusterUpdate(id: \$id, input: \$input) {
     ...ClusterFields
   }
 }`;
 
-export const companyAddressCreate = `mutation companyAddressCreate(\$input: CompanyAddressCreateInput!) {
+export const companyAddressCreate = `fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+mutation companyAddressCreate(\$input: CompanyAddressCreateInput!) {
   companyAddressCreate(input: \$input) {
     ...AddressFields
   }
@@ -658,18 +12990,505 @@ export const companyAddressDelete = `mutation companyAddressDelete(\$input: Comp
   companyAddressDelete(input: \$input)
 }`;
 
-export const companyAddressUpdate = `mutation companyAddressUpdate(\$input: CompanyAddressUpdateInput!) {
+export const companyAddressUpdate = `fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+mutation companyAddressUpdate(\$input: CompanyAddressUpdateInput!) {
   companyAddressUpdate(input: \$input) {
     ...AddressFields
   }
 }`;
 
-export const companyCreate = `mutation companyCreate(
-  \$input: CreateCompanyInput!
-  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
-  \$companyAttributesInput: AttributeResultSearchInput
-  \$contactSearchArguments: ContactSearchArguments
-) {
+export const companyCreate = `fragment CompanyFields on Company {
+  companyId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+  contacts(input: \$contactSearchArguments) {
+    items {
+      ...ContactListFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  managers {
+    ... on Contact {
+      ...ContactListFields
+    }
+  }
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment ContactListFields on Contact {
+  contactId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+mutation companyCreate(\$input: CreateCompanyInput!, \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, \$companyAttributesInput: AttributeResultSearchInput, \$contactSearchArguments: ContactSearchArguments) {
   companyCreate(input: \$input) {
     ...CompanyFields
   }
@@ -706,17 +13525,472 @@ export const companySearchReindex = `mutation companySearchReindex(\$input: Comp
 }
 `;
 
-export const companyUpdate = `mutation companyUpdate(
-  \$id: Int!
-  \$input: UpdateCompanyInput!
-  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput
-  \$companyAttributesInput: AttributeResultSearchInput
-  \$contactSearchArguments: ContactSearchArguments
-) {
-  companyUpdate(
-    id: \$id
-    input: \$input
-  ) {
+export const companyUpdate = `fragment CompanyFields on Company {
+  companyId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+  contacts(input: \$contactSearchArguments) {
+    items {
+      ...ContactListFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  managers {
+    ... on Contact {
+      ...ContactListFields
+    }
+  }
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment ContactListFields on Contact {
+  contactId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+mutation companyUpdate(\$id: Int!, \$input: UpdateCompanyInput!, \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, \$companyAttributesInput: AttributeResultSearchInput, \$contactSearchArguments: ContactSearchArguments) {
+  companyUpdate(id: \$id, input: \$input) {
     ...CompanyFields
   }
 }`;
@@ -727,13 +14001,1124 @@ export const contactAddToCompanies = `mutation contactAddToCompanies(\$id: Int!,
   }
 }`;
 
-export const contactCreate = `mutation contactCreate(\$input: CreateContactInput!) {
+export const contactCreate = `fragment ContactFields on Contact {
+  contactId
+  attributes(input: \$contactAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ...CompanyDataFields
+  }
+  companies(input: \$contactCompaniesSearchInput) {
+    items {
+      ...CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+fragment CompanyDataFields on Company {
+  companyId
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  addresses {
+    ...AddressFields
+  }
+  orderlists {
+    items {
+      ...OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+mutation contactCreate(\$input: CreateContactInput!) {
   contactCreate(input: \$input) {
     ...ContactFields
   }
 }`;
 
-export const contactCreateAccount = `mutation contactCreateAccount(\$id: Int!, \$input: CreateAccountInput) {
+export const contactCreateAccount = `fragment RegisterContactResponseFields on RegisterContactResponse {
+  contact {
+    ... on Contact {
+      ...ContactFields
+    }
+  }
+  session {
+    accessToken
+    refreshToken
+    expirationTime
+  }
+}
+
+fragment ContactFields on Contact {
+  contactId
+  attributes(input: \$contactAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ...CompanyDataFields
+  }
+  companies(input: \$contactCompaniesSearchInput) {
+    items {
+      ...CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+fragment CompanyDataFields on Company {
+  companyId
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  addresses {
+    ...AddressFields
+  }
+  orderlists {
+    items {
+      ...OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+mutation contactCreateAccount(\$id: Int!, \$input: CreateAccountInput) {
   contactCreateAccount(id: \$id, input: \$input) {
     ...RegisterContactResponseFields
   }
@@ -755,13 +15140,569 @@ export const contactDeleteAccount = `mutation contactDeleteAccount(\$id: Int!) {
 }
 `;
 
-export const contactRegister = `mutation contactRegister(
-  \$contactAttributesInput: AttributeResultSearchInput,
-  \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput,
-  \$companyAttributesInput: AttributeResultSearchInput,
-  \$contactRegisterInput: RegisterContactInput!
-  \$contactCompaniesSearchInput: ContactCompaniesSearchInput
-) {
+export const contactRegister = `fragment RegisterContactResponseFields on RegisterContactResponse {
+  contact {
+    ... on Contact {
+      ...ContactFields
+    }
+  }
+  session {
+    accessToken
+    refreshToken
+    expirationTime
+  }
+}
+
+fragment ContactFields on Contact {
+  contactId
+  attributes(input: \$contactAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ...CompanyDataFields
+  }
+  companies(input: \$contactCompaniesSearchInput) {
+    items {
+      ...CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+fragment CompanyDataFields on Company {
+  companyId
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  addresses {
+    ...AddressFields
+  }
+  orderlists {
+    items {
+      ...OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+mutation contactRegister(\$contactAttributesInput: AttributeResultSearchInput, \$contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, \$companyAttributesInput: AttributeResultSearchInput, \$contactRegisterInput: RegisterContactInput!, \$contactCompaniesSearchInput: ContactCompaniesSearchInput) {
   contactRegister(input: \$contactRegisterInput) {
     ...RegisterContactResponseFields
   }
@@ -773,13 +15714,571 @@ export const contactRemoveFromCompanies = `mutation contactRemoveFromCompanies(\
   }
 }`;
 
-export const contactUpdate = `mutation contactUpdate(\$id: Int!, \$input: UpdateContactInput!) {
+export const contactUpdate = `fragment ContactFields on Contact {
+  contactId
+  attributes(input: \$contactAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ...CompanyDataFields
+  }
+  companies(input: \$contactCompaniesSearchInput) {
+    items {
+      ...CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+fragment CompanyDataFields on Company {
+  companyId
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  addresses {
+    ...AddressFields
+  }
+  orderlists {
+    items {
+      ...OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+mutation contactUpdate(\$id: Int!, \$input: UpdateContactInput!) {
   contactUpdate(id: \$id, input: \$input) {
     ...ContactFields
   }
 }`;
 
-export const costPriceCreate = `mutation costPriceCreate(\$input: CostPriceCreateInput!) {
+export const costPriceCreate = `fragment CostPriceFields on CostPrice {
+  id
+  priceId
+  createdAt
+  lastModifiedAt
+  quantityFrom
+  value
+}
+
+mutation costPriceCreate(\$input: CostPriceCreateInput!) {
   costPriceCreate(input: \$input) {
     ...CostPriceFields
   }
@@ -801,13 +16300,322 @@ export const costPricesDelete = `mutation costPricesDelete(\$priceId: String!) {
 }
 `;
 
-export const costPriceUpdate = `mutation costPriceUpdate(\$id: String!, \$input: CostPriceUpdateInput!) {
+export const costPriceUpdate = `fragment CostPriceFields on CostPrice {
+  id
+  priceId
+  createdAt
+  lastModifiedAt
+  quantityFrom
+  value
+}
+
+mutation costPriceUpdate(\$id: String!, \$input: CostPriceUpdateInput!) {
   costPriceUpdate(id: \$id, input: \$input) {
     ...CostPriceFields
   }
 }`;
 
-export const crossupsellCreate = `mutation crossupsellCreate(\$input: CrossupsellCreateInput!) {
+export const crossupsellCreate = `fragment CrossupsellFields on Crossupsell {
+  id
+  createdAt
+  lastModifiedAt
+  type
+  subType
+  productTo {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+  productFrom {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+  clusterTo {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+  clusterFrom {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+}
+
+fragment ClusterGridFields on Cluster {
+  ...IBaseProductFields
+  clusterId
+  categoryId
+  products {
+    ...ProductGridFields
+  }
+  options {
+    ...ClusterOptionFields
+  }
+  defaultProduct {
+    ...ProductGridFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductGridFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+  containerClass
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+mutation crossupsellCreate(\$input: CrossupsellCreateInput!) {
   crossupsellCreate(input: \$input) {
     ...CrossupsellFields
   }
@@ -818,13 +16626,341 @@ export const crossupsellDelete = `mutation crossupsellDelete(\$id: String!) {
 }
 `;
 
-export const crossupsellUpdate = `mutation crossupsellUpdate(\$id: String!, \$input: CrossupsellUpdateInput!) {
+export const crossupsellUpdate = `fragment CrossupsellFields on Crossupsell {
+  id
+  createdAt
+  lastModifiedAt
+  type
+  subType
+  productTo {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+  productFrom {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+  clusterTo {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+  clusterFrom {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+}
+
+fragment ClusterGridFields on Cluster {
+  ...IBaseProductFields
+  clusterId
+  categoryId
+  products {
+    ...ProductGridFields
+  }
+  options {
+    ...ClusterOptionFields
+  }
+  defaultProduct {
+    ...ProductGridFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductGridFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+  containerClass
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+mutation crossupsellUpdate(\$id: String!, \$input: CrossupsellUpdateInput!) {
   crossupsellUpdate(id: \$id, input: \$input) {
     ...CrossupsellFields
   }
 }`;
 
-export const customerAddressCreate = `mutation customerAddressCreate(\$input: CustomerAddressCreateInput!) {
+export const customerAddressCreate = `fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+mutation customerAddressCreate(\$input: CustomerAddressCreateInput!) {
   customerAddressCreate(input: \$input) {
     ...AddressFields
   }
@@ -834,19 +16970,974 @@ export const customerAddressDelete = `mutation customerAddressDelete(\$input: Cu
   customerAddressDelete(input: \$input)
 }`;
 
-export const customerAddressUpdate = `mutation customerAddressUpdate(\$input: CustomerAddressUpdateInput!) {
+export const customerAddressUpdate = `fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+mutation customerAddressUpdate(\$input: CustomerAddressUpdateInput!) {
   customerAddressUpdate(input: \$input) {
     ...AddressFields
   }
 }`;
 
-export const customerCreate = `mutation customerCreate(\$input: CustomerInput!) {
+export const customerCreate = `fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$customerAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation customerCreate(\$input: CustomerInput!) {
   customerCreate(input: \$input) {
     ...CustomerFields
   }
 }`;
 
-export const customerCreateAccount = `mutation customerCreateAccount(\$id: Int!, \$input: CreateAccountInput) {
+export const customerCreateAccount = `fragment RegisterCustomerResponseFields on RegisterCustomerResponse {
+  customer {
+    ... on Customer {
+      ...CustomerFields
+    }
+  }
+  session {
+    accessToken
+    refreshToken
+    expirationTime
+  }
+}
+
+fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$customerAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation customerCreateAccount(\$id: Int!, \$input: CreateAccountInput) {
   customerCreateAccount(id: \$id, input: \$input) {
     ...RegisterCustomerResponseFields
   }
@@ -868,22 +17959,961 @@ export const customerDeleteAccount = `mutation customerDeleteAccount(\$id: Int!)
 }
 `;
 
-export const customerRegister = `mutation customerRegister(
-  \$customerAttributesInput: AttributeResultSearchInput,
-  \$customerRegisterInput: RegisterCustomerInput!
-) {
+export const customerRegister = `fragment RegisterCustomerResponseFields on RegisterCustomerResponse {
+  customer {
+    ... on Customer {
+      ...CustomerFields
+    }
+  }
+  session {
+    accessToken
+    refreshToken
+    expirationTime
+  }
+}
+
+fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$customerAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation customerRegister(\$customerAttributesInput: AttributeResultSearchInput, \$customerRegisterInput: RegisterCustomerInput!) {
   customerRegister(input: \$customerRegisterInput) {
     ...RegisterCustomerResponseFields
   }
 }`;
 
-export const customerUpdate = `mutation customerUpdate(\$id: Int!, \$input: UpdateCustomerInput!) {
+export const customerUpdate = `fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$customerAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation customerUpdate(\$id: Int!, \$input: UpdateCustomerInput!) {
   customerUpdate(id: \$id, input: \$input) {
     ...CustomerFields
   }
 }`;
 
-export const discountCreate = `mutation discountCreate(\$input: DiscountCreateInput!) {
+export const discountCreate = `fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+mutation discountCreate(\$input: DiscountCreateInput!) {
   discountCreate(input: \$input) {
     ...DiscountFields
   }
@@ -905,25 +18935,112 @@ export const discountsDeleteByPricesheetId = `mutation discountsDeleteByPriceshe
 }
 `;
 
-export const discountUpdate = `mutation discountUpdate(\$id: String!, \$input: DiscountUpdateInput!) {
+export const discountUpdate = `fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+mutation discountUpdate(\$id: String!, \$input: DiscountUpdateInput!) {
   discountUpdate(id: \$id, input: \$input) {
     ...DiscountFields
   }
 }`;
 
-export const documentTemplateCreate = `mutation documentTemplateCreate(\$input: DocumentTemplateCreateInput!) {
+export const documentTemplateCreate = `fragment DocumentTemplateFields on DocumentTemplate {
+  id
+  contents {
+    ...LocalizedTemplateContentFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  content
+  customQuery
+  queryVariables
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  fileNames {
+    ...LocalizedStringFields
+  }
+  isDefaultOrderPdf
+  isDefaultQuotePdf
+}
+
+fragment LocalizedTemplateContentFields on LocalizedTemplateContent {
+  language
+  content
+  precompiled
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation documentTemplateCreate(\$input: DocumentTemplateCreateInput!) {
   documentTemplateCreate(input: \$input) {
     ...DocumentTemplateFields
   }
 }`;
 
-export const documentTemplateRenderToPDF = `mutation documentTemplateRenderToPDF(\$id: String!, \$input: TemplateRenderInput!) {
+export const documentTemplateRenderToPDF = `fragment Base64FileFields on Base64File {
+  base64
+  contentType
+  fileName
+}
+
+mutation documentTemplateRenderToPDF(\$id: String!, \$input: TemplateRenderInput!) {
   documentTemplateRenderToPDF(id: \$id, input: \$input) {
     ...Base64FileFields
   }
 }`;
 
-export const documentTemplateUpdate = `mutation documentTemplateUpdate(\$id: String!, \$input: DocumentTemplateUpdateInput!) {
+export const documentTemplateUpdate = `fragment DocumentTemplateFields on DocumentTemplate {
+  id
+  contents {
+    ...LocalizedTemplateContentFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  content
+  customQuery
+  queryVariables
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  fileNames {
+    ...LocalizedStringFields
+  }
+  isDefaultOrderPdf
+  isDefaultQuotePdf
+}
+
+fragment LocalizedTemplateContentFields on LocalizedTemplateContent {
+  language
+  content
+  precompiled
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation documentTemplateUpdate(\$id: String!, \$input: DocumentTemplateUpdateInput!) {
   documentTemplateUpdate(id: \$id, input: \$input) {
     ...DocumentTemplateFields
   }
@@ -987,25 +19104,129 @@ export const eventToWebHookConfigUpdate = `mutation eventToWebHookConfigUpdate(\
   }
 }`;
 
-export const exchangeRefreshToken = `mutation exchangeRefreshToken(\$input: ExchangeRefreshTokenInput!) {
+export const exchangeRefreshToken = `fragment RefreshTokenResponseFields on RefreshTokenResponse {
+  access_token
+  refresh_token
+  expires_in
+  token_type
+  user_id
+}
+
+mutation exchangeRefreshToken(\$input: ExchangeRefreshTokenInput!) {
   exchangeRefreshToken(input: \$input) {
     ...RefreshTokenResponseFields
   }
 }`;
 
-export const favoriteListAddItems = `mutation favoriteListAddItems(\$id: String!, \$input: FavoriteListsItemsInput!) {
+export const favoriteListAddItems = `fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation favoriteListAddItems(\$id: String!, \$input: FavoriteListsItemsInput!) {
   favoriteListAddItems(id: \$id, input: \$input) {
     ...FavoriteListOnlyFields
   }
 }`;
 
-export const favoriteListClearItems = `mutation favoriteListClearItems(\$id: String!, \$products: Boolean, \$clusters: Boolean) {
+export const favoriteListClearItems = `fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation favoriteListClearItems(\$id: String!, \$products: Boolean, \$clusters: Boolean) {
   favoriteListClearItems(id: \$id, products: \$products, clusters: \$clusters) {
     ...FavoriteListOnlyFields
   }
 }`;
 
-export const favoriteListCreate = `mutation favoriteListCreate(\$input: FavoriteListsCreateInput!) {
+export const favoriteListCreate = `fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation favoriteListCreate(\$input: FavoriteListsCreateInput!) {
   favoriteListCreate(input: \$input) {
     ...FavoriteListOnlyFields
   }
@@ -1015,13 +19236,77 @@ export const favoriteListDelete = `mutation favoriteListDelete(\$id: String!) {
   favoriteListDelete(id: \$id)
 }`;
 
-export const favoriteListRemoveItems = `mutation favoriteListRemoveItems(\$id: String!, \$input: FavoriteListsItemsInput!) {
+export const favoriteListRemoveItems = `fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation favoriteListRemoveItems(\$id: String!, \$input: FavoriteListsItemsInput!) {
   favoriteListRemoveItems(id: \$id, input: \$input) {
     ...FavoriteListOnlyFields
   }
 }`;
 
-export const favoriteListUpdate = `mutation favoriteListUpdate(\$id: String!, \$input: FavoriteListsUpdateInput!) {
+export const favoriteListUpdate = `fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+mutation favoriteListUpdate(\$id: String!, \$input: FavoriteListsUpdateInput!) {
   favoriteListUpdate(id: \$id, input: \$input) {
     ...FavoriteListOnlyFields
   }
@@ -1045,7 +19330,80 @@ export const incentiveRuleSetOrderItemConditions = `mutation incentiveRuleSetOrd
   }
 }`;
 
-export const inventoryCreate = `mutation inventoryCreate(\$input: CreateInventoryInput!) {
+export const inventoryCreate = `fragment InventoryResponseFields on InventoryResponse {
+  id
+  productId
+  quantity
+  costPrice
+  supplier
+  supplierCode
+  sku
+  dateModified
+  warehouseId
+  location
+  nextDeliveryDate
+  notes
+  messages
+  total
+  warehouse {
+    ...WarehouseFields
+  }
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation inventoryCreate(\$input: CreateInventoryInput!) {
   inventoryCreate(input: \$input) {
     ...InventoryResponseFields
   }
@@ -1057,31 +19415,550 @@ export const inventoryCsvImport = `mutation inventoryCsvImport(\$input: Inventor
   }
 }`;
 
-export const inventoryDelete = `mutation inventoryDelete(\$id: Int!) {
+export const inventoryDelete = `fragment InventoryDeleteResponseFields on InventoryDeleteResponse {
+  messages
+}
+
+mutation inventoryDelete(\$id: Int!) {
   inventoryDelete(id: \$id) {
     ...InventoryDeleteResponseFields
   }
 }`;
 
-export const inventoryUpdate = `mutation inventoryUpdate(\$id: Int!, \$input: UpdateInventoryInput!) {
+export const inventoryUpdate = `fragment InventoryResponseFields on InventoryResponse {
+  id
+  productId
+  quantity
+  costPrice
+  supplier
+  supplierCode
+  sku
+  dateModified
+  warehouseId
+  location
+  nextDeliveryDate
+  notes
+  messages
+  total
+  warehouse {
+    ...WarehouseFields
+  }
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation inventoryUpdate(\$id: Int!, \$input: UpdateInventoryInput!) {
   inventoryUpdate(id: \$id, input: \$input) {
     ...InventoryResponseFields
   }
 }`;
 
-export const login = `mutation login(\$input: LoginInput!) {
+export const login = `fragment LoginFields on Login {
+  providerId
+  operationType
+  session {
+    ...GCIPUserFields
+  }
+}
+
+fragment GCIPUserFields on GCIPUser {
+  uid
+  email
+  emailVerified
+  displayName
+  photoUrl
+  phoneNumber
+  disabled
+  isAnonymous
+  metadata {
+    lastSignInTime
+    creationTime
+    lastRefreshTime
+  }
+  tokensValidAfterTime
+  tenantId
+  providerData {
+    uid
+    providerId
+    displayName
+    photoUrl
+    federatedId
+    email
+    rawId
+    screenName
+    phoneNumber
+  }
+  passwordHash
+  passwordSalt
+  authDomain
+  lastLoginAt
+  createdAt
+  accessToken
+  refreshToken
+  expirationTime
+  multiFactor {
+    enrolledFactors {
+      factorId
+      phoneNumber
+    }
+  }
+}
+
+mutation login(\$input: LoginInput!) {
   login(input: \$input) {
     ...LoginFields
   }
 }`;
 
-export const logout = `mutation logout {
+export const logout = `fragment LogoutFields on Logout {
+  todo
+}
+
+mutation logout {
   logout {
     ...LogoutFields
   }
 }`;
 
-export const machineCreate = `mutation machineCreate(\$input: CreateSparePartsMachineInput!) {
+export const machineCreate = `fragment SparePartsMachineFields on SparePartsMachine {
+  id
+  media {
+    ...SparePartsMachineMediaImagesOnlyFields
+  }
+  sparePartProducts {
+    items {
+      ...SparePartFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+    minPrice
+    maxPrice
+    filters {
+      ...AttributeFilterFields
+    }
+  }
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  slug {
+    ...LocalizedStringFields
+  }
+  machines {
+    id
+    media {
+      ...SparePartsMachineMediaImagesOnlyFields
+    }
+    sparePartProducts {
+      items {
+        ...SparePartFields
+      }
+      itemsFound
+      offset
+      page
+      pages
+      start
+      end
+      minPrice
+      maxPrice
+      filters {
+        ...AttributeFilterFields
+      }
+    }
+    name {
+      ...LocalizedStringFields
+    }
+    description {
+      ...LocalizedStringFields
+    }
+    slug {
+      ...LocalizedStringFields
+    }
+  }
+}
+
+fragment SparePartsMachineMediaImagesOnlyFields on SparePartsMachineMedia {
+  images {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment SparePartFields on SparePart {
+  id
+  sku
+  quantity
+  name {
+    ...LocalizedStringFields
+  }
+  product {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+}
+
+fragment ClusterGridFields on Cluster {
+  ...IBaseProductFields
+  clusterId
+  categoryId
+  products {
+    ...ProductGridFields
+  }
+  options {
+    ...ClusterOptionFields
+  }
+  defaultProduct {
+    ...ProductGridFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductGridFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+  containerClass
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+fragment AttributeFilterFields on AttributeFilter {
+  id
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    type
+  }
+  type
+  textFilters {
+    value
+    count
+    countTotal
+    countActive
+    isSelected
+  }
+  integerRangeFilter {
+    min
+    max
+  }
+  decimalRangeFilter {
+    min
+    max
+  }
+}
+
+mutation machineCreate(\$input: CreateSparePartsMachineInput!) {
   machineCreate(input: \$input) {
     ...SparePartsMachineFields
   }
@@ -1092,13 +19969,412 @@ export const machineDelete = `mutation machineDelete(\$id: String!) {
 }
 `;
 
-export const machineUpsert = `mutation machineUpsert(\$input: UpsertSparePartsMachineInput!) {
+export const machineUpsert = `fragment SparePartsMachineFields on SparePartsMachine {
+  id
+  media {
+    ...SparePartsMachineMediaImagesOnlyFields
+  }
+  sparePartProducts {
+    items {
+      ...SparePartFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+    minPrice
+    maxPrice
+    filters {
+      ...AttributeFilterFields
+    }
+  }
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  slug {
+    ...LocalizedStringFields
+  }
+  machines {
+    id
+    media {
+      ...SparePartsMachineMediaImagesOnlyFields
+    }
+    sparePartProducts {
+      items {
+        ...SparePartFields
+      }
+      itemsFound
+      offset
+      page
+      pages
+      start
+      end
+      minPrice
+      maxPrice
+      filters {
+        ...AttributeFilterFields
+      }
+    }
+    name {
+      ...LocalizedStringFields
+    }
+    description {
+      ...LocalizedStringFields
+    }
+    slug {
+      ...LocalizedStringFields
+    }
+  }
+}
+
+fragment SparePartsMachineMediaImagesOnlyFields on SparePartsMachineMedia {
+  images {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment SparePartFields on SparePart {
+  id
+  sku
+  quantity
+  name {
+    ...LocalizedStringFields
+  }
+  product {
+    ... on Cluster {
+      ...ClusterGridFields
+    }
+    ... on Product {
+      ...ProductGridFields
+    }
+  }
+}
+
+fragment ClusterGridFields on Cluster {
+  ...IBaseProductFields
+  clusterId
+  categoryId
+  products {
+    ...ProductGridFields
+  }
+  options {
+    ...ClusterOptionFields
+  }
+  defaultProduct {
+    ...ProductGridFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductGridFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+  containerClass
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment ProductGridPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment ClusterOptionFields on ClusterOption {
+  id
+  clusterOptionId
+  isRequired
+  hidden
+  defaultProduct {
+    productId
+  }
+  products {
+    ...ProductClusterOptionsFields
+  }
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductClusterOptionsFields on Product {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}
+
+fragment AttributeFilterFields on AttributeFilter {
+  id
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    type
+  }
+  type
+  textFilters {
+    value
+    count
+    countTotal
+    countActive
+    isSelected
+  }
+  integerRangeFilter {
+    min
+    max
+  }
+  decimalRangeFilter {
+    min
+    max
+  }
+}
+
+mutation machineUpsert(\$input: UpsertSparePartsMachineInput!) {
   machineUpsert(input: \$input) {
     ...SparePartsMachineFields
   }
 }`;
 
-export const magicTokenCreate = `mutation magicTokenCreate(\$input: MagicTokenCreateInput!) {
+export const magicTokenCreate = `fragment MagicTokenFields on MagicToken {
+  id
+  contactId
+  customerId
+  expiresAt
+  lastAccessedAt
+  failedLogins
+  successfulLogins
+  oneTimeUse
+  extra
+}
+
+mutation magicTokenCreate(\$input: MagicTokenCreateInput!) {
   magicTokenCreate(input: \$input) {
     ...MagicTokenFields
   }
@@ -1109,19 +20385,118 @@ export const magicTokenDelete = `mutation magicTokenDelete(\$id: String!) {
 }
 `;
 
-export const magicTokenLogin = `mutation magicTokenLogin(\$id: String!) {
+export const magicTokenLogin = `fragment LoginFields on Login {
+  providerId
+  operationType
+  session {
+    ...GCIPUserFields
+  }
+}
+
+fragment GCIPUserFields on GCIPUser {
+  uid
+  email
+  emailVerified
+  displayName
+  photoUrl
+  phoneNumber
+  disabled
+  isAnonymous
+  metadata {
+    lastSignInTime
+    creationTime
+    lastRefreshTime
+  }
+  tokensValidAfterTime
+  tenantId
+  providerData {
+    uid
+    providerId
+    displayName
+    photoUrl
+    federatedId
+    email
+    rawId
+    screenName
+    phoneNumber
+  }
+  passwordHash
+  passwordSalt
+  authDomain
+  lastLoginAt
+  createdAt
+  accessToken
+  refreshToken
+  expirationTime
+  multiFactor {
+    enrolledFactors {
+      factorId
+      phoneNumber
+    }
+  }
+}
+
+mutation magicTokenLogin(\$id: String!) {
   magicTokenLogin(id: \$id) {
     ...LoginFields
   }
 }`;
 
-export const magicTokenUpdate = `mutation magicTokenUpdate(\$id: String!, \$input: MagicTokenUpdateInput!) {
+export const magicTokenUpdate = `fragment MagicTokenFields on MagicToken {
+  id
+  contactId
+  customerId
+  expiresAt
+  lastAccessedAt
+  failedLogins
+  successfulLogins
+  oneTimeUse
+  extra
+}
+
+mutation magicTokenUpdate(\$id: String!, \$input: MagicTokenUpdateInput!) {
   magicTokenUpdate(id: \$id, input: \$input) {
     ...MagicTokenFields
   }
 }`;
 
-export const mediaAttachmentCreate = `mutation mediaAttachmentCreate(\$input: MediaAttachmentInput!) {
+export const mediaAttachmentCreate = `fragment MediaAttachmentFields on MediaAttachment {
+  id
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  attachments {
+    language
+    originalUrl
+    mimeType
+  }
+  orderId
+  companyId
+  customerId
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation mediaAttachmentCreate(\$input: MediaAttachmentInput!) {
   mediaAttachmentCreate(input: \$input) {
     ...MediaAttachmentFields
   }
@@ -1133,13 +20508,85 @@ export const mediaAttachmentDelete = `mutation mediaAttachmentDelete(\$id: Strin
   }
 }`;
 
-export const mediaAttachmentUpdate = `mutation mediaAttachmentUpdate(\$id: String!, \$input: UpdateMediaAttachmentInput!) {
+export const mediaAttachmentUpdate = `fragment MediaAttachmentFields on MediaAttachment {
+  id
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  attachments {
+    language
+    originalUrl
+    mimeType
+  }
+  orderId
+  companyId
+  customerId
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation mediaAttachmentUpdate(\$id: String!, \$input: UpdateMediaAttachmentInput!) {
   mediaAttachmentUpdate(id: \$id, input: \$input) {
     ...MediaAttachmentFields
   }
 }`;
 
-export const mediaDocumentCreate = `mutation mediaDocumentCreate(\$input: MediaDocumentInput!) {
+export const mediaDocumentCreate = `fragment MediaDocumentFields on MediaDocument {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  documents {
+    language
+    originalUrl
+    mimeType
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation mediaDocumentCreate(\$input: MediaDocumentInput!) {
   mediaDocumentCreate(input: \$input) {
     ...MediaDocumentFields
   }
@@ -1157,13 +20604,91 @@ export const mediaDocumentDelete = `mutation mediaDocumentDelete(\$mediaId: Stri
   }
 }`;
 
-export const mediaDocumentUpdate = `mutation mediaDocumentUpdate(\$input: UpdateMediaDocumentInput!) {
+export const mediaDocumentUpdate = `fragment MediaDocumentFields on MediaDocument {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  documents {
+    language
+    originalUrl
+    mimeType
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation mediaDocumentUpdate(\$input: UpdateMediaDocumentInput!) {
   mediaDocumentUpdate(input: \$input) {
     ...MediaDocumentFields
   }
 }`;
 
-export const mediaImageCreate = `mutation mediaImageCreate(\$input: MediaImageInput!) {
+export const mediaImageCreate = `fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation mediaImageCreate(\$input: MediaImageInput!) {
   mediaImageCreate(input: \$input) {
     ...MediaImageFields
   }
@@ -1181,13 +20706,91 @@ export const mediaImageDelete = `mutation mediaImageDelete(\$mediaId: String!) {
   }
 }`;
 
-export const mediaImageUpdate = `mutation mediaImageUpdate(\$input: UpdateMediaImageInput!) {
+export const mediaImageUpdate = `fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation mediaImageUpdate(\$input: UpdateMediaImageInput!) {
   mediaImageUpdate(input: \$input) {
     ...MediaImageFields
   }
 }`;
 
-export const mediaVideoCreate = `mutation mediaVideoCreate(\$input: MediaVideoInput!) {
+export const mediaVideoCreate = `fragment MediaVideoFields on MediaVideo {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  videos {
+    language
+    uri
+    mimeType
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation mediaVideoCreate(\$input: MediaVideoInput!) {
   mediaVideoCreate(input: \$input) {
     ...MediaVideoFields
   }
@@ -1205,19 +20808,553 @@ export const mediaVideoDelete = `mutation mediaVideoDelete(\$mediaId: String!) {
   }
 }`;
 
-export const mediaVideoUpdate = `mutation mediaVideoUpdate(\$input: UpdateMediaVideoInput!) {
+export const mediaVideoUpdate = `fragment MediaVideoFields on MediaVideo {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  videos {
+    language
+    uri
+    mimeType
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation mediaVideoUpdate(\$input: UpdateMediaVideoInput!) {
   mediaVideoUpdate(input: \$input) {
     ...MediaVideoFields
   }
 }`;
 
-export const orderAddressUpdate = `mutation orderAddressUpdate(\$id: Int!, \$orderId: Int!, \$input: OrderAddressUpdateInput!) {
+export const orderAddressUpdate = `fragment OrderAddressFields on OrderAddress {
+  id
+  orderId
+  createdAt
+  lastModifiedAt
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  code
+  notes
+  type
+  icp
+  url
+  name
+}
+
+mutation orderAddressUpdate(\$id: Int!, \$orderId: Int!, \$input: OrderAddressUpdateInput!) {
   orderAddressUpdate(id: \$id, orderId: \$orderId, input: \$input) {
     ...OrderAddressFields
   }
 }`;
 
-export const orderCreate = `mutation orderCreate(\$order: OrderCreateInput!) {
+export const orderCreate = `fragment OrderFields on Order {
+  id
+  media {
+    ...OrderMediaFields
+  }
+  userId
+  accountManagerId
+  cartId
+  channelId
+  shopId
+  uuid
+  externalId
+  debtorId
+  status
+  type
+  source
+  email
+  emailDate
+  remarks
+  reference
+  extra3
+  extra4
+  currency
+  currencyRatio
+  language
+  date
+  createdAt
+  statusDate
+  postageData {
+    ...OrderPostageDataFields
+  }
+  paymentData {
+    ...OrderPaymentDataFields
+  }
+  total {
+    ...OrderTotalsFields
+  }
+  items {
+    ...OrderItemFields
+  }
+  shipments {
+    ...ShipmentFields
+  }
+  addresses {
+    ...AddressFields
+  }
+  sources {
+    ...SourceFields
+  }
+  invoiceUserId
+  validUntil
+  companyId
+  lastModifiedAt
+  originalOrderId
+  exportedAt
+  exportStatus
+  exportMessage
+  orderAddresses {
+    ...OrderAddressFields
+  }
+}
+
+fragment OrderMediaFields on OrderMedia {
+  attachments {
+    items {
+      id
+      sparePartsMachineId
+      alt {
+        language
+        value
+      }
+      description {
+        language
+        value
+      }
+      tags {
+        language
+        values
+      }
+      type
+      createdAt
+      lastModifiedAt
+      priority
+      attachments {
+        language
+        originalUrl
+        mimeType
+      }
+      orderId
+      companyId
+      customerId
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment OrderPostageDataFields on OrderPostageData {
+  method
+  taxPercentage
+  requestDate
+  gross
+  net
+  tax
+  partialDeliveryAllowed
+  pickUpLocationId
+  carrier
+  overruled
+  warehouse {
+    ...WarehouseFields
+  }
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+fragment OrderPaymentDataFields on OrderPaymentData {
+  net
+  gross
+  tax
+  taxPercentage
+  method
+  status
+  statusDate
+  accountingId
+  overruled
+}
+
+fragment OrderTotalsFields on OrderTotals {
+  gross
+  net
+  tax
+  discountType
+  discountValue
+  taxPercentages {
+    percentage
+    total
+  }
+}
+
+fragment OrderItemFields on OrderItem {
+  id
+  orderId
+  uuid
+  class
+  productId
+  parentOrderItemId
+  quantity
+  sku
+  notes
+  name
+  supplier
+  supplierCode
+  manufacturer
+  manufacturerCode
+  eanCode
+  originalPrice
+  price
+  priceTotal
+  priceNet
+  priceTotalNet
+  customerPrice
+  costPrice
+  discount
+  tax
+  taxPercentage
+  taxCode
+  isBonus
+  minimumQuantity
+  unit
+  package
+  packageUnit
+  packageUnitQuantity
+  purchaseUnit
+  purchaseMinimumQuantity
+  requestDate
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ShipmentFields on Shipment {
+  id
+  createdAt
+  lastModifiedAt
+  expectedDeliveryAt
+  status
+  orderId
+  items {
+    ...ShipmentItemFields
+  }
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+}
+
+fragment ShipmentItemFields on ShipmentItem {
+  id
+  createdAt
+  lastModifiedAt
+  name
+  sku
+  quantity
+  shipmentId
+  orderItemId
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment SourceFields on Source {
+  id
+  name
+}
+
+fragment OrderAddressFields on OrderAddress {
+  id
+  orderId
+  createdAt
+  lastModifiedAt
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  code
+  notes
+  type
+  icp
+  url
+  name
+}
+
+mutation orderCreate(\$order: OrderCreateInput!) {
   orderCreate(order: \$order) {
     ...OrderFields
   }
@@ -1228,13 +21365,176 @@ export const orderDelete = `mutation orderDelete(\$orderId: Int!) {
 }
 `;
 
-export const orderItemCreate = `mutation orderItemCreate(
-  \$orderId: Int!,
-  \$orderItem: OrderItemCreateInput!,
-  \$language: String,
-  \$imageSearchFilters: MediaImageProductSearchInput,
-  \$imageVariantFilters: TransformationsInput!
-) {
+export const orderItemCreate = `fragment OrderItemFields on OrderItem {
+  id
+  orderId
+  uuid
+  class
+  productId
+  parentOrderItemId
+  quantity
+  sku
+  notes
+  name
+  supplier
+  supplierCode
+  manufacturer
+  manufacturerCode
+  eanCode
+  originalPrice
+  price
+  priceTotal
+  priceNet
+  priceTotalNet
+  customerPrice
+  costPrice
+  discount
+  tax
+  taxPercentage
+  taxCode
+  isBonus
+  minimumQuantity
+  unit
+  package
+  packageUnit
+  packageUnitQuantity
+  purchaseUnit
+  purchaseMinimumQuantity
+  requestDate
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation orderItemCreate(\$orderId: Int!, \$orderItem: OrderItemCreateInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   orderItemCreate(orderId: \$orderId, orderItem: \$orderItem) {
     ...OrderItemFields
   }
@@ -1245,37 +21545,280 @@ export const orderItemDelete = `mutation orderItemDelete(\$orderId: Int!, \$orde
 }
 `;
 
-export const orderItemUpdate = `mutation orderItemUpdate(
-  \$orderId: Int!,
-  \$orderItem: OrderItemUpdateInput!,
-  \$language: String,
-  \$imageSearchFilters: MediaImageProductSearchInput,
-  \$imageVariantFilters: TransformationsInput!
-) {
+export const orderItemUpdate = `fragment OrderItemFields on OrderItem {
+  id
+  orderId
+  uuid
+  class
+  productId
+  parentOrderItemId
+  quantity
+  sku
+  notes
+  name
+  supplier
+  supplierCode
+  manufacturer
+  manufacturerCode
+  eanCode
+  originalPrice
+  price
+  priceTotal
+  priceNet
+  priceTotalNet
+  customerPrice
+  costPrice
+  discount
+  tax
+  taxPercentage
+  taxCode
+  isBonus
+  minimumQuantity
+  unit
+  package
+  packageUnit
+  packageUnitQuantity
+  purchaseUnit
+  purchaseMinimumQuantity
+  requestDate
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+mutation orderItemUpdate(\$orderId: Int!, \$orderItem: OrderItemUpdateInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   orderItemUpdate(orderId: \$orderId, orderItem: \$orderItem) {
     ...OrderItemFields
   }
 }`;
 
-export const orderlistAddItems = `mutation orderlistAddItems(\$id: Int!, \$input: OrderlistItemsInput!) {
+export const orderlistAddItems = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+mutation orderlistAddItems(\$id: Int!, \$input: OrderlistItemsInput!) {
   orderlistAddItems(id: \$id, input: \$input) {
     ...OrderlistFields
   }
 }`;
 
-export const orderlistAssignCompanies = `mutation orderlistAssignCompanies(\$id: Int!, \$input: OrderlistCompaniesInput!) {
+export const orderlistAssignCompanies = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+mutation orderlistAssignCompanies(\$id: Int!, \$input: OrderlistCompaniesInput!) {
   orderlistAssignCompanies(id: \$id, input: \$input) {
     ...OrderlistFields
   }
 }`;
 
-export const orderlistAssignUsers = `mutation orderlistAssignUsers(\$id: Int!, \$input: OrderlistUsersInput!) {
+export const orderlistAssignUsers = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+mutation orderlistAssignUsers(\$id: Int!, \$input: OrderlistUsersInput!) {
   orderlistAssignUsers(id: \$id, input: \$input) {
     ...OrderlistFields
   }
 }`;
 
-export const orderlistCreate = `mutation orderlistCreate(\$input: OrderlistCreateInput!) {
+export const orderlistCreate = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+mutation orderlistCreate(\$input: OrderlistCreateInput!) {
   orderlistCreate(input: \$input) {
     ...OrderlistFields
   }
@@ -1286,43 +21829,597 @@ export const orderlistDelete = `mutation orderlistDelete(\$id: Int!) {
 }
 `;
 
-export const orderlistRemoveItems = `mutation orderlistRemoveItems(\$id: Int!, \$input: OrderlistItemsInput!) {
+export const orderlistRemoveItems = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+mutation orderlistRemoveItems(\$id: Int!, \$input: OrderlistItemsInput!) {
   orderlistRemoveItems(id: \$id, input: \$input) {
     ...OrderlistFields
   }
 }`;
 
-export const orderlistUnassignCompanies = `mutation orderlistUnassignCompanies(\$id: Int!, \$input: OrderlistCompaniesInput!) {
+export const orderlistUnassignCompanies = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+mutation orderlistUnassignCompanies(\$id: Int!, \$input: OrderlistCompaniesInput!) {
   orderlistUnassignCompanies(id: \$id, input: \$input) {
     ...OrderlistFields
   }
 }`;
 
-export const orderlistUnassignUsers = `mutation orderlistUnassignUsers(\$id: Int!, \$input: OrderlistUsersInput!) {
+export const orderlistUnassignUsers = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+mutation orderlistUnassignUsers(\$id: Int!, \$input: OrderlistUsersInput!) {
   orderlistUnassignUsers(id: \$id, input: \$input) {
     ...OrderlistFields
   }
 }`;
 
-export const orderlistUpdate = `mutation orderlistUpdate(\$id: Int!, \$input: OrderlistUpdateInput!) {
+export const orderlistUpdate = `fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+mutation orderlistUpdate(\$id: Int!, \$input: OrderlistUpdateInput!) {
   orderlistUpdate(id: \$id, input: \$input) {
     ...OrderlistFields
   }
 }`;
 
-export const orderRevisionRestore = `mutation orderRevisionRestore(\$orderId: Int!, \$revisionNumber: Int!) {
+export const orderRevisionRestore = `fragment OrderFields on Order {
+  id
+  media {
+    ...OrderMediaFields
+  }
+  userId
+  accountManagerId
+  cartId
+  channelId
+  shopId
+  uuid
+  externalId
+  debtorId
+  status
+  type
+  source
+  email
+  emailDate
+  remarks
+  reference
+  extra3
+  extra4
+  currency
+  currencyRatio
+  language
+  date
+  createdAt
+  statusDate
+  postageData {
+    ...OrderPostageDataFields
+  }
+  paymentData {
+    ...OrderPaymentDataFields
+  }
+  total {
+    ...OrderTotalsFields
+  }
+  items {
+    ...OrderItemFields
+  }
+  shipments {
+    ...ShipmentFields
+  }
+  addresses {
+    ...AddressFields
+  }
+  sources {
+    ...SourceFields
+  }
+  invoiceUserId
+  validUntil
+  companyId
+  lastModifiedAt
+  originalOrderId
+  exportedAt
+  exportStatus
+  exportMessage
+  orderAddresses {
+    ...OrderAddressFields
+  }
+}
+
+fragment OrderMediaFields on OrderMedia {
+  attachments {
+    items {
+      id
+      sparePartsMachineId
+      alt {
+        language
+        value
+      }
+      description {
+        language
+        value
+      }
+      tags {
+        language
+        values
+      }
+      type
+      createdAt
+      lastModifiedAt
+      priority
+      attachments {
+        language
+        originalUrl
+        mimeType
+      }
+      orderId
+      companyId
+      customerId
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment OrderPostageDataFields on OrderPostageData {
+  method
+  taxPercentage
+  requestDate
+  gross
+  net
+  tax
+  partialDeliveryAllowed
+  pickUpLocationId
+  carrier
+  overruled
+  warehouse {
+    ...WarehouseFields
+  }
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+fragment OrderPaymentDataFields on OrderPaymentData {
+  net
+  gross
+  tax
+  taxPercentage
+  method
+  status
+  statusDate
+  accountingId
+  overruled
+}
+
+fragment OrderTotalsFields on OrderTotals {
+  gross
+  net
+  tax
+  discountType
+  discountValue
+  taxPercentages {
+    percentage
+    total
+  }
+}
+
+fragment OrderItemFields on OrderItem {
+  id
+  orderId
+  uuid
+  class
+  productId
+  parentOrderItemId
+  quantity
+  sku
+  notes
+  name
+  supplier
+  supplierCode
+  manufacturer
+  manufacturerCode
+  eanCode
+  originalPrice
+  price
+  priceTotal
+  priceNet
+  priceTotalNet
+  customerPrice
+  costPrice
+  discount
+  tax
+  taxPercentage
+  taxCode
+  isBonus
+  minimumQuantity
+  unit
+  package
+  packageUnit
+  packageUnitQuantity
+  purchaseUnit
+  purchaseMinimumQuantity
+  requestDate
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ShipmentFields on Shipment {
+  id
+  createdAt
+  lastModifiedAt
+  expectedDeliveryAt
+  status
+  orderId
+  items {
+    ...ShipmentItemFields
+  }
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+}
+
+fragment ShipmentItemFields on ShipmentItem {
+  id
+  createdAt
+  lastModifiedAt
+  name
+  sku
+  quantity
+  shipmentId
+  orderItemId
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment SourceFields on Source {
+  id
+  name
+}
+
+fragment OrderAddressFields on OrderAddress {
+  id
+  orderId
+  createdAt
+  lastModifiedAt
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  code
+  notes
+  type
+  icp
+  url
+  name
+}
+
+mutation orderRevisionRestore(\$orderId: Int!, \$revisionNumber: Int!) {
   orderRevisionRestore(orderId: \$orderId, revisionNumber: \$revisionNumber) {
     ...OrderFields
   }
-}
-`;
+}`;
 
 export const orderRevisionsInvalidate = `mutation orderRevisionsInvalidate(\$input: OrderRevisionsInvalidateInput!) {
   orderRevisionsInvalidate(input: \$input)
 }
 `;
 
-export const orderSendConfirmationEmail = `mutation orderSendConfirmationEmail(\$orderId: Int!, \$attachments: [Base64FileInput!]) {
+export const orderSendConfirmationEmail = `fragment SendOrderConfirmResponseTypeFields on SendOrderConfirmResponseType {
+  messageId
+  success
+}
+
+mutation orderSendConfirmationEmail(\$orderId: Int!, \$attachments: [Base64FileInput!]) {
   orderSendConfirmationEmail(orderId: \$orderId, attachments: \$attachments) {
     ...SendOrderConfirmResponseTypeFields
   }
@@ -1380,13 +22477,477 @@ export const orderStatusUpdate = `mutation orderStatusUpdate(\$id: Int!, \$input
   }
 }`;
 
-export const orderUpdate = `mutation orderUpdate(
-  \$orderId: Int!,
-  \$order: OrderUpdateInput!,
-  \$language: String,
-  \$imageSearchFilters: MediaImageProductSearchInput,
-  \$imageVariantFilters: TransformationsInput!
-) {
+export const orderUpdate = `fragment OrderFields on Order {
+  id
+  media {
+    ...OrderMediaFields
+  }
+  userId
+  accountManagerId
+  cartId
+  channelId
+  shopId
+  uuid
+  externalId
+  debtorId
+  status
+  type
+  source
+  email
+  emailDate
+  remarks
+  reference
+  extra3
+  extra4
+  currency
+  currencyRatio
+  language
+  date
+  createdAt
+  statusDate
+  postageData {
+    ...OrderPostageDataFields
+  }
+  paymentData {
+    ...OrderPaymentDataFields
+  }
+  total {
+    ...OrderTotalsFields
+  }
+  items {
+    ...OrderItemFields
+  }
+  shipments {
+    ...ShipmentFields
+  }
+  addresses {
+    ...AddressFields
+  }
+  sources {
+    ...SourceFields
+  }
+  invoiceUserId
+  validUntil
+  companyId
+  lastModifiedAt
+  originalOrderId
+  exportedAt
+  exportStatus
+  exportMessage
+  orderAddresses {
+    ...OrderAddressFields
+  }
+}
+
+fragment OrderMediaFields on OrderMedia {
+  attachments {
+    items {
+      id
+      sparePartsMachineId
+      alt {
+        language
+        value
+      }
+      description {
+        language
+        value
+      }
+      tags {
+        language
+        values
+      }
+      type
+      createdAt
+      lastModifiedAt
+      priority
+      attachments {
+        language
+        originalUrl
+        mimeType
+      }
+      orderId
+      companyId
+      customerId
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment OrderPostageDataFields on OrderPostageData {
+  method
+  taxPercentage
+  requestDate
+  gross
+  net
+  tax
+  partialDeliveryAllowed
+  pickUpLocationId
+  carrier
+  overruled
+  warehouse {
+    ...WarehouseFields
+  }
+}
+
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+fragment OrderPaymentDataFields on OrderPaymentData {
+  net
+  gross
+  tax
+  taxPercentage
+  method
+  status
+  statusDate
+  accountingId
+  overruled
+}
+
+fragment OrderTotalsFields on OrderTotals {
+  gross
+  net
+  tax
+  discountType
+  discountValue
+  taxPercentages {
+    percentage
+    total
+  }
+}
+
+fragment OrderItemFields on OrderItem {
+  id
+  orderId
+  uuid
+  class
+  productId
+  parentOrderItemId
+  quantity
+  sku
+  notes
+  name
+  supplier
+  supplierCode
+  manufacturer
+  manufacturerCode
+  eanCode
+  originalPrice
+  price
+  priceTotal
+  priceNet
+  priceTotalNet
+  customerPrice
+  costPrice
+  discount
+  tax
+  taxPercentage
+  taxCode
+  isBonus
+  minimumQuantity
+  unit
+  package
+  packageUnit
+  packageUnitQuantity
+  purchaseUnit
+  purchaseMinimumQuantity
+  requestDate
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment ShipmentFields on Shipment {
+  id
+  createdAt
+  lastModifiedAt
+  expectedDeliveryAt
+  status
+  orderId
+  items {
+    ...ShipmentItemFields
+  }
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+}
+
+fragment ShipmentItemFields on ShipmentItem {
+  id
+  createdAt
+  lastModifiedAt
+  name
+  sku
+  quantity
+  shipmentId
+  orderItemId
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment SourceFields on Source {
+  id
+  name
+}
+
+fragment OrderAddressFields on OrderAddress {
+  id
+  orderId
+  createdAt
+  lastModifiedAt
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  code
+  notes
+  type
+  icp
+  url
+  name
+}
+
+mutation orderUpdate(\$orderId: Int!, \$order: OrderUpdateInput!, \$language: String, \$imageSearchFilters: MediaImageProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   orderUpdate(orderId: \$orderId, order: \$order) {
     ...OrderFields
   }
@@ -1402,25 +22963,140 @@ export const passwordResetLink = `mutation passwordResetLink(\$input: PasswordRe
 }
 `;
 
-export const paymentCreate = `mutation paymentCreate(\$input: CreatePaymentInput!) {
+export const paymentCreate = `fragment PaymentFields on Payment {
+  id
+  userId
+  anonymousId
+  paymentId
+  orderId
+  amount
+  currency
+  method
+  status
+  transactions {
+    ...TransactionFields
+  }
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+}
+
+fragment TransactionFields on Transaction {
+  id
+  transactionId
+  paymentId
+  orderId
+  amount
+  currency
+  description
+  timestamp
+  type
+  provider
+  status
+}
+
+mutation paymentCreate(\$input: CreatePaymentInput!) {
   paymentCreate(input: \$input) {
     ...PaymentFields
   }
 }`;
 
-export const paymentDelete = `mutation paymentDelete(\$searchBy: SearchByInput!) {
+export const paymentDelete = `fragment PaymentFields on Payment {
+  id
+  userId
+  anonymousId
+  paymentId
+  orderId
+  amount
+  currency
+  method
+  status
+  transactions {
+    ...TransactionFields
+  }
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+}
+
+fragment TransactionFields on Transaction {
+  id
+  transactionId
+  paymentId
+  orderId
+  amount
+  currency
+  description
+  timestamp
+  type
+  provider
+  status
+}
+
+mutation paymentDelete(\$searchBy: SearchByInput!) {
   paymentDelete(searchBy: \$searchBy) {
     ...PaymentFields
   }
 }`;
 
-export const paymentUpdate = `mutation paymentUpdate(\$searchBy: SearchByInput!, \$input: UpdatePaymentInput!) {
+export const paymentUpdate = `fragment PaymentFields on Payment {
+  id
+  userId
+  anonymousId
+  paymentId
+  orderId
+  amount
+  currency
+  method
+  status
+  transactions {
+    ...TransactionFields
+  }
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+}
+
+fragment TransactionFields on Transaction {
+  id
+  transactionId
+  paymentId
+  orderId
+  amount
+  currency
+  description
+  timestamp
+  type
+  provider
+  status
+}
+
+mutation paymentUpdate(\$searchBy: SearchByInput!, \$input: UpdatePaymentInput!) {
   paymentUpdate(searchBy: \$searchBy, input: \$input) {
     ...PaymentFields
   }
 }`;
 
-export const payMethodCreate = `mutation payMethodCreate(\$input: PayMethodCreateInput!) {
+export const payMethodCreate = `fragment PayMethodFields on PayMethod {
+  id
+  createdAt
+  lastModifiedAt
+  names {
+    ...LocalizedStringFields
+  }
+  externalCode
+  logo
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation payMethodCreate(\$input: PayMethodCreateInput!) {
   payMethodCreate(input: \$input) {
     ...PayMethodFields
   }
@@ -1431,7 +23107,23 @@ export const payMethodDelete = `mutation payMethodDelete(\$id: Int!) {
 }
 `;
 
-export const payMethodUpdate = `mutation payMethodUpdate(\$id: Int!, \$input: PayMethodUpdateInput!) {
+export const payMethodUpdate = `fragment PayMethodFields on PayMethod {
+  id
+  createdAt
+  lastModifiedAt
+  names {
+    ...LocalizedStringFields
+  }
+  externalCode
+  logo
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation payMethodUpdate(\$id: Int!, \$input: PayMethodUpdateInput!) {
   payMethodUpdate(id: \$id, input: \$input) {
     ...PayMethodFields
   }
@@ -1455,13 +23147,1489 @@ export const priceDelete = `mutation priceDelete(\$id: String!) {
 }
 `;
 
-export const pricesheetAssign = `mutation pricesheetAssign(\$id: String!, \$input: PricesheetAssignInput!) {
+export const pricesheetAssign = `fragment PricesheetFields on Pricesheet {
+  id
+  createdAt
+  lastModifiedAt
+  code
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  priority
+  readonly
+  contacts {
+    ...ContactFields
+  }
+  contactsPaginated {
+    items {
+      ...ContactFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  customers {
+    ...CustomerFields
+  }
+  customersPaginated {
+    items {
+      ...CustomerFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  companies {
+    ...CompanyFields
+  }
+  companiesPaginated {
+    items {
+      ...CompanyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ContactFields on Contact {
+  contactId
+  attributes(input: \$contactAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ...CompanyDataFields
+  }
+  companies(input: \$contactCompaniesSearchInput) {
+    items {
+      ...CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+fragment CompanyDataFields on Company {
+  companyId
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  addresses {
+    ...AddressFields
+  }
+  orderlists {
+    items {
+      ...OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$customerAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+}
+
+fragment CompanyFields on Company {
+  companyId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+  contacts(input: \$contactSearchArguments) {
+    items {
+      ...ContactListFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  managers {
+    ... on Contact {
+      ...ContactListFields
+    }
+  }
+}
+
+fragment ContactListFields on Contact {
+  contactId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+mutation pricesheetAssign(\$id: String!, \$input: PricesheetAssignInput!) {
   pricesheetAssign(id: \$id, input: \$input) {
     ...PricesheetFields
   }
 }`;
 
-export const pricesheetCreate = `mutation pricesheetCreate(\$input: PricesheetCreateInput!) {
+export const pricesheetCreate = `fragment PricesheetFields on Pricesheet {
+  id
+  createdAt
+  lastModifiedAt
+  code
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  priority
+  readonly
+  contacts {
+    ...ContactFields
+  }
+  contactsPaginated {
+    items {
+      ...ContactFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  customers {
+    ...CustomerFields
+  }
+  customersPaginated {
+    items {
+      ...CustomerFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  companies {
+    ...CompanyFields
+  }
+  companiesPaginated {
+    items {
+      ...CompanyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ContactFields on Contact {
+  contactId
+  attributes(input: \$contactAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ...CompanyDataFields
+  }
+  companies(input: \$contactCompaniesSearchInput) {
+    items {
+      ...CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+fragment CompanyDataFields on Company {
+  companyId
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  addresses {
+    ...AddressFields
+  }
+  orderlists {
+    items {
+      ...OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$customerAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+}
+
+fragment CompanyFields on Company {
+  companyId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+  contacts(input: \$contactSearchArguments) {
+    items {
+      ...ContactListFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  managers {
+    ... on Contact {
+      ...ContactListFields
+    }
+  }
+}
+
+fragment ContactListFields on Contact {
+  contactId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+mutation pricesheetCreate(\$input: PricesheetCreateInput!) {
   pricesheetCreate(input: \$input) {
     ...PricesheetFields
   }
@@ -1478,30 +24646,1548 @@ export const pricesheetDelete = `mutation pricesheetDelete(\$id: String!) {
 }
 `;
 
-export const pricesheetUnassign = `mutation pricesheetUnassign(\$id: String!, \$input: PricesheetUnassignInput!) {
+export const pricesheetUnassign = `fragment PricesheetFields on Pricesheet {
+  id
+  createdAt
+  lastModifiedAt
+  code
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  priority
+  readonly
+  contacts {
+    ...ContactFields
+  }
+  contactsPaginated {
+    items {
+      ...ContactFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  customers {
+    ...CustomerFields
+  }
+  customersPaginated {
+    items {
+      ...CustomerFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  companies {
+    ...CompanyFields
+  }
+  companiesPaginated {
+    items {
+      ...CompanyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ContactFields on Contact {
+  contactId
+  attributes(input: \$contactAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ...CompanyDataFields
+  }
+  companies(input: \$contactCompaniesSearchInput) {
+    items {
+      ...CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+fragment CompanyDataFields on Company {
+  companyId
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  addresses {
+    ...AddressFields
+  }
+  orderlists {
+    items {
+      ...OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$customerAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+}
+
+fragment CompanyFields on Company {
+  companyId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+  contacts(input: \$contactSearchArguments) {
+    items {
+      ...ContactListFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  managers {
+    ... on Contact {
+      ...ContactListFields
+    }
+  }
+}
+
+fragment ContactListFields on Contact {
+  contactId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+mutation pricesheetUnassign(\$id: String!, \$input: PricesheetUnassignInput!) {
   pricesheetUnassign(id: \$id, input: \$input) {
     ...PricesheetFields
   }
 }`;
 
-export const pricesheetUpdate = `mutation pricesheetUpdate(\$id: String!, \$input: PricesheetUpdateInput!) {
+export const pricesheetUpdate = `fragment PricesheetFields on Pricesheet {
+  id
+  createdAt
+  lastModifiedAt
+  code
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  priority
+  readonly
+  contacts {
+    ...ContactFields
+  }
+  contactsPaginated {
+    items {
+      ...ContactFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  customers {
+    ...CustomerFields
+  }
+  customersPaginated {
+    items {
+      ...CustomerFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  companies {
+    ...CompanyFields
+  }
+  companiesPaginated {
+    items {
+      ...CompanyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ContactFields on Contact {
+  contactId
+  attributes(input: \$contactAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  company {
+    ...CompanyDataFields
+  }
+  companies(input: \$contactCompaniesSearchInput) {
+    items {
+      ...CompanyDataFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment AttributeResultFields on AttributeResult {
+  attribute {
+    __typename
+    ... on CategoryAttribute {
+      ...CategoryAttributeFields
+    }
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on CompanyAttribute {
+      ...CompanyAttributeFields
+    }
+    ... on ContactAttribute {
+      ...ContactAttributeFields
+    }
+    ... on CustomerAttribute {
+      ...CustomerAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment CategoryAttributeFields on Attribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+  }
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment CompanyAttributeFields on CompanyAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  companyId
+}
+
+fragment ContactAttributeFields on ContactAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  contactId
+}
+
+fragment CustomerAttributeFields on CustomerAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  customerId
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment FavoriteListOnlyFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+  clusters {
+    items {
+      ... on Cluster {
+        clusterId
+      }
+      ... on Product {
+        productId
+      }
+    }
+  }
+}
+
+fragment CompanyDataFields on Company {
+  companyId
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  addresses {
+    ...AddressFields
+  }
+  orderlists {
+    items {
+      ...OrderlistFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}
+
+fragment AddressFields on Address {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  isDefault
+  type
+  icp
+  url
+  active
+  name
+}
+
+fragment OrderlistFields on Orderlist {
+  id
+  createdAt
+  lastModifiedAt
+  descriptions {
+    language
+    value
+  }
+  extras {
+    language
+    value
+  }
+  code
+  validFrom
+  validTo
+  type
+  partnerEntity
+  active
+}
+
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+fragment CustomerFields on Customer {
+  customerId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$customerAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  favoriteLists {
+    items {
+      ...FavoriteListOnlyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  userId
+  debtorId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+}
+
+fragment CompanyFields on Company {
+  companyId
+  addresses {
+    ...AddressFields
+  }
+  attributes(input: \$companyAttributesInput) {
+    items {
+      ...AttributeResultFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+  contacts(input: \$contactSearchArguments) {
+    items {
+      ...ContactListFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  managers {
+    ... on Contact {
+      ...ContactListFields
+    }
+  }
+}
+
+fragment ContactListFields on Contact {
+  contactId
+  gender
+  firstName
+  middleName
+  lastName
+  phone
+  mobile
+  email
+  login
+  iban
+  bankAccount
+  bic
+  notes
+  primaryLanguage
+  expires
+  externalId
+  dateOfBirth
+  mailingList
+  isLoggedIn
+  createdAt
+  lastModifiedAt
+  parentCompanyId
+  purchaseAuthorizationConfigs(input: \$contactPAConfigInput) {
+    items {
+      ...PurchaseAuthorizationConfigFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+mutation pricesheetUpdate(\$id: String!, \$input: PricesheetUpdateInput!) {
   pricesheetUpdate(id: \$id, input: \$input) {
     ...PricesheetFields
   }
 }`;
 
-export const priceUpdate = `mutation priceUpdate(\$id: String!, \$input: PriceUpdateInput!) {
+export const priceUpdate = `fragment PriceFields on Price {
+  id
+  createdAt
+  lastModifiedAt
+  productId
+  per
+  list
+  costPrices {
+    ...BulkCostPriceFields
+  }
+  suggested
+  store
+  bulkPriceDiscountType
+  defaultTaxCode
+  display
+  cost
+}
+
+fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+mutation priceUpdate(\$id: String!, \$input: PriceUpdateInput!) {
   priceUpdate(id: \$id, input: \$input) {
     ...PriceFields
   }
 }`;
 
-export const productBulkMove = `mutation productBulkMove(\$input: ProductBulkMoveInput!) {
+export const productBulkMove = `fragment ProductBulkMoveResponseFields on ProductBulkMoveResponse {
+  movedCount
+  errors {
+    ...ProductBulkMoveErrorFields
+  }
+}
+
+fragment ProductBulkMoveErrorFields on ProductBulkMoveError {
+  code
+  messages
+  record
+  rowNumber
+}
+
+mutation productBulkMove(\$input: ProductBulkMoveInput!) {
   productBulkMove(input: \$input) {
     ...ProductBulkMoveResponseFields
   }
-}
-`;
+}`;
 
 export const productCreate = `mutation productCreate(\$input: CreateProductInput!) {
   productCreate(input: \$input) {
@@ -1520,7 +26206,651 @@ export const productDelete = `mutation productDelete(\$productId: Int!) {
 }
 `;
 
-export const productUpdate = `mutation productUpdate(\$productId: Int!, \$input: UpdateProductInput!) {
+export const productUpdate = `fragment ProductFields on Product {
+  ...IBaseProductFields
+  productId
+  categoryId
+  attributes(input: \$attributeResultSearchInput) {
+    ...AttributeResultProductResponseFields
+  }
+  bundles {
+    ...BundleFields
+  }
+  category {
+    ...CategoryMinimalFields
+  }
+  categoryPath {
+    ...CategoryMinimalFields
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaFields
+  }
+  price(input: \$priceCalculateProductInput) {
+    ...ProductPriceFields
+  }
+  priceData {
+    display
+  }
+  bulkPrices(input: \$userBulkPriceProductInput) {
+    ...ProductPriceFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  barCode
+  turnoverGroup
+  taxonomy
+  priceGroup
+  orderable
+  returnable
+  physical
+  hasBundle
+  isBundleLeader
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  economicOrderQuantity
+  orderableFrom
+  orderableTo
+  releaseDate
+  createdAt
+  lastModifiedAt
+  containerClass
+  surcharges {
+    ...SurchargeFields
+  }
+}
+
+fragment IBaseProductFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ...LocalizedStringFields
+  }
+  metadataDescriptions {
+    ...LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ...LocalizedStringFields
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment AttributeResultProductResponseFields on AttributeResultResponse {
+  items {
+    ...AttributeResultProductFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+
+fragment AttributeResultProductFields on AttributeResult {
+  attribute {
+    __typename
+    ... on ClusterAttribute {
+      ...ClusterAttributeFields
+    }
+    ... on ProductAttribute {
+      ...ProductAttributeFields
+    }
+  }
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    attributeClass
+    type
+    valuesetId
+    group
+    isSearchable
+    isPublic
+    isSystem
+    isHidden
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+}
+
+fragment ClusterAttributeFields on ClusterAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  clusterId
+}
+
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}
+
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}
+
+fragment AttributeDecimalValueFields on AttributeDecimalValue {
+  __typename
+  id
+  type
+  decimalValue
+}
+
+fragment AttributeEnumValueFields on AttributeEnumValue {
+  __typename
+  id
+  type
+  enumValues
+}
+
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}
+
+fragment AttributeTextValueFields on AttributeTextValue {
+  __typename
+  id
+  type
+  textValues {
+    language
+    values
+  }
+}
+
+fragment AttributeDescriptionFields on AttributeDescription {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  units {
+    language
+    value
+  }
+  attributeClass
+  type
+  valuesetId
+  group
+  isSearchable
+  isPublic
+  isSystem
+  isHidden
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}
+
+fragment ProductAttributeFields on ProductAttribute {
+  id
+  value {
+    ... on AttributeColorValue {
+      ...AttributeColorValueFields
+    }
+    ... on AttributeDateTimeValue {
+      ...AttributeDateTimeValueFields
+    }
+    ... on AttributeDecimalValue {
+      ...AttributeDecimalValueFields
+    }
+    ... on AttributeEnumValue {
+      ...AttributeEnumValueFields
+    }
+    ... on AttributeIntValue {
+      ...AttributeIntValueFields
+    }
+    ... on AttributeTextValue {
+      ...AttributeTextValueFields
+    }
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    ...AttributeDescriptionFields
+  }
+  productId
+}
+
+fragment BundleFields on Bundle {
+  id
+  name
+  description
+  discount
+  condition
+  price {
+    ...BundlePriceFields
+  }
+  items {
+    ...BundleItemFields
+  }
+}
+
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}
+
+fragment BundleItemFields on BundleItem {
+  productId
+  price {
+    ...BundlePriceFields
+  }
+  isLeader
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  product {
+    ...ProductCartFields
+  }
+}
+
+fragment ProductCartFields on Product {
+  ...IBaseProductCartFields
+  productId
+  clusterId
+  cluster {
+    clusterId
+    slugs {
+      ...LocalizedStringFields
+    }
+  }
+  inventory {
+    ...ProductInventoryFields
+  }
+  media {
+    ...ProductMediaImagesOnlyFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplierCode
+  status
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+}
+
+fragment IBaseProductCartFields on IBaseProduct {
+  language
+  class
+  hidden
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  shortDescriptions {
+    ...LocalizedStringFields
+  }
+  slugs {
+    ...LocalizedStringFields
+  }
+  sku
+}
+
+fragment ProductInventoryFields on ProductInventory {
+  productId
+  totalQuantity
+  supplierQuantity
+  localQuantity
+  nextDeliveryDate
+  balance {
+    id
+    productId
+    quantity
+    costPrice
+    supplier
+    supplierCode
+    sku
+    dateModified
+    warehouseId
+    location
+    nextDeliveryDate
+    notes
+  }
+}
+
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaImageFields on MediaImage {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  images {
+    language
+    originalUrl
+    mimeType
+  }
+  imageVariants(input: \$imageVariantFilters) {
+    name
+    language
+    url
+    mimeType
+  }
+}
+
+fragment LocalizedStringArrayFields on LocalizedStringArray {
+  language
+  values
+}
+
+fragment CategoryMinimalFields on Category {
+  categoryId
+  name(language: \$language) {
+    ...LocalizedStringFields
+  }
+  description(language: \$language) {
+    ...LocalizedStringFields
+  }
+  shortDescription(language: \$language) {
+    ...LocalizedStringFields
+  }
+  slug(language: \$language) {
+    ...LocalizedStringFields
+  }
+}
+
+fragment ProductMediaFields on ProductMedia {
+  images(search: \$imageSearchFilters) {
+    items {
+      ...MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  videos(search: \$mediaVideoSearchInput) {
+    items {
+      ...MediaVideoFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  documents(search: \$mediaDocumentSearchInput) {
+    items {
+      ...MediaDocumentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment MediaVideoFields on MediaVideo {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  videos {
+    language
+    uri
+    mimeType
+  }
+}
+
+fragment MediaDocumentFields on MediaDocument {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  tags {
+    ...LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  documents {
+    language
+    originalUrl
+    mimeType
+  }
+}
+
+fragment ProductPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on BulkCostPrice {
+      ...BulkCostPriceFields
+    }
+    ... on BulkPrice {
+      ...BulkPriceFields
+    }
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}
+
+mutation productUpdate(\$productId: Int!, \$input: UpdateProductInput!) {
   productUpdate(productId: \$productId, input: \$input) {
     ...ProductFields
   }
@@ -1544,7 +26874,21 @@ export const publishPasswordResetEmailEvent = `mutation publishPasswordResetEmai
   }
 }`;
 
-export const purchaseAuthorizationConfigCreate = `mutation purchaseAuthorizationConfigCreate(\$input: PurchaseAuthorizationConfigCreateInput) {
+export const purchaseAuthorizationConfigCreate = `fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+mutation purchaseAuthorizationConfigCreate(\$input: PurchaseAuthorizationConfigCreateInput) {
   purchaseAuthorizationConfigCreate(input: \$input) {
     ...PurchaseAuthorizationConfigFields
   }
@@ -1555,7 +26899,21 @@ export const purchaseAuthorizationConfigDelete = `mutation purchaseAuthorization
 }
 `;
 
-export const purchaseAuthorizationConfigUpdate = `mutation purchaseAuthorizationConfigUpdate(\$id: String!, \$input: PurchaseAuthorizationConfigUpdateInput) {
+export const purchaseAuthorizationConfigUpdate = `fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}
+
+mutation purchaseAuthorizationConfigUpdate(\$id: String!, \$input: PurchaseAuthorizationConfigUpdateInput) {
   purchaseAuthorizationConfigUpdate(id: \$id, input: \$input) {
     ...PurchaseAuthorizationConfigFields
   }
@@ -1606,7 +26964,53 @@ export const roleUpdate = `mutation roleUpdate(\$id: ID!, \$input: RoleUpdateInp
   }
 }`;
 
-export const shipmentCreate = `mutation shipmentCreate(\$input: ShipmentCreateInput!) {
+export const shipmentCreate = `fragment ShipmentFields on Shipment {
+  id
+  createdAt
+  lastModifiedAt
+  expectedDeliveryAt
+  status
+  orderId
+  items {
+    ...ShipmentItemFields
+  }
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+}
+
+fragment ShipmentItemFields on ShipmentItem {
+  id
+  createdAt
+  lastModifiedAt
+  name
+  sku
+  quantity
+  shipmentId
+  orderItemId
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+mutation shipmentCreate(\$input: ShipmentCreateInput!) {
   shipmentCreate(input: \$input) {
     ...ShipmentFields
   }
@@ -1617,7 +27021,18 @@ export const shipmentDelete = `mutation shipmentDelete(\$id: String!) {
 }
 `;
 
-export const shipmentItemCreate = `mutation shipmentItemCreate(\$input: ShipmentItemCreateInput!) {
+export const shipmentItemCreate = `fragment ShipmentItemFields on ShipmentItem {
+  id
+  createdAt
+  lastModifiedAt
+  name
+  sku
+  quantity
+  shipmentId
+  orderItemId
+}
+
+mutation shipmentItemCreate(\$input: ShipmentItemCreateInput!) {
   shipmentItemCreate(input: \$input) {
     ...ShipmentItemFields
   }
@@ -1628,13 +27043,70 @@ export const shipmentItemDelete = `mutation shipmentItemDelete(\$id: String!) {
 }
 `;
 
-export const shipmentItemUpdate = `mutation shipmentItemUpdate(\$id: String!, \$input: ShipmentItemUpdateInput!) {
+export const shipmentItemUpdate = `fragment ShipmentItemFields on ShipmentItem {
+  id
+  createdAt
+  lastModifiedAt
+  name
+  sku
+  quantity
+  shipmentId
+  orderItemId
+}
+
+mutation shipmentItemUpdate(\$id: String!, \$input: ShipmentItemUpdateInput!) {
   shipmentItemUpdate(id: \$id, input: \$input) {
     ...ShipmentItemFields
   }
 }`;
 
-export const shipmentUpdate = `mutation shipmentUpdate(\$id: String!, \$input: ShipmentUpdateInput!) {
+export const shipmentUpdate = `fragment ShipmentFields on Shipment {
+  id
+  createdAt
+  lastModifiedAt
+  expectedDeliveryAt
+  status
+  orderId
+  items {
+    ...ShipmentItemFields
+  }
+  trackAndTraces {
+    ...TrackAndTraceFields
+  }
+}
+
+fragment ShipmentItemFields on ShipmentItem {
+  id
+  createdAt
+  lastModifiedAt
+  name
+  sku
+  quantity
+  shipmentId
+  orderItemId
+}
+
+fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+mutation shipmentUpdate(\$id: String!, \$input: ShipmentUpdateInput!) {
   shipmentUpdate(id: \$id, input: \$input) {
     ...ShipmentFields
   }
@@ -1645,31 +27117,161 @@ export const shopInvalidateCache = `mutation shopInvalidateCache {
 }
 `;
 
-export const startSession = `mutation startSession(\$siteId: Int) {
+export const startSession = `fragment LoginFields on Login {
+  providerId
+  operationType
+  session {
+    ...GCIPUserFields
+  }
+}
+
+fragment GCIPUserFields on GCIPUser {
+  uid
+  email
+  emailVerified
+  displayName
+  photoUrl
+  phoneNumber
+  disabled
+  isAnonymous
+  metadata {
+    lastSignInTime
+    creationTime
+    lastRefreshTime
+  }
+  tokensValidAfterTime
+  tenantId
+  providerData {
+    uid
+    providerId
+    displayName
+    photoUrl
+    federatedId
+    email
+    rawId
+    screenName
+    phoneNumber
+  }
+  passwordHash
+  passwordSalt
+  authDomain
+  lastLoginAt
+  createdAt
+  accessToken
+  refreshToken
+  expirationTime
+  multiFactor {
+    enrolledFactors {
+      factorId
+      phoneNumber
+    }
+  }
+}
+
+mutation startSession(\$siteId: Int) {
   startSession(siteId: \$siteId) {
     ...LoginFields
   }
 }`;
 
-export const surchargeCreate = `mutation surchargeCreate(\$input: CreateSurchargeInput!) {
+export const surchargeCreate = `fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation surchargeCreate(\$input: CreateSurchargeInput!) {
   surchargeCreate(input: \$input) {
     ...SurchargeFields
   }
 }`;
 
-export const surchargeDelete = `mutation surchargeDelete(\$id: String!) {
+export const surchargeDelete = `fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation surchargeDelete(\$id: String!) {
   surchargeDelete(id: \$id) {
     ...SurchargeFields
   }
 }`;
 
-export const surchargeUpdate = `mutation surchargeUpdate(\$id: String!, \$input: UpdateSurchargeInput!) {
+export const surchargeUpdate = `fragment SurchargeFields on Surcharge {
+  id
+  name {
+    ...LocalizedStringFields
+  }
+  description {
+    ...LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxZone
+  enabled
+  validFrom
+  validTo
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation surchargeUpdate(\$id: String!, \$input: UpdateSurchargeInput!) {
   surchargeUpdate(id: \$id, input: \$input) {
     ...SurchargeFields
   }
 }`;
 
-export const taxCreate = `mutation taxCreate(\$input: TaxCreateInput!) {
+export const taxCreate = `fragment TaxFields on Tax {
+  id
+  shopId
+  code
+  zone
+  percentage
+  exportCode
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+}
+
+mutation taxCreate(\$input: TaxCreateInput!) {
   taxCreate(input: \$input) {
     ...TaxFields
   }
@@ -1680,7 +27282,20 @@ export const taxDelete = `mutation taxDelete(\$id: String!) {
 }
 `;
 
-export const taxUpdate = `mutation taxUpdate(\$id: String!, \$input: TaxUpdateInput!) {
+export const taxUpdate = `fragment TaxFields on Tax {
+  id
+  shopId
+  code
+  zone
+  percentage
+  exportCode
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+}
+
+mutation taxUpdate(\$id: String!, \$input: TaxUpdateInput!) {
   taxUpdate(id: \$id, input: \$input) {
     ...TaxFields
   }
@@ -1696,24 +27311,50 @@ export const templateRenderToHTML = `mutation templateRenderToHTML(\$id: String!
 }
 `;
 
-export const tenantCreate = `mutation tenantCreate(\$input: TenantCreateInput!) {
+export const tenantCreate = `fragment TenantFields on Tenant {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  createdAt
+  lastModifiedAt
+  restrictSalesPricingVisibility
+  allowQuoteInvalidation
+  quoteDefaultExpiryPeriodDays
+}
+
+mutation tenantCreate(\$input: TenantCreateInput!) {
   tenantCreate(input: \$input) {
     ...TenantFields
   }
-}
-`;
+}`;
 
 export const tenantDelete = `mutation tenantDelete(\$id: String) {
   tenantDelete(id: \$id)
 }
 `;
 
-export const tenantUpdate = `mutation tenantUpdate(\$input: TenantUpdateInput!, \$id: String) {
+export const tenantUpdate = `fragment TenantFields on Tenant {
+  id
+  name
+  descriptions {
+    language
+    value
+  }
+  createdAt
+  lastModifiedAt
+  restrictSalesPricingVisibility
+  allowQuoteInvalidation
+  quoteDefaultExpiryPeriodDays
+}
+
+mutation tenantUpdate(\$input: TenantUpdateInput!, \$id: String) {
   tenantUpdate(input: \$input, id: \$id) {
     ...TenantFields
   }
-}
-`;
+}`;
 
 export const tenderAddItems = `mutation tenderAddItems(\$id: String!, \$input: TenderAddItemsInput!) {
   tenderAddItems(id: \$id, input: \$input) {
@@ -1799,26 +27440,112 @@ export const tenderUpdatePostage = `mutation tenderUpdatePostage(\$id: String!, 
   }
 }`;
 
-export const ticketCreate = `mutation ticketCreate(\$input: TicketCreateInput!) {
+export const ticketCreate = `fragment TicketFields on Ticket {
+  id
+  titles {
+    language
+    value
+  }
+  descriptions {
+    language
+    value
+  }
+  buttonLabels {
+    language
+    value
+  }
+  type
+  status
+  assignedToAdminUserId
+  contactId
+  customerId
+  productId
+  clusterId
+  orderId
+  companyId
+  email
+  phone
+  externalUrl
+  createdAt
+  lastModifiedAt
+  pickedUpAt
+  completedAt
+  lastModifiedByAdminUserId
+  createdByAdminUserId
+}
+
+mutation ticketCreate(\$input: TicketCreateInput!) {
   ticketCreate(input: \$input) {
     ...TicketFields
   }
-}
-`;
+}`;
 
 export const ticketDelete = `mutation ticketDelete(\$id: ID!) {
   ticketDelete(id: \$id)
 }
 `;
 
-export const ticketUpdate = `mutation ticketUpdate(\$id: ID!, \$input: TicketUpdateInput!) {
+export const ticketUpdate = `fragment TicketFields on Ticket {
+  id
+  titles {
+    language
+    value
+  }
+  descriptions {
+    language
+    value
+  }
+  buttonLabels {
+    language
+    value
+  }
+  type
+  status
+  assignedToAdminUserId
+  contactId
+  customerId
+  productId
+  clusterId
+  orderId
+  companyId
+  email
+  phone
+  externalUrl
+  createdAt
+  lastModifiedAt
+  pickedUpAt
+  completedAt
+  lastModifiedByAdminUserId
+  createdByAdminUserId
+}
+
+mutation ticketUpdate(\$id: ID!, \$input: TicketUpdateInput!) {
   ticketUpdate(id: \$id, input: \$input) {
     ...TicketFields
   }
-}
-`;
+}`;
 
-export const trackAndTraceCreate = `mutation trackAndTraceCreate(\$input: TrackAndTraceCreateInput!) {
+export const trackAndTraceCreate = `fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+mutation trackAndTraceCreate(\$input: TrackAndTraceCreateInput!) {
   trackAndTraceCreate(input: \$input) {
     ...TrackAndTraceFields
   }
@@ -1829,7 +27556,27 @@ export const trackAndTraceDelete = `mutation trackAndTraceDelete(\$id: String!) 
 }
 `;
 
-export const trackAndTraceUpdate = `mutation trackAndTraceUpdate(\$id: String!, \$input: TrackAndTraceUpdateInput!) {
+export const trackAndTraceUpdate = `fragment TrackAndTraceFields on TrackAndTrace {
+  carrierId
+  carrier {
+    id
+    name
+    type
+    trackAndTraceURL
+    logo
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  id
+  createdAt
+  lastModifiedAt
+  code
+  shipmentId
+}
+
+mutation trackAndTraceUpdate(\$id: String!, \$input: TrackAndTraceUpdateInput!) {
   trackAndTraceUpdate(id: \$id, input: \$input) {
     ...TrackAndTraceFields
   }
@@ -1879,7 +27626,46 @@ export const triggerQuoteSendValidation = `mutation triggerQuoteSendValidation(\
 }
 `;
 
-export const valuesetCreate = `mutation valuesetCreate(\$input: ValuesetCreateInput!) {
+export const valuesetCreate = `fragment ValuesetFields on Valueset {
+  id
+  name
+  type
+  descriptions {
+    ...LocalizedStringFields
+  }
+  lastModifiedBy
+  lastModifiedAt
+  createdBy
+  createdAt
+  valuesetItems {
+    items {
+      ...ValuesetItemFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ValuesetItemFields on ValuesetItem {
+  id
+  valuesetId
+  value
+  descriptions {
+    ...LocalizedStringFields
+  }
+  extra
+}
+
+mutation valuesetCreate(\$input: ValuesetCreateInput!) {
   valuesetCreate(input: \$input) {
     ...ValuesetFields
   }
@@ -1890,7 +27676,22 @@ export const valuesetDelete = `mutation valuesetDelete(\$id: Int!) {
 }
 `;
 
-export const valuesetItemCreate = `mutation valuesetItemCreate(\$input: ValuesetItemCreateInput!) {
+export const valuesetItemCreate = `fragment ValuesetItemFields on ValuesetItem {
+  id
+  valuesetId
+  value
+  descriptions {
+    ...LocalizedStringFields
+  }
+  extra
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation valuesetItemCreate(\$input: ValuesetItemCreateInput!) {
   valuesetItemCreate(input: \$input) {
     ...ValuesetItemFields
   }
@@ -1901,25 +27702,126 @@ export const valuesetItemDelete = `mutation valuesetItemDelete(\$id: Int!) {
 }
 `;
 
-export const valuesetItemUpdate = `mutation valuesetItemUpdate(\$id: Int!, \$input: ValuesetItemUpdateInput!) {
+export const valuesetItemUpdate = `fragment ValuesetItemFields on ValuesetItem {
+  id
+  valuesetId
+  value
+  descriptions {
+    ...LocalizedStringFields
+  }
+  extra
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation valuesetItemUpdate(\$id: Int!, \$input: ValuesetItemUpdateInput!) {
   valuesetItemUpdate(id: \$id, input: \$input) {
     ...ValuesetItemFields
   }
 }`;
 
-export const valuesetUpdate = `mutation valuesetUpdate(\$id: Int!, \$input: ValuesetUpdateInput!) {
+export const valuesetUpdate = `fragment ValuesetFields on Valueset {
+  id
+  name
+  type
+  descriptions {
+    ...LocalizedStringFields
+  }
+  lastModifiedBy
+  lastModifiedAt
+  createdBy
+  createdAt
+  valuesetItems {
+    items {
+      ...ValuesetItemFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+fragment ValuesetItemFields on ValuesetItem {
+  id
+  valuesetId
+  value
+  descriptions {
+    ...LocalizedStringFields
+  }
+  extra
+}
+
+mutation valuesetUpdate(\$id: Int!, \$input: ValuesetUpdateInput!) {
   valuesetUpdate(id: \$id, input: \$input) {
     ...ValuesetFields
   }
 }`;
 
-export const verifyToken = `mutation verifyToken(\$input: VerifyTokenInput!) {
+export const verifyToken = `fragment VerifyTokenFields on VerifyToken {
+  uid
+  name
+  claims
+  iss
+  aud
+  auth_time
+  user_id
+  sub
+  iat
+  exp
+  email
+  email_verified
+  firebase {
+    identities
+    sign_in_provider
+    sign_in_second_factor
+    second_factor_identifier
+    tenant
+  }
+}
+
+mutation verifyToken(\$input: VerifyTokenInput!) {
   verifyToken(input: \$input) {
     ...VerifyTokenFields
   }
 }`;
 
-export const warehouseAddressCreate = `mutation warehouseAddressCreate(\$id: Float!, \$input: CreateWarehouseAddressInput!) {
+export const warehouseAddressCreate = `fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+mutation warehouseAddressCreate(\$id: Float!, \$input: CreateWarehouseAddressInput!) {
   warehouseAddressCreate(id: \$id, input: \$input) {
     ...WarehouseAddressFields
   }
@@ -1930,31 +27832,224 @@ export const warehouseAddressDelete = `mutation warehouseAddressDelete(\$id: Flo
 }
 `;
 
-export const warehouseAddressUpdate = `mutation warehouseAddressUpdate(\$id: Float!, \$input: UpdateWarehouseAddressInput!) {
+export const warehouseAddressUpdate = `fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+mutation warehouseAddressUpdate(\$id: Float!, \$input: UpdateWarehouseAddressInput!) {
   warehouseAddressUpdate(id: \$id, input: \$input) {
     ...WarehouseAddressFields
   }
 }`;
 
-export const warehouseCreate = `mutation warehouseCreate(\$input: CreateWarehouseInput!) {
+export const warehouseCreate = `fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation warehouseCreate(\$input: CreateWarehouseInput!) {
   warehouseCreate(input: \$input) {
     ...WarehouseFields
   }
 }`;
 
-export const warehouseDelete = `mutation warehouseDelete(\$id: Float!) {
+export const warehouseDelete = `fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation warehouseDelete(\$id: Float!) {
   warehouseDelete(id: \$id) {
     ...WarehouseFields
   }
 }`;
 
-export const warehouseUpdate = `mutation warehouseUpdate(\$id: Float!, \$input: UpdateWarehouseInput!) {
+export const warehouseUpdate = `fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ...WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  shopId
+  businessHours {
+    ...BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}
+
+fragment WarehouseAddressFields on WarehouseAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}
+
+fragment BusinessHoursFields on BusinessHours {
+  dayOfWeek
+  openingTime
+  closingTime
+  lunchBeakStartTime
+  lunchBeakEndTime
+}
+
+mutation warehouseUpdate(\$id: Float!, \$input: UpdateWarehouseInput!) {
   warehouseUpdate(id: \$id, input: \$input) {
     ...WarehouseFields
   }
 }`;
 
-export const zoneTaxCodeCreate = `mutation zoneTaxCodeCreate(\$input: ZoneTaxCodeCreateInput!) {
+export const zoneTaxCodeCreate = `fragment ZoneTaxCodeFields on ZoneTaxCode {
+  id
+  priceId
+  createdAt
+  lastModifiedAt
+  zone
+  taxCode
+}
+
+mutation zoneTaxCodeCreate(\$input: ZoneTaxCodeCreateInput!) {
   zoneTaxCodeCreate(input: \$input) {
     ...ZoneTaxCodeFields
   }
@@ -1965,7 +28060,16 @@ export const zoneTaxCodeDelete = `mutation zoneTaxCodeDelete(\$id: String!) {
 }
 `;
 
-export const zoneTaxCodesCreate = `mutation zoneTaxCodesCreate(\$input: [ZoneTaxCodeCreateInput!]!) {
+export const zoneTaxCodesCreate = `fragment ZoneTaxCodeFields on ZoneTaxCode {
+  id
+  priceId
+  createdAt
+  lastModifiedAt
+  zone
+  taxCode
+}
+
+mutation zoneTaxCodesCreate(\$input: [ZoneTaxCodeCreateInput!]!) {
   zoneTaxCodesCreate(input: \$input) {
     ...ZoneTaxCodeFields
   }
@@ -1976,7 +28080,16 @@ export const zoneTaxCodesDelete = `mutation zoneTaxCodesDelete(\$priceId: String
 }
 `;
 
-export const zoneTaxCodeUpdate = `mutation zoneTaxCodeUpdate(\$id: String!, \$input: ZoneTaxCodeUpdateInput!) {
+export const zoneTaxCodeUpdate = `fragment ZoneTaxCodeFields on ZoneTaxCode {
+  id
+  priceId
+  createdAt
+  lastModifiedAt
+  zone
+  taxCode
+}
+
+mutation zoneTaxCodeUpdate(\$id: String!, \$input: ZoneTaxCodeUpdateInput!) {
   zoneTaxCodeUpdate(id: \$id, input: \$input) {
     ...ZoneTaxCodeFields
   }

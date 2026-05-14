@@ -1,15 +1,15 @@
 import { GraphQLClient } from '../client/GraphQLClient';
 import { GraphQLOperationError } from '../client/GraphQLOperationError';
-import { resolveFragments } from '../client/fragmentResolver';
 import { queries } from '../generated/queries';
 import { mutations } from '../generated/mutations';
 
 /**
  * Base service class providing common GraphQL operations.
  *
- * Fragment inlining is handled by the shared module-scoped resolver in
- * `../client/fragmentResolver`, so all services share a single parsed fragment
- * registry and a single resolved-operation cache across the process.
+ * As of 0.4.0, fragment inlining is performed at build time by
+ * `scripts/build-graphql-bundle.js`, so the strings in `generated/queries`
+ * and `generated/mutations` already contain every fragment they reference.
+ * There is no runtime fragment-resolution step here or in `GraphQLClient`.
  */
 export abstract class BaseService {
     protected client: GraphQLClient;
@@ -19,7 +19,7 @@ export abstract class BaseService {
     }
 
     /**
-     * Execute a query with automatic fragment inlining.
+     * Execute a query.
      *
      * Throws `GraphQLOperationError` when the server returns a non-empty
      * `errors` array. Returns the raw response object (with `data`) on success.
@@ -29,12 +29,10 @@ export abstract class BaseService {
         if (!queryString) {
             throw new Error(`Query '${queryName}' not found in bundled queries`);
         }
-        const resolved = resolveFragments(queryString);
         const result = await this.client.execute({
-            query: resolved,
+            query: queryString,
             variables,
             operationName: queryName,
-            skipFragmentResolution: true,
         });
         if (result.errors && result.errors.length > 0) {
             throw new GraphQLOperationError(result.errors, queryName, variables);
@@ -43,7 +41,7 @@ export abstract class BaseService {
     }
 
     /**
-     * Execute a mutation with automatic fragment inlining.
+     * Execute a mutation.
      *
      * Throws `GraphQLOperationError` when the server returns a non-empty
      * `errors` array. Returns the raw response object (with `data`) on success.
@@ -53,12 +51,10 @@ export abstract class BaseService {
         if (!mutationString) {
             throw new Error(`Mutation '${mutationName}' not found in bundled mutations`);
         }
-        const resolved = resolveFragments(mutationString);
         const result = await this.client.execute({
-            query: resolved,
+            query: mutationString,
             variables,
             operationName: mutationName,
-            skipFragmentResolution: true,
         });
         if (result.errors && result.errors.length > 0) {
             throw new GraphQLOperationError(result.errors, mutationName, variables);

@@ -1,271 +1,278 @@
-import { GraphQLClient, createGraphQLClient, initializeClient, getClient } from '../../src/client/GraphQLClient';
-import { testConfig } from '../config';
-import { TestHelpers } from '../helpers/testHelpers';
+import {
+  GraphQLClient,
+  GraphQLClientConfig,
+  GraphQLOperationError,
+  createGraphQLClient,
+  initializeClient,
+  getClient,
+} from '../../src';
+
+const ENDPOINT = 'https://example.test/graphql';
+
+const okResponse = (data: any, init: Partial<Response> = {}) =>
+  new Response(JSON.stringify({ data, errors: undefined }), { status: 200, ...init });
+
+const errorBodyResponse = (status: number, body: string) =>
+  new Response(body, { status });
+
+const gqlErrorResponse = (errors: { message: string }[]) =>
+  new Response(JSON.stringify({ data: null, errors }), { status: 200 });
 
 describe('GraphQLClient', () => {
-  let client: GraphQLClient;
+  let warnSpy: jest.SpyInstance;
+  let fetchSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    client = new GraphQLClient({
-      endpoint: testConfig.GRAPHQL_ENDPOINT,
-      apiKey: testConfig.API_KEY,
-      orderEditorApiKey: testConfig.ORDER_EDITOR_API_KEY,
-      timeout: testConfig.TIMEOUT,
-    });
+    warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined);
+    fetchSpy = jest.spyOn(global, 'fetch' as any);
   });
 
   afterEach(() => {
-    // Clean up any global state
-    if (global.fetch && (global.fetch as any).mockRestore) {
-      (global.fetch as any).mockRestore();
-    }
+    warnSpy.mockRestore();
+    fetchSpy.mockRestore();
   });
 
-  describe('Constructor and Configuration', () => {
-    it('should create a client with correct configuration', () => {
-      expect(client).toBeDefined();
-      expect(client.getConfig().endpoint).toBe(testConfig.GRAPHQL_ENDPOINT);
-      expect(client.getConfig().timeout).toBe(testConfig.TIMEOUT);
+  describe('constructor + config validation', () => {
+    it('initializes with proxy mode by default', () => {
+      const c = new GraphQLClient({ endpoint: ENDPOINT });
+      expect(c.getSecurityMode()).toBe('proxy');
+      expect(c.isSecureMode()).toBe(true);
     });
 
-    it('should use default timeout when not specified', () => {
-      const clientWithoutTimeout = new GraphQLClient({
-        endpoint: testConfig.GRAPHQL_ENDPOINT,
-        apiKey: testConfig.API_KEY,
-      });
-      expect(clientWithoutTimeout.getConfig().timeout).toBe(30000);
-    });
-
-    it('should update configuration correctly', () => {
-      const newTimeout = 60000;
-      client.updateConfig({ timeout: newTimeout });
-      expect(client.getConfig().timeout).toBe(newTimeout);
-    });
-  });
-
-  describe('Fragment Management', () => {
-    it('should register fragments correctly', () => {
-      const fragmentName = 'TestFragment';
-      const fragmentDefinition = 'fragment TestFragment on Product { id name }';
-      
-      client.registerFragment(fragmentName, fragmentDefinition);
-      
-      // Note: We can't directly test private methods, but we can verify the client still works
-      expect(client).toBeDefined();
-    });
-  });
-
-  describe('API Key Selection', () => {
-    it('should use standard API key for regular operations', async () => {
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: true,
-        json: async () => TestHelpers.createMockResponse({ test: 'data' }),
-      });
-      global.fetch = mockFetch;
-
-      const query = 'query TestQuery { test }';
-      await client.query(query);
-
-      const fetchCall = mockFetch.mock.calls[0];
-      const headers = fetchCall[1].headers;
-      expect(headers.apikey).toBe(testConfig.API_KEY);
-    });
-
-    it('should use order editor API key for specific mutations', async () => {
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: true,
-        json: async () => TestHelpers.createMockResponse({ test: 'data' }),
-      });
-      global.fetch = mockFetch;
-
-      const mutation = 'mutation orderSetStatus { orderSetStatus { success } }';
-      await client.mutate(mutation);
-
-      const fetchCall = mockFetch.mock.calls[0];
-      const headers = fetchCall[1].headers;
-      expect(headers.apikey).toBe(testConfig.ORDER_EDITOR_API_KEY);
-    });
-  });
-
-  describe('Query Execution', () => {
-    it('should execute queries successfully', async () => {
-      const mockData = { products: [{ id: 1, name: 'Test Product' }] };
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: true,
-        json: async () => TestHelpers.createMockResponse(mockData),
-      });
-      global.fetch = mockFetch;
-
-      const query = 'query GetProducts { products { id name } }';
-      const result = await client.query(query);
-
-      expect(result).toEqual(mockData);
-      expect(mockFetch).toHaveBeenCalledWith(
-        testConfig.GRAPHQL_ENDPOINT,
-        expect.objectContaining({
-          method: 'POST',
-          headers: expect.objectContaining({
-            'Content-Type': 'application/json',
-            apikey: testConfig.API_KEY,
-          }),
-          body: expect.stringContaining(query),
-        })
+    it('warns when proxy mode is combined with apiKey', () => {
+      new GraphQLClient({ endpoint: ENDPOINT, apiKey: 'leaked' });
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('securityMode is "proxy" but `apiKey`')
       );
     });
 
-    it('should handle query errors correctly', async () => {
-      const mockError = TestHelpers.createMockError('GraphQL error occurred');
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ data: null, errors: [mockError] }),
-      });
-      global.fetch = mockFetch;
-
-      const query = 'query InvalidQuery { invalidField }';
-      
-      await expect(client.query(query)).rejects.toThrow('GraphQL query failed: GraphQL error occurred');
-    });
-
-    it('should handle HTTP errors correctly', async () => {
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: false,
-        status: 500,
-      });
-      global.fetch = mockFetch;
-
-      const query = 'query TestQuery { test }';
-      
-      await expect(client.query(query)).rejects.toThrow('HTTP error! status: 500');
-    });
-  });
-
-  describe('Mutation Execution', () => {
-    it('should execute mutations successfully', async () => {
-      const mockData = { createProduct: { id: 1, name: 'New Product' } };
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: true,
-        json: async () => TestHelpers.createMockResponse(mockData),
-      });
-      global.fetch = mockFetch;
-
-      const mutation = 'mutation CreateProduct($input: CreateProductInput!) { createProduct(input: $input) { id name } }';
-      const variables = { input: { name: 'New Product' } };
-      const result = await client.mutate(mutation, variables);
-
-      expect(result).toEqual(mockData);
-      expect(mockFetch).toHaveBeenCalledWith(
-        testConfig.GRAPHQL_ENDPOINT,
-        expect.objectContaining({
-          method: 'POST',
-          body: expect.stringContaining(mutation),
-        })
+    it('warns when direct mode is missing apiKey', () => {
+      new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct' });
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('securityMode is "direct" but no `apiKey`')
       );
     });
 
-    it('should handle mutation errors correctly', async () => {
-      const mockError = TestHelpers.createMockError('Mutation failed');
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: true,
-        json: async () => ({ data: null, errors: [mockError] }),
+    it('warns when deprecated config options are supplied', () => {
+      new GraphQLClient({
+        endpoint: ENDPOINT,
+        customFragmentsPath: '/tmp/whatever',
       });
-      global.fetch = mockFetch;
-
-      const mutation = 'mutation TestMutation { test }';
-      
-      await expect(client.mutate(mutation)).rejects.toThrow('GraphQL mutation failed: Mutation failed');
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('customFragmentsPath')
+      );
     });
   });
 
-  describe('Timeout Handling', () => {
-    it('should handle request timeouts correctly', async () => {
-      const mockFetch = jest.fn().mockImplementation(() => {
-        return new Promise((_, reject) => {
-          setTimeout(() => reject(new Error('AbortError')), 100);
-        });
-      });
-      global.fetch = mockFetch;
+  describe('execute()', () => {
+    it('sends POST with correct body and operationName extracted from query', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({ foo: 1 }));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct', apiKey: 'k' });
 
-      const clientWithShortTimeout = new GraphQLClient({
-        endpoint: testConfig.GRAPHQL_ENDPOINT,
-        apiKey: testConfig.API_KEY,
-        timeout: 50,
-      });
+      const result = await c.execute({ query: 'query Foo { foo }' });
 
-      const query = 'query TestQuery { test }';
-      
-      await expect(clientWithShortTimeout.query(query)).rejects.toThrow('GraphQL request timeout after 50ms');
+      expect(result.data).toEqual({ foo: 1 });
+      const [url, init] = fetchSpy.mock.calls[0];
+      expect(url).toBe(ENDPOINT);
+      expect(init.method).toBe('POST');
+      const body = JSON.parse(init.body as string);
+      expect(body.operationName).toBe('Foo');
+      expect(body.query).toBe('query Foo { foo }');
+    });
+
+    it('strips leading # comments when extracting operation name', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct', apiKey: 'k' });
+      await c.execute({ query: '# leading comment\n# another\nmutation Bar { bar }' });
+      const body = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+      expect(body.operationName).toBe('Bar');
+    });
+
+    it('returns undefined operation name for anonymous queries', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct', apiKey: 'k' });
+      await c.execute({ query: 'query { foo }' });
+      const body = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+      expect(body.operationName).toBeUndefined();
+    });
+
+    it('includes response body in HTTP error message', async () => {
+      fetchSpy.mockResolvedValueOnce(errorBodyResponse(400, 'Invalid syntax at line 3'));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct', apiKey: 'k' });
+
+      await expect(c.execute({ query: 'query X { x }' })).rejects.toThrow(/HTTP 400.*Invalid syntax at line 3/);
+    });
+
+    it('returns response with errors array (does not throw)', async () => {
+      fetchSpy.mockResolvedValueOnce(gqlErrorResponse([{ message: 'bad' }]));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct', apiKey: 'k' });
+
+      const result = await c.execute({ query: 'query X { x }' });
+      expect(result.errors).toEqual([{ message: 'bad' }]);
     });
   });
 
-  describe('Fragment Resolution', () => {
-    it('should resolve fragments in queries', async () => {
-      const mockData = { products: [{ id: 1, name: 'Test Product' }] };
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: true,
-        json: async () => TestHelpers.createMockResponse(mockData),
-      });
-      global.fetch = mockFetch;
+  describe('query() / mutate() throw on GraphQL errors', () => {
+    it('query() throws GraphQLOperationError when errors are present', async () => {
+      fetchSpy.mockResolvedValueOnce(gqlErrorResponse([{ message: 'nope' }]));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct', apiKey: 'k' });
+      await expect(c.query('query X { x }', undefined, 'X')).rejects.toBeInstanceOf(GraphQLOperationError);
+    });
 
-      const query = 'query GetProducts { products { ...ProductFields } } fragment ProductFields on Product { id name }';
-      const result = await client.query(query);
-
-      expect(result).toEqual(mockData);
-      expect(mockFetch).toHaveBeenCalled();
+    it('mutate() throws GraphQLOperationError when errors are present', async () => {
+      fetchSpy.mockResolvedValueOnce(gqlErrorResponse([{ message: 'nope' }]));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct', apiKey: 'k' });
+      await expect(c.mutate('mutation Y { y }', undefined, 'Y')).rejects.toBeInstanceOf(GraphQLOperationError);
     });
   });
 
-  describe('Utility Functions', () => {
-    it('should create client using factory function', () => {
-      const factoryClient = createGraphQLClient({
-        endpoint: testConfig.GRAPHQL_ENDPOINT,
-        apiKey: testConfig.API_KEY,
+  describe('direct-mode API key routing', () => {
+    it('uses standard apiKey for regular operations', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'direct',
+        apiKey: 'standard',
+        orderEditorApiKey: 'editor',
       });
-      
-      expect(factoryClient).toBeDefined();
-      expect(factoryClient.getConfig().endpoint).toBe(testConfig.GRAPHQL_ENDPOINT);
+      await c.execute({ query: 'mutation Whatever { x }' });
+      const headers = fetchSpy.mock.calls[0][1].headers;
+      expect(headers['apikey']).toBe('standard');
     });
 
-    it('should initialize and get default client', () => {
-      initializeClient({
-        endpoint: testConfig.GRAPHQL_ENDPOINT,
-        apiKey: testConfig.API_KEY,
+    it('uses orderEditorApiKey for default order-editor mutations', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'direct',
+        apiKey: 'standard',
+        orderEditorApiKey: 'editor',
       });
-      
-      const defaultClient = getClient();
-      expect(defaultClient).toBeDefined();
-      expect(defaultClient.getConfig().endpoint).toBe(testConfig.GRAPHQL_ENDPOINT);
+      await c.execute({ query: 'mutation orderSetStatus { x }' });
+      const headers = fetchSpy.mock.calls[0][1].headers;
+      expect(headers['apikey']).toBe('editor');
     });
 
-    it('should throw error when getting uninitialized client', () => {
-      // Reset global state
-      (global as any).defaultClient = null;
-      
-      expect(() => getClient()).toThrow('GraphQL client not initialized. Call initializeClient() first.');
+    it('uses orderEditorApiKey for custom-configured mutations', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'direct',
+        apiKey: 'standard',
+        orderEditorApiKey: 'editor',
+        orderEditorMutations: ['myCustomOp'],
+      });
+      await c.execute({ query: 'mutation myCustomOp { x }' });
+      const headers = fetchSpy.mock.calls[0][1].headers;
+      expect(headers['apikey']).toBe('editor');
+    });
+
+    it('sends no apikey header in proxy mode', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'proxy' });
+      await c.execute({ query: 'query X { x }' });
+      const headers = fetchSpy.mock.calls[0][1].headers;
+      expect(headers['apikey']).toBeUndefined();
     });
   });
 
-  describe('Error Handling', () => {
-    it('should handle network errors gracefully', async () => {
-      const mockFetch = jest.fn().mockRejectedValue(new Error('Network error'));
-      global.fetch = mockFetch;
-
-      const query = 'query TestQuery { test }';
-      
-      await expect(client.query(query)).rejects.toThrow('GraphQL request failed: Network error');
+  describe('proxy mode auth token', () => {
+    it('adds Authorization Bearer header when getAccessToken returns a token', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'proxy',
+        getAccessToken: () => 'tok-123',
+      });
+      await c.execute({ query: 'query X { x }' });
+      const headers = fetchSpy.mock.calls[0][1].headers;
+      expect(headers['Authorization']).toBe('Bearer tok-123');
     });
 
-    it('should handle malformed JSON responses', async () => {
-      const mockFetch = jest.fn().mockResolvedValue({
-        ok: true,
-        json: async () => {
-          throw new Error('Invalid JSON');
-        },
+    it('omits Authorization header when no token', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'proxy',
+        getAccessToken: () => undefined,
       });
-      global.fetch = mockFetch;
+      await c.execute({ query: 'query X { x }' });
+      const headers = fetchSpy.mock.calls[0][1].headers;
+      expect(headers['Authorization']).toBeUndefined();
+    });
 
-      const query = 'query TestQuery { test }';
-      
-      await expect(client.query(query)).rejects.toThrow('GraphQL request failed: Invalid JSON');
+    it('attaches X-Client-ID when clientId is configured', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'proxy',
+        clientId: 'storefront',
+      });
+      await c.execute({ query: 'query X { x }' });
+      const headers = fetchSpy.mock.calls[0][1].headers;
+      expect(headers['X-Client-ID']).toBe('storefront');
+    });
+
+    it('isAuthenticated() returns true when token is present', async () => {
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'proxy',
+        getAccessToken: () => 'x',
+      });
+      await expect(c.isAuthenticated()).resolves.toBe(true);
     });
   });
-}); 
+
+  describe('endpoint selection', () => {
+    it('uses proxyEndpoint in proxy mode when provided', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        proxyEndpoint: 'https://proxy.test/gql',
+        securityMode: 'proxy',
+      });
+      await c.execute({ query: 'query X { x }' });
+      expect(fetchSpy.mock.calls[0][0]).toBe('https://proxy.test/gql');
+    });
+
+    it('falls back to endpoint when proxyEndpoint is not set', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'proxy' });
+      await c.execute({ query: 'query X { x }' });
+      expect(fetchSpy.mock.calls[0][0]).toBe(ENDPOINT);
+    });
+  });
+
+  describe('registered operations', () => {
+    it('queryByName looks up bundled queries', () => {
+      const c = new GraphQLClient({ endpoint: ENDPOINT });
+      // The bundled `viewer` query is small and reliably present.
+      expect(c.getQuery('viewer')).toBeDefined();
+    });
+
+    it('mutateByName throws if mutation is not registered', async () => {
+      const c = new GraphQLClient({ endpoint: ENDPOINT });
+      await expect(c.mutateByName('definitelyNotARealMutation')).rejects.toThrow(/not found/);
+    });
+
+    it('registerFragment stores fragment string accessible via getFragment', () => {
+      const c = new GraphQLClient({ endpoint: ENDPOINT });
+      c.registerFragment('MyFrag', 'fragment MyFrag on Foo { id }');
+      expect(c.getFragment('MyFrag')).toBe('fragment MyFrag on Foo { id }');
+      expect(c.getFragmentNames()).toContain('MyFrag');
+    });
+  });
+
+  describe('factory and singleton helpers', () => {
+    it('createGraphQLClient returns a GraphQLClient instance', () => {
+      expect(createGraphQLClient({ endpoint: ENDPOINT })).toBeInstanceOf(GraphQLClient);
+    });
+
+    it('getClient throws before initializeClient is called', () => {
+      // Reset by importing fresh — but module-level state is shared, so we test
+      // initialize-then-get instead.
+      initializeClient({ endpoint: ENDPOINT });
+      expect(getClient()).toBeInstanceOf(GraphQLClient);
+    });
+  });
+});

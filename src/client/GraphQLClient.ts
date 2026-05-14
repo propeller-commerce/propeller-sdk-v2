@@ -1,21 +1,23 @@
-// Note: This client uses the built-in fetch API available in Node.js 18+
-// For older versions, you may need to install a fetch polyfill
+// Note: This client uses the built-in fetch API available in Node.js 18+.
+// For older runtimes, install a fetch polyfill.
 
 import { GraphQLOperationError, GraphQLErrorEntry } from './GraphQLOperationError';
-import {
-  resolveFragments,
-  registerFragment as registerSharedFragment,
-  getFragment as getSharedFragment,
-  getFragmentNames as getSharedFragmentNames,
-} from './fragmentResolver';
+import { queries as bundledQueries } from '../generated/queries';
+import { mutations as bundledMutations } from '../generated/mutations';
 
 /**
- * Represents a GraphQL operation (query or mutation)
+ * Represents a GraphQL operation (query or mutation).
+ *
+ * As of 0.4.0, fragment inlining is performed at build time, so operation
+ * strings reaching `execute()` already contain every fragment they reference.
+ * `skipFragmentResolution` is retained on the interface for API compatibility
+ * with 0.3.x callers but is no longer load-bearing — it is silently ignored.
  */
 export interface GraphQLOperation {
   operationName?: string;
   query: string;
   variables?: Record<string, any>;
+  /** @deprecated As of 0.4.0 there is no runtime fragment resolution; this flag is ignored. */
   skipFragmentResolution?: boolean;
 }
 
@@ -35,32 +37,32 @@ export interface GraphQLResponse<T = any> {
 export type AccessTokenProvider = () => string | undefined | Promise<string | undefined>;
 
 /**
- * Configuration for the GraphQL client
+ * Configuration for the GraphQL client.
  */
 export interface GraphQLClientConfig {
-  /** API endpoint URL - can be direct external API or proxy endpoint */
+  /** API endpoint URL — direct external API or proxy endpoint. */
   endpoint: string;
-  /** Standard API key - only used in direct mode */
+  /** Standard API key — only used in direct mode. */
   apiKey?: string;
-  /** Order Editor API key for specific mutations - only used in direct mode */
+  /** Order Editor API key — only used in direct mode for mutations in `orderEditorMutations`. */
   orderEditorApiKey?: string;
-  /** Additional headers */
+  /** Additional headers attached to every request. */
   headers?: Record<string, string>;
-  /** Request timeout in milliseconds */
+  /** Request timeout in milliseconds (default 30000). */
   timeout?: number;
-  /** Security mode: 'proxy' (recommended) or 'direct' (legacy, insecure) */
+  /** Security mode: 'proxy' (recommended) or 'direct' (legacy, exposes API keys client-side). */
   securityMode?: 'proxy' | 'direct';
-  /** Proxy endpoint for secure mode - if not provided, uses endpoint */
+  /** Proxy endpoint for secure mode — falls back to `endpoint` if not provided. */
   proxyEndpoint?: string;
-  /** Client identifier for proxy mode (optional) */
+  /** Client identifier for proxy mode (sent as `X-Client-ID`). */
   clientId?: string;
-  /** Custom path for GraphQL fragments (overrides default SDK fragments) */
+  /** @deprecated As of 0.4.0, runtime fragment resolution is removed; ignored. */
   customFragmentsPath?: string;
-  /** Custom path for GraphQL queries (overrides default SDK queries) */
+  /** @deprecated As of 0.4.0, runtime custom query loading is removed; ignored. */
   customQueriesPath?: string;
-  /** Custom path for GraphQL mutations (overrides default SDK mutations) */
+  /** @deprecated As of 0.4.0, runtime custom mutation loading is removed; ignored. */
   customMutationsPath?: string;
-  /** Enable custom GraphQL file overrides (default: true) */
+  /** @deprecated As of 0.4.0, runtime custom overrides are removed; ignored. */
   allowCustomOverride?: boolean;
   /** Enable debug logging (default: false). Gates all internal console output. */
   debug?: boolean;
@@ -72,9 +74,24 @@ export interface GraphQLClientConfig {
    * refresh flows.
    */
   getAccessToken?: AccessTokenProvider;
+  /**
+   * Mutation names that should be sent with `orderEditorApiKey` instead of
+   * `apiKey` in direct mode. Defaults to a built-in list of order-editor
+   * mutations. Override to add custom mutations without an SDK upgrade.
+   *
+   * @deprecated Proxy mode (the recommended path) makes this irrelevant.
+   */
+  orderEditorMutations?: string[];
 }
 
 const DEFAULT_TOKEN_STORAGE_KEY = 'access_token';
+
+const DEFAULT_ORDER_EDITOR_MUTATIONS: ReadonlyArray<string> = [
+  'orderSetStatus',
+  'passwordResetLink',
+  'triggerQuoteSendRequest',
+  'triggerOrderSendConfirm',
+];
 
 function defaultAccessTokenProvider(): string | undefined {
   if (typeof window !== 'undefined' && window.localStorage) {
@@ -84,29 +101,23 @@ function defaultAccessTokenProvider(): string | undefined {
 }
 
 /**
- * A secure GraphQL client for the Propeller eCommerce Platform
+ * A GraphQL client for the Propeller eCommerce Platform.
  *
  * Features:
- * - Automatic fragment resolution via shared module-scoped AST cache
- * - Secure proxy mode to protect API keys
- * - API key management for different operation types (direct mode only)
- * - Configurable access token provider for SSR / custom storage
- * - TypeScript support with full type safety
+ * - Bundled operations: queries/mutations/fragments are inlined at build time.
+ * - Secure proxy mode to keep API keys server-side.
+ * - API key routing for order-editor mutations in direct mode.
+ * - Configurable access token provider for SSR / custom storage.
+ * - TypeScript support with full type safety.
  *
- * SECURITY: Use 'proxy' mode in production to keep API keys server-side
+ * SECURITY: Use 'proxy' mode in production to keep API keys server-side.
  */
 export class GraphQLClient {
   private config: GraphQLClientConfig;
   private queries: Map<string, string> = new Map();
   private mutations: Map<string, string> = new Map();
-
-  /** Mutations that require Order Editor API key */
-  private static readonly ORDER_EDITOR_MUTATIONS = new Set([
-    'orderSetStatus',
-    'passwordResetLink',
-    'triggerQuoteSendRequest',
-    'triggerOrderSendConfirm'
-  ]);
+  private fragmentOverrides: Map<string, string> = new Map();
+  private orderEditorMutationSet: Set<string>;
 
   /**
    * @param config - Client configuration
@@ -114,235 +125,170 @@ export class GraphQLClient {
   constructor(config: GraphQLClientConfig) {
     this.config = {
       timeout: 30000,
-      securityMode: 'proxy', // Default to secure mode
-      allowCustomOverride: true,
-      ...config
+      securityMode: 'proxy',
+      ...config,
     };
 
-    this.debugLog('=== Initialization ===');
-    this.debugLog('Config:', {
-      customQueriesPath: this.config.customQueriesPath,
-      customMutationsPath: this.config.customMutationsPath,
-      customFragmentsPath: this.config.customFragmentsPath,
-      allowCustomOverride: this.config.allowCustomOverride,
-    });
+    this.orderEditorMutationSet = new Set(
+      this.config.orderEditorMutations ?? DEFAULT_ORDER_EDITOR_MUTATIONS
+    );
 
-    this.loadFragments();
-    this.loadQueries();
-    this.loadMutations();
+    this.warnOnInconsistentConfig();
+    this.warnOnDeprecatedConfig();
+
+    this.debugLog('=== Initialization ===');
+
+    // Bundled queries/mutations from the generated bundles (fragments pre-inlined).
+    this.loadBundledQueries();
+    this.loadBundledMutations();
+  }
+
+  private warnOnInconsistentConfig(): void {
+    if (this.config.securityMode === 'proxy') {
+      if (this.config.apiKey || this.config.orderEditorApiKey) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          '[propeller-sdk-v2] securityMode is "proxy" but `apiKey` or `orderEditorApiKey` was supplied. ' +
+          'These keys are ignored in proxy mode — keep them server-side, in your proxy function.'
+        );
+      }
+    } else if (this.config.securityMode === 'direct') {
+      if (!this.config.apiKey) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          '[propeller-sdk-v2] securityMode is "direct" but no `apiKey` was supplied. ' +
+          'Requests will be sent without an API key header.'
+        );
+      }
+    }
+  }
+
+  private warnOnDeprecatedConfig(): void {
+    const deprecated: string[] = [];
+    if (this.config.customFragmentsPath) deprecated.push('customFragmentsPath');
+    if (this.config.customQueriesPath) deprecated.push('customQueriesPath');
+    if (this.config.customMutationsPath) deprecated.push('customMutationsPath');
+    if (this.config.allowCustomOverride !== undefined) deprecated.push('allowCustomOverride');
+    if (deprecated.length > 0) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[propeller-sdk-v2] The following config options are deprecated and ignored as of 0.4.0 (fragment inlining now happens at build time): ${deprecated.join(', ')}.`
+      );
+    }
   }
 
   private debugLog(...args: any[]): void {
     if (this.config.debug) {
+      // eslint-disable-next-line no-console
       console.log('[GraphQL Client]', ...args);
     }
   }
 
-  private debugWarn(...args: any[]): void {
-    if (this.config.debug) {
-      console.warn('[GraphQL Client]', ...args);
-    }
-  }
-
-  private debugError(...args: any[]): void {
-    if (this.config.debug) {
-      console.error('[GraphQL Client]', ...args);
-    }
-  }
-
-  /**
-   * Load GraphQL files from a directory
-   */
-  private loadGraphQLDirectory(dirPath: string): Map<string, string> {
-    const files = new Map<string, string>();
-    if (typeof window !== 'undefined') {
-      this.debugLog(`Skipping directory load (browser environment): ${dirPath}`);
-      return files;
-    }
-    try {
-      if (typeof require !== 'undefined' && typeof require.resolve !== 'undefined') {
-        const fs = require('fs');
-        const path = require('path');
-        const resolvedPath = path.isAbsolute(dirPath)
-          ? dirPath
-          : path.resolve(process.cwd(), dirPath);
-        this.debugLog(`Attempting to load from: ${resolvedPath}`);
-        if (fs.existsSync(resolvedPath) && fs.statSync(resolvedPath).isDirectory()) {
-          const fileList = fs.readdirSync(resolvedPath);
-          fileList.forEach((file: string) => {
-            if (file.endsWith('.graphql') || file.endsWith('.gql')) {
-              const filePath = path.join(resolvedPath, file);
-              const content = fs.readFileSync(filePath, 'utf-8');
-              const name = file.replace(/\.(graphql|gql)$/, '');
-              files.set(name, content);
-              this.debugLog(`Loaded: ${name} from ${file}`);
-            }
-          });
-          this.debugLog(`Total loaded: ${files.size} files`);
-        } else {
-          this.debugLog(`Directory not found or not accessible: ${resolvedPath}`);
-        }
-      }
-    } catch (error) {
-      this.debugError(`Error loading directory ${dirPath}:`, error);
-    }
-    return files;
-  }
-
-  /**
-   * Load all fragments from custom path (if provided) and default SDK path
-   */
-  private loadFragments(): void {
-    this.debugLog('=== Loading Fragments ===');
-
-    if (this.config.allowCustomOverride && this.config.customFragmentsPath) {
-      this.debugLog(`Loading custom fragments from: ${this.config.customFragmentsPath}`);
-      const customFragments = this.loadGraphQLDirectory(this.config.customFragmentsPath);
-      customFragments.forEach((content, name) => {
-        registerSharedFragment(name, content);
-      });
-      this.debugLog(`Loaded ${customFragments.size} custom fragments`);
-    }
-    // Default fragments are loaded on first use by the shared resolver.
-  }
-
-  /**
-   * Load all queries from custom path (if provided) and default SDK path
-   */
-  private loadQueries(): void {
-    if (this.config.allowCustomOverride && this.config.customQueriesPath) {
-      this.debugLog(`Loading custom queries from: ${this.config.customQueriesPath}`);
-      const customQueries = this.loadGraphQLDirectory(this.config.customQueriesPath);
-      customQueries.forEach((content, name) => {
-        this.debugLog(`Loaded custom query: ${name}`);
+  private loadBundledQueries(): void {
+    for (const [name, content] of Object.entries(bundledQueries as Record<string, string>)) {
+      if (typeof content === 'string') {
         this.queries.set(name, content);
-      });
-    }
-
-    try {
-      const queriesModule = require('../generated/queries');
-      Object.keys(queriesModule).forEach(queryName => {
-        if (queryName !== 'queries' && queryName !== 'default') {
-          const queryContent = queriesModule[queryName];
-          if (typeof queryContent === 'string' && !this.queries.has(queryName)) {
-            this.queries.set(queryName, queryContent);
-          }
-        }
-      });
-    } catch {
-      // Default queries might not exist yet - that's okay
+      }
     }
   }
 
-  /**
-   * Load all mutations from custom path (if provided) and default SDK path
-   */
-  private loadMutations(): void {
-    if (this.config.allowCustomOverride && this.config.customMutationsPath) {
-      const customMutations = this.loadGraphQLDirectory(this.config.customMutationsPath);
-      customMutations.forEach((content, name) => {
+  private loadBundledMutations(): void {
+    for (const [name, content] of Object.entries(bundledMutations as Record<string, string>)) {
+      if (typeof content === 'string') {
         this.mutations.set(name, content);
-      });
-    }
-
-    try {
-      const mutationsModule = require('../generated/mutations');
-      Object.keys(mutationsModule).forEach(mutationName => {
-        if (mutationName !== 'mutations' && mutationName !== 'default') {
-          const mutationContent = mutationsModule[mutationName];
-          if (typeof mutationContent === 'string' && !this.mutations.has(mutationName)) {
-            this.mutations.set(mutationName, mutationContent);
-          }
-        }
-      });
-    } catch {
-      // Default mutations might not exist yet - that's okay
+      }
     }
   }
 
   /**
-   * Register a GraphQL fragment manually
+   * Register a GraphQL fragment by name. As of 0.4.0, fragments are inlined
+   * at build time; this method keeps the registration for any caller that
+   * looks fragments up via `getFragment`, but does not affect operation
+   * resolution.
    */
   registerFragment(name: string, definition: string): void {
-    registerSharedFragment(name, definition);
+    this.fragmentOverrides.set(name, definition);
   }
 
   /**
-   * Register a GraphQL query manually
+   * Register a custom query string under a name. Overrides the bundled
+   * version if one exists.
    */
   registerQuery(name: string, definition: string): void {
     this.queries.set(name, definition);
   }
 
   /**
-   * Register a GraphQL mutation manually
+   * Register a custom mutation string under a name. Overrides the bundled
+   * version if one exists.
    */
   registerMutation(name: string, definition: string): void {
     this.mutations.set(name, definition);
   }
 
   /**
-   * Get a registered fragment by name (returns the raw fragment string if available)
+   * Get a registered fragment by name. Returns undefined for fragments that
+   * were inlined at build time but never registered separately.
    */
   getFragment(name: string): string | undefined {
-    return getSharedFragment(name);
+    return this.fragmentOverrides.get(name);
   }
 
   /**
-   * Get a registered query by name
+   * Get a registered query by name.
    */
   getQuery(name: string): string | undefined {
     return this.queries.get(name);
   }
 
   /**
-   * Get a registered mutation by name
+   * Get a registered mutation by name.
    */
   getMutation(name: string): string | undefined {
     return this.mutations.get(name);
   }
 
   /**
-   * Get all registered fragment names
+   * Get all registered fragment override names.
    */
   getFragmentNames(): string[] {
-    return getSharedFragmentNames();
+    return Array.from(this.fragmentOverrides.keys());
   }
 
   /**
-   * Get all registered query names
+   * Get all registered query names.
    */
   getQueryNames(): string[] {
     return Array.from(this.queries.keys());
   }
 
   /**
-   * Get all registered mutation names
+   * Get all registered mutation names.
    */
   getMutationNames(): string[] {
     return Array.from(this.mutations.keys());
   }
 
   /**
-   * Determine which API key to use based on the operation (direct mode only)
+   * Determine which API key to use based on the operation (direct mode only).
    */
   private getApiKey(operationName?: string): string | undefined {
     if (this.config.securityMode === 'proxy') {
       return undefined;
     }
-    if (operationName && GraphQLClient.ORDER_EDITOR_MUTATIONS.has(operationName)) {
+    if (operationName && this.orderEditorMutationSet.has(operationName)) {
       return this.config.orderEditorApiKey;
     }
     return this.config.apiKey;
   }
 
   /**
-   * Build request headers for a GraphQL operation
+   * Build request headers for a GraphQL operation.
    */
   private async buildHeaders(operationName?: string): Promise<Record<string, string>> {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      ...this.config.headers
+      ...this.config.headers,
     };
 
     if (this.config.securityMode === 'proxy') {
@@ -365,7 +311,7 @@ export class GraphQLClient {
   }
 
   /**
-   * Get the appropriate endpoint for the current security mode
+   * Get the appropriate endpoint for the current security mode.
    */
   private getEndpoint(): string {
     if (this.config.securityMode === 'proxy') {
@@ -375,10 +321,15 @@ export class GraphQLClient {
   }
 
   /**
-   * Extract operation name from a GraphQL query
+   * Extract an operation name from a GraphQL document.
+   *
+   * Strips leading `#` comments and whitespace, then matches the first
+   * `query NAME` or `mutation NAME` form. Returns undefined for anonymous
+   * operations like `query { ... }`.
    */
   private extractOperationName(query: string): string | undefined {
-    const match = query.match(/(?:query|mutation)\s+(\w+)/);
+    const stripped = query.replace(/^\s*(#[^\n]*\n)+/g, '').trimStart();
+    const match = stripped.match(/^(?:query|mutation)\s+(\w+)/);
     return match ? match[1] : undefined;
   }
 
@@ -386,28 +337,26 @@ export class GraphQLClient {
    * Execute a GraphQL operation.
    *
    * Returns the raw `GraphQLResponse` (with `data` and/or `errors`). This is
-   * the low-level entry point; it does not throw on GraphQL errors so that
-   * callers who want to inspect partial responses can do so. The higher-level
+   * the low-level entry point; it does not throw on GraphQL errors so callers
+   * who want to inspect partial responses can do so. The higher-level
    * `query()` / `mutate()` helpers and `BaseService.executeQuery/Mutation`
    * throw `GraphQLOperationError` when `errors` is non-empty.
    */
   async execute<T = any>(operation: GraphQLOperation): Promise<GraphQLResponse<T>> {
-    const { query, variables = {}, operationName, skipFragmentResolution = false } = operation;
-
-    const resolvedQuery = skipFragmentResolution ? query : resolveFragments(query);
-    const actualOperationName = operationName || this.extractOperationName(resolvedQuery);
+    const { query, variables = {}, operationName } = operation;
+    const actualOperationName = operationName || this.extractOperationName(query);
     const headers = await this.buildHeaders(actualOperationName);
 
     const body = JSON.stringify({
-      query: resolvedQuery,
+      query,
       variables,
       operationName: actualOperationName,
     });
 
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
 
+    try {
       const response = await fetch(this.getEndpoint(), {
         method: 'POST',
         headers,
@@ -418,12 +367,15 @@ export class GraphQLClient {
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const bodyText = await response.text().catch(() => '');
+        const snippet = bodyText ? `: ${bodyText.slice(0, 500)}` : '';
+        throw new Error(`HTTP ${response.status} ${response.statusText}${snippet}`);
       }
 
       const result: GraphQLResponse<T> = await response.json();
       return result;
     } catch (error) {
+      clearTimeout(timeoutId);
       if (error instanceof Error) {
         if (error.name === 'AbortError') {
           throw new Error(`GraphQL request timeout after ${this.config.timeout}ms`);
@@ -465,7 +417,7 @@ export class GraphQLClient {
   }
 
   /**
-   * Execute a registered query by name
+   * Execute a registered query by name.
    */
   async queryByName<T = any>(
     queryName: string,
@@ -481,7 +433,7 @@ export class GraphQLClient {
   }
 
   /**
-   * Execute a registered mutation by name
+   * Execute a registered mutation by name.
    */
   async mutateByName<T = any>(
     mutationName: string,
@@ -497,25 +449,28 @@ export class GraphQLClient {
   }
 
   /**
-   * Reload all GraphQL operations from configured paths
+   * Reload bundled queries and mutations (no-op for fragments, which are now
+   * inlined at build time). Retained for API compatibility.
    */
   reloadOperations(): void {
     this.queries.clear();
     this.mutations.clear();
-    this.loadFragments();
-    this.loadQueries();
-    this.loadMutations();
+    this.loadBundledQueries();
+    this.loadBundledMutations();
   }
 
   /**
-   * Update client configuration
+   * Update client configuration.
    */
   updateConfig(newConfig: Partial<GraphQLClientConfig>): void {
     this.config = { ...this.config, ...newConfig };
+    if (newConfig.orderEditorMutations) {
+      this.orderEditorMutationSet = new Set(newConfig.orderEditorMutations);
+    }
   }
 
   /**
-   * Get current client configuration (without sensitive data)
+   * Get current client configuration (without sensitive data).
    */
   getConfig(): Omit<GraphQLClientConfig, 'apiKey' | 'orderEditorApiKey'> {
     const { apiKey, orderEditorApiKey, ...safeConfig } = this.config;
@@ -523,14 +478,14 @@ export class GraphQLClient {
   }
 
   /**
-   * Get current security mode
+   * Get current security mode.
    */
   getSecurityMode(): 'proxy' | 'direct' {
     return this.config.securityMode || 'proxy';
   }
 
   /**
-   * Check if client is in secure proxy mode
+   * Check if client is in secure proxy mode.
    */
   isSecureMode(): boolean {
     return this.config.securityMode === 'proxy';
@@ -550,7 +505,7 @@ export class GraphQLClient {
   }
 
   /**
-   * Clear access token (logout)
+   * Clear access token (logout).
    */
   clearAccessToken(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
@@ -568,7 +523,7 @@ export class GraphQLClient {
   }
 
   /**
-   * Check if user is authenticated (token resolver returned a value)
+   * Check if user is authenticated (token resolver returned a value).
    */
   async isAuthenticated(): Promise<boolean> {
     return !!(await this.getAccessToken());
@@ -576,7 +531,7 @@ export class GraphQLClient {
 }
 
 /**
- * Create a new GraphQL client instance
+ * Create a new GraphQL client instance.
  */
 export function createGraphQLClient(config: GraphQLClientConfig): GraphQLClient {
   return new GraphQLClient(config);
@@ -585,14 +540,14 @@ export function createGraphQLClient(config: GraphQLClientConfig): GraphQLClient 
 let defaultClient: GraphQLClient | null = null;
 
 /**
- * Initialize the default GraphQL client
+ * Initialize the default GraphQL client.
  */
 export function initializeClient(config: GraphQLClientConfig): void {
   defaultClient = createGraphQLClient(config);
 }
 
 /**
- * Get the default GraphQL client instance
+ * Get the default GraphQL client instance.
  * @throws Error if client hasn't been initialized
  */
 export function getClient(): GraphQLClient {
@@ -603,11 +558,19 @@ export function getClient(): GraphQLClient {
 }
 
 /**
- * Singleton GraphQL client instance
- * @deprecated Use getClient() instead
+ * Singleton GraphQL client instance.
+ *
+ * Implemented as a Proxy over `getClient()` so that property *and* method
+ * access route through the live client. Methods accessed via this Proxy are
+ * bound to the underlying client to preserve `this` context.
+ *
+ * @deprecated Use `getClient()` instead — `client` is retained only for
+ * backwards compatibility with code written against 0.x.
  */
-export const client = new Proxy({} as GraphQLClient, {
+export const client: GraphQLClient = new Proxy({} as GraphQLClient, {
   get(_target, prop) {
-    return getClient()[prop as keyof GraphQLClient];
+    const target = getClient();
+    const value = (target as any)[prop];
+    return typeof value === 'function' ? value.bind(target) : value;
   },
-});
+}) as GraphQLClient;
