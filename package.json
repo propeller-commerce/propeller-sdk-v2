@@ -1,10 +1,8 @@
 {
   "name": "propeller-sdk-v2",
-  "version": "0.2.37",
+  "version": "0.3.0",
   "description": "TypeScript GraphQL client for Propeller eCommerce V2 Platform - works with React, Vue, Angular and all JavaScript frameworks",
   "main": "dist/index.js",
-  "module": "dist/index.js",
-  "browser": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build:graphql": "node scripts/build-graphql-bundle.js",

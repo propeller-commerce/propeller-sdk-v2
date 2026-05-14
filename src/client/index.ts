@@ -9,16 +9,20 @@ export {
   createGraphQLClient,
   initializeClient,
   getClient,
-  client
+  client,
 } from './GraphQLClient';
 
 export type {
   GraphQLOperation,
   GraphQLResponse,
-  GraphQLClientConfig
+  GraphQLClientConfig,
+  AccessTokenProvider,
 } from './GraphQLClient';
+
+export { GraphQLOperationError } from './GraphQLOperationError';
+export type { GraphQLErrorEntry } from './GraphQLOperationError';
 
 /**
  * @description Default export for the GraphQL client
  */
-export { GraphQLClient as default } from './GraphQLClient'; 
+export { GraphQLClient as default } from './GraphQLClient';

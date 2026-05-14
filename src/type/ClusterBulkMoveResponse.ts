@@ -6,38 +6,10 @@ import { ClusterBulkMoveError } from './ClusterBulkMoveError';
  */
 export class ClusterBulkMoveResponse {
   /** Number of clusters successfully moved */
-  private _movedCount: number;
+  movedCount!: number;
   /** List of errors that occurred during the operation */
-  private _errors: ClusterBulkMoveError[];
-  /**
-   Creates a new instance of ClusterBulkMoveResponse
-   */
+  errors!: ClusterBulkMoveError[];
   constructor(data: Partial<ClusterBulkMoveResponse> = {}) {
-    this._movedCount = data.movedCount!;
-    this._errors = data.errors!;
-  }
-  /**
-   Number of clusters successfully moved
-   */
-  get movedCount(): number {
-    return this._movedCount;
-  }
-  /**
-   Number of clusters successfully moved
-   */
-  set movedCount(value: number) {
-    this._movedCount = value;
-  }
-  /**
-   List of errors that occurred during the operation
-   */
-  get errors(): ClusterBulkMoveError[] {
-    return this._errors;
-  }
-  /**
-   List of errors that occurred during the operation
-   */
-  set errors(value: ClusterBulkMoveError[]) {
-    this._errors = value;
+    Object.assign(this, data);
   }
 }

@@ -12,83 +12,16 @@ import { IBusinessRuleNode } from './IBusinessRuleNode';
  */
 export class BusinessRuleDecisionTable implements IBusinessRuleNode {
   /** The type of the node.  */
-  private _type: BusinessRuleNodeType;
+  type!: BusinessRuleNodeType;
   /** The generated ID for this node */
-  private _id: string | number;
+  id!: string | number;
   /** The name of the node */
-  private _name: string;
+  name!: string;
   /** The description of the node */
-  private _description: string;
+  description!: string;
   /** The node's table content in case the type is 'decisionTableNode' */
-  private _content: BusinessRuleDecisionTableContent;
-  /**
-   Creates a new instance of BusinessRuleDecisionTable
-   */
+  content!: BusinessRuleDecisionTableContent;
   constructor(data: Partial<BusinessRuleDecisionTable> = {}) {
-    this._type = data.type!;
-    this._id = data.id!;
-    this._name = data.name!;
-    this._description = data.description!;
-    this._content = data.content!;
-  }
-  /**
-   The type of the node.
-   */
-  get type(): BusinessRuleNodeType {
-    return this._type;
-  }
-  /**
-   The type of the node.
-   */
-  set type(value: BusinessRuleNodeType) {
-    this._type = value;
-  }
-  /**
-   The generated ID for this node
-   */
-  get id(): string | number {
-    return this._id;
-  }
-  /**
-   The generated ID for this node
-   */
-  set id(value: string | number) {
-    this._id = value;
-  }
-  /**
-   The name of the node
-   */
-  get name(): string {
-    return this._name;
-  }
-  /**
-   The name of the node
-   */
-  set name(value: string) {
-    this._name = value;
-  }
-  /**
-   The description of the node
-   */
-  get description(): string {
-    return this._description;
-  }
-  /**
-   The description of the node
-   */
-  set description(value: string) {
-    this._description = value;
-  }
-  /**
-   The node's table content in case the type is 'decisionTableNode'
-   */
-  get content(): BusinessRuleDecisionTableContent {
-    return this._content;
-  }
-  /**
-   The node's table content in case the type is 'decisionTableNode'
-   */
-  set content(value: BusinessRuleDecisionTableContent) {
-    this._content = value;
+    Object.assign(this, data);
   }
 }

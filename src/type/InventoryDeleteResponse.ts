@@ -3,23 +3,8 @@
  */
 export class InventoryDeleteResponse {
   /** Error messages */
-  private _messages: string[];
-  /**
-   Creates a new instance of InventoryDeleteResponse
-   */
+  messages!: string[];
   constructor(data: Partial<InventoryDeleteResponse> = {}) {
-    this._messages = data.messages!;
-  }
-  /**
-   Error messages
-   */
-  get messages(): string[] {
-    return this._messages;
-  }
-  /**
-   Error messages
-   */
-  set messages(value: string[]) {
-    this._messages = value;
+    Object.assign(this, data);
   }
 }

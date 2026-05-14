@@ -6,7 +6,7 @@ A comprehensive TypeScript GraphQL client for the Propeller Commerce Platform, p
 
 - **Full Type Safety**: Complete TypeScript definitions for all GraphQL types
 - **GraphQL Operations**: 230+ mutations and 125+ queries
-- **Service Layer**: 52 service classes with business logic
+- **Service Layer**: 56 service classes with business logic
 - **Schema-driven**: Generated from GraphQL schema
 - **Easy Integration**: Simple client configuration
 - **Complete Documentation**: JSDoc for all APIs

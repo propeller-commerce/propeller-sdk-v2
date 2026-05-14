@@ -10,53 +10,12 @@ The AttributeResult has 3 fields,
  */
 export class AttributeResult {
   /** The Attribute Entity that link the value to the AttributeDescription Entity and the Class. This field can be null. In that case the Class does not have an AttributeValue set on */
-  private _attribute?: Attribute;
+  attribute?: Attribute;
   /** The Attribute Description */
-  private _attributeDescription: AttributeDescription;
+  attributeDescription!: AttributeDescription;
   /** The Attribute Value, either from the Attribute on the Class, or from the AttributeDescription when it's an inherited defaultValue. */
-  private _value: AttributeValue;
-  /**
-   Creates a new instance of AttributeResult
-   */
+  value!: AttributeValue;
   constructor(data: Partial<AttributeResult> = {}) {
-    this._attribute = data.attribute;
-    this._attributeDescription = data.attributeDescription!;
-    this._value = data.value!;
-  }
-  /**
-   The Attribute Entity that link the value to the AttributeDescription Entity and the Class. This field can be null. In that case the Class does not have an AttributeValue set on
-   */
-  get attribute(): Attribute | undefined {
-    return this._attribute;
-  }
-  /**
-   The Attribute Entity that link the value to the AttributeDescription Entity and the Class. This field can be null. In that case the Class does not have an AttributeValue set on
-   */
-  set attribute(value: Attribute | undefined) {
-    this._attribute = value;
-  }
-  /**
-   The Attribute Description
-   */
-  get attributeDescription(): AttributeDescription {
-    return this._attributeDescription;
-  }
-  /**
-   The Attribute Description
-   */
-  set attributeDescription(value: AttributeDescription) {
-    this._attributeDescription = value;
-  }
-  /**
-   The Attribute Value, either from the Attribute on the Class, or from the AttributeDescription when it's an inherited defaultValue.
-   */
-  get value(): AttributeValue {
-    return this._value;
-  }
-  /**
-   The Attribute Value, either from the Attribute on the Class, or from the AttributeDescription when it's an inherited defaultValue.
-   */
-  set value(value: AttributeValue) {
-    this._value = value;
+    Object.assign(this, data);
   }
 }
