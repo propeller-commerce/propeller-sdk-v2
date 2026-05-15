@@ -1,5 +1,5 @@
 import { SurchargeType } from '../enum/SurchargeType';
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { DateSearchInput } from './DateSearchInput';
 /**
  Input object for SurchargeSearchInput
@@ -8,7 +8,7 @@ export interface SurchargeSearchInput {
   /** Only search for surcharges of the type provided */
   type?: SurchargeType;
   /** Only search for surcharges with taxCode provided */
-  taxCode?: Taxcode;
+  taxCode?: TaxCode;
   /** Only search for already enabled surcharges */
   enabled?: boolean;
   /** Only search for surcharges with taxZone provided */

@@ -5,7 +5,6 @@ fragment CarrierFields on Carrier {
   descriptions {
     ... LocalizedStringFields
   }
-  shippingCost
   trackAndTraceURL
   logo
   createdAt

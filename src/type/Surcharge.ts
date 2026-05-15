@@ -1,5 +1,5 @@
 import { SurchargeType } from '../enum/SurchargeType';
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { LocalizedString } from './LocalizedString';
 /**
  Additional fee or charge applied to products or orders
@@ -21,7 +21,7 @@ export class Surcharge {
   value!: number;
   /** Tax classification code that determines applicable tax rates and regulations.
    * Specifies the tax treatment for the surcharge (H for high rate, L for low rate, N for no tax). */
-  taxCode!: Taxcode;
+  taxCode!: TaxCode;
   /** Geographic tax zone identifier for regional tax calculations.
    * Two-character code representing the tax jurisdiction for compliance and rate determination. */
   taxZone!: string;
@@ -46,10 +46,6 @@ export class Surcharge {
   /** Timestamp when the surcharge was last modified.
    * Automatically updated whenever the surcharge record is changed in the system. */
   dateChanged!: string;
-  /** Shop identifier for surcharge application scope.
-   * If not provided, the default shop will be inferred from the channel context. */
-  /** @deprecated Shop is deprecated and will be removed in the future. */
-  shopId?: number;
   constructor(data: Partial<Surcharge> = {}) {
     Object.assign(this, data);
   }
@@ -81,7 +77,7 @@ export class Surcharge {
     return this.value;
   }
   /** Returns `taxCode`. */
-  getTaxCode(): Taxcode {
+  getTaxCode(): TaxCode {
     return this.taxCode;
   }
   /** Returns `taxZone`. */
@@ -115,9 +111,5 @@ export class Surcharge {
   /** Returns `dateChanged`. */
   getDateChanged(): string {
     return this.dateChanged;
-  }
-  /** Returns `shopId`. */
-  getShopId(): number | undefined {
-    return this.shopId;
   }
 }

@@ -7,9 +7,7 @@ fragment OrderFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type
@@ -23,7 +21,6 @@ fragment OrderFields on Order {
   currency
   currencyRatio
   language
-  date
   createdAt
   statusDate
   postageData {

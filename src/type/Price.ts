@@ -1,5 +1,5 @@
 import { PriceDiscountType } from '../enum/PriceDiscountType';
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { PriceDisplay } from '../enum/PriceDisplay';
 import { CostPrice } from './CostPrice';
 /**
@@ -27,12 +27,9 @@ export class Price {
   /** The method used to apply discounts for bulk prices / volume discounts. */
   bulkPriceDiscountType!: PriceDiscountType;
   /** Default tax code */
-  defaultTaxCode!: Taxcode;
+  defaultTaxCode!: TaxCode;
   /** Describes how the price should be displayed on the Front-End. Default value is 'DEFAULT'. */
   display?: PriceDisplay;
-  /** cost field */
-  /** @deprecated Deprecated in favor of using costPrices (quantity 1) */
-  cost?: number;
   constructor(data: Partial<Price> = {}) {
     Object.assign(this, data);
   }
@@ -80,15 +77,11 @@ export class Price {
     return this.bulkPriceDiscountType;
   }
   /** Returns `defaultTaxCode`. */
-  getDefaultTaxCode(): Taxcode {
+  getDefaultTaxCode(): TaxCode {
     return this.defaultTaxCode;
   }
   /** Returns `display`. */
   getDisplay(): PriceDisplay | undefined {
     return this.display;
-  }
-  /** Returns `cost`. */
-  getCost(): number | undefined {
-    return this.cost;
   }
 }

@@ -54,23 +54,26 @@ export class TenderService extends BaseService {
   }
   /**
    Adds an item to a tender
+   * @param id Tender ID
    * @param input Tender add item input data
    * @returns Promise<Tender> The updated tender
    */
-  async addItemToTender(input: TenderAddItemInput): Promise<Tender> {
-    const variables = { input };
-    const result = await this.executeMutation('tenderAddItem', variables);
-    return new Tender(result.data.tenderAddItem);
+  async addItemToTender(id: string, input: TenderAddItemInput): Promise<TenderResponse> {
+    const wrapped: TenderAddItemsInput = { products: [input] };
+    const variables = { id, input: wrapped };
+    const result = await this.executeMutation('tenderAddItems', variables);
+    return new TenderResponse(result.data.tenderAddItems);
   }
   /**
    Adds multiple items to a tender
+   * @param id Tender ID
    * @param input Tender add items input data
    * @returns Promise<Tender> The updated tender
    */
-  async addItemsToTender(input: TenderAddItemsInput): Promise<Tender> {
-    const variables = { input };
+  async addItemsToTender(id: string, input: TenderAddItemsInput): Promise<TenderResponse> {
+    const variables = { id, input };
     const result = await this.executeMutation('tenderAddItems', variables);
-    return new Tender(result.data.tenderAddItems);
+    return new TenderResponse(result.data.tenderAddItems);
   }
   /**
    Updates an item in a tender

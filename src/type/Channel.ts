@@ -1,13 +1,9 @@
-import { Shop } from './Shop';
 import { LocalizedString } from './LocalizedString';
 import { Tenant } from './Tenant';
 /**
  Object class for Channel
  */
 export class Channel {
-  /** channelId field */
-  /** @deprecated Use id instead */
-  channelId!: number;
   /** id field */
   id!: number;
   /** name field */
@@ -18,26 +14,16 @@ export class Channel {
   catalogRootId?: number;
   /** Channel anonymous user id */
   anonymousUserId?: number;
-  /** Channel default letter id */
-  /** @deprecated To be removed */
-  defaultLetterId?: number;
   /** Channel creation date */
   createdAt!: string;
   /** Channel last modified date */
   lastModifiedAt!: string;
   /** Tenant this channel belongs to */
   tenant!: Tenant;
-  /** shop field */
-  /** @deprecated This field will be removed in a future version */
-  shop?: Shop;
   constructor(data: Partial<Channel> = {}) {
     Object.assign(this, data);
   }
 
-  /** Returns `channelId`. */
-  getChannelId(): number {
-    return this.channelId;
-  }
   /** Returns `id`. */
   getId(): number {
     return this.id;
@@ -61,10 +47,6 @@ export class Channel {
   getAnonymousUserId(): number | undefined {
     return this.anonymousUserId;
   }
-  /** Returns `defaultLetterId`. */
-  getDefaultLetterId(): number | undefined {
-    return this.defaultLetterId;
-  }
   /** Returns `createdAt`. */
   getCreatedAt(): string {
     return this.createdAt;
@@ -80,13 +62,5 @@ export class Channel {
       this.tenant = new Tenant(this.tenant as any);
     }
     return this.tenant;
-  }
-  /** Returns `shop` as a Shop instance (coerced on first access). */
-  getShop(): Shop | undefined {
-    if (this.shop == null) return undefined;
-    if (!(this.shop instanceof Shop)) {
-      this.shop = new Shop(this.shop as any);
-    }
-    return this.shop;
   }
 }

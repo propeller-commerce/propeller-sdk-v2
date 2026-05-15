@@ -1,7 +1,6 @@
 import { BaseService } from './BaseService';
+import { DeleteMediaAttachmentResponse } from '../type/DeleteMediaAttachmentResponse';
 import { MediaAttachment } from '../type/MediaAttachment';
-import { PaginatedMediaAttachmentResponse } from '../type/PaginatedMediaAttachmentResponse';
-import { MediaAttachmentSearchInput } from '../type/MediaAttachmentSearchInput';
 import { MediaAttachmentInput } from '../type/MediaAttachmentInput';
 import { UpdateMediaAttachmentInput } from '../type/UpdateMediaAttachmentInput';
 /**
@@ -9,26 +8,6 @@ import { UpdateMediaAttachmentInput } from '../type/UpdateMediaAttachmentInput';
  * @extends BaseService
  */
 export class MediaAttachmentService extends BaseService {
-  /**
-   Retrieves a specific media attachment
-   * @param id Media attachment ID
-   * @returns Promise<MediaAttachment> Media attachment data
-   */
-  async getMediaAttachment(id: number): Promise<MediaAttachment> {
-    const variables = { id };
-    const result = await this.executeQuery('mediaAttachment', variables);
-    return new MediaAttachment(result.data.mediaAttachment);
-  }
-  /**
-   Retrieves media attachments with pagination
-   * @param input Search input parameters
-   * @returns Promise<PaginatedMediaAttachmentResponse> Paginated media attachments
-   */
-  async getMediaAttachments(input?: MediaAttachmentSearchInput): Promise<PaginatedMediaAttachmentResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('mediaAttachments', variables);
-    return new PaginatedMediaAttachmentResponse(result.data.mediaAttachments);
-  }
   /**
    Creates a new media attachment
    * @param input Media attachment creation input
@@ -54,9 +33,9 @@ export class MediaAttachmentService extends BaseService {
    * @param id MediaAttachment ID to delete
    * @returns Promise<boolean> Success status
    */
-  async deleteMediaAttachment(id: number): Promise<boolean> {
+  async deleteMediaAttachment(id: number): Promise<DeleteMediaAttachmentResponse> {
     const variables = { id };
     const result = await this.executeMutation('mediaAttachmentDelete', variables);
-    return result.data.mediaAttachmentDelete;
+    return new DeleteMediaAttachmentResponse(result.data.mediaAttachmentDelete);
   }
 }

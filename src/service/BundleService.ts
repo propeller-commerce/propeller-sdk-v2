@@ -5,7 +5,8 @@ import { BundleSearchInput } from '../type/BundleSearchInput';
 import { BundleCreateInput } from '../type/BundleCreateInput';
 import { BundleUpdateInput } from '../type/BundleUpdateInput';
 import { BundleAddItemsInput } from '../type/BundleAddItemsInput';
-import { MediaImageProductSearchInput, PriceCalculateProductInput, TransformationsInput } from '../type';
+import { BundleItem } from '../type/BundleItem';
+import { MediaImageProductSearchInput, TransformationsInput } from '../type';
 
 export interface BundleQueryVariables {
   input: BundleSearchInput
@@ -58,13 +59,14 @@ export class BundleService extends BaseService {
   }
   /**
    Adds items to a bundle
+   * @deprecated Schema-side `bundleAddItems` is deprecated — prefer `bundleAddItemsAndReturnBundle` for a Bundle response.
    * @param input Bundle add items input data
-   * @returns Promise<Bundle> The updated bundle
+   * @returns Promise<BundleItem[]> The added bundle items
    */
-  async addItemsToBundle(input: BundleAddItemsInput): Promise<Bundle> {
+  async addItemsToBundle(input: BundleAddItemsInput): Promise<BundleItem[]> {
     const variables = { input };
     const result = await this.executeMutation('bundleAddItems', variables);
-    return new Bundle(result.data.bundleAddItems);
+    return result.data.bundleAddItems.map((x: any) => new BundleItem(x));
   }
   /**
    Deletes a bundle

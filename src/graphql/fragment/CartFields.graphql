@@ -1,7 +1,6 @@
 fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId

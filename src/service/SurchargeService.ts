@@ -53,9 +53,9 @@ export class SurchargeService extends BaseService {
    * @param id Surcharge ID to delete
    * @returns Promise<boolean> Success status
    */
-  async deleteSurcharge(id: string): Promise<boolean> {
+  async deleteSurcharge(id: string): Promise<Surcharge> {
     const variables = { id };
     const result = await this.executeMutation('surchargeDelete', variables);
-    return result.data.surchargeDelete;
+    return new Surcharge(result.data.surchargeDelete);
   }
 }

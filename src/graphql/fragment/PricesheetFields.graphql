@@ -11,9 +11,6 @@ fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ... ContactFields
-  }
   contactsPaginated {
     items {
       ... ContactFields
@@ -25,9 +22,6 @@ fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ... CustomerFields
-  }
   customersPaginated {
     items {
       ... CustomerFields
@@ -38,9 +32,6 @@ fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ... CompanyFields
   }
   companiesPaginated {
     items {

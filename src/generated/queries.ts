@@ -3791,7 +3791,6 @@ export const carrier = `fragment CarrierFields on Carrier {
   descriptions {
     ...LocalizedStringFields
   }
-  shippingCost
   trackAndTraceURL
   logo
   createdAt
@@ -3843,7 +3842,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -3909,7 +3907,6 @@ fragment CarrierFields on Carrier {
   descriptions {
     ...LocalizedStringFields
   }
-  shippingCost
   trackAndTraceURL
   logo
   createdAt
@@ -3961,7 +3958,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -4011,7 +4007,6 @@ query carriers(\$input: CarriersSearchInput) {
 export const cart = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -4478,7 +4473,6 @@ export const carts = `fragment CartResponseFields on CartResponse {
   items {
     cartId
     channelId
-    shopId
     contactId
     customerId
     companyId
@@ -4532,7 +4526,6 @@ export const carts = `fragment CartResponseFields on CartResponse {
     status
     contact {
       contactId
-      debtorId
       gender
       firstName
       middleName
@@ -6081,30 +6074,6 @@ query clusterConfigs {
   }
 }`;
 
-export const clusterGetConfig = `fragment ClusterConfigFields on ClusterConfig {
-  id
-  name
-  settings {
-    ...ClusterConfigSettingFields
-  }
-}
-
-fragment ClusterConfigSettingFields on ClusterConfigSetting {
-  id
-  name
-  type
-  displayType
-  priority
-}
-
-query clusterGetConfig(\$clusterId: Int) {
-  cluster(clusterId: \$clusterId) {
-    config {
-      ...ClusterConfigFields
-    }
-  }
-}`;
-
 export const companies = `fragment CompaniesResponseFields on CompaniesResponse {
   items {
     ...CompanyFields
@@ -7099,7 +7068,6 @@ export const contact = `fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -7664,7 +7632,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -10221,13 +10188,10 @@ export const inventory = `fragment InventoryResponseFields on InventoryResponse 
   supplier
   supplierCode
   sku
-  dateModified
   warehouseId
   location
   nextDeliveryDate
   notes
-  messages
-  total
   warehouse {
     ...WarehouseFields
   }
@@ -10245,7 +10209,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -11638,9 +11601,7 @@ export const order = `fragment OrderFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type
@@ -11654,7 +11615,6 @@ export const order = `fragment OrderFields on Order {
   currency
   currencyRatio
   language
-  date
   createdAt
   statusDate
   postageData {
@@ -11758,7 +11718,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -12337,9 +12296,7 @@ fragment OrderDataFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type
@@ -12587,7 +12544,6 @@ export const price = `fragment PriceFields on Price {
   bulkPriceDiscountType
   defaultTaxCode
   display
-  cost
 }
 
 fragment BulkCostPriceFields on BulkCostPrice {
@@ -12823,7 +12779,6 @@ fragment PriceFields on Price {
   bulkPriceDiscountType
   defaultTaxCode
   display
-  cost
 }
 
 fragment BulkCostPriceFields on BulkCostPrice {
@@ -12856,9 +12811,6 @@ export const pricesheet = `fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ...ContactFields
-  }
   contactsPaginated {
     items {
       ...ContactFields
@@ -12870,9 +12822,6 @@ export const pricesheet = `fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ...CustomerFields
-  }
   customersPaginated {
     items {
       ...CustomerFields
@@ -12883,9 +12832,6 @@ export const pricesheet = `fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ...CompanyFields
   }
   companiesPaginated {
     items {
@@ -12930,7 +12876,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -13610,9 +13555,6 @@ fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ...ContactFields
-  }
   contactsPaginated {
     items {
       ...ContactFields
@@ -13624,9 +13566,6 @@ fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ...CustomerFields
-  }
   customersPaginated {
     items {
       ...CustomerFields
@@ -13637,9 +13576,6 @@ fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ...CompanyFields
   }
   companiesPaginated {
     items {
@@ -13684,7 +13620,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -14364,9 +14299,6 @@ fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ...ContactFields
-  }
   contactsPaginated {
     items {
       ...ContactFields
@@ -14378,9 +14310,6 @@ fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ...CustomerFields
-  }
   customersPaginated {
     items {
       ...CustomerFields
@@ -14391,9 +14320,6 @@ fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ...CompanyFields
   }
   companiesPaginated {
     items {
@@ -14438,7 +14364,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -16399,7 +16324,6 @@ query surcharges(\$input: SurchargeSearchInput) {
 
 export const tax = `fragment TaxFields on Tax {
   id
-  shopId
   code
   zone
   percentage
@@ -16410,7 +16334,7 @@ export const tax = `fragment TaxFields on Tax {
   lastModifiedBy
 }
 
-query tax(\$id: String, \$code: Taxcode, \$zone: String) {
+query tax(\$id: String, \$code: TaxCode, \$zone: String) {
   tax(id: \$id, code: \$code, zone: \$zone) {
     ...TaxFields
   }
@@ -16430,7 +16354,6 @@ export const taxes = `fragment TaxesResponseFields on TaxesResponse {
 
 fragment TaxFields on Tax {
   id
-  shopId
   code
   zone
   percentage
@@ -16754,7 +16677,6 @@ export const user = `fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -17484,7 +17406,6 @@ export const viewer = `fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -18081,7 +18002,6 @@ export const warehouse = `fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -18152,7 +18072,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -18282,7 +18201,6 @@ export const queries = {
   cluster,
   clusterConfig,
   clusterConfigs,
-  clusterGetConfig,
   companies,
   company,
   companySearch,

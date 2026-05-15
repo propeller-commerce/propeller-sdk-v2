@@ -4,9 +4,6 @@ import { OrderTotalTaxPercentage } from './OrderTotalTaxPercentage';
  Object class for OrderTotals
  */
 export class OrderTotals {
-  /** The orderId of this Order */
-  /** @deprecated Use the parent Order.id instead */
-  orderId!: number;
   /** The total of this Order excluding tax */
   gross!: number;
   /** The total of this Order including tax */
@@ -23,10 +20,6 @@ export class OrderTotals {
     Object.assign(this, data);
   }
 
-  /** Returns `orderId`. */
-  getOrderId(): number {
-    return this.orderId;
-  }
   /** Returns `gross`. */
   getGross(): number {
     return this.gross;

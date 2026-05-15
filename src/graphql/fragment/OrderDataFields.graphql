@@ -4,9 +4,7 @@ fragment OrderDataFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type

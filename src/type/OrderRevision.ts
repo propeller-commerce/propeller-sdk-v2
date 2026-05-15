@@ -1,6 +1,7 @@
 import { AdminUser } from './AdminUser';
 import { Contact } from './Contact';
 import { Customer } from './Customer';
+import { Order } from './Order';
 /**
  Version control record for order modifications
  * Represents a specific version of an order at a point in time, including complete snapshot data and metadata about who created the revision and when. Used for audit trails, rollback capabilities, and tracking order evolution.
@@ -23,7 +24,7 @@ export class OrderRevision {
   /** The revision this was created from */
   createdFromRevisionNumber?: number;
   /** Complete snapshot of the order data at the time this revision was created */
-  snapshot!: any;
+  snapshot!: Order;
   /** Contact that created the revision */
   createdByContact?: Contact;
   /** Customer that created the revision */
@@ -68,8 +69,12 @@ export class OrderRevision {
   getCreatedFromRevisionNumber(): number | undefined {
     return this.createdFromRevisionNumber;
   }
-  /** Returns `snapshot`. */
-  getSnapshot(): any {
+  /** Returns `snapshot` as an Order instance (coerced on first access). */
+  getSnapshot(): Order | undefined {
+    if (this.snapshot == null) return undefined;
+    if (!(this.snapshot instanceof Order)) {
+      this.snapshot = new Order(this.snapshot as any);
+    }
     return this.snapshot;
   }
   /** Returns `createdByContact` as a Contact instance (coerced on first access). */

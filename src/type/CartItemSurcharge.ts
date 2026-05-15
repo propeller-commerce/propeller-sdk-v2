@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { LocalizedString } from './LocalizedString';
 /**
  Object class for CartItemSurcharge
@@ -13,7 +13,7 @@ export class CartItemSurcharge {
   /** Value */
   value!: number;
   /** Tax code */
-  taxCode!: Taxcode;
+  taxCode!: TaxCode;
   /** Tax percentage */
   taxPercentage?: number;
   /** Quantity */
@@ -53,7 +53,7 @@ export class CartItemSurcharge {
     return this.value;
   }
   /** Returns `taxCode`. */
-  getTaxCode(): Taxcode {
+  getTaxCode(): TaxCode {
     return this.taxCode;
   }
   /** Returns `taxPercentage`. */

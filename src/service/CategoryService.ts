@@ -1,7 +1,8 @@
 import { BaseService } from './BaseService';
 import { Category } from '../type/Category';
 import { CategoryResponse } from '../type/CategoryResponse';
-import { CategorySearchInput } from '../type/CategorySearchInput';
+import { CategoryAddProductsClustersResponse } from '../type/CategoryAddProductsClustersResponse';
+import { CategoryRemoveProductsClustersResponse } from '../type/CategoryRemoveProductsClustersResponse';
 import { CategoryCsvInput } from '../type/CategoryCsvInput';
 import { CategoryAddProductsClustersInput } from '../type/CategoryAddProductsClustersInput';
 import { CategoryRemoveProductsClustersInput } from '../type/CategoryRemoveProductsClustersInput';
@@ -49,10 +50,10 @@ export class CategoryService extends BaseService {
    * @param userId User ID for personalization
    * @returns Promise<Category[]> Array of categories
    */
-  async getCategories(filter?: any, userId?: number): Promise<Category[]> {
+  async getCategories(filter?: any, userId?: number): Promise<CategoryResponse> {
     const variables = { filter, userId };
     const result = await this.executeQuery('categories', variables);
-    return result.data.categories.map((x: any) => new Category(x));
+    return new CategoryResponse(result.data.categories);
   }
   /**
    Fetches a single category by ID or slug
@@ -108,20 +109,20 @@ export class CategoryService extends BaseService {
    * @param input Category add products/clusters input data
    * @returns Promise<Category> The updated category
    */
-  async addProductsClustersToCategory(input: CategoryAddProductsClustersInput): Promise<Category> {
+  async addProductsClustersToCategory(input: CategoryAddProductsClustersInput): Promise<CategoryAddProductsClustersResponse> {
     const variables = { input };
     const result = await this.executeMutation('categoryAddProductsClusters', variables);
-    return new Category(result.data.categoryAddProductsClusters);
+    return new CategoryAddProductsClustersResponse(result.data.categoryAddProductsClusters);
   }
   /**
    Removes products/clusters from a category
    * @param input Category remove products/clusters input data
    * @returns Promise<Category> The updated category
    */
-  async removeProductsClustersFromCategory(input: CategoryRemoveProductsClustersInput): Promise<Category> {
+  async removeProductsClustersFromCategory(input: CategoryRemoveProductsClustersInput): Promise<CategoryRemoveProductsClustersResponse> {
     const variables = { input };
     const result = await this.executeMutation('categoryRemoveProductsClusters', variables);
-    return new Category(result.data.categoryRemoveProductsClusters);
+    return new CategoryRemoveProductsClustersResponse(result.data.categoryRemoveProductsClusters);
   }
   /**
    Fetches attribute results for a category

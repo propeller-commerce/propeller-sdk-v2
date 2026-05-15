@@ -1,6 +1,8 @@
 import { BaseService } from './BaseService';
+import { Base64File } from '../type/Base64File';
 import { Order } from '../type/Order';
 import { OrderResponse } from '../type/OrderResponse';
+import { SendOrderConfirmResponseType } from '../type/SendOrderConfirmResponseType';
 import { OrderSearchArguments } from '../type/OrderSearchArguments';
 import { OrderUpdateInput } from '../type/OrderUpdateInput';
 import { OrderSetStatusInput } from '../type/OrderSetStatusInput';
@@ -193,30 +195,30 @@ export class OrderService extends BaseService {
    * @param orderId Order ID
    * @returns Promise<boolean> Success status
    */
-  async sendOrderConfirmationEmail(orderId: number): Promise<boolean> {
+  async sendOrderConfirmationEmail(orderId: number): Promise<SendOrderConfirmResponseType> {
     const variables = { orderId };
     const result = await this.executeMutation('orderSendConfirmationEmail', variables);
-    return result.data.orderSendConfirmationEmail;
+    return new SendOrderConfirmResponseType(result.data.orderSendConfirmationEmail);
   }
   /**
    Fetches order PDF
    * @param orderId Order ID
    * @returns Promise<any> The PDF data
    */
-  async getOrderPDF(orderId: number): Promise<any> {
+  async getOrderPDF(orderId: number): Promise<Base64File> {
     const variables = { orderId };
     const result = await this.executeQuery('orderGetPDF', variables);
-    return result.data.orderGetPDF;
+    return new Base64File(result.data.orderGetPDF);
   }
   /**
    Fetches quote PDF
    * @param quoteId Quote ID
    * @returns Promise<any> The PDF data
    */
-  async getQuotePDF(quoteId: number): Promise<any> {
+  async getQuotePDF(quoteId: number): Promise<Base64File> {
     const variables = { quoteId };
     const result = await this.executeQuery('quoteGetPDF', variables);
-    return result.data.quoteGetPDF;
+    return new Base64File(result.data.quoteGetPDF);
   }
   /**
    Fetches order address
@@ -224,23 +226,24 @@ export class OrderService extends BaseService {
    * @param addressType Address type
    * @returns Promise<Address> The address data
    */
-  async getOrderAddress(orderId: number, addressType?: string): Promise<Address> {
+  async getOrderAddress(orderId: number, addressType?: string): Promise<OrderAddress> {
     const variables = { orderId, addressType };
     const result = await this.executeQuery('orderAddress', variables);
-    return new Address(result.data.orderAddress);
+    return new OrderAddress(result.data.orderAddress);
   }
   /**
    Fetches all addresses for an order
    * @param orderId Order ID
    * @returns Promise<Address[]> The addresses array
    */
-  async getOrderAddresses(orderId: number): Promise<Address[]> {
+  async getOrderAddresses(orderId: number): Promise<OrderAddress[]> {
     const variables = { orderId };
     const result = await this.executeQuery('orderAddresses', variables);
-    return result.data.orderAddresses.map((x: any) => new Address(x));
+    return result.data.orderAddresses.map((x: any) => new OrderAddress(x));
   }
   /**
    Fetches addresses by order ID
+   * @deprecated The upstream `addressesByOrderId` query is deprecated. Use `getOrderAddresses` instead.
    * @param orderId Order ID
    * @returns Promise<Address[]> The addresses array
    */

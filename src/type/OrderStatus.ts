@@ -28,15 +28,6 @@ export class OrderStatus {
   isEditable?: boolean;
   /** Marks if the order is deletable */
   isDeletable?: boolean;
-  /** Marks if the order is exportable */
-  /** @deprecated Unused. To be removed in a future version */
-  isExportable?: boolean;
-  /** Marks if the order is confirmable */
-  /** @deprecated Unused. To be removed in a future version */
-  isConfirmable?: boolean;
-  /** Marks if the order can be archived */
-  /** @deprecated Unused. To be removed in a future version */
-  isArchivable?: boolean;
   /** The order status creation date */
   createdAt!: string;
   /** The order status last modification date */
@@ -94,18 +85,6 @@ export class OrderStatus {
   /** Returns `isDeletable`. */
   getIsDeletable(): boolean | undefined {
     return this.isDeletable;
-  }
-  /** Returns `isExportable`. */
-  getIsExportable(): boolean | undefined {
-    return this.isExportable;
-  }
-  /** Returns `isConfirmable`. */
-  getIsConfirmable(): boolean | undefined {
-    return this.isConfirmable;
-  }
-  /** Returns `isArchivable`. */
-  getIsArchivable(): boolean | undefined {
-    return this.isArchivable;
   }
   /** Returns `createdAt`. */
   getCreatedAt(): string {

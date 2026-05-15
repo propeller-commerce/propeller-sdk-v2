@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { DateSearchInput } from './DateSearchInput';
 import { TaxSortInput } from './TaxSortInput';
 /**
@@ -12,7 +12,7 @@ export interface TaxSearchInput {
   /** Shop identifier for the tax to apply to */
   shopId?: number;
   /** Tax code. One of: [H, L, N] */
-  code?: Taxcode;
+  code?: TaxCode;
   /** Tax zone */
   zone?: string;
   /** Search by date created */

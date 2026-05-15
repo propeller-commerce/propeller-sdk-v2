@@ -9,7 +9,6 @@ import { FavoriteListsResponse } from './FavoriteListsResponse';
 import { OrderlistsResponse } from './OrderlistsResponse';
 import { Product } from './Product';
 import { ClusterOption } from './ClusterOption';
-import { ClusterDrillDown } from './ClusterDrillDown';
 import { ClusterConfig } from './ClusterConfig';
 import { LocalizedString } from './LocalizedString';
 import { Source } from './Source';
@@ -47,9 +46,6 @@ export class Cluster implements IBaseProduct {
   lastModifiedAt!: string;
   /** options field */
   options!: ClusterOption[];
-  /** The drilldown configuration for this cluster  */
-  /** @deprecated Use config.setting instead */
-  drillDowns?: ClusterDrillDown[];
   /** defaultProduct field */
   defaultProduct?: Product;
   /** config field */
@@ -185,12 +181,6 @@ export class Cluster implements IBaseProduct {
     if (!this.options) return [];
     this.options = this.options.map((x: any) => x instanceof ClusterOption ? x : new ClusterOption(x));
     return this.options;
-  }
-  /** Returns `drillDowns` as ClusterDrillDown instances (coerced on first access). */
-  getDrillDowns(): ClusterDrillDown[] | undefined {
-    if (!this.drillDowns) return undefined;
-    this.drillDowns = this.drillDowns.map((x: any) => x instanceof ClusterDrillDown ? x : new ClusterDrillDown(x));
-    return this.drillDowns;
   }
   /** Returns `defaultProduct` as a Product instance (coerced on first access). */
   getDefaultProduct(): Product | undefined {

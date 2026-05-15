@@ -3,7 +3,7 @@ import { DocumentTemplate } from '../type/DocumentTemplate';
 import { EmailTemplate } from '../type/EmailTemplate';
 import { TemplateResponse } from '../type/TemplateResponse';
 import { TemplateSearchInput } from '../type/TemplateSearchInput';
-import { TemplateSortInput } from '../type/TemplateSortInput';
+import { Base64File } from '../type/Base64File';
 import { DocumentTemplateCreateInput } from '../type/DocumentTemplateCreateInput';
 import { DocumentTemplateUpdateInput } from '../type/DocumentTemplateUpdateInput';
 import { EmailTemplateCreateInput } from '../type/EmailTemplateCreateInput';
@@ -19,20 +19,20 @@ export class TemplateService extends BaseService {
    * @param id Document template ID
    * @returns Promise<DocumentTemplate> Document template data
    */
-  async getDocumentTemplate(id: number): Promise<DocumentTemplate> {
+  async getDocumentTemplate(id: string): Promise<DocumentTemplate> {
     const variables = { id };
-    const result = await this.executeQuery('documentTemplate', variables);
-    return new DocumentTemplate(result.data.documentTemplate);
+    const result = await this.executeQuery('template', variables);
+    return new DocumentTemplate(result.data.template);
   }
   /**
    Retrieves a specific email template
    * @param id Email template ID
    * @returns Promise<EmailTemplate> Email template data
    */
-  async getEmailTemplate(id: number): Promise<EmailTemplate> {
+  async getEmailTemplate(id: string): Promise<EmailTemplate> {
     const variables = { id };
-    const result = await this.executeQuery('emailTemplate', variables);
-    return new EmailTemplate(result.data.emailTemplate);
+    const result = await this.executeQuery('template', variables);
+    return new EmailTemplate(result.data.template);
   }
   /**
    Fetches a list of templates with search criteria
@@ -69,10 +69,10 @@ export class TemplateService extends BaseService {
    * @param input Template render input data
    * @returns Promise<any> The PDF response
    */
-  async renderDocumentTemplateToPDF(input: TemplateRenderInput): Promise<any> {
+  async renderDocumentTemplateToPDF(input: TemplateRenderInput): Promise<Base64File> {
     const variables = { input };
     const result = await this.executeMutation('documentTemplateRenderToPDF', variables);
-    return result.data.documentTemplateRenderToPDF;
+    return new Base64File(result.data.documentTemplateRenderToPDF);
   }
   /**
    Creates a new email template

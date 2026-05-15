@@ -12,7 +12,6 @@ import { CartPaymethod } from './CartPaymethod';
 import { CartCarrier } from './CartCarrier';
 import { CartIncentive } from './CartIncentive';
 import { CartShippingMethod } from './CartShippingMethod';
-import { IBaseUser } from './IBaseUser';
 import { Contact } from './Contact';
 import { Customer } from './Customer';
 import { Company } from './Company';
@@ -24,12 +23,6 @@ export class Cart {
   cartId!: string;
   /** Channel identifier this cart belongs to. */
   channelId?: number;
-  /** Shop identifier this cart belongs to. */
-  /** @deprecated Shop is deprecated and will be removed in the future. Use channelId instead */
-  shopId!: number;
-  /** userId field */
-  /** @deprecated This field will be removed in a future release, use contact+companyId or customerId instead */
-  userId?: number;
   /** ContactId for this cart. Goes in combination with companyId */
   contactId?: number;
   /** CustomerId for this cart. */
@@ -92,9 +85,6 @@ export class Cart {
   purchaseAuthorizationRequired!: boolean;
   /** Indicates cart status */
   status?: CartStatus;
-  /** Cart User */
-  /** @deprecated Deprecated in favor of `contact` or `customer` */
-  user?: IBaseUser;
   /** Tender Contact */
   contact?: Contact;
   /** Tender Customer */
@@ -112,14 +102,6 @@ export class Cart {
   /** Returns `channelId`. */
   getChannelId(): number | undefined {
     return this.channelId;
-  }
-  /** Returns `shopId`. */
-  getShopId(): number {
-    return this.shopId;
-  }
-  /** Returns `userId`. */
-  getUserId(): number | undefined {
-    return this.userId;
   }
   /** Returns `contactId`. */
   getContactId(): number | undefined {
@@ -282,10 +264,6 @@ export class Cart {
   /** Returns `status`. */
   getStatus(): CartStatus | undefined {
     return this.status;
-  }
-  /** Returns `user`. */
-  getUser(): IBaseUser | undefined {
-    return this.user;
   }
   /** Returns `contact` as a Contact instance (coerced on first access). */
   getContact(): Contact | undefined {

@@ -1,6 +1,6 @@
 import { PriceElementType } from '../enum/PriceElementType';
 import { PriceDiscountType } from '../enum/PriceDiscountType';
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { IDiscount } from './IDiscount';
 /**
  Object class for ProductPrice
@@ -23,7 +23,7 @@ export class ProductPrice {
   /** discount field */
   discount?: IDiscount;
   /** taxCode field */
-  taxCode?: Taxcode;
+  taxCode?: TaxCode;
   /** quantity field */
   quantity!: number;
   constructor(data: Partial<ProductPrice> = {}) {
@@ -63,7 +63,7 @@ export class ProductPrice {
     return this.discount;
   }
   /** Returns `taxCode`. */
-  getTaxCode(): Taxcode | undefined {
+  getTaxCode(): TaxCode | undefined {
     return this.taxCode;
   }
   /** Returns `quantity`. */

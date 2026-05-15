@@ -23,7 +23,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName

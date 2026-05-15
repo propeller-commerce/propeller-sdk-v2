@@ -4,6 +4,7 @@ import { CompaniesResponse } from '../type/CompaniesResponse';
 import { CreateCompanyInput } from '../type/CreateCompanyInput';
 import { UpdateCompanyInput } from '../type/UpdateCompanyInput';
 import { CompanyCsvInput } from '../type/CompanyCsvInput';
+import { CsvImportResponse } from '../type/CsvImportResponse';
 import { AttributeResultSearchInput, CompanySearchArguments, ContactPurchaseAuthorizationConfigSearchInput, ContactSearchArguments } from '../type';
 /**
  Service for managing companies
@@ -96,9 +97,9 @@ export class CompanyService extends BaseService {
    * @param input Company CSV import input
    * @returns Promise<Company[]> Array of imported companies
    */
-  async importCompaniesCsv(input: CompanyCsvInput): Promise<Company[]> {
+  async importCompaniesCsv(input: CompanyCsvInput): Promise<CsvImportResponse> {
     const variables = { input };
     const result = await this.executeMutation('companyCsvImport', variables);
-    return result.data.companyCsvImport.map((x: any) => new Company(x));
+    return new CsvImportResponse(result.data.companyCsvImport);
   }
 }

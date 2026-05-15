@@ -1,7 +1,5 @@
 import { BaseService } from './BaseService';
 import { WarehouseAddress } from '../type/WarehouseAddress';
-import { WarehousesResponse } from '../type/WarehousesResponse';
-import { WarehousesSearchInput } from '../type/WarehousesSearchInput';
 import { CreateWarehouseAddressInput } from '../type/CreateWarehouseAddressInput';
 import { UpdateWarehouseAddressInput } from '../type/UpdateWarehouseAddressInput';
 /**
@@ -9,26 +7,6 @@ import { UpdateWarehouseAddressInput } from '../type/UpdateWarehouseAddressInput
  * @extends BaseService
  */
 export class WarehouseAddressService extends BaseService {
-  /**
-   Retrieves a specific warehouse address
-   * @param id Warehouse address ID
-   * @returns Promise<WarehouseAddress> Warehouse address data
-   */
-  async getWarehouseAddress(id: number): Promise<WarehouseAddress> {
-    const variables = { id };
-    const result = await this.executeQuery('warehouseAddress', variables);
-    return new WarehouseAddress(result.data.warehouseAddress);
-  }
-  /**
-   Retrieves warehouse addresses with search
-   * @param input Search input parameters
-   * @returns Promise<WarehousesResponse> Warehouse addresses response
-   */
-  async getWarehouseAddresses(input?: WarehousesSearchInput): Promise<WarehousesResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('warehouseAddresses', variables);
-    return new WarehousesResponse(result.data.warehouseAddresses);
-  }
   /**
    Creates a new warehouse address
    * @param input Warehouse address creation input

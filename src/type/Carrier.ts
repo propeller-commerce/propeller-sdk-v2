@@ -14,9 +14,6 @@ export class Carrier {
   type!: CarrierType;
   /** Carrier description per language */
   descriptions?: LocalizedString[];
-  /** shippingCost field */
-  /** @deprecated Deprecated in favor Propeller's business rule builder, where logic can be set up for carriers and more complex use cases */
-  shippingCost!: number;
   /** Track and Trace redirect URL */
   trackAndTraceURL?: string;
   /** Logo url */
@@ -55,10 +52,6 @@ export class Carrier {
     if (!arr || arr.length === 0) return undefined;
     const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
     return entry?.value;
-  }
-  /** Returns `shippingCost`. */
-  getShippingCost(): number {
-    return this.shippingCost;
   }
   /** Returns `trackAndTraceURL`. */
   getTrackAndTraceURL(): string | undefined {

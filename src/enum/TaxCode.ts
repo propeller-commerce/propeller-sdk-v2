@@ -1,8 +1,8 @@
 /**
- * @enum Taxcode
+ * @enum TaxCode
  * Tax classification codes that determine the applicable tax rates and regulations
  */
-export enum Taxcode {
+export enum TaxCode {
   /** High tax rate classification */
   H = "H",
   /** Low tax rate classification */
@@ -12,6 +12,3 @@ export enum Taxcode {
   M = "M",
   CUST = "CUST",
 }
-
-/** Alias for Taxcode - Tax classification codes (capital C variant) */
-export { Taxcode as TaxCode };

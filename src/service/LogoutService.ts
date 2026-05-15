@@ -7,6 +7,7 @@ import { Logout } from '../type/Logout';
 export class LogoutService extends BaseService {
   /**
    Logs out a user and ends their session
+   * @deprecated The upstream `logout` mutation is deprecated; a `signOut` mutation will be available in the future.
    * @param userId User ID to logout
    * @returns Promise<Logout> Logout response
    */

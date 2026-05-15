@@ -24,5 +24,5 @@ export interface UpdateMediaVideoInput {
   /** MediaVideo unique identified */
   mediaId: string;
   /** Upload Video input reference */
-  video?: UploadVideoInput;
+  video?: UploadVideoInput[];
 }

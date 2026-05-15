@@ -46,7 +46,7 @@ export class MachineService extends BaseService {
    */
   async updateMachine(input: UpsertSparePartsMachineInput): Promise<SparePartsMachine> {
     const variables = { input };
-    const result = await this.executeMutation('machineUpdate', variables);
-    return new SparePartsMachine(result.data.machineUpdate);
+    const result = await this.executeMutation('machineUpsert', variables);
+    return new SparePartsMachine(result.data.machineUpsert);
   }
 }

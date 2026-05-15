@@ -9,9 +9,7 @@ fragment CartProcessResponseFields on CartProcessResponse {
     accountManagerId
     cartId
     channelId
-    shopId
     uuid
-    externalId
     debtorId
     status
     type
@@ -25,7 +23,6 @@ fragment CartProcessResponseFields on CartProcessResponse {
     currency
     currencyRatio
     language
-    date
     createdAt
     statusDate
     postageData {

@@ -10,6 +10,7 @@ import { TenderPaymethod } from './TenderPaymethod';
 import { Contact } from './Contact';
 import { Customer } from './Customer';
 import { Company } from './Company';
+import { OrderRevisionResponse } from './OrderRevisionResponse';
 /**
  Comprehensive tender entity representing a potential order in the system.
  * Tenders are draft orders that contain all necessary information for order processing including customer details, items, pricing, addresses, payment methods, and shipping information. They can be modified, processed into orders, or deleted as needed.
@@ -27,17 +28,9 @@ export class Tender {
   /** Classification of the tender type.
    * Determines the processing workflow and business rules that apply to this tender. */
   type!: OrderType;
-  /** Legacy site identifier where the tender was created.
-   * Historical reference maintained for compatibility purposes. */
-  /** @deprecated Deprecated in favor of channelId */
-  siteId?: number;
   /** Sales channel identifier where the tender originated.
    * Identifies the specific sales channel (website, mobile app, etc.) used to create this tender. */
   channelId?: number;
-  /** Shop identifier that owns this tender.
-   * Determines which business unit or location is responsible for fulfilling this tender. */
-  /** @deprecated Deprecated, please use channelId instead */
-  shopId!: number;
   /** Timestamp when the tender was initially created.
    * Records the exact moment this tender was first established in the system. */
   createdAt!: string;
@@ -135,7 +128,7 @@ export class Tender {
    * Returns the company involved in this tender process. Used for organizational context and access control within the tender management system. */
   company?: Company;
   /** List of tender revisions for version control and audit purposes */
-  revisions?: any[];
+  revisions?: OrderRevisionResponse;
   /** Public visibility flag for tender sharing and collaboration */
   public?: boolean;
   /** Current revision number for version tracking */
@@ -174,17 +167,9 @@ export class Tender {
   getType(): OrderType {
     return this.type;
   }
-  /** Returns `siteId`. */
-  getSiteId(): number | undefined {
-    return this.siteId;
-  }
   /** Returns `channelId`. */
   getChannelId(): number | undefined {
     return this.channelId;
-  }
-  /** Returns `shopId`. */
-  getShopId(): number {
-    return this.shopId;
   }
   /** Returns `createdAt`. */
   getCreatedAt(): string {
@@ -400,8 +385,12 @@ export class Tender {
     }
     return this.company;
   }
-  /** Returns `revisions`. */
-  getRevisions(): any[] | undefined {
+  /** Returns `revisions` as an OrderRevisionResponse instance (coerced on first access). */
+  getRevisions(): OrderRevisionResponse | undefined {
+    if (this.revisions == null) return undefined;
+    if (!(this.revisions instanceof OrderRevisionResponse)) {
+      this.revisions = new OrderRevisionResponse(this.revisions as any);
+    }
     return this.revisions;
   }
   /** Returns `public`. */

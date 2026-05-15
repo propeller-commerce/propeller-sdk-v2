@@ -1,4 +1,5 @@
 import { BaseService } from './BaseService';
+import { DeleteMediaVideoResponse } from '../type/DeleteMediaVideoResponse';
 import { MediaVideo } from '../type/MediaVideo';
 import { PaginatedMediaVideoResponse } from '../type/PaginatedMediaVideoResponse';
 import { MediaVideoSearchInput } from '../type/MediaVideoSearchInput';
@@ -11,6 +12,7 @@ import { UpdateMediaVideoInput } from '../type/UpdateMediaVideoInput';
 export class MediaVideoService extends BaseService {
   /**
    Retrieves a specific media video
+   * @deprecated The upstream `mediaVideo` query is deprecated; read via `media.video` from the parent resource instead.
    * @param id Media video ID
    * @returns Promise<MediaVideo> Media video data
    */
@@ -21,6 +23,7 @@ export class MediaVideoService extends BaseService {
   }
   /**
    Retrieves media videos with pagination
+   * @deprecated The upstream `mediaVideos` query is deprecated; read via `media.videos` from the parent resource instead.
    * @param input Search input parameters
    * @returns Promise<PaginatedMediaVideoResponse> Paginated media videos
    */
@@ -54,9 +57,9 @@ export class MediaVideoService extends BaseService {
    * @param id Media video ID
    * @returns Promise<boolean> Success status
    */
-  async deleteMediaVideo(id: number): Promise<boolean> {
+  async deleteMediaVideo(id: number): Promise<DeleteMediaVideoResponse> {
     const variables = { id };
     const result = await this.executeMutation('mediaVideoDelete', variables);
-    return result.data.mediaVideoDelete;
+    return new DeleteMediaVideoResponse(result.data.mediaVideoDelete);
   }
 }

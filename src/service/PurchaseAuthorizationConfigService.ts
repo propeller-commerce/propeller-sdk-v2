@@ -24,10 +24,10 @@ export class PurchaseAuthorizationConfigService extends BaseService {
    * @param input Search input parameters
    * @returns Promise<PurchaseAuthorizationConfigResponse[]> List of purchase authorization configurations
    */
-  async getPurchaseAuthorizationConfigs(input?: PurchaseAuthorizationConfigSearchInput): Promise<PurchaseAuthorizationConfigResponse[]> {
+  async getPurchaseAuthorizationConfigs(input?: PurchaseAuthorizationConfigSearchInput): Promise<PurchaseAuthorizationConfigResponse> {
     const variables = { input };
     const result = await this.executeQuery('purchaseAuthorizationConfigs', variables);
-    return result.data.purchaseAuthorizationConfigs.map((x: any) => new PurchaseAuthorizationConfigResponse(x));
+    return new PurchaseAuthorizationConfigResponse(result.data.purchaseAuthorizationConfigs);
   }
   /**
    Creates a new purchase authorization configuration

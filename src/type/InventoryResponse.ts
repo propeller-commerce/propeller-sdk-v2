@@ -17,9 +17,6 @@ export class InventoryResponse {
   supplierCode!: string;
   /** Inventory sku */
   sku!: string;
-  /** Inventory last modified date */
-  /** @deprecated Use lastModifiedAt instead */
-  dateModified?: string;
   /** Inventory warehouse identifier */
   warehouseId!: number;
   /** Inventory location */
@@ -28,12 +25,6 @@ export class InventoryResponse {
   nextDeliveryDate!: string;
   /** Inventory note */
   notes!: string;
-  /** Error messages */
-  /** @deprecated No longer used */
-  messages!: string[];
-  /** Total */
-  /** @deprecated No longer used */
-  total!: number;
   /** warehouse field */
   warehouse?: Warehouse;
   constructor(data: Partial<InventoryResponse> = {}) {
@@ -68,10 +59,6 @@ export class InventoryResponse {
   getSku(): string {
     return this.sku;
   }
-  /** Returns `dateModified`. */
-  getDateModified(): string | undefined {
-    return this.dateModified;
-  }
   /** Returns `warehouseId`. */
   getWarehouseId(): number {
     return this.warehouseId;
@@ -87,14 +74,6 @@ export class InventoryResponse {
   /** Returns `notes`. */
   getNotes(): string {
     return this.notes;
-  }
-  /** Returns `messages`. */
-  getMessages(): string[] {
-    return this.messages;
-  }
-  /** Returns `total`. */
-  getTotal(): number {
-    return this.total;
   }
   /** Returns `warehouse` as a Warehouse instance (coerced on first access). */
   getWarehouse(): Warehouse | undefined {

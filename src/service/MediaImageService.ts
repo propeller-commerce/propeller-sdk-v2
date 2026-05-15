@@ -1,5 +1,6 @@
 import { BaseService } from './BaseService';
 import { MediaImage } from '../type/MediaImage';
+import { DeleteMediaImageResponse } from '../type/DeleteMediaImageResponse';
 import { PaginatedMediaImageResponse } from '../type/PaginatedMediaImageResponse';
 import { MediaImageSearchInput } from '../type/MediaImageSearchInput';
 import { MediaImageInput } from '../type/MediaImageInput';
@@ -11,6 +12,7 @@ import { UpdateMediaImageInput } from '../type/UpdateMediaImageInput';
 export class MediaImageService extends BaseService {
   /**
    Retrieves a specific media image
+   * @deprecated The upstream `mediaImage` query is deprecated; read via `media.image` from the parent resource instead.
    * @param id Media image ID
    * @returns Promise<MediaImage> Media image data
    */
@@ -21,6 +23,7 @@ export class MediaImageService extends BaseService {
   }
   /**
    Retrieves media images with pagination
+   * @deprecated The upstream `mediaImages` query is deprecated; read via `media.images` from the parent resource instead.
    * @param input Search input parameters
    * @returns Promise<PaginatedMediaImageResponse> Paginated media images
    */
@@ -54,9 +57,9 @@ export class MediaImageService extends BaseService {
    * @param id Media image ID
    * @returns Promise<boolean> Success status
    */
-  async deleteMediaImage(id: number): Promise<boolean> {
+  async deleteMediaImage(id: number): Promise<DeleteMediaImageResponse> {
     const variables = { id };
     const result = await this.executeMutation('mediaImageDelete', variables);
-    return result.data.mediaImageDelete;
+    return new DeleteMediaImageResponse(result.data.mediaImageDelete);
   }
 }

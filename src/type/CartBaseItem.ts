@@ -1,5 +1,5 @@
 import { PriceMode } from '../enum/PriceMode';
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { CartItemSurcharge } from './CartItemSurcharge';
 import { CartItemIncentive } from './CartItemIncentive';
 import { Product } from './Product';
@@ -43,7 +43,7 @@ export class CartBaseItem implements ICartBaseItem {
   /** Cart item's productId if applicable */
   productId?: number;
   /** Tax code for this cart item. */
-  taxCode!: Taxcode;
+  taxCode!: TaxCode;
   /** Expected delivery date for this cart item. */
   deliveryDate?: string;
   /** Deadline for delivery of this cart item. */
@@ -127,7 +127,7 @@ export class CartBaseItem implements ICartBaseItem {
     return this.productId;
   }
   /** Returns `taxCode`. */
-  getTaxCode(): Taxcode {
+  getTaxCode(): TaxCode {
     return this.taxCode;
   }
   /** Returns `deliveryDate`. */

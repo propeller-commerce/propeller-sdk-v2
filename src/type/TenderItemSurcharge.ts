@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { LocalizedString } from './LocalizedString';
 /**
  Object class for TenderItemSurcharge
@@ -7,7 +7,7 @@ export class TenderItemSurcharge {
   /** names field */
   names!: LocalizedString[];
   /** taxCode field */
-  taxCode!: Taxcode;
+  taxCode!: TaxCode;
   /** taxPercentage field */
   taxPercentage!: number;
   /** quantity field */
@@ -32,7 +32,7 @@ export class TenderItemSurcharge {
     return entry?.value;
   }
   /** Returns `taxCode`. */
-  getTaxCode(): Taxcode {
+  getTaxCode(): TaxCode {
     return this.taxCode;
   }
   /** Returns `taxPercentage`. */

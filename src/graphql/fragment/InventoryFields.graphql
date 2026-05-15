@@ -6,7 +6,6 @@ fragment InventoryFields on Inventory {
   supplier
   supplierCode
   sku
-  dateModified
   warehouseId
   location
   nextDeliveryDate

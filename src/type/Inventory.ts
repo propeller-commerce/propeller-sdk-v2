@@ -16,9 +16,6 @@ export class Inventory {
   supplierCode!: string;
   /** Inventory sku */
   sku!: string;
-  /** Inventory last modified date */
-  /** @deprecated Use lastModifiedAt instead */
-  dateModified?: string;
   /** Inventory warehouse identifier */
   warehouseId!: number;
   /** Inventory location */
@@ -58,10 +55,6 @@ export class Inventory {
   /** Returns `sku`. */
   getSku(): string {
     return this.sku;
-  }
-  /** Returns `dateModified`. */
-  getDateModified(): string | undefined {
-    return this.dateModified;
   }
   /** Returns `warehouseId`. */
   getWarehouseId(): number {

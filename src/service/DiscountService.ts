@@ -5,6 +5,7 @@ import { DiscountSearchInput } from '../type/DiscountSearchInput';
 import { DiscountCreateInput } from '../type/DiscountCreateInput';
 import { DiscountUpdateInput } from '../type/DiscountUpdateInput';
 import { DiscountCsvInput } from '../type/DiscountCsvInput';
+import { CsvImportResponse } from '../type/CsvImportResponse';
 /**
  Service class for Discount-related GraphQL operations
  */
@@ -54,9 +55,9 @@ export class DiscountService extends BaseService {
    * @param input Discount CSV import input data
    * @returns Promise<any> The import response
    */
-  async importDiscountsCsv(input: DiscountCsvInput): Promise<any> {
+  async importDiscountsCsv(input: DiscountCsvInput): Promise<CsvImportResponse> {
     const variables = { input };
     const result = await this.executeMutation('discountCsvImport', variables);
-    return result.data.discountCsvImport;
+    return new CsvImportResponse(result.data.discountCsvImport);
   }
 }

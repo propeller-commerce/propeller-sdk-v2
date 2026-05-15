@@ -24,5 +24,5 @@ export interface UpdateMediaDocumentInput {
   /** MediaDocument unique identified */
   mediaId: string;
   /** Upload File input reference */
-  uploadDocument?: UploadFileInput;
+  uploadDocument?: UploadFileInput[];
 }

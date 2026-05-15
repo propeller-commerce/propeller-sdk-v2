@@ -10,9 +10,6 @@ import { CategoryResponse } from './CategoryResponse';
 import { CrossupsellsResponse } from './CrossupsellsResponse';
 import { FavoriteListsResponse } from './FavoriteListsResponse';
 import { ProductInventory } from './ProductInventory';
-import { PaginatedMediaImageResponse } from './PaginatedMediaImageResponse';
-import { PaginatedMediaVideoResponse } from './PaginatedMediaVideoResponse';
-import { PaginatedMediaDocumentResponse } from './PaginatedMediaDocumentResponse';
 import { ProductMedia } from './ProductMedia';
 import { OrderlistsResponse } from './OrderlistsResponse';
 import { ProductPrice } from './ProductPrice';
@@ -50,15 +47,6 @@ export class Product implements IBaseProduct {
   favoriteLists?: FavoriteListsResponse;
   /** Product inventory */
   inventory?: ProductInventory;
-  /** Product media images */
-  /** @deprecated Deprecated in favor of `media.images` */
-  mediaImages?: PaginatedMediaImageResponse;
-  /** Product media videos */
-  /** @deprecated Deprecated in favor of `media.videos` */
-  mediaVideos?: PaginatedMediaVideoResponse;
-  /** Product media documents */
-  /** @deprecated Deprecated in favor of `media.documents` */
-  mediaDocuments?: PaginatedMediaDocumentResponse;
   /** Product media images */
   media?: ProductMedia;
   /** orderlists field */
@@ -103,9 +91,6 @@ export class Product implements IBaseProduct {
   sources!: Source[];
   /** Short names for this product per language */
   shortNames!: LocalizedString[];
-  /** The short name for the product, used for abbreviated orderlines */
-  /** @deprecated use shortNames instead. */
-  shortName!: string;
   /** Additional keywords of this product per language. Added by the supplier */
   keywords?: LocalizedString[];
   /** Additional keywords of this product per language. Added via the PIM */
@@ -264,30 +249,6 @@ export class Product implements IBaseProduct {
     }
     return this.inventory;
   }
-  /** Returns `mediaImages` as a PaginatedMediaImageResponse instance (coerced on first access). */
-  getMediaImages(): PaginatedMediaImageResponse | undefined {
-    if (this.mediaImages == null) return undefined;
-    if (!(this.mediaImages instanceof PaginatedMediaImageResponse)) {
-      this.mediaImages = new PaginatedMediaImageResponse(this.mediaImages as any);
-    }
-    return this.mediaImages;
-  }
-  /** Returns `mediaVideos` as a PaginatedMediaVideoResponse instance (coerced on first access). */
-  getMediaVideos(): PaginatedMediaVideoResponse | undefined {
-    if (this.mediaVideos == null) return undefined;
-    if (!(this.mediaVideos instanceof PaginatedMediaVideoResponse)) {
-      this.mediaVideos = new PaginatedMediaVideoResponse(this.mediaVideos as any);
-    }
-    return this.mediaVideos;
-  }
-  /** Returns `mediaDocuments` as a PaginatedMediaDocumentResponse instance (coerced on first access). */
-  getMediaDocuments(): PaginatedMediaDocumentResponse | undefined {
-    if (this.mediaDocuments == null) return undefined;
-    if (!(this.mediaDocuments instanceof PaginatedMediaDocumentResponse)) {
-      this.mediaDocuments = new PaginatedMediaDocumentResponse(this.mediaDocuments as any);
-    }
-    return this.mediaDocuments;
-  }
   /** Returns `media` as a ProductMedia instance (coerced on first access). */
   getMedia(): ProductMedia | undefined {
     if (this.media == null) return undefined;
@@ -411,13 +372,6 @@ export class Product implements IBaseProduct {
     if (!this.sources) return [];
     this.sources = this.sources.map((x: any) => x instanceof Source ? x : new Source(x));
     return this.sources;
-  }
-  /** Returns the shortName for the given language, falling back to NL. */
-  getShortName(language: string = 'NL'): string | undefined {
-    const arr = this.shortNames;
-    if (!arr || arr.length === 0) return undefined;
-    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
-    return entry?.value;
   }
   /** Returns the keyword for the given language, falling back to NL. */
   getKeyword(language: string = 'NL'): string | undefined {

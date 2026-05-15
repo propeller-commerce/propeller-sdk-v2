@@ -462,7 +462,6 @@ export const CarrierFields = `fragment CarrierFields on Carrier {
   descriptions {
     ... LocalizedStringFields
   }
-  shippingCost
   trackAndTraceURL
   logo
   createdAt
@@ -550,7 +549,6 @@ export const CartCarrierFields = `fragment CartCarrierFields on CartCarrier {
 export const CartFields = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -763,9 +761,7 @@ export const CartProcessResponseFields = `fragment CartProcessResponseFields on 
     accountManagerId
     cartId
     channelId
-    shopId
     uuid
-    externalId
     debtorId
     status
     type
@@ -779,7 +775,6 @@ export const CartProcessResponseFields = `fragment CartProcessResponseFields on 
     currency
     currencyRatio
     language
-    date
     createdAt
     statusDate
     postageData {
@@ -818,7 +813,6 @@ export const CartResponseFields = `fragment CartResponseFields on CartResponse {
   items {
     cartId
     channelId
-    shopId
     contactId
     customerId
     companyId
@@ -872,7 +866,6 @@ export const CartResponseFields = `fragment CartResponseFields on CartResponse {
     status
     contact {
       contactId
-      debtorId
       gender
       firstName
       middleName
@@ -1371,7 +1364,6 @@ export const ContactFields = `fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -1471,7 +1463,6 @@ export const ContactsResponseFields = `fragment ContactsResponseFields on Contac
 export const ContactViewerFields = `fragment ContactViewerFields on Contact {
   contactId
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -1946,7 +1937,7 @@ export const ImageVariantFields = `fragment ImageVariantFields on ImageVariant {
 }`;
 
 export const InventoryDeleteResponseFields = `fragment InventoryDeleteResponseFields on InventoryDeleteResponse {
-  messages
+  __typename
 }`;
 
 export const InventoryFields = `fragment InventoryFields on Inventory {
@@ -1957,7 +1948,6 @@ export const InventoryFields = `fragment InventoryFields on Inventory {
   supplier
   supplierCode
   sku
-  dateModified
   warehouseId
   location
   nextDeliveryDate
@@ -1972,13 +1962,10 @@ export const InventoryResponseFields = `fragment InventoryResponseFields on Inve
   supplier
   supplierCode
   sku
-  dateModified
   warehouseId
   location
   nextDeliveryDate
   notes
-  messages
-  total
   warehouse {
     ... WarehouseFields
   }
@@ -2263,9 +2250,7 @@ export const OrderDataFields = `fragment OrderDataFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type
@@ -2314,9 +2299,7 @@ export const OrderFields = `fragment OrderFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type
@@ -2330,7 +2313,6 @@ export const OrderFields = `fragment OrderFields on Order {
   currency
   currencyRatio
   language
-  date
   createdAt
   statusDate
   postageData {
@@ -2688,7 +2670,6 @@ export const PriceFields = `fragment PriceFields on Price {
   bulkPriceDiscountType
   defaultTaxCode
   display
-  cost
 }`;
 
 export const PriceResponseFields = `fragment PriceResponseFields on PriceResponse {
@@ -2716,9 +2697,6 @@ export const PricesheetFields = `fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ... ContactFields
-  }
   contactsPaginated {
     items {
       ... ContactFields
@@ -2730,9 +2708,6 @@ export const PricesheetFields = `fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ... CustomerFields
-  }
   customersPaginated {
     items {
       ... CustomerFields
@@ -2743,9 +2718,6 @@ export const PricesheetFields = `fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ... CompanyFields
   }
   companiesPaginated {
     items {
@@ -3465,7 +3437,6 @@ export const TaxesResponseFields = `fragment TaxesResponseFields on TaxesRespons
 
 export const TaxFields = `fragment TaxFields on Tax {
   id
-  shopId
   code
   zone
   percentage
@@ -3715,7 +3686,6 @@ export const WarehouseFields = `fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ... BusinessHoursFields
   }

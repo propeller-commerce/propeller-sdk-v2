@@ -1,4 +1,5 @@
 import { BaseService } from './BaseService';
+import { DeleteMediaDocumentResponse } from '../type/DeleteMediaDocumentResponse';
 import { MediaDocument } from '../type/MediaDocument';
 import { PaginatedMediaDocumentResponse } from '../type/PaginatedMediaDocumentResponse';
 import { MediaDocumentSearchInput } from '../type/MediaDocumentSearchInput';
@@ -11,6 +12,7 @@ import { UpdateMediaDocumentInput } from '../type/UpdateMediaDocumentInput';
 export class MediaDocumentService extends BaseService {
   /**
    Retrieves a specific media document
+   * @deprecated The upstream `mediaDocument` query is deprecated; read via `media.document` from the parent resource instead.
    * @param id Media document ID
    * @returns Promise<MediaDocument> Media document data
    */
@@ -21,6 +23,7 @@ export class MediaDocumentService extends BaseService {
   }
   /**
    Retrieves media documents with pagination
+   * @deprecated The upstream `mediaDocuments` query is deprecated; read via `media.documents` from the parent resource instead.
    * @param input Search input parameters
    * @returns Promise<PaginatedMediaDocumentResponse> Paginated media documents
    */
@@ -54,9 +57,9 @@ export class MediaDocumentService extends BaseService {
    * @param id Media document ID
    * @returns Promise<boolean> Success status
    */
-  async deleteMediaDocument(id: number): Promise<boolean> {
+  async deleteMediaDocument(id: number): Promise<DeleteMediaDocumentResponse> {
     const variables = { id };
     const result = await this.executeMutation('mediaDocumentDelete', variables);
-    return result.data.mediaDocumentDelete;
+    return new DeleteMediaDocumentResponse(result.data.mediaDocumentDelete);
   }
 }

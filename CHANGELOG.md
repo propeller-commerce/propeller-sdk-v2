@@ -4,6 +4,105 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.9.0] - 2026-05-15
+
+Full schema-sync release. Re-introspected from the upstream API and removed every point of drift between the SDK and the live schema. Service method names are preserved across the board — only the GraphQL operation strings inside `executeQuery`/`executeMutation` and the matching `.graphql` files were renamed.
+
+### Breaking
+
+- **42 `@deprecated` fields removed** from `src/type/*.ts` (Product.mediaImages/Videos/Documents, Cart.shopId/userId/user, Order.shopId/externalId/date, Channel.channelId/shop/defaultLetterId, Company.path/slug/inheritProductList, Cluster.drillDowns, OrderStatus.isExportable/Confirmable/Archivable, Pricesheet.contacts/customers/companies, Orderlist.users/companies, Inventory.dateModified, InventoryResponse.dateModified/messages/total, AdminUserTenant.name, Carrier.shippingCost, Contact.debtorId, CompanyContactSearch.debtorId, OrderTotals.orderId, Price.cost, Surcharge.shopId, Tax.shopId, Tender.siteId/shopId, TenderCarrier.amount, Warehouse.shopId, InventoryDeleteResponse.messages, Product.shortName). Their generated getters and fragment-field references are stripped in the same pass.
+- **~12 service methods removed** for operations no longer in the schema:
+  - Entire services deleted: `ExternalAddressService`, `SparePartService`, `SiteService`, `SparePartsMachineMediaService`, `MediaService`.
+  - Methods removed from kept services: `AddressService.getAddressesByUserId`, `ClusterService.getClusters`, `UserService.updateUser`/`createUserAddress`/`updateUserAddress`/`deleteUserAddress`, `MediaAttachmentService.getMediaAttachment(s)`, `WarehouseAddressService.getWarehouseAddress(es)`.
+- **Return-shape fixes for ~30 services** where the TS return type didn't match the schema. Notable cases:
+  - `CategoryService.getCategories(): Promise<Category[]>` → `Promise<CategoryResponse>`
+  - `CategoryService.addProductsClustersToCategory(): Promise<Category>` → `Promise<CategoryAddProductsClustersResponse>`
+  - `CategoryService.removeProductsClustersFromCategory(): Promise<Category>` → `Promise<CategoryRemoveProductsClustersResponse>`
+  - `AttributeService.getAttributeResultByX(): Promise<AttributeResult>` → `Promise<AttributeResultResponse>` (6 methods)
+  - `InventoryService.getInventory(): Promise<Inventory[]>` → `Promise<InventoryResponse>`
+  - `CompanyService.importCompaniesCsv(): Promise<Company[]>` → `Promise<CsvImportResponse>`
+  - `DiscountService.importDiscountsCsv(): Promise<any>` → `Promise<CsvImportResponse>`
+  - `BundleService.addItemsToBundle(): Promise<Bundle>` → `Promise<BundleItem[]>`
+  - `BusinessRuleService.getBusinessRuleFieldDefinitions(): Promise<any>` → `Promise<BusinessRuleFieldDefinitionGroup>`
+  - `CartService.bulkUpdateCartItems(): Promise<Cart>` → `Promise<BulkResponseData>`
+  - `ClusterConfigService.getClusterConfig(): Promise<ClusterConfig>` → `Promise<ClusterConfigResponse>` (also: arg renamed from `id` to `clusterConfigId`)
+  - `ClusterConfigService.createClusterConfig(): Promise<ClusterConfig>` → `Promise<ClusterConfigResponse>`
+  - `ClusterConfigService.updateClusterConfigSetting()` — signature now `(clusterConfigId, settingId, input)`; returns `Promise<UpdateClusterConfigSettingResponse>`.
+  - `ClusterService.getClusterConfig(): Promise<Cluster>` → `Promise<ClusterConfigResponse>` (also: arg renamed `clusterId` → `clusterConfigId`)
+  - `EventActionConfigService.getEventActionConfig(): Promise<EventActionConfigResponse>` → `Promise<IEventActionConfig>`
+  - `EventActionConfigService.getEventActionConfigs(): Promise<EventActionConfigResponse[]>` → `Promise<EventActionConfigResponse>`
+  - `EventActionConfigService.createEventToEmailConfig()/updateEventToEmailConfig(): Promise<EventActionConfigResponse>` → `Promise<EventToEmailConfig>`
+  - `EventActionConfigService.createEventToWebHookConfig()/updateEventToWebHookConfig(): Promise<EventActionConfigResponse>` → `Promise<EventToWebHookConfig>`
+  - `GCIPUserService.getGCIPUser(): Promise<any>` → `Promise<IBaseUser>`
+  - `Media{Image,Video,Document,Attachment}Service.deleteMediaX(): Promise<boolean>` → `Promise<DeleteMediaXResponse>`
+  - `OrderService.sendOrderConfirmationEmail(): Promise<boolean>` → `Promise<SendOrderConfirmResponseType>`
+  - `OrderService.getOrderPDF()/getQuotePDF(): Promise<any>` → `Promise<Base64File>`
+  - `OrderService.getOrderAddress(): Promise<Address>` → `Promise<OrderAddress>`
+  - `OrderService.getOrderAddresses(): Promise<Address[]>` → `Promise<OrderAddress[]>`
+  - `PaymentService.deletePayment(): Promise<boolean>` → `Promise<Payment>`
+  - `PriceService.getDefaultPrice()/explainPrice(): Promise<ProductPrice>` → `Promise<ProductPrice[]>`
+  - `ProductService.addSurchargesToProduct(): Promise<boolean>` → `Promise<ConfirmationResponse>`
+  - `ProductService.getProductSurcharges(): Promise<SurchargesResponse>` → `Promise<SurchargeProductResponse>`
+  - `PurchaseAuthorizationConfigService.getPurchaseAuthorizationConfigs(): Promise<...Response[]>` → `Promise<...Response>` (single paginated response)
+  - `SurchargeService.deleteSurcharge(): Promise<boolean>` → `Promise<Surcharge>`
+  - `TemplateService.renderDocumentTemplateToPDF(): Promise<any>` → `Promise<Base64File>`
+  - `TenderService.addItemToTender()/addItemsToTender(): Promise<Tender>` → `Promise<TenderResponse>` (signatures now take `id: string` first)
+  - `UserService.triggerContactSendWelcomeEmailEvent()/triggerCustomerSendWelcomeEmailEvent(): Promise<any>` → `Promise<boolean>`
+  - `VerifyTokenService.verifyToken(): Promise<any>` → `Promise<VerifyToken>`
+  - `TemplateService.getDocumentTemplate()/getEmailTemplate()` — id arg type changed from `number` to `string` to match `template(id: String!)`.
+- **Type-shape fixes**:
+  - `BusinessRuleDateExpression.type: string` → `BusinessRuleExpressionTypes`
+  - `BusinessRuleDateExpression.operator: string` → `BusinessRuleDateExpressionOperators`
+  - `OrderRevision.snapshot: any` → `Order`
+  - `Tender.revisions: any[]` → `OrderRevisionResponse`
+- **Input-shape fixes**:
+  - `OrderRevisionSearchInput.sortInputs: any[]` → `OrderRevisionSortInput[]`
+  - `TemplateErrorLogSearchInput.sortInputs: any[]` → `TemplateErrorLogSortInput[]`
+  - `UpdateMediaDocumentInput.uploadDocument: UploadFileInput` → `UploadFileInput[]`
+  - `UpdateMediaImageInput.uploadImage: UploadFileInput` → `UploadFileInput[]`
+  - `UpdateMediaVideoInput.video: UploadVideoInput` → `UploadVideoInput[]`
+  - `SurchargeSearchInput.taxCode: Taxcode` → `TaxCode`
+  - `UpdateSurchargeInput.taxCode: Taxcode` → `TaxCode`
+- **`Taxcode` enum renamed to `TaxCode`** (matches schema casing). 27 type files updated to import the new name. The compat alias `export { Taxcode as TaxCode }` is removed — consumers must use `TaxCode`.
+- **2 interfaces converted to classes** for 0.7.0/0.8.0 consistency (gain generated getter methods): `OrderRevisionResponse`, `TemplateErrorLogResponse`.
+
+### Internal (no consumer-visible change to method names)
+
+- 10 GraphQL operations renamed at the wire level to match upstream — service method names are unchanged. Mapping:
+  - `clusterGetConfig` → `clusterConfig`
+  - `documentTemplate` → `template`, `emailTemplate` → `template` (both methods now hit the unified `template` query)
+  - `machineUpdate` → `machineUpsert`
+  - `registerContact` → `contactRegister`
+  - `registerCustomer` → `customerRegister`
+  - `sparePartsMachine` → `machine`, `sparePartsMachines` → `machines`, `sparePartsMachineCreate` → `machineCreate`, `sparePartsMachineUpdate` → `machineUpsert`
+  - `tenderAddItem` → `tenderAddItems` (input type now `TenderAddItemsInput` — `addItemToTender(id, input)` adapts the singular input internally; `addItemsToTender(id, input)` takes the new shape directly)
+  - `clusterConfigSettingUpdate` → `clusterConfigUpdateSetting`
+- Deprecated `.graphql` files removed (alongside their service methods or after rename).
+- Fragments updated to drop fields the schema marks deprecated.
+
+### Deprecated (still callable, schema-marked upstream-deprecated)
+
+Service methods now carry `@deprecated` JSDoc tags so TS consumers see the warning in their IDE:
+
+- `CartService.setCartUser` — use `setCartContact`/`setCartCustomer`.
+- `LogoutService.logout`, `UserService.logout` — `signOut` mutation coming upstream.
+- `AddressService.getAddressesByOrderId`, `OrderService.getAddressesByOrderId` — use `OrderService.getOrderAddresses`.
+- `MediaImageService.getMediaImage(s)`, `MediaVideoService.getMediaVideo(s)`, `MediaDocumentService.getMediaDocument(s)` — read via `media.image/images/video/videos/document/documents` on parent resource.
+- `ShopService.getShop`, `ShopService.getShops` — shop queries will be removed in a future version.
+- `BundleService.addItemsToBundle` — prefer `bundleAddItemsAndReturnBundle`.
+- `EventActionConfigService.publishPasswordResetEmailEvent` — use `UserService.sendPasswordResetEmail` (routes through the event-action-manager and template engine).
+
+### Migration
+
+- Run `tsc --noEmit` against your consumer. Every breakage is a removed-field or shape-change that maps to a documented replacement above.
+- For paginated return-shape fixes (e.g. CategoryResponse), unwrap with `.items` to get the old array shape: `(await svc.getCategories()).items`.
+- For `TaxCode` enum: search/replace `Taxcode` → `TaxCode` in your code.
+- For `getOrderAddress(es)`: replace `Address`/`Address[]` consumer types with `OrderAddress`/`OrderAddress[]`.
+- For Template methods: id arg is now `string` (was `number`).
+- For Tender add-item methods: pass the tender id as the first arg.
+
+---
+
 ## [0.8.0] - 2026-05-15
 
 Generates getter methods on every response class in `src/type/`. Each property gets one matching getter; behavior depends on the property's type. The 0.7.0 release restored the classes; this one fills them in.

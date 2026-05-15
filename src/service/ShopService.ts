@@ -6,6 +6,7 @@ import { Shop } from '../type/Shop';
 export class ShopService extends BaseService {
   /**
    * Fetches a single shop by ID
+   * @deprecated The upstream `shop` query is deprecated; this query will be removed in a future version.
    * @param id Shop ID to fetch
    * @returns Promise<Shop> The shop data
    */
@@ -16,6 +17,7 @@ export class ShopService extends BaseService {
   }
   /**
    * Fetches a list of shops
+   * @deprecated The upstream `shops` query is deprecated; this query will be removed in a future version.
    * @returns Promise<Shop[]> The shops data array
    */
   async getShops(): Promise<Shop[]> {

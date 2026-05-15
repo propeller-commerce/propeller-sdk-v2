@@ -12,9 +12,6 @@ export class TenderCarrier {
   description?: string;
   /** Carrier's logo */
   logo?: string;
-  /** Costs for delivery through this carrier. Use the costs as an indication, the actual costs are calculated through business rules */
-  /** @deprecated Deprecated, please use price instead */
-  amount!: number;
   /** Expected delivery deadline for this carrier */
   deliveryDeadline?: string;
   constructor(data: Partial<TenderCarrier> = {}) {
@@ -40,10 +37,6 @@ export class TenderCarrier {
   /** Returns `logo`. */
   getLogo(): string | undefined {
     return this.logo;
-  }
-  /** Returns `amount`. */
-  getAmount(): number {
-    return this.amount;
   }
   /** Returns `deliveryDeadline`. */
   getDeliveryDeadline(): string | undefined {

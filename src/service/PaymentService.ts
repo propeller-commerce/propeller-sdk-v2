@@ -53,9 +53,9 @@ export class PaymentService extends BaseService {
    * @param id Payment ID to delete
    * @returns Promise<boolean> Success status
    */
-  async deletePayment(id: number): Promise<boolean> {
+  async deletePayment(id: number): Promise<Payment> {
     const variables = { id };
     const result = await this.executeMutation('paymentDelete', variables);
-    return result.data.paymentDelete;
+    return new Payment(result.data.paymentDelete);
   }
 }

@@ -1,5 +1,5 @@
 import { SurchargeType } from '../enum/SurchargeType';
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { LocalizedStringInput } from './LocalizedStringInput';
 /**
  Input object for CreateSurchargeInput
@@ -14,7 +14,7 @@ export interface CreateSurchargeInput {
   /** The value to be applied as surcharge (e.g., percentage or amount) */
   value: number;
   /** Tax code */
-  taxCode: Taxcode;
+  taxCode: TaxCode;
   /** Tax zone */
   taxZone: string;
   /** Indicates whether the surcharge is active or not */

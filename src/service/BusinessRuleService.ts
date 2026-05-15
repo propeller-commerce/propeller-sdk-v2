@@ -1,5 +1,6 @@
 import { BaseService } from './BaseService';
 import { BusinessRule } from '../type/BusinessRule';
+import { BusinessRuleFieldDefinitionGroup } from '../type/BusinessRuleFieldDefinitionGroup';
 import { BusinessRuleResponse } from '../type/BusinessRuleResponse';
 import { BusinessRuleSearchInput } from '../type/BusinessRuleSearchInput';
 import { BusinessRuleCreateInput } from '../type/BusinessRuleCreateInput';
@@ -48,12 +49,12 @@ export class BusinessRuleService extends BaseService {
   }
   /**
    Fetches business rule field definitions
-   * @returns Promise<any> The field definitions data
+   * @returns Promise<BusinessRuleFieldDefinitionGroup> The field definitions data
    */
-  async getBusinessRuleFieldDefinitions(): Promise<any> {
+  async getBusinessRuleFieldDefinitions(): Promise<BusinessRuleFieldDefinitionGroup> {
     const variables = {};
     const result = await this.executeQuery('businessRuleFieldDefinitions', variables);
-    return result.data.businessRuleFieldDefinitions;
+    return new BusinessRuleFieldDefinitionGroup(result.data.businessRuleFieldDefinitions);
   }
   /**
    Fetches business rule JDM

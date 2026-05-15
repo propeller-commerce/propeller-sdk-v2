@@ -1,5 +1,5 @@
 import { OrderItemClass } from '../enum/OrderItemClass';
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { YesNo } from '../enum/YesNo';
 import { SourceInput } from './SourceInput';
 /**
@@ -57,7 +57,7 @@ export interface OrderItemCreateInput {
   /** The tax percentage of the OrderItem */
   taxPercentage: number;
   /** The tax code of the OrderItem */
-  taxCode: Taxcode;
+  taxCode: TaxCode;
   /** Is the OrderItem a bonusItem? */
   isBonus: YesNo;
   /** The minimum quantity of the product of the OrderItem */

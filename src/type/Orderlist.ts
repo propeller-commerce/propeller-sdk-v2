@@ -2,9 +2,7 @@ import { OrderlistType } from '../enum/OrderlistType';
 import { YesNo } from '../enum/YesNo';
 import { LocalizedString } from './LocalizedString';
 import { ProductsResponse } from './ProductsResponse';
-import { IBaseUser } from './IBaseUser';
 import { UsersResponse } from './UsersResponse';
-import { Company } from './Company';
 import { CompaniesResponse } from './CompaniesResponse';
 /**
  Object class for Orderlist
@@ -36,14 +34,8 @@ export class Orderlist {
   products?: ProductsResponse;
   /** clusters field */
   clusters?: ProductsResponse;
-  /** Use usersPaginated. */
-  /** @deprecated Use usersPaginated. */
-  users!: IBaseUser[];
   /** usersPaginated field */
   usersPaginated!: UsersResponse;
-  /** Use companiesPaginated. */
-  /** @deprecated Use companiesPaginated. */
-  companies!: Company[];
   /** companiesPaginated field */
   companiesPaginated!: CompaniesResponse;
   constructor(data: Partial<Orderlist> = {}) {
@@ -116,10 +108,6 @@ export class Orderlist {
     }
     return this.clusters;
   }
-  /** Returns `users`. */
-  getUsers(): IBaseUser[] {
-    return this.users;
-  }
   /** Returns `usersPaginated` as a UsersResponse instance (coerced on first access). */
   getUsersPaginated(): UsersResponse | undefined {
     if (this.usersPaginated == null) return undefined;
@@ -127,12 +115,6 @@ export class Orderlist {
       this.usersPaginated = new UsersResponse(this.usersPaginated as any);
     }
     return this.usersPaginated;
-  }
-  /** Returns `companies` as Company instances (coerced on first access). */
-  getCompanies(): Company[] {
-    if (!this.companies) return [];
-    this.companies = this.companies.map((x: any) => x instanceof Company ? x : new Company(x));
-    return this.companies;
   }
   /** Returns `companiesPaginated` as a CompaniesResponse instance (coerced on first access). */
   getCompaniesPaginated(): CompaniesResponse | undefined {

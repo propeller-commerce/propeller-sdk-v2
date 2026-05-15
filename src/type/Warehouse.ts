@@ -22,9 +22,6 @@ export class Warehouse {
   isStore!: boolean;
   /** Warehouse isPickupLocation status */
   isPickupLocation!: boolean;
-  /** Optional warehouse shopId */
-  /** @deprecated Shop is deprecated and will be removed in a future version */
-  shopId?: number;
   /** Warehouse business hours per week day */
   businessHours!: BusinessHours[];
   /** Warehouse initial creation timestamp */
@@ -74,10 +71,6 @@ export class Warehouse {
   /** Returns `isPickupLocation`. */
   getIsPickupLocation(): boolean {
     return this.isPickupLocation;
-  }
-  /** Returns `shopId`. */
-  getShopId(): number | undefined {
-    return this.shopId;
   }
   /** Returns `businessHours` as BusinessHours instances (coerced on first access). */
   getBusinessHours(): BusinessHours[] {

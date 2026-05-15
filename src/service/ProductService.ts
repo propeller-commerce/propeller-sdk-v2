@@ -1,6 +1,8 @@
 import { BaseService } from './BaseService';
+import { ConfirmationResponse } from '../type/ConfirmationResponse';
 import { Product } from '../type/Product';
 import { ProductsResponse } from '../type/ProductsResponse';
+import { SurchargeProductResponse } from '../type/SurchargeProductResponse';
 import { ProductSearchInput } from '../type/ProductSearchInput';
 import { CreateProductInput } from '../type/CreateProductInput';
 import { UpdateProductInput } from '../type/UpdateProductInput';
@@ -145,20 +147,20 @@ export class ProductService extends BaseService {
    * @param input Surcharges input data
    * @returns Promise<boolean> Success status
    */
-  async addSurchargesToProduct(input: AddSurchargesToProductInput): Promise<boolean> {
+  async addSurchargesToProduct(input: AddSurchargesToProductInput): Promise<ConfirmationResponse> {
     const variables = { input };
     const result = await this.executeMutation('addSurchargesToProduct', variables);
-    return result.data.addSurchargesToProduct;
+    return new ConfirmationResponse(result.data.addSurchargesToProduct);
   }
   /**
    Fetches surcharges for a product
    * @param productId Product ID
    * @returns Promise<SurchargesResponse> The surcharges response
    */
-  async getProductSurcharges(productId: number): Promise<SurchargesResponse> {
+  async getProductSurcharges(productId: number): Promise<SurchargeProductResponse> {
     const variables = { productId };
     const result = await this.executeQuery('productSurcharges', variables);
-    return new SurchargesResponse(result.data.productSurcharges);
+    return new SurchargeProductResponse(result.data.productSurcharges);
   }
   /**
    Fetches attributes for a product

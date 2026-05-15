@@ -16,8 +16,8 @@ export class SparePartsMachineService extends BaseService {
    */
   async getSparePartsMachine(id: number): Promise<SparePartsMachine> {
     const variables = { id };
-    const result = await this.executeQuery('sparePartsMachine', variables);
-    return new SparePartsMachine(result.data.sparePartsMachine);
+    const result = await this.executeQuery('machine', variables);
+    return new SparePartsMachine(result.data.machine);
   }
   /**
    Retrieves spare parts machines with search criteria
@@ -26,8 +26,8 @@ export class SparePartsMachineService extends BaseService {
    */
   async getSparePartsMachines(input?: SearchSparePartsMachineInput): Promise<SparePartsMachineResponse> {
     const variables = { input };
-    const result = await this.executeQuery('sparePartsMachines', variables);
-    return new SparePartsMachineResponse(result.data.sparePartsMachines);
+    const result = await this.executeQuery('machines', variables);
+    return new SparePartsMachineResponse(result.data.machines);
   }
   /**
    Creates a new spare parts machine
@@ -36,8 +36,8 @@ export class SparePartsMachineService extends BaseService {
    */
   async createSparePartsMachine(input: CreateSparePartsMachineInput): Promise<SparePartsMachine> {
     const variables = { input };
-    const result = await this.executeMutation('sparePartsMachineCreate', variables);
-    return new SparePartsMachine(result.data.sparePartsMachineCreate);
+    const result = await this.executeMutation('machineCreate', variables);
+    return new SparePartsMachine(result.data.machineCreate);
   }
   /**
    Updates an existing spare parts machine
@@ -46,7 +46,7 @@ export class SparePartsMachineService extends BaseService {
    */
   async updateSparePartsMachine(input: UpsertSparePartsMachineInput): Promise<SparePartsMachine> {
     const variables = { input };
-    const result = await this.executeMutation('sparePartsMachineUpdate', variables);
-    return new SparePartsMachine(result.data.sparePartsMachineUpdate);
+    const result = await this.executeMutation('machineUpsert', variables);
+    return new SparePartsMachine(result.data.machineUpsert);
   }
 }

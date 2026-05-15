@@ -7,9 +7,6 @@ export class AdminUserTenant {
   id!: string | number;
   /** tenant field */
   tenant!: string;
-  /** name field */
-  /** @deprecated Use federated field to get name */
-  name!: string;
   /** default field */
   default!: boolean;
   /** createdAt field */
@@ -33,10 +30,6 @@ export class AdminUserTenant {
   /** Returns `tenant`. */
   getTenant(): string {
     return this.tenant;
-  }
-  /** Returns `name`. */
-  getName(): string {
-    return this.name;
   }
   /** Returns `default`. */
   getDefault(): boolean {

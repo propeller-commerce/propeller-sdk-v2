@@ -25,9 +25,6 @@ export class CompanyContactSearch {
   bic?: string;
   /** Contact notes */
   notes?: string;
-  /** Contact debtor identifier */
-  /** @deprecated Deprecated in favor of company debtorId */
-  debtorId?: string;
   /** Date of birth of the contact. */
   dateOfBirth?: string;
   /** Contract creation date */
@@ -83,10 +80,6 @@ export class CompanyContactSearch {
   /** Returns `notes`. */
   getNotes(): string | undefined {
     return this.notes;
-  }
-  /** Returns `debtorId`. */
-  getDebtorId(): string | undefined {
-    return this.debtorId;
   }
   /** Returns `dateOfBirth`. */
   getDateOfBirth(): string | undefined {

@@ -1,6 +1,6 @@
 import { BaseService } from './BaseService';
 import { Cluster } from '../type/Cluster';
-import { ClusterProductSearchInput } from '../type/ClusterProductSearchInput';
+import { ClusterConfigResponse } from '../type/ClusterConfigResponse';
 import { PriceCalculateProductInput } from '../type/PriceCalculateProductInput';
 import { UserBulkPriceProductInput } from '../type/UserBulkPriceProductInput';
 import { AttributeResultSearchInput } from '../type/AttributeResultSearchInput';
@@ -52,13 +52,13 @@ export interface ClusterQueryVariables {
 export class ClusterService extends BaseService {
   /**
    Retrieves a specific cluster configuration
-   * @param clusterId Cluster ID to get configuration for
-   * @returns Promise<Cluster> Cluster data
+   * @param clusterConfigId Cluster config ID to fetch
+   * @returns Promise<ClusterConfigResponse> Cluster config data
    */
-  async getClusterConfig(clusterId: number): Promise<Cluster> {
-    const variables = { clusterId };
-    const result = await this.executeQuery('clusterGetConfig', variables);
-    return new Cluster(result.data.cluster);
+  async getClusterConfig(clusterConfigId: number): Promise<ClusterConfigResponse> {
+    const variables = { clusterConfigId };
+    const result = await this.executeQuery('clusterConfig', variables);
+    return new ClusterConfigResponse(result.data.clusterConfig);
   }
   /**
    Fetches a single cluster by ID or slug
@@ -78,16 +78,6 @@ export class ClusterService extends BaseService {
   async getCluster(variables: ClusterQueryVariables): Promise<Cluster> {
     const result = await this.executeQuery('cluster', variables);
     return new Cluster(result.data.cluster);
-  }
-  /**
-   Fetches a list of clusters with search criteria
-   * @param input Cluster search input parameters
-   * @returns Promise<Cluster[]> Array of clusters
-   */
-  async getClusters(input?: ClusterProductSearchInput): Promise<Cluster[]> {
-    const variables = { input };
-    const result = await this.executeQuery('clusters', variables);
-    return result.data.clusters.map((x: any) => new Cluster(x));
   }
   /**
    Creates a new cluster

@@ -1,7 +1,9 @@
 import { BaseService } from './BaseService';
 import { EventActionConfigResponse } from '../type/EventActionConfigResponse';
 import { EventActionConfigSearchInput } from '../type/EventActionConfigSearchInput';
-import { EventActionConfigSortInput } from '../type/EventActionConfigSortInput';
+import { IEventActionConfig } from '../type/IEventActionConfig';
+import { EventToEmailConfig } from '../type/EventToEmailConfig';
+import { EventToWebHookConfig } from '../type/EventToWebHookConfig';
 import { EventToEmailConfigCreateInput } from '../type/EventToEmailConfigCreateInput';
 import { EventToEmailConfigUpdateInput } from '../type/EventToEmailConfigUpdateInput';
 import { EventToWebHookConfigCreateInput } from '../type/EventToWebHookConfigCreateInput';
@@ -18,62 +20,62 @@ export class EventActionConfigService extends BaseService {
   /**
    Retrieves a specific event action configuration
    * @param id Event action config ID
-   * @returns Promise<EventActionConfigResponse> Event action configuration data
+   * @returns Promise<IEventActionConfig> Event action configuration data
    */
-  async getEventActionConfig(id: number): Promise<EventActionConfigResponse> {
+  async getEventActionConfig(id: number): Promise<IEventActionConfig> {
     const variables = { id };
     const result = await this.executeQuery('eventActionConfig', variables);
-    return new EventActionConfigResponse(result.data.eventActionConfig);
+    return result.data.eventActionConfig as IEventActionConfig;
   }
   /**
    Retrieves event action configurations with optional search
    * @param input Search input parameters
-   * @returns Promise<EventActionConfigResponse[]> List of event action configurations
+   * @returns Promise<EventActionConfigResponse> The event action configurations response
    */
-  async getEventActionConfigs(input?: EventActionConfigSearchInput): Promise<EventActionConfigResponse[]> {
+  async getEventActionConfigs(input?: EventActionConfigSearchInput): Promise<EventActionConfigResponse> {
     const variables = { input };
     const result = await this.executeQuery('eventActionConfigs', variables);
-    return result.data.eventActionConfigs.map((x: any) => new EventActionConfigResponse(x));
+    return new EventActionConfigResponse(result.data.eventActionConfigs);
   }
   /**
    Creates a new event to email configuration
    * @param input EventToEmailConfig creation input data
-   * @returns Promise<EventActionConfig> The created event action config
+   * @returns Promise<EventToEmailConfig> The created event-to-email config
    */
-  async createEventToEmailConfig(input: EventToEmailConfigCreateInput): Promise<EventActionConfigResponse> {
+  async createEventToEmailConfig(input: EventToEmailConfigCreateInput): Promise<EventToEmailConfig> {
     const variables = { input };
     const result = await this.executeMutation('eventToEmailConfigCreate', variables);
-    return new EventActionConfigResponse(result.data.eventToEmailConfigCreate);
+    return new EventToEmailConfig(result.data.eventToEmailConfigCreate);
   }
   /**
    Updates an existing event to email configuration
    * @param input EventToEmailConfig update input data
-   * @returns Promise<EventActionConfig> The updated event action config
+   * @returns Promise<EventToEmailConfig> The updated event-to-email config
    */
-  async updateEventToEmailConfig(input: EventToEmailConfigUpdateInput): Promise<EventActionConfigResponse> {
+  async updateEventToEmailConfig(input: EventToEmailConfigUpdateInput): Promise<EventToEmailConfig> {
     const variables = { input };
     const result = await this.executeMutation('eventToEmailConfigUpdate', variables);
-    return new EventActionConfigResponse(result.data.eventToEmailConfigUpdate);
+    return new EventToEmailConfig(result.data.eventToEmailConfigUpdate);
   }
   /**
    Creates a new event to webhook configuration
    * @param input EventToWebHookConfig creation input data
-   * @returns Promise<EventActionConfig> The created event action config
+   * @returns Promise<EventToWebHookConfig> The created event-to-webhook config
    */
-  async createEventToWebHookConfig(input: EventToWebHookConfigCreateInput): Promise<EventActionConfigResponse> {
+  async createEventToWebHookConfig(input: EventToWebHookConfigCreateInput): Promise<EventToWebHookConfig> {
     const variables = { input };
     const result = await this.executeMutation('eventToWebHookConfigCreate', variables);
-    return new EventActionConfigResponse(result.data.eventToWebHookConfigCreate);
+    return new EventToWebHookConfig(result.data.eventToWebHookConfigCreate);
   }
   /**
    Updates an existing event to webhook configuration
    * @param input EventToWebHookConfig update input data
-   * @returns Promise<EventActionConfig> The updated event action config
+   * @returns Promise<EventToWebHookConfig> The updated event-to-webhook config
    */
-  async updateEventToWebHookConfig(input: EventToWebHookConfigUpdateInput): Promise<EventActionConfigResponse> {
+  async updateEventToWebHookConfig(input: EventToWebHookConfigUpdateInput): Promise<EventToWebHookConfig> {
     const variables = { input };
     const result = await this.executeMutation('eventToWebHookConfigUpdate', variables);
-    return new EventActionConfigResponse(result.data.eventToWebHookConfigUpdate);
+    return new EventToWebHookConfig(result.data.eventToWebHookConfigUpdate);
   }
   /**
    Publishes an email event
@@ -97,6 +99,7 @@ export class EventActionConfigService extends BaseService {
   }
   /**
    Publishes a password reset email event
+   * @deprecated Use triggerPasswordSendResetEmailEvent (via UserService.sendPasswordResetEmail) which routes through the event-action-manager + template-engine instead.
    * @param input Password reset email event input data
    * @returns Promise<PublishEmailEventResponse> The publish response
    */

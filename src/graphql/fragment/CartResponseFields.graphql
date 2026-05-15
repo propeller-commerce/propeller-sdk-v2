@@ -2,7 +2,6 @@ fragment CartResponseFields on CartResponse {
   items {
     cartId
     channelId
-    shopId
     contactId
     customerId
     companyId
@@ -56,7 +55,6 @@ fragment CartResponseFields on CartResponse {
     status
     contact {
       contactId
-      debtorId
       gender
       firstName
       middleName

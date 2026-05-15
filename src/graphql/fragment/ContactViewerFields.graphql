@@ -1,7 +1,6 @@
 fragment ContactViewerFields on Contact {
   contactId
   userId
-  debtorId
   gender
   firstName
   middleName

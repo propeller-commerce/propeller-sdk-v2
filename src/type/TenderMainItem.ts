@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { Product } from './Product';
 import { TenderItemIncentive } from './TenderItemIncentive';
 import { TenderItemSurcharge } from './TenderItemSurcharge';
@@ -34,7 +34,7 @@ export class TenderMainItem implements ITenderBaseItem {
   /** The total price of this tender/order item, no item specific incentives and extra costs are applied to this price. VAT including */
   totalPriceNet!: number;
   /** The tax code for this tender/order item */
-  taxCode!: Taxcode;
+  taxCode!: TaxCode;
   /** The tax percentage for this tender/order item */
   taxPercentage!: number;
   /** Customer discount (%) */
@@ -156,7 +156,7 @@ export class TenderMainItem implements ITenderBaseItem {
     return this.totalPriceNet;
   }
   /** Returns `taxCode`. */
-  getTaxCode(): Taxcode {
+  getTaxCode(): TaxCode {
     return this.taxCode;
   }
   /** Returns `taxPercentage`. */

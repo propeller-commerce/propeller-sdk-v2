@@ -1834,7 +1834,6 @@ export const carrierAssignWarehouseAndReturnCarrier = `fragment CarrierFields on
   descriptions {
     ...LocalizedStringFields
   }
-  shippingCost
   trackAndTraceURL
   logo
   createdAt
@@ -1886,7 +1885,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -1940,7 +1938,6 @@ export const carrierCreate = `fragment CarrierFields on Carrier {
   descriptions {
     ...LocalizedStringFields
   }
-  shippingCost
   trackAndTraceURL
   logo
   createdAt
@@ -1992,7 +1989,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -2056,7 +2052,6 @@ export const carrierUnassignWarehouseAndReturnCarrier = `fragment CarrierFields 
   descriptions {
     ...LocalizedStringFields
   }
-  shippingCost
   trackAndTraceURL
   logo
   createdAt
@@ -2108,7 +2103,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -2162,7 +2156,6 @@ export const carrierUpdate = `fragment CarrierFields on Carrier {
   descriptions {
     ...LocalizedStringFields
   }
-  shippingCost
   trackAndTraceURL
   logo
   createdAt
@@ -2214,7 +2207,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -2264,7 +2256,6 @@ mutation carrierUpdate(\$id: Int!, \$input: CarrierUpdateInput!) {
 export const cartAcceptPurchaseAuthorizationRequest = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -2730,7 +2721,6 @@ mutation cartAcceptPurchaseAuthorizationRequest(\$id: String!, \$input: CartAcce
 export const cartAddActionCode = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -3196,7 +3186,6 @@ mutation cartAddActionCode(\$id: String!, \$input: CartActionCodeInput!, \$langu
 export const cartAddBundle = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -3662,7 +3651,6 @@ mutation cartAddBundle(\$id: String!, \$input: CartAddBundleInput!, \$language: 
 export const cartAddItem = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -4132,7 +4120,6 @@ export const cartDelete = `mutation cartDelete(\$id: String!) {
 export const cartDeleteItem = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -4618,7 +4605,6 @@ export const cartProcess = `mutation cartProcess(\$id: String!, \$input: CartPro
 export const cartRemoveActionCode = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -5090,7 +5076,6 @@ export const cartRequestPurchaseAuthorization = `mutation cartRequestPurchaseAut
 export const cartSetContact = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -5556,7 +5541,6 @@ mutation cartSetContact(\$id: String!, \$input: CartSetContactInput!) {
 export const cartSetCustomer = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -6022,7 +6006,6 @@ mutation cartSetCustomer(\$id: String!, \$input: CartSetCustomerInput!) {
 export const cartSetUser = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -6488,7 +6471,6 @@ mutation cartSetUser(\$id: String!, \$input: CartSetUserInput!) {
 export const cartStart = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -6954,7 +6936,6 @@ mutation cartStart(\$input: CartStartInput, \$language: String, \$imageSearchFil
 export const cartUpdate = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -7420,7 +7401,6 @@ mutation cartUpdate(\$id: String!, \$input: CartUpdateInput!, \$language: String
 export const cartUpdateAddress = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -7886,7 +7866,6 @@ mutation cartUpdateAddress(\$id: String!, \$input: CartUpdateAddressInput!, \$la
 export const cartUpdateItem = `fragment CartFields on Cart {
   cartId
   channelId
-  shopId
   contactId
   customerId
   companyId
@@ -14014,7 +13993,6 @@ export const contactCreate = `fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -14580,7 +14558,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -15162,7 +15139,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -15721,7 +15697,6 @@ export const contactUpdate = `fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -19310,13 +19285,10 @@ export const inventoryCreate = `fragment InventoryResponseFields on InventoryRes
   supplier
   supplierCode
   sku
-  dateModified
   warehouseId
   location
   nextDeliveryDate
   notes
-  messages
-  total
   warehouse {
     ...WarehouseFields
   }
@@ -19334,7 +19306,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -19388,7 +19359,7 @@ export const inventoryCsvImport = `mutation inventoryCsvImport(\$input: Inventor
 }`;
 
 export const inventoryDelete = `fragment InventoryDeleteResponseFields on InventoryDeleteResponse {
-  messages
+  __typename
 }
 
 mutation inventoryDelete(\$id: Int!) {
@@ -19405,13 +19376,10 @@ export const inventoryUpdate = `fragment InventoryResponseFields on InventoryRes
   supplier
   supplierCode
   sku
-  dateModified
   warehouseId
   location
   nextDeliveryDate
   notes
-  messages
-  total
   warehouse {
     ...WarehouseFields
   }
@@ -19429,7 +19397,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -20865,9 +20832,7 @@ export const orderCreate = `fragment OrderFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type
@@ -20881,7 +20846,6 @@ export const orderCreate = `fragment OrderFields on Order {
   currency
   currencyRatio
   language
-  date
   createdAt
   statusDate
   postageData {
@@ -20985,7 +20949,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -21914,9 +21877,7 @@ export const orderRevisionRestore = `fragment OrderFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type
@@ -21930,7 +21891,6 @@ export const orderRevisionRestore = `fragment OrderFields on Order {
   currency
   currencyRatio
   language
-  date
   createdAt
   statusDate
   postageData {
@@ -22034,7 +21994,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -22458,9 +22417,7 @@ export const orderUpdate = `fragment OrderFields on Order {
   accountManagerId
   cartId
   channelId
-  shopId
   uuid
-  externalId
   debtorId
   status
   type
@@ -22474,7 +22431,6 @@ export const orderUpdate = `fragment OrderFields on Order {
   currency
   currencyRatio
   language
-  date
   createdAt
   statusDate
   postageData {
@@ -22578,7 +22534,6 @@ fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -23132,9 +23087,6 @@ export const pricesheetAssign = `fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ...ContactFields
-  }
   contactsPaginated {
     items {
       ...ContactFields
@@ -23146,9 +23098,6 @@ export const pricesheetAssign = `fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ...CustomerFields
-  }
   customersPaginated {
     items {
       ...CustomerFields
@@ -23159,9 +23108,6 @@ export const pricesheetAssign = `fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ...CompanyFields
   }
   companiesPaginated {
     items {
@@ -23206,7 +23152,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -23874,9 +23819,6 @@ export const pricesheetCreate = `fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ...ContactFields
-  }
   contactsPaginated {
     items {
       ...ContactFields
@@ -23888,9 +23830,6 @@ export const pricesheetCreate = `fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ...CustomerFields
-  }
   customersPaginated {
     items {
       ...CustomerFields
@@ -23901,9 +23840,6 @@ export const pricesheetCreate = `fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ...CompanyFields
   }
   companiesPaginated {
     items {
@@ -23948,7 +23884,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -24627,9 +24562,6 @@ export const pricesheetUnassign = `fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ...ContactFields
-  }
   contactsPaginated {
     items {
       ...ContactFields
@@ -24641,9 +24573,6 @@ export const pricesheetUnassign = `fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ...CustomerFields
-  }
   customersPaginated {
     items {
       ...CustomerFields
@@ -24654,9 +24583,6 @@ export const pricesheetUnassign = `fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ...CompanyFields
   }
   companiesPaginated {
     items {
@@ -24701,7 +24627,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -25369,9 +25294,6 @@ export const pricesheetUpdate = `fragment PricesheetFields on Pricesheet {
   }
   priority
   readonly
-  contacts {
-    ...ContactFields
-  }
   contactsPaginated {
     items {
       ...ContactFields
@@ -25383,9 +25305,6 @@ export const pricesheetUpdate = `fragment PricesheetFields on Pricesheet {
     start
     end
   }
-  customers {
-    ...CustomerFields
-  }
   customersPaginated {
     items {
       ...CustomerFields
@@ -25396,9 +25315,6 @@ export const pricesheetUpdate = `fragment PricesheetFields on Pricesheet {
     pages
     start
     end
-  }
-  companies {
-    ...CompanyFields
   }
   companiesPaginated {
     items {
@@ -25443,7 +25359,6 @@ fragment ContactFields on Contact {
     end
   }
   userId
-  debtorId
   gender
   firstName
   middleName
@@ -26113,7 +26028,6 @@ export const priceUpdate = `fragment PriceFields on Price {
   bulkPriceDiscountType
   defaultTaxCode
   display
-  cost
 }
 
 fragment BulkCostPriceFields on BulkCostPrice {
@@ -27224,7 +27138,6 @@ mutation surchargeUpdate(\$id: String!, \$input: UpdateSurchargeInput!) {
 
 export const taxCreate = `fragment TaxFields on Tax {
   id
-  shopId
   code
   zone
   percentage
@@ -27248,7 +27161,6 @@ export const taxDelete = `mutation taxDelete(\$id: String!) {
 
 export const taxUpdate = `fragment TaxFields on Tax {
   id
-  shopId
   code
   zone
   percentage
@@ -27839,7 +27751,6 @@ export const warehouseCreate = `fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -27898,7 +27809,6 @@ export const warehouseDelete = `fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }
@@ -27957,7 +27867,6 @@ export const warehouseUpdate = `fragment WarehouseFields on Warehouse {
   isActive
   isStore
   isPickupLocation
-  shopId
   businessHours {
     ...BusinessHoursFields
   }

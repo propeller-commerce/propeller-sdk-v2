@@ -1,15 +1,12 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 /**
  Object class for Tax
  */
 export class Tax {
   /** Tax primary identifier */
   id!: string;
-  /** Shop identifier for the tax to apply to */
-  /** @deprecated Shop is deprecated and will be removed in the future. */
-  shopId!: number;
   /** Tax code */
-  code?: Taxcode;
+  code?: TaxCode;
   /** Tax zone */
   zone!: string;
   /** Tax percentage  */
@@ -32,12 +29,8 @@ export class Tax {
   getId(): string {
     return this.id;
   }
-  /** Returns `shopId`. */
-  getShopId(): number {
-    return this.shopId;
-  }
   /** Returns `code`. */
-  getCode(): Taxcode | undefined {
+  getCode(): TaxCode | undefined {
     return this.code;
   }
   /** Returns `zone`. */

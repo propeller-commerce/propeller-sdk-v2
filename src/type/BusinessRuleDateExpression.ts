@@ -1,3 +1,5 @@
+import { BusinessRuleExpressionTypes } from '../enum/BusinessRuleExpressionTypes';
+import { BusinessRuleDateExpressionOperators } from '../enum/BusinessRuleDateExpressionOperators';
 /**
  Represents a business rule date expression
  */
@@ -5,7 +7,7 @@ export class BusinessRuleDateExpression {
   /** id field */
   id!: string | number;
   /** type field */
-  type!: string;
+  type!: BusinessRuleExpressionTypes;
   /** Use when operator calculates days or minutes from now or today, or when targeting specific days, weeks or months */
   number?: number;
   /** Use when operator is before or after. */
@@ -13,7 +15,7 @@ export class BusinessRuleDateExpression {
   /** Use on time based operators, 00:00:00 24h format. */
   string?: string;
   /** operator field */
-  operator!: string;
+  operator!: BusinessRuleDateExpressionOperators;
   /** Path to the field, can be used to add additional expressions and calulations on the field.
       Use $ to target the field's value.
       When omitted the field's value is used.
@@ -30,7 +32,7 @@ export class BusinessRuleDateExpression {
     return this.id;
   }
   /** Returns `type`. */
-  getType(): string {
+  getType(): BusinessRuleExpressionTypes {
     return this.type;
   }
   /** Returns `number`. */
@@ -46,7 +48,7 @@ export class BusinessRuleDateExpression {
     return this.string;
   }
   /** Returns `operator`. */
-  getOperator(): string {
+  getOperator(): BusinessRuleDateExpressionOperators {
     return this.operator;
   }
   /** Returns `path`. */

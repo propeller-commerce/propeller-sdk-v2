@@ -9,9 +9,6 @@ import { Company } from './Company';
 import { CompaniesResponse } from './CompaniesResponse';
 import { Source } from './Source';
 import { PurchaseAuthorizationConfigResponse } from './PurchaseAuthorizationConfigResponse';
-import { ContactFieldName } from '../enum/ContactFieldName';
-import { IBaseUser } from './IBaseUser';
-import { Address } from './Address';
 /**
  Object class for Contact
  */
@@ -30,9 +27,6 @@ export class Contact {
   pricesheets?: Pricesheet[];
   /** The unique identifier of the user. */
   userId?: number;
-  /** The debtor ID of the contact. */
-  /** @deprecated Deprecated in favor of company debtorId */
-  debtorId?: string;
   /** The gender of the user. */
   gender?: Gender;
   /** The first name of the user. */
@@ -132,10 +126,6 @@ export class Contact {
   /** Returns `userId`. */
   getUserId(): number | undefined {
     return this.userId;
-  }
-  /** Returns `debtorId`. */
-  getDebtorId(): string | undefined {
-    return this.debtorId;
   }
   /** Returns `gender`. */
   getGender(): Gender | undefined {

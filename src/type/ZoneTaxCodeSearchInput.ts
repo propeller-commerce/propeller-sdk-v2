@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { DateSearchInput } from './DateSearchInput';
 import { ZoneTaxCodeSortInput } from './ZoneTaxCodeSortInput';
 /**
@@ -18,7 +18,7 @@ export interface ZoneTaxCodeSearchInput {
   /** Search by price ids */
   priceIds?: string[];
   /** Search by tax code */
-  taxCodes?: Taxcode[];
+  taxCodes?: TaxCode[];
   /** Search by zone code */
   zones?: string[];
   /** Inputs to sort by */

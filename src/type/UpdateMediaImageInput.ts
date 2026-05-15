@@ -24,5 +24,5 @@ export interface UpdateMediaImageInput {
   /** MediaImage unique identified */
   mediaId: string;
   /** Upload File input reference */
-  uploadImage?: UploadFileInput;
+  uploadImage?: UploadFileInput[];
 }

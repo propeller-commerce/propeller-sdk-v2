@@ -32,6 +32,7 @@ export class AddressService extends BaseService {
   }
   /**
    Fetches addresses for an order
+   * @deprecated The upstream `addressesByOrderId` query is deprecated. Use `OrderService.getOrderAddresses` instead.
    * @param orderId Order ID
    * @returns Promise<Address[]> The addresses array
    */
@@ -39,16 +40,6 @@ export class AddressService extends BaseService {
     const variables = { orderId };
     const result = await this.executeQuery('addressesByOrderId', variables);
     return result.data.addressesByOrderId.map((x: any) => new Address(x));
-  }
-  /**
-   Fetches addresses for a user
-   * @param userId User ID
-   * @returns Promise<Address[]> The addresses array
-   */
-  async getAddressesByUserId(userId: number): Promise<Address[]> {
-    const variables = { userId };
-    const result = await this.executeQuery('addressesByUserId', variables);
-    return result.data.addressesByUserId.map((x: any) => new Address(x));
   }
   // Company Address Methods
   /**

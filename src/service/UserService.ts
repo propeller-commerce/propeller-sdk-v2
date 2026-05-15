@@ -12,34 +12,13 @@ import { RegisterCustomerInput } from '../type/RegisterCustomerInput';
 import { RegisterContactResponse } from '../type/RegisterContactResponse';
 import { RegisterCustomerResponse } from '../type/RegisterCustomerResponse';
 import { Logout } from '../type/Logout';
-import { Address } from '../type/Address';
-import { PasswordResetLinkEmailInput } from '../type/PasswordResetLinkEmailInput';
-import { PublishEmailEventResponse } from '../type/PublishEmailEventResponse';
-import { EmailEventType } from '../enum/EmailEventType';
-import { ClaimsResetAllResponse, ContactCompaniesSearchInput, PasswordRecoveryLinkInput, TriggerContactSendWelcomeEmailEventInput, TriggerCustomerSendWelcomeEmailEventInput } from '../type';
+import { ContactCompaniesSearchInput, PasswordRecoveryLinkInput, TriggerContactSendWelcomeEmailEventInput, TriggerCustomerSendWelcomeEmailEventInput } from '../type';
 /**
  * Viewer result type alias
  * @type ViewerResult
  Union type for viewer query results
  */
 export type ViewerResult = Contact | Customer;
-/**
- * Input object for updating user information
- */
-export interface UserUpdateInput {
-    /** User ID */
-    userId: number;
-    /** First name */
-    firstName?: string;
-    /** Last name */
-    lastName?: string;
-    /** Email address */
-    email?: string;
-    /** Phone number */
-    phone?: string;
-    /** Mobile number */
-    mobile?: string;
-}
 /**
  * Simplified input object for password reset requests
  */
@@ -153,6 +132,7 @@ export class UserService extends BaseService {
     }
     /**
      * Logout current user
+     * @deprecated The upstream `logout` mutation is deprecated; a `signOut` mutation will be available in the future.
      * @returns Promise<Logout> The logout response
      */
     async logout(): Promise<Logout> {
@@ -178,23 +158,6 @@ export class UserService extends BaseService {
         return new RegisterCustomerResponse(result.data.customerRegister);
     }
     /**
-     * Update user information
-     * @param input User update input data
-     * @returns Promise<ViewerResult> The updated user
-     */
-    async updateUser(input: UserUpdateInput): Promise<ViewerResult> {
-        const result = await this.executeMutation('updateUser', { input });
-        const userData = result.data.updateUser;
-        // Return appropriate type based on __typename
-        if (userData.__typename === 'Contact') {
-            return new Contact(userData);
-        } else if (userData.__typename === 'Customer') {
-            return new Customer(userData);
-        }
-        // Default to Contact if typename is unclear
-        return new Contact(userData);
-    }
-    /**
      * Send a password reset email to the specified user
      * @param input Password reset request input data
      * @returns Promise<string> The email send response
@@ -208,33 +171,6 @@ export class UserService extends BaseService {
         };
         const result = await this.executeMutation('triggerPasswordSendResetEmailEvent', { input: passwordResetInput });
         return result.data.triggerPasswordSendResetEmailEvent;
-    }
-    /**
-     * Create user address
-     * @param input User address creation input data
-     * @returns Promise<Address> The created address
-     */
-    async createUserAddress(input: any): Promise<Address> {
-        const result = await this.executeMutation('userAddressCreate', { input });
-        return new Address(result.data.userAddressCreate);
-    }
-    /**
-     * Update user address
-     * @param input User address update input data
-     * @returns Promise<Address> The updated address
-     */
-    async updateUserAddress(input: any): Promise<Address> {
-        const result = await this.executeMutation('userAddressUpdate', { input });
-        return new Address(result.data.userAddressUpdate);
-    }
-    /**
-     * Delete user address
-     * @param input User address deletion input data
-     * @returns Promise<boolean> Success status of the deletion
-     */
-    async deleteUserAddress(input: any): Promise<boolean> {
-        const result = await this.executeMutation('userAddressDelete', { input });
-        return result.data.userAddressDelete;
     }
     /**
      * Resets all claims for a user by email
@@ -252,7 +188,7 @@ export class UserService extends BaseService {
      * @param input Contact welcome email event input data
      * @returns Promise<any> The response containing event details
      */
-    async triggerContactSendWelcomeEmailEvent(input: TriggerContactSendWelcomeEmailEventInput): Promise<any> {
+    async triggerContactSendWelcomeEmailEvent(input: TriggerContactSendWelcomeEmailEventInput): Promise<boolean> {
         const result = await this.executeMutation('triggerContactSendWelcomeEmailEvent', { input });
         return result.data.triggerContactSendWelcomeEmailEvent;
     }
@@ -262,7 +198,7 @@ export class UserService extends BaseService {
      * @param input Customer welcome email event input data
      * @returns Promise<any> The response containing event details
      */
-    async triggerCustomerSendWelcomeEmailEvent(input: TriggerCustomerSendWelcomeEmailEventInput): Promise<any> {
+    async triggerCustomerSendWelcomeEmailEvent(input: TriggerCustomerSendWelcomeEmailEventInput): Promise<boolean> {
         const result = await this.executeMutation('triggerCustomerSendWelcomeEmailEvent', { input });
         return result.data.triggerCustomerSendWelcomeEmailEvent;
     }

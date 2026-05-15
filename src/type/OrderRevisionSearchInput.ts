@@ -1,7 +1,7 @@
 import { DateSearchInput } from './DateSearchInput';
+import { OrderRevisionSortInput } from './OrderRevisionSortInput';
 /**
  Search criteria and pagination parameters for filtering order revisions
- * Provides comprehensive filtering options including order IDs, revision numbers, date ranges, status filters, and pagination settings for efficient order revision retrieval and analysis.
  */
 export interface OrderRevisionSearchInput {
   /** Pagination page number */
@@ -13,7 +13,7 @@ export interface OrderRevisionSearchInput {
   /** Search by date changed */
   lastModifiedAt?: DateSearchInput;
   /** Inputs to sort by */
-  sortInputs?: any[];
+  sortInputs?: OrderRevisionSortInput[];
   /** Filter by specific order IDs */
   orderIds?: number[];
   /** Filter by specific revision numbers */

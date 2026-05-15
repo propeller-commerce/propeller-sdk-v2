@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { TenderItemIncentive } from './TenderItemIncentive';
 import { TenderItemSurcharge } from './TenderItemSurcharge';
 /**

@@ -1,5 +1,5 @@
 import { PriceDiscountType } from '../enum/PriceDiscountType';
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 import { PriceDisplay } from '../enum/PriceDisplay';
 /**
  Input object for PriceUpdateInput
@@ -18,7 +18,7 @@ export interface PriceUpdateInput {
   /** The method used to apply discounts for bulk prices / volume discounts. One of: [costpriceplus, listpricemin, netprice] */
   bulkDiscountType?: PriceDiscountType;
   /** Default tax code of this product. One of: [H, L, N] */
-  defaultTaxCode?: Taxcode;
+  defaultTaxCode?: TaxCode;
   /** Describes how the price should be displayed on the Front-End. Default value is 'DEFAULT'. */
   display?: PriceDisplay;
 }

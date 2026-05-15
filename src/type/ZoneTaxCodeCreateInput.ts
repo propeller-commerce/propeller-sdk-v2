@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 /**
  Input object for ZoneTaxCodeCreateInput
  */
@@ -8,5 +8,5 @@ export interface ZoneTaxCodeCreateInput {
   /** Zone code */
   zone: string;
   /** Tax code */
-  taxCode: Taxcode;
+  taxCode: TaxCode;
 }

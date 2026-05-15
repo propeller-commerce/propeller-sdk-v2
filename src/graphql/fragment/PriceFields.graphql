@@ -13,5 +13,4 @@ fragment PriceFields on Price {
   bulkPriceDiscountType
   defaultTaxCode
   display
-  cost
 }

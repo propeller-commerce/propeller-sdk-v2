@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 /**
  Object class for CartPaymethod
  */
@@ -12,7 +12,7 @@ export class CartPaymethod {
   /** Paymethod type */
   type?: string;
   /** Tax code */
-  taxCode?: Taxcode;
+  taxCode?: TaxCode;
   /** Paymethod price */
   price!: number;
   constructor(data: Partial<CartPaymethod> = {}) {
@@ -36,7 +36,7 @@ export class CartPaymethod {
     return this.type;
   }
   /** Returns `taxCode`. */
-  getTaxCode(): Taxcode | undefined {
+  getTaxCode(): TaxCode | undefined {
     return this.taxCode;
   }
   /** Returns `price`. */

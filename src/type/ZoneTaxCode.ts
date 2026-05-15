@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 /**
  Object class for ZoneTaxCode
  */
@@ -14,7 +14,7 @@ export class ZoneTaxCode {
   /** Zone code */
   zone!: string;
   /** Tax code for the specified zone */
-  taxCode!: Taxcode;
+  taxCode!: TaxCode;
   constructor(data: Partial<ZoneTaxCode> = {}) {
     Object.assign(this, data);
   }
@@ -40,7 +40,7 @@ export class ZoneTaxCode {
     return this.zone;
   }
   /** Returns `taxCode`. */
-  getTaxCode(): Taxcode {
+  getTaxCode(): TaxCode {
     return this.taxCode;
   }
 }

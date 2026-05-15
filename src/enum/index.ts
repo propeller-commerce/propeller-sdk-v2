@@ -115,7 +115,7 @@ export * from './ShipmentStatus';
 export * from './Sort';
 export * from './SortOrder';
 export * from './SurchargeType';
-export * from './Taxcode';
+export * from './TaxCode';
 export * from './TaxSortField';
 export * from './TemplateErrorLogSortField';
 export * from './TemplateErrorType';

@@ -25,14 +25,8 @@ export class Order {
   cartId?: string;
   /** The channel identifier of the webshop this order originated from */
   channelId!: number;
-  /** The ID of the shop the Order belongs to */
-  /** @deprecated Use channelId instead */
-  shopId!: number;
   /** Unique identifier for this order */
   uuid!: string;
-  /** External identifier for this order from an external source like an ERP system */
-  /** @deprecated Use sources instead */
-  externalId?: string;
   /** The debtorId of the Customer or Company that placed this Order */
   debtorId?: string;
   /** The processing status for this order */
@@ -61,9 +55,6 @@ export class Order {
   currencyRatio!: number;
   /** The selected language on the webshop at the time the order was placed */
   language!: string;
-  /** The date and time the order was placed */
-  /** @deprecated Deprecated in favour of createdAt */
-  date!: string;
   /** The date and time the order was placed */
   createdAt!: string;
   /** The date and time the status of the order was last changed */
@@ -132,17 +123,9 @@ export class Order {
   getChannelId(): number {
     return this.channelId;
   }
-  /** Returns `shopId`. */
-  getShopId(): number {
-    return this.shopId;
-  }
   /** Returns `uuid`. */
   getUuid(): string {
     return this.uuid;
-  }
-  /** Returns `externalId`. */
-  getExternalId(): string | undefined {
-    return this.externalId;
   }
   /** Returns `debtorId`. */
   getDebtorId(): string | undefined {
@@ -195,10 +178,6 @@ export class Order {
   /** Returns `language`. */
   getLanguage(): string {
     return this.language;
-  }
-  /** Returns `date`. */
-  getDate(): string {
-    return this.date;
   }
   /** Returns `createdAt`. */
   getCreatedAt(): string {

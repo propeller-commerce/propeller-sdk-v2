@@ -1,7 +1,7 @@
 import { TemplateErrorType } from '../enum/TemplateErrorType';
+import { TemplateErrorLogSortInput } from './TemplateErrorLogSortInput';
 /**
  Search criteria for filtering template error logs
- * Provides comprehensive filtering options including error types, template IDs, date ranges, and pagination settings for efficient error log retrieval and analysis.
  */
 export interface TemplateErrorLogSearchInput {
   /** Filter by error types */
@@ -17,5 +17,5 @@ export interface TemplateErrorLogSearchInput {
   /** Page number */
   page: number;
   /** Sort criteria */
-  sortInputs?: any[];
+  sortInputs?: TemplateErrorLogSortInput[];
 }

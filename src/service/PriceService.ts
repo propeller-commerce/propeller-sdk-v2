@@ -73,9 +73,9 @@ export class PriceService extends BaseService {
    * - input: PriceCalculateDefaultInput - Price calculation default input parameters
    * @returns Promise<ProductPrice> The default price data
    */
-  async getDefaultPrice(variables: PriceDefaultQueryVariables): Promise<ProductPrice> {
+  async getDefaultPrice(variables: PriceDefaultQueryVariables): Promise<ProductPrice[]> {
     const result = await this.executeQuery('priceDefault', variables);
-    return new ProductPrice(result.data.priceDefault);
+    return result.data.priceDefault.map((x: any) => new ProductPrice(x));
   }
   /**
    Explains price calculation breakdown
@@ -83,9 +83,9 @@ export class PriceService extends BaseService {
    * - input: PriceCalculateInput - Price calculation input parameters
    * @returns Promise<ProductPrice> The price explanation data
    */
-  async explainPrice(variables: PriceCalculateQueryVariables): Promise<ProductPrice> {
+  async explainPrice(variables: PriceCalculateQueryVariables): Promise<ProductPrice[]> {
     const result = await this.executeQuery('priceExplain', variables);
-    return new ProductPrice(result.data.priceExplain);
+    return result.data.priceExplain.map((x: any) => new ProductPrice(x));
   }
   /**
    Creates a new price

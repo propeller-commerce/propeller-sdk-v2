@@ -1,4 +1,4 @@
-query tax($id: String, $code: Taxcode, $zone: String) {
+query tax($id: String, $code: TaxCode, $zone: String) {
   tax(id: $id, code: $code, zone: $zone) {
     ...TaxFields
   }

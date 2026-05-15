@@ -1,6 +1,5 @@
 fragment TaxFields on Tax {
   id
-  shopId
   code
   zone
   percentage

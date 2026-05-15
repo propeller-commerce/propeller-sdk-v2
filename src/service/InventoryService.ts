@@ -1,5 +1,5 @@
 import { BaseService } from './BaseService';
-import { Inventory } from '../type/Inventory';
+import { InventoryResponse } from '../type/InventoryResponse';
 /**
  Service class for Inventory-related GraphQL operations
  */
@@ -7,11 +7,11 @@ export class InventoryService extends BaseService {
   /**
    Fetches inventory with search criteria
    * @param input Inventory search input parameters
-   * @returns Promise<Inventory[]> The inventory data array
+   * @returns Promise<InventoryResponse> The inventory response
    */
-  async getInventory(input?: any): Promise<Inventory[]> {
+  async getInventory(input?: any): Promise<InventoryResponse> {
     const variables = { input };
     const result = await this.executeQuery('inventory', variables);
-    return result.data.inventory.map((x: any) => new Inventory(x));
+    return new InventoryResponse(result.data.inventory);
   }
 }

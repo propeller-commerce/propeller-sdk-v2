@@ -1,4 +1,5 @@
 import { BaseService } from './BaseService';
+import { BulkResponseData } from '../type/BulkResponseData';
 import { Cart } from '../type/Cart';
 import { CartResponse } from '../type/CartResponse';
 import { CartSearchInput } from '../type/CartSearchInput';
@@ -296,6 +297,7 @@ export class CartService extends BaseService {
   }
   /**
    Sets the user for a cart
+   * @deprecated The upstream `cartSetUser` mutation is deprecated. Use `setCartContact` or `setCartCustomer` instead.
    * @param input Cart set user input data
    * @returns Promise<Cart> The updated cart
    */
@@ -359,9 +361,9 @@ export class CartService extends BaseService {
    * - input: CartItemBulkInput - Cart item bulk input data
    * @returns Promise<Cart> The updated cart
    */
-  async bulkUpdateCartItems(variables: CartItemBulkVariables): Promise<Cart> {
+  async bulkUpdateCartItems(variables: CartItemBulkVariables): Promise<BulkResponseData> {
     const result = await this.executeMutation('cartItemBulk', variables);
-    return new Cart(result.data.cartItemBulk);
+    return new BulkResponseData(result.data.cartItemBulk);
   }
   /**
    Requests purchase authorization for a cart

@@ -1,4 +1,4 @@
-import { Taxcode } from '../enum/Taxcode';
+import { TaxCode } from '../enum/TaxCode';
 /**
  Input object for OrderItemUpdateInput
  */
@@ -26,7 +26,7 @@ export interface OrderItemUpdateInput {
   /** The original price of the OrderItem, before applying any discounts */
   originalPrice: number;
   /** The tax code of the OrderItem */
-  taxCode: Taxcode;
+  taxCode: TaxCode;
   /** The calculated user specific price of the orderitem, before applying any additional discounts */
   customerPrice?: number;
   /** The costprice of the orderitem */

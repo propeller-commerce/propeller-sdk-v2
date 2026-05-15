@@ -1,9 +1,6 @@
 import { LocalizedString } from './LocalizedString';
-import { Contact } from './Contact';
 import { ContactsResponse } from './ContactsResponse';
-import { Customer } from './Customer';
 import { CustomersResponse } from './CustomersResponse';
-import { Company } from './Company';
 import { CompaniesResponse } from './CompaniesResponse';
 /**
  Object class for Pricesheet
@@ -27,19 +24,10 @@ export class Pricesheet {
   readonly!: boolean;
   /** usergroups field */
   usergroups!: string[];
-  /** Use contactsPaginated. */
-  /** @deprecated Use contactsPaginated. */
-  contacts!: Contact[];
   /** contactsPaginated field */
   contactsPaginated!: ContactsResponse;
-  /** Use customersPaginated. */
-  /** @deprecated Use customersPaginated. */
-  customers!: Customer[];
   /** customersPaginated field */
   customersPaginated!: CustomersResponse;
-  /** Use companiesPaginated. */
-  /** @deprecated Use companiesPaginated. */
-  companies!: Company[];
   /** companiesPaginated field */
   companiesPaginated!: CompaniesResponse;
   constructor(data: Partial<Pricesheet> = {}) {
@@ -88,12 +76,6 @@ export class Pricesheet {
   getUsergroups(): string[] {
     return this.usergroups;
   }
-  /** Returns `contacts` as Contact instances (coerced on first access). */
-  getContacts(): Contact[] {
-    if (!this.contacts) return [];
-    this.contacts = this.contacts.map((x: any) => x instanceof Contact ? x : new Contact(x));
-    return this.contacts;
-  }
   /** Returns `contactsPaginated` as a ContactsResponse instance (coerced on first access). */
   getContactsPaginated(): ContactsResponse | undefined {
     if (this.contactsPaginated == null) return undefined;
@@ -102,12 +84,6 @@ export class Pricesheet {
     }
     return this.contactsPaginated;
   }
-  /** Returns `customers` as Customer instances (coerced on first access). */
-  getCustomers(): Customer[] {
-    if (!this.customers) return [];
-    this.customers = this.customers.map((x: any) => x instanceof Customer ? x : new Customer(x));
-    return this.customers;
-  }
   /** Returns `customersPaginated` as a CustomersResponse instance (coerced on first access). */
   getCustomersPaginated(): CustomersResponse | undefined {
     if (this.customersPaginated == null) return undefined;
@@ -115,12 +91,6 @@ export class Pricesheet {
       this.customersPaginated = new CustomersResponse(this.customersPaginated as any);
     }
     return this.customersPaginated;
-  }
-  /** Returns `companies` as Company instances (coerced on first access). */
-  getCompanies(): Company[] {
-    if (!this.companies) return [];
-    this.companies = this.companies.map((x: any) => x instanceof Company ? x : new Company(x));
-    return this.companies;
   }
   /** Returns `companiesPaginated` as a CompaniesResponse instance (coerced on first access). */
   getCompaniesPaginated(): CompaniesResponse | undefined {
