@@ -14,4 +14,23 @@ export class BusinessRuleFieldDefinitionGroup {
   constructor(data: Partial<BusinessRuleFieldDefinitionGroup> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `isRoot`. */
+  getIsRoot(): boolean {
+    return this.isRoot;
+  }
+  /** Returns `definitions` as BusinessRuleFieldDefinition instances (coerced on first access). */
+  getDefinitions(): BusinessRuleFieldDefinition[] {
+    if (!this.definitions) return [];
+    this.definitions = this.definitions.map((x: any) => x instanceof BusinessRuleFieldDefinition ? x : new BusinessRuleFieldDefinition(x));
+    return this.definitions;
+  }
 }

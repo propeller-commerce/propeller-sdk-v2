@@ -15,4 +15,21 @@ export class ProductBulkMoveError {
   constructor(data: Partial<ProductBulkMoveError> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `code`. */
+  getCode(): ProductBulkMoveErrorCode {
+    return this.code;
+  }
+  /** Returns `messages`. */
+  getMessages(): string[] {
+    return this.messages;
+  }
+  /** Returns `record`. */
+  getRecord(): any | undefined {
+    return this.record;
+  }
+  /** Returns `rowNumber`. */
+  getRowNumber(): number | undefined {
+    return this.rowNumber;
+  }
 }

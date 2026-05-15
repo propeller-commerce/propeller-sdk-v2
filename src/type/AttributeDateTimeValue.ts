@@ -16,4 +16,17 @@ export class AttributeDateTimeValue implements AttributeValue {
   /** Attribute value (delegates to dateTimeValue) */
   get value(): any { return this.dateTimeValue; }
   set value(val: any) { this.dateTimeValue = val; }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): AttributeType {
+    return this.type;
+  }
+  /** Returns `dateTimeValue`. */
+  getDateTimeValue(): string | undefined {
+    return this.dateTimeValue;
+  }
 }

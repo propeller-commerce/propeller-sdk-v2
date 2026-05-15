@@ -17,4 +17,25 @@ export class ClusterConfigSetting {
   constructor(data: Partial<ClusterConfigSetting> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): number {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `type`. */
+  getType(): ClusterConfigSettingType {
+    return this.type;
+  }
+  /** Returns `displayType`. */
+  getDisplayType(): ClusterConfigSettingDisplayType {
+    return this.displayType;
+  }
+  /** Returns `priority`. */
+  getPriority(): string {
+    return this.priority;
+  }
 }

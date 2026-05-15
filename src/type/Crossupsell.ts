@@ -25,4 +25,41 @@ export class Crossupsell {
   constructor(data: Partial<Crossupsell> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `type`. */
+  getType(): CrossupsellType {
+    return this.type;
+  }
+  /** Returns `subType`. */
+  getSubType(): string | undefined {
+    return this.subType;
+  }
+  /** Returns `productTo`. */
+  getProductTo(): IBaseProduct | undefined {
+    return this.productTo;
+  }
+  /** Returns `productFrom`. */
+  getProductFrom(): IBaseProduct | undefined {
+    return this.productFrom;
+  }
+  /** Returns `clusterTo`. */
+  getClusterTo(): IBaseProduct | undefined {
+    return this.clusterTo;
+  }
+  /** Returns `clusterFrom`. */
+  getClusterFrom(): IBaseProduct | undefined {
+    return this.clusterFrom;
+  }
 }

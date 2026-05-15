@@ -16,4 +16,17 @@ export class AttributeColorValue implements AttributeValue {
   /** Attribute value (delegates to colorValue) */
   get value(): any { return this.colorValue; }
   set value(val: any) { this.colorValue = val; }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): AttributeType {
+    return this.type;
+  }
+  /** Returns `colorValue`. */
+  getColorValue(): string | undefined {
+    return this.colorValue;
+  }
 }

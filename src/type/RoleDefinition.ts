@@ -26,4 +26,46 @@ export class RoleDefinition {
   constructor(data: Partial<RoleDefinition> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns the description for the given language, falling back to NL. */
+  getDescription(language: string = 'NL'): string | undefined {
+    const arr = this.descriptions;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `defaultAccess`. */
+  getDefaultAccess(): RoleAccess {
+    return this.defaultAccess;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `createdBy`. */
+  getCreatedBy(): number | undefined {
+    return this.createdBy;
+  }
+  /** Returns `lastModifiedBy`. */
+  getLastModifiedBy(): number | undefined {
+    return this.lastModifiedBy;
+  }
+  /** Returns `roles` as Role instances (coerced on first access). */
+  getRoles(): Role[] {
+    if (!this.roles) return [];
+    this.roles = this.roles.map((x: any) => x instanceof Role ? x : new Role(x));
+    return this.roles;
+  }
 }

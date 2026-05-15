@@ -11,4 +11,17 @@ export class CartTaxLevel {
   constructor(data: Partial<CartTaxLevel> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `taxPercentage`. */
+  getTaxPercentage(): number {
+    return this.taxPercentage;
+  }
+  /** Returns `price`. */
+  getPrice(): number {
+    return this.price;
+  }
+  /** Returns `discount`. */
+  getDiscount(): number | undefined {
+    return this.discount;
+  }
 }

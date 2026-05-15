@@ -31,4 +31,57 @@ export class UserClaims {
   constructor(data: Partial<UserClaims> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `userId`. */
+  getUserId(): number {
+    return this.userId;
+  }
+  /** Returns `userDirectoryId`. */
+  getUserDirectoryId(): number {
+    return this.userDirectoryId;
+  }
+  /** Returns `adminUserId`. */
+  getAdminUserId(): number {
+    return this.adminUserId;
+  }
+  /** Returns `contactId`. */
+  getContactId(): number | undefined {
+    return this.contactId;
+  }
+  /** Returns `customerId`. */
+  getCustomerId(): number | undefined {
+    return this.customerId;
+  }
+  /** Returns `companyId`. */
+  getCompanyId(): number | undefined {
+    return this.companyId;
+  }
+  /** Returns `companyIds`. */
+  getCompanyIds(): number[] | undefined {
+    return this.companyIds;
+  }
+  /** Returns `roles`. */
+  getRoles(): string[] {
+    return this.roles;
+  }
+  /** Returns `discounts`. */
+  getDiscounts(): string[] {
+    return this.discounts;
+  }
+  /** Returns `acllist`. */
+  getAcllist(): number[] {
+    return this.acllist;
+  }
+  /** Returns `class`. */
+  getClass(): string {
+    return this.class;
+  }
+  /** Returns `loginRoot`. */
+  getLoginRoot(): number | undefined {
+    return this.loginRoot;
+  }
+  /** Returns `dateCreated`. */
+  getDateCreated(): string {
+    return this.dateCreated;
+  }
 }

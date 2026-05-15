@@ -9,4 +9,13 @@ export class BulkDeleteResponse {
   constructor(data: Partial<BulkDeleteResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `deletedIds`. */
+  getDeletedIds(): string[] {
+    return this.deletedIds;
+  }
+  /** Returns `failedIds`. */
+  getFailedIds(): string[] {
+    return this.failedIds;
+  }
 }

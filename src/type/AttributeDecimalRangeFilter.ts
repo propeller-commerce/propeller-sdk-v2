@@ -10,4 +10,13 @@ export class AttributeDecimalRangeFilter implements IAttributeDecimalRangeFilter
   constructor(data: Partial<AttributeDecimalRangeFilter> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `min`. */
+  getMin(): number | undefined {
+    return this.min;
+  }
+  /** Returns `max`. */
+  getMax(): number | undefined {
+    return this.max;
+  }
 }

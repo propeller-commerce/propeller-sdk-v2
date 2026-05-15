@@ -12,4 +12,15 @@ export class ProductBulkMoveResponse {
   constructor(data: Partial<ProductBulkMoveResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `movedCount`. */
+  getMovedCount(): number {
+    return this.movedCount;
+  }
+  /** Returns `errors` as ProductBulkMoveError instances (coerced on first access). */
+  getErrors(): ProductBulkMoveError[] {
+    if (!this.errors) return [];
+    this.errors = this.errors.map((x: any) => x instanceof ProductBulkMoveError ? x : new ProductBulkMoveError(x));
+    return this.errors;
+  }
 }

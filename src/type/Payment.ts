@@ -35,4 +35,63 @@ export class Payment {
   constructor(data: Partial<Payment> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `userId`. */
+  getUserId(): number | undefined {
+    return this.userId;
+  }
+  /** Returns `anonymousId`. */
+  getAnonymousId(): number | undefined {
+    return this.anonymousId;
+  }
+  /** Returns `paymentId`. */
+  getPaymentId(): string | undefined {
+    return this.paymentId;
+  }
+  /** Returns `orderId`. */
+  getOrderId(): number {
+    return this.orderId;
+  }
+  /** Returns `amount`. */
+  getAmount(): number {
+    return this.amount;
+  }
+  /** Returns `currency`. */
+  getCurrency(): string {
+    return this.currency;
+  }
+  /** Returns `method`. */
+  getMethod(): string {
+    return this.method;
+  }
+  /** Returns `status`. */
+  getStatus(): PaymentStatuses {
+    return this.status;
+  }
+  /** Returns `transactions` as Transaction instances (coerced on first access). */
+  getTransactions(): Transaction[] | undefined {
+    if (!this.transactions) return undefined;
+    this.transactions = this.transactions.map((x: any) => x instanceof Transaction ? x : new Transaction(x));
+    return this.transactions;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `createdBy`. */
+  getCreatedBy(): string | undefined {
+    return this.createdBy;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `lastModifiedBy`. */
+  getLastModifiedBy(): string | undefined {
+    return this.lastModifiedBy;
+  }
 }

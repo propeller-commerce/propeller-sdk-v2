@@ -9,4 +9,13 @@ export class PublishEmailEventResponse {
   constructor(data: Partial<PublishEmailEventResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `success`. */
+  getSuccess(): boolean {
+    return this.success;
+  }
+  /** Returns `messageId`. */
+  getMessageId(): string | undefined {
+    return this.messageId;
+  }
 }

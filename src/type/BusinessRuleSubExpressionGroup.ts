@@ -15,4 +15,21 @@ export class BusinessRuleSubExpressionGroup {
   constructor(data: Partial<BusinessRuleSubExpressionGroup> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `field`. */
+  getField(): string {
+    return this.field;
+  }
+  /** Returns `expressions`. */
+  getExpressions(): IBusinessRuleExpression[] {
+    return this.expressions;
+  }
+  /** Returns `operator`. */
+  getOperator(): BusinessRuleExpressionGroupOperators | undefined {
+    return this.operator;
+  }
 }

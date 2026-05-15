@@ -13,4 +13,21 @@ export class TenderTaxLevel {
   constructor(data: Partial<TenderTaxLevel> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `percentage`. */
+  getPercentage(): number {
+    return this.percentage;
+  }
+  /** Returns `total`. */
+  getTotal(): number {
+    return this.total;
+  }
+  /** Returns `tax`. */
+  getTax(): number | undefined {
+    return this.tax;
+  }
+  /** Returns `discount`. */
+  getDiscount(): number | undefined {
+    return this.discount;
+  }
 }

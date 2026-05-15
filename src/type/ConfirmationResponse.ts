@@ -9,4 +9,13 @@ export class ConfirmationResponse {
   constructor(data: Partial<ConfirmationResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `status`. */
+  getStatus(): string {
+    return this.status;
+  }
+  /** Returns `message`. */
+  getMessage(): string {
+    return this.message;
+  }
 }

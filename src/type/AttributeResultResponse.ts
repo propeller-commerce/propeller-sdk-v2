@@ -20,4 +20,35 @@ export class AttributeResultResponse {
   constructor(data: Partial<AttributeResultResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `items` as AttributeResult instances (coerced on first access). */
+  getItems(): AttributeResult[] {
+    if (!this.items) return [];
+    this.items = this.items.map((x: any) => x instanceof AttributeResult ? x : new AttributeResult(x));
+    return this.items;
+  }
+  /** Returns `itemsFound`. */
+  getItemsFound(): number {
+    return this.itemsFound;
+  }
+  /** Returns `offset`. */
+  getOffset(): number {
+    return this.offset;
+  }
+  /** Returns `page`. */
+  getPage(): number {
+    return this.page;
+  }
+  /** Returns `pages`. */
+  getPages(): number {
+    return this.pages;
+  }
+  /** Returns `start`. */
+  getStart(): number {
+    return this.start;
+  }
+  /** Returns `end`. */
+  getEnd(): number {
+    return this.end;
+  }
 }

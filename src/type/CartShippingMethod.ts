@@ -9,4 +9,13 @@ export class CartShippingMethod {
   constructor(data: Partial<CartShippingMethod> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `code`. */
+  getCode(): string {
+    return this.code;
+  }
 }

@@ -222,6 +222,28 @@ const input: CreateProductInput = {
 const product: Product = await productService.getProduct({ productId: 1 });
 ```
 
+### Generated getter methods
+
+Every class exposes a getter for each of its properties. Three behaviors:
+
+```typescript
+// Localized arrays — match the requested language, fall back to 'NL'.
+product.getName('NL');           // string | undefined
+product.getName('EN');           // string | undefined
+product.getName();               // string | undefined (default 'NL')
+
+// Class-typed properties — coerce to a real instance on first access (memoized).
+const price = product.getPrice();    // ProductPrice | undefined
+price?.getCurrency();                // chained call works (price is a real instance)
+product.getPrice() === product.getPrice();  // true (memoized in-place)
+
+// Scalar / enum / primitive-array — pass-through.
+product.getSku();                // string
+product.getStatus();             // ProductStatus
+```
+
+Method names mirror the field name (`getSku` for `sku`), except for plural localized-array fields where the trailing `s` is dropped (`product.names` → `product.getName('NL')`).
+
 If you prefer the `Enums.X.Y` qualified call-site form, use a namespace import:
 
 ```typescript

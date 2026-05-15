@@ -15,4 +15,25 @@ export class ProductOffer {
   constructor(data: Partial<ProductOffer> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `price`. */
+  getPrice(): number {
+    return this.price;
+  }
+  /** Returns `validFrom`. */
+  getValidFrom(): string {
+    return this.validFrom;
+  }
+  /** Returns `validTo`. */
+  getValidTo(): string {
+    return this.validTo;
+  }
+  /** Returns `formula`. */
+  getFormula(): string {
+    return this.formula;
+  }
 }

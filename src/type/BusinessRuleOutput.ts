@@ -16,4 +16,21 @@ export class BusinessRuleOutput implements IBusinessRuleNode {
   constructor(data: Partial<BusinessRuleOutput> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `type`. */
+  getType(): BusinessRuleNodeType {
+    return this.type;
+  }
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `description`. */
+  getDescription(): string {
+    return this.description;
+  }
 }

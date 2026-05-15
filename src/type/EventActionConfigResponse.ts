@@ -20,4 +20,33 @@ export class EventActionConfigResponse {
   constructor(data: Partial<EventActionConfigResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `items`. */
+  getItems(): IEventActionConfig[] {
+    return this.items;
+  }
+  /** Returns `itemsFound`. */
+  getItemsFound(): number {
+    return this.itemsFound;
+  }
+  /** Returns `offset`. */
+  getOffset(): number {
+    return this.offset;
+  }
+  /** Returns `page`. */
+  getPage(): number {
+    return this.page;
+  }
+  /** Returns `pages`. */
+  getPages(): number {
+    return this.pages;
+  }
+  /** Returns `start`. */
+  getStart(): number {
+    return this.start;
+  }
+  /** Returns `end`. */
+  getEnd(): number {
+    return this.end;
+  }
 }

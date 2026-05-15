@@ -13,4 +13,17 @@ export class BusinessRuleExpressionGroup {
   constructor(data: Partial<BusinessRuleExpressionGroup> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `expressions`. */
+  getExpressions(): IBusinessRuleExpression[] {
+    return this.expressions;
+  }
+  /** Returns `operator`. */
+  getOperator(): BusinessRuleExpressionGroupOperators | undefined {
+    return this.operator;
+  }
 }

@@ -11,4 +11,17 @@ export class TenderResponseData {
   constructor(data: Partial<TenderResponseData> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `data`. */
+  getData(): any {
+    return this.data;
+  }
+  /** Returns `error`. */
+  getError(): boolean {
+    return this.error;
+  }
+  /** Returns `messages`. */
+  getMessages(): string[] | undefined {
+    return this.messages;
+  }
 }

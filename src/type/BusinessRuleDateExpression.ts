@@ -24,4 +24,33 @@ export class BusinessRuleDateExpression {
   constructor(data: Partial<BusinessRuleDateExpression> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): string {
+    return this.type;
+  }
+  /** Returns `number`. */
+  getNumber(): number | undefined {
+    return this.number;
+  }
+  /** Returns `date`. */
+  getDate(): string | undefined {
+    return this.date;
+  }
+  /** Returns `string`. */
+  getString(): string | undefined {
+    return this.string;
+  }
+  /** Returns `operator`. */
+  getOperator(): string {
+    return this.operator;
+  }
+  /** Returns `path`. */
+  getPath(): string | undefined {
+    return this.path;
+  }
 }

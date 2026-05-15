@@ -51,4 +51,93 @@ export class WarehouseAddress {
   constructor(data: Partial<WarehouseAddress> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): number {
+    return this.id;
+  }
+  /** Returns `firstName`. */
+  getFirstName(): string | undefined {
+    return this.firstName;
+  }
+  /** Returns `middleName`. */
+  getMiddleName(): string | undefined {
+    return this.middleName;
+  }
+  /** Returns `lastName`. */
+  getLastName(): string | undefined {
+    return this.lastName;
+  }
+  /** Returns `gender`. */
+  getGender(): Gender | undefined {
+    return this.gender;
+  }
+  /** Returns `company`. */
+  getCompany(): string | undefined {
+    return this.company;
+  }
+  /** Returns `street`. */
+  getStreet(): string {
+    return this.street;
+  }
+  /** Returns `number`. */
+  getNumber(): string | undefined {
+    return this.number;
+  }
+  /** Returns `numberExtension`. */
+  getNumberExtension(): string | undefined {
+    return this.numberExtension;
+  }
+  /** Returns `postalCode`. */
+  getPostalCode(): string {
+    return this.postalCode;
+  }
+  /** Returns `city`. */
+  getCity(): string {
+    return this.city;
+  }
+  /** Returns `region`. */
+  getRegion(): string | undefined {
+    return this.region;
+  }
+  /** Returns `country`. */
+  getCountry(): string {
+    return this.country;
+  }
+  /** Returns `phone`. */
+  getPhone(): string | undefined {
+    return this.phone;
+  }
+  /** Returns `mobile`. */
+  getMobile(): string | undefined {
+    return this.mobile;
+  }
+  /** Returns `email`. */
+  getEmail(): string | undefined {
+    return this.email;
+  }
+  /** Returns `fax`. */
+  getFax(): string | undefined {
+    return this.fax;
+  }
+  /** Returns `code`. */
+  getCode(): string | undefined {
+    return this.code;
+  }
+  /** Returns `notes`. */
+  getNotes(): string | undefined {
+    return this.notes;
+  }
+  /** Returns `icp`. */
+  getIcp(): YesNo | undefined {
+    return this.icp;
+  }
+  /** Returns `url`. */
+  getUrl(): string | undefined {
+    return this.url;
+  }
+  /** Returns `name`. */
+  getName(): string | undefined {
+    return this.name;
+  }
 }

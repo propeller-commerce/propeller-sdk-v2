@@ -24,4 +24,29 @@ export class BusinessRuleDecisionTable implements IBusinessRuleNode {
   constructor(data: Partial<BusinessRuleDecisionTable> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `type`. */
+  getType(): BusinessRuleNodeType {
+    return this.type;
+  }
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `description`. */
+  getDescription(): string {
+    return this.description;
+  }
+  /** Returns `content` as a BusinessRuleDecisionTableContent instance (coerced on first access). */
+  getContent(): BusinessRuleDecisionTableContent | undefined {
+    if (this.content == null) return undefined;
+    if (!(this.content instanceof BusinessRuleDecisionTableContent)) {
+      this.content = new BusinessRuleDecisionTableContent(this.content as any);
+    }
+    return this.content;
+  }
 }

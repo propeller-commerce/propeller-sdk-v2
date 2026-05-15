@@ -9,4 +9,13 @@ export class SendOrderConfirmResponseType {
   constructor(data: Partial<SendOrderConfirmResponseType> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `messageId`. */
+  getMessageId(): string {
+    return this.messageId;
+  }
+  /** Returns `success`. */
+  getSuccess(): boolean {
+    return this.success;
+  }
 }

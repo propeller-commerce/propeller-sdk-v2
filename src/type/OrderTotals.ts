@@ -22,4 +22,35 @@ export class OrderTotals {
   constructor(data: Partial<OrderTotals> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `orderId`. */
+  getOrderId(): number {
+    return this.orderId;
+  }
+  /** Returns `gross`. */
+  getGross(): number {
+    return this.gross;
+  }
+  /** Returns `net`. */
+  getNet(): number {
+    return this.net;
+  }
+  /** Returns `tax`. */
+  getTax(): number {
+    return this.tax;
+  }
+  /** Returns `discountType`. */
+  getDiscountType(): OrderDiscountType {
+    return this.discountType;
+  }
+  /** Returns `discountValue`. */
+  getDiscountValue(): number {
+    return this.discountValue;
+  }
+  /** Returns `taxPercentages` as OrderTotalTaxPercentage instances (coerced on first access). */
+  getTaxPercentages(): OrderTotalTaxPercentage[] {
+    if (!this.taxPercentages) return [];
+    this.taxPercentages = this.taxPercentages.map((x: any) => x instanceof OrderTotalTaxPercentage ? x : new OrderTotalTaxPercentage(x));
+    return this.taxPercentages;
+  }
 }

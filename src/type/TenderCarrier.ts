@@ -20,4 +20,33 @@ export class TenderCarrier {
   constructor(data: Partial<TenderCarrier> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): number {
+    return this.id;
+  }
+  /** Returns `price`. */
+  getPrice(): number {
+    return this.price;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `description`. */
+  getDescription(): string | undefined {
+    return this.description;
+  }
+  /** Returns `logo`. */
+  getLogo(): string | undefined {
+    return this.logo;
+  }
+  /** Returns `amount`. */
+  getAmount(): number {
+    return this.amount;
+  }
+  /** Returns `deliveryDeadline`. */
+  getDeliveryDeadline(): string | undefined {
+    return this.deliveryDeadline;
+  }
 }

@@ -20,4 +20,35 @@ export class CategoryResponse {
   constructor(data: Partial<CategoryResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `items` as Category instances (coerced on first access). */
+  getItems(): Category[] {
+    if (!this.items) return [];
+    this.items = this.items.map((x: any) => x instanceof Category ? x : new Category(x));
+    return this.items;
+  }
+  /** Returns `itemsFound`. */
+  getItemsFound(): number {
+    return this.itemsFound;
+  }
+  /** Returns `offset`. */
+  getOffset(): number {
+    return this.offset;
+  }
+  /** Returns `page`. */
+  getPage(): number {
+    return this.page;
+  }
+  /** Returns `pages`. */
+  getPages(): number {
+    return this.pages;
+  }
+  /** Returns `start`. */
+  getStart(): number {
+    return this.start;
+  }
+  /** Returns `end`. */
+  getEnd(): number {
+    return this.end;
+  }
 }

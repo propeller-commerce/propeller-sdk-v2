@@ -10,4 +10,13 @@ export class AttributeIntegerRangeFilter implements IAttributeIntegerRangeFilter
   constructor(data: Partial<AttributeIntegerRangeFilter> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `min`. */
+  getMin(): number | undefined {
+    return this.min;
+  }
+  /** Returns `max`. */
+  getMax(): number | undefined {
+    return this.max;
+  }
 }

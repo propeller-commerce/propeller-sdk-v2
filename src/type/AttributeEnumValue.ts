@@ -16,4 +16,17 @@ export class AttributeEnumValue implements AttributeValue {
   /** Attribute value (delegates to enumValues) */
   get value(): any { return this.enumValues; }
   set value(val: any) { this.enumValues = val; }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): AttributeType {
+    return this.type;
+  }
+  /** Returns `enumValues`. */
+  getEnumValues(): string[] {
+    return this.enumValues;
+  }
 }

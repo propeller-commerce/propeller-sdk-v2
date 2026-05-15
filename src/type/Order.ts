@@ -103,4 +103,195 @@ export class Order {
   constructor(data: Partial<Order> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): number {
+    return this.id;
+  }
+  /** Returns `media` as a OrderMedia instance (coerced on first access). */
+  getMedia(): OrderMedia | undefined {
+    if (this.media == null) return undefined;
+    if (!(this.media instanceof OrderMedia)) {
+      this.media = new OrderMedia(this.media as any);
+    }
+    return this.media;
+  }
+  /** Returns `userId`. */
+  getUserId(): number | undefined {
+    return this.userId;
+  }
+  /** Returns `accountManagerId`. */
+  getAccountManagerId(): number | undefined {
+    return this.accountManagerId;
+  }
+  /** Returns `cartId`. */
+  getCartId(): string | undefined {
+    return this.cartId;
+  }
+  /** Returns `channelId`. */
+  getChannelId(): number {
+    return this.channelId;
+  }
+  /** Returns `shopId`. */
+  getShopId(): number {
+    return this.shopId;
+  }
+  /** Returns `uuid`. */
+  getUuid(): string {
+    return this.uuid;
+  }
+  /** Returns `externalId`. */
+  getExternalId(): string | undefined {
+    return this.externalId;
+  }
+  /** Returns `debtorId`. */
+  getDebtorId(): string | undefined {
+    return this.debtorId;
+  }
+  /** Returns `status`. */
+  getStatus(): string {
+    return this.status;
+  }
+  /** Returns `type`. */
+  getType(): OrderType {
+    return this.type;
+  }
+  /** Returns `source`. */
+  getSource(): string | undefined {
+    return this.source;
+  }
+  /** Returns `email`. */
+  getEmail(): string {
+    return this.email;
+  }
+  /** Returns `emailDate`. */
+  getEmailDate(): string | undefined {
+    return this.emailDate;
+  }
+  /** Returns `remarks`. */
+  getRemarks(): string | undefined {
+    return this.remarks;
+  }
+  /** Returns `reference`. */
+  getReference(): string | undefined {
+    return this.reference;
+  }
+  /** Returns `extra3`. */
+  getExtra3(): string | undefined {
+    return this.extra3;
+  }
+  /** Returns `extra4`. */
+  getExtra4(): string | undefined {
+    return this.extra4;
+  }
+  /** Returns `currency`. */
+  getCurrency(): string {
+    return this.currency;
+  }
+  /** Returns `currencyRatio`. */
+  getCurrencyRatio(): number {
+    return this.currencyRatio;
+  }
+  /** Returns `language`. */
+  getLanguage(): string {
+    return this.language;
+  }
+  /** Returns `date`. */
+  getDate(): string {
+    return this.date;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `statusDate`. */
+  getStatusDate(): string | undefined {
+    return this.statusDate;
+  }
+  /** Returns `postageData` as a OrderPostageData instance (coerced on first access). */
+  getPostageData(): OrderPostageData | undefined {
+    if (this.postageData == null) return undefined;
+    if (!(this.postageData instanceof OrderPostageData)) {
+      this.postageData = new OrderPostageData(this.postageData as any);
+    }
+    return this.postageData;
+  }
+  /** Returns `paymentData` as a OrderPaymentData instance (coerced on first access). */
+  getPaymentData(): OrderPaymentData | undefined {
+    if (this.paymentData == null) return undefined;
+    if (!(this.paymentData instanceof OrderPaymentData)) {
+      this.paymentData = new OrderPaymentData(this.paymentData as any);
+    }
+    return this.paymentData;
+  }
+  /** Returns `total` as a OrderTotals instance (coerced on first access). */
+  getTotal(): OrderTotals | undefined {
+    if (this.total == null) return undefined;
+    if (!(this.total instanceof OrderTotals)) {
+      this.total = new OrderTotals(this.total as any);
+    }
+    return this.total;
+  }
+  /** Returns `items` as OrderItem instances (coerced on first access). */
+  getItems(): OrderItem[] {
+    if (!this.items) return [];
+    this.items = this.items.map((x: any) => x instanceof OrderItem ? x : new OrderItem(x));
+    return this.items;
+  }
+  /** Returns `shipments` as Shipment instances (coerced on first access). */
+  getShipments(): Shipment[] | undefined {
+    if (!this.shipments) return undefined;
+    this.shipments = this.shipments.map((x: any) => x instanceof Shipment ? x : new Shipment(x));
+    return this.shipments;
+  }
+  /** Returns `addresses` as Address instances (coerced on first access). */
+  getAddresses(): Address[] | undefined {
+    if (!this.addresses) return undefined;
+    this.addresses = this.addresses.map((x: any) => x instanceof Address ? x : new Address(x));
+    return this.addresses;
+  }
+  /** Returns `invoiceUserId`. */
+  getInvoiceUserId(): number | undefined {
+    return this.invoiceUserId;
+  }
+  /** Returns `validUntil`. */
+  getValidUntil(): string | undefined {
+    return this.validUntil;
+  }
+  /** Returns `companyId`. */
+  getCompanyId(): number | undefined {
+    return this.companyId;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `originalOrderId`. */
+  getOriginalOrderId(): number | undefined {
+    return this.originalOrderId;
+  }
+  /** Returns `exportedAt`. */
+  getExportedAt(): string | undefined {
+    return this.exportedAt;
+  }
+  /** Returns `exportStatus`. */
+  getExportStatus(): OrderExportStatus | undefined {
+    return this.exportStatus;
+  }
+  /** Returns `exportMessage`. */
+  getExportMessage(): string | undefined {
+    return this.exportMessage;
+  }
+  /** Returns `orderAddresses` as OrderAddress instances (coerced on first access). */
+  getOrderAddresses(): OrderAddress[] {
+    if (!this.orderAddresses) return [];
+    this.orderAddresses = this.orderAddresses.map((x: any) => x instanceof OrderAddress ? x : new OrderAddress(x));
+    return this.orderAddresses;
+  }
+  /** Returns `sources` as Source instances (coerced on first access). */
+  getSources(): Source[] | undefined {
+    if (!this.sources) return undefined;
+    this.sources = this.sources.map((x: any) => x instanceof Source ? x : new Source(x));
+    return this.sources;
+  }
 }

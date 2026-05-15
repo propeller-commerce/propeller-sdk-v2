@@ -21,4 +21,33 @@ export class CartTotal {
   constructor(data: Partial<CartTotal> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `subTotal`. */
+  getSubTotal(): number {
+    return this.subTotal;
+  }
+  /** Returns `subTotalNet`. */
+  getSubTotalNet(): number {
+    return this.subTotalNet;
+  }
+  /** Returns `discountPercentage`. */
+  getDiscountPercentage(): number {
+    return this.discountPercentage;
+  }
+  /** Returns `totalNet`. */
+  getTotalNet(): number {
+    return this.totalNet;
+  }
+  /** Returns `totalGross`. */
+  getTotalGross(): number {
+    return this.totalGross;
+  }
+  /** Returns `discountNet`. */
+  getDiscountNet(): number {
+    return this.discountNet;
+  }
+  /** Returns `discount`. */
+  getDiscount(): number {
+    return this.discount;
+  }
 }

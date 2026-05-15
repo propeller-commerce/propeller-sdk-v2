@@ -11,4 +11,17 @@ export class RegisterUserSession {
   constructor(data: Partial<RegisterUserSession> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `accessToken`. */
+  getAccessToken(): string | undefined {
+    return this.accessToken;
+  }
+  /** Returns `refreshToken`. */
+  getRefreshToken(): string | undefined {
+    return this.refreshToken;
+  }
+  /** Returns `expirationTime`. */
+  getExpirationTime(): string | undefined {
+    return this.expirationTime;
+  }
 }

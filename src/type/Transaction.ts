@@ -29,4 +29,49 @@ export class Transaction {
   constructor(data: Partial<Transaction> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `transactionId`. */
+  getTransactionId(): string {
+    return this.transactionId;
+  }
+  /** Returns `paymentId`. */
+  getPaymentId(): string | undefined {
+    return this.paymentId;
+  }
+  /** Returns `orderId`. */
+  getOrderId(): number {
+    return this.orderId;
+  }
+  /** Returns `amount`. */
+  getAmount(): number {
+    return this.amount;
+  }
+  /** Returns `currency`. */
+  getCurrency(): string {
+    return this.currency;
+  }
+  /** Returns `description`. */
+  getDescription(): string | undefined {
+    return this.description;
+  }
+  /** Returns `timestamp`. */
+  getTimestamp(): string | undefined {
+    return this.timestamp;
+  }
+  /** Returns `type`. */
+  getType(): TransactionTypes {
+    return this.type;
+  }
+  /** Returns `provider`. */
+  getProvider(): string | undefined {
+    return this.provider;
+  }
+  /** Returns `status`. */
+  getStatus(): TransactionStatuses {
+    return this.status;
+  }
 }

@@ -9,4 +9,13 @@ export class OrderTotalTaxPercentage {
   constructor(data: Partial<OrderTotalTaxPercentage> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `percentage`. */
+  getPercentage(): number {
+    return this.percentage;
+  }
+  /** Returns `total`. */
+  getTotal(): number {
+    return this.total;
+  }
 }

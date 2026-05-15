@@ -17,4 +17,29 @@ export class TenderPaymethod {
   constructor(data: Partial<TenderPaymethod> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `code`. */
+  getCode(): string {
+    return this.code;
+  }
+  /** Returns `externalCode`. */
+  getExternalCode(): string | undefined {
+    return this.externalCode;
+  }
+  /** Returns `type`. */
+  getType(): string | undefined {
+    return this.type;
+  }
+  /** Returns `description`. */
+  getDescription(): string {
+    return this.description;
+  }
+  /** Returns `amount`. */
+  getAmount(): number {
+    return this.amount;
+  }
+  /** Returns `allowed`. */
+  getAllowed(): boolean {
+    return this.allowed;
+  }
 }

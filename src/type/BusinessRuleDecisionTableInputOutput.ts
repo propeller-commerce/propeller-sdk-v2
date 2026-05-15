@@ -20,4 +20,21 @@ export class BusinessRuleDecisionTableInputOutput {
   constructor(data: Partial<BusinessRuleDecisionTableInputOutput> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `field`. */
+  getField(): string {
+    return this.field;
+  }
+  /** Returns `type`. */
+  getType(): string {
+    return this.type;
+  }
 }

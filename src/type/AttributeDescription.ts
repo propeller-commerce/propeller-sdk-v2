@@ -47,4 +47,79 @@ export class AttributeDescription {
   constructor(data: Partial<AttributeDescription> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns the description for the given language, falling back to NL. */
+  getDescription(language: string = 'NL'): string | undefined {
+    const arr = this.descriptions;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the unit for the given language, falling back to NL. */
+  getUnit(language: string = 'NL'): string | undefined {
+    const arr = this.units;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `attributeClass`. */
+  getAttributeClass(): AttributeDescriptionClass {
+    return this.attributeClass;
+  }
+  /** Returns `type`. */
+  getType(): AttributeType {
+    return this.type;
+  }
+  /** Returns `valuesetId`. */
+  getValuesetId(): number | undefined {
+    return this.valuesetId;
+  }
+  /** Returns `group`. */
+  getGroup(): string | undefined {
+    return this.group;
+  }
+  /** Returns `isSearchable`. */
+  getIsSearchable(): boolean {
+    return this.isSearchable;
+  }
+  /** Returns `isPublic`. */
+  getIsPublic(): boolean {
+    return this.isPublic;
+  }
+  /** Returns `isSystem`. */
+  getIsSystem(): boolean {
+    return this.isSystem;
+  }
+  /** Returns `isHidden`. */
+  getIsHidden(): boolean {
+    return this.isHidden;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `createdBy`. */
+  getCreatedBy(): number | undefined {
+    return this.createdBy;
+  }
+  /** Returns `lastModifiedBy`. */
+  getLastModifiedBy(): number | undefined {
+    return this.lastModifiedBy;
+  }
+  /** Returns `defaultValue`. */
+  getDefaultValue(): AttributeValue {
+    return this.defaultValue;
+  }
 }

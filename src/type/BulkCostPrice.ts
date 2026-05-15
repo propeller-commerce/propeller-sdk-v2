@@ -21,4 +21,37 @@ export class BulkCostPrice {
   constructor(data: Partial<BulkCostPrice> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `value`. */
+  getValue(): number {
+    return this.value;
+  }
+  /** Returns `quantityFrom`. */
+  getQuantityFrom(): number {
+    return this.quantityFrom;
+  }
+  /** Returns `validFrom`. */
+  getValidFrom(): string | undefined {
+    return this.validFrom;
+  }
+  /** Returns `validTo`. */
+  getValidTo(): string | undefined {
+    return this.validTo;
+  }
+  /** Returns `priceId`. */
+  getPriceId(): string {
+    return this.priceId;
+  }
 }

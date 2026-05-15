@@ -18,4 +18,21 @@ export class AttributeResult {
   constructor(data: Partial<AttributeResult> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `attribute`. */
+  getAttribute(): Attribute | undefined {
+    return this.attribute;
+  }
+  /** Returns `attributeDescription` as a AttributeDescription instance (coerced on first access). */
+  getAttributeDescription(): AttributeDescription | undefined {
+    if (this.attributeDescription == null) return undefined;
+    if (!(this.attributeDescription instanceof AttributeDescription)) {
+      this.attributeDescription = new AttributeDescription(this.attributeDescription as any);
+    }
+    return this.attributeDescription;
+  }
+  /** Returns `value`. */
+  getValue(): AttributeValue {
+    return this.value;
+  }
 }

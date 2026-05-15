@@ -18,4 +18,29 @@ export class CartPaymethod {
   constructor(data: Partial<CartPaymethod> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `code`. */
+  getCode(): string {
+    return this.code;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `externalCode`. */
+  getExternalCode(): string | undefined {
+    return this.externalCode;
+  }
+  /** Returns `type`. */
+  getType(): string | undefined {
+    return this.type;
+  }
+  /** Returns `taxCode`. */
+  getTaxCode(): Taxcode | undefined {
+    return this.taxCode;
+  }
+  /** Returns `price`. */
+  getPrice(): number {
+    return this.price;
+  }
 }

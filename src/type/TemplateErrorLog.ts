@@ -25,4 +25,41 @@ export class TemplateErrorLog {
   constructor(data: Partial<TemplateErrorLog> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `stackTrace`. */
+  getStackTrace(): string {
+    return this.stackTrace;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `eventInstance`. */
+  getEventInstance(): string | undefined {
+    return this.eventInstance;
+  }
+  /** Returns `topicName`. */
+  getTopicName(): string | undefined {
+    return this.topicName;
+  }
+  /** Returns `errorType`. */
+  getErrorType(): TemplateErrorType {
+    return this.errorType;
+  }
+  /** Returns `errorMessage`. */
+  getErrorMessage(): string {
+    return this.errorMessage;
+  }
+  /** Returns `templateId`. */
+  getTemplateId(): string | undefined {
+    return this.templateId;
+  }
+  /** Returns `fieldName`. */
+  getFieldName(): string | undefined {
+    return this.fieldName;
+  }
 }

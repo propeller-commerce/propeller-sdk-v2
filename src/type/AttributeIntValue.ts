@@ -16,4 +16,17 @@ export class AttributeIntValue implements AttributeValue {
   /** Attribute value (delegates to intValue) */
   get value(): any { return this.intValue; }
   set value(val: any) { this.intValue = val; }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): AttributeType {
+    return this.type;
+  }
+  /** Returns `intValue`. */
+  getIntValue(): number {
+    return this.intValue;
+  }
 }

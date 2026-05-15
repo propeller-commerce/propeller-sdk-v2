@@ -18,4 +18,32 @@ export class BusinessRuleDecisionTableCell {
   constructor(data: Partial<BusinessRuleDecisionTableCell> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `columnId`. */
+  getColumnId(): string | number {
+    return this.columnId;
+  }
+  /** Returns `expression` as a BusinessRuleExpressionGroup instance (coerced on first access). */
+  getExpression(): BusinessRuleExpressionGroup | undefined {
+    if (this.expression == null) return undefined;
+    if (!(this.expression instanceof BusinessRuleExpressionGroup)) {
+      this.expression = new BusinessRuleExpressionGroup(this.expression as any);
+    }
+    return this.expression;
+  }
+  /** Returns `value`. */
+  getValue(): string | undefined {
+    return this.value;
+  }
+  /** Returns the localizedValue for the given language, falling back to NL. */
+  getLocalizedValue(language: string = 'NL'): string | undefined {
+    const arr = this.localizedValue;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `number`. */
+  getNumber(): number | undefined {
+    return this.number;
+  }
 }

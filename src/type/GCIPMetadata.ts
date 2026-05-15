@@ -11,4 +11,17 @@ export class GCIPMetadata {
   constructor(data: Partial<GCIPMetadata> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `lastSignInTime`. */
+  getLastSignInTime(): string | undefined {
+    return this.lastSignInTime;
+  }
+  /** Returns `creationTime`. */
+  getCreationTime(): string | undefined {
+    return this.creationTime;
+  }
+  /** Returns `lastRefreshTime`. */
+  getLastRefreshTime(): string | undefined {
+    return this.lastRefreshTime;
+  }
 }

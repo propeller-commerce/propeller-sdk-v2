@@ -23,4 +23,41 @@ export class ContactAttribute {
   constructor(data: Partial<ContactAttribute> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `value`. */
+  getValue(): AttributeValue {
+    return this.value;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `createdBy`. */
+  getCreatedBy(): number | undefined {
+    return this.createdBy;
+  }
+  /** Returns `lastModifiedBy`. */
+  getLastModifiedBy(): number | undefined {
+    return this.lastModifiedBy;
+  }
+  /** Returns `attributeDescription` as a AttributeDescription instance (coerced on first access). */
+  getAttributeDescription(): AttributeDescription | undefined {
+    if (this.attributeDescription == null) return undefined;
+    if (!(this.attributeDescription instanceof AttributeDescription)) {
+      this.attributeDescription = new AttributeDescription(this.attributeDescription as any);
+    }
+    return this.attributeDescription;
+  }
+  /** Returns `contactId`. */
+  getContactId(): number {
+    return this.contactId;
+  }
 }

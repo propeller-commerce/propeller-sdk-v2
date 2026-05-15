@@ -9,4 +9,13 @@ export class CompanyAttributeValueSearch {
   constructor(data: Partial<CompanyAttributeValueSearch> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): string {
+    return this.type;
+  }
 }

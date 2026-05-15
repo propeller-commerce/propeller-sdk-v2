@@ -183,4 +183,405 @@ export class Product implements IBaseProduct {
   constructor(data: Partial<Product> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): number {
+    return this.id;
+  }
+  /** Returns `productId`. */
+  getProductId(): number {
+    return this.productId;
+  }
+  /** Returns `categoryId`. */
+  getCategoryId(): number {
+    return this.categoryId;
+  }
+  /** Returns `attributes` as a AttributeResultResponse instance (coerced on first access). */
+  getAttributes(): AttributeResultResponse | undefined {
+    if (this.attributes == null) return undefined;
+    if (!(this.attributes instanceof AttributeResultResponse)) {
+      this.attributes = new AttributeResultResponse(this.attributes as any);
+    }
+    return this.attributes;
+  }
+  /** Returns `bundles` as Bundle instances (coerced on first access). */
+  getBundles(): Bundle[] | undefined {
+    if (!this.bundles) return undefined;
+    this.bundles = this.bundles.map((x: any) => x instanceof Bundle ? x : new Bundle(x));
+    return this.bundles;
+  }
+  /** Returns `category` as a Category instance (coerced on first access). */
+  getCategory(): Category | undefined {
+    if (this.category == null) return undefined;
+    if (!(this.category instanceof Category)) {
+      this.category = new Category(this.category as any);
+    }
+    return this.category;
+  }
+  /** Returns `categories` as a CategoryResponse instance (coerced on first access). */
+  getCategories(): CategoryResponse | undefined {
+    if (this.categories == null) return undefined;
+    if (!(this.categories instanceof CategoryResponse)) {
+      this.categories = new CategoryResponse(this.categories as any);
+    }
+    return this.categories;
+  }
+  /** Returns `categoryPath` as Category instances (coerced on first access). */
+  getCategoryPath(): Category[] {
+    if (!this.categoryPath) return [];
+    this.categoryPath = this.categoryPath.map((x: any) => x instanceof Category ? x : new Category(x));
+    return this.categoryPath;
+  }
+  /** Returns `crossupsellsFrom` as a CrossupsellsResponse instance (coerced on first access). */
+  getCrossupsellsFrom(): CrossupsellsResponse | undefined {
+    if (this.crossupsellsFrom == null) return undefined;
+    if (!(this.crossupsellsFrom instanceof CrossupsellsResponse)) {
+      this.crossupsellsFrom = new CrossupsellsResponse(this.crossupsellsFrom as any);
+    }
+    return this.crossupsellsFrom;
+  }
+  /** Returns `crossupsellsTo` as a CrossupsellsResponse instance (coerced on first access). */
+  getCrossupsellsTo(): CrossupsellsResponse | undefined {
+    if (this.crossupsellsTo == null) return undefined;
+    if (!(this.crossupsellsTo instanceof CrossupsellsResponse)) {
+      this.crossupsellsTo = new CrossupsellsResponse(this.crossupsellsTo as any);
+    }
+    return this.crossupsellsTo;
+  }
+  /** Returns `favoriteLists` as a FavoriteListsResponse instance (coerced on first access). */
+  getFavoriteLists(): FavoriteListsResponse | undefined {
+    if (this.favoriteLists == null) return undefined;
+    if (!(this.favoriteLists instanceof FavoriteListsResponse)) {
+      this.favoriteLists = new FavoriteListsResponse(this.favoriteLists as any);
+    }
+    return this.favoriteLists;
+  }
+  /** Returns `inventory` as a ProductInventory instance (coerced on first access). */
+  getInventory(): ProductInventory | undefined {
+    if (this.inventory == null) return undefined;
+    if (!(this.inventory instanceof ProductInventory)) {
+      this.inventory = new ProductInventory(this.inventory as any);
+    }
+    return this.inventory;
+  }
+  /** Returns `mediaImages` as a PaginatedMediaImageResponse instance (coerced on first access). */
+  getMediaImages(): PaginatedMediaImageResponse | undefined {
+    if (this.mediaImages == null) return undefined;
+    if (!(this.mediaImages instanceof PaginatedMediaImageResponse)) {
+      this.mediaImages = new PaginatedMediaImageResponse(this.mediaImages as any);
+    }
+    return this.mediaImages;
+  }
+  /** Returns `mediaVideos` as a PaginatedMediaVideoResponse instance (coerced on first access). */
+  getMediaVideos(): PaginatedMediaVideoResponse | undefined {
+    if (this.mediaVideos == null) return undefined;
+    if (!(this.mediaVideos instanceof PaginatedMediaVideoResponse)) {
+      this.mediaVideos = new PaginatedMediaVideoResponse(this.mediaVideos as any);
+    }
+    return this.mediaVideos;
+  }
+  /** Returns `mediaDocuments` as a PaginatedMediaDocumentResponse instance (coerced on first access). */
+  getMediaDocuments(): PaginatedMediaDocumentResponse | undefined {
+    if (this.mediaDocuments == null) return undefined;
+    if (!(this.mediaDocuments instanceof PaginatedMediaDocumentResponse)) {
+      this.mediaDocuments = new PaginatedMediaDocumentResponse(this.mediaDocuments as any);
+    }
+    return this.mediaDocuments;
+  }
+  /** Returns `media` as a ProductMedia instance (coerced on first access). */
+  getMedia(): ProductMedia | undefined {
+    if (this.media == null) return undefined;
+    if (!(this.media instanceof ProductMedia)) {
+      this.media = new ProductMedia(this.media as any);
+    }
+    return this.media;
+  }
+  /** Returns `orderlists` as a OrderlistsResponse instance (coerced on first access). */
+  getOrderlists(): OrderlistsResponse | undefined {
+    if (this.orderlists == null) return undefined;
+    if (!(this.orderlists instanceof OrderlistsResponse)) {
+      this.orderlists = new OrderlistsResponse(this.orderlists as any);
+    }
+    return this.orderlists;
+  }
+  /** Returns `price` as a ProductPrice instance (coerced on first access). */
+  getPrice(): ProductPrice | undefined {
+    if (this.price == null) return undefined;
+    if (!(this.price instanceof ProductPrice)) {
+      this.price = new ProductPrice(this.price as any);
+    }
+    return this.price;
+  }
+  /** Returns `priceData` as a Price instance (coerced on first access). */
+  getPriceData(): Price | undefined {
+    if (this.priceData == null) return undefined;
+    if (!(this.priceData instanceof Price)) {
+      this.priceData = new Price(this.priceData as any);
+    }
+    return this.priceData;
+  }
+  /** Returns `bulkPrices` as ProductPrice instances (coerced on first access). */
+  getBulkPrices(): ProductPrice[] | undefined {
+    if (!this.bulkPrices) return undefined;
+    this.bulkPrices = this.bulkPrices.map((x: any) => x instanceof ProductPrice ? x : new ProductPrice(x));
+    return this.bulkPrices;
+  }
+  /** Returns `language`. */
+  getLanguage(): string | undefined {
+    return this.language;
+  }
+  /** Returns `class`. */
+  getClass(): ProductClass {
+    return this.class;
+  }
+  /** Returns `hidden`. */
+  getHidden(): YesNo {
+    return this.hidden;
+  }
+  /** Returns the name for the given language, falling back to NL. */
+  getName(language: string = 'NL'): string | undefined {
+    const arr = this.names;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the description for the given language, falling back to NL. */
+  getDescription(language: string = 'NL'): string | undefined {
+    const arr = this.descriptions;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the shortDescription for the given language, falling back to NL. */
+  getShortDescription(language: string = 'NL'): string | undefined {
+    const arr = this.shortDescriptions;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the slug for the given language, falling back to NL. */
+  getSlug(language: string = 'NL'): string | undefined {
+    const arr = this.slugs;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `sku`. */
+  getSku(): string {
+    return this.sku;
+  }
+  /** Returns `defaultLanguage`. */
+  getDefaultLanguage(): string {
+    return this.defaultLanguage;
+  }
+  /** Returns `priority`. */
+  getPriority(): number | undefined {
+    return this.priority;
+  }
+  /** Returns the metadataTitle for the given language, falling back to NL. */
+  getMetadataTitle(language: string = 'NL'): string | undefined {
+    const arr = this.metadataTitles;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the metadataDescription for the given language, falling back to NL. */
+  getMetadataDescription(language: string = 'NL'): string | undefined {
+    const arr = this.metadataDescriptions;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the metadataKeyword for the given language, falling back to NL. */
+  getMetadataKeyword(language: string = 'NL'): string | undefined {
+    const arr = this.metadataKeywords;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the metadataCanonicalUrl for the given language, falling back to NL. */
+  getMetadataCanonicalUrl(language: string = 'NL'): string | undefined {
+    const arr = this.metadataCanonicalUrls;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `sources` as Source instances (coerced on first access). */
+  getSources(): Source[] {
+    if (!this.sources) return [];
+    this.sources = this.sources.map((x: any) => x instanceof Source ? x : new Source(x));
+    return this.sources;
+  }
+  /** Returns the shortName for the given language, falling back to NL. */
+  getShortName(language: string = 'NL'): string | undefined {
+    const arr = this.shortNames;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the keyword for the given language, falling back to NL. */
+  getKeyword(language: string = 'NL'): string | undefined {
+    const arr = this.keywords;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the customKeyword for the given language, falling back to NL. */
+  getCustomKeyword(language: string = 'NL'): string | undefined {
+    const arr = this.customKeywords;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the packageDescription for the given language, falling back to NL. */
+  getPackageDescription(language: string = 'NL'): string | undefined {
+    const arr = this.packageDescriptions;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `manufacturerCode`. */
+  getManufacturerCode(): string {
+    return this.manufacturerCode;
+  }
+  /** Returns `eanCode`. */
+  getEanCode(): string {
+    return this.eanCode;
+  }
+  /** Returns `manufacturer`. */
+  getManufacturer(): string {
+    return this.manufacturer;
+  }
+  /** Returns `supplier`. */
+  getSupplier(): string {
+    return this.supplier;
+  }
+  /** Returns `supplierCode`. */
+  getSupplierCode(): string {
+    return this.supplierCode;
+  }
+  /** Returns `status`. */
+  getStatus(): ProductStatus {
+    return this.status;
+  }
+  /** Returns `statusExtra`. */
+  getStatusExtra(): string | undefined {
+    return this.statusExtra;
+  }
+  /** Returns `barCode`. */
+  getBarCode(): string | undefined {
+    return this.barCode;
+  }
+  /** Returns `turnoverGroup`. */
+  getTurnoverGroup(): string | undefined {
+    return this.turnoverGroup;
+  }
+  /** Returns `taxonomy`. */
+  getTaxonomy(): string | undefined {
+    return this.taxonomy;
+  }
+  /** Returns `priceGroup`. */
+  getPriceGroup(): string | undefined {
+    return this.priceGroup;
+  }
+  /** Returns `orderable`. */
+  getOrderable(): YesNo {
+    return this.orderable;
+  }
+  /** Returns `returnable`. */
+  getReturnable(): YesNo {
+    return this.returnable;
+  }
+  /** Returns `physical`. */
+  getPhysical(): YesNo {
+    return this.physical;
+  }
+  /** Returns `hasBundle`. */
+  getHasBundle(): YesNo {
+    return this.hasBundle;
+  }
+  /** Returns `isBundleLeader`. */
+  getIsBundleLeader(): YesNo {
+    return this.isBundleLeader;
+  }
+  /** Returns `package`. */
+  getPackage(): string {
+    return this.package;
+  }
+  /** Returns `packageUnit`. */
+  getPackageUnit(): string {
+    return this.packageUnit;
+  }
+  /** Returns `packageUnitQuantity`. */
+  getPackageUnitQuantity(): string {
+    return this.packageUnitQuantity;
+  }
+  /** Returns `minimumQuantity`. */
+  getMinimumQuantity(): number {
+    return this.minimumQuantity;
+  }
+  /** Returns `unit`. */
+  getUnit(): number {
+    return this.unit;
+  }
+  /** Returns `purchaseUnit`. */
+  getPurchaseUnit(): number {
+    return this.purchaseUnit;
+  }
+  /** Returns `purchaseMinimumQuantity`. */
+  getPurchaseMinimumQuantity(): number {
+    return this.purchaseMinimumQuantity;
+  }
+  /** Returns `economicOrderQuantity`. */
+  getEconomicOrderQuantity(): number {
+    return this.economicOrderQuantity;
+  }
+  /** Returns `orderableFrom`. */
+  getOrderableFrom(): string | undefined {
+    return this.orderableFrom;
+  }
+  /** Returns `orderableTo`. */
+  getOrderableTo(): string | undefined {
+    return this.orderableTo;
+  }
+  /** Returns `releaseDate`. */
+  getReleaseDate(): string | undefined {
+    return this.releaseDate;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `offers` as ProductOffer instances (coerced on first access). */
+  getOffers(): ProductOffer[] | undefined {
+    if (!this.offers) return undefined;
+    this.offers = this.offers.map((x: any) => x instanceof ProductOffer ? x : new ProductOffer(x));
+    return this.offers;
+  }
+  /** Returns `containerClass`. */
+  getContainerClass(): ProductContainerClass {
+    return this.containerClass;
+  }
+  /** Returns `clusterId`. */
+  getClusterId(): number | undefined {
+    return this.clusterId;
+  }
+  /** Returns `cluster` as a Cluster instance (coerced on first access). */
+  getCluster(): Cluster | undefined {
+    if (this.cluster == null) return undefined;
+    if (!(this.cluster instanceof Cluster)) {
+      this.cluster = new Cluster(this.cluster as any);
+    }
+    return this.cluster;
+  }
+  /** Returns `surcharges` as Surcharge instances (coerced on first access). */
+  getSurcharges(): Surcharge[] {
+    if (!this.surcharges) return [];
+    this.surcharges = this.surcharges.map((x: any) => x instanceof Surcharge ? x : new Surcharge(x));
+    return this.surcharges;
+  }
 }

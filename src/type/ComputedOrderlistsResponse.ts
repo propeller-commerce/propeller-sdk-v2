@@ -19,4 +19,29 @@ export class ComputedOrderlistsResponse {
   constructor(data: Partial<ComputedOrderlistsResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `positiveOrderlistsProductIds`. */
+  getPositiveOrderlistsProductIds(): number[] {
+    return this.positiveOrderlistsProductIds;
+  }
+  /** Returns `negativeOrderListsProductIds`. */
+  getNegativeOrderListsProductIds(): number[] {
+    return this.negativeOrderListsProductIds;
+  }
+  /** Returns `positiveOrderListsClusterIds`. */
+  getPositiveOrderListsClusterIds(): number[] {
+    return this.positiveOrderListsClusterIds;
+  }
+  /** Returns `negativeOrderListsClusterIds`. */
+  getNegativeOrderListsClusterIds(): number[] {
+    return this.negativeOrderListsClusterIds;
+  }
+  /** Returns `positiveOrderlistsCount`. */
+  getPositiveOrderlistsCount(): number {
+    return this.positiveOrderlistsCount;
+  }
+  /** Returns `negativeOrderlistsCount`. */
+  getNegativeOrderlistsCount(): number {
+    return this.negativeOrderlistsCount;
+  }
 }

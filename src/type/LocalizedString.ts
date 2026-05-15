@@ -9,4 +9,13 @@ export class LocalizedString {
   constructor(data: Partial<LocalizedString> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `language`. */
+  getLanguage(): string {
+    return this.language;
+  }
+  /** Returns `value`. */
+  getValue(): string | undefined {
+    return this.value;
+  }
 }

@@ -15,4 +15,21 @@ export class ClaimsResetAllResponse {
   constructor(data: Partial<ClaimsResetAllResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `successCount`. */
+  getSuccessCount(): number {
+    return this.successCount;
+  }
+  /** Returns `errorCount`. */
+  getErrorCount(): number {
+    return this.errorCount;
+  }
+  /** Returns `totalProcessed`. */
+  getTotalProcessed(): number {
+    return this.totalProcessed;
+  }
+  /** Returns `completed`. */
+  getCompleted(): boolean {
+    return this.completed;
+  }
 }

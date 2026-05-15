@@ -33,4 +33,62 @@ export class DocumentTemplate {
   constructor(data: Partial<DocumentTemplate> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns the content for the given language, falling back to NL. */
+  getContent(language: string = 'NL'): string | undefined {
+    const arr = this.contents;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.content;
+  }
+  /** Returns the name for the given language, falling back to NL. */
+  getName(language: string = 'NL'): string | undefined {
+    const arr = this.names;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `customQuery`. */
+  getCustomQuery(): string | undefined {
+    return this.customQuery;
+  }
+  /** Returns `queryVariables`. */
+  getQueryVariables(): string | undefined {
+    return this.queryVariables;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `createdBy`. */
+  getCreatedBy(): number | undefined {
+    return this.createdBy;
+  }
+  /** Returns `lastModifiedBy`. */
+  getLastModifiedBy(): number | undefined {
+    return this.lastModifiedBy;
+  }
+  /** Returns the fileName for the given language, falling back to NL. */
+  getFileName(language: string = 'NL'): string | undefined {
+    const arr = this.fileNames;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `isDefaultOrderPdf`. */
+  getIsDefaultOrderPdf(): boolean {
+    return this.isDefaultOrderPdf;
+  }
+  /** Returns `isDefaultQuotePdf`. */
+  getIsDefaultQuotePdf(): boolean {
+    return this.isDefaultQuotePdf;
+  }
 }

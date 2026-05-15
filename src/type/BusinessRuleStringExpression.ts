@@ -22,4 +22,25 @@ export class BusinessRuleStringExpression {
   constructor(data: Partial<BusinessRuleStringExpression> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): BusinessRuleExpressionTypes {
+    return this.type;
+  }
+  /** Returns `operator`. */
+  getOperator(): BusinessRuleStringExpressionOperators {
+    return this.operator;
+  }
+  /** Returns `string`. */
+  getString(): string {
+    return this.string;
+  }
+  /** Returns `path`. */
+  getPath(): string | undefined {
+    return this.path;
+  }
 }

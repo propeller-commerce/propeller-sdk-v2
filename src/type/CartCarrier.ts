@@ -15,4 +15,25 @@ export class CartCarrier {
   constructor(data: Partial<CartCarrier> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): number {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `logo`. */
+  getLogo(): string | undefined {
+    return this.logo;
+  }
+  /** Returns `price`. */
+  getPrice(): number {
+    return this.price;
+  }
+  /** Returns `deliveryDeadline`. */
+  getDeliveryDeadline(): string | undefined {
+    return this.deliveryDeadline;
+  }
 }

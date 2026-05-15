@@ -24,4 +24,41 @@ export class CartVoucher {
   constructor(data: Partial<CartVoucher> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `code`. */
+  getCode(): string {
+    return this.code;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `description`. */
+  getDescription(): string {
+    return this.description;
+  }
+  /** Returns `ruleId`. */
+  getRuleId(): number {
+    return this.ruleId;
+  }
+  /** Returns `redeemed`. */
+  getRedeemed(): YesNo {
+    return this.redeemed;
+  }
+  /** Returns `combinable`. */
+  getCombinable(): YesNo {
+    return this.combinable;
+  }
+  /** Returns `partialRedemption`. */
+  getPartialRedemption(): YesNo {
+    return this.partialRedemption;
+  }
+  /** Returns `available`. */
+  getAvailable(): number {
+    return this.available;
+  }
+  /** Returns `remaining`. */
+  getRemaining(): number {
+    return this.remaining;
+  }
 }

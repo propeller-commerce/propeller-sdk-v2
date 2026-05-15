@@ -24,4 +24,41 @@ export class CartUnOrderableItem {
   constructor(data: Partial<CartUnOrderableItem> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `itemId`. */
+  getItemId(): string {
+    return this.itemId;
+  }
+  /** Returns `parentItemUUID`. */
+  getParentItemUUID(): string | undefined {
+    return this.parentItemUUID;
+  }
+  /** Returns `priceMode`. */
+  getPriceMode(): PriceMode | undefined {
+    return this.priceMode;
+  }
+  /** Returns `quantity`. */
+  getQuantity(): number | undefined {
+    return this.quantity;
+  }
+  /** Returns `price`. */
+  getPrice(): number | undefined {
+    return this.price;
+  }
+  /** Returns `notes`. */
+  getNotes(): string | undefined {
+    return this.notes;
+  }
+  /** Returns `productId`. */
+  getProductId(): number {
+    return this.productId;
+  }
+  /** Returns `clusterId`. */
+  getClusterId(): number | undefined {
+    return this.clusterId;
+  }
+  /** Returns `bundleId`. */
+  getBundleId(): string | undefined {
+    return this.bundleId;
+  }
 }

@@ -14,4 +14,21 @@ export class TenderItemIncentive {
   constructor(data: Partial<TenderItemIncentive> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `name`. */
+  getName(): string | undefined {
+    return this.name;
+  }
+  /** Returns `quantity`. */
+  getQuantity(): number {
+    return this.quantity;
+  }
+  /** Returns `price`. */
+  getPrice(): number {
+    return this.price;
+  }
+  /** Returns `code`. */
+  getCode(): OrderItemIncentiveCode {
+    return this.code;
+  }
 }

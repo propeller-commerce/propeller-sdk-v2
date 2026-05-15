@@ -11,4 +11,21 @@ export class ClusterAssignProductsResponse {
   constructor(data: Partial<ClusterAssignProductsResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `cluster` as a Cluster instance (coerced on first access). */
+  getCluster(): Cluster | undefined {
+    if (this.cluster == null) return undefined;
+    if (!(this.cluster instanceof Cluster)) {
+      this.cluster = new Cluster(this.cluster as any);
+    }
+    return this.cluster;
+  }
+  /** Returns `actions` as a ClusterProductsActionResponse instance (coerced on first access). */
+  getActions(): ClusterProductsActionResponse | undefined {
+    if (this.actions == null) return undefined;
+    if (!(this.actions instanceof ClusterProductsActionResponse)) {
+      this.actions = new ClusterProductsActionResponse(this.actions as any);
+    }
+    return this.actions;
+  }
 }

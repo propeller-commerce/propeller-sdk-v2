@@ -53,4 +53,71 @@ export class Surcharge {
   constructor(data: Partial<Surcharge> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns the name for the given language, falling back to NL. */
+  getName(language: string = 'NL'): string | undefined {
+    const arr = this.name;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the description for the given language, falling back to NL. */
+  getDescription(language: string = 'NL'): string | undefined {
+    const arr = this.description;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `type`. */
+  getType(): SurchargeType {
+    return this.type;
+  }
+  /** Returns `value`. */
+  getValue(): number {
+    return this.value;
+  }
+  /** Returns `taxCode`. */
+  getTaxCode(): Taxcode {
+    return this.taxCode;
+  }
+  /** Returns `taxZone`. */
+  getTaxZone(): string {
+    return this.taxZone;
+  }
+  /** Returns `enabled`. */
+  getEnabled(): boolean {
+    return this.enabled;
+  }
+  /** Returns `validFrom`. */
+  getValidFrom(): string | undefined {
+    return this.validFrom;
+  }
+  /** Returns `validTo`. */
+  getValidTo(): string | undefined {
+    return this.validTo;
+  }
+  /** Returns `createdBy`. */
+  getCreatedBy(): number | undefined {
+    return this.createdBy;
+  }
+  /** Returns `changedBy`. */
+  getChangedBy(): number | undefined {
+    return this.changedBy;
+  }
+  /** Returns `dateCreated`. */
+  getDateCreated(): string {
+    return this.dateCreated;
+  }
+  /** Returns `dateChanged`. */
+  getDateChanged(): string {
+    return this.dateChanged;
+  }
+  /** Returns `shopId`. */
+  getShopId(): number | undefined {
+    return this.shopId;
+  }
 }

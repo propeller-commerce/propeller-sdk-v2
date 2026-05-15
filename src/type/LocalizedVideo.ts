@@ -11,4 +11,17 @@ export class LocalizedVideo {
   constructor(data: Partial<LocalizedVideo> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `language`. */
+  getLanguage(): string {
+    return this.language;
+  }
+  /** Returns `uri`. */
+  getUri(): string {
+    return this.uri;
+  }
+  /** Returns `mimeType`. */
+  getMimeType(): string | undefined {
+    return this.mimeType;
+  }
 }

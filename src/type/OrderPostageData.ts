@@ -29,4 +29,53 @@ export class OrderPostageData {
   constructor(data: Partial<OrderPostageData> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `method`. */
+  getMethod(): string {
+    return this.method;
+  }
+  /** Returns `taxPercentage`. */
+  getTaxPercentage(): number {
+    return this.taxPercentage;
+  }
+  /** Returns `requestDate`. */
+  getRequestDate(): string | undefined {
+    return this.requestDate;
+  }
+  /** Returns `gross`. */
+  getGross(): number {
+    return this.gross;
+  }
+  /** Returns `net`. */
+  getNet(): number {
+    return this.net;
+  }
+  /** Returns `tax`. */
+  getTax(): number {
+    return this.tax;
+  }
+  /** Returns `partialDeliveryAllowed`. */
+  getPartialDeliveryAllowed(): YesNo | undefined {
+    return this.partialDeliveryAllowed;
+  }
+  /** Returns `pickUpLocationId`. */
+  getPickUpLocationId(): number | undefined {
+    return this.pickUpLocationId;
+  }
+  /** Returns `carrier`. */
+  getCarrier(): string | undefined {
+    return this.carrier;
+  }
+  /** Returns `overruled`. */
+  getOverruled(): YesNo | undefined {
+    return this.overruled;
+  }
+  /** Returns `warehouse` as a Warehouse instance (coerced on first access). */
+  getWarehouse(): Warehouse | undefined {
+    if (this.warehouse == null) return undefined;
+    if (!(this.warehouse instanceof Warehouse)) {
+      this.warehouse = new Warehouse(this.warehouse as any);
+    }
+    return this.warehouse;
+  }
 }

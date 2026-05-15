@@ -8,4 +8,11 @@ export class MultiFactor {
   constructor(data: Partial<MultiFactor> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `enrolledFactors` as EnrolledFactor instances (coerced on first access). */
+  getEnrolledFactors(): EnrolledFactor[] | undefined {
+    if (!this.enrolledFactors) return undefined;
+    this.enrolledFactors = this.enrolledFactors.map((x: any) => x instanceof EnrolledFactor ? x : new EnrolledFactor(x));
+    return this.enrolledFactors;
+  }
 }

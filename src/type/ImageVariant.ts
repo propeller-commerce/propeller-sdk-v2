@@ -13,4 +13,21 @@ export class ImageVariant {
   constructor(data: Partial<ImageVariant> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `language`. */
+  getLanguage(): string {
+    return this.language;
+  }
+  /** Returns `url`. */
+  getUrl(): string {
+    return this.url;
+  }
+  /** Returns `mimeType`. */
+  getMimeType(): string {
+    return this.mimeType;
+  }
 }

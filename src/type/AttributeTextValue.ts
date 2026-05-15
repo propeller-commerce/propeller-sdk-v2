@@ -17,4 +17,20 @@ export class AttributeTextValue implements AttributeValue {
   /** Attribute value (delegates to textValues) */
   get value(): any { return this.textValues; }
   set value(val: any) { this.textValues = val; }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): AttributeType {
+    return this.type;
+  }
+  /** Returns the textValue for the given language, falling back to NL. */
+  getTextValue(language: string = 'NL'): string[] | undefined {
+    const arr = this.textValues;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.values;
+  }
 }

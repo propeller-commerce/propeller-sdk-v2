@@ -27,4 +27,45 @@ export class Tax {
   constructor(data: Partial<Tax> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `shopId`. */
+  getShopId(): number {
+    return this.shopId;
+  }
+  /** Returns `code`. */
+  getCode(): Taxcode | undefined {
+    return this.code;
+  }
+  /** Returns `zone`. */
+  getZone(): string {
+    return this.zone;
+  }
+  /** Returns `percentage`. */
+  getPercentage(): number | undefined {
+    return this.percentage;
+  }
+  /** Returns `exportCode`. */
+  getExportCode(): string | undefined {
+    return this.exportCode;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `createdBy`. */
+  getCreatedBy(): number | undefined {
+    return this.createdBy;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `lastModifiedBy`. */
+  getLastModifiedBy(): number | undefined {
+    return this.lastModifiedBy;
+  }
 }

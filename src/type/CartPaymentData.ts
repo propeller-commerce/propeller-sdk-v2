@@ -22,4 +22,37 @@ export class CartPaymentData {
   constructor(data: Partial<CartPaymentData> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `method`. */
+  getMethod(): string {
+    return this.method;
+  }
+  /** Returns `price`. */
+  getPrice(): number | undefined {
+    return this.price;
+  }
+  /** Returns `priceNet`. */
+  getPriceNet(): number | undefined {
+    return this.priceNet;
+  }
+  /** Returns `priceMode`. */
+  getPriceMode(): PriceMode | undefined {
+    return this.priceMode;
+  }
+  /** Returns `tax`. */
+  getTax(): number {
+    return this.tax;
+  }
+  /** Returns `taxPercentage`. */
+  getTaxPercentage(): number | undefined {
+    return this.taxPercentage;
+  }
+  /** Returns `status`. */
+  getStatus(): string | undefined {
+    return this.status;
+  }
+  /** Returns `statusDate`. */
+  getStatusDate(): string | undefined {
+    return this.statusDate;
+  }
 }

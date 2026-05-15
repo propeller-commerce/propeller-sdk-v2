@@ -12,4 +12,17 @@ export class ClusterDrillDown {
   constructor(data: Partial<ClusterDrillDown> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `attributeId`. */
+  getAttributeId(): string {
+    return this.attributeId;
+  }
+  /** Returns `priority`. */
+  getPriority(): number {
+    return this.priority;
+  }
+  /** Returns `displayType`. */
+  getDisplayType(): ClusterDrillDownDisplayType {
+    return this.displayType;
+  }
 }

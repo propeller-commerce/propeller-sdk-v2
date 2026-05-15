@@ -13,4 +13,21 @@ export class ClusterProductsActionData {
   constructor(data: Partial<ClusterProductsActionData> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `message`. */
+  getMessage(): string {
+    return this.message;
+  }
+  /** Returns `success`. */
+  getSuccess(): boolean {
+    return this.success;
+  }
+  /** Returns `productId`. */
+  getProductId(): number {
+    return this.productId;
+  }
+  /** Returns `action`. */
+  getAction(): string {
+    return this.action;
+  }
 }

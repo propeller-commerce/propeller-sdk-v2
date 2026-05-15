@@ -7,4 +7,9 @@ export class TenderProcessResponse {
   constructor(data: Partial<TenderProcessResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `orderId`. */
+  getOrderId(): number {
+    return this.orderId;
+  }
 }

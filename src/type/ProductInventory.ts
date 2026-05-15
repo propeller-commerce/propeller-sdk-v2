@@ -18,4 +18,31 @@ export class ProductInventory {
   constructor(data: Partial<ProductInventory> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `productId`. */
+  getProductId(): number {
+    return this.productId;
+  }
+  /** Returns `totalQuantity`. */
+  getTotalQuantity(): number {
+    return this.totalQuantity;
+  }
+  /** Returns `supplierQuantity`. */
+  getSupplierQuantity(): number {
+    return this.supplierQuantity;
+  }
+  /** Returns `localQuantity`. */
+  getLocalQuantity(): number {
+    return this.localQuantity;
+  }
+  /** Returns `nextDeliveryDate`. */
+  getNextDeliveryDate(): string | undefined {
+    return this.nextDeliveryDate;
+  }
+  /** Returns `balance` as Inventory instances (coerced on first access). */
+  getBalance(): Inventory[] | undefined {
+    if (!this.balance) return undefined;
+    this.balance = this.balance.map((x: any) => x instanceof Inventory ? x : new Inventory(x));
+    return this.balance;
+  }
 }

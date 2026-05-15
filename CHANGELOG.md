@@ -4,6 +4,34 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.8.0] - 2026-05-15
+
+Generates getter methods on every response class in `src/type/`. Each property gets one matching getter; behavior depends on the property's type. The 0.7.0 release restored the classes; this one fills them in.
+
+### Added
+
+- **Localized-array getters**: properties typed as `LocalizedString[]`, `LocalizedStringArray[]`, `LocalizedImage[]`, `LocalizedDocument[]`, `LocalizedAttachment[]`, `LocalizedVideo[]`, or `LocalizedTemplateContent[]` get a `getX(language: string = 'NL')` method. The method matches the requested language, falls back to `'NL'`, and returns the inner value (`.value` / `.values` / `.originalUrl` / `.uri` / `.content` depending on the container). Plural field names are singularized (`product.names` → `product.getName('NL')`). 87 getters of this form.
+- **Class-typed getters**: properties whose type is another `src/type/` class (`Foo` or `Foo[]`) get a coercing+memoizing getter. First call wraps a plain object via `new Foo(...)` and writes it back to the field; subsequent calls return the same instance. 173 scalar + 153 array getters of this form (326 total).
+- **Pass-through getters**: every other property (scalars, enums, interface refs, primitive arrays) gets a one-line `getX(): T { return this.x; }` for a uniform method-based API. 1,878 getters.
+- **Test coverage**: 5 new tests in `tests/types/Getters.test.ts` covering language matching, NL fallback, undefined behavior, class coercion + memoization, and scalar pass-through.
+
+Total: **2,291 getters** across **269 classes**.
+
+### Unchanged
+
+- The 6 `Attribute*Value` classes keep their existing `get value() / set value()` accessors. The new generated getters for their data fields (`id`, `type`, `textValues`, etc.) sit alongside.
+- `JSON.stringify` output is unchanged — methods live on the prototype, not as own enumerable properties.
+- Service return shape is unchanged. Methods come along for free now that the classes have them.
+- The base `AttributeValue` is still an interface (074d6fd shim — no methods).
+
+### Migration
+
+- Consumers can continue using property access (`product.name`, `cart.items[0].price`) without change.
+- New surface area: `product.getName('NL')` for localized resolution, `cart.items[0].getPrice()` for class-instance coercion (so calling further methods on the result works without manual wrapping).
+- Re-hydrating from JSON still requires `new Product(serialized)` to get the methods back — `JSON.parse` alone yields plain objects.
+
+---
+
 ## [0.7.0] - 2026-05-15
 
 Restores the wrapper-class pattern that 0.5.0 removed. The reason: classes are the natural home for instance methods, and we plan to add per-property getters (e.g. `Product.getName(language = 'NL')` for `LocalizedString[]` fields, `Product.getPrice()` returning a typed `ProductPrice`) in follow-up work. Interfaces have no runtime presence, so those methods had nowhere to live.

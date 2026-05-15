@@ -26,4 +26,45 @@ export class TenderTotal {
   constructor(data: Partial<TenderTotal> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `subTotalGross`. */
+  getSubTotalGross(): number {
+    return this.subTotalGross;
+  }
+  /** Returns `subTotalNet`. */
+  getSubTotalNet(): number {
+    return this.subTotalNet;
+  }
+  /** Returns `discount`. */
+  getDiscount(): number | undefined {
+    return this.discount;
+  }
+  /** Returns `discountPercentage`. */
+  getDiscountPercentage(): number | undefined {
+    return this.discountPercentage;
+  }
+  /** Returns `discountType`. */
+  getDiscountType(): OrderDiscountType | undefined {
+    return this.discountType;
+  }
+  /** Returns `totalNet`. */
+  getTotalNet(): number {
+    return this.totalNet;
+  }
+  /** Returns `totalGross`. */
+  getTotalGross(): number {
+    return this.totalGross;
+  }
+  /** Returns `discountNet`. */
+  getDiscountNet(): number {
+    return this.discountNet;
+  }
+  /** Returns `discountGross`. */
+  getDiscountGross(): number {
+    return this.discountGross;
+  }
+  /** Returns `totalTax`. */
+  getTotalTax(): number {
+    return this.totalTax;
+  }
 }

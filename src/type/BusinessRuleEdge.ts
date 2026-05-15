@@ -15,4 +15,21 @@ export class BusinessRuleEdge {
   constructor(data: Partial<BusinessRuleEdge> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `sourceId`. */
+  getSourceId(): string | number {
+    return this.sourceId;
+  }
+  /** Returns `targetId`. */
+  getTargetId(): string | number {
+    return this.targetId;
+  }
+  /** Returns `type`. */
+  getType(): string {
+    return this.type;
+  }
 }

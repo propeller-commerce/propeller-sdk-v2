@@ -15,4 +15,21 @@ export class ClusterBulkMoveError {
   constructor(data: Partial<ClusterBulkMoveError> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `code`. */
+  getCode(): ClusterBulkMoveErrorCode {
+    return this.code;
+  }
+  /** Returns `messages`. */
+  getMessages(): string[] {
+    return this.messages;
+  }
+  /** Returns `record`. */
+  getRecord(): string | undefined {
+    return this.record;
+  }
+  /** Returns `rowNumber`. */
+  getRowNumber(): number | undefined {
+    return this.rowNumber;
+  }
 }

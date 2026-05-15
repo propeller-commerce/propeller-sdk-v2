@@ -12,4 +12,17 @@ export class UpdateClusterConfigSettingResponse {
   constructor(data: Partial<UpdateClusterConfigSettingResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): number | undefined {
+    return this.id;
+  }
+  /** Returns `displayType`. */
+  getDisplayType(): ClusterConfigSettingDisplayType | undefined {
+    return this.displayType;
+  }
+  /** Returns `priority`. */
+  getPriority(): number | undefined {
+    return this.priority;
+  }
 }

@@ -34,4 +34,63 @@ export class Warehouse {
   constructor(data: Partial<Warehouse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `addressId`. */
+  getAddressId(): number | undefined {
+    return this.addressId;
+  }
+  /** Returns `address` as a WarehouseAddress instance (coerced on first access). */
+  getAddress(): WarehouseAddress | undefined {
+    if (this.address == null) return undefined;
+    if (!(this.address instanceof WarehouseAddress)) {
+      this.address = new WarehouseAddress(this.address as any);
+    }
+    return this.address;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `description`. */
+  getDescription(): string {
+    return this.description;
+  }
+  /** Returns `notes`. */
+  getNotes(): string {
+    return this.notes;
+  }
+  /** Returns `isActive`. */
+  getIsActive(): boolean {
+    return this.isActive;
+  }
+  /** Returns `isStore`. */
+  getIsStore(): boolean {
+    return this.isStore;
+  }
+  /** Returns `isPickupLocation`. */
+  getIsPickupLocation(): boolean {
+    return this.isPickupLocation;
+  }
+  /** Returns `shopId`. */
+  getShopId(): number | undefined {
+    return this.shopId;
+  }
+  /** Returns `businessHours` as BusinessHours instances (coerced on first access). */
+  getBusinessHours(): BusinessHours[] {
+    if (!this.businessHours) return [];
+    this.businessHours = this.businessHours.map((x: any) => x instanceof BusinessHours ? x : new BusinessHours(x));
+    return this.businessHours;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
 }

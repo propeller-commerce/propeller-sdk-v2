@@ -58,4 +58,116 @@ export class Ticket {
   constructor(data: Partial<Ticket> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns the title for the given language, falling back to NL. */
+  getTitle(language: string = 'NL'): string | undefined {
+    const arr = this.titles;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the description for the given language, falling back to NL. */
+  getDescription(language: string = 'NL'): string | undefined {
+    const arr = this.descriptions;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns the buttonLabel for the given language, falling back to NL. */
+  getButtonLabel(language: string = 'NL'): string | undefined {
+    const arr = this.buttonLabels;
+    if (!arr || arr.length === 0) return undefined;
+    const entry = arr.find(e => e.language === language) ?? arr.find(e => e.language === 'NL');
+    return entry?.value;
+  }
+  /** Returns `type`. */
+  getType(): string | undefined {
+    return this.type;
+  }
+  /** Returns `status`. */
+  getStatus(): TicketStatus {
+    return this.status;
+  }
+  /** Returns `assignedToAdminUserId`. */
+  getAssignedToAdminUserId(): number | undefined {
+    return this.assignedToAdminUserId;
+  }
+  /** Returns `contactId`. */
+  getContactId(): number | undefined {
+    return this.contactId;
+  }
+  /** Returns `customerId`. */
+  getCustomerId(): number | undefined {
+    return this.customerId;
+  }
+  /** Returns `productId`. */
+  getProductId(): number | undefined {
+    return this.productId;
+  }
+  /** Returns `clusterId`. */
+  getClusterId(): number | undefined {
+    return this.clusterId;
+  }
+  /** Returns `orderId`. */
+  getOrderId(): number | undefined {
+    return this.orderId;
+  }
+  /** Returns `companyId`. */
+  getCompanyId(): number | undefined {
+    return this.companyId;
+  }
+  /** Returns `email`. */
+  getEmail(): string | undefined {
+    return this.email;
+  }
+  /** Returns `phone`. */
+  getPhone(): string | undefined {
+    return this.phone;
+  }
+  /** Returns `externalUrl`. */
+  getExternalUrl(): string | undefined {
+    return this.externalUrl;
+  }
+  /** Returns `sources` as Source instances (coerced on first access). */
+  getSources(): Source[] | undefined {
+    if (!this.sources) return undefined;
+    this.sources = this.sources.map((x: any) => x instanceof Source ? x : new Source(x));
+    return this.sources;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `pickedUpAt`. */
+  getPickedUpAt(): string | undefined {
+    return this.pickedUpAt;
+  }
+  /** Returns `completedAt`. */
+  getCompletedAt(): string | undefined {
+    return this.completedAt;
+  }
+  /** Returns `lastModifiedByAdminUserId`. */
+  getLastModifiedByAdminUserId(): number | undefined {
+    return this.lastModifiedByAdminUserId;
+  }
+  /** Returns `createdByAdminUserId`. */
+  getCreatedByAdminUserId(): number | undefined {
+    return this.createdByAdminUserId;
+  }
+  /** Returns `assignedToAdminUser` as a AdminUser instance (coerced on first access). */
+  getAssignedToAdminUser(): AdminUser | undefined {
+    if (this.assignedToAdminUser == null) return undefined;
+    if (!(this.assignedToAdminUser instanceof AdminUser)) {
+      this.assignedToAdminUser = new AdminUser(this.assignedToAdminUser as any);
+    }
+    return this.assignedToAdminUser;
+  }
 }

@@ -11,4 +11,17 @@ export class RegisterContactResponse {
   constructor(data: Partial<RegisterContactResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `contact`. */
+  getContact(): IBaseUser {
+    return this.contact;
+  }
+  /** Returns `session` as a RegisterUserSession instance (coerced on first access). */
+  getSession(): RegisterUserSession | undefined {
+    if (this.session == null) return undefined;
+    if (!(this.session instanceof RegisterUserSession)) {
+      this.session = new RegisterUserSession(this.session as any);
+    }
+    return this.session;
+  }
 }

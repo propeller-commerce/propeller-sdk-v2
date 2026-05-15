@@ -13,4 +13,21 @@ export class CategoryActionsData {
   constructor(data: Partial<CategoryActionsData> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `message`. */
+  getMessage(): string {
+    return this.message;
+  }
+  /** Returns `success`. */
+  getSuccess(): boolean {
+    return this.success;
+  }
+  /** Returns `productId`. */
+  getProductId(): number | undefined {
+    return this.productId;
+  }
+  /** Returns `clusterId`. */
+  getClusterId(): number | undefined {
+    return this.clusterId;
+  }
 }

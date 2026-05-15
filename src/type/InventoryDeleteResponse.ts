@@ -8,4 +8,9 @@ export class InventoryDeleteResponse {
   constructor(data: Partial<InventoryDeleteResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `messages`. */
+  getMessages(): string[] {
+    return this.messages;
+  }
 }

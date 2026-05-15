@@ -10,4 +10,15 @@ export class CategoryActionsResponse {
   constructor(data: Partial<CategoryActionsResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `data` as CategoryActionsData instances (coerced on first access). */
+  getData(): CategoryActionsData[] {
+    if (!this.data) return [];
+    this.data = this.data.map((x: any) => x instanceof CategoryActionsData ? x : new CategoryActionsData(x));
+    return this.data;
+  }
+  /** Returns `messages`. */
+  getMessages(): string[] | undefined {
+    return this.messages;
+  }
 }

@@ -16,4 +16,17 @@ export class AttributeDecimalValue implements AttributeValue {
   /** Attribute value (delegates to decimalValue) */
   get value(): any { return this.decimalValue; }
   set value(val: any) { this.decimalValue = val; }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): AttributeType {
+    return this.type;
+  }
+  /** Returns `decimalValue`. */
+  getDecimalValue(): number {
+    return this.decimalValue;
+  }
 }

@@ -24,4 +24,29 @@ export class BusinessRuleArrayExpression {
   constructor(data: Partial<BusinessRuleArrayExpression> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): BusinessRuleExpressionTypes {
+    return this.type;
+  }
+  /** Returns `operator`. */
+  getOperator(): BusinessRuleArrayExpressionOperators {
+    return this.operator;
+  }
+  /** Returns `string`. */
+  getString(): string | undefined {
+    return this.string;
+  }
+  /** Returns `number`. */
+  getNumber(): number | undefined {
+    return this.number;
+  }
+  /** Returns `path`. */
+  getPath(): string | undefined {
+    return this.path;
+  }
 }

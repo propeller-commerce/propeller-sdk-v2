@@ -24,4 +24,41 @@ export class OrderPaymentData {
   constructor(data: Partial<OrderPaymentData> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `net`. */
+  getNet(): number {
+    return this.net;
+  }
+  /** Returns `gross`. */
+  getGross(): number {
+    return this.gross;
+  }
+  /** Returns `tax`. */
+  getTax(): number {
+    return this.tax;
+  }
+  /** Returns `taxPercentage`. */
+  getTaxPercentage(): number {
+    return this.taxPercentage;
+  }
+  /** Returns `method`. */
+  getMethod(): string {
+    return this.method;
+  }
+  /** Returns `status`. */
+  getStatus(): string | undefined {
+    return this.status;
+  }
+  /** Returns `statusDate`. */
+  getStatusDate(): string | undefined {
+    return this.statusDate;
+  }
+  /** Returns `accountingId`. */
+  getAccountingId(): string | undefined {
+    return this.accountingId;
+  }
+  /** Returns `overruled`. */
+  getOverruled(): YesNo | undefined {
+    return this.overruled;
+  }
 }

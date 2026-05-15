@@ -7,4 +7,9 @@ export class DeleteMediaVideoResponse {
   constructor(data: Partial<DeleteMediaVideoResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `mediaId`. */
+  getMediaId(): string {
+    return this.mediaId;
+  }
 }

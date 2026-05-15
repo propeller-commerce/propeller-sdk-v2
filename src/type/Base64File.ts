@@ -11,4 +11,17 @@ export class Base64File {
   constructor(data: Partial<Base64File> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `base64`. */
+  getBase64(): string {
+    return this.base64;
+  }
+  /** Returns `contentType`. */
+  getContentType(): string {
+    return this.contentType;
+  }
+  /** Returns `fileName`. */
+  getFileName(): string {
+    return this.fileName;
+  }
 }

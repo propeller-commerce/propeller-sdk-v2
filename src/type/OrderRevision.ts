@@ -31,4 +31,61 @@ export class OrderRevision {
   constructor(data: Partial<OrderRevision> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `orderId`. */
+  getOrderId(): number {
+    return this.orderId;
+  }
+  /** Returns `revisionNumber`. */
+  getRevisionNumber(): number {
+    return this.revisionNumber;
+  }
+  /** Returns `createdByContactId`. */
+  getCreatedByContactId(): number | undefined {
+    return this.createdByContactId;
+  }
+  /** Returns `createdByCustomerId`. */
+  getCreatedByCustomerId(): number | undefined {
+    return this.createdByCustomerId;
+  }
+  /** Returns `createdByAdminUserId`. */
+  getCreatedByAdminUserId(): number | undefined {
+    return this.createdByAdminUserId;
+  }
+  /** Returns `createdByAdminUser` as a AdminUser instance (coerced on first access). */
+  getCreatedByAdminUser(): AdminUser | undefined {
+    if (this.createdByAdminUser == null) return undefined;
+    if (!(this.createdByAdminUser instanceof AdminUser)) {
+      this.createdByAdminUser = new AdminUser(this.createdByAdminUser as any);
+    }
+    return this.createdByAdminUser;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `createdFromRevisionNumber`. */
+  getCreatedFromRevisionNumber(): number | undefined {
+    return this.createdFromRevisionNumber;
+  }
+  /** Returns `snapshot`. */
+  getSnapshot(): any {
+    return this.snapshot;
+  }
+  /** Returns `createdByContact` as a Contact instance (coerced on first access). */
+  getCreatedByContact(): Contact | undefined {
+    if (this.createdByContact == null) return undefined;
+    if (!(this.createdByContact instanceof Contact)) {
+      this.createdByContact = new Contact(this.createdByContact as any);
+    }
+    return this.createdByContact;
+  }
+  /** Returns `createdByCustomer` as a Customer instance (coerced on first access). */
+  getCreatedByCustomer(): Customer | undefined {
+    if (this.createdByCustomer == null) return undefined;
+    if (!(this.createdByCustomer instanceof Customer)) {
+      this.createdByCustomer = new Customer(this.createdByCustomer as any);
+    }
+    return this.createdByCustomer;
+  }
 }

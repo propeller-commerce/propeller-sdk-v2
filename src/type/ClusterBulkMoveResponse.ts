@@ -12,4 +12,15 @@ export class ClusterBulkMoveResponse {
   constructor(data: Partial<ClusterBulkMoveResponse> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `movedCount`. */
+  getMovedCount(): number {
+    return this.movedCount;
+  }
+  /** Returns `errors` as ClusterBulkMoveError instances (coerced on first access). */
+  getErrors(): ClusterBulkMoveError[] {
+    if (!this.errors) return [];
+    this.errors = this.errors.map((x: any) => x instanceof ClusterBulkMoveError ? x : new ClusterBulkMoveError(x));
+    return this.errors;
+  }
 }

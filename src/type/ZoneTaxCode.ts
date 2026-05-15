@@ -18,4 +18,29 @@ export class ZoneTaxCode {
   constructor(data: Partial<ZoneTaxCode> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `priceId`. */
+  getPriceId(): string {
+    return this.priceId;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `zone`. */
+  getZone(): string {
+    return this.zone;
+  }
+  /** Returns `taxCode`. */
+  getTaxCode(): Taxcode {
+    return this.taxCode;
+  }
 }

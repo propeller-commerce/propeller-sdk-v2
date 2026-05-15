@@ -22,4 +22,41 @@ export class PurchaseAuthorizationConfig {
   constructor(data: Partial<PurchaseAuthorizationConfig> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `purchaseRole`. */
+  getPurchaseRole(): PurchaseRole {
+    return this.purchaseRole;
+  }
+  /** Returns `authorizationLimit`. */
+  getAuthorizationLimit(): number | undefined {
+    return this.authorizationLimit;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `company` as a Company instance (coerced on first access). */
+  getCompany(): Company | undefined {
+    if (this.company == null) return undefined;
+    if (!(this.company instanceof Company)) {
+      this.company = new Company(this.company as any);
+    }
+    return this.company;
+  }
+  /** Returns `contact` as a Contact instance (coerced on first access). */
+  getContact(): Contact | undefined {
+    if (this.contact == null) return undefined;
+    if (!(this.contact instanceof Contact)) {
+      this.contact = new Contact(this.contact as any);
+    }
+    return this.contact;
+  }
 }

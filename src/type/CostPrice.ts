@@ -17,4 +17,29 @@ export class CostPrice {
   constructor(data: Partial<CostPrice> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string {
+    return this.id;
+  }
+  /** Returns `priceId`. */
+  getPriceId(): string {
+    return this.priceId;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string {
+    return this.createdAt;
+  }
+  /** Returns `lastModifiedAt`. */
+  getLastModifiedAt(): string {
+    return this.lastModifiedAt;
+  }
+  /** Returns `quantityFrom`. */
+  getQuantityFrom(): number {
+    return this.quantityFrom;
+  }
+  /** Returns `value`. */
+  getValue(): number {
+    return this.value;
+  }
 }

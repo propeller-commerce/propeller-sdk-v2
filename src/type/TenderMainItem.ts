@@ -98,4 +98,191 @@ export class TenderMainItem implements ITenderBaseItem {
   constructor(data: Partial<TenderMainItem> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `productId`. */
+  getProductId(): number | undefined {
+    return this.productId;
+  }
+  /** Returns `product` as a Product instance (coerced on first access). */
+  getProduct(): Product | undefined {
+    if (this.product == null) return undefined;
+    if (!(this.product instanceof Product)) {
+      this.product = new Product(this.product as any);
+    }
+    return this.product;
+  }
+  /** Returns `uuid`. */
+  getUuid(): string {
+    return this.uuid;
+  }
+  /** Returns `orderItemId`. */
+  getOrderItemId(): number | undefined {
+    return this.orderItemId;
+  }
+  /** Returns `name`. */
+  getName(): string {
+    return this.name;
+  }
+  /** Returns `sku`. */
+  getSku(): string {
+    return this.sku;
+  }
+  /** Returns `quantity`. */
+  getQuantity(): number {
+    return this.quantity;
+  }
+  /** Returns `supplier`. */
+  getSupplier(): string | undefined {
+    return this.supplier;
+  }
+  /** Returns `supplierCode`. */
+  getSupplierCode(): string | undefined {
+    return this.supplierCode;
+  }
+  /** Returns `price`. */
+  getPrice(): number {
+    return this.price;
+  }
+  /** Returns `priceNet`. */
+  getPriceNet(): number {
+    return this.priceNet;
+  }
+  /** Returns `totalPrice`. */
+  getTotalPrice(): number {
+    return this.totalPrice;
+  }
+  /** Returns `totalPriceNet`. */
+  getTotalPriceNet(): number {
+    return this.totalPriceNet;
+  }
+  /** Returns `taxCode`. */
+  getTaxCode(): Taxcode {
+    return this.taxCode;
+  }
+  /** Returns `taxPercentage`. */
+  getTaxPercentage(): number {
+    return this.taxPercentage;
+  }
+  /** Returns `customerDiscountPercentage`. */
+  getCustomerDiscountPercentage(): number {
+    return this.customerDiscountPercentage;
+  }
+  /** Returns `discountPercentage`. */
+  getDiscountPercentage(): number {
+    return this.discountPercentage;
+  }
+  /** Returns `totalDiscountPercentage`. */
+  getTotalDiscountPercentage(): number {
+    return this.totalDiscountPercentage;
+  }
+  /** Returns `marginAmount`. */
+  getMarginAmount(): number {
+    return this.marginAmount;
+  }
+  /** Returns `marginPercentage`. */
+  getMarginPercentage(): number {
+    return this.marginPercentage;
+  }
+  /** Returns `saleMarginAmount`. */
+  getSaleMarginAmount(): number {
+    return this.saleMarginAmount;
+  }
+  /** Returns `saleMarginPercentage`. */
+  getSaleMarginPercentage(): number {
+    return this.saleMarginPercentage;
+  }
+  /** Returns `attributedSaleDiscount`. */
+  getAttributedSaleDiscount(): number {
+    return this.attributedSaleDiscount;
+  }
+  /** Returns `attributedSaleMargin`. */
+  getAttributedSaleMargin(): number {
+    return this.attributedSaleMargin;
+  }
+  /** Returns `originalPrice`. */
+  getOriginalPrice(): number {
+    return this.originalPrice;
+  }
+  /** Returns `costPrice`. */
+  getCostPrice(): number {
+    return this.costPrice;
+  }
+  /** Returns `customerPrice`. */
+  getCustomerPrice(): number {
+    return this.customerPrice;
+  }
+  /** Returns `valuePoints`. */
+  getValuePoints(): number | undefined {
+    return this.valuePoints;
+  }
+  /** Returns `expectedDeliveryDate`. */
+  getExpectedDeliveryDate(): string | undefined {
+    return this.expectedDeliveryDate;
+  }
+  /** Returns `externalOrderitemId`. */
+  getExternalOrderitemId(): string | undefined {
+    return this.externalOrderitemId;
+  }
+  /** Returns `notes`. */
+  getNotes(): string | undefined {
+    return this.notes;
+  }
+  /** Returns `incentive` as a TenderItemIncentive instance (coerced on first access). */
+  getIncentive(): TenderItemIncentive | undefined {
+    if (this.incentive == null) return undefined;
+    if (!(this.incentive instanceof TenderItemIncentive)) {
+      this.incentive = new TenderItemIncentive(this.incentive as any);
+    }
+    return this.incentive;
+  }
+  /** Returns `surcharges` as TenderItemSurcharge instances (coerced on first access). */
+  getSurcharges(): TenderItemSurcharge[] | undefined {
+    if (!this.surcharges) return undefined;
+    this.surcharges = this.surcharges.map((x: any) => x instanceof TenderItemSurcharge ? x : new TenderItemSurcharge(x));
+    return this.surcharges;
+  }
+  /** Returns `childItems`. */
+  getChildItems(): ITenderBaseItem[] | undefined {
+    return this.childItems;
+  }
+  /** Returns `sum`. */
+  getSum(): number {
+    return this.sum;
+  }
+  /** Returns `sumNet`. */
+  getSumNet(): number {
+    return this.sumNet;
+  }
+  /** Returns `totalSum`. */
+  getTotalSum(): number {
+    return this.totalSum;
+  }
+  /** Returns `totalSumNet`. */
+  getTotalSumNet(): number {
+    return this.totalSumNet;
+  }
+  /** Returns `discountPercentageSum`. */
+  getDiscountPercentageSum(): number {
+    return this.discountPercentageSum;
+  }
+  /** Returns `totalDiscountPercentageSum`. */
+  getTotalDiscountPercentageSum(): number {
+    return this.totalDiscountPercentageSum;
+  }
+  /** Returns `saleMarginAmountSum`. */
+  getSaleMarginAmountSum(): number {
+    return this.saleMarginAmountSum;
+  }
+  /** Returns `saleMarginPercentageSum`. */
+  getSaleMarginPercentageSum(): number {
+    return this.saleMarginPercentageSum;
+  }
+  /** Returns `attributedSaleDiscountSum`. */
+  getAttributedSaleDiscountSum(): number {
+    return this.attributedSaleDiscountSum;
+  }
+  /** Returns `attributedSaleMarginSum`. */
+  getAttributedSaleMarginSum(): number {
+    return this.attributedSaleMarginSum;
+  }
 }

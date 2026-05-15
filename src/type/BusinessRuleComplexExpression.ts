@@ -27,4 +27,39 @@ export class BusinessRuleComplexExpression {
   constructor(data: Partial<BusinessRuleComplexExpression> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `type`. */
+  getType(): BusinessRuleExpressionTypes {
+    return this.type;
+  }
+  /** Returns `operator`. */
+  getOperator(): BusinessRuleNumberExpressionOperators | undefined {
+    return this.operator;
+  }
+  /** Returns `action`. */
+  getAction(): BusinessRuleComplexExpressionAction {
+    return this.action;
+  }
+  /** Returns `field`. */
+  getField(): string | undefined {
+    return this.field;
+  }
+  /** Returns `path`. */
+  getPath(): string | undefined {
+    return this.path;
+  }
+  /** Returns `number`. */
+  getNumber(): number {
+    return this.number;
+  }
+  /** Returns `expressions` as BusinessRuleSubExpressionGroup instances (coerced on first access). */
+  getExpressions(): BusinessRuleSubExpressionGroup[] | undefined {
+    if (!this.expressions) return undefined;
+    this.expressions = this.expressions.map((x: any) => x instanceof BusinessRuleSubExpressionGroup ? x : new BusinessRuleSubExpressionGroup(x));
+    return this.expressions;
+  }
 }

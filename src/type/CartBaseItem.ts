@@ -61,4 +61,111 @@ export class CartBaseItem implements ICartBaseItem {
   constructor(data: Partial<CartBaseItem> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `itemId`. */
+  getItemId(): string {
+    return this.itemId;
+  }
+  /** Returns `parentItemUUID`. */
+  getParentItemUUID(): string | undefined {
+    return this.parentItemUUID;
+  }
+  /** Returns `notes`. */
+  getNotes(): string | undefined {
+    return this.notes;
+  }
+  /** Returns `price`. */
+  getPrice(): number {
+    return this.price;
+  }
+  /** Returns `priceNet`. */
+  getPriceNet(): number {
+    return this.priceNet;
+  }
+  /** Returns `priceMode`. */
+  getPriceMode(): PriceMode | undefined {
+    return this.priceMode;
+  }
+  /** Returns `totalPrice`. */
+  getTotalPrice(): number {
+    return this.totalPrice;
+  }
+  /** Returns `totalPriceNet`. */
+  getTotalPriceNet(): number {
+    return this.totalPriceNet;
+  }
+  /** Returns `sum`. */
+  getSum(): number {
+    return this.sum;
+  }
+  /** Returns `sumNet`. */
+  getSumNet(): number {
+    return this.sumNet;
+  }
+  /** Returns `totalSum`. */
+  getTotalSum(): number {
+    return this.totalSum;
+  }
+  /** Returns `totalSumNet`. */
+  getTotalSumNet(): number {
+    return this.totalSumNet;
+  }
+  /** Returns `quantity`. */
+  getQuantity(): number {
+    return this.quantity;
+  }
+  /** Returns `bundleId`. */
+  getBundleId(): string | undefined {
+    return this.bundleId;
+  }
+  /** Returns `clusterId`. */
+  getClusterId(): number | undefined {
+    return this.clusterId;
+  }
+  /** Returns `productId`. */
+  getProductId(): number | undefined {
+    return this.productId;
+  }
+  /** Returns `taxCode`. */
+  getTaxCode(): Taxcode {
+    return this.taxCode;
+  }
+  /** Returns `deliveryDate`. */
+  getDeliveryDate(): string | undefined {
+    return this.deliveryDate;
+  }
+  /** Returns `deliveryDeadline`. */
+  getDeliveryDeadline(): string | undefined {
+    return this.deliveryDeadline;
+  }
+  /** Returns `discount`. */
+  getDiscount(): number {
+    return this.discount;
+  }
+  /** Returns `discountPercentage`. */
+  getDiscountPercentage(): number {
+    return this.discountPercentage;
+  }
+  /** Returns `surcharges` as CartItemSurcharge instances (coerced on first access). */
+  getSurcharges(): CartItemSurcharge[] | undefined {
+    if (!this.surcharges) return undefined;
+    this.surcharges = this.surcharges.map((x: any) => x instanceof CartItemSurcharge ? x : new CartItemSurcharge(x));
+    return this.surcharges;
+  }
+  /** Returns `incentive` as a CartItemIncentive instance (coerced on first access). */
+  getIncentive(): CartItemIncentive | undefined {
+    if (this.incentive == null) return undefined;
+    if (!(this.incentive instanceof CartItemIncentive)) {
+      this.incentive = new CartItemIncentive(this.incentive as any);
+    }
+    return this.incentive;
+  }
+  /** Returns `product` as a Product instance (coerced on first access). */
+  getProduct(): Product | undefined {
+    if (this.product == null) return undefined;
+    if (!(this.product instanceof Product)) {
+      this.product = new Product(this.product as any);
+    }
+    return this.product;
+  }
 }

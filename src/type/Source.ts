@@ -9,4 +9,13 @@ export class Source {
   constructor(data: Partial<Source> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | undefined {
+    return this.id;
+  }
+  /** Returns `name`. */
+  getName(): string | undefined {
+    return this.name;
+  }
 }

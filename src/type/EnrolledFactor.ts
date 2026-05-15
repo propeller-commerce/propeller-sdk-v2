@@ -9,4 +9,13 @@ export class EnrolledFactor {
   constructor(data: Partial<EnrolledFactor> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `factorId`. */
+  getFactorId(): string {
+    return this.factorId;
+  }
+  /** Returns `phoneNumber`. */
+  getPhoneNumber(): string {
+    return this.phoneNumber;
+  }
 }

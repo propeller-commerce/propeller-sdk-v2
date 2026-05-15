@@ -17,4 +17,25 @@ export class AttributeTextFilter implements IAttributeTextFilter {
   constructor(data: Partial<AttributeTextFilter> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `value`. */
+  getValue(): string {
+    return this.value;
+  }
+  /** Returns `count`. */
+  getCount(): number {
+    return this.count;
+  }
+  /** Returns `countTotal`. */
+  getCountTotal(): number | undefined {
+    return this.countTotal;
+  }
+  /** Returns `countActive`. */
+  getCountActive(): number | undefined {
+    return this.countActive;
+  }
+  /** Returns `isSelected`. */
+  getIsSelected(): boolean {
+    return this.isSelected;
+  }
 }

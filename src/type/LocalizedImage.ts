@@ -11,4 +11,17 @@ export class LocalizedImage {
   constructor(data: Partial<LocalizedImage> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `language`. */
+  getLanguage(): string {
+    return this.language;
+  }
+  /** Returns `originalUrl`. */
+  getOriginalUrl(): string {
+    return this.originalUrl;
+  }
+  /** Returns `mimeType`. */
+  getMimeType(): string {
+    return this.mimeType;
+  }
 }

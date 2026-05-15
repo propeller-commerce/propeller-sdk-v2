@@ -30,4 +30,53 @@ export class Inventory {
   constructor(data: Partial<Inventory> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `productId`. */
+  getProductId(): number {
+    return this.productId;
+  }
+  /** Returns `quantity`. */
+  getQuantity(): number {
+    return this.quantity;
+  }
+  /** Returns `costPrice`. */
+  getCostPrice(): number {
+    return this.costPrice;
+  }
+  /** Returns `supplier`. */
+  getSupplier(): string {
+    return this.supplier;
+  }
+  /** Returns `supplierCode`. */
+  getSupplierCode(): string {
+    return this.supplierCode;
+  }
+  /** Returns `sku`. */
+  getSku(): string {
+    return this.sku;
+  }
+  /** Returns `dateModified`. */
+  getDateModified(): string | undefined {
+    return this.dateModified;
+  }
+  /** Returns `warehouseId`. */
+  getWarehouseId(): number {
+    return this.warehouseId;
+  }
+  /** Returns `location`. */
+  getLocation(): string {
+    return this.location;
+  }
+  /** Returns `nextDeliveryDate`. */
+  getNextDeliveryDate(): string {
+    return this.nextDeliveryDate;
+  }
+  /** Returns `notes`. */
+  getNotes(): string {
+    return this.notes;
+  }
 }

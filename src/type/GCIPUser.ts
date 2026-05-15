@@ -50,4 +50,99 @@ export class GCIPUser {
   constructor(data: Partial<GCIPUser> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `uid`. */
+  getUid(): string {
+    return this.uid;
+  }
+  /** Returns `email`. */
+  getEmail(): string | undefined {
+    return this.email;
+  }
+  /** Returns `emailVerified`. */
+  getEmailVerified(): boolean | undefined {
+    return this.emailVerified;
+  }
+  /** Returns `displayName`. */
+  getDisplayName(): string | undefined {
+    return this.displayName;
+  }
+  /** Returns `photoUrl`. */
+  getPhotoUrl(): string | undefined {
+    return this.photoUrl;
+  }
+  /** Returns `phoneNumber`. */
+  getPhoneNumber(): string | undefined {
+    return this.phoneNumber;
+  }
+  /** Returns `disabled`. */
+  getDisabled(): boolean | undefined {
+    return this.disabled;
+  }
+  /** Returns `isAnonymous`. */
+  getIsAnonymous(): boolean | undefined {
+    return this.isAnonymous;
+  }
+  /** Returns `metadata` as a GCIPMetadata instance (coerced on first access). */
+  getMetadata(): GCIPMetadata | undefined {
+    if (this.metadata == null) return undefined;
+    if (!(this.metadata instanceof GCIPMetadata)) {
+      this.metadata = new GCIPMetadata(this.metadata as any);
+    }
+    return this.metadata;
+  }
+  /** Returns `tokensValidAfterTime`. */
+  getTokensValidAfterTime(): string | undefined {
+    return this.tokensValidAfterTime;
+  }
+  /** Returns `tenantId`. */
+  getTenantId(): string | undefined {
+    return this.tenantId;
+  }
+  /** Returns `providerData` as GCIPProviderData instances (coerced on first access). */
+  getProviderData(): GCIPProviderData[] | undefined {
+    if (!this.providerData) return undefined;
+    this.providerData = this.providerData.map((x: any) => x instanceof GCIPProviderData ? x : new GCIPProviderData(x));
+    return this.providerData;
+  }
+  /** Returns `passwordHash`. */
+  getPasswordHash(): string | undefined {
+    return this.passwordHash;
+  }
+  /** Returns `passwordSalt`. */
+  getPasswordSalt(): string | undefined {
+    return this.passwordSalt;
+  }
+  /** Returns `authDomain`. */
+  getAuthDomain(): string | undefined {
+    return this.authDomain;
+  }
+  /** Returns `lastLoginAt`. */
+  getLastLoginAt(): string | undefined {
+    return this.lastLoginAt;
+  }
+  /** Returns `createdAt`. */
+  getCreatedAt(): string | undefined {
+    return this.createdAt;
+  }
+  /** Returns `accessToken`. */
+  getAccessToken(): string {
+    return this.accessToken;
+  }
+  /** Returns `refreshToken`. */
+  getRefreshToken(): string {
+    return this.refreshToken;
+  }
+  /** Returns `expirationTime`. */
+  getExpirationTime(): string | undefined {
+    return this.expirationTime;
+  }
+  /** Returns `multiFactor` as a MultiFactor instance (coerced on first access). */
+  getMultiFactor(): MultiFactor | undefined {
+    if (this.multiFactor == null) return undefined;
+    if (!(this.multiFactor instanceof MultiFactor)) {
+      this.multiFactor = new MultiFactor(this.multiFactor as any);
+    }
+    return this.multiFactor;
+  }
 }

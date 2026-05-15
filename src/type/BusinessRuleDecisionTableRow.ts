@@ -12,4 +12,21 @@ export class BusinessRuleDecisionTableRow {
   constructor(data: Partial<BusinessRuleDecisionTableRow> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `id`. */
+  getId(): string | number {
+    return this.id;
+  }
+  /** Returns `inputs` as BusinessRuleDecisionTableCell instances (coerced on first access). */
+  getInputs(): BusinessRuleDecisionTableCell[] {
+    if (!this.inputs) return [];
+    this.inputs = this.inputs.map((x: any) => x instanceof BusinessRuleDecisionTableCell ? x : new BusinessRuleDecisionTableCell(x));
+    return this.inputs;
+  }
+  /** Returns `outputs` as BusinessRuleDecisionTableCell instances (coerced on first access). */
+  getOutputs(): BusinessRuleDecisionTableCell[] {
+    if (!this.outputs) return [];
+    this.outputs = this.outputs.map((x: any) => x instanceof BusinessRuleDecisionTableCell ? x : new BusinessRuleDecisionTableCell(x));
+    return this.outputs;
+  }
 }

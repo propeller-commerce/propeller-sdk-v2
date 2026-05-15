@@ -13,4 +13,21 @@ export class BundlePrice {
   constructor(data: Partial<BundlePrice> = {}) {
     Object.assign(this, data);
   }
+
+  /** Returns `net`. */
+  getNet(): number | undefined {
+    return this.net;
+  }
+  /** Returns `gross`. */
+  getGross(): number | undefined {
+    return this.gross;
+  }
+  /** Returns `originalNet`. */
+  getOriginalNet(): number | undefined {
+    return this.originalNet;
+  }
+  /** Returns `originalGross`. */
+  getOriginalGross(): number | undefined {
+    return this.originalGross;
+  }
 }
