@@ -70,36 +70,7 @@ If a symbol you’re reaching for via deep import isn’t re-exported from the r
 
 These are the **non-mechanical** edits. Search your repo for each pattern; if you find it, apply the fix.
 
-### 3.1 `cluster.getClusterConfig(...)` — return shape changed
-
-`ClusterService.getClusterConfig(clusterConfigId)` now returns `ClusterConfigResponse` (the paginated/flattened wrapper). The old shape `result.config.settings[*].name` no longer exists.
-
-| Old                                  | New                                              |
-| ------------------------------------ | ------------------------------------------------ |
-| `clusterConfig.config.settings`      | `clusterConfig.settings`                         |
-| `setting.name` (for attribute names) | `setting.attributeName`                          |
-| Return type `ClusterConfig`          | Return type `ClusterConfigResponse`              |
-| Param name `clusterId`               | Param name `clusterConfigId` (no caller impact)  |
-
-**Example fix (propeller-next, `composables/react/useProductInfo.ts`):**
-
-```ts
-// Before
-const clusterConfig = await service.getClusterConfig(clusterId);
-const attributeNames = (clusterConfig?.config?.settings ?? []).map(
-  (setting: ClusterConfigSetting) => setting.name
-);
-
-// After
-const clusterConfig = await service.getClusterConfig(clusterId);
-const attributeNames = (clusterConfig?.settings ?? []).map(
-  (setting) => setting.attributeName
-);
-```
-
-> ⚠️ The Vue reference app currently still has the old shape at `frontend/src/composables/useProductInfo.ts:179-183`. If you cloned that file as a starting point, apply this fix.
-
-### 3.2 `Order.date` — removed
+### 3.1 `Order.date` — removed
 
 `order.date` was the upstream-deprecated alias for `createdAt` and is gone. Use `order.createdAt` directly.
 
@@ -111,7 +82,7 @@ formatDate(order.date || order.createdAt || '');
 formatDate(order.createdAt || '');
 ```
 
-### 3.3 `Cart.shopId`, `Cart.userId`, `Cart.user` — removed
+### 3.2 `Cart.shopId`, `Cart.userId`, `Cart.user` — removed
 
 Drop any reference. In the propeller-next reference, `utils/cartHelpers.ts#serializeCart` removed the `shopId: cart.shopId` line.
 
@@ -136,11 +107,11 @@ const cleanCart = {
 
 If you were calling `cartService.setCartUser(...)` or accessing `cart.user` / `cart.userId`, switch to the supported `cart.contactId` / `cart.customerId` accessors.
 
-### 3.4 `Order.shopId`, `Order.externalId` — removed
+### 3.3 `Order.shopId`, `Order.externalId` — removed
 
 Same pattern as Cart. Remove the field; if you need the data, fetch via the contact / customer linkage.
 
-### 3.5 `Cart` deserialization — no longer a class constructor
+### 3.4 `Cart` deserialization — no longer a class constructor
 
 `deserializeCart` in propeller-next used `new Cart(cartData)`. Cart wrapper classes use `Object.assign` and accept partials; you can cast the plain JSON to `Cart` directly.
 
@@ -154,7 +125,7 @@ return cartData as Cart;
 
 (Optional: if you want runtime instance methods like getters, you can still wrap with `new Cart(cartData)` — both forms now work.)
 
-### 3.6 Side-effect-free service constructors
+### 3.5 Side-effect-free service constructors
 
 If you were calling `await cartService.initializeService()` (or any `initializeService` on a service singleton), delete the call. Services are no longer stateful — they take a `GraphQLClient` at construction time and that’s it.
 
@@ -167,7 +138,7 @@ const updatedCart = await populateCartAddresses(cartToUse);
 const updatedCart = await populateCartAddresses(cartToUse);
 ```
 
-### 3.7 `Taxcode` enum renamed to `TaxCode`
+### 3.6 `Taxcode` enum renamed to `TaxCode`
 
 Casing aligns with the upstream schema. Update any references.
 
