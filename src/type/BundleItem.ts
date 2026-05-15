@@ -4,9 +4,9 @@ import { Product } from './Product';
 /**
  Object class for BundleItem
  */
-export interface BundleItem {
+export class BundleItem {
   /** The bundles primary product identifier */
-  productId: number;
+  productId!: number;
   /** Bundle price */
   price?: BundlePrice;
   /** Indicates whether the product is leader for this bundle. */
@@ -20,5 +20,8 @@ export interface BundleItem {
   /** Last modified by */
   lastModifiedBy?: number;
   /** product field */
-  product: Product;
+  product!: Product;
+  constructor(data: Partial<BundleItem> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -2,21 +2,21 @@ import { AttributeValue } from './AttributeValue';
 /**
  Object class for AttributeBulkResponse
  */
-export interface AttributeBulkResponse {
+export class AttributeBulkResponse {
   /** ID of the created or updated attribute description */
   id?: string;
   /** Name of the created or updated attribute description */
-  name: string;
+  name!: string;
   /** Success or error message */
   message?: string;
   /** Name of the attribute description the attribute is created for */
-  key: string;
+  key!: string;
   /** The value for this attribute */
   value?: AttributeValue;
   /** Action performed on the attribute description */
-  action: AttributeBulkResponse;
+  action!: AttributeBulkResponse;
   /** Whether the action was successful or not */
-  success: boolean;
+  success!: boolean;
   /** The productId of the attribute value */
   productId?: number;
   /** The categoryId of the attribute value */
@@ -29,4 +29,7 @@ export interface AttributeBulkResponse {
   contactId?: number;
   /** The customerId of the attribute value */
   customerId?: number;
+  constructor(data: Partial<AttributeBulkResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

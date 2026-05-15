@@ -1,9 +1,12 @@
 /**
  Object class for ConfirmationResponse
  */
-export interface ConfirmationResponse {
+export class ConfirmationResponse {
   /** Confirmation status value */
-  status: string;
+  status!: string;
   /** Confirmation message */
-  message: string;
+  message!: string;
+  constructor(data: Partial<ConfirmationResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

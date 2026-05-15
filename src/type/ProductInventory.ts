@@ -2,17 +2,20 @@ import { Inventory } from './Inventory';
 /**
  Object class for ProductInventory
  */
-export interface ProductInventory {
+export class ProductInventory {
   /** Inventory product identifier */
-  productId: number;
+  productId!: number;
   /** Total product quantity */
-  totalQuantity: number;
+  totalQuantity!: number;
   /** Supplier product quantity */
-  supplierQuantity: number;
+  supplierQuantity!: number;
   /** Local product quantity */
-  localQuantity: number;
+  localQuantity!: number;
   /** Inventory estimated next delivery date */
   nextDeliveryDate?: string;
   /** Inventory items */
   balance?: Inventory[];
+  constructor(data: Partial<ProductInventory> = {}) {
+    Object.assign(this, data);
+  }
 }

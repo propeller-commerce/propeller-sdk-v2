@@ -4,17 +4,17 @@ import { LocalizedAttachment } from './LocalizedAttachment';
 /**
  Object class for MediaAttachment
  */
-export interface MediaAttachment {
+export class MediaAttachment {
   /** Media global unique identifier */
-  id: string | number;
+  id!: string | number;
   /** Unique sparePartsMachine identifier that the media relates to */
   sparePartsMachineId?: string | number;
   /** Media alt description that briefly explains the contents of the document. */
-  alt: LocalizedString[];
+  alt!: LocalizedString[];
   /** Media short description. */
-  description: LocalizedString[];
+  description!: LocalizedString[];
   /** Media tags. */
-  tags: LocalizedStringArray[];
+  tags!: LocalizedStringArray[];
   /** Media type */
   type?: string;
   /** The date and time (ISO 8601 format) when the media was created. */
@@ -31,4 +31,7 @@ export interface MediaAttachment {
   companyId?: number;
   /** Unique customer identifier that the attachment relates to. [Cannot use it together with companyId] */
   customerId?: number;
+  constructor(data: Partial<MediaAttachment> = {}) {
+    Object.assign(this, data);
+  }
 }

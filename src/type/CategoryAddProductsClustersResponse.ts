@@ -3,9 +3,12 @@ import { CategoryActionsResponse } from './CategoryActionsResponse';
 /**
  Object class for CategoryAddProductsClustersResponse
  */
-export interface CategoryAddProductsClustersResponse {
+export class CategoryAddProductsClustersResponse {
   /** The category object */
-  category: Category;
+  category!: Category;
   /** Output messages about the actions performed. */
-  actions: CategoryActionsResponse;
+  actions!: CategoryActionsResponse;
+  constructor(data: Partial<CategoryAddProductsClustersResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

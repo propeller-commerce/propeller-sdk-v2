@@ -164,7 +164,7 @@ export class CartService extends BaseService {
    */
   async getCart(variables: CartQueryVariables): Promise<Cart> {
     const result = await this.executeQuery('cart', variables);
-    return result.data.cart as Cart;
+    return new Cart(result.data.cart);
   }
   /**
    Fetches a list of carts with search criteria
@@ -174,7 +174,7 @@ export class CartService extends BaseService {
   async getCarts(input?: CartSearchInput): Promise<CartResponse> {
     const variables = { input };
     const result = await this.executeQuery('carts', variables);
-    return result.data.carts as CartResponse;
+    return new CartResponse(result.data.carts);
   }
   /**
    Starts a new cart
@@ -187,7 +187,7 @@ export class CartService extends BaseService {
    */
   async startCart(variables: CartStartVariables): Promise<Cart> {
     const result = await this.executeMutation('cartStart', variables);
-    return result.data.cartStart as Cart;
+    return new Cart(result.data.cartStart);
   }
   /**
    Adds an item to a cart
@@ -201,7 +201,7 @@ export class CartService extends BaseService {
    */
   async addItemToCart(variables: CartAddItemVariables): Promise<Cart> {
     const result = await this.executeMutation('cartAddItem', variables);
-    return result.data.cartAddItem as Cart;
+    return new Cart(result.data.cartAddItem);
   }
   /**
    Updates an item in a cart
@@ -216,7 +216,7 @@ export class CartService extends BaseService {
    */
   async updateCartItem(variables: CartUpdateItemVariables): Promise<Cart> {
     const result = await this.executeMutation('cartUpdateItem', variables);
-    return result.data.cartUpdateItem as Cart;
+    return new Cart(result.data.cartUpdateItem);
   }
   /**
    Deletes an item from a cart
@@ -230,7 +230,7 @@ export class CartService extends BaseService {
    */
   async deleteCartItem(variables: CartDeleteItemVariables): Promise<Cart> {
     const result = await this.executeMutation('cartDeleteItem', variables);
-    return result.data.cartDeleteItem as Cart;
+    return new Cart(result.data.cartDeleteItem);
   }
   /**
    Updates a cart
@@ -244,7 +244,7 @@ export class CartService extends BaseService {
    */
   async updateCart(variables: CartUpdateVariables): Promise<Cart> {
     const result = await this.executeMutation('cartUpdate', variables);
-    return result.data.cartUpdate as Cart;
+    return new Cart(result.data.cartUpdate);
   }
   /**
    Updates a cart address
@@ -258,7 +258,7 @@ export class CartService extends BaseService {
    */
   async updateCartAddress(variables: CartUpdateAddressVariables): Promise<Cart> {
     const result = await this.executeMutation('cartUpdateAddress', variables);
-    return result.data.cartUpdateAddress as Cart;
+    return new Cart(result.data.cartUpdateAddress);
   }
   /**
    Adds a bundle to a cart
@@ -272,7 +272,7 @@ export class CartService extends BaseService {
    */
   async addBundleToCart(variables: CartAddBundleVariables): Promise<Cart> {
     const result = await this.executeMutation('cartAddBundle', variables);
-    return result.data.cartAddBundle as Cart;
+    return new Cart(result.data.cartAddBundle);
   }
   /**
    Sets the customer for a cart
@@ -282,7 +282,7 @@ export class CartService extends BaseService {
   async setCartCustomer(input: CartSetCustomerInput): Promise<Cart> {
     const variables = { input };
     const result = await this.executeMutation('cartSetCustomer', variables);
-    return result.data.cartSetCustomer as Cart;
+    return new Cart(result.data.cartSetCustomer);
   }
   /**
    Sets the contact for a cart
@@ -292,7 +292,7 @@ export class CartService extends BaseService {
   async setCartContact(input: CartSetContactInput): Promise<Cart> {
     const variables = { input };
     const result = await this.executeMutation('cartSetContact', variables);
-    return result.data.cartSetContact as Cart;
+    return new Cart(result.data.cartSetContact);
   }
   /**
    Sets the user for a cart
@@ -302,7 +302,7 @@ export class CartService extends BaseService {
   async setCartUser(input: CartSetUserInput): Promise<Cart> {
     const variables = { input };
     const result = await this.executeMutation('cartSetUser', variables);
-    return result.data.cartSetUser as Cart;
+    return new Cart(result.data.cartSetUser);
   }
   /**
    Processes a cart (checkout)
@@ -313,7 +313,7 @@ export class CartService extends BaseService {
    */
   async processCart(variables: CartProcessVariables): Promise<CartProcessResponse> {
     const result = await this.executeMutation('cartProcess', variables);
-    return result.data.cartProcess as CartProcessResponse;
+    return new CartProcessResponse(result.data.cartProcess);
   }
   /**
    Deletes a cart
@@ -337,7 +337,7 @@ export class CartService extends BaseService {
    */
   async addActionCodeToCart(variables: CartActionCodeVariables): Promise<Cart> {
     const result = await this.executeMutation('cartAddActionCode', variables);
-    return result.data.cartAddActionCode as Cart;
+    return new Cart(result.data.cartAddActionCode);
   }
   /**
    Removes an action code from a cart
@@ -351,7 +351,7 @@ export class CartService extends BaseService {
    */
   async removeActionCodeFromCart(variables: CartActionCodeVariables): Promise<Cart> {
     const result = await this.executeMutation('cartRemoveActionCode', variables);
-    return result.data.cartRemoveActionCode as Cart;
+    return new Cart(result.data.cartRemoveActionCode);
   }
   /**
    Bulk updates cart items
@@ -361,7 +361,7 @@ export class CartService extends BaseService {
    */
   async bulkUpdateCartItems(variables: CartItemBulkVariables): Promise<Cart> {
     const result = await this.executeMutation('cartItemBulk', variables);
-    return result.data.cartItemBulk as Cart;
+    return new Cart(result.data.cartItemBulk);
   }
   /**
    Requests purchase authorization for a cart
@@ -371,7 +371,7 @@ export class CartService extends BaseService {
    */
   async requestPurchaseAuthorization(variables: CartPurchaseAuthorizationRequestVariables): Promise<Cart> {
     const result = await this.executeMutation('cartRequestPurchaseAuthorization', variables);
-    return result.data.cartRequestPurchaseAuthorization as Cart;
+    return new Cart(result.data.cartRequestPurchaseAuthorization);
   }
   /**
    Accepts a purchase authorization request for a cart
@@ -385,6 +385,6 @@ export class CartService extends BaseService {
    */
   async acceptPurchaseAuthorizationRequest(variables: CartAcceptPurchaseAuthorizationVariables): Promise<Cart> {
     const result = await this.executeMutation('cartAcceptPurchaseAuthorizationRequest', variables);
-    return result.data.cartAcceptPurchaseAuthorizationRequest as Cart;
+    return new Cart(result.data.cartAcceptPurchaseAuthorizationRequest);
   }
 }

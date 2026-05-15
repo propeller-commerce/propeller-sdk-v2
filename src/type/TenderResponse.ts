@@ -3,9 +3,12 @@ import { TenderResponseData } from './TenderResponseData';
 /**
  Object class for TenderResponse
  */
-export interface TenderResponse {
+export class TenderResponse {
   /** Tender */
-  tender: Tender;
+  tender!: Tender;
   /** Tender response data */
-  response: TenderResponseData;
+  response!: TenderResponseData;
+  constructor(data: Partial<TenderResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

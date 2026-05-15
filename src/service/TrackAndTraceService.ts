@@ -17,7 +17,7 @@ export class TrackAndTraceService extends BaseService {
   async getTrackAndTrace(id: number): Promise<TrackAndTrace> {
     const variables = { id };
     const result = await this.executeQuery('trackAndTrace', variables);
-    return result.data.trackAndTrace as TrackAndTrace;
+    return new TrackAndTrace(result.data.trackAndTrace);
   }
   /**
    Retrieves track and trace records with search
@@ -27,7 +27,7 @@ export class TrackAndTraceService extends BaseService {
   async getTrackAndTraces(input?: TrackAndTraceSearchInput): Promise<TrackAndTraceResponse> {
     const variables = { input };
     const result = await this.executeQuery('trackAndTraces', variables);
-    return result.data.trackAndTraces as TrackAndTraceResponse;
+    return new TrackAndTraceResponse(result.data.trackAndTraces);
   }
   /**
    Creates a new track and trace record
@@ -37,7 +37,7 @@ export class TrackAndTraceService extends BaseService {
   async createTrackAndTrace(input: TrackAndTraceCreateInput): Promise<TrackAndTrace> {
     const variables = { input };
     const result = await this.executeMutation('trackAndTraceCreate', variables);
-    return result.data.trackAndTraceCreate as TrackAndTrace;
+    return new TrackAndTrace(result.data.trackAndTraceCreate);
   }
   /**
    Updates an existing track and trace record
@@ -47,6 +47,6 @@ export class TrackAndTraceService extends BaseService {
   async updateTrackAndTrace(input: TrackAndTraceUpdateInput): Promise<TrackAndTrace> {
     const variables = { input };
     const result = await this.executeMutation('trackAndTraceUpdate', variables);
-    return result.data.trackAndTraceUpdate as TrackAndTrace;
+    return new TrackAndTrace(result.data.trackAndTraceUpdate);
   }
 }

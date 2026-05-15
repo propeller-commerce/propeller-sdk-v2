@@ -107,12 +107,12 @@ export class UserService extends BaseService {
         const viewerData = result.data.viewer;
         // Return appropriate type based on __typename
         if (viewerData.__typename === 'Contact') {
-            return viewerData as Contact;
+            return new Contact(viewerData);
         } else if (viewerData.__typename === 'Customer') {
-            return viewerData as Customer;
+            return new Customer(viewerData);
         }
         // Default to Contact if typename is unclear
-        return viewerData as Contact;
+        return new Contact(viewerData);
     }
     /**
      * Login with credentials
@@ -121,7 +121,7 @@ export class UserService extends BaseService {
      */
     async login(input: LoginInput): Promise<Login> {
         const result = await this.executeMutation('login', { input });
-        return result.data.login as Login;
+        return new Login(result.data.login);
     }
     /**
      * Get user by id or login (mutually exclusive — provide one).
@@ -135,12 +135,12 @@ export class UserService extends BaseService {
         const userData = result.data.user;
         // Return appropriate type based on __typename
         if (userData.__typename === 'Contact') {
-            return userData as Contact;
+            return new Contact(userData);
         } else if (userData.__typename === 'Customer') {
-            return userData as Customer;
+            return new Customer(userData);
         }
         // Default to Contact if typename is unclear
-        return userData as Contact;
+        return new Contact(userData);
     }
     /**
      * Get authentication information for user by email
@@ -149,7 +149,7 @@ export class UserService extends BaseService {
      */
     async authenticate(email: string): Promise<GCIPUser> {
         const result = await this.executeQuery('authentication', { email });
-        return result.data.authentication as GCIPUser;
+        return new GCIPUser(result.data.authentication);
     }
     /**
      * Logout current user
@@ -157,7 +157,7 @@ export class UserService extends BaseService {
      */
     async logout(): Promise<Logout> {
         const result = await this.executeMutation('logout');
-        return result.data.logout as Logout;
+        return new Logout(result.data.logout);
     }
     /**
      * Register new contact
@@ -166,7 +166,7 @@ export class UserService extends BaseService {
      */
     async registerContact(variables: ContactRegisterInput): Promise<RegisterContactResponse> {
         const result = await this.executeMutation('contactRegister', variables);
-        return result.data.contactRegister as RegisterContactResponse;
+        return new RegisterContactResponse(result.data.contactRegister);
     }
     /**
      * Register new customer
@@ -175,7 +175,7 @@ export class UserService extends BaseService {
      */
     async registerCustomer(variables: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
         const result = await this.executeMutation('customerRegister', variables);
-        return result.data.customerRegister as RegisterCustomerResponse;
+        return new RegisterCustomerResponse(result.data.customerRegister);
     }
     /**
      * Update user information
@@ -187,12 +187,12 @@ export class UserService extends BaseService {
         const userData = result.data.updateUser;
         // Return appropriate type based on __typename
         if (userData.__typename === 'Contact') {
-            return userData as Contact;
+            return new Contact(userData);
         } else if (userData.__typename === 'Customer') {
-            return userData as Customer;
+            return new Customer(userData);
         }
         // Default to Contact if typename is unclear
-        return userData as Contact;
+        return new Contact(userData);
     }
     /**
      * Send a password reset email to the specified user
@@ -216,7 +216,7 @@ export class UserService extends BaseService {
      */
     async createUserAddress(input: any): Promise<Address> {
         const result = await this.executeMutation('userAddressCreate', { input });
-        return result.data.userAddressCreate as Address;
+        return new Address(result.data.userAddressCreate);
     }
     /**
      * Update user address
@@ -225,7 +225,7 @@ export class UserService extends BaseService {
      */
     async updateUserAddress(input: any): Promise<Address> {
         const result = await this.executeMutation('userAddressUpdate', { input });
-        return result.data.userAddressUpdate as Address;
+        return new Address(result.data.userAddressUpdate);
     }
     /**
      * Delete user address

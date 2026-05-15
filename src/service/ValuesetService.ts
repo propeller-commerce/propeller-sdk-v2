@@ -19,7 +19,7 @@ export class ValuesetService extends BaseService {
   async getValueset(id: number): Promise<Valueset> {
     const variables = { id };
     const result = await this.executeQuery('valueset', variables);
-    return result.data.valueset as Valueset;
+    return new Valueset(result.data.valueset);
   }
   /**
    Fetches a list of valuesets with search criteria
@@ -29,7 +29,7 @@ export class ValuesetService extends BaseService {
   async getValuesets(input?: ValuesetSearchInput): Promise<ValuesetResponse> {
     const variables = { input };
     const result = await this.executeQuery('valuesets', variables);
-    return result.data.valuesets as ValuesetResponse;
+    return new ValuesetResponse(result.data.valuesets);
   }
   /**
    Creates a new valueset
@@ -39,7 +39,7 @@ export class ValuesetService extends BaseService {
   async createValueset(input: ValuesetCreateInput): Promise<Valueset> {
     const variables = { input };
     const result = await this.executeMutation('valuesetCreate', variables);
-    return result.data.valuesetCreate as Valueset;
+    return new Valueset(result.data.valuesetCreate);
   }
   /**
    Updates an existing valueset
@@ -49,7 +49,7 @@ export class ValuesetService extends BaseService {
   async updateValueset(input: ValuesetUpdateInput): Promise<Valueset> {
     const variables = { input };
     const result = await this.executeMutation('valuesetUpdate', variables);
-    return result.data.valuesetUpdate as Valueset;
+    return new Valueset(result.data.valuesetUpdate);
   }
   /**
    Deletes a valueset
@@ -69,6 +69,6 @@ export class ValuesetService extends BaseService {
   async getValuesetItems(input?: ValuesetItemSearchInput): Promise<ValuesetItemResponse> {
     const variables = { input };
     const result = await this.executeQuery('valuesetItems', variables);
-    return result.data.valuesetItems as ValuesetItemResponse;
+    return new ValuesetItemResponse(result.data.valuesetItems);
   }
 }

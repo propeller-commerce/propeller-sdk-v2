@@ -16,7 +16,7 @@ export class CarrierService extends BaseService {
   async getCarrier(id: number): Promise<Carrier> {
     const variables = { id };
     const result = await this.executeQuery('carrier', variables);
-    return result.data.carrier as Carrier;
+    return new Carrier(result.data.carrier);
   }
   /**
    Fetches a list of carriers with search criteria
@@ -26,7 +26,7 @@ export class CarrierService extends BaseService {
   async getCarriers(input?: CarriersSearchInput): Promise<CarriersResponse> {
     const variables = { input };
     const result = await this.executeQuery('carriers', variables);
-    return result.data.carriers as CarriersResponse;
+    return new CarriersResponse(result.data.carriers);
   }
   /**
    Creates a new carrier
@@ -36,7 +36,7 @@ export class CarrierService extends BaseService {
   async createCarrier(input: CarrierCreateInput): Promise<Carrier> {
     const variables = { input };
     const result = await this.executeMutation('carrierCreate', variables);
-    return result.data.carrierCreate as Carrier;
+    return new Carrier(result.data.carrierCreate);
   }
   /**
    Updates an existing carrier
@@ -46,7 +46,7 @@ export class CarrierService extends BaseService {
   async updateCarrier(input: CarrierUpdateInput): Promise<Carrier> {
     const variables = { input };
     const result = await this.executeMutation('carrierUpdate', variables);
-    return result.data.carrierUpdate as Carrier;
+    return new Carrier(result.data.carrierUpdate);
   }
   /**
    Deletes a carrier

@@ -2,9 +2,12 @@ import { ContactActionsData } from './ContactActionsData';
 /**
  Object class for ContactActionsResponse
  */
-export interface ContactActionsResponse {
+export class ContactActionsResponse {
   /** List of output messaged for actions performed */
-  data: ContactActionsData[];
+  data!: ContactActionsData[];
   /** List of extra messages */
-  messages: string[];
+  messages!: string[];
+  constructor(data: Partial<ContactActionsResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -80,7 +80,7 @@ export class AttributeService extends BaseService {
   async getAttributeResultByCategoryId(categoryId: number): Promise<AttributeResult> {
     const variables = { categoryId };
     const result = await this.executeQuery('attributeResultByCategoryId', variables);
-    return result.data.attributeResultByCategoryId as AttributeResult;
+    return new AttributeResult(result.data.attributeResultByCategoryId);
   }
   /**
    Fetches attribute results by cluster ID
@@ -90,7 +90,7 @@ export class AttributeService extends BaseService {
   async getAttributeResultByClusterId(clusterId: number): Promise<AttributeResult> {
     const variables = { clusterId };
     const result = await this.executeQuery('attributeResultByClusterId', variables);
-    return result.data.attributeResultByClusterId as AttributeResult;
+    return new AttributeResult(result.data.attributeResultByClusterId);
   }
   /**
    Fetches attribute results by company ID
@@ -100,7 +100,7 @@ export class AttributeService extends BaseService {
   async getAttributeResultByCompanyId(companyId: number): Promise<AttributeResult> {
     const variables = { companyId };
     const result = await this.executeQuery('attributeResultByCompanyId', variables);
-    return result.data.attributeResultByCompanyId as AttributeResult;
+    return new AttributeResult(result.data.attributeResultByCompanyId);
   }
   /**
    Fetches attribute results by contact ID
@@ -110,7 +110,7 @@ export class AttributeService extends BaseService {
   async getAttributeResultByContactId(contactId: number): Promise<AttributeResult> {
     const variables = { contactId };
     const result = await this.executeQuery('attributeResultByContactId', variables);
-    return result.data.attributeResultByContactId as AttributeResult;
+    return new AttributeResult(result.data.attributeResultByContactId);
   }
   /**
    Fetches attribute results by customer ID
@@ -120,7 +120,7 @@ export class AttributeService extends BaseService {
   async getAttributeResultByCustomerId(customerId: number): Promise<AttributeResult> {
     const variables = { customerId };
     const result = await this.executeQuery('attributeResultByCustomerId', variables);
-    return result.data.attributeResultByCustomerId as AttributeResult;
+    return new AttributeResult(result.data.attributeResultByCustomerId);
   }
   /**
    Fetches attribute results by product ID
@@ -130,7 +130,7 @@ export class AttributeService extends BaseService {
   async getAttributeResultByProductId(productId: number): Promise<AttributeResult> {
     const variables = { productId };
     const result = await this.executeQuery('attributeResultByProductId', variables);
-    return result.data.attributeResultByProductId as AttributeResult;
+    return new AttributeResult(result.data.attributeResultByProductId);
   }
   // AttributeDescription
   /**
@@ -141,7 +141,7 @@ export class AttributeService extends BaseService {
   async getAttributeDescription(id: string): Promise<AttributeDescription> {
     const variables = { id };
     const result = await this.executeQuery('attributeDescription', variables);
-    return result.data.attributeDescription as AttributeDescription;
+    return new AttributeDescription(result.data.attributeDescription);
   }
   /**
    Fetches a list of attribute descriptions with search criteria
@@ -151,7 +151,7 @@ export class AttributeService extends BaseService {
   async getAttributeDescriptions(input: AttributeDescriptionSearchInput): Promise<AttributeDescriptionResponse> {
     const variables = { input };
     const result = await this.executeQuery('attributeDescriptions', variables);
-    return result.data.attributeDescriptions as AttributeDescriptionResponse;
+    return new AttributeDescriptionResponse(result.data.attributeDescriptions);
   }
   /**
    Creates a new attribute description
@@ -161,7 +161,7 @@ export class AttributeService extends BaseService {
   async createAttributeDescription(input: AttributeDescriptionCreateInput): Promise<AttributeDescription> {
     const variables = { input };
     const result = await this.executeMutation('attributeDescriptionCreate', variables);
-    return result.data.attributeDescriptionCreate as AttributeDescription;
+    return new AttributeDescription(result.data.attributeDescriptionCreate);
   }
   /**
    Updates an existing attribute description
@@ -172,7 +172,7 @@ export class AttributeService extends BaseService {
   async updateAttributeDescription(id: string, input: AttributeDescriptionUpdateInput): Promise<AttributeDescription> {
     const variables = { id, input };
     const result = await this.executeMutation('attributeDescriptionUpdate', variables);
-    return result.data.attributeDescriptionUpdate as AttributeDescription;
+    return new AttributeDescription(result.data.attributeDescriptionUpdate);
   }
   /**
    Deletes an attribute description by ID
@@ -192,7 +192,7 @@ export class AttributeService extends BaseService {
   async deleteAttributeDescriptionBulk(ids: string[]): Promise<BulkDeleteResponse> {
     const variables = { ids };
     const result = await this.executeMutation('attributeDescriptionDeleteBulk', variables);
-    return result.data.attributeDescriptionDeleteBulk as BulkDeleteResponse;
+    return new BulkDeleteResponse(result.data.attributeDescriptionDeleteBulk);
   }
   /**
    Imports attribute descriptions via CSV
@@ -202,6 +202,6 @@ export class AttributeService extends BaseService {
   async importAttributeDescriptionCsv(input: AttributeDescriptionCsvInput): Promise<CsvImportResponse> {
     const variables = { input };
     const result = await this.executeMutation('attributeDescriptionCsvImport', variables);
-    return result.data.attributeDescriptionCsvImport as CsvImportResponse;
+    return new CsvImportResponse(result.data.attributeDescriptionCsvImport);
   }
 }

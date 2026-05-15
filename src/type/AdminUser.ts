@@ -3,11 +3,11 @@ import { TenantResponse } from './TenantResponse';
 /**
  Object class for AdminUser
  */
-export interface AdminUser {
+export class AdminUser {
   /** id field */
-  id: string | number;
+  id!: string | number;
   /** email field */
-  email: string;
+  email!: string;
   /** gender field */
   gender?: Gender;
   /** firstName field */
@@ -23,13 +23,16 @@ export interface AdminUser {
   /** job field */
   job?: string;
   /** createdAt field */
-  createdAt: string;
+  createdAt!: string;
   /** createdBy field */
-  createdBy: number;
+  createdBy!: number;
   /** lastModifiedAt field */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** lastModifiedBy field */
-  lastModifiedBy: number;
+  lastModifiedBy!: number;
   /** tenants field */
-  tenants: TenantResponse;
+  tenants!: TenantResponse;
+  constructor(data: Partial<AdminUser> = {}) {
+    Object.assign(this, data);
+  }
 }

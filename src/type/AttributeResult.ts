@@ -8,11 +8,14 @@ The AttributeResult has 3 fields,
 - attribute: The Entity that link the value to the AttributeDescription Entity and the Class. This field can be null. In that case the Class does not have an AttributeValue set on it.
 - value: The AttributeValue, either from the Attribute on the Class, or from the AttributeDescription when it's an inherited defaultValue.
  */
-export interface AttributeResult {
+export class AttributeResult {
   /** The Attribute Entity that link the value to the AttributeDescription Entity and the Class. This field can be null. In that case the Class does not have an AttributeValue set on */
   attribute?: Attribute;
   /** The Attribute Description */
-  attributeDescription: AttributeDescription;
+  attributeDescription!: AttributeDescription;
   /** The Attribute Value, either from the Attribute on the Class, or from the AttributeDescription when it's an inherited defaultValue. */
-  value: AttributeValue;
+  value!: AttributeValue;
+  constructor(data: Partial<AttributeResult> = {}) {
+    Object.assign(this, data);
+  }
 }

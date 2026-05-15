@@ -17,7 +17,7 @@ export class PayMethodService extends BaseService {
   async getPayMethod(id: number): Promise<PayMethod> {
     const variables = { id };
     const result = await this.executeQuery('payMethod', variables);
-    return result.data.payMethod as PayMethod;
+    return new PayMethod(result.data.payMethod);
   }
   /**
    Retrieves payment methods with search
@@ -27,7 +27,7 @@ export class PayMethodService extends BaseService {
   async getPayMethods(input?: PayMethodSearchInput): Promise<PayMethodsResponse> {
     const variables = { input };
     const result = await this.executeQuery('payMethods', variables);
-    return result.data.payMethods as PayMethodsResponse;
+    return new PayMethodsResponse(result.data.payMethods);
   }
   /**
    Creates a new payment method
@@ -37,7 +37,7 @@ export class PayMethodService extends BaseService {
   async createPayMethod(input: PayMethodCreateInput): Promise<PayMethod> {
     const variables = { input };
     const result = await this.executeMutation('payMethodCreate', variables);
-    return result.data.payMethodCreate as PayMethod;
+    return new PayMethod(result.data.payMethodCreate);
   }
   /**
    Updates an existing payment method
@@ -47,7 +47,7 @@ export class PayMethodService extends BaseService {
   async updatePayMethod(input: PayMethodUpdateInput): Promise<PayMethod> {
     const variables = { input };
     const result = await this.executeMutation('payMethodUpdate', variables);
-    return result.data.payMethodUpdate as PayMethod;
+    return new PayMethod(result.data.payMethodUpdate);
   }
   /**
    Deletes a payment method

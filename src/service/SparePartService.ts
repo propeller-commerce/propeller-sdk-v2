@@ -15,7 +15,7 @@ export class SparePartService extends BaseService {
   async getSparePart(id: number): Promise<SparePart> {
     const variables = { id };
     const result = await this.executeQuery('sparePart', variables);
-    return result.data.sparePart as SparePart;
+    return new SparePart(result.data.sparePart);
   }
   /**
    Retrieves all spare parts
@@ -24,7 +24,7 @@ export class SparePartService extends BaseService {
   async getSpareParts(): Promise<SparePartsResponse> {
     const variables = {};
     const result = await this.executeQuery('spareParts', variables);
-    return result.data.spareParts as SparePartsResponse;
+    return new SparePartsResponse(result.data.spareParts);
   }
   /**
    Creates a new spare part
@@ -34,6 +34,6 @@ export class SparePartService extends BaseService {
   async createSparePart(input: CreateSparePartInput): Promise<SparePart> {
     const variables = { input };
     const result = await this.executeMutation('sparePartCreate', variables);
-    return result.data.sparePartCreate as SparePart;
+    return new SparePart(result.data.sparePartCreate);
   }
 }

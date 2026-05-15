@@ -22,7 +22,7 @@ export class OrderlistService extends BaseService {
   async getOrderlist(id: number): Promise<Orderlist> {
     const variables = { id };
     const result = await this.executeQuery('orderlist', variables);
-    return result.data.orderlist as Orderlist;
+    return new Orderlist(result.data.orderlist);
   }
   /**
    Retrieves orderlists with search
@@ -32,7 +32,7 @@ export class OrderlistService extends BaseService {
   async getOrderlists(input?: OrderlistSearchInput): Promise<OrderlistsResponse> {
     const variables = { input };
     const result = await this.executeQuery('orderlists', variables);
-    return result.data.orderlists as OrderlistsResponse;
+    return new OrderlistsResponse(result.data.orderlists);
   }
   /**
    Retrieves computed (merged) orderlists
@@ -42,7 +42,7 @@ export class OrderlistService extends BaseService {
   async getComputedOrderlists(input: ComputedOrderlistsInput): Promise<ComputedOrderlistsResponse> {
     const variables = { input };
     const result = await this.executeQuery('computedOrderlists', variables);
-    return result.data.computedOrderlists as ComputedOrderlistsResponse;
+    return new ComputedOrderlistsResponse(result.data.computedOrderlists);
   }
   /**
    Creates a new orderlist
@@ -52,7 +52,7 @@ export class OrderlistService extends BaseService {
   async createOrderlist(input: OrderlistCreateInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistCreate', variables);
-    return result.data.orderlistCreate as Orderlist;
+    return new Orderlist(result.data.orderlistCreate);
   }
   /**
    Updates an existing orderlist
@@ -63,7 +63,7 @@ export class OrderlistService extends BaseService {
   async updateOrderlist(id: number, input: OrderlistUpdateInput): Promise<Orderlist> {
     const variables = { id, input };
     const result = await this.executeMutation('orderlistUpdate', variables);
-    return result.data.orderlistUpdate as Orderlist;
+    return new Orderlist(result.data.orderlistUpdate);
   }
   /**
    Deletes an orderlist
@@ -84,7 +84,7 @@ export class OrderlistService extends BaseService {
   async addOrderlistItems(id: number, input: OrderlistItemsInput): Promise<Orderlist> {
     const variables = { id, input };
     const result = await this.executeMutation('orderlistAddItems', variables);
-    return result.data.orderlistAddItems as Orderlist;
+    return new Orderlist(result.data.orderlistAddItems);
   }
   /**
    Removes items from an orderlist
@@ -95,7 +95,7 @@ export class OrderlistService extends BaseService {
   async removeOrderlistItems(id: number, input: OrderlistItemsInput): Promise<Orderlist> {
     const variables = { id, input };
     const result = await this.executeMutation('orderlistRemoveItems', variables);
-    return result.data.orderlistRemoveItems as Orderlist;
+    return new Orderlist(result.data.orderlistRemoveItems);
   }
   /**
    Assigns users to an orderlist
@@ -106,7 +106,7 @@ export class OrderlistService extends BaseService {
   async assignOrderlistUsers(id: number, input: OrderlistUsersInput): Promise<Orderlist> {
     const variables = { id, input };
     const result = await this.executeMutation('orderlistAssignUsers', variables);
-    return result.data.orderlistAssignUsers as Orderlist;
+    return new Orderlist(result.data.orderlistAssignUsers);
   }
   /**
    Unassigns users from an orderlist
@@ -117,7 +117,7 @@ export class OrderlistService extends BaseService {
   async unassignOrderlistUsers(id: number, input: OrderlistUsersInput): Promise<Orderlist> {
     const variables = { id, input };
     const result = await this.executeMutation('orderlistUnassignUsers', variables);
-    return result.data.orderlistUnassignUsers as Orderlist;
+    return new Orderlist(result.data.orderlistUnassignUsers);
   }
   /**
    Assigns companies to an orderlist
@@ -128,7 +128,7 @@ export class OrderlistService extends BaseService {
   async assignOrderlistCompanies(id: number, input: OrderlistCompaniesInput): Promise<Orderlist> {
     const variables = { id, input };
     const result = await this.executeMutation('orderlistAssignCompanies', variables);
-    return result.data.orderlistAssignCompanies as Orderlist;
+    return new Orderlist(result.data.orderlistAssignCompanies);
   }
   /**
    Unassigns companies from an orderlist
@@ -139,6 +139,6 @@ export class OrderlistService extends BaseService {
   async unassignOrderlistCompanies(id: number, input: OrderlistCompaniesInput): Promise<Orderlist> {
     const variables = { id, input };
     const result = await this.executeMutation('orderlistUnassignCompanies', variables);
-    return result.data.orderlistUnassignCompanies as Orderlist;
+    return new Orderlist(result.data.orderlistUnassignCompanies);
   }
 }

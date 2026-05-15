@@ -7,9 +7,9 @@ import { IAttributeFilter } from './IAttributeFilter';
 /**
  Object class for AttributeFilter
  */
-export interface AttributeFilter extends IAttributeFilter {
+export class AttributeFilter implements IAttributeFilter {
   /** Attribute filter id */
-  id: string;
+  id!: string;
   /** attributeDescription field */
   attributeDescription?: AttributeDescription;
   /** The type of the attribute.
@@ -24,11 +24,14 @@ export interface AttributeFilter extends IAttributeFilter {
         - object
         - integer
         - decimal */
-  type: AttributeType;
+  type!: AttributeType;
   /** All available attribute text values within this search result for this particular attribute. */
   textFilters?: AttributeTextFilter[];
   /** Minimum and maximum value range for integer attributes */
   integerRangeFilter?: AttributeIntegerRangeFilter;
   /** Minimum and maximum value range for decimal attributes */
   decimalRangeFilter?: AttributeDecimalRangeFilter;
+  constructor(data: Partial<AttributeFilter> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -7,21 +7,24 @@ import { IBusinessRuleNode } from './IBusinessRuleNode';
   decisionTableNode and outputNode witn edges between them.
   A decisionTable can have mutiple rows, each row representing a single rule that gets executed.
  */
-export interface BusinessRule {
+export class BusinessRule {
   /** BusinessRule identifier */
-  id: string | number;
+  id!: string | number;
   /** type field */
-  type: BusinessRuleType;
+  type!: BusinessRuleType;
   /** name field */
-  name: LocalizedString[];
+  name!: LocalizedString[];
   /** edges field */
-  edges: BusinessRuleEdge[];
+  edges!: BusinessRuleEdge[];
   /** nodes field */
-  nodes: IBusinessRuleNode[];
+  nodes!: IBusinessRuleNode[];
   /** BusinessRule date created */
-  createdAt: string;
+  createdAt!: string;
   /** BusinessRule List date modified */
-  updatedAt: string;
+  updatedAt!: string;
   /** jdm field */
-  jdm: any;
+  jdm!: any;
+  constructor(data: Partial<BusinessRule> = {}) {
+    Object.assign(this, data);
+  }
 }

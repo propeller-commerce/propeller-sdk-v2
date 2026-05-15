@@ -3,19 +3,22 @@ import { CompanyAttributeDescriptionSearch } from './CompanyAttributeDescription
 /**
  Object class for CompanyAttributeSearch
  */
-export interface CompanyAttributeSearch {
+export class CompanyAttributeSearch {
   /** Attribute id */
-  id: string;
+  id!: string;
   /** Attribute value */
-  value: CompanyAttributeValueSearch;
+  value!: CompanyAttributeValueSearch;
   /** Creation date */
-  createdAt: string;
+  createdAt!: string;
   /** Last modified date */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Created by id */
   createdBy?: number;
   /** Last modified by id */
   lastModifiedBy?: number;
   /** Attribute Description */
   attributeDescription?: CompanyAttributeDescriptionSearch;
+  constructor(data: Partial<CompanyAttributeSearch> = {}) {
+    Object.assign(this, data);
+  }
 }

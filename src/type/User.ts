@@ -6,25 +6,25 @@ import { Company } from './Company';
 /**
  Object class for User
  */
-export interface User {
+export class User {
   /** The id of the user. */
-  userId: number;
+  userId!: number;
 /** debtorId field */
   debtorId?: string;
   /** The gender of the user. */
   gender?: Gender;
   /** The first name of the user. */
-  firstName: string;
+  firstName!: string;
   /** The middle name of the user. */
   middleName?: string;
   /** The last name of the user. */
-  lastName: string;
+  lastName!: string;
   /** The phone number of the user. */
   phone?: string;
   /** The mobile number of the user. */
   mobile?: string;
   /** The email of the user. */
-  email: string;
+  email!: string;
   /** The login name (email) the account is linked to, generally the same as email address. When null a account has not been linked yet. */
   login?: string;
   /** The International Bank Account Number of the user */
@@ -61,4 +61,7 @@ export interface User {
   company?: string;
   /** Companies managed by the user. */
   managedCompanies?: Company[];
+  constructor(data: Partial<User> = {}) {
+    Object.assign(this, data);
+  }
 }

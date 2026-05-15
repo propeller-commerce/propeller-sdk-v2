@@ -16,7 +16,7 @@ export class PaymentService extends BaseService {
   async getPayment(id: number): Promise<Payment> {
     const variables = { id };
     const result = await this.executeQuery('payment', variables);
-    return result.data.payment as Payment;
+    return new Payment(result.data.payment);
   }
   /**
    Retrieves payments with search
@@ -26,7 +26,7 @@ export class PaymentService extends BaseService {
   async getPayments(input?: PaymentsSearchInput): Promise<PaymentsResponse> {
     const variables = { input };
     const result = await this.executeQuery('payments', variables);
-    return result.data.payments as PaymentsResponse;
+    return new PaymentsResponse(result.data.payments);
   }
   /**
    Creates a new payment
@@ -36,7 +36,7 @@ export class PaymentService extends BaseService {
   async createPayment(input: any): Promise<Payment> {
     const variables = { input };
     const result = await this.executeMutation('paymentCreate', variables);
-    return result.data.paymentCreate as Payment;
+    return new Payment(result.data.paymentCreate);
   }
   /**
    Updates an existing payment
@@ -46,7 +46,7 @@ export class PaymentService extends BaseService {
   async updatePayment(input: UpdatePaymentInput): Promise<Payment> {
     const variables = { input };
     const result = await this.executeMutation('paymentUpdate', variables);
-    return result.data.paymentUpdate as Payment;
+    return new Payment(result.data.paymentUpdate);
   }
   /**
    Deletes a payment

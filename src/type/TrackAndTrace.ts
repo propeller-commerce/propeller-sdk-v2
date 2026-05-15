@@ -2,19 +2,22 @@ import { Carrier } from './Carrier';
 /**
  Object class for TrackAndTrace
  */
-export interface TrackAndTrace {
+export class TrackAndTrace {
   /** Carrier id */
   carrierId?: number;
   /** Get carrier for track and trace */
   carrier?: Carrier;
   /** Unique identifier */
-  id: string;
+  id!: string;
   /** Creation date */
-  createdAt: string;
+  createdAt!: string;
   /** Last modified date */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Code */
-  code: string;
+  code!: string;
   /** Shipment unique identifier */
-  shipmentId: string;
+  shipmentId!: string;
+  constructor(data: Partial<TrackAndTrace> = {}) {
+    Object.assign(this, data);
+  }
 }

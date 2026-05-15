@@ -6,11 +6,11 @@ import { AdminUser } from './AdminUser';
  Object class for Ticket
  Ticket entity representing a support or service request within the system.
  */
-export interface Ticket {
+export class Ticket {
   /** Unique identifier for the ticket */
-  id: string;
+  id!: string;
   /** Localized human-readable titles */
-  titles: LocalizedString[];
+  titles!: LocalizedString[];
   /** Localized human-readable descriptions */
   descriptions?: LocalizedString[];
   /** Localized human-readable labels for the action button */
@@ -18,7 +18,7 @@ export interface Ticket {
   /** Type of the ticket. Used for categorization and filtering purposes */
   type?: string;
   /** Status of the ticket */
-  status: TicketStatus;
+  status!: TicketStatus;
   /** Identifier of the admin user assigned to this ticket */
   assignedToAdminUserId?: number;
   /** Identifier of the contact associated with this ticket */
@@ -42,9 +42,9 @@ export interface Ticket {
   /** External sources of the ticket */
   sources?: Source[];
   /** Timestamp when the ticket was created */
-  createdAt: string;
+  createdAt!: string;
   /** Timestamp when the ticket was last modified */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Timestamp when the ticket was picked up by an admin user */
   pickedUpAt?: string;
   /** Timestamp when the ticket was completed */
@@ -55,4 +55,7 @@ export interface Ticket {
   createdByAdminUserId?: number;
   /** The admin user assigned to this ticket */
   assignedToAdminUser?: AdminUser;
+  constructor(data: Partial<Ticket> = {}) {
+    Object.assign(this, data);
+  }
 }

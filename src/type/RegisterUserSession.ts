@@ -1,11 +1,14 @@
 /**
  Object class for RegisterUserSession
  */
-export interface RegisterUserSession {
+export class RegisterUserSession {
   /** JWT Bearer access token */
   accessToken?: string;
   /** Refresh token */
   refreshToken?: string;
   /** Expiration time */
   expirationTime?: string;
+  constructor(data: Partial<RegisterUserSession> = {}) {
+    Object.assign(this, data);
+  }
 }

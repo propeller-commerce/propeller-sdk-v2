@@ -1,17 +1,20 @@
 /**
  Object class for CostPrice
  */
-export interface CostPrice {
+export class CostPrice {
   /** Primary identifier */
-  id: string;
+  id!: string;
   /** Price foreign identifier */
-  priceId: string;
+  priceId!: string;
   /** Creation date */
-  createdAt: string;
+  createdAt!: string;
   /** Last modified date */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Indicates the minimum quantity threshold needed to qualify for the cost price. */
-  quantityFrom: number;
+  quantityFrom!: number;
   /** The cost associated to acquire the product. */
-  value: number;
+  value!: number;
+  constructor(data: Partial<CostPrice> = {}) {
+    Object.assign(this, data);
+  }
 }

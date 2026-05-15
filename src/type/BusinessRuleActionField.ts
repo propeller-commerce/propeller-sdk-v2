@@ -2,9 +2,12 @@ import { LocalizedString } from './LocalizedString';
 /**
  Object class for BusinessRuleActionField
  */
-export interface BusinessRuleActionField {
+export class BusinessRuleActionField {
   /** name field */
-  name: LocalizedString[];
+  name!: LocalizedString[];
   /** path field */
-  path: string;
+  path!: string;
+  constructor(data: Partial<BusinessRuleActionField> = {}) {
+    Object.assign(this, data);
+  }
 }

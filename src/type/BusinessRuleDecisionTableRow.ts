@@ -2,11 +2,14 @@ import { BusinessRuleDecisionTableCell } from './BusinessRuleDecisionTableCell';
 /**
  Represents a single row in a business rule decision table.
  */
-export interface BusinessRuleDecisionTableRow {
+export class BusinessRuleDecisionTableRow {
   /** The generated ID for the row */
-  id: string | number;
+  id!: string | number;
   /** The row's input columns */
-  inputs: BusinessRuleDecisionTableCell[];
+  inputs!: BusinessRuleDecisionTableCell[];
   /** The row's output columns */
-  outputs: BusinessRuleDecisionTableCell[];
+  outputs!: BusinessRuleDecisionTableCell[];
+  constructor(data: Partial<BusinessRuleDecisionTableRow> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -10,15 +10,18 @@ import { IBusinessRuleNode } from './IBusinessRuleNode';
   When the hitPolicy is set to 'first', the first matching row is used.
   When the hitPolicy is set to 'collect', all matching rows are used.
  */
-export interface BusinessRuleDecisionTable extends IBusinessRuleNode {
+export class BusinessRuleDecisionTable implements IBusinessRuleNode {
   /** The type of the node.  */
-  type: BusinessRuleNodeType;
+  type!: BusinessRuleNodeType;
   /** The generated ID for this node */
-  id: string | number;
+  id!: string | number;
   /** The name of the node */
-  name: string;
+  name!: string;
   /** The description of the node */
-  description: string;
+  description!: string;
   /** The node's table content in case the type is 'decisionTableNode' */
-  content: BusinessRuleDecisionTableContent;
+  content!: BusinessRuleDecisionTableContent;
+  constructor(data: Partial<BusinessRuleDecisionTable> = {}) {
+    Object.assign(this, data);
+  }
 }

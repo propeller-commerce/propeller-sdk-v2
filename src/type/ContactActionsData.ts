@@ -1,11 +1,14 @@
 /**
  Object class for ContactActionsData
  */
-export interface ContactActionsData {
+export class ContactActionsData {
   /** Output message response [INFO/WARNING/ERROR] */
-  message: string;
+  message!: string;
   /** Success status */
-  success: boolean;
+  success!: boolean;
   /** Company ID the action was performed to */
-  companyId: number;
+  companyId!: number;
+  constructor(data: Partial<ContactActionsData> = {}) {
+    Object.assign(this, data);
+  }
 }

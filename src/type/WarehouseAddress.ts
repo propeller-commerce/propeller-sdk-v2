@@ -3,9 +3,9 @@ import { YesNo } from '../enum/YesNo';
 /**
  Object class for WarehouseAddress
  */
-export interface WarehouseAddress {
+export class WarehouseAddress {
   /** Address primary identifier */
-  id: number;
+  id!: number;
   /** First name the address applies to */
   firstName?: string;
   /** Middle name the address applies to */
@@ -17,19 +17,19 @@ export interface WarehouseAddress {
   /** Company the address applies to */
   company?: string;
   /** Address street */
-  street: string;
+  street!: string;
   /** Address street number */
   number?: string;
   /** Address street number extension */
   numberExtension?: string;
   /** Address postal code */
-  postalCode: string;
+  postalCode!: string;
   /** Address city */
-  city: string;
+  city!: string;
   /** Address region */
   region?: string;
   /** Address country */
-  country: string;
+  country!: string;
   /** Fixed phone number that applies to this address [min: 6, max: 30] */
   phone?: string;
   /** Mobile phone number that applies to this address [min: 6, max: 30] */
@@ -48,4 +48,7 @@ export interface WarehouseAddress {
   url?: string;
   /** Address friendly descriptive name */
   name?: string;
+  constructor(data: Partial<WarehouseAddress> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -2,13 +2,16 @@ import { OrderItemIncentiveCode } from '../enum/OrderItemIncentiveCode';
 /**
  Object class for TenderItemIncentive
  */
-export interface TenderItemIncentive {
+export class TenderItemIncentive {
   /** name field */
   name?: string;
   /** quantity field */
-  quantity: number;
+  quantity!: number;
   /** price field */
-  price: number;
+  price!: number;
   /** code field */
-  code: OrderItemIncentiveCode;
+  code!: OrderItemIncentiveCode;
+  constructor(data: Partial<TenderItemIncentive> = {}) {
+    Object.assign(this, data);
+  }
 }

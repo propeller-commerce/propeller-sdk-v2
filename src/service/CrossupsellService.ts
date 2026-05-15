@@ -31,7 +31,7 @@ export class CrossupsellService extends BaseService {
   async getCrossupsell(id: number): Promise<Crossupsell> {
     const variables = { id };
     const result = await this.executeQuery('crossupsell', variables);
-    return result.data.crossupsell as Crossupsell;
+    return new Crossupsell(result.data.crossupsell);
   }
   /**
    Fetches a list of crossupsells with search criteria
@@ -40,7 +40,7 @@ export class CrossupsellService extends BaseService {
    */
   async getCrossupsells(variables?: CrossupsellsQueryVariables): Promise<CrossupsellsResponse> {
     const result = await this.executeQuery('crossupsells', variables);
-    return result.data.crossupsells as CrossupsellsResponse;
+    return new CrossupsellsResponse(result.data.crossupsells);
   }
   /**
    Creates a new crossupsell
@@ -50,7 +50,7 @@ export class CrossupsellService extends BaseService {
   async createCrossupsell(input: CrossupsellCreateInput): Promise<Crossupsell> {
     const variables = { input };
     const result = await this.executeMutation('crossupsellCreate', variables);
-    return result.data.crossupsellCreate as Crossupsell;
+    return new Crossupsell(result.data.crossupsellCreate);
   }
   /**
    Updates an existing crossupsell
@@ -60,6 +60,6 @@ export class CrossupsellService extends BaseService {
   async updateCrossupsell(input: CrossupsellUpdateInput): Promise<Crossupsell> {
     const variables = { input };
     const result = await this.executeMutation('crossupsellUpdate', variables);
-    return result.data.crossupsellUpdate as Crossupsell;
+    return new Crossupsell(result.data.crossupsellUpdate);
   }
 }

@@ -17,7 +17,7 @@ export class MediaVideoService extends BaseService {
   async getMediaVideo(id: number): Promise<MediaVideo> {
     const variables = { id };
     const result = await this.executeQuery('mediaVideo', variables);
-    return result.data.mediaVideo as MediaVideo;
+    return new MediaVideo(result.data.mediaVideo);
   }
   /**
    Retrieves media videos with pagination
@@ -27,7 +27,7 @@ export class MediaVideoService extends BaseService {
   async getMediaVideos(input?: MediaVideoSearchInput): Promise<PaginatedMediaVideoResponse> {
     const variables = { input };
     const result = await this.executeQuery('mediaVideos', variables);
-    return result.data.mediaVideos as PaginatedMediaVideoResponse;
+    return new PaginatedMediaVideoResponse(result.data.mediaVideos);
   }
   /**
    Creates a new media video
@@ -37,7 +37,7 @@ export class MediaVideoService extends BaseService {
   async createMediaVideo(input: MediaVideoInput): Promise<MediaVideo> {
     const variables = { input };
     const result = await this.executeMutation('mediaVideoCreate', variables);
-    return result.data.mediaVideoCreate as MediaVideo;
+    return new MediaVideo(result.data.mediaVideoCreate);
   }
   /**
    Updates an existing media video
@@ -47,7 +47,7 @@ export class MediaVideoService extends BaseService {
   async updateMediaVideo(input: UpdateMediaVideoInput): Promise<MediaVideo> {
     const variables = { input };
     const result = await this.executeMutation('mediaVideoUpdate', variables);
-    return result.data.mediaVideoUpdate as MediaVideo;
+    return new MediaVideo(result.data.mediaVideoUpdate);
   }
   /**
    Deletes a media video

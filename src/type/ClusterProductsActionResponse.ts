@@ -2,9 +2,12 @@ import { ClusterProductsActionData } from './ClusterProductsActionData';
 /**
  Object class for ClusterProductsActionResponse
  */
-export interface ClusterProductsActionResponse {
+export class ClusterProductsActionResponse {
   /** List of output messaged for actions performed */
-  data: ClusterProductsActionData[];
+  data!: ClusterProductsActionData[];
   /** List of extra messages */
-  messages: string[];
+  messages!: string[];
+  constructor(data: Partial<ClusterProductsActionResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

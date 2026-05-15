@@ -4,21 +4,24 @@ import { TrackAndTrace } from './TrackAndTrace';
 /**
  Object class for Shipment
  */
-export interface Shipment {
+export class Shipment {
   /** Unique identifier */
-  id: string;
+  id!: string;
   /** Creation date */
-  createdAt: string;
+  createdAt!: string;
   /** Last modified date */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Expected delivery date */
   expectedDeliveryAt?: string;
   /** Shipment status */
   status?: ShipmentStatus;
   /** The ID of the Order the shipment belongs to */
-  orderId: number;
+  orderId!: number;
   /** Shipment items */
   items?: ShipmentItem[];
   /** Track and traces */
   trackAndTraces?: TrackAndTrace[];
+  constructor(data: Partial<Shipment> = {}) {
+    Object.assign(this, data);
+  }
 }

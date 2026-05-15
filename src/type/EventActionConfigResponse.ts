@@ -2,19 +2,22 @@ import { IEventActionConfig } from './IEventActionConfig';
 /**
  Object class for EventActionConfigResponse
  */
-export interface EventActionConfigResponse {
+export class EventActionConfigResponse {
   /** List of items of type IEventActionConfig */
-  items: IEventActionConfig[];
+  items!: IEventActionConfig[];
   /** Total number of items found */
-  itemsFound: number;
+  itemsFound!: number;
   /** The amount of items to show per page */
-  offset: number;
+  offset!: number;
   /** The current page */
-  page: number;
+  page!: number;
   /** Total amount of pages */
-  pages: number;
+  pages!: number;
   /** Start position of the current page */
-  start: number;
+  start!: number;
   /** End position of the current page */
-  end: number;
+  end!: number;
+  constructor(data: Partial<EventActionConfigResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

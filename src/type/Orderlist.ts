@@ -9,15 +9,15 @@ import { CompaniesResponse } from './CompaniesResponse';
 /**
  Object class for Orderlist
  */
-export interface Orderlist {
+export class Orderlist {
   /** Orderlist primary identifier */
-  id: number;
+  id!: number;
   /** Orderlist creation date */
-  createdAt: string;
+  createdAt!: string;
   /** Orderlist last modified date */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Orderlist description per language */
-  descriptions: LocalizedString[];
+  descriptions!: LocalizedString[];
   /** Extra field per language */
   extras?: LocalizedString[];
   /** Orderlist code */
@@ -27,23 +27,26 @@ export interface Orderlist {
   /** Valid to (Display only) */
   validTo?: string;
   /** Orderlist type */
-  type: OrderlistType;
+  type!: OrderlistType;
   /** Partner entity */
   partnerEntity?: string;
   /** Shows if the orderlist is active */
-  active: YesNo;
+  active!: YesNo;
   /** products field */
   products?: ProductsResponse;
   /** clusters field */
   clusters?: ProductsResponse;
   /** Use usersPaginated. */
   /** @deprecated Use usersPaginated. */
-  users: IBaseUser[];
+  users!: IBaseUser[];
   /** usersPaginated field */
-  usersPaginated: UsersResponse;
+  usersPaginated!: UsersResponse;
   /** Use companiesPaginated. */
   /** @deprecated Use companiesPaginated. */
-  companies: Company[];
+  companies!: Company[];
   /** companiesPaginated field */
-  companiesPaginated: CompaniesResponse;
+  companiesPaginated!: CompaniesResponse;
+  constructor(data: Partial<Orderlist> = {}) {
+    Object.assign(this, data);
+  }
 }

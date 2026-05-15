@@ -4,9 +4,9 @@ import { AddressType } from '../enum/AddressType';
 /**
  Object class for Address
  */
-export interface Address {
+export class Address {
   /** Address primary identifier */
-  id: number;
+  id!: number;
   /** First name the address applies to */
   firstName?: string;
   /** Middle name the address applies to */
@@ -18,19 +18,19 @@ export interface Address {
   /** Company the address applies to */
   company?: string;
   /** Address street */
-  street: string;
+  street!: string;
   /** Address street number */
   number?: string;
   /** Address street number extension */
   numberExtension?: string;
   /** Address postal code */
-  postalCode: string;
+  postalCode!: string;
   /** Address city */
-  city: string;
+  city!: string;
   /** Address region */
   region?: string;
   /** Address country */
-  country: string;
+  country!: string;
   /** Fixed phone number that applies to this address [min: 6, max: 30] */
   phone?: string;
   /** Mobile phone number that applies to this address [min: 6, max: 30] */
@@ -44,9 +44,9 @@ export interface Address {
   /** Address delivery notes */
   notes?: string;
   /** Indicates whether the address is default for its type */
-  isDefault: YesNo;
+  isDefault!: YesNo;
   /** Address type [one of 'home', 'delivery', 'invoice'] */
-  type: AddressType;
+  type!: AddressType;
   /** ICP address field defines whether tax should be applied to an order if the address is selected as a delivery address. Used when shipping b2b order abroad */
   icp?: YesNo;
   /** Address company domain url */
@@ -55,4 +55,7 @@ export interface Address {
   active?: YesNo;
   /** Address friendly descriptive name */
   name?: string;
+  constructor(data: Partial<Address> = {}) {
+    Object.assign(this, data);
+  }
 }

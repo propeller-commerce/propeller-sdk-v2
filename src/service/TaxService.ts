@@ -22,7 +22,7 @@ export class TaxService extends BaseService {
   async getTax(id: string): Promise<Tax> {
     const variables = { id };
     const result = await this.executeQuery('tax', variables);
-    return result.data.tax as Tax;
+    return new Tax(result.data.tax);
   }
   /**
    Retrieves taxes with search criteria
@@ -32,7 +32,7 @@ export class TaxService extends BaseService {
   async getTaxes(input?: TaxSearchInput): Promise<TaxesResponse> {
     const variables = { input };
     const result = await this.executeQuery('taxes', variables);
-    return result.data.taxes as TaxesResponse;
+    return new TaxesResponse(result.data.taxes);
   }
   /**
    Creates a new tax
@@ -42,7 +42,7 @@ export class TaxService extends BaseService {
   async createTax(input: TaxCreateInput): Promise<Tax> {
     const variables = { input };
     const result = await this.executeMutation('taxCreate', variables);
-    return result.data.taxCreate as Tax;
+    return new Tax(result.data.taxCreate);
   }
   /**
    Updates an existing tax
@@ -52,7 +52,7 @@ export class TaxService extends BaseService {
   async updateTax(input: TaxUpdateInput): Promise<Tax> {
     const variables = { input };
     const result = await this.executeMutation('taxUpdate', variables);
-    return result.data.taxUpdate as Tax;
+    return new Tax(result.data.taxUpdate);
   }
   /**
    Retrieves a specific zone tax code
@@ -62,7 +62,7 @@ export class TaxService extends BaseService {
   async getZoneTaxCode(id: number): Promise<ZoneTaxCode> {
     const variables = { id };
     const result = await this.executeQuery('zoneTaxCode', variables);
-    return result.data.zoneTaxCode as ZoneTaxCode;
+    return new ZoneTaxCode(result.data.zoneTaxCode);
   }
   /**
    Retrieves zone tax codes with search criteria
@@ -72,7 +72,7 @@ export class TaxService extends BaseService {
   async getZoneTaxCodes(input?: ZoneTaxCodeSearchInput): Promise<ZoneTaxCodeResponse> {
     const variables = { input };
     const result = await this.executeQuery('zoneTaxCodes', variables);
-    return result.data.zoneTaxCodes as ZoneTaxCodeResponse;
+    return new ZoneTaxCodeResponse(result.data.zoneTaxCodes);
   }
   /**
    Creates a new zone tax code
@@ -82,7 +82,7 @@ export class TaxService extends BaseService {
   async createZoneTaxCode(input: ZoneTaxCodeCreateInput): Promise<ZoneTaxCode> {
     const variables = { input };
     const result = await this.executeMutation('zoneTaxCodeCreate', variables);
-    return result.data.zoneTaxCodeCreate as ZoneTaxCode;
+    return new ZoneTaxCode(result.data.zoneTaxCodeCreate);
   }
   /**
    Creates multiple zone tax codes
@@ -92,7 +92,7 @@ export class TaxService extends BaseService {
   async createZoneTaxCodes(input: ZoneTaxCodeCreateInput[]): Promise<ZoneTaxCode[]> {
     const variables = { input };
     const result = await this.executeMutation('zoneTaxCodesCreate', variables);
-    return result.data.zoneTaxCodesCreate as ZoneTaxCode[];
+    return result.data.zoneTaxCodesCreate.map((x: any) => new ZoneTaxCode(x));
   }
   /**
    Updates an existing zone tax code
@@ -102,6 +102,6 @@ export class TaxService extends BaseService {
   async updateZoneTaxCode(input: ZoneTaxCodeUpdateInput): Promise<ZoneTaxCode> {
     const variables = { input };
     const result = await this.executeMutation('zoneTaxCodeUpdate', variables);
-    return result.data.zoneTaxCodeUpdate as ZoneTaxCode;
+    return new ZoneTaxCode(result.data.zoneTaxCodeUpdate);
   }
 }

@@ -1,15 +1,18 @@
 /**
  Object class for RefreshTokenResponse
  */
-export interface RefreshTokenResponse {
+export class RefreshTokenResponse {
   /** access_token field */
-  access_token: string;
+  access_token!: string;
   /** refresh_token field */
-  refresh_token: string;
+  refresh_token!: string;
   /** expires_in field */
-  expires_in: number;
+  expires_in!: number;
   /** token_type field */
-  token_type: string;
+  token_type!: string;
   /** user_id field */
-  user_id: string;
+  user_id!: string;
+  constructor(data: Partial<RefreshTokenResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -16,7 +16,7 @@ export class SurchargeService extends BaseService {
   async getSurcharge(id: number): Promise<Surcharge> {
     const variables = { id };
     const result = await this.executeQuery('surcharge', variables);
-    return result.data.surcharge as Surcharge;
+    return new Surcharge(result.data.surcharge);
   }
   /**
    Fetches a list of surcharges with search criteria
@@ -26,7 +26,7 @@ export class SurchargeService extends BaseService {
   async getSurcharges(input?: SurchargeSearchInput): Promise<SurchargesResponse> {
     const variables = { input };
     const result = await this.executeQuery('surcharges', variables);
-    return result.data.surcharges as SurchargesResponse;
+    return new SurchargesResponse(result.data.surcharges);
   }
   /**
    Creates a new surcharge
@@ -36,7 +36,7 @@ export class SurchargeService extends BaseService {
   async createSurcharge(input: CreateSurchargeInput): Promise<Surcharge> {
     const variables = { input };
     const result = await this.executeMutation('surchargeCreate', variables);
-    return result.data.surchargeCreate as Surcharge;
+    return new Surcharge(result.data.surchargeCreate);
   }
   /**
    Updates an existing surcharge
@@ -46,7 +46,7 @@ export class SurchargeService extends BaseService {
   async updateSurcharge(id: string, input: UpdateSurchargeInput): Promise<Surcharge> {
     const variables = { id, input };
     const result = await this.executeMutation('surchargeUpdate', variables);
-    return result.data.surchargeUpdate as Surcharge;
+    return new Surcharge(result.data.surchargeUpdate);
   }
   /**
    Deletes a surcharge

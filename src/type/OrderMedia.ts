@@ -2,7 +2,10 @@ import { PaginatedMediaAttachmentResponse } from './PaginatedMediaAttachmentResp
 /**
  Object class for OrderMedia
  */
-export interface OrderMedia {
+export class OrderMedia {
   /** Media attachments */
   attachments?: PaginatedMediaAttachmentResponse;
+  constructor(data: Partial<OrderMedia> = {}) {
+    Object.assign(this, data);
+  }
 }

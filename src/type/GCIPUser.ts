@@ -4,9 +4,9 @@ import { MultiFactor } from './MultiFactor';
 /**
  Google Cloud Identity Platform User
  */
-export interface GCIPUser {
+export class GCIPUser {
   /** Unique identifier for the user, either supplied by user creation or generated */
-  uid: string;
+  uid!: string;
   /** The email address of the user */
   email?: string;
   /** Flags whether the email address has been verified by the user */
@@ -40,11 +40,14 @@ export interface GCIPUser {
   /** The creation time of the user */
   createdAt?: string;
   /** Access token for the user */
-  accessToken: string;
+  accessToken!: string;
   /** Refresh token for the user */
-  refreshToken: string;
+  refreshToken!: string;
   /** The expiration time of the access token */
   expirationTime?: string;
   /** Multi-factor authentication details for the user */
   multiFactor?: MultiFactor;
+  constructor(data: Partial<GCIPUser> = {}) {
+    Object.assign(this, data);
+  }
 }

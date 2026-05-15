@@ -1,6 +1,6 @@
 import { GraphQLClient } from '../../src/client/GraphQLClient';
 import { ProductService } from '../../src/service/ProductService';
-import type { Product } from '../../src/type/Product';
+import { Product } from '../../src/type/Product';
 
 const okResponse = (data: any) =>
   new Response(JSON.stringify({ data }), { status: 200 });
@@ -30,6 +30,7 @@ describe('ProductService', () => {
 
     const product: Product = await svc.getProduct({ productId: 42 } as any);
 
+    expect(product).toBeInstanceOf(Product);
     expect(product.id).toBe(42);
     expect(product.sku).toBe('SKU-42');
 

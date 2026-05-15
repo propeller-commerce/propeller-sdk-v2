@@ -17,7 +17,7 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   async getPurchaseAuthorizationConfig(id: number): Promise<PurchaseAuthorizationConfig> {
     const variables = { id };
     const result = await this.executeQuery('purchaseAuthorizationConfig', variables);
-    return result.data.purchaseAuthorizationConfig as PurchaseAuthorizationConfig;
+    return new PurchaseAuthorizationConfig(result.data.purchaseAuthorizationConfig);
   }
   /**
    Retrieves purchase authorization configurations with search
@@ -27,7 +27,7 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   async getPurchaseAuthorizationConfigs(input?: PurchaseAuthorizationConfigSearchInput): Promise<PurchaseAuthorizationConfigResponse[]> {
     const variables = { input };
     const result = await this.executeQuery('purchaseAuthorizationConfigs', variables);
-    return result.data.purchaseAuthorizationConfigs as PurchaseAuthorizationConfigResponse[];
+    return result.data.purchaseAuthorizationConfigs.map((x: any) => new PurchaseAuthorizationConfigResponse(x));
   }
   /**
    Creates a new purchase authorization configuration
@@ -37,7 +37,7 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   async createPurchaseAuthorizationConfig(input: PurchaseAuthorizationConfigCreateInput): Promise<PurchaseAuthorizationConfig> {
     const variables = { input };
     const result = await this.executeMutation('purchaseAuthorizationConfigCreate', variables);
-    return result.data.purchaseAuthorizationConfigCreate as PurchaseAuthorizationConfig;
+    return new PurchaseAuthorizationConfig(result.data.purchaseAuthorizationConfigCreate);
   }
   /**
    Updates an existing purchase authorization configuration
@@ -48,7 +48,7 @@ export class PurchaseAuthorizationConfigService extends BaseService {
   async updatePurchaseAuthorizationConfig(id: string, input: PurchaseAuthorizationConfigUpdateInput): Promise<PurchaseAuthorizationConfig> {
     const variables = { id, input };
     const result = await this.executeMutation('purchaseAuthorizationConfigUpdate', variables);
-    return result.data.purchaseAuthorizationConfigUpdate as PurchaseAuthorizationConfig;
+    return new PurchaseAuthorizationConfig(result.data.purchaseAuthorizationConfigUpdate);
   }
   /**
    Deletes a purchase authorization configuration

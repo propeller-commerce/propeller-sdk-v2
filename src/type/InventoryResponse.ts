@@ -2,38 +2,41 @@ import { Warehouse } from './Warehouse';
 /**
  Object class for InventoryResponse
  */
-export interface InventoryResponse {
+export class InventoryResponse {
   /** Inventory primary identifier */
-  id: string | number;
+  id!: string | number;
   /** Inventory product identifier */
-  productId: number;
+  productId!: number;
   /** Inventory quantity */
-  quantity: number;
+  quantity!: number;
   /** Inventory cost price */
-  costPrice: number;
+  costPrice!: number;
   /** Inventory supplier */
-  supplier: string;
+  supplier!: string;
   /** Inventory supplier code */
-  supplierCode: string;
+  supplierCode!: string;
   /** Inventory sku */
-  sku: string;
+  sku!: string;
   /** Inventory last modified date */
   /** @deprecated Use lastModifiedAt instead */
   dateModified?: string;
   /** Inventory warehouse identifier */
-  warehouseId: number;
+  warehouseId!: number;
   /** Inventory location */
-  location: string;
+  location!: string;
   /** Inventory estimated next delivery date */
-  nextDeliveryDate: string;
+  nextDeliveryDate!: string;
   /** Inventory note */
-  notes: string;
+  notes!: string;
   /** Error messages */
   /** @deprecated No longer used */
-  messages: string[];
+  messages!: string[];
   /** Total */
   /** @deprecated No longer used */
-  total: number;
+  total!: number;
   /** warehouse field */
   warehouse?: Warehouse;
+  constructor(data: Partial<InventoryResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

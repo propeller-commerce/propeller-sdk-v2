@@ -3,13 +3,16 @@ import { IBusinessRuleExpression } from './IBusinessRuleExpression';
 /**
  Represents a business rule expression group when used as sub-expressions in a complex expression
  */
-export interface BusinessRuleSubExpressionGroup {
+export class BusinessRuleSubExpressionGroup {
   /** id field */
-  id: string | number;
+  id!: string | number;
   /** field field */
-  field: string;
+  field!: string;
   /** expressions field */
-  expressions: IBusinessRuleExpression[];
+  expressions!: IBusinessRuleExpression[];
   /** operator field */
   operator?: BusinessRuleExpressionGroupOperators;
+  constructor(data: Partial<BusinessRuleSubExpressionGroup> = {}) {
+    Object.assign(this, data);
+  }
 }

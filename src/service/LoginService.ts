@@ -17,7 +17,7 @@ export class LoginService extends BaseService {
   async login(input: LoginInput): Promise<Login> {
     const variables = { input };
     const result = await this.executeMutation('login', variables);
-    return result.data.login as Login;
+    return new Login(result.data.login);
   }
   /**
    Creates authentication claims for a user
@@ -27,7 +27,7 @@ export class LoginService extends BaseService {
   async authenticate(input: CreateAuthenticationInput): Promise<Login> {
     const variables = { input };
     const result = await this.executeMutation('authenticationCreate', variables);
-    return result.data.authenticationCreate as Login;
+    return new Login(result.data.authenticationCreate);
   }
   /**
    Exchanges a refresh token for a new access token
@@ -38,6 +38,6 @@ export class LoginService extends BaseService {
     const input: ExchangeRefreshTokenInput = { refreshToken };
     const variables = { input };
     const result = await this.executeMutation('exchangeRefreshToken', variables);
-    return result.data.exchangeRefreshToken as RefreshTokenResponse;
+    return new RefreshTokenResponse(result.data.exchangeRefreshToken);
   }
 }

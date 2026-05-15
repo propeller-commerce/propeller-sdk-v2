@@ -13,6 +13,6 @@ export class RegisterContactResponseService extends BaseService {
   async registerContact(input: RegisterContactInput): Promise<RegisterContactResponse> {
     const variables = { input };
     const result = await this.executeMutation('registerContact', variables);
-    return result.data.registerContact as RegisterContactResponse;
+    return new RegisterContactResponse(result.data.registerContact);
   }
 }

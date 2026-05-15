@@ -25,7 +25,7 @@ export class BundleService extends BaseService {
   async getBundle(id: number): Promise<Bundle> {
     const variables = { id };
     const result = await this.executeQuery('bundle', variables);
-    return result.data.bundle as Bundle;
+    return new Bundle(result.data.bundle);
   }
   /**
    Fetches a list of bundles with search criteria
@@ -34,7 +34,7 @@ export class BundleService extends BaseService {
    */
   async getBundles(variables?: BundleQueryVariables): Promise<BundlesResponse> {
     const result = await this.executeQuery('bundles', variables);
-    return result.data.bundles as BundlesResponse;
+    return new BundlesResponse(result.data.bundles);
   }
   /**
    Creates a new bundle
@@ -44,7 +44,7 @@ export class BundleService extends BaseService {
   async createBundle(input: BundleCreateInput): Promise<Bundle> {
     const variables = { input };
     const result = await this.executeMutation('bundleCreate', variables);
-    return result.data.bundleCreate as Bundle;
+    return new Bundle(result.data.bundleCreate);
   }
   /**
    Updates an existing bundle
@@ -54,7 +54,7 @@ export class BundleService extends BaseService {
   async updateBundle(input: BundleUpdateInput): Promise<Bundle> {
     const variables = { input };
     const result = await this.executeMutation('bundleUpdate', variables);
-    return result.data.bundleUpdate as Bundle;
+    return new Bundle(result.data.bundleUpdate);
   }
   /**
    Adds items to a bundle
@@ -64,7 +64,7 @@ export class BundleService extends BaseService {
   async addItemsToBundle(input: BundleAddItemsInput): Promise<Bundle> {
     const variables = { input };
     const result = await this.executeMutation('bundleAddItems', variables);
-    return result.data.bundleAddItems as Bundle;
+    return new Bundle(result.data.bundleAddItems);
   }
   /**
    Deletes a bundle

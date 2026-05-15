@@ -3,19 +3,19 @@ import { Warehouse } from './Warehouse';
 /**
  Object class for OrderPostageData
  */
-export interface OrderPostageData {
+export class OrderPostageData {
   /** The chosen shipping method */
-  method: string;
+  method!: string;
   /** The shipping costs tax percentage */
-  taxPercentage: number;
+  taxPercentage!: number;
   /** The preferred delivery date for the Order */
   requestDate?: string;
   /** The shipping costs excluding tax */
-  gross: number;
+  gross!: number;
   /** The shipping costs including tax */
-  net: number;
+  net!: number;
   /** The tax on the shipping costs */
-  tax: number;
+  tax!: number;
   /** Is partial delivery allowed for this Order */
   partialDeliveryAllowed?: YesNo;
   /** ID of the pick up location when the Order's shipping method is PICKUP */
@@ -26,4 +26,7 @@ export interface OrderPostageData {
   overruled?: YesNo;
   /** warehouse field */
   warehouse?: Warehouse;
+  constructor(data: Partial<OrderPostageData> = {}) {
+    Object.assign(this, data);
+  }
 }

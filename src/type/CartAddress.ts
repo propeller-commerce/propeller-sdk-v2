@@ -3,31 +3,31 @@ import { YesNo } from '../enum/YesNo';
 /**
  Object class for CartAddress
  */
-export interface CartAddress {
+export class CartAddress {
   /** Company name */
   company?: string;
   /** Gender */
   gender?: Gender;
   /** First name */
-  firstName: string;
+  firstName!: string;
   /** Middle name */
   middleName?: string;
   /** Last name */
-  lastName: string;
+  lastName!: string;
   /** Street */
-  street: string;
+  street!: string;
   /** Street number */
   number?: string;
   /** Street number extension */
   numberExtension?: string;
   /** Postal code */
-  postalCode: string;
+  postalCode!: string;
   /** City */
-  city: string;
+  city!: string;
   /** Region */
   region?: string;
   /** Country */
-  country: string;
+  country!: string;
   /** Code */
   code?: string;
   /** Email */
@@ -40,4 +40,7 @@ export interface CartAddress {
   icp?: YesNo;
   /** Notes */
   notes?: string;
+  constructor(data: Partial<CartAddress> = {}) {
+    Object.assign(this, data);
+  }
 }

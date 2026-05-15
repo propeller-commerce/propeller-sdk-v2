@@ -3,9 +3,12 @@ import { ContactActionsResponse } from './ContactActionsResponse';
 /**
  Object class for ContactRemoveFromCompaniesResponse
  */
-export interface ContactRemoveFromCompaniesResponse {
+export class ContactRemoveFromCompaniesResponse {
   /** The contact object */
-  contact: Contact;
+  contact!: Contact;
   /** Output messages about the actions performed. */
-  actions: ContactActionsResponse;
+  actions!: ContactActionsResponse;
+  constructor(data: Partial<ContactRemoveFromCompaniesResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

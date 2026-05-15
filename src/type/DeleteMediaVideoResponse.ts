@@ -1,7 +1,10 @@
 /**
  Object class for DeleteMediaVideoResponse
  */
-export interface DeleteMediaVideoResponse {
+export class DeleteMediaVideoResponse {
   /** Media id of the deleted video */
-  mediaId: string;
+  mediaId!: string;
+  constructor(data: Partial<DeleteMediaVideoResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

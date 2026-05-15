@@ -4,6 +4,35 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.7.0] - 2026-05-15
+
+Restores the wrapper-class pattern that 0.5.0 removed. The reason: classes are the natural home for instance methods, and we plan to add per-property getters (e.g. `Product.getName(language = 'NL')` for `LocalizedString[]` fields, `Product.getPrice()` returning a typed `ProductPrice`) in follow-up work. Interfaces have no runtime presence, so those methods had nowhere to live.
+
+### BREAKING
+
+- **`src/type/*.ts` types are classes again** (~270 files). Each declares `export class X { ... constructor(data: Partial<X> = {}) { Object.assign(this, data); } }` with the same property set as 0.6.0 (no fields re-added, no fields removed). Definite-assignment markers (`!:`) are back on required properties.
+- **Services return class instances**: every `return data as X` from 0.5.0 reverts to `return new X(data)`. Array returns use `data.map(x => new X(x))`. Consumers that called `Object.getPrototypeOf` on responses or relied on identity-with-plain-objects are affected; literal-construction (`const x: Product = { id: 1 } as any`) still works because `Partial<X>` accepts that shape.
+- The 6 concrete `Attribute{Text,Color,DateTime,Decimal,Enum,Int}Value` types are classes again with their pre-0.5.0 `get value()` / `set value()` accessor shape delegating to the typed backing field.
+
+### Unchanged (kept from 0.5.0 / 0.6.0)
+
+- The base `AttributeValue` is still an interface — upstream only exposes `id`, and our `type` / `value` discriminator fields are a TypeScript-only structural shim (introduced in 074d6fd). Concrete `Attribute*Value` classes `implements AttributeValue`.
+- Enum top-level exports remain — there is no `Enums.*` namespace. The qualified call-site form is preserved by `import * as Enums from 'propeller-sdk-v2'`.
+- `initializeService()` stubs remain deleted from every service.
+- Every 0.6.0 schema-alignment edit stays (removed fields, `@deprecated` markers, `user`/`tax`/`startSession` operation shapes, `Tax.id: string`).
+
+### Migration
+
+- Consumers consuming SDK responses: no source change required. Class instances satisfy any `Product` / `Cart` / `Order` type position they already use.
+- Consumers constructing response types in tests or mocks: use `new Cart({ ... })` (matches the ≤0.4.0 pattern; was `{ ... } as Cart` in 0.5.0–0.6.0).
+- Runtime check: `(await cartService.getCart(...)).constructor.name === 'Cart'` now returns `true`. Methods added in follow-up releases will be reachable on every returned instance.
+
+### Tests
+
+- `tests/service/ProductService.test.ts` and `LogoutService.test.ts` reinstate `toBeInstanceOf` assertions removed in 0.5.0. All 36 tests pass.
+
+---
+
 ## [0.6.0] - 2026-05-14
 
 Schema alignment pass against the live Propeller v2 GraphQL endpoint (`https://api.helice.cloud/v2/graphql`). The fetched schema had drifted from the SDK's snapshot since v0.2.0 (Feb 19, 2026). This release applies the deletions, surfaces newly-deprecated fields, and updates `schema.json`.

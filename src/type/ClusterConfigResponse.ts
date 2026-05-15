@@ -2,11 +2,14 @@ import { ClusterConfigSettingResponse } from './ClusterConfigSettingResponse';
 /**
  Object class for ClusterConfigResponse
  */
-export interface ClusterConfigResponse {
+export class ClusterConfigResponse {
   /** id field */
-  id: number;
+  id!: number;
   /** name field */
-  name: string;
+  name!: string;
   /** settings field */
   settings?: ClusterConfigSettingResponse[];
+  constructor(data: Partial<ClusterConfigResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -1,13 +1,16 @@
 /**
  Object class for ImageVariant
  */
-export interface ImageVariant {
+export class ImageVariant {
   /** Friendly image name */
-  name: string;
+  name!: string;
   /** Image variant language */
-  language: string;
+  language!: string;
   /** Image variant transformation computed url */
-  url: string;
+  url!: string;
   /** The MIME type of the image. */
-  mimeType: string;
+  mimeType!: string;
+  constructor(data: Partial<ImageVariant> = {}) {
+    Object.assign(this, data);
+  }
 }

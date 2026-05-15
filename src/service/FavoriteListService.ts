@@ -22,7 +22,7 @@ export class FavoriteListService extends BaseService {
    */
   async getFavoriteList(variables: any): Promise<FavoriteList> {
     const result = await this.executeQuery('favoriteList', variables);
-    return result.data.favoriteList as FavoriteList;
+    return new FavoriteList(result.data.favoriteList);
   }
   /**
    Retrieves favorite lists with search
@@ -32,7 +32,7 @@ export class FavoriteListService extends BaseService {
   async getFavoriteLists(input?: FavoriteListsSearchInput): Promise<FavoriteListsResponse> {
     const variables = { input };
     const result = await this.executeQuery('favoriteLists', variables);
-    return result.data.favoriteLists as FavoriteListsResponse;
+    return new FavoriteListsResponse(result.data.favoriteLists);
   }
   /**
    Creates a new favorite list
@@ -42,7 +42,7 @@ export class FavoriteListService extends BaseService {
   async createFavoriteList(input: FavoriteListsCreateInput): Promise<FavoriteList> {
     const variables = { input };
     const result = await this.executeMutation('favoriteListCreate', variables);
-    return result.data.favoriteListCreate as FavoriteList;
+    return new FavoriteList(result.data.favoriteListCreate);
   }
   /**
    Updates an existing favorite list
@@ -53,7 +53,7 @@ export class FavoriteListService extends BaseService {
   async updateFavoriteList(id: string, input: FavoriteListsUpdateInput): Promise<FavoriteList> {
     const variables = { id, input };
     const result = await this.executeMutation('favoriteListUpdate', variables);
-    return result.data.favoriteListUpdate as FavoriteList;
+    return new FavoriteList(result.data.favoriteListUpdate);
   }
   /**
    Deletes a favorite list
@@ -74,7 +74,7 @@ export class FavoriteListService extends BaseService {
   async addFavoriteListItems(id: string, input: FavoriteListsItemsInput): Promise<FavoriteList> {
     const variables = { id, input };
     const result = await this.executeMutation('favoriteListAddItems', variables);
-    return result.data.favoriteListAddItems as FavoriteList;
+    return new FavoriteList(result.data.favoriteListAddItems);
   }
   /**
    Removes items from a favorite list
@@ -85,7 +85,7 @@ export class FavoriteListService extends BaseService {
   async removeFavoriteListItems(id: string, input: FavoriteListsItemsInput): Promise<FavoriteList> {
     const variables = { id, input };
     const result = await this.executeMutation('favoriteListRemoveItems', variables);
-    return result.data.favoriteListRemoveItems as FavoriteList;
+    return new FavoriteList(result.data.favoriteListRemoveItems);
   }
   /**
    Clears items from a favorite list
@@ -97,6 +97,6 @@ export class FavoriteListService extends BaseService {
   async clearFavoriteListItems(id: string, products?: boolean, clusters?: boolean): Promise<FavoriteList> {
     const variables = { id, products, clusters };
     const result = await this.executeMutation('favoriteListClearItems', variables);
-    return result.data.favoriteListClearItems as FavoriteList;
+    return new FavoriteList(result.data.favoriteListClearItems);
   }
 }

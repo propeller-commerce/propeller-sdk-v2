@@ -22,7 +22,7 @@ export class TemplateService extends BaseService {
   async getDocumentTemplate(id: number): Promise<DocumentTemplate> {
     const variables = { id };
     const result = await this.executeQuery('documentTemplate', variables);
-    return result.data.documentTemplate as DocumentTemplate;
+    return new DocumentTemplate(result.data.documentTemplate);
   }
   /**
    Retrieves a specific email template
@@ -32,7 +32,7 @@ export class TemplateService extends BaseService {
   async getEmailTemplate(id: number): Promise<EmailTemplate> {
     const variables = { id };
     const result = await this.executeQuery('emailTemplate', variables);
-    return result.data.emailTemplate as EmailTemplate;
+    return new EmailTemplate(result.data.emailTemplate);
   }
   /**
    Fetches a list of templates with search criteria
@@ -42,7 +42,7 @@ export class TemplateService extends BaseService {
   async getTemplates(input?: TemplateSearchInput): Promise<TemplateResponse> {
     const variables = { input };
     const result = await this.executeQuery('templates', variables);
-    return result.data.templates as TemplateResponse;
+    return new TemplateResponse(result.data.templates);
   }
   /**
    Creates a new document template
@@ -52,7 +52,7 @@ export class TemplateService extends BaseService {
   async createDocumentTemplate(input: DocumentTemplateCreateInput): Promise<DocumentTemplate> {
     const variables = { input };
     const result = await this.executeMutation('documentTemplateCreate', variables);
-    return result.data.documentTemplateCreate as DocumentTemplate;
+    return new DocumentTemplate(result.data.documentTemplateCreate);
   }
   /**
    Updates an existing document template
@@ -62,7 +62,7 @@ export class TemplateService extends BaseService {
   async updateDocumentTemplate(input: DocumentTemplateUpdateInput): Promise<DocumentTemplate> {
     const variables = { input };
     const result = await this.executeMutation('documentTemplateUpdate', variables);
-    return result.data.documentTemplateUpdate as DocumentTemplate;
+    return new DocumentTemplate(result.data.documentTemplateUpdate);
   }
   /**
    Renders a document template to PDF
@@ -82,7 +82,7 @@ export class TemplateService extends BaseService {
   async createEmailTemplate(input: EmailTemplateCreateInput): Promise<EmailTemplate> {
     const variables = { input };
     const result = await this.executeMutation('emailTemplateCreate', variables);
-    return result.data.emailTemplateCreate as EmailTemplate;
+    return new EmailTemplate(result.data.emailTemplateCreate);
   }
   /**
    Updates an existing email template
@@ -92,7 +92,7 @@ export class TemplateService extends BaseService {
   async updateEmailTemplate(input: EmailTemplateUpdateInput): Promise<EmailTemplate> {
     const variables = { input };
     const result = await this.executeMutation('emailTemplateUpdate', variables);
-    return result.data.emailTemplateUpdate as EmailTemplate;
+    return new EmailTemplate(result.data.emailTemplateUpdate);
   }
   /**
    Adds an attachment to email template
@@ -102,7 +102,7 @@ export class TemplateService extends BaseService {
   async addAttachmentToEmailTemplate(input: any): Promise<EmailTemplate> {
     const variables = { input };
     const result = await this.executeMutation('emailTemplateAddAttachment', variables);
-    return result.data.emailTemplateAddAttachment as EmailTemplate;
+    return new EmailTemplate(result.data.emailTemplateAddAttachment);
   }
   /**
    Removes an attachment from email template
@@ -112,6 +112,6 @@ export class TemplateService extends BaseService {
   async removeAttachmentFromEmailTemplate(input: any): Promise<EmailTemplate> {
     const variables = { input };
     const result = await this.executeMutation('emailTemplateRemoveAttachment', variables);
-    return result.data.emailTemplateRemoveAttachment as EmailTemplate;
+    return new EmailTemplate(result.data.emailTemplateRemoveAttachment);
   }
 }

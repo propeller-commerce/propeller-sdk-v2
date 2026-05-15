@@ -12,21 +12,21 @@ import { IBaseUser } from './IBaseUser';
 /**
  Object class for Customer
  */
-export interface Customer {
+export class Customer {
   /** The id of the customer. */
-  customerId: number;
+  customerId!: number;
   /** addresses field */
-  addresses: Address[];
+  addresses!: Address[];
   /** Lists attributes for this customer based on the search input. */
   attributes?: AttributeResultResponse;
   /** Get all magic tokens for a customer */
-  magicTokens: MagicToken[];
+  magicTokens!: MagicToken[];
   /** favoriteLists field */
   favoriteLists?: FavoriteListsResponse;
   /** orderlist field */
   orderlist?: OrderlistsResponse;
   /** orderlists field */
-  orderlists: OrderlistsResponse;
+  orderlists!: OrderlistsResponse;
   /** pricesheets field */
   pricesheets?: Pricesheet[];
   /** The unique identifier of the user. */
@@ -36,17 +36,17 @@ export interface Customer {
   /** The gender of the user. */
   gender?: Gender;
   /** The first name of the user. */
-  firstName: string;
+  firstName!: string;
   /** The middle name of the user. */
   middleName?: string;
   /** The last name of the user. */
-  lastName: string;
+  lastName!: string;
   /** The phone number of the user. */
   phone?: string;
   /** The mobile number of the user. */
   mobile?: string;
   /** The email of the user. */
-  email: string;
+  email!: string;
   /** The login name (email) the account is linked to, generally the same as email address. When null a account has not been linked yet. */
   login?: string;
   /** The International Bank Account Number of the user */
@@ -74,5 +74,8 @@ export interface Customer {
   /** lastModifiedAt field */
   lastModifiedAt?: string;
   /** sources field */
-  sources: Source[];
+  sources!: Source[];
+  constructor(data: Partial<Customer> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -12,7 +12,7 @@ export class ChannelService extends BaseService {
   async getChannel(id: number): Promise<Channel> {
     const variables = { id };
     const result = await this.executeQuery('channel', variables);
-    return result.data.channel as Channel;
+    return new Channel(result.data.channel);
   }
   /**
    Fetches a list of channels
@@ -21,6 +21,6 @@ export class ChannelService extends BaseService {
   async getChannels(): Promise<Channel[]> {
     const variables = {};
     const result = await this.executeQuery('channels', variables);
-    return result.data.channels as Channel[];
+    return result.data.channels.map((x: any) => new Channel(x));
   }
 }

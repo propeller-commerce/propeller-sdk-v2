@@ -1,7 +1,7 @@
 /**
  Object class for EmailContact
  */
-export interface EmailContact {
+export class EmailContact {
   /** Email address of the contact */
   email?: string;
   /** Name of the contact */
@@ -12,4 +12,7 @@ export interface EmailContact {
   customerId?: number;
   /** Email address and name are taken from the the adminUser with the given adminUserId */
   adminUserId?: number;
+  constructor(data: Partial<EmailContact> = {}) {
+    Object.assign(this, data);
+  }
 }

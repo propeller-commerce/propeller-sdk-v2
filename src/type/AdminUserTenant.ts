@@ -2,24 +2,27 @@ import { AdminUser } from './AdminUser';
 /**
  Object class for AdminUserTenant
  */
-export interface AdminUserTenant {
+export class AdminUserTenant {
   /** id field */
-  id: string | number;
+  id!: string | number;
   /** tenant field */
-  tenant: string;
+  tenant!: string;
   /** name field */
   /** @deprecated Use federated field to get name */
-  name: string;
+  name!: string;
   /** default field */
-  default: boolean;
+  default!: boolean;
   /** createdAt field */
-  createdAt: string;
+  createdAt!: string;
   /** createdBy field */
-  createdBy: number;
+  createdBy!: number;
   /** lastModifiedAt field */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** lastModifiedBy field */
-  lastModifiedBy: number;
+  lastModifiedBy!: number;
   /** user field */
   user?: AdminUser;
+  constructor(data: Partial<AdminUserTenant> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -17,7 +17,7 @@ export class MediaDocumentService extends BaseService {
   async getMediaDocument(id: number): Promise<MediaDocument> {
     const variables = { id };
     const result = await this.executeQuery('mediaDocument', variables);
-    return result.data.mediaDocument as MediaDocument;
+    return new MediaDocument(result.data.mediaDocument);
   }
   /**
    Retrieves media documents with pagination
@@ -27,7 +27,7 @@ export class MediaDocumentService extends BaseService {
   async getMediaDocuments(input?: MediaDocumentSearchInput): Promise<PaginatedMediaDocumentResponse> {
     const variables = { input };
     const result = await this.executeQuery('mediaDocuments', variables);
-    return result.data.mediaDocuments as PaginatedMediaDocumentResponse;
+    return new PaginatedMediaDocumentResponse(result.data.mediaDocuments);
   }
   /**
    Creates a new media document
@@ -37,7 +37,7 @@ export class MediaDocumentService extends BaseService {
   async createMediaDocument(input: MediaDocumentInput): Promise<MediaDocument> {
     const variables = { input };
     const result = await this.executeMutation('mediaDocumentCreate', variables);
-    return result.data.mediaDocumentCreate as MediaDocument;
+    return new MediaDocument(result.data.mediaDocumentCreate);
   }
   /**
    Updates an existing media document
@@ -47,7 +47,7 @@ export class MediaDocumentService extends BaseService {
   async updateMediaDocument(input: UpdateMediaDocumentInput): Promise<MediaDocument> {
     const variables = { input };
     const result = await this.executeMutation('mediaDocumentUpdate', variables);
-    return result.data.mediaDocumentUpdate as MediaDocument;
+    return new MediaDocument(result.data.mediaDocumentUpdate);
   }
   /**
    Deletes a media document

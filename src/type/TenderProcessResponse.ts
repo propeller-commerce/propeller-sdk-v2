@@ -1,7 +1,10 @@
 /**
  Object class for TenderProcessResponse
  */
-export interface TenderProcessResponse {
+export class TenderProcessResponse {
   /** orderId field */
-  orderId: number;
+  orderId!: number;
+  constructor(data: Partial<TenderProcessResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

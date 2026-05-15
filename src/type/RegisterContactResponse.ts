@@ -3,9 +3,12 @@ import { RegisterUserSession } from './RegisterUserSession';
 /**
  Object class for RegisterContactResponse
  */
-export interface RegisterContactResponse {
+export class RegisterContactResponse {
   /** contact field */
-  contact: IBaseUser;
+  contact!: IBaseUser;
   /** session field */
-  session: RegisterUserSession;
+  session!: RegisterUserSession;
+  constructor(data: Partial<RegisterContactResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

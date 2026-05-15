@@ -3,13 +3,13 @@ import { BusinessRuleArrayExpressionOperators } from '../enum/BusinessRuleArrayE
 /**
  Represents a business rule array expression
  */
-export interface BusinessRuleArrayExpression {
+export class BusinessRuleArrayExpression {
   /** id field */
-  id: string | number;
+  id!: string | number;
   /** type field */
-  type: BusinessRuleExpressionTypes;
+  type!: BusinessRuleExpressionTypes;
   /** operator field */
-  operator: BusinessRuleArrayExpressionOperators;
+  operator!: BusinessRuleArrayExpressionOperators;
   /** string field */
   string?: string;
   /** number field */
@@ -21,4 +21,7 @@ export interface BusinessRuleArrayExpression {
       Can also be used to target a specific property in a complex expression's sub-expression
       Check https://gorules.io/docs/rules-engine/expression-language/array for options. */
   path?: string;
+  constructor(data: Partial<BusinessRuleArrayExpression> = {}) {
+    Object.assign(this, data);
+  }
 }

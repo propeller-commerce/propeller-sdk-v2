@@ -3,13 +3,16 @@
     most commonly a graph contains an inputNode with an edge between a decisionTableNode
     and the decisionTableNode has an edge with the outputNode
  */
-export interface BusinessRuleEdge {
+export class BusinessRuleEdge {
   /** The generated ID of the business rule edge */
-  id: string | number;
+  id!: string | number;
   /** The ID of source Node of the business rule egde */
-  sourceId: string | number;
+  sourceId!: string | number;
   /** The ID of target Node of the business rule egde */
-  targetId: string | number;
+  targetId!: string | number;
   /** The type of the business rule egde, only posible value now being 'edge' */
-  type: string;
+  type!: string;
+  constructor(data: Partial<BusinessRuleEdge> = {}) {
+    Object.assign(this, data);
+  }
 }

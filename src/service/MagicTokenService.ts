@@ -18,7 +18,7 @@ export class MagicTokenService extends BaseService {
   async getMagicToken(id: number): Promise<MagicToken> {
     const variables = { id };
     const result = await this.executeQuery('magicToken', variables);
-    return result.data.magicToken as MagicToken;
+    return new MagicToken(result.data.magicToken);
   }
   /**
    Retrieves magic tokens with search
@@ -28,7 +28,7 @@ export class MagicTokenService extends BaseService {
   async getMagicTokens(input?: MagicTokenSearchInput): Promise<MagicTokenResponse> {
     const variables = { input };
     const result = await this.executeQuery('magicTokens', variables);
-    return result.data.magicTokens as MagicTokenResponse;
+    return new MagicTokenResponse(result.data.magicTokens);
   }
   /**
    Creates a new magic token
@@ -38,7 +38,7 @@ export class MagicTokenService extends BaseService {
   async createMagicToken(input: MagicTokenCreateInput): Promise<MagicToken> {
     const variables = { input };
     const result = await this.executeMutation('magicTokenCreate', variables);
-    return result.data.magicTokenCreate as MagicToken;
+    return new MagicToken(result.data.magicTokenCreate);
   }
   /**
    Updates an existing magic token
@@ -49,7 +49,7 @@ export class MagicTokenService extends BaseService {
   async updateMagicToken(id: string, input: MagicTokenUpdateInput): Promise<MagicToken> {
     const variables = { id, input };
     const result = await this.executeMutation('magicTokenUpdate', variables);
-    return result.data.magicTokenUpdate as MagicToken;
+    return new MagicToken(result.data.magicTokenUpdate);
   }
   /**
    Authenticates a user using a magic token
@@ -59,6 +59,6 @@ export class MagicTokenService extends BaseService {
   async magicTokenLogin(id: string): Promise<Login> {
     const variables = { id };
     const result = await this.executeMutation('magicTokenLogin', variables);
-    return result.data.magicTokenLogin as Login;
+    return new Login(result.data.magicTokenLogin);
   }
 }

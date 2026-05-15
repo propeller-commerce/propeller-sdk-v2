@@ -12,6 +12,6 @@ export class InventoryService extends BaseService {
   async getInventory(input?: any): Promise<Inventory[]> {
     const variables = { input };
     const result = await this.executeQuery('inventory', variables);
-    return result.data.inventory as Inventory[];
+    return result.data.inventory.map((x: any) => new Inventory(x));
   }
 }

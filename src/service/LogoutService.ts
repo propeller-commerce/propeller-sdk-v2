@@ -13,6 +13,6 @@ export class LogoutService extends BaseService {
   async logout(userId: number): Promise<Logout> {
     const variables = { userId };
     const result = await this.executeMutation('logout', variables);
-    return result.data.logout as Logout;
+    return new Logout(result.data.logout);
   }
 }

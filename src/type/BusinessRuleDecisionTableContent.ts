@@ -4,16 +4,19 @@ import { BusinessRuleDecisionTableInputOutput } from './BusinessRuleDecisionTabl
 /**
  Object class for BusinessRuleDecisionTableContent
  */
-export interface BusinessRuleDecisionTableContent {
+export class BusinessRuleDecisionTableContent {
   /** The table's hitPolicy.
   Possible values: first, collect.
   'first' means that the first matching row is used.
   'collect' means that all matching rows are used. */
-  hitPolicy: BusinessRuleHitPolicyOption;
+  hitPolicy!: BusinessRuleHitPolicyOption;
   /** The table's rows */
-  rows: BusinessRuleDecisionTableRow[];
+  rows!: BusinessRuleDecisionTableRow[];
   /** The table's input columns */
-  inputs: BusinessRuleDecisionTableInputOutput[];
+  inputs!: BusinessRuleDecisionTableInputOutput[];
   /** The table's output columns */
-  outputs: BusinessRuleDecisionTableInputOutput[];
+  outputs!: BusinessRuleDecisionTableInputOutput[];
+  constructor(data: Partial<BusinessRuleDecisionTableContent> = {}) {
+    Object.assign(this, data);
+  }
 }

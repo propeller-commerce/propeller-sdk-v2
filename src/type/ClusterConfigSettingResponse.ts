@@ -2,15 +2,18 @@ import { ClusterConfigSettingDisplayType } from '../enum/ClusterConfigSettingDis
 /**
  Object class for ClusterConfigSettingResponse
  */
-export interface ClusterConfigSettingResponse {
+export class ClusterConfigSettingResponse {
   /** id field */
-  id: number;
+  id!: number;
   /** attributeName field */
-  attributeName: string;
+  attributeName!: string;
   /** displayType field */
-  displayType: ClusterConfigSettingDisplayType;
+  displayType!: ClusterConfigSettingDisplayType;
   /** priority field */
   priority?: number;
   /** clusterConfigId field */
-  clusterConfigId: string;
+  clusterConfigId!: string;
+  constructor(data: Partial<ClusterConfigSettingResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

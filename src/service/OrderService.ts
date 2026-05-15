@@ -126,7 +126,7 @@ export class OrderService extends BaseService {
   async getOrders(input?: OrderSearchArguments): Promise<OrderResponse> {
     const variables = { input };
     const result = await this.executeQuery('orders', variables);
-    return result.data.orders as OrderResponse;
+    return new OrderResponse(result.data.orders);
   }
   /**
    Fetches a single order by ID or UUID
@@ -140,7 +140,7 @@ export class OrderService extends BaseService {
    */
   async getOrder(variables: OrderQueryVariables): Promise<Order> {
     const result = await this.executeQuery('order', variables);
-    return result.data.order as Order;
+    return new Order(result.data.order);
   }
   /**
    Creates a new order
@@ -150,7 +150,7 @@ export class OrderService extends BaseService {
   async createOrder(input: any): Promise<Order> {
     const variables = { input };
     const result = await this.executeMutation('orderCreate', variables);
-    return result.data.orderCreate as Order;
+    return new Order(result.data.orderCreate);
   }
   /**
    Updates an existing order
@@ -164,7 +164,7 @@ export class OrderService extends BaseService {
    */
   async updateOrder(variables: OrderUpdateVariables): Promise<Order> {
     const result = await this.executeMutation('orderUpdate', variables);
-    return result.data.orderUpdate as Order;
+    return new Order(result.data.orderUpdate);
   }
   /**
    Sets the status of an order
@@ -174,7 +174,7 @@ export class OrderService extends BaseService {
   async setOrderStatus(input: OrderSetStatusInput): Promise<Order> {
     const variables = { input };
     const result = await this.executeMutation('orderSetStatus', variables);
-    return result.data.orderSetStatus as Order;
+    return new Order(result.data.orderSetStatus);
   }
   /**
    Updates an order address
@@ -186,7 +186,7 @@ export class OrderService extends BaseService {
    */
   async updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<OrderAddress> {
     const result = await this.executeMutation('orderAddressUpdate', variables);
-    return result.data.orderAddressUpdate as OrderAddress;
+    return new OrderAddress(result.data.orderAddressUpdate);
   }
   /**
    Sends order confirmation email
@@ -227,7 +227,7 @@ export class OrderService extends BaseService {
   async getOrderAddress(orderId: number, addressType?: string): Promise<Address> {
     const variables = { orderId, addressType };
     const result = await this.executeQuery('orderAddress', variables);
-    return result.data.orderAddress as Address;
+    return new Address(result.data.orderAddress);
   }
   /**
    Fetches all addresses for an order
@@ -237,7 +237,7 @@ export class OrderService extends BaseService {
   async getOrderAddresses(orderId: number): Promise<Address[]> {
     const variables = { orderId };
     const result = await this.executeQuery('orderAddresses', variables);
-    return result.data.orderAddresses as Address[];
+    return result.data.orderAddresses.map((x: any) => new Address(x));
   }
   /**
    Fetches addresses by order ID
@@ -247,7 +247,7 @@ export class OrderService extends BaseService {
   async getAddressesByOrderId(orderId: number): Promise<Address[]> {
     const variables = { orderId };
     const result = await this.executeQuery('addressesByOrderId', variables);
-    return result.data.addressesByOrderId as Address[];
+    return result.data.addressesByOrderId.map((x: any) => new Address(x));
   }
   /**
    Creates a new order item
@@ -261,7 +261,7 @@ export class OrderService extends BaseService {
    */
   async createOrderItem(variables: OrderItemCreateVariables): Promise<OrderItem> {
     const result = await this.executeMutation('orderItemCreate', variables);
-    return result.data.orderItemCreate as OrderItem;
+    return new OrderItem(result.data.orderItemCreate);
   }
   /**
    Updates an existing order item
@@ -275,7 +275,7 @@ export class OrderService extends BaseService {
    */
   async updateOrderItem(variables: OrderItemUpdateVariables): Promise<OrderItem> {
     const result = await this.executeMutation('orderItemUpdate', variables);
-    return result.data.orderItemUpdate as OrderItem;
+    return new OrderItem(result.data.orderItemUpdate);
   }
   /**
    Deletes an order item
@@ -296,7 +296,7 @@ export class OrderService extends BaseService {
   async getOrderlist(id: number): Promise<Orderlist> {
     const variables = { id };
     const result = await this.executeQuery('orderlist', variables);
-    return result.data.orderlist as Orderlist;
+    return new Orderlist(result.data.orderlist);
   }
   /**
    Fetches a list of orderlists with search criteria
@@ -306,7 +306,7 @@ export class OrderService extends BaseService {
   async getOrderlists(input?: OrderlistSearchInput): Promise<OrderlistsResponse> {
     const variables = { input };
     const result = await this.executeQuery('orderlists', variables);
-    return result.data.orderlists as OrderlistsResponse;
+    return new OrderlistsResponse(result.data.orderlists);
   }
   /**
    Creates a new orderlist
@@ -316,7 +316,7 @@ export class OrderService extends BaseService {
   async createOrderlist(input: OrderlistCreateInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistCreate', variables);
-    return result.data.orderlistCreate as Orderlist;
+    return new Orderlist(result.data.orderlistCreate);
   }
   /**
    Updates an existing orderlist
@@ -326,7 +326,7 @@ export class OrderService extends BaseService {
   async updateOrderlist(input: OrderlistUpdateInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistUpdate', variables);
-    return result.data.orderlistUpdate as Orderlist;
+    return new Orderlist(result.data.orderlistUpdate);
   }
   /**
    Adds items to an orderlist
@@ -336,7 +336,7 @@ export class OrderService extends BaseService {
   async addItemsToOrderlist(input: OrderlistItemsInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistAddItems', variables);
-    return result.data.orderlistAddItems as Orderlist;
+    return new Orderlist(result.data.orderlistAddItems);
   }
   /**
    Removes items from an orderlist
@@ -346,7 +346,7 @@ export class OrderService extends BaseService {
   async removeItemsFromOrderlist(input: OrderlistItemsInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistRemoveItems', variables);
-    return result.data.orderlistRemoveItems as Orderlist;
+    return new Orderlist(result.data.orderlistRemoveItems);
   }
   /**
    Assigns companies to an orderlist
@@ -356,7 +356,7 @@ export class OrderService extends BaseService {
   async assignCompaniesToOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistAssignCompanies', variables);
-    return result.data.orderlistAssignCompanies as Orderlist;
+    return new Orderlist(result.data.orderlistAssignCompanies);
   }
   /**
    Unassigns companies from an orderlist
@@ -366,7 +366,7 @@ export class OrderService extends BaseService {
   async unassignCompaniesFromOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistUnassignCompanies', variables);
-    return result.data.orderlistUnassignCompanies as Orderlist;
+    return new Orderlist(result.data.orderlistUnassignCompanies);
   }
   /**
    Assigns users to an orderlist
@@ -376,7 +376,7 @@ export class OrderService extends BaseService {
   async assignUsersToOrderlist(input: OrderlistUsersInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistAssignUsers', variables);
-    return result.data.orderlistAssignUsers as Orderlist;
+    return new Orderlist(result.data.orderlistAssignUsers);
   }
   /**
    Unassigns users from an orderlist
@@ -386,7 +386,7 @@ export class OrderService extends BaseService {
   async unassignUsersFromOrderlist(input: OrderlistUsersInput): Promise<Orderlist> {
     const variables = { input };
     const result = await this.executeMutation('orderlistUnassignUsers', variables);
-    return result.data.orderlistUnassignUsers as Orderlist;
+    return new Orderlist(result.data.orderlistUnassignUsers);
   }
   /**
    Fetches a single order status by ID
@@ -396,7 +396,7 @@ export class OrderService extends BaseService {
   async getOrderStatus(id: number): Promise<OrderStatus> {
     const variables = { id };
     const result = await this.executeQuery('orderStatus', variables);
-    return result.data.orderStatus as OrderStatus;
+    return new OrderStatus(result.data.orderStatus);
   }
   /**
    Fetches a list of order statuses with search criteria
@@ -406,7 +406,7 @@ export class OrderService extends BaseService {
   async getOrderStatuses(input?: OrderStatusesSearchInput): Promise<OrderStatusesResponse> {
     const variables = { input };
     const result = await this.executeQuery('orderStatuses', variables);
-    return result.data.orderStatuses as OrderStatusesResponse;
+    return new OrderStatusesResponse(result.data.orderStatuses);
   }
   /**
    Creates a new order status
@@ -416,7 +416,7 @@ export class OrderService extends BaseService {
   async createOrderStatus(input: CreateOrderStatusInput): Promise<OrderStatus> {
     const variables = { input };
     const result = await this.executeMutation('orderStatusCreate', variables);
-    return result.data.orderStatusCreate as OrderStatus;
+    return new OrderStatus(result.data.orderStatusCreate);
   }
   /**
    Updates an existing order status
@@ -426,7 +426,7 @@ export class OrderService extends BaseService {
   async updateOrderStatus(input: UpdateOrderStatusInput): Promise<OrderStatus> {
     const variables = { input };
     const result = await this.executeMutation('orderStatusUpdate', variables);
-    return result.data.orderStatusUpdate as OrderStatus;
+    return new OrderStatus(result.data.orderStatusUpdate);
   }
   /**
    Fetches a single order status set by ID
@@ -436,7 +436,7 @@ export class OrderService extends BaseService {
   async getOrderStatusSet(id: number): Promise<OrderStatusSet> {
     const variables = { id };
     const result = await this.executeQuery('orderStatusSet', variables);
-    return result.data.orderStatusSet as OrderStatusSet;
+    return new OrderStatusSet(result.data.orderStatusSet);
   }
   /**
    Fetches a list of order status sets with search criteria
@@ -446,7 +446,7 @@ export class OrderService extends BaseService {
   async getOrderStatusSets(input?: OrderStatusSetsSearchInput): Promise<OrderStatusSetsResponse> {
     const variables = { input };
     const result = await this.executeQuery('orderStatusSets', variables);
-    return result.data.orderStatusSets as OrderStatusSetsResponse;
+    return new OrderStatusSetsResponse(result.data.orderStatusSets);
   }
   /**
    Creates a new order status set
@@ -456,7 +456,7 @@ export class OrderService extends BaseService {
   async createOrderStatusSet(input: CreateOrderStatusSetInput): Promise<OrderStatusSet> {
     const variables = { input };
     const result = await this.executeMutation('orderStatusSetCreate', variables);
-    return result.data.orderStatusSetCreate as OrderStatusSet;
+    return new OrderStatusSet(result.data.orderStatusSetCreate);
   }
   /**
    Updates an existing order status set
@@ -466,7 +466,7 @@ export class OrderService extends BaseService {
   async updateOrderStatusSet(input: UpdateOrderStatusSetInput): Promise<OrderStatusSet> {
     const variables = { input };
     const result = await this.executeMutation('orderStatusSetUpdate', variables);
-    return result.data.orderStatusSetUpdate as OrderStatusSet;
+    return new OrderStatusSet(result.data.orderStatusSetUpdate);
   }
   /**
    Adds order statuses to an order status set
@@ -476,7 +476,7 @@ export class OrderService extends BaseService {
   async addOrderStatusesToOrderStatusSet(input: AddOrderStatusesToOrderStatusSetInput): Promise<OrderStatusSet> {
     const variables = { input };
     const result = await this.executeMutation('orderStatusSetAddOrderStatuses', variables);
-    return result.data.orderStatusSetAddOrderStatuses as OrderStatusSet;
+    return new OrderStatusSet(result.data.orderStatusSetAddOrderStatuses);
   }
   /**
    Removes order statuses from an order status set
@@ -486,7 +486,7 @@ export class OrderService extends BaseService {
   async removeOrderStatusesFromOrderStatusSet(input: RemoveOrderStatusesFromOrderStatusSetInput): Promise<OrderStatusSet> {
     const variables = { input };
     const result = await this.executeMutation('orderStatusSetRemoveOrderStatuses', variables);
-    return result.data.orderStatusSetRemoveOrderStatuses as OrderStatusSet;
+    return new OrderStatusSet(result.data.orderStatusSetRemoveOrderStatuses);
   }
   /**
    Triggers the send request event for a quote

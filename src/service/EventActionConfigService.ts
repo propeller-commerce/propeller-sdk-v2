@@ -23,7 +23,7 @@ export class EventActionConfigService extends BaseService {
   async getEventActionConfig(id: number): Promise<EventActionConfigResponse> {
     const variables = { id };
     const result = await this.executeQuery('eventActionConfig', variables);
-    return result.data.eventActionConfig as EventActionConfigResponse;
+    return new EventActionConfigResponse(result.data.eventActionConfig);
   }
   /**
    Retrieves event action configurations with optional search
@@ -33,7 +33,7 @@ export class EventActionConfigService extends BaseService {
   async getEventActionConfigs(input?: EventActionConfigSearchInput): Promise<EventActionConfigResponse[]> {
     const variables = { input };
     const result = await this.executeQuery('eventActionConfigs', variables);
-    return result.data.eventActionConfigs as EventActionConfigResponse[];
+    return result.data.eventActionConfigs.map((x: any) => new EventActionConfigResponse(x));
   }
   /**
    Creates a new event to email configuration
@@ -43,7 +43,7 @@ export class EventActionConfigService extends BaseService {
   async createEventToEmailConfig(input: EventToEmailConfigCreateInput): Promise<EventActionConfigResponse> {
     const variables = { input };
     const result = await this.executeMutation('eventToEmailConfigCreate', variables);
-    return result.data.eventToEmailConfigCreate as EventActionConfigResponse;
+    return new EventActionConfigResponse(result.data.eventToEmailConfigCreate);
   }
   /**
    Updates an existing event to email configuration
@@ -53,7 +53,7 @@ export class EventActionConfigService extends BaseService {
   async updateEventToEmailConfig(input: EventToEmailConfigUpdateInput): Promise<EventActionConfigResponse> {
     const variables = { input };
     const result = await this.executeMutation('eventToEmailConfigUpdate', variables);
-    return result.data.eventToEmailConfigUpdate as EventActionConfigResponse;
+    return new EventActionConfigResponse(result.data.eventToEmailConfigUpdate);
   }
   /**
    Creates a new event to webhook configuration
@@ -63,7 +63,7 @@ export class EventActionConfigService extends BaseService {
   async createEventToWebHookConfig(input: EventToWebHookConfigCreateInput): Promise<EventActionConfigResponse> {
     const variables = { input };
     const result = await this.executeMutation('eventToWebHookConfigCreate', variables);
-    return result.data.eventToWebHookConfigCreate as EventActionConfigResponse;
+    return new EventActionConfigResponse(result.data.eventToWebHookConfigCreate);
   }
   /**
    Updates an existing event to webhook configuration
@@ -73,7 +73,7 @@ export class EventActionConfigService extends BaseService {
   async updateEventToWebHookConfig(input: EventToWebHookConfigUpdateInput): Promise<EventActionConfigResponse> {
     const variables = { input };
     const result = await this.executeMutation('eventToWebHookConfigUpdate', variables);
-    return result.data.eventToWebHookConfigUpdate as EventActionConfigResponse;
+    return new EventActionConfigResponse(result.data.eventToWebHookConfigUpdate);
   }
   /**
    Publishes an email event
@@ -83,7 +83,7 @@ export class EventActionConfigService extends BaseService {
   async publishEmailEvent(input: EmailEventInput): Promise<PublishEmailEventResponse> {
     const variables = { input };
     const result = await this.executeMutation('publishEmailEvent', variables);
-    return result.data.publishEmailEvent as PublishEmailEventResponse;
+    return new PublishEmailEventResponse(result.data.publishEmailEvent);
   }
   /**
    Publishes an email send event
@@ -93,7 +93,7 @@ export class EventActionConfigService extends BaseService {
   async publishEmailSendEvent(input: EmailSendEventInput): Promise<PublishEmailEventResponse> {
     const variables = { input };
     const result = await this.executeMutation('publishEmailSendEvent', variables);
-    return result.data.publishEmailSendEvent as PublishEmailEventResponse;
+    return new PublishEmailEventResponse(result.data.publishEmailSendEvent);
   }
   /**
    Publishes a password reset email event
@@ -103,6 +103,6 @@ export class EventActionConfigService extends BaseService {
   async publishPasswordResetEmailEvent(input: PasswordResetLinkEmailInput): Promise<PublishEmailEventResponse> {
     const variables = { input };
     const result = await this.executeMutation('publishPasswordResetEmailEvent', variables);
-    return result.data.publishPasswordResetEmailEvent as PublishEmailEventResponse;
+    return new PublishEmailEventResponse(result.data.publishPasswordResetEmailEvent);
   }
 }

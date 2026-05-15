@@ -4,9 +4,9 @@ import { LocalizedVideo } from './LocalizedVideo';
 /**
  Object class for MediaVideo
  */
-export interface MediaVideo {
+export class MediaVideo {
   /** Media global unique identifier */
-  id: string | number;
+  id!: string | number;
   /** Unique product identifier that the media relates to */
   productId?: string | number;
   /** Unique cluster identifier that the media relates to */
@@ -16,11 +16,11 @@ export interface MediaVideo {
   /** Unique sparePartsMachine identifier that the media relates to */
   sparePartsMachineId?: string | number;
   /** Media alt description that briefly explains the contents of the document. */
-  alt: LocalizedString[];
+  alt!: LocalizedString[];
   /** Media short description. */
-  description: LocalizedString[];
+  description!: LocalizedString[];
   /** Media tags. */
-  tags: LocalizedStringArray[];
+  tags!: LocalizedStringArray[];
   /** Media type */
   type?: string;
   /** The date and time (ISO 8601 format) when the media was created. */
@@ -31,4 +31,7 @@ export interface MediaVideo {
   priority?: number;
   /** List of video objects */
   videos?: LocalizedVideo[];
+  constructor(data: Partial<MediaVideo> = {}) {
+    Object.assign(this, data);
+  }
 }

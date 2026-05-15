@@ -3,15 +3,18 @@ import { ClusterConfigSettingDisplayType } from '../enum/ClusterConfigSettingDis
 /**
  Object class for ClusterConfigSetting
  */
-export interface ClusterConfigSetting {
+export class ClusterConfigSetting {
   /** id field */
-  id: number;
+  id!: number;
   /** name field */
-  name: string;
+  name!: string;
   /** type field */
-  type: ClusterConfigSettingType;
+  type!: ClusterConfigSettingType;
   /** displayType field */
-  displayType: ClusterConfigSettingDisplayType;
+  displayType!: ClusterConfigSettingDisplayType;
   /** priority field */
-  priority: string;
+  priority!: string;
+  constructor(data: Partial<ClusterConfigSetting> = {}) {
+    Object.assign(this, data);
+  }
 }

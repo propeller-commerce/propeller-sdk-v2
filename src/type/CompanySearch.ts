@@ -4,11 +4,11 @@ import { CompanyAttributeSearch } from './CompanyAttributeSearch';
 /**
  Object class for CompanySearch
  */
-export interface CompanySearch {
+export class CompanySearch {
   /** Company id */
-  id: number;
+  id!: number;
   /** Company name */
-  name: string;
+  name!: string;
   /** Company tax number */
   taxNumber?: string;
   /** Company coc number */
@@ -20,15 +20,18 @@ export interface CompanySearch {
   /** Company email */
   email?: string;
   /** Company creation date */
-  createdAt: string;
+  createdAt!: string;
   /** Company last modified date */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Company deletion date */
   deletedAt?: string;
   /** Addresses assigned to this company. */
-  addresses: CompanyAddressSearch[];
+  addresses!: CompanyAddressSearch[];
   /** Contacts part of this company. */
-  contacts: CompanyContactSearch[];
+  contacts!: CompanyContactSearch[];
   /** Attributes of the company. */
-  attributes: CompanyAttributeSearch[];
+  attributes!: CompanyAttributeSearch[];
+  constructor(data: Partial<CompanySearch> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -12,7 +12,7 @@ export class TenantService extends BaseService {
    */
   async getTenant(): Promise<Tenant> {
     const result = await this.executeQuery('tenant', {});
-    return result.data.tenant as Tenant;
+    return new Tenant(result.data.tenant);
   }
   /**
    Creates a new tenant
@@ -22,7 +22,7 @@ export class TenantService extends BaseService {
   async createTenant(input: TenantCreateInput): Promise<Tenant> {
     const variables = { input };
     const result = await this.executeMutation('tenantCreate', variables);
-    return result.data.tenantCreate as Tenant;
+    return new Tenant(result.data.tenantCreate);
   }
   /**
    Updates an existing tenant
@@ -33,7 +33,7 @@ export class TenantService extends BaseService {
   async updateTenant(id: string, input: TenantUpdateInput): Promise<Tenant> {
     const variables = { id, input };
     const result = await this.executeMutation('tenantUpdate', variables);
-    return result.data.tenantUpdate as Tenant;
+    return new Tenant(result.data.tenantUpdate);
   }
   /**
    Deletes a tenant by ID

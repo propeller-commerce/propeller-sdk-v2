@@ -3,11 +3,14 @@ import { Order } from './Order';
 /**
  Object class for CartProcessResponse
  */
-export interface CartProcessResponse {
+export class CartProcessResponse {
   /** Cart order unique identifier */
-  cartOrderId: number;
+  cartOrderId!: number;
   /** Cart object */
-  cart: Cart;
+  cart!: Cart;
   /** order field */
-  order: Order;
+  order!: Order;
+  constructor(data: Partial<CartProcessResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

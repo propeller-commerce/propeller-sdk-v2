@@ -30,7 +30,7 @@ export class TemplateErrorLogService extends BaseService {
       }
     `;
     const result = await this.client.query(query, { id });
-    return result.templateErrorLog as TemplateErrorLog;
+    return new TemplateErrorLog(result.templateErrorLog);
   }
   /**
    Search for template error logs with filtering and pagination

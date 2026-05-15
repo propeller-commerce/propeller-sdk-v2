@@ -3,32 +3,35 @@ import { BusinessHours } from './BusinessHours';
 /**
  Object class for Warehouse
  */
-export interface Warehouse {
+export class Warehouse {
   /** Warehouse primary identifier */
-  id: string | number;
+  id!: string | number;
   /** Address identifier associated with the warehouse */
   addressId?: number;
   /** Warehouse Address */
   address?: WarehouseAddress;
   /** Warehouse name */
-  name: string;
+  name!: string;
   /** Warehouse description */
-  description: string;
+  description!: string;
   /** Warehouse notes */
-  notes: string;
+  notes!: string;
   /** Warehouse isActive status */
-  isActive: boolean;
+  isActive!: boolean;
   /** Warehouse isStore status */
-  isStore: boolean;
+  isStore!: boolean;
   /** Warehouse isPickupLocation status */
-  isPickupLocation: boolean;
+  isPickupLocation!: boolean;
   /** Optional warehouse shopId */
   /** @deprecated Shop is deprecated and will be removed in a future version */
   shopId?: number;
   /** Warehouse business hours per week day */
-  businessHours: BusinessHours[];
+  businessHours!: BusinessHours[];
   /** Warehouse initial creation timestamp */
-  createdAt: string;
+  createdAt!: string;
   /** Warehouse last update timestamp */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
+  constructor(data: Partial<Warehouse> = {}) {
+    Object.assign(this, data);
+  }
 }

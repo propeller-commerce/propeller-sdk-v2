@@ -3,9 +3,9 @@ import { Customer } from './Customer';
 /**
  Object class for MagicToken
  */
-export interface MagicToken {
+export class MagicToken {
   /** Magic token primary identifier */
-  id: string;
+  id!: string;
   /** Identifier of the associated contact, use either contactId or customerId */
   contactId?: number;
   /** Identifier of the associated customer, use either customerId or contactId */
@@ -19,11 +19,14 @@ export interface MagicToken {
   /** Number of successful login attempts using the magic token */
   successfulLogins?: number;
   /** Indicates if the magic token is for one-time use only */
-  oneTimeUse: boolean;
+  oneTimeUse!: boolean;
   /** Additional information or metadata associated with the magic token */
   extra?: string[];
   /** contact field */
   contact?: Contact;
   /** customer field */
   customer?: Customer;
+  constructor(data: Partial<MagicToken> = {}) {
+    Object.assign(this, data);
+  }
 }

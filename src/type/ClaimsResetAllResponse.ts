@@ -3,13 +3,16 @@
  Response for bulk user claims reset operations. Provides detailed statistics about
  the batch claims reset process, including success and failure counts.
  */
-export interface ClaimsResetAllResponse {
+export class ClaimsResetAllResponse {
   /** Number of users whose claims were successfully reset */
-  successCount: number;
+  successCount!: number;
   /** Number of users whose claims reset failed */
-  errorCount: number;
+  errorCount!: number;
   /** Total number of users processed in the batch operation */
-  totalProcessed: number;
+  totalProcessed!: number;
   /** Whether the entire batch operation completed successfully */
-  completed: boolean;
+  completed!: boolean;
+  constructor(data: Partial<ClaimsResetAllResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -1,9 +1,12 @@
 /**
  Multi-factor authentication details for the user
  */
-export interface EnrolledFactor {
+export class EnrolledFactor {
   /** The unique identifier for the factor */
-  factorId: string;
+  factorId!: string;
   /** The phoneNumber used for the factor */
-  phoneNumber: string;
+  phoneNumber!: string;
+  constructor(data: Partial<EnrolledFactor> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -1,21 +1,24 @@
 /**
  Object class for CartTotal
  */
-export interface CartTotal {
+export class CartTotal {
   /** Total payable amount of all items in this cart,
     excluding postage, paymethods costs and discounts. Excluding  VAT */
-  subTotal: number;
+  subTotal!: number;
   /** Total payable amount of all items in this cart,
     excluding postage, paymethods costs and discounts. Including  VAT */
-  subTotalNet: number;
+  subTotalNet!: number;
   /** Discount percentage that is applied to the order total through one or multiple incentives. */
-  discountPercentage: number;
+  discountPercentage!: number;
   /** Total payable amount for this cart. Including VAT */
-  totalNet: number;
+  totalNet!: number;
   /** Total payable amount for this cart. Excluding VAT */
-  totalGross: number;
+  totalGross!: number;
   /** Discount that is applied to the order total through one or multiple incentives. Including VAT. */
-  discountNet: number;
+  discountNet!: number;
   /** Discount that is applied to the order total through one or multiple incentives. Excluding VAT. */
-  discount: number;
+  discount!: number;
+  constructor(data: Partial<CartTotal> = {}) {
+    Object.assign(this, data);
+  }
 }

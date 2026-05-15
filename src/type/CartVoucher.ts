@@ -2,23 +2,26 @@ import { YesNo } from '../enum/YesNo';
 /**
  Object class for CartVoucher
  */
-export interface CartVoucher {
+export class CartVoucher {
   /** Voucher code */
-  code: string;
+  code!: string;
   /** Name of the rule that generated this voucher */
-  name: string;
+  name!: string;
   /** Description of the rule that generated this voucher */
-  description: string;
+  description!: string;
   /** Id of the rule that generated this voucher */
-  ruleId: number;
+  ruleId!: number;
   /** Is this voucher already redeemed */
-  redeemed: YesNo;
+  redeemed!: YesNo;
   /** Can this voucher be combined with other vouchers */
-  combinable: YesNo;
+  combinable!: YesNo;
   /** Can this voucher be partially redeemed when type is a payable amount */
-  partialRedemption: YesNo;
+  partialRedemption!: YesNo;
   /** Available amount when the voucher represents a payable amount */
-  available: number;
+  available!: number;
   /** Remaining amount when the voucher represent a payable amount and can be partially redeemed */
-  remaining: number;
+  remaining!: number;
+  constructor(data: Partial<CartVoucher> = {}) {
+    Object.assign(this, data);
+  }
 }

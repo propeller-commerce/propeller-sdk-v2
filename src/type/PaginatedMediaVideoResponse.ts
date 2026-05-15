@@ -2,19 +2,22 @@ import { MediaVideo } from './MediaVideo';
 /**
  Object class for PaginatedMediaVideoResponse
  */
-export interface PaginatedMediaVideoResponse {
+export class PaginatedMediaVideoResponse {
   /** List of items of type MediaVideo */
-  items: MediaVideo[];
+  items!: MediaVideo[];
   /** Total number of items found */
-  itemsFound: number;
+  itemsFound!: number;
   /** The amount of items to show per page */
-  offset: number;
+  offset!: number;
   /**  The current page */
-  page: number;
+  page!: number;
   /** Total amount of pages */
-  pages: number;
+  pages!: number;
   /** Start position of the current page */
-  start: number;
+  start!: number;
   /** End position of the current page */
-  end: number;
+  end!: number;
+  constructor(data: Partial<PaginatedMediaVideoResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

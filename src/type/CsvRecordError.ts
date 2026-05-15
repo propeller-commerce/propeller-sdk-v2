@@ -2,13 +2,16 @@ import { CsvRecordErrorCode } from '../enum/CsvRecordErrorCode';
 /**
  Object class for CsvRecordError
  */
-export interface CsvRecordError {
+export class CsvRecordError {
   /** code field */
-  code: CsvRecordErrorCode;
+  code!: CsvRecordErrorCode;
   /** messages field */
-  messages: string[];
+  messages!: string[];
   /** record field */
   record?: any;
   /** rowNumber field */
   rowNumber?: number;
+  constructor(data: Partial<CsvRecordError> = {}) {
+    Object.assign(this, data);
+  }
 }

@@ -1,11 +1,14 @@
 /**
  Object class for LocalizedDocument
  */
-export interface LocalizedDocument {
+export class LocalizedDocument {
   /** Document language */
-  language: string;
+  language!: string;
   /** Original document url */
-  originalUrl: string;
+  originalUrl!: string;
   /** The MIME type of the document. */
-  mimeType: string;
+  mimeType!: string;
+  constructor(data: Partial<LocalizedDocument> = {}) {
+    Object.assign(this, data);
+  }
 }

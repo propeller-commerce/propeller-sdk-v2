@@ -3,9 +3,12 @@ import { ClusterProductsActionResponse } from './ClusterProductsActionResponse';
 /**
  Object class for ClusterUnassignProductsResponse
  */
-export interface ClusterUnassignProductsResponse {
+export class ClusterUnassignProductsResponse {
   /** The cluster object */
-  cluster: Cluster;
+  cluster!: Cluster;
   /** Output messages about the actions performed. */
-  actions: ClusterProductsActionResponse;
+  actions!: ClusterProductsActionResponse;
+  constructor(data: Partial<ClusterUnassignProductsResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

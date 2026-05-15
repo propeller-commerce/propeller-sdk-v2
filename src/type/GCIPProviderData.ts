@@ -1,7 +1,7 @@
 /**
  Object class for GCIPProviderData
  */
-export interface GCIPProviderData {
+export class GCIPProviderData {
   /** uid field */
   uid?: string;
   /** providerId field */
@@ -20,4 +20,7 @@ export interface GCIPProviderData {
   screenName?: string;
   /** phoneNumber field */
   phoneNumber?: string;
+  constructor(data: Partial<GCIPProviderData> = {}) {
+    Object.assign(this, data);
+  }
 }

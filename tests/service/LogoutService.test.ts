@@ -1,7 +1,7 @@
 import { GraphQLClient } from '../../src/client/GraphQLClient';
 import { GraphQLOperationError } from '../../src/client/GraphQLOperationError';
 import { LogoutService } from '../../src/service/LogoutService';
-import type { Logout } from '../../src/type/Logout';
+import { Logout } from '../../src/type/Logout';
 
 const okResponse = (data: any) =>
   new Response(JSON.stringify({ data }), { status: 200 });
@@ -31,7 +31,8 @@ describe('LogoutService', () => {
 
     const result: Logout = await svc.logout(123);
 
-    expect(result).toEqual({ todo: 'ok' });
+    expect(result).toBeInstanceOf(Logout);
+    expect({ ...result }).toEqual({ todo: 'ok' });
     const body = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
     expect(body.operationName).toBe('logout');
     expect(body.variables).toEqual({ userId: 123 });

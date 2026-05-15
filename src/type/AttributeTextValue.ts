@@ -4,13 +4,17 @@ import { LocalizedStringArray } from './LocalizedStringArray';
 /**
  Text attribute value
  */
-export interface AttributeTextValue extends AttributeValue {
+export class AttributeTextValue implements AttributeValue {
   /** Attribute value id */
-  id: string;
+  id!: string;
   /** Attribute text value type */
-  type: AttributeType;
+  type!: AttributeType;
   /** Attribute textValues per language */
-  textValues: LocalizedStringArray[];
-  /** Attribute value (mirrors textValues) */
-  value: any;
+  textValues!: LocalizedStringArray[];
+  constructor(data: Partial<AttributeTextValue> = {}) {
+    Object.assign(this, data);
+  }
+  /** Attribute value (delegates to textValues) */
+  get value(): any { return this.textValues; }
+  set value(val: any) { this.textValues = val; }
 }

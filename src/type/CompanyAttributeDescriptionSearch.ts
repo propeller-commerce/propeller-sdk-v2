@@ -1,9 +1,12 @@
 /**
  Object class for CompanyAttributeDescriptionSearch
  */
-export interface CompanyAttributeDescriptionSearch {
+export class CompanyAttributeDescriptionSearch {
   /** AttributeDescription id */
-  id: string;
+  id!: string;
   /** Descriptive identifier for this AttributeDescription */
-  name: string;
+  name!: string;
+  constructor(data: Partial<CompanyAttributeDescriptionSearch> = {}) {
+    Object.assign(this, data);
+  }
 }

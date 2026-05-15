@@ -1,30 +1,33 @@
 /**
  Object class for Inventory
  */
-export interface Inventory {
+export class Inventory {
   /** Inventory primary identifier */
-  id: string | number;
+  id!: string | number;
   /** Inventory product identifier */
-  productId: number;
+  productId!: number;
   /** Inventory quantity */
-  quantity: number;
+  quantity!: number;
   /** Inventory cost price */
-  costPrice: number;
+  costPrice!: number;
   /** Inventory supplier */
-  supplier: string;
+  supplier!: string;
   /** Inventory supplier code */
-  supplierCode: string;
+  supplierCode!: string;
   /** Inventory sku */
-  sku: string;
+  sku!: string;
   /** Inventory last modified date */
   /** @deprecated Use lastModifiedAt instead */
   dateModified?: string;
   /** Inventory warehouse identifier */
-  warehouseId: number;
+  warehouseId!: number;
   /** Inventory location */
-  location: string;
+  location!: string;
   /** Inventory estimated next delivery date */
-  nextDeliveryDate: string;
+  nextDeliveryDate!: string;
   /** Inventory note */
-  notes: string;
+  notes!: string;
+  constructor(data: Partial<Inventory> = {}) {
+    Object.assign(this, data);
+  }
 }

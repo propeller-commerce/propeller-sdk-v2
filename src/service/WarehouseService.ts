@@ -16,7 +16,7 @@ export class WarehouseService extends BaseService {
   async getWarehouse(id: number): Promise<Warehouse> {
     const variables = { id };
     const result = await this.executeQuery('warehouse', variables);
-    return result.data.warehouse as Warehouse;
+    return new Warehouse(result.data.warehouse);
   }
   /**
    Fetches a list of warehouses with search criteria
@@ -26,7 +26,7 @@ export class WarehouseService extends BaseService {
   async getWarehouses(input?: WarehousesSearchInput): Promise<WarehousesResponse> {
     const variables = { input };
     const result = await this.executeQuery('warehouses', variables);
-    return result.data.warehouses as WarehousesResponse;
+    return new WarehousesResponse(result.data.warehouses);
   }
   /**
    Creates a new warehouse
@@ -36,7 +36,7 @@ export class WarehouseService extends BaseService {
   async createWarehouse(input: CreateWarehouseInput): Promise<Warehouse> {
     const variables = { input };
     const result = await this.executeMutation('warehouseCreate', variables);
-    return result.data.warehouseCreate as Warehouse;
+    return new Warehouse(result.data.warehouseCreate);
   }
   /**
    Updates an existing warehouse
@@ -46,6 +46,6 @@ export class WarehouseService extends BaseService {
   async updateWarehouse(input: UpdateWarehouseInput): Promise<Warehouse> {
     const variables = { input };
     const result = await this.executeMutation('warehouseUpdate', variables);
-    return result.data.warehouseUpdate as Warehouse;
+    return new Warehouse(result.data.warehouseUpdate);
   }
 }

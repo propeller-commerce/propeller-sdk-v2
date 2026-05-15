@@ -17,7 +17,7 @@ export class DiscountService extends BaseService {
   async getDiscount(id: number): Promise<Discount> {
     const variables = { id };
     const result = await this.executeQuery('discount', variables);
-    return result.data.discount as Discount;
+    return new Discount(result.data.discount);
   }
   /**
    Fetches a list of discounts with search criteria
@@ -27,7 +27,7 @@ export class DiscountService extends BaseService {
   async getDiscounts(input?: DiscountSearchInput): Promise<DiscountResponse> {
     const variables = { input };
     const result = await this.executeQuery('discounts', variables);
-    return result.data.discounts as DiscountResponse;
+    return new DiscountResponse(result.data.discounts);
   }
   /**
    Creates a new discount
@@ -37,7 +37,7 @@ export class DiscountService extends BaseService {
   async createDiscount(input: DiscountCreateInput): Promise<Discount> {
     const variables = { input };
     const result = await this.executeMutation('discountCreate', variables);
-    return result.data.discountCreate as Discount;
+    return new Discount(result.data.discountCreate);
   }
   /**
    Updates an existing discount
@@ -47,7 +47,7 @@ export class DiscountService extends BaseService {
   async updateDiscount(input: DiscountUpdateInput): Promise<Discount> {
     const variables = { input };
     const result = await this.executeMutation('discountUpdate', variables);
-    return result.data.discountUpdate as Discount;
+    return new Discount(result.data.discountUpdate);
   }
   /**
    Imports discounts from CSV

@@ -4,9 +4,9 @@ import { Warehouse } from './Warehouse';
 /**
  Object class for CartPostageData
  */
-export interface CartPostageData {
+export class CartPostageData {
   /** Selected shipping method for this cart. Defaults to DELIVERY. */
-  method: string;
+  method!: string;
   /** Tax percentage */
   taxPercentage?: number;
   /** Preferred delivery date for this order as requested by the user. */
@@ -25,4 +25,7 @@ export interface CartPostageData {
   pickUpLocationId?: number;
   /** warehouse field */
   warehouse?: Warehouse;
+  constructor(data: Partial<CartPostageData> = {}) {
+    Object.assign(this, data);
+  }
 }

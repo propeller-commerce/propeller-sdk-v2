@@ -2,11 +2,11 @@ import { CompanyAttributeSearch } from './CompanyAttributeSearch';
 /**
  Object class for CompanyContactSearch
  */
-export interface CompanyContactSearch {
+export class CompanyContactSearch {
   /** Contact id */
-  id: number;
+  id!: number;
   /** First name of the contact. */
-  firstName: string;
+  firstName!: string;
   /** Last name of the contact. */
   lastName?: string;
   /** Middle name of the contact. */
@@ -16,7 +16,7 @@ export interface CompanyContactSearch {
   /** Mobile number of the contact. */
   mobile?: string;
   /** Email of the contact. */
-  email: string;
+  email!: string;
   /** International Bank Account Number of the contact */
   iban?: string;
   /** Bank Account Number of the contact */
@@ -31,9 +31,12 @@ export interface CompanyContactSearch {
   /** Date of birth of the contact. */
   dateOfBirth?: string;
   /** Contract creation date */
-  createdAt: string;
+  createdAt!: string;
   /** Contact last modified date */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Attributes of the contact */
-  attributes: CompanyAttributeSearch[];
+  attributes!: CompanyAttributeSearch[];
+  constructor(data: Partial<CompanyContactSearch> = {}) {
+    Object.assign(this, data);
+  }
 }

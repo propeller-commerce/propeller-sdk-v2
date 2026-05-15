@@ -1,9 +1,12 @@
 /**
  Object class for CompanyAttributeValueSearch
  */
-export interface CompanyAttributeValueSearch {
+export class CompanyAttributeValueSearch {
   /** AttributeValue id */
-  id: string;
+  id!: string;
   /** AttributeValue type */
-  type: string;
+  type!: string;
+  constructor(data: Partial<CompanyAttributeValueSearch> = {}) {
+    Object.assign(this, data);
+  }
 }

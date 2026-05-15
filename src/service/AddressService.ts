@@ -18,7 +18,7 @@ export class AddressService extends BaseService {
   async getAddressesByCompanyId(companyId: number): Promise<Address[]> {
     const variables = { companyId };
     const result = await this.executeQuery('addressesByCompanyId', variables);
-    return result.data.addressesByCompanyId as Address[];
+    return result.data.addressesByCompanyId.map((x: any) => new Address(x));
   }
   /**
    Fetches addresses for a customer
@@ -28,7 +28,7 @@ export class AddressService extends BaseService {
   async getAddressesByCustomerId(customerId: number): Promise<Address[]> {
     const variables = { customerId };
     const result = await this.executeQuery('addressesByCustomerId', variables);
-    return result.data.addressesByCustomerId as Address[];
+    return result.data.addressesByCustomerId.map((x: any) => new Address(x));
   }
   /**
    Fetches addresses for an order
@@ -38,7 +38,7 @@ export class AddressService extends BaseService {
   async getAddressesByOrderId(orderId: number): Promise<Address[]> {
     const variables = { orderId };
     const result = await this.executeQuery('addressesByOrderId', variables);
-    return result.data.addressesByOrderId as Address[];
+    return result.data.addressesByOrderId.map((x: any) => new Address(x));
   }
   /**
    Fetches addresses for a user
@@ -48,7 +48,7 @@ export class AddressService extends BaseService {
   async getAddressesByUserId(userId: number): Promise<Address[]> {
     const variables = { userId };
     const result = await this.executeQuery('addressesByUserId', variables);
-    return result.data.addressesByUserId as Address[];
+    return result.data.addressesByUserId.map((x: any) => new Address(x));
   }
   // Company Address Methods
   /**
@@ -59,7 +59,7 @@ export class AddressService extends BaseService {
   async createCompanyAddress(input: CompanyAddressCreateInput): Promise<Address> {
     const variables = { input };
     const result = await this.executeMutation('companyAddressCreate', variables);
-    return result.data.companyAddressCreate as Address;
+    return new Address(result.data.companyAddressCreate);
   }
   /**
    Updates an existing company address
@@ -69,7 +69,7 @@ export class AddressService extends BaseService {
   async updateCompanyAddress(input: CompanyAddressUpdateInput): Promise<Address> {
     const variables = { input };
     const result = await this.executeMutation('companyAddressUpdate', variables);
-    return result.data.companyAddressUpdate as Address;
+    return new Address(result.data.companyAddressUpdate);
   }
   /**
    Deletes a company address
@@ -90,7 +90,7 @@ export class AddressService extends BaseService {
   async createCustomerAddress(input: CustomerAddressCreateInput): Promise<Address> {
     const variables = { input };
     const result = await this.executeMutation('customerAddressCreate', variables);
-    return result.data.customerAddressCreate as Address;
+    return new Address(result.data.customerAddressCreate);
   }
   /**
    Updates an existing customer address
@@ -100,7 +100,7 @@ export class AddressService extends BaseService {
   async updateCustomerAddress(input: CustomerAddressUpdateInput): Promise<Address> {
     const variables = { input };
     const result = await this.executeMutation('customerAddressUpdate', variables);
-    return result.data.customerAddressUpdate as Address;
+    return new Address(result.data.customerAddressUpdate);
   }
   /**
    Deletes a customer address

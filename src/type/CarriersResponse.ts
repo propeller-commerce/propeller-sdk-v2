@@ -2,19 +2,22 @@ import { Carrier } from './Carrier';
 /**
  Object class for CarriersResponse
  */
-export interface CarriersResponse {
+export class CarriersResponse {
   /** List of items of type Carrier */
-  items: Carrier[];
+  items!: Carrier[];
   /** Total number of items found */
-  itemsFound: number;
+  itemsFound!: number;
   /** The amount of items to show per page */
-  offset: number;
+  offset!: number;
   /** The current page */
-  page: number;
+  page!: number;
   /** Total amount of pages */
-  pages: number;
+  pages!: number;
   /** Start position of the current page */
-  start: number;
+  start!: number;
   /** End position of the current page */
-  end: number;
+  end!: number;
+  constructor(data: Partial<CarriersResponse> = {}) {
+    Object.assign(this, data);
+  }
 }

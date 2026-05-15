@@ -12,9 +12,9 @@ import { Source } from './Source';
 /**
  Object class for Order
  */
-export interface Order {
+export class Order {
   /** The auto-incremental id for this order */
-  id: number;
+  id!: number;
   /** media field */
   media?: OrderMedia;
   /** The userId of the user that placed this order */
@@ -24,25 +24,25 @@ export interface Order {
   /** The cartId of the cart that this order is created from. */
   cartId?: string;
   /** The channel identifier of the webshop this order originated from */
-  channelId: number;
+  channelId!: number;
   /** The ID of the shop the Order belongs to */
   /** @deprecated Use channelId instead */
-  shopId: number;
+  shopId!: number;
   /** Unique identifier for this order */
-  uuid: string;
+  uuid!: string;
   /** External identifier for this order from an external source like an ERP system */
   /** @deprecated Use sources instead */
   externalId?: string;
   /** The debtorId of the Customer or Company that placed this Order */
   debtorId?: string;
   /** The processing status for this order */
-  status: string;
+  status!: string;
   /** The type of this order */
-  type: OrderType;
+  type!: OrderType;
   /** The source this order originates from */
   source?: string;
   /** The email address for transactional emails */
-  email: string;
+  email!: string;
   /** The date the last transactional email was sent for this order */
   emailDate?: string;
   /** Remarks added by the customer about this order */
@@ -56,26 +56,26 @@ export interface Order {
     The field will not be visible to Propeller admins, but can be used to be displayed on front-ends or be used in integrations. */
   extra4?: string;
   /** Currency used to place this order */
-  currency: string;
+  currency!: string;
   /** The currency's exchange rate at the time the order was placed */
-  currencyRatio: number;
+  currencyRatio!: number;
   /** The selected language on the webshop at the time the order was placed */
-  language: string;
+  language!: string;
   /** The date and time the order was placed */
   /** @deprecated Deprecated in favour of createdAt */
-  date: string;
+  date!: string;
   /** The date and time the order was placed */
-  createdAt: string;
+  createdAt!: string;
   /** The date and time the status of the order was last changed */
   statusDate?: string;
   /** The postage data of the order */
-  postageData: OrderPostageData;
+  postageData!: OrderPostageData;
   /** The payment data of the order */
-  paymentData: OrderPaymentData;
+  paymentData!: OrderPaymentData;
   /** The totals of the order */
-  total: OrderTotals;
+  total!: OrderTotals;
   /** The items included in the order */
-  items: OrderItem[];
+  items!: OrderItem[];
   /** The shipments for the order */
   shipments?: Shipment[];
   /** The addresses for the order */
@@ -87,7 +87,7 @@ export interface Order {
   /** The companyId of the company that placed this order */
   companyId?: number;
   /** The date and time the order was last modified */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Original order id */
   originalOrderId?: number;
   /** The date and time the order was exported */
@@ -97,7 +97,10 @@ export interface Order {
   /** Order export message */
   exportMessage?: string;
   /** orderAddresses field */
-  orderAddresses: OrderAddress[];
+  orderAddresses!: OrderAddress[];
   /** Order sources */
   sources?: Source[];
+  constructor(data: Partial<Order> = {}) {
+    Object.assign(this, data);
+  }
 }

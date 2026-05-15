@@ -17,7 +17,7 @@ export class MediaAttachmentService extends BaseService {
   async getMediaAttachment(id: number): Promise<MediaAttachment> {
     const variables = { id };
     const result = await this.executeQuery('mediaAttachment', variables);
-    return result.data.mediaAttachment as MediaAttachment;
+    return new MediaAttachment(result.data.mediaAttachment);
   }
   /**
    Retrieves media attachments with pagination
@@ -27,7 +27,7 @@ export class MediaAttachmentService extends BaseService {
   async getMediaAttachments(input?: MediaAttachmentSearchInput): Promise<PaginatedMediaAttachmentResponse> {
     const variables = { input };
     const result = await this.executeQuery('mediaAttachments', variables);
-    return result.data.mediaAttachments as PaginatedMediaAttachmentResponse;
+    return new PaginatedMediaAttachmentResponse(result.data.mediaAttachments);
   }
   /**
    Creates a new media attachment
@@ -37,7 +37,7 @@ export class MediaAttachmentService extends BaseService {
   async createMediaAttachment(input: MediaAttachmentInput): Promise<MediaAttachment> {
     const variables = { input };
     const result = await this.executeMutation('mediaAttachmentCreate', variables);
-    return result.data.mediaAttachmentCreate as MediaAttachment;
+    return new MediaAttachment(result.data.mediaAttachmentCreate);
   }
   /**
    Updates an existing media attachment
@@ -47,7 +47,7 @@ export class MediaAttachmentService extends BaseService {
   async updateMediaAttachment(input: UpdateMediaAttachmentInput): Promise<MediaAttachment> {
     const variables = { input };
     const result = await this.executeMutation('mediaAttachmentUpdate', variables);
-    return result.data.mediaAttachmentUpdate as MediaAttachment;
+    return new MediaAttachment(result.data.mediaAttachmentUpdate);
   }
   /**
    Deletes a media attachment

@@ -4,14 +4,14 @@ import { Tenant } from './Tenant';
 /**
  Object class for Channel
  */
-export interface Channel {
+export class Channel {
   /** channelId field */
   /** @deprecated Use id instead */
-  channelId: number;
+  channelId!: number;
   /** id field */
-  id: number;
+  id!: number;
   /** name field */
-  name: string;
+  name!: string;
   /** Channel descriptions per language */
   descriptions?: LocalizedString[];
   /** Catalog root id */
@@ -22,12 +22,15 @@ export interface Channel {
   /** @deprecated To be removed */
   defaultLetterId?: number;
   /** Channel creation date */
-  createdAt: string;
+  createdAt!: string;
   /** Channel last modified date */
-  lastModifiedAt: string;
+  lastModifiedAt!: string;
   /** Tenant this channel belongs to */
-  tenant: Tenant;
+  tenant!: Tenant;
   /** shop field */
   /** @deprecated This field will be removed in a future version */
   shop?: Shop;
+  constructor(data: Partial<Channel> = {}) {
+    Object.assign(this, data);
+  }
 }

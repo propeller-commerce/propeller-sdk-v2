@@ -2,31 +2,34 @@ import { Firebase } from './Firebase';
 /**
  Object class for VerifyToken
  */
-export interface VerifyToken {
+export class VerifyToken {
   /** uid field */
-  uid: string;
+  uid!: string;
   /** name field */
-  name: string;
+  name!: string;
   /** claims field */
   claims?: any;
   /** iss field */
-  iss: string;
+  iss!: string;
   /** aud field */
-  aud: string;
+  aud!: string;
   /** auth_time field */
-  auth_time: number;
+  auth_time!: number;
   /** user_id field */
-  user_id: string;
+  user_id!: string;
   /** sub field */
-  sub: string;
+  sub!: string;
   /** iat field */
-  iat: number;
+  iat!: number;
   /** exp field */
-  exp: number;
+  exp!: number;
   /** email field */
-  email: string;
+  email!: string;
   /** email_verified field */
-  email_verified: boolean;
+  email_verified!: boolean;
   /** firebase field */
   firebase?: Firebase;
+  constructor(data: Partial<VerifyToken> = {}) {
+    Object.assign(this, data);
+  }
 }

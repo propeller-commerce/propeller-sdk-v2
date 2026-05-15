@@ -24,7 +24,7 @@ export class BusinessRuleService extends BaseService {
   async getBusinessRule(id: number): Promise<BusinessRule> {
     const variables = { id };
     const result = await this.executeQuery('businessRule', variables);
-    return result.data.businessRule as BusinessRule;
+    return new BusinessRule(result.data.businessRule);
   }
   /**
    Fetches a list of business rules with search criteria
@@ -34,7 +34,7 @@ export class BusinessRuleService extends BaseService {
   async getBusinessRules(input?: BusinessRuleSearchInput): Promise<BusinessRuleResponse> {
     const variables = { input };
     const result = await this.executeQuery('businessRules', variables);
-    return result.data.businessRules as BusinessRuleResponse;
+    return new BusinessRuleResponse(result.data.businessRules);
   }
   /**
    Fetches business rule decision table
@@ -44,7 +44,7 @@ export class BusinessRuleService extends BaseService {
   async getBusinessRuleDecisionTable(input?: BusinessRuleDecisionTableSearchInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeQuery('businessRuleDecisionTable', variables);
-    return result.data.businessRuleDecisionTable as BusinessRuleDecisionTable;
+    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTable);
   }
   /**
    Fetches business rule field definitions
@@ -73,7 +73,7 @@ export class BusinessRuleService extends BaseService {
   async createBusinessRule(input: BusinessRuleCreateInput): Promise<BusinessRule> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleCreate', variables);
-    return result.data.businessRuleCreate as BusinessRule;
+    return new BusinessRule(result.data.businessRuleCreate);
   }
   /**
    Updates an existing business rule
@@ -83,7 +83,7 @@ export class BusinessRuleService extends BaseService {
   async updateBusinessRule(input: BusinessRuleUpdateInput): Promise<BusinessRule> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleUpdate', variables);
-    return result.data.businessRuleUpdate as BusinessRule;
+    return new BusinessRule(result.data.businessRuleUpdate);
   }
   /**
    Updates a business rule decision table
@@ -93,7 +93,7 @@ export class BusinessRuleService extends BaseService {
   async updateBusinessRuleDecisionTable(input: BusinessRuleDecisionTableUpdateInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableUpdate', variables);
-    return result.data.businessRuleDecisionTableUpdate as BusinessRuleDecisionTable;
+    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableUpdate);
   }
   /**
    Adds a column to business rule decision table
@@ -103,7 +103,7 @@ export class BusinessRuleService extends BaseService {
   async addColumnToDecisionTable(input: BusinessRuleDecisionTableAddColumnInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableAddColumn', variables);
-    return result.data.businessRuleDecisionTableAddColumn as BusinessRuleDecisionTable;
+    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableAddColumn);
   }
   /**
    Deletes a column from business rule decision table
@@ -113,7 +113,7 @@ export class BusinessRuleService extends BaseService {
   async deleteColumnFromDecisionTable(input: BusinessRuleDecisionTableDeleteColumnInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableDeleteColumn', variables);
-    return result.data.businessRuleDecisionTableDeleteColumn as BusinessRuleDecisionTable;
+    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableDeleteColumn);
   }
   /**
    Adds a row to business rule decision table
@@ -122,7 +122,7 @@ export class BusinessRuleService extends BaseService {
   async addRowToDecisionTable(): Promise<BusinessRuleDecisionTable> {
     const variables = {};
     const result = await this.executeMutation('businessRuleDecisionTableAddRow', variables);
-    return result.data.businessRuleDecisionTableAddRow as BusinessRuleDecisionTable;
+    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableAddRow);
   }
   /**
    Deletes a row from business rule decision table
@@ -132,7 +132,7 @@ export class BusinessRuleService extends BaseService {
   async deleteRowFromDecisionTable(input: BusinessRuleDecisionTableDeleteRowInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableDeleteRow', variables);
-    return result.data.businessRuleDecisionTableDeleteRow as BusinessRuleDecisionTable;
+    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableDeleteRow);
   }
   /**
    Moves a row in business rule decision table
@@ -142,7 +142,7 @@ export class BusinessRuleService extends BaseService {
   async moveRowInDecisionTable(input: BusinessRuleDecisionTableMoveRowInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableMoveRow', variables);
-    return result.data.businessRuleDecisionTableMoveRow as BusinessRuleDecisionTable;
+    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableMoveRow);
   }
   /**
    Sets a cell value in business rule decision table
@@ -152,6 +152,6 @@ export class BusinessRuleService extends BaseService {
   async setCellInDecisionTable(input: BusinessRuleDecisionTableSetCellInput): Promise<BusinessRuleDecisionTable> {
     const variables = { input };
     const result = await this.executeMutation('businessRuleDecisionTableSetCell', variables);
-    return result.data.businessRuleDecisionTableSetCell as BusinessRuleDecisionTable;
+    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableSetCell);
   }
 }

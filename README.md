@@ -207,7 +207,7 @@ initializeClient({ endpoint: '/api/graphql', getAccessToken: () => token });
 
 ## Type definitions
 
-The SDK exports every type used by Propeller's GraphQL schema as a TypeScript `interface`. Enums are exported at the top level. Service methods return the response payload typed as the relevant interface — no `new Foo(...)` wrapping is required (or supported, as of 0.5.0).
+The SDK exports every type used by Propeller's GraphQL schema as a TypeScript `class` with a single `constructor(data: Partial<X> = {}) { Object.assign(this, data); }` body. Service methods return real class instances (via `new X(data)`), which gives instance methods a home — getters and resolvers can be added on the prototype without changing any call site. Input types (`*Input`) stay as plain `interface`s. Enums are exported at the top level.
 
 ```typescript
 import { Product, CreateProductInput, ProductStatus } from 'propeller-sdk-v2';
@@ -218,7 +218,7 @@ const input: CreateProductInput = {
   /* fields */
 };
 
-// Service methods return data already typed as the response interface.
+// Service methods return a class instance — `product instanceof Product` is true.
 const product: Product = await productService.getProduct({ productId: 1 });
 ```
 
@@ -229,7 +229,7 @@ import * as Enums from 'propeller-sdk-v2';
 const status = Enums.ProductStatus.A;
 ```
 
-`JSON.stringify` on response objects produces a full payload (they're plain objects), and Redux DevTools / IndexedDB / SSR rehydration all work normally.
+`JSON.stringify` on response objects produces a full payload (enumerable own properties from `Object.assign`), so Redux DevTools / IndexedDB / SSR rehydration all work normally. Note: instance methods are *not* serialized, so re-hydrated state will be a plain object — wrap with `new Product(rehydrated)` if you need the prototype back.
 
 ## Development
 

@@ -3,13 +3,17 @@ import { AttributeValue } from './AttributeValue';
 /**
  Color attribute value
  */
-export interface AttributeColorValue extends AttributeValue {
+export class AttributeColorValue implements AttributeValue {
   /** Attribute value id */
-  id: string;
+  id!: string;
   /** Attribute color value type */
-  type: AttributeType;
+  type!: AttributeType;
   /** colorValue field */
   colorValue?: string;
-  /** Attribute value (mirrors colorValue) */
-  value: any;
+  constructor(data: Partial<AttributeColorValue> = {}) {
+    Object.assign(this, data);
+  }
+  /** Attribute value (delegates to colorValue) */
+  get value(): any { return this.colorValue; }
+  set value(val: any) { this.colorValue = val; }
 }

@@ -12,7 +12,7 @@ export class ShopService extends BaseService {
   async getShop(id: number): Promise<Shop> {
     const variables = { id };
     const result = await this.executeQuery('shop', variables);
-    return result.data.shop as Shop;
+    return new Shop(result.data.shop);
   }
   /**
    * Fetches a list of shops
@@ -21,6 +21,6 @@ export class ShopService extends BaseService {
   async getShops(): Promise<Shop[]> {
     const variables = {};
     const result = await this.executeQuery('shops', variables);
-    return result.data.shops as Shop[];
+    return result.data.shops.map((x: any) => new Shop(x));
   }
 }

@@ -3,13 +3,17 @@ import { AttributeValue } from './AttributeValue';
 /**
  DateTime attribute value
  */
-export interface AttributeDateTimeValue extends AttributeValue {
+export class AttributeDateTimeValue implements AttributeValue {
   /** Attribute value id */
-  id: string;
+  id!: string;
   /** Attribute datetime value type */
-  type: AttributeType;
+  type!: AttributeType;
   /** dateTimeValue field */
   dateTimeValue?: string;
-  /** Attribute value (mirrors dateTimeValue) */
-  value: any;
+  constructor(data: Partial<AttributeDateTimeValue> = {}) {
+    Object.assign(this, data);
+  }
+  /** Attribute value (delegates to dateTimeValue) */
+  get value(): any { return this.dateTimeValue; }
+  set value(val: any) { this.dateTimeValue = val; }
 }

@@ -3,21 +3,24 @@ import { LocalizedString } from './LocalizedString';
 /**
  Object class for TenderItemSurcharge
  */
-export interface TenderItemSurcharge {
+export class TenderItemSurcharge {
   /** names field */
-  names: LocalizedString[];
+  names!: LocalizedString[];
   /** taxCode field */
-  taxCode: Taxcode;
+  taxCode!: Taxcode;
   /** taxPercentage field */
-  taxPercentage: number;
+  taxPercentage!: number;
   /** quantity field */
-  quantity: number;
+  quantity!: number;
   /** price field */
-  price: number;
+  price!: number;
   /** totalPrice field */
-  totalPrice: number;
+  totalPrice!: number;
   /** priceNet field */
-  priceNet: number;
+  priceNet!: number;
   /** totalPriceNet field */
-  totalPriceNet: number;
+  totalPriceNet!: number;
+  constructor(data: Partial<TenderItemSurcharge> = {}) {
+    Object.assign(this, data);
+  }
 }

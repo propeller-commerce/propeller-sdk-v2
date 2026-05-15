@@ -58,7 +58,7 @@ export class ClusterService extends BaseService {
   async getClusterConfig(clusterId: number): Promise<Cluster> {
     const variables = { clusterId };
     const result = await this.executeQuery('clusterGetConfig', variables);
-    return result.data.cluster as Cluster;
+    return new Cluster(result.data.cluster);
   }
   /**
    Fetches a single cluster by ID or slug
@@ -77,7 +77,7 @@ export class ClusterService extends BaseService {
    */
   async getCluster(variables: ClusterQueryVariables): Promise<Cluster> {
     const result = await this.executeQuery('cluster', variables);
-    return result.data.cluster as Cluster;
+    return new Cluster(result.data.cluster);
   }
   /**
    Fetches a list of clusters with search criteria
@@ -87,7 +87,7 @@ export class ClusterService extends BaseService {
   async getClusters(input?: ClusterProductSearchInput): Promise<Cluster[]> {
     const variables = { input };
     const result = await this.executeQuery('clusters', variables);
-    return result.data.clusters as Cluster[];
+    return result.data.clusters.map((x: any) => new Cluster(x));
   }
   /**
    Creates a new cluster
@@ -96,7 +96,7 @@ export class ClusterService extends BaseService {
    */
   async createCluster(variables: ClusterCreateVariables): Promise<Cluster> {
     const result = await this.executeMutation('clusterCreate', variables);
-    return result.data.clusterCreate as Cluster;
+    return new Cluster(result.data.clusterCreate);
   }
   /**
    Updates an existing cluster
@@ -105,7 +105,7 @@ export class ClusterService extends BaseService {
    */
   async updateCluster(variables: ClusterUpdateVariables): Promise<Cluster> {
     const result = await this.executeMutation('clusterUpdate', variables);
-    return result.data.clusterUpdate as Cluster;
+    return new Cluster(result.data.clusterUpdate);
   }
   /**
    Deletes a cluster
