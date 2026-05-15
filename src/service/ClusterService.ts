@@ -52,13 +52,13 @@ export interface ClusterQueryVariables {
 export class ClusterService extends BaseService {
   /**
    Retrieves a specific cluster configuration
-   * @param clusterConfigId Cluster config ID to fetch
-   * @returns Promise<ClusterConfigResponse> Cluster config data
+   * @param clusterId Cluster ID to fetch
+   * @returns Promise<Cluster> Cluster config data
    */
-  async getClusterConfig(clusterConfigId: number): Promise<ClusterConfigResponse> {
-    const variables = { clusterConfigId };
+  async getClusterConfig(clusterId: number): Promise<Cluster> {
+    const variables = { clusterId };
     const result = await this.executeQuery('clusterConfig', variables);
-    return new ClusterConfigResponse(result.data.clusterConfig);
+    return new Cluster(result.data.cluster);
   }
   /**
    Fetches a single cluster by ID or slug

@@ -1,5 +1,7 @@
-query clusterConfig($clusterConfigId: Int!) {
-  clusterConfig(clusterConfigId: $clusterConfigId) {
-    ...ClusterConfigResponseFields
+query cluster($clusterId: Int!) {
+  cluster(clusterId: $clusterId) {
+    config {
+      ...ClusterConfigFields
+    }
   }
 }

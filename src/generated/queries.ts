@@ -6022,11 +6022,7 @@ query cluster(\$clusterId: Int, \$slug: String, \$language: String, \$applyOrder
   }
 }`;
 
-export const clusterConfig = `fragment ClusterConfigResponseFields on ClusterConfigResponse {
-  ...ClusterConfigFields
-}
-
-fragment ClusterConfigFields on ClusterConfig {
+export const clusterConfig = `fragment ClusterConfigFields on ClusterConfig {
   id
   name
   settings {
@@ -6042,9 +6038,11 @@ fragment ClusterConfigSettingFields on ClusterConfigSetting {
   priority
 }
 
-query clusterConfig(\$clusterConfigId: Int!) {
-  clusterConfig(clusterConfigId: \$clusterConfigId) {
-    ...ClusterConfigResponseFields
+query cluster(\$clusterId: Int!) {
+  cluster(clusterId: \$clusterId) {
+    config {
+      ...ClusterConfigFields
+    }
   }
 }`;
 
