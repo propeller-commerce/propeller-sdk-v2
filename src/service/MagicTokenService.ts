@@ -1,64 +1,100 @@
-import { BaseService } from './BaseService';
 import { MagicToken } from '../type/MagicToken';
 import { MagicTokenResponse } from '../type/MagicTokenResponse';
 import { MagicTokenSearchInput } from '../type/MagicTokenSearchInput';
 import { MagicTokenCreateInput } from '../type/MagicTokenCreateInput';
 import { MagicTokenUpdateInput } from '../type/MagicTokenUpdateInput';
 import { Login } from '../type/Login';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as magicTokenDoc } from '../generated/operations/magicToken';
+import { document as magicTokensDoc } from '../generated/operations/magicTokens';
+import { document as magicTokenCreateDoc } from '../generated/operations/magicTokenCreate';
+import { document as magicTokenUpdateDoc } from '../generated/operations/magicTokenUpdate';
+import { document as magicTokenLoginDoc } from '../generated/operations/magicTokenLogin';
 /**
  Service for magic token authentication
- * @extends BaseService
  */
-export class MagicTokenService extends BaseService {
+export function magicTokenService(client: GraphQLClient) {
+  return {
+    /**
+       Retrieves a specific magic token
+       * @param id Magic token ID
+       * @returns Promise<MagicToken> Magic token data
+       */
+    async getMagicToken(id: number): Promise<MagicToken> {
+      const result = await runOperation(client, magicTokenDoc, 'magicToken', { id });
+      return result.data.magicToken as MagicToken;
+    },
+    /**
+       Retrieves magic tokens with search
+       * @param input Search input parameters
+       * @returns Promise<MagicTokenResponse> Magic tokens response
+       */
+    async getMagicTokens(input?: MagicTokenSearchInput): Promise<MagicTokenResponse> {
+      const result = await runOperation(client, magicTokensDoc, 'magicTokens', { input });
+      return result.data.magicTokens as MagicTokenResponse;
+    },
+    /**
+       Creates a new magic token
+       * @param input Magic token creation input
+       * @returns Promise<MagicToken> The created magic token
+       */
+    async createMagicToken(input: MagicTokenCreateInput): Promise<MagicToken> {
+      const result = await runOperation(client, magicTokenCreateDoc, 'magicTokenCreate', { input });
+      return result.data.magicTokenCreate as MagicToken;
+    },
+    /**
+       Updates an existing magic token
+       * @param id Magic token ID
+       * @param input Magic token update input
+       * @returns Promise<MagicToken> The updated magic token
+       */
+    async updateMagicToken(id: string, input: MagicTokenUpdateInput): Promise<MagicToken> {
+      const result = await runOperation(client, magicTokenUpdateDoc, 'magicTokenUpdate', { id, input });
+      return result.data.magicTokenUpdate as MagicToken;
+    },
+    /**
+       Authenticates a user using a magic token
+       * @param id Magic token ID
+       * @returns Promise<Login> Login response with user data
+       */
+    async magicTokenLogin(id: string): Promise<Login> {
+      const result = await runOperation(client, magicTokenLoginDoc, 'magicTokenLogin', { id });
+      return result.data.magicTokenLogin as Login;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `magicTokenService(client)`.
+ */
+export class MagicTokenService {
+  private readonly _svc: ReturnType<typeof magicTokenService>;
+  constructor(client: GraphQLClient) { this._svc = magicTokenService(client); }
   /**
-   Retrieves a specific magic token
+   * Retrieves a specific magic token
    * @param id Magic token ID
-   * @returns Promise<MagicToken> Magic token data
    */
-  async getMagicToken(id: number): Promise<MagicToken> {
-    const variables = { id };
-    const result = await this.executeQuery('magicToken', variables);
-    return new MagicToken(result.data.magicToken);
-  }
+  getMagicToken(id: number): Promise<MagicToken> { return this._svc.getMagicToken(id); }
   /**
-   Retrieves magic tokens with search
+   * Retrieves magic tokens with search
    * @param input Search input parameters
-   * @returns Promise<MagicTokenResponse> Magic tokens response
    */
-  async getMagicTokens(input?: MagicTokenSearchInput): Promise<MagicTokenResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('magicTokens', variables);
-    return new MagicTokenResponse(result.data.magicTokens);
-  }
+  getMagicTokens(input?: MagicTokenSearchInput): Promise<MagicTokenResponse> { return this._svc.getMagicTokens(input); }
   /**
-   Creates a new magic token
+   * Creates a new magic token
    * @param input Magic token creation input
-   * @returns Promise<MagicToken> The created magic token
    */
-  async createMagicToken(input: MagicTokenCreateInput): Promise<MagicToken> {
-    const variables = { input };
-    const result = await this.executeMutation('magicTokenCreate', variables);
-    return new MagicToken(result.data.magicTokenCreate);
-  }
+  createMagicToken(input: MagicTokenCreateInput): Promise<MagicToken> { return this._svc.createMagicToken(input); }
   /**
-   Updates an existing magic token
+   * Updates an existing magic token
    * @param id Magic token ID
    * @param input Magic token update input
-   * @returns Promise<MagicToken> The updated magic token
    */
-  async updateMagicToken(id: string, input: MagicTokenUpdateInput): Promise<MagicToken> {
-    const variables = { id, input };
-    const result = await this.executeMutation('magicTokenUpdate', variables);
-    return new MagicToken(result.data.magicTokenUpdate);
-  }
+  updateMagicToken(id: string, input: MagicTokenUpdateInput): Promise<MagicToken> { return this._svc.updateMagicToken(id, input); }
   /**
-   Authenticates a user using a magic token
+   * Authenticates a user using a magic token
    * @param id Magic token ID
-   * @returns Promise<Login> Login response with user data
    */
-  async magicTokenLogin(id: string): Promise<Login> {
-    const variables = { id };
-    const result = await this.executeMutation('magicTokenLogin', variables);
-    return new Login(result.data.magicTokenLogin);
-  }
+  magicTokenLogin(id: string): Promise<Login> { return this._svc.magicTokenLogin(id); }
 }

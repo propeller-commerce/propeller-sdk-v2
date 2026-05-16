@@ -5,13 +5,13 @@ import { IDiscount } from './IDiscount';
 /**
  Object class for ProductPrice
  */
-export class ProductPrice {
+export interface ProductPrice {
   /** productId field */
-  productId!: number;
+  productId: number;
   /** type field */
-  type!: PriceElementType;
+  type: PriceElementType;
   /** discountType field */
-  discountType!: PriceDiscountType;
+  discountType: PriceDiscountType;
   /** list field */
   list?: number;
   /** cost field */
@@ -25,49 +25,5 @@ export class ProductPrice {
   /** taxCode field */
   taxCode?: TaxCode;
   /** quantity field */
-  quantity!: number;
-  constructor(data: Partial<ProductPrice> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `productId`. */
-  getProductId(): number {
-    return this.productId;
-  }
-  /** Returns `type`. */
-  getType(): PriceElementType {
-    return this.type;
-  }
-  /** Returns `discountType`. */
-  getDiscountType(): PriceDiscountType {
-    return this.discountType;
-  }
-  /** Returns `list`. */
-  getList(): number | undefined {
-    return this.list;
-  }
-  /** Returns `cost`. */
-  getCost(): number | undefined {
-    return this.cost;
-  }
-  /** Returns `net`. */
-  getNet(): number | undefined {
-    return this.net;
-  }
-  /** Returns `gross`. */
-  getGross(): number | undefined {
-    return this.gross;
-  }
-  /** Returns `discount`. */
-  getDiscount(): IDiscount | undefined {
-    return this.discount;
-  }
-  /** Returns `taxCode`. */
-  getTaxCode(): TaxCode | undefined {
-    return this.taxCode;
-  }
-  /** Returns `quantity`. */
-  getQuantity(): number {
-    return this.quantity;
-  }
+  quantity: number;
 }

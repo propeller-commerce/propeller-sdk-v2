@@ -2,6 +2,7 @@ export * from './AddOrderStatusesToOrderStatusSetInput';
 export * from './AddSurchargesToProductInput';
 export * from './Address';
 export * from './AddressBulkItemInput';
+export * from './AnyAddress';
 export * from './AdminUser';
 export * from './AdminUserSortInput';
 export * from './AdminUserTenant';

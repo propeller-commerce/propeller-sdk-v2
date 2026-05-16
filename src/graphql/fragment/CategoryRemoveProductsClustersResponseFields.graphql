@@ -1,0 +1,8 @@
+fragment CategoryRemoveProductsClustersResponseFields on CategoryRemoveProductsClustersResponse {
+  category {
+    ... CategoryFields
+  }
+  actions {
+    messages
+  }
+}

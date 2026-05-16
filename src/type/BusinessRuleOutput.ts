@@ -4,33 +4,13 @@ import { IBusinessRuleNode } from './IBusinessRuleNode';
 /**
  Object class for BusinessRuleOutput
  */
-export class BusinessRuleOutput implements IBusinessRuleNode {
+export interface BusinessRuleOutput extends IBusinessRuleNode {
   /** type field */
-  type!: BusinessRuleNodeType;
+  type: BusinessRuleNodeType;
   /** id field */
-  id!: string | number;
+  id: string | number;
   /** name field */
-  name!: string;
+  name: string;
   /** description field */
-  description!: string;
-  constructor(data: Partial<BusinessRuleOutput> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `type`. */
-  getType(): BusinessRuleNodeType {
-    return this.type;
-  }
-  /** Returns `id`. */
-  getId(): string | number {
-    return this.id;
-  }
-  /** Returns `name`. */
-  getName(): string {
-    return this.name;
-  }
-  /** Returns `description`. */
-  getDescription(): string {
-    return this.description;
-  }
+  description: string;
 }

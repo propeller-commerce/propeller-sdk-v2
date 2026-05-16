@@ -10,43 +10,15 @@ import { IBusinessRuleNode } from './IBusinessRuleNode';
   When the hitPolicy is set to 'first', the first matching row is used.
   When the hitPolicy is set to 'collect', all matching rows are used.
  */
-export class BusinessRuleDecisionTable implements IBusinessRuleNode {
+export interface BusinessRuleDecisionTable extends IBusinessRuleNode {
   /** The type of the node.  */
-  type!: BusinessRuleNodeType;
+  type: BusinessRuleNodeType;
   /** The generated ID for this node */
-  id!: string | number;
+  id: string | number;
   /** The name of the node */
-  name!: string;
+  name: string;
   /** The description of the node */
-  description!: string;
+  description: string;
   /** The node's table content in case the type is 'decisionTableNode' */
-  content!: BusinessRuleDecisionTableContent;
-  constructor(data: Partial<BusinessRuleDecisionTable> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `type`. */
-  getType(): BusinessRuleNodeType {
-    return this.type;
-  }
-  /** Returns `id`. */
-  getId(): string | number {
-    return this.id;
-  }
-  /** Returns `name`. */
-  getName(): string {
-    return this.name;
-  }
-  /** Returns `description`. */
-  getDescription(): string {
-    return this.description;
-  }
-  /** Returns `content` as a BusinessRuleDecisionTableContent instance (coerced on first access). */
-  getContent(): BusinessRuleDecisionTableContent | undefined {
-    if (this.content == null) return undefined;
-    if (!(this.content instanceof BusinessRuleDecisionTableContent)) {
-      this.content = new BusinessRuleDecisionTableContent(this.content as any);
-    }
-    return this.content;
-  }
+  content: BusinessRuleDecisionTableContent;
 }

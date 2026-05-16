@@ -1,4 +1,4 @@
-mutation productUpdate($productId: Int!, $input: UpdateProductInput!) {
+mutation productUpdate($productId: Int!, $input: UpdateProductInput!, $attributeResultSearchInput: AttributeResultSearchInput, $priceCalculateProductInput: PriceCalculateProductInput, $userBulkPriceProductInput: UserBulkPriceProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $mediaVideoSearchInput: MediaVideoProductSearchInput, $mediaDocumentSearchInput: MediaDocumentProductSearchInput) {
   productUpdate(productId: $productId, input: $input) {
     ...ProductFields
   }

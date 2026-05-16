@@ -1,4 +1,4 @@
-query tender($tenderId: String, $orderId: Int) {
+query tender($tenderId: String, $orderId: Int, $attributeResultSearchInput: AttributeResultSearchInput, $priceCalculateProductInput: PriceCalculateProductInput, $userBulkPriceProductInput: UserBulkPriceProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $mediaVideoSearchInput: MediaVideoProductSearchInput, $mediaDocumentSearchInput: MediaDocumentProductSearchInput, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
   tender(tenderId: $tenderId, orderId: $orderId) {
     ...TenderFields
   }

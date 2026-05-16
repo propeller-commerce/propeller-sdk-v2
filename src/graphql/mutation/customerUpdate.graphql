@@ -1,4 +1,4 @@
-mutation customerUpdate($id: Int!, $input: UpdateCustomerInput!) {
+mutation customerUpdate($id: Int!, $input: UpdateCustomerInput!, $customerAttributesInput: AttributeResultSearchInput) {
   customerUpdate(id: $id, input: $input) {
     ...CustomerFields
   }

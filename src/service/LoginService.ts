@@ -1,43 +1,67 @@
-import { BaseService } from './BaseService';
 import { Login } from '../type/Login';
 import { LoginInput } from '../type/LoginInput';
 import { CreateAuthenticationInput } from '../type/CreateAuthenticationInput';
 import { ExchangeRefreshTokenInput } from '../type/ExchangeRefreshTokenInput';
 import { RefreshTokenResponse } from '../type/RefreshTokenResponse';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as loginDoc } from '../generated/operations/login';
+import { document as authenticationCreateDoc } from '../generated/operations/authenticationCreate';
+import { document as exchangeRefreshTokenDoc } from '../generated/operations/exchangeRefreshToken';
 /**
  Service for handling user authentication and login operations
- * @extends BaseService
  */
-export class LoginService extends BaseService {
+export function loginService(client: GraphQLClient) {
+  return {
+    /**
+       Authenticates a user with credentials
+       * @param input Login credentials input
+       * @returns Promise<Login> Login response with user data
+       */
+    async login(input: LoginInput): Promise<Login> {
+      const result = await runOperation(client, loginDoc, 'login', { input });
+      return result.data.login as Login;
+    },
+    /**
+       Creates authentication claims for a user
+       * @param input Authentication input data
+       * @returns Promise<Login> Authentication response
+       */
+    async authenticate(input: CreateAuthenticationInput): Promise<Login> {
+      const result = await runOperation(client, authenticationCreateDoc, 'authenticationCreate', { input });
+      return result.data.authenticationCreate as Login;
+    },
+    /**
+       Exchanges a refresh token for a new access token
+       * @param refreshToken The refresh token to exchange
+       * @returns Promise<RefreshTokenResponse> New token response with fresh access token
+       */
+    async exchangeRefreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
+      const result = await runOperation(client, exchangeRefreshTokenDoc, 'exchangeRefreshToken', { refreshToken });
+      return result.data.exchangeRefreshToken as RefreshTokenResponse;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `loginService(client)`.
+ */
+export class LoginService {
+  private readonly _svc: ReturnType<typeof loginService>;
+  constructor(client: GraphQLClient) { this._svc = loginService(client); }
   /**
-   Authenticates a user with credentials
+   * Authenticates a user with credentials
    * @param input Login credentials input
-   * @returns Promise<Login> Login response with user data
    */
-  async login(input: LoginInput): Promise<Login> {
-    const variables = { input };
-    const result = await this.executeMutation('login', variables);
-    return new Login(result.data.login);
-  }
+  login(input: LoginInput): Promise<Login> { return this._svc.login(input); }
   /**
-   Creates authentication claims for a user
+   * Creates authentication claims for a user
    * @param input Authentication input data
-   * @returns Promise<Login> Authentication response
    */
-  async authenticate(input: CreateAuthenticationInput): Promise<Login> {
-    const variables = { input };
-    const result = await this.executeMutation('authenticationCreate', variables);
-    return new Login(result.data.authenticationCreate);
-  }
+  authenticate(input: CreateAuthenticationInput): Promise<Login> { return this._svc.authenticate(input); }
   /**
-   Exchanges a refresh token for a new access token
+   * Exchanges a refresh token for a new access token
    * @param refreshToken The refresh token to exchange
-   * @returns Promise<RefreshTokenResponse> New token response with fresh access token
    */
-  async exchangeRefreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
-    const input: ExchangeRefreshTokenInput = { refreshToken };
-    const variables = { input };
-    const result = await this.executeMutation('exchangeRefreshToken', variables);
-    return new RefreshTokenResponse(result.data.exchangeRefreshToken);
-  }
+  exchangeRefreshToken(refreshToken: string): Promise<RefreshTokenResponse> { return this._svc.exchangeRefreshToken(refreshToken); }
 }

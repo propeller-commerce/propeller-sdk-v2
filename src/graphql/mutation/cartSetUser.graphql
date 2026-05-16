@@ -1,4 +1,4 @@
-mutation cartSetUser($id: String!, $input: CartSetUserInput!) {
+mutation cartSetUser($id: String!, $input: CartSetUserInput!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   cartSetUser(id: $id, input: $input) {
     ...CartFields
   }

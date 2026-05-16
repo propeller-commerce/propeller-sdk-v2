@@ -1,4 +1,3 @@
-import { BaseService } from './BaseService';
 import { Discount } from '../type/Discount';
 import { DiscountResponse } from '../type/DiscountResponse';
 import { DiscountSearchInput } from '../type/DiscountSearchInput';
@@ -6,58 +5,95 @@ import { DiscountCreateInput } from '../type/DiscountCreateInput';
 import { DiscountUpdateInput } from '../type/DiscountUpdateInput';
 import { DiscountCsvInput } from '../type/DiscountCsvInput';
 import { CsvImportResponse } from '../type/CsvImportResponse';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as discountDoc } from '../generated/operations/discount';
+import { document as discountsDoc } from '../generated/operations/discounts';
+import { document as discountCreateDoc } from '../generated/operations/discountCreate';
+import { document as discountUpdateDoc } from '../generated/operations/discountUpdate';
+import { document as discountCsvImportDoc } from '../generated/operations/discountCsvImport';
 /**
  Service class for Discount-related GraphQL operations
  */
-export class DiscountService extends BaseService {
+export function discountService(client: GraphQLClient) {
+  return {
+    /**
+       Fetches a single discount by ID
+       * @param id Discount ID to fetch
+       * @returns Promise<Discount> The discount data
+       */
+    async getDiscount(id: number): Promise<Discount> {
+      const result = await runOperation(client, discountDoc, 'discount', { id });
+      return result.data.discount as Discount;
+    },
+    /**
+       Fetches a list of discounts with search criteria
+       * @param input Discount search input parameters
+       * @returns Promise<DiscountResponse> The discounts response data
+       */
+    async getDiscounts(input?: DiscountSearchInput): Promise<DiscountResponse> {
+      const result = await runOperation(client, discountsDoc, 'discounts', { input });
+      return result.data.discounts as DiscountResponse;
+    },
+    /**
+       Creates a new discount
+       * @param input Discount creation input data
+       * @returns Promise<Discount> The created discount
+       */
+    async createDiscount(input: DiscountCreateInput): Promise<Discount> {
+      const result = await runOperation(client, discountCreateDoc, 'discountCreate', { input });
+      return result.data.discountCreate as Discount;
+    },
+    /**
+       Updates an existing discount
+       * @param input Discount update input data
+       * @returns Promise<Discount> The updated discount
+       */
+    async updateDiscount(input: DiscountUpdateInput): Promise<Discount> {
+      const result = await runOperation(client, discountUpdateDoc, 'discountUpdate', { input });
+      return result.data.discountUpdate as Discount;
+    },
+    /**
+       Imports discounts from CSV
+       * @param input Discount CSV import input data
+       * @returns Promise<any> The import response
+       */
+    async importDiscountsCsv(input: DiscountCsvInput): Promise<CsvImportResponse> {
+      const result = await runOperation(client, discountCsvImportDoc, 'discountCsvImport', { input });
+      return result.data.discountCsvImport as CsvImportResponse;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `discountService(client)`.
+ */
+export class DiscountService {
+  private readonly _svc: ReturnType<typeof discountService>;
+  constructor(client: GraphQLClient) { this._svc = discountService(client); }
   /**
-   Fetches a single discount by ID
+   * Fetches a single discount by ID
    * @param id Discount ID to fetch
-   * @returns Promise<Discount> The discount data
    */
-  async getDiscount(id: number): Promise<Discount> {
-    const variables = { id };
-    const result = await this.executeQuery('discount', variables);
-    return new Discount(result.data.discount);
-  }
+  getDiscount(id: number): Promise<Discount> { return this._svc.getDiscount(id); }
   /**
-   Fetches a list of discounts with search criteria
+   * Fetches a list of discounts with search criteria
    * @param input Discount search input parameters
-   * @returns Promise<DiscountResponse> The discounts response data
    */
-  async getDiscounts(input?: DiscountSearchInput): Promise<DiscountResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('discounts', variables);
-    return new DiscountResponse(result.data.discounts);
-  }
+  getDiscounts(input?: DiscountSearchInput): Promise<DiscountResponse> { return this._svc.getDiscounts(input); }
   /**
-   Creates a new discount
+   * Creates a new discount
    * @param input Discount creation input data
-   * @returns Promise<Discount> The created discount
    */
-  async createDiscount(input: DiscountCreateInput): Promise<Discount> {
-    const variables = { input };
-    const result = await this.executeMutation('discountCreate', variables);
-    return new Discount(result.data.discountCreate);
-  }
+  createDiscount(input: DiscountCreateInput): Promise<Discount> { return this._svc.createDiscount(input); }
   /**
-   Updates an existing discount
+   * Updates an existing discount
    * @param input Discount update input data
-   * @returns Promise<Discount> The updated discount
    */
-  async updateDiscount(input: DiscountUpdateInput): Promise<Discount> {
-    const variables = { input };
-    const result = await this.executeMutation('discountUpdate', variables);
-    return new Discount(result.data.discountUpdate);
-  }
+  updateDiscount(input: DiscountUpdateInput): Promise<Discount> { return this._svc.updateDiscount(input); }
   /**
-   Imports discounts from CSV
+   * Imports discounts from CSV
    * @param input Discount CSV import input data
-   * @returns Promise<any> The import response
    */
-  async importDiscountsCsv(input: DiscountCsvInput): Promise<CsvImportResponse> {
-    const variables = { input };
-    const result = await this.executeMutation('discountCsvImport', variables);
-    return new CsvImportResponse(result.data.discountCsvImport);
-  }
+  importDiscountsCsv(input: DiscountCsvInput): Promise<CsvImportResponse> { return this._svc.importDiscountsCsv(input); }
 }

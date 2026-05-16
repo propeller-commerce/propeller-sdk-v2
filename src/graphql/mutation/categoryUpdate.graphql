@@ -1,4 +1,4 @@
-mutation categoryUpdate($categoryId: Float!, $input: UpdateCategoryInput!) {
+mutation categoryUpdate($categoryId: Float!, $input: UpdateCategoryInput!, $categoryProductSearchInput: CategoryProductSearchInput, $language: String, $filterAvailableAttributeInput: FilterAvailableAttributeInput, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $imageVariantFilters: TransformationsInput!) {
   categoryUpdate(categoryId: $categoryId, input: $input) {
     ...CategoryFields
   }

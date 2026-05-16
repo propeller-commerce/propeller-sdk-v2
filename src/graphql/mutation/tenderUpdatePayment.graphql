@@ -1,4 +1,4 @@
-mutation tenderUpdatePayment($id: String!, $input: TenderPaymentInput!) {
+mutation tenderUpdatePayment($id: String!, $input: TenderPaymentInput!, $attributeResultSearchInput: AttributeResultSearchInput, $priceCalculateProductInput: PriceCalculateProductInput, $userBulkPriceProductInput: UserBulkPriceProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $mediaVideoSearchInput: MediaVideoProductSearchInput, $mediaDocumentSearchInput: MediaDocumentProductSearchInput, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
   tenderUpdatePayment(id: $id, input: $input) {
     ...TenderFields
   }

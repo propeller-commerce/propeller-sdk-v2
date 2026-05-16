@@ -1,33 +1,13 @@
 /**
  Object class for ShopPriceCalculationConfig
  */
-export class ShopPriceCalculationConfig {
+export interface ShopPriceCalculationConfig {
   /** isVatIncludedLeading field */
-  isVatIncludedLeading!: boolean;
+  isVatIncludedLeading: boolean;
   /** inheritCatalogDiscountOnPriceList field */
-  inheritCatalogDiscountOnPriceList!: boolean;
+  inheritCatalogDiscountOnPriceList: boolean;
   /** useMultipleCostprices field */
-  useMultipleCostprices!: boolean;
+  useMultipleCostprices: boolean;
   /** calculateDiscountOverBulkPrices field */
-  calculateDiscountOverBulkPrices!: boolean;
-  constructor(data: Partial<ShopPriceCalculationConfig> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `isVatIncludedLeading`. */
-  getIsVatIncludedLeading(): boolean {
-    return this.isVatIncludedLeading;
-  }
-  /** Returns `inheritCatalogDiscountOnPriceList`. */
-  getInheritCatalogDiscountOnPriceList(): boolean {
-    return this.inheritCatalogDiscountOnPriceList;
-  }
-  /** Returns `useMultipleCostprices`. */
-  getUseMultipleCostprices(): boolean {
-    return this.useMultipleCostprices;
-  }
-  /** Returns `calculateDiscountOverBulkPrices`. */
-  getCalculateDiscountOverBulkPrices(): boolean {
-    return this.calculateDiscountOverBulkPrices;
-  }
+  calculateDiscountOverBulkPrices: boolean;
 }

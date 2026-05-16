@@ -12,21 +12,21 @@ import { IBaseUser } from './IBaseUser';
 /**
  Object class for Customer
  */
-export class Customer {
+export interface Customer {
   /** The id of the customer. */
-  customerId!: number;
+  customerId: number;
   /** addresses field */
-  addresses!: Address[];
+  addresses: Address[];
   /** Lists attributes for this customer based on the search input. */
   attributes?: AttributeResultResponse;
   /** Get all magic tokens for a customer */
-  magicTokens!: MagicToken[];
+  magicTokens: MagicToken[];
   /** favoriteLists field */
   favoriteLists?: FavoriteListsResponse;
   /** orderlist field */
   orderlist?: OrderlistsResponse;
   /** orderlists field */
-  orderlists!: OrderlistsResponse;
+  orderlists: OrderlistsResponse;
   /** pricesheets field */
   pricesheets?: Pricesheet[];
   /** The unique identifier of the user. */
@@ -36,17 +36,17 @@ export class Customer {
   /** The gender of the user. */
   gender?: Gender;
   /** The first name of the user. */
-  firstName!: string;
+  firstName: string;
   /** The middle name of the user. */
   middleName?: string;
   /** The last name of the user. */
-  lastName!: string;
+  lastName: string;
   /** The phone number of the user. */
   phone?: string;
   /** The mobile number of the user. */
   mobile?: string;
   /** The email of the user. */
-  email!: string;
+  email: string;
   /** The login name (email) the account is linked to, generally the same as email address. When null a account has not been linked yet. */
   login?: string;
   /** The International Bank Account Number of the user */
@@ -74,157 +74,5 @@ export class Customer {
   /** lastModifiedAt field */
   lastModifiedAt?: string;
   /** sources field */
-  sources!: Source[];
-  constructor(data: Partial<Customer> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `customerId`. */
-  getCustomerId(): number {
-    return this.customerId;
-  }
-  /** Returns `addresses` as Address instances (coerced on first access). */
-  getAddresses(): Address[] {
-    if (!this.addresses) return [];
-    this.addresses = this.addresses.map((x: any) => x instanceof Address ? x : new Address(x));
-    return this.addresses;
-  }
-  /** Returns `attributes` as a AttributeResultResponse instance (coerced on first access). */
-  getAttributes(): AttributeResultResponse | undefined {
-    if (this.attributes == null) return undefined;
-    if (!(this.attributes instanceof AttributeResultResponse)) {
-      this.attributes = new AttributeResultResponse(this.attributes as any);
-    }
-    return this.attributes;
-  }
-  /** Returns `magicTokens` as MagicToken instances (coerced on first access). */
-  getMagicTokens(): MagicToken[] {
-    if (!this.magicTokens) return [];
-    this.magicTokens = this.magicTokens.map((x: any) => x instanceof MagicToken ? x : new MagicToken(x));
-    return this.magicTokens;
-  }
-  /** Returns `favoriteLists` as a FavoriteListsResponse instance (coerced on first access). */
-  getFavoriteLists(): FavoriteListsResponse | undefined {
-    if (this.favoriteLists == null) return undefined;
-    if (!(this.favoriteLists instanceof FavoriteListsResponse)) {
-      this.favoriteLists = new FavoriteListsResponse(this.favoriteLists as any);
-    }
-    return this.favoriteLists;
-  }
-  /** Returns `orderlist` as a OrderlistsResponse instance (coerced on first access). */
-  getOrderlist(): OrderlistsResponse | undefined {
-    if (this.orderlist == null) return undefined;
-    if (!(this.orderlist instanceof OrderlistsResponse)) {
-      this.orderlist = new OrderlistsResponse(this.orderlist as any);
-    }
-    return this.orderlist;
-  }
-  /** Returns `orderlists` as a OrderlistsResponse instance (coerced on first access). */
-  getOrderlists(): OrderlistsResponse | undefined {
-    if (this.orderlists == null) return undefined;
-    if (!(this.orderlists instanceof OrderlistsResponse)) {
-      this.orderlists = new OrderlistsResponse(this.orderlists as any);
-    }
-    return this.orderlists;
-  }
-  /** Returns `pricesheets` as Pricesheet instances (coerced on first access). */
-  getPricesheets(): Pricesheet[] | undefined {
-    if (!this.pricesheets) return undefined;
-    this.pricesheets = this.pricesheets.map((x: any) => x instanceof Pricesheet ? x : new Pricesheet(x));
-    return this.pricesheets;
-  }
-  /** Returns `userId`. */
-  getUserId(): number | undefined {
-    return this.userId;
-  }
-  /** Returns `debtorId`. */
-  getDebtorId(): string | undefined {
-    return this.debtorId;
-  }
-  /** Returns `gender`. */
-  getGender(): Gender | undefined {
-    return this.gender;
-  }
-  /** Returns `firstName`. */
-  getFirstName(): string {
-    return this.firstName;
-  }
-  /** Returns `middleName`. */
-  getMiddleName(): string | undefined {
-    return this.middleName;
-  }
-  /** Returns `lastName`. */
-  getLastName(): string {
-    return this.lastName;
-  }
-  /** Returns `phone`. */
-  getPhone(): string | undefined {
-    return this.phone;
-  }
-  /** Returns `mobile`. */
-  getMobile(): string | undefined {
-    return this.mobile;
-  }
-  /** Returns `email`. */
-  getEmail(): string {
-    return this.email;
-  }
-  /** Returns `login`. */
-  getLogin(): string | undefined {
-    return this.login;
-  }
-  /** Returns `iban`. */
-  getIban(): string | undefined {
-    return this.iban;
-  }
-  /** Returns `bankAccount`. */
-  getBankAccount(): string | undefined {
-    return this.bankAccount;
-  }
-  /** Returns `bic`. */
-  getBic(): string | undefined {
-    return this.bic;
-  }
-  /** Returns `notes`. */
-  getNotes(): string | undefined {
-    return this.notes;
-  }
-  /** Returns `primaryLanguage`. */
-  getPrimaryLanguage(): string | undefined {
-    return this.primaryLanguage;
-  }
-  /** Returns `expires`. */
-  getExpires(): string | undefined {
-    return this.expires;
-  }
-  /** Returns `externalId`. */
-  getExternalId(): string | undefined {
-    return this.externalId;
-  }
-  /** Returns `dateOfBirth`. */
-  getDateOfBirth(): string | undefined {
-    return this.dateOfBirth;
-  }
-  /** Returns `mailingList`. */
-  getMailingList(): YesNo | undefined {
-    return this.mailingList;
-  }
-  /** Returns `isLoggedIn`. */
-  getIsLoggedIn(): boolean | undefined {
-    return this.isLoggedIn;
-  }
-  /** Returns `createdAt`. */
-  getCreatedAt(): string | undefined {
-    return this.createdAt;
-  }
-  /** Returns `lastModifiedAt`. */
-  getLastModifiedAt(): string | undefined {
-    return this.lastModifiedAt;
-  }
-  /** Returns `sources` as Source instances (coerced on first access). */
-  getSources(): Source[] {
-    if (!this.sources) return [];
-    this.sources = this.sources.map((x: any) => x instanceof Source ? x : new Source(x));
-    return this.sources;
-  }
+  sources: Source[];
 }

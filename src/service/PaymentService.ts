@@ -1,61 +1,96 @@
-import { BaseService } from './BaseService';
 import { Payment } from '../type/Payment';
 import { PaymentsResponse } from '../type/PaymentsResponse';
 import { PaymentsSearchInput } from '../type/PaymentsSearchInput';
 import { UpdatePaymentInput } from '../type/UpdatePaymentInput';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as paymentDoc } from '../generated/operations/payment';
+import { document as paymentsDoc } from '../generated/operations/payments';
+import { document as paymentCreateDoc } from '../generated/operations/paymentCreate';
+import { document as paymentUpdateDoc } from '../generated/operations/paymentUpdate';
+import { document as paymentDeleteDoc } from '../generated/operations/paymentDelete';
 /**
  Service for managing payments
- * @extends BaseService
  */
-export class PaymentService extends BaseService {
+export function paymentService(client: GraphQLClient) {
+  return {
+    /**
+       Retrieves a specific payment
+       * @param id Payment ID
+       * @returns Promise<Payment> Payment data
+       */
+    async getPayment(id: number): Promise<Payment> {
+      const result = await runOperation(client, paymentDoc, 'payment', { id });
+      return result.data.payment as Payment;
+    },
+    /**
+       Retrieves payments with search
+       * @param input Search input parameters
+       * @returns Promise<PaymentsResponse> Payments response
+       */
+    async getPayments(input?: PaymentsSearchInput): Promise<PaymentsResponse> {
+      const result = await runOperation(client, paymentsDoc, 'payments', { input });
+      return result.data.payments as PaymentsResponse;
+    },
+    /**
+       Creates a new payment
+       * @param input Payment creation input
+       * @returns Promise<Payment> The created payment
+       */
+    async createPayment(input: any): Promise<Payment> {
+      const result = await runOperation(client, paymentCreateDoc, 'paymentCreate', { input });
+      return result.data.paymentCreate as Payment;
+    },
+    /**
+       Updates an existing payment
+       * @param input Payment update input
+       * @returns Promise<Payment> The updated payment
+       */
+    async updatePayment(input: UpdatePaymentInput): Promise<Payment> {
+      const result = await runOperation(client, paymentUpdateDoc, 'paymentUpdate', { input });
+      return result.data.paymentUpdate as Payment;
+    },
+    /**
+       Deletes a payment
+       * @param id Payment ID to delete
+       * @returns Promise<boolean> Success status
+       */
+    async deletePayment(id: number): Promise<Payment> {
+      const result = await runOperation(client, paymentDeleteDoc, 'paymentDelete', { id });
+      return result.data.paymentDelete as Payment;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `paymentService(client)`.
+ */
+export class PaymentService {
+  private readonly _svc: ReturnType<typeof paymentService>;
+  constructor(client: GraphQLClient) { this._svc = paymentService(client); }
   /**
-   Retrieves a specific payment
+   * Retrieves a specific payment
    * @param id Payment ID
-   * @returns Promise<Payment> Payment data
    */
-  async getPayment(id: number): Promise<Payment> {
-    const variables = { id };
-    const result = await this.executeQuery('payment', variables);
-    return new Payment(result.data.payment);
-  }
+  getPayment(id: number): Promise<Payment> { return this._svc.getPayment(id); }
   /**
-   Retrieves payments with search
+   * Retrieves payments with search
    * @param input Search input parameters
-   * @returns Promise<PaymentsResponse> Payments response
    */
-  async getPayments(input?: PaymentsSearchInput): Promise<PaymentsResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('payments', variables);
-    return new PaymentsResponse(result.data.payments);
-  }
+  getPayments(input?: PaymentsSearchInput): Promise<PaymentsResponse> { return this._svc.getPayments(input); }
   /**
-   Creates a new payment
+   * Creates a new payment
    * @param input Payment creation input
-   * @returns Promise<Payment> The created payment
    */
-  async createPayment(input: any): Promise<Payment> {
-    const variables = { input };
-    const result = await this.executeMutation('paymentCreate', variables);
-    return new Payment(result.data.paymentCreate);
-  }
+  createPayment(input: any): Promise<Payment> { return this._svc.createPayment(input); }
   /**
-   Updates an existing payment
+   * Updates an existing payment
    * @param input Payment update input
-   * @returns Promise<Payment> The updated payment
    */
-  async updatePayment(input: UpdatePaymentInput): Promise<Payment> {
-    const variables = { input };
-    const result = await this.executeMutation('paymentUpdate', variables);
-    return new Payment(result.data.paymentUpdate);
-  }
+  updatePayment(input: UpdatePaymentInput): Promise<Payment> { return this._svc.updatePayment(input); }
   /**
-   Deletes a payment
+   * Deletes a payment
    * @param id Payment ID to delete
-   * @returns Promise<boolean> Success status
    */
-  async deletePayment(id: number): Promise<Payment> {
-    const variables = { id };
-    const result = await this.executeMutation('paymentDelete', variables);
-    return new Payment(result.data.paymentDelete);
-  }
+  deletePayment(id: number): Promise<Payment> { return this._svc.deletePayment(id); }
 }

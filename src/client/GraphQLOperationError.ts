@@ -17,11 +17,18 @@ export class GraphQLOperationError extends Error {
   readonly errors: GraphQLErrorEntry[];
   readonly operationName?: string;
   readonly variables?: Record<string, any>;
+  /**
+   * The GraphQL document string that produced this error. Useful for logging
+   * the exact query/mutation that failed (e.g. when diagnosing schema drift)
+   * without trawling the source.
+   */
+  readonly document?: string;
 
   constructor(
     errors: GraphQLErrorEntry[],
     operationName?: string,
-    variables?: Record<string, any>
+    variables?: Record<string, any>,
+    document?: string
   ) {
     const summary = errors.map(e => e.message).join('; ');
     const opLabel = operationName ? ` (${operationName})` : '';
@@ -29,6 +36,7 @@ export class GraphQLOperationError extends Error {
     this.errors = errors;
     this.operationName = operationName;
     this.variables = variables;
+    this.document = document;
     Object.setPrototypeOf(this, GraphQLOperationError.prototype);
   }
 }

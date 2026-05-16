@@ -1,4 +1,4 @@
-query machines($input: SearchSparePartsMachineInput) {
+query machines($input: SearchSparePartsMachineInput, $language: String, $imageVariantFilters: TransformationsInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput) {
   machines(input: $input) {
     ...SparePartsMachineResponseFields
   }

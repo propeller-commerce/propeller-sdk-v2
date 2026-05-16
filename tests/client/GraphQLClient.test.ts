@@ -53,15 +53,6 @@ describe('GraphQLClient', () => {
       );
     });
 
-    it('warns when deprecated config options are supplied', () => {
-      new GraphQLClient({
-        endpoint: ENDPOINT,
-        customFragmentsPath: '/tmp/whatever',
-      });
-      expect(warnSpy).toHaveBeenCalledWith(
-        expect.stringContaining('customFragmentsPath')
-      );
-    });
   });
 
   describe('execute()', () => {
@@ -244,15 +235,23 @@ describe('GraphQLClient', () => {
   });
 
   describe('registered operations', () => {
-    it('queryByName looks up bundled queries', () => {
-      const c = new GraphQLClient({ endpoint: ENDPOINT });
-      // The bundled `viewer` query is small and reliably present.
+    it('queryByName resolves a custom query registered via registerQuery', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({ viewer: { id: 1 } }));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'direct', apiKey: 'k' });
+      c.registerQuery('viewer', 'query viewer { viewer { id } }');
       expect(c.getQuery('viewer')).toBeDefined();
+      const data = await c.queryByName('viewer');
+      expect(data).toEqual({ viewer: { id: 1 } });
     });
 
-    it('mutateByName throws if mutation is not registered', async () => {
+    it('queryByName throws when query is not registered', async () => {
       const c = new GraphQLClient({ endpoint: ENDPOINT });
-      await expect(c.mutateByName('definitelyNotARealMutation')).rejects.toThrow(/not found/);
+      await expect(c.queryByName('definitelyNotRegistered')).rejects.toThrow(/not registered/);
+    });
+
+    it('mutateByName throws when mutation is not registered', async () => {
+      const c = new GraphQLClient({ endpoint: ENDPOINT });
+      await expect(c.mutateByName('definitelyNotARealMutation')).rejects.toThrow(/not registered/);
     });
 
     it('registerFragment stores fragment string accessible via getFragment', () => {

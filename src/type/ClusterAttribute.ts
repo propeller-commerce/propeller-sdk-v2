@@ -3,15 +3,15 @@ import { AttributeDescription } from './AttributeDescription';
 /**
  Object class for ClusterAttribute
  */
-export class ClusterAttribute {
+export interface ClusterAttribute {
   /** The ID of the attribute */
-  id!: string;
+  id: string;
   /** The value of the attribute */
-  value!: AttributeValue;
+  value: AttributeValue;
   /** The date when the attribute was created */
-  createdAt!: string;
+  createdAt: string;
   /** The date when the attribute was last modified */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** The ID of the user that created the attribute */
   createdBy?: number;
   /** The ID of the user that last modified the attribute */
@@ -19,45 +19,5 @@ export class ClusterAttribute {
   /** attributeDescription field */
   attributeDescription?: AttributeDescription;
   /** The ID of the cluster this attribute belongs to */
-  clusterId!: number;
-  constructor(data: Partial<ClusterAttribute> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `id`. */
-  getId(): string {
-    return this.id;
-  }
-  /** Returns `value`. */
-  getValue(): AttributeValue {
-    return this.value;
-  }
-  /** Returns `createdAt`. */
-  getCreatedAt(): string {
-    return this.createdAt;
-  }
-  /** Returns `lastModifiedAt`. */
-  getLastModifiedAt(): string {
-    return this.lastModifiedAt;
-  }
-  /** Returns `createdBy`. */
-  getCreatedBy(): number | undefined {
-    return this.createdBy;
-  }
-  /** Returns `lastModifiedBy`. */
-  getLastModifiedBy(): number | undefined {
-    return this.lastModifiedBy;
-  }
-  /** Returns `attributeDescription` as a AttributeDescription instance (coerced on first access). */
-  getAttributeDescription(): AttributeDescription | undefined {
-    if (this.attributeDescription == null) return undefined;
-    if (!(this.attributeDescription instanceof AttributeDescription)) {
-      this.attributeDescription = new AttributeDescription(this.attributeDescription as any);
-    }
-    return this.attributeDescription;
-  }
-  /** Returns `clusterId`. */
-  getClusterId(): number {
-    return this.clusterId;
-  }
+  clusterId: number;
 }

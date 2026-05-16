@@ -1,0 +1,5 @@
+fragment BulkResponseDataFields on BulkResponseData {
+  created
+  updated
+  total
+}

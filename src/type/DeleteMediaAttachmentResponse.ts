@@ -1,15 +1,7 @@
 /**
  Object class for DeleteMediaAttachmentResponse
  */
-export class DeleteMediaAttachmentResponse {
+export interface DeleteMediaAttachmentResponse {
   /** Media id of the deleted attachment */
-  mediaId!: string;
-  constructor(data: Partial<DeleteMediaAttachmentResponse> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `mediaId`. */
-  getMediaId(): string {
-    return this.mediaId;
-  }
+  mediaId: string;
 }

@@ -1,4 +1,4 @@
-mutation cartSetContact($id: String!, $input: CartSetContactInput!) {
+mutation cartSetContact($id: String!, $input: CartSetContactInput!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   cartSetContact(id: $id, input: $input) {
     ...CartFields
   }

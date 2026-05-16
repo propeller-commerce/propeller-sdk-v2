@@ -1,0 +1,11 @@
+fragment DiscountResponseFields on DiscountResponse {
+  items {
+    ... DiscountFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

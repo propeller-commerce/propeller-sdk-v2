@@ -1,0 +1,30 @@
+fragment CompanySearchResponseFields on CompanySearchResponse {
+  items {
+    id
+    name
+    taxNumber
+    cocNumber
+    notes
+    debtorId
+    email
+    phone
+    createdAt
+    lastModifiedAt
+    deletedAt
+    addresses {
+      ... CompanyAddressSearchFields
+    }
+    contacts {
+      ... CompanyContactSearchFields
+    }
+    attributes {
+      ... CompanyAttributeSearchFields
+    }
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

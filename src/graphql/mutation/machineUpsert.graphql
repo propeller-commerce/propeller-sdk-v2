@@ -1,4 +1,4 @@
-mutation machineUpsert($input: UpsertSparePartsMachineInput!) {
+mutation machineUpsert($input: UpsertSparePartsMachineInput!, $language: String, $imageVariantFilters: TransformationsInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput) {
   machineUpsert(input: $input) {
     ...SparePartsMachineFields
   }

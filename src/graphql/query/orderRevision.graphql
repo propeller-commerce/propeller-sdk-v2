@@ -1,4 +1,4 @@
-query orderRevision($orderId: Int!, $revisionNumber: Int!) {
+query orderRevision($orderId: Int!, $revisionNumber: Int!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   orderRevision(orderId: $orderId, revisionNumber: $revisionNumber) {
     orderId
     revisionNumber
@@ -6,14 +6,16 @@ query orderRevision($orderId: Int!, $revisionNumber: Int!) {
     createdByCustomerId
     createdByAdminUserId
     createdByAdminUser {
-      userId
+      id
       firstName
       lastName
       email
     }
     createdAt
     createdFromRevisionNumber
-    snapshot
+    snapshot {
+      ...OrderFields
+    }
     createdByContact {
       contactId
       firstName
@@ -27,4 +29,4 @@ query orderRevision($orderId: Int!, $revisionNumber: Int!) {
       email
     }
   }
-} 
+}

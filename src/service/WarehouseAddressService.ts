@@ -1,40 +1,65 @@
-import { BaseService } from './BaseService';
 import { WarehouseAddress } from '../type/WarehouseAddress';
 import { CreateWarehouseAddressInput } from '../type/CreateWarehouseAddressInput';
 import { UpdateWarehouseAddressInput } from '../type/UpdateWarehouseAddressInput';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as warehouseAddressCreateDoc } from '../generated/operations/warehouseAddressCreate';
+import { document as warehouseAddressUpdateDoc } from '../generated/operations/warehouseAddressUpdate';
+import { document as warehouseAddressDeleteDoc } from '../generated/operations/warehouseAddressDelete';
 /**
  Service for managing warehouse addresses
- * @extends BaseService
  */
-export class WarehouseAddressService extends BaseService {
+export function warehouseAddressService(client: GraphQLClient) {
+  return {
+    /**
+       Creates a new warehouse address
+       * @param input Warehouse address creation input
+       * @returns Promise<WarehouseAddress> The created warehouse address
+       */
+    async createWarehouseAddress(input: CreateWarehouseAddressInput): Promise<WarehouseAddress> {
+      const result = await runOperation(client, warehouseAddressCreateDoc, 'warehouseAddressCreate', { input });
+      return result.data.warehouseAddressCreate as WarehouseAddress;
+    },
+    /**
+       Updates an existing warehouse address
+       * @param input Warehouse address update input
+       * @returns Promise<WarehouseAddress> The updated warehouse address
+       */
+    async updateWarehouseAddress(input: UpdateWarehouseAddressInput): Promise<WarehouseAddress> {
+      const result = await runOperation(client, warehouseAddressUpdateDoc, 'warehouseAddressUpdate', { input });
+      return result.data.warehouseAddressUpdate as WarehouseAddress;
+    },
+    /**
+       Deletes a warehouse address
+       * @param id WarehouseAddress ID to delete
+       * @returns Promise<boolean> Success status
+       */
+    async deleteWarehouseAddress(id: number): Promise<boolean> {
+      const result = await runOperation(client, warehouseAddressDeleteDoc, 'warehouseAddressDelete', { id });
+      return result.data.warehouseAddressDelete;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `warehouseAddressService(client)`.
+ */
+export class WarehouseAddressService {
+  private readonly _svc: ReturnType<typeof warehouseAddressService>;
+  constructor(client: GraphQLClient) { this._svc = warehouseAddressService(client); }
   /**
-   Creates a new warehouse address
+   * Creates a new warehouse address
    * @param input Warehouse address creation input
-   * @returns Promise<WarehouseAddress> The created warehouse address
    */
-  async createWarehouseAddress(input: CreateWarehouseAddressInput): Promise<WarehouseAddress> {
-    const variables = { input };
-    const result = await this.executeMutation('warehouseAddressCreate', variables);
-    return new WarehouseAddress(result.data.warehouseAddressCreate);
-  }
+  createWarehouseAddress(input: CreateWarehouseAddressInput): Promise<WarehouseAddress> { return this._svc.createWarehouseAddress(input); }
   /**
-   Updates an existing warehouse address
+   * Updates an existing warehouse address
    * @param input Warehouse address update input
-   * @returns Promise<WarehouseAddress> The updated warehouse address
    */
-  async updateWarehouseAddress(input: UpdateWarehouseAddressInput): Promise<WarehouseAddress> {
-    const variables = { input };
-    const result = await this.executeMutation('warehouseAddressUpdate', variables);
-    return new WarehouseAddress(result.data.warehouseAddressUpdate);
-  }
+  updateWarehouseAddress(input: UpdateWarehouseAddressInput): Promise<WarehouseAddress> { return this._svc.updateWarehouseAddress(input); }
   /**
-   Deletes a warehouse address
+   * Deletes a warehouse address
    * @param id WarehouseAddress ID to delete
-   * @returns Promise<boolean> Success status
    */
-  async deleteWarehouseAddress(id: number): Promise<boolean> {
-    const variables = { id };
-    const result = await this.executeMutation('warehouseAddressDelete', variables);
-    return result.data.warehouseAddressDelete;
-  }
+  deleteWarehouseAddress(id: number): Promise<boolean> { return this._svc.deleteWarehouseAddress(id); }
 }

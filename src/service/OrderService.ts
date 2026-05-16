@@ -1,4 +1,3 @@
-import { BaseService } from './BaseService';
 import { Base64File } from '../type/Base64File';
 import { Order } from '../type/Order';
 import { OrderResponse } from '../type/OrderResponse';
@@ -110,395 +109,626 @@ export interface OrderAddressUpdateVariables {
   /** Order address update input data */
   input: OrderAddressUpdateInput;
 }
+/**
+ * Variables for `order item delete` — deletes an order item
+ */
 export interface OrderItemDeleteVariables {
   /** Order ID to delete order item for */
   orderId: number;
   /** Order item ID to delete */
   orderItemId: number;
 }
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as ordersDoc } from '../generated/operations/orders';
+import { document as orderDoc } from '../generated/operations/order';
+import { document as orderCreateDoc } from '../generated/operations/orderCreate';
+import { document as orderUpdateDoc } from '../generated/operations/orderUpdate';
+import { document as orderSetStatusDoc } from '../generated/operations/orderSetStatus';
+import { document as orderAddressUpdateDoc } from '../generated/operations/orderAddressUpdate';
+import { document as orderSendConfirmationEmailDoc } from '../generated/operations/orderSendConfirmationEmail';
+import { document as orderGetPDFDoc } from '../generated/operations/orderGetPDF';
+import { document as quoteGetPDFDoc } from '../generated/operations/quoteGetPDF';
+import { document as orderAddressDoc } from '../generated/operations/orderAddress';
+import { document as orderAddressesDoc } from '../generated/operations/orderAddresses';
+import { document as addressesByOrderIdDoc } from '../generated/operations/addressesByOrderId';
+import { document as orderItemCreateDoc } from '../generated/operations/orderItemCreate';
+import { document as orderItemUpdateDoc } from '../generated/operations/orderItemUpdate';
+import { document as orderItemDeleteDoc } from '../generated/operations/orderItemDelete';
+import { document as orderlistDoc } from '../generated/operations/orderlist';
+import { document as orderlistsDoc } from '../generated/operations/orderlists';
+import { document as orderlistCreateDoc } from '../generated/operations/orderlistCreate';
+import { document as orderlistUpdateDoc } from '../generated/operations/orderlistUpdate';
+import { document as orderlistAddItemsDoc } from '../generated/operations/orderlistAddItems';
+import { document as orderlistRemoveItemsDoc } from '../generated/operations/orderlistRemoveItems';
+import { document as orderlistAssignCompaniesDoc } from '../generated/operations/orderlistAssignCompanies';
+import { document as orderlistUnassignCompaniesDoc } from '../generated/operations/orderlistUnassignCompanies';
+import { document as orderlistAssignUsersDoc } from '../generated/operations/orderlistAssignUsers';
+import { document as orderlistUnassignUsersDoc } from '../generated/operations/orderlistUnassignUsers';
+import { document as orderStatusDoc } from '../generated/operations/orderStatus';
+import { document as orderStatusesDoc } from '../generated/operations/orderStatuses';
+import { document as orderStatusCreateDoc } from '../generated/operations/orderStatusCreate';
+import { document as orderStatusUpdateDoc } from '../generated/operations/orderStatusUpdate';
+import { document as orderStatusSetDoc } from '../generated/operations/orderStatusSet';
+import { document as orderStatusSetsDoc } from '../generated/operations/orderStatusSets';
+import { document as orderStatusSetCreateDoc } from '../generated/operations/orderStatusSetCreate';
+import { document as orderStatusSetUpdateDoc } from '../generated/operations/orderStatusSetUpdate';
+import { document as orderStatusSetAddOrderStatusesDoc } from '../generated/operations/orderStatusSetAddOrderStatuses';
+import { document as orderStatusSetRemoveOrderStatusesDoc } from '../generated/operations/orderStatusSetRemoveOrderStatuses';
+import { document as triggerQuoteSendRequestDoc } from '../generated/operations/triggerQuoteSendRequest';
 /**
  Service class for Order-related GraphQL operations
  */
-export class OrderService extends BaseService {
+export function orderService(client: GraphQLClient) {
+  return {
+    /**
+       Fetches a list of orders with search criteria
+       * @param input Order search input parameters
+       * @returns Promise<OrderResponse> The orders response data
+       */
+    async getOrders(input?: OrderSearchArguments): Promise<OrderResponse> {
+      const result = await runOperation(client, ordersDoc, 'orders', { input });
+      return result.data.orders as OrderResponse;
+    },
+    /**
+       Fetches a single order by ID or UUID
+       * @param variables Variables for the order query
+       * - orderId: number - Order ID to fetch
+       * - orderUUID: String - Order UUID unique identifier
+       * - language: string - Language for localized content
+       * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+       * - imageVariantFilters: TransformationsInput - Image transformation filters
+       * @returns Promise<Order> The order data
+       */
+    async getOrder(variables: OrderQueryVariables): Promise<Order> {
+      const language = variables.language ?? client.getDefaultLanguage();
+      const result = await runOperation(client, orderDoc, 'order', { ...variables, language });
+      return result.data.order as Order;
+    },
+    /**
+       Creates a new order
+       * @param input Order creation input data
+       * @returns Promise<Order> The created order
+       */
+    async createOrder(input: any): Promise<Order> {
+      const result = await runOperation(client, orderCreateDoc, 'orderCreate', { input });
+      return result.data.orderCreate as Order;
+    },
+    /**
+       Updates an existing order
+       * @param variables Variables for the order update mutation
+       * - orderId: number - Order ID to update
+       * - order: OrderUpdateInput - Order update input data
+       * - language: string - Language for localized content
+       * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+       * - imageVariantFilters: TransformationsInput - Image transformation filters
+       * @returns Promise<Order> The updated order
+       */
+    async updateOrder(variables: OrderUpdateVariables): Promise<Order> {
+      const language = variables.language ?? client.getDefaultLanguage();
+      const result = await runOperation(client, orderUpdateDoc, 'orderUpdate', { ...variables, language });
+      return result.data.orderUpdate as Order;
+    },
+    /**
+       Sets the status of an order
+       * @param input Order status input data
+       * @returns Promise<Order> The updated order
+       */
+    async setOrderStatus(input: OrderSetStatusInput): Promise<Order> {
+      const result = await runOperation(client, orderSetStatusDoc, 'orderSetStatus', { input });
+      return result.data.orderSetStatus as Order;
+    },
+    /**
+       Updates an order address
+       * @param variables Variables for the order address update mutation
+       * - id: number - Id to identify address
+       * - orderId: number - Order ID to update order address for
+       * - input: OrderAddressUpdateInput - Order address update input data
+       * @returns Promise<OrderAddress> The updated order
+       */
+    async updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<OrderAddress> {
+      const result = await runOperation(client, orderAddressUpdateDoc, 'orderAddressUpdate', variables);
+      return result.data.orderAddressUpdate as OrderAddress;
+    },
+    /**
+       Sends order confirmation email
+       * @param orderId Order ID
+       * @returns Promise<boolean> Success status
+       */
+    async sendOrderConfirmationEmail(orderId: number): Promise<SendOrderConfirmResponseType> {
+      const result = await runOperation(client, orderSendConfirmationEmailDoc, 'orderSendConfirmationEmail', { orderId });
+      return result.data.orderSendConfirmationEmail as SendOrderConfirmResponseType;
+    },
+    /**
+       Fetches order PDF
+       * @param orderId Order ID
+       * @returns Promise<any> The PDF data
+       */
+    async getOrderPDF(orderId: number): Promise<Base64File> {
+      const result = await runOperation(client, orderGetPDFDoc, 'orderGetPDF', { orderId });
+      return result.data.orderGetPDF as Base64File;
+    },
+    /**
+       Fetches quote PDF
+       * @param quoteId Quote ID
+       * @returns Promise<any> The PDF data
+       */
+    async getQuotePDF(quoteId: number): Promise<Base64File> {
+      const result = await runOperation(client, quoteGetPDFDoc, 'quoteGetPDF', { quoteId });
+      return result.data.quoteGetPDF as Base64File;
+    },
+    /**
+       Fetches order address
+       * @param orderId Order ID
+       * @param addressType Address type
+       * @returns Promise<Address> The address data
+       */
+    async getOrderAddress(orderId: number, addressType?: string): Promise<OrderAddress> {
+      const result = await runOperation(client, orderAddressDoc, 'orderAddress', { orderId, addressType });
+      return result.data.orderAddress as OrderAddress;
+    },
+    /**
+       Fetches all addresses for an order
+       * @param orderId Order ID
+       * @returns Promise<Address[]> The addresses array
+       */
+    async getOrderAddresses(orderId: number): Promise<OrderAddress[]> {
+      const result = await runOperation(client, orderAddressesDoc, 'orderAddresses', { orderId });
+      return result.data.orderAddresses as OrderAddress[];
+    },
+    /**
+       Fetches addresses by order ID
+       * @deprecated The upstream `addressesByOrderId` query is deprecated. Use `getOrderAddresses` instead.
+       * @param orderId Order ID
+       * @returns Promise<Address[]> The addresses array
+       */
+    async getAddressesByOrderId(orderId: number): Promise<Address[]> {
+      const result = await runOperation(client, addressesByOrderIdDoc, 'addressesByOrderId', { orderId });
+      return result.data.addressesByOrderId as Address[];
+    },
+    /**
+       Creates a new order item
+       * @param variables Variables for the order item creation mutation
+       * - orderId: number - Order ID to create order item for
+       * - orderItem: OrderItemCreateInput - Order item creation input data
+       * - language: string - Language for localized content
+       * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+       * - imageVariantFilters: TransformationsInput - Image transformation filters
+       * @returns Promise<OrderItem> The created order item
+       */
+    async createOrderItem(variables: OrderItemCreateVariables): Promise<OrderItem> {
+      const language = variables.language ?? client.getDefaultLanguage();
+      const result = await runOperation(client, orderItemCreateDoc, 'orderItemCreate', { ...variables, language });
+      return result.data.orderItemCreate as OrderItem;
+    },
+    /**
+       Updates an existing order item
+       * @param variables Variables for the order item update mutation
+       * - orderId: number - Order ID to update order item for
+       * - orderItem: OrderItemUpdateInput - Order item update input data
+       * - language: string - Language for localized content
+       * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+       * - imageVariantFilters: TransformationsInput - Image transformation filters
+       * @returns Promise<OrderItem> The updated order item
+       */
+    async updateOrderItem(variables: OrderItemUpdateVariables): Promise<OrderItem> {
+      const language = variables.language ?? client.getDefaultLanguage();
+      const result = await runOperation(client, orderItemUpdateDoc, 'orderItemUpdate', { ...variables, language });
+      return result.data.orderItemUpdate as OrderItem;
+    },
+    /**
+       Deletes an order item
+       * @param variables Variables for the order item deletion mutation
+       * - orderId: number - Order ID to delete order item for
+       * - orderItemId: number - Order item ID to delete
+       * @returns Promise<boolean> True if order item was deleted successfully
+       */
+    async deleteOrderItem(variables: OrderItemDeleteVariables): Promise<boolean> {
+      const result = await runOperation(client, orderItemDeleteDoc, 'orderItemDelete', variables);
+      return result.data.orderItemDelete;
+    },
+    /**
+       Fetches a single orderlist by ID
+       * @param id Orderlist ID to fetch
+       * @returns Promise<Orderlist> The orderlist data
+       */
+    async getOrderlist(id: number): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistDoc, 'orderlist', { id });
+      return result.data.orderlist as Orderlist;
+    },
+    /**
+       Fetches a list of orderlists with search criteria
+       * @param input Orderlist search input parameters
+       * @returns Promise<OrderlistsResponse> The orderlists response data
+       */
+    async getOrderlists(input?: OrderlistSearchInput): Promise<OrderlistsResponse> {
+      const result = await runOperation(client, orderlistsDoc, 'orderlists', { input });
+      return result.data.orderlists as OrderlistsResponse;
+    },
+    /**
+       Creates a new orderlist
+       * @param input Orderlist creation input data
+       * @returns Promise<Orderlist> The created orderlist
+       */
+    async createOrderlist(input: OrderlistCreateInput): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistCreateDoc, 'orderlistCreate', { input });
+      return result.data.orderlistCreate as Orderlist;
+    },
+    /**
+       Updates an existing orderlist
+       * @param input Orderlist update input data
+       * @returns Promise<Orderlist> The updated orderlist
+       */
+    async updateOrderlist(input: OrderlistUpdateInput): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistUpdateDoc, 'orderlistUpdate', { input });
+      return result.data.orderlistUpdate as Orderlist;
+    },
+    /**
+       Adds items to an orderlist
+       * @param input Orderlist add items input data
+       * @returns Promise<Orderlist> The updated orderlist
+       */
+    async addItemsToOrderlist(input: OrderlistItemsInput): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistAddItemsDoc, 'orderlistAddItems', { input });
+      return result.data.orderlistAddItems as Orderlist;
+    },
+    /**
+       Removes items from an orderlist
+       * @param input Orderlist remove items input data
+       * @returns Promise<Orderlist> The updated orderlist
+       */
+    async removeItemsFromOrderlist(input: OrderlistItemsInput): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistRemoveItemsDoc, 'orderlistRemoveItems', { input });
+      return result.data.orderlistRemoveItems as Orderlist;
+    },
+    /**
+       Assigns companies to an orderlist
+       * @param input Orderlist assign companies input data
+       * @returns Promise<Orderlist> The updated orderlist
+       */
+    async assignCompaniesToOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistAssignCompaniesDoc, 'orderlistAssignCompanies', { input });
+      return result.data.orderlistAssignCompanies as Orderlist;
+    },
+    /**
+       Unassigns companies from an orderlist
+       * @param input Orderlist unassign companies input data
+       * @returns Promise<Orderlist> The updated orderlist
+       */
+    async unassignCompaniesFromOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistUnassignCompaniesDoc, 'orderlistUnassignCompanies', { input });
+      return result.data.orderlistUnassignCompanies as Orderlist;
+    },
+    /**
+       Assigns users to an orderlist
+       * @param input Orderlist assign users input data
+       * @returns Promise<Orderlist> The updated orderlist
+       */
+    async assignUsersToOrderlist(input: OrderlistUsersInput): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistAssignUsersDoc, 'orderlistAssignUsers', { input });
+      return result.data.orderlistAssignUsers as Orderlist;
+    },
+    /**
+       Unassigns users from an orderlist
+       * @param input Orderlist unassign users input data
+       * @returns Promise<Orderlist> The updated orderlist
+       */
+    async unassignUsersFromOrderlist(input: OrderlistUsersInput): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistUnassignUsersDoc, 'orderlistUnassignUsers', { input });
+      return result.data.orderlistUnassignUsers as Orderlist;
+    },
+    /**
+       Fetches a single order status by ID
+       * @param id Order status ID to fetch
+       * @returns Promise<OrderStatus> The order status data
+       */
+    async getOrderStatus(id: number): Promise<OrderStatus> {
+      const result = await runOperation(client, orderStatusDoc, 'orderStatus', { id });
+      return result.data.orderStatus as OrderStatus;
+    },
+    /**
+       Fetches a list of order statuses with search criteria
+       * @param input Order status search input parameters
+       * @returns Promise<OrderStatusesResponse> The order statuses response data
+       */
+    async getOrderStatuses(input?: OrderStatusesSearchInput): Promise<OrderStatusesResponse> {
+      const result = await runOperation(client, orderStatusesDoc, 'orderStatuses', { input });
+      return result.data.orderStatuses as OrderStatusesResponse;
+    },
+    /**
+       Creates a new order status
+       * @param input Order status creation input data
+       * @returns Promise<OrderStatus> The created order status
+       */
+    async createOrderStatus(input: CreateOrderStatusInput): Promise<OrderStatus> {
+      const result = await runOperation(client, orderStatusCreateDoc, 'orderStatusCreate', { input });
+      return result.data.orderStatusCreate as OrderStatus;
+    },
+    /**
+       Updates an existing order status
+       * @param input Order status update input data
+       * @returns Promise<OrderStatus> The updated order status
+       */
+    async updateOrderStatus(input: UpdateOrderStatusInput): Promise<OrderStatus> {
+      const result = await runOperation(client, orderStatusUpdateDoc, 'orderStatusUpdate', { input });
+      return result.data.orderStatusUpdate as OrderStatus;
+    },
+    /**
+       Fetches a single order status set by ID
+       * @param id Order status set ID to fetch
+       * @returns Promise<OrderStatusSet> The order status set data
+       */
+    async getOrderStatusSet(id: number): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetDoc, 'orderStatusSet', { id });
+      return result.data.orderStatusSet as OrderStatusSet;
+    },
+    /**
+       Fetches a list of order status sets with search criteria
+       * @param input Order status set search input parameters
+       * @returns Promise<OrderStatusSetsResponse> The order status sets response data
+       */
+    async getOrderStatusSets(input?: OrderStatusSetsSearchInput): Promise<OrderStatusSetsResponse> {
+      const result = await runOperation(client, orderStatusSetsDoc, 'orderStatusSets', { input });
+      return result.data.orderStatusSets as OrderStatusSetsResponse;
+    },
+    /**
+       Creates a new order status set
+       * @param input Order status set creation input data
+       * @returns Promise<OrderStatusSet> The created order status set
+       */
+    async createOrderStatusSet(input: CreateOrderStatusSetInput): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetCreateDoc, 'orderStatusSetCreate', { input });
+      return result.data.orderStatusSetCreate as OrderStatusSet;
+    },
+    /**
+       Updates an existing order status set
+       * @param input Order status set update input data
+       * @returns Promise<OrderStatusSet> The updated order status set
+       */
+    async updateOrderStatusSet(input: UpdateOrderStatusSetInput): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetUpdateDoc, 'orderStatusSetUpdate', { input });
+      return result.data.orderStatusSetUpdate as OrderStatusSet;
+    },
+    /**
+       Adds order statuses to an order status set
+       * @param input Add order statuses input data
+       * @returns Promise<OrderStatusSet> The updated order status set
+       */
+    async addOrderStatusesToOrderStatusSet(input: AddOrderStatusesToOrderStatusSetInput): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetAddOrderStatusesDoc, 'orderStatusSetAddOrderStatuses', { input });
+      return result.data.orderStatusSetAddOrderStatuses as OrderStatusSet;
+    },
+    /**
+       Removes order statuses from an order status set
+       * @param input Remove order statuses input data
+       * @returns Promise<OrderStatusSet> The updated order status set
+       */
+    async removeOrderStatusesFromOrderStatusSet(input: RemoveOrderStatusesFromOrderStatusSetInput): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetRemoveOrderStatusesDoc, 'orderStatusSetRemoveOrderStatuses', { input });
+      return result.data.orderStatusSetRemoveOrderStatuses as OrderStatusSet;
+    },
+    /**
+       Triggers the send request event for a quote
+       * @param input Quote send request event input data
+       * @returns Promise<boolean> Success status
+       */
+    async triggerQuoteSendRequest(input: TriggerQuoteSendRequestEventInput): Promise<boolean> {
+      const result = await runOperation(client, triggerQuoteSendRequestDoc, 'triggerQuoteSendRequest', { input });
+      return result.data.triggerQuoteSendRequest;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `orderService(client)`.
+ */
+export class OrderService {
+  private readonly _svc: ReturnType<typeof orderService>;
+  constructor(client: GraphQLClient) { this._svc = orderService(client); }
   /**
-   Fetches a list of orders with search criteria
+   * Fetches a list of orders with search criteria
    * @param input Order search input parameters
-   * @returns Promise<OrderResponse> The orders response data
    */
-  async getOrders(input?: OrderSearchArguments): Promise<OrderResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('orders', variables);
-    return new OrderResponse(result.data.orders);
-  }
+  getOrders(input?: OrderSearchArguments): Promise<OrderResponse> { return this._svc.getOrders(input); }
   /**
-   Fetches a single order by ID or UUID
+   * Fetches a single order by ID or UUID
    * @param variables Variables for the order query
-   * - orderId: number - Order ID to fetch
-   * - orderUUID: String - Order UUID unique identifier
-   * - language: string - Language for localized content
-   * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
-   * - imageVariantFilters: TransformationsInput - Image transformation filters
-   * @returns Promise<Order> The order data
+   * @param orderId Order ID to fetch
+   * @param orderUUID Order UUID unique identifier
+   * @param language Language for localized content
+   * @param imageSearchFilters Image search filters
+   * @param imageVariantFilters Image transformation filters
    */
-  async getOrder(variables: OrderQueryVariables): Promise<Order> {
-    const result = await this.executeQuery('order', variables);
-    return new Order(result.data.order);
-  }
+  getOrder(variables: OrderQueryVariables): Promise<Order> { return this._svc.getOrder(variables); }
   /**
-   Creates a new order
+   * Creates a new order
    * @param input Order creation input data
-   * @returns Promise<Order> The created order
    */
-  async createOrder(input: any): Promise<Order> {
-    const variables = { input };
-    const result = await this.executeMutation('orderCreate', variables);
-    return new Order(result.data.orderCreate);
-  }
+  createOrder(input: any): Promise<Order> { return this._svc.createOrder(input); }
   /**
-   Updates an existing order
+   * Updates an existing order
    * @param variables Variables for the order update mutation
-   * - orderId: number - Order ID to update
-   * - order: OrderUpdateInput - Order update input data
-   * - language: string - Language for localized content
-   * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
-   * - imageVariantFilters: TransformationsInput - Image transformation filters
-   * @returns Promise<Order> The updated order
+   * @param orderId Order ID to update
+   * @param order Order update input data
+   * @param language Language for localized content
+   * @param imageSearchFilters Image search filters
+   * @param imageVariantFilters Image transformation filters
    */
-  async updateOrder(variables: OrderUpdateVariables): Promise<Order> {
-    const result = await this.executeMutation('orderUpdate', variables);
-    return new Order(result.data.orderUpdate);
-  }
+  updateOrder(variables: OrderUpdateVariables): Promise<Order> { return this._svc.updateOrder(variables); }
   /**
-   Sets the status of an order
+   * Sets the status of an order
    * @param input Order status input data
-   * @returns Promise<Order> The updated order
    */
-  async setOrderStatus(input: OrderSetStatusInput): Promise<Order> {
-    const variables = { input };
-    const result = await this.executeMutation('orderSetStatus', variables);
-    return new Order(result.data.orderSetStatus);
-  }
+  setOrderStatus(input: OrderSetStatusInput): Promise<Order> { return this._svc.setOrderStatus(input); }
   /**
-   Updates an order address
+   * Updates an order address
    * @param variables Variables for the order address update mutation
-   * - id: number - Id to identify address
-   * - orderId: number - Order ID to update order address for
-   * - input: OrderAddressUpdateInput - Order address update input data
-   * @returns Promise<OrderAddress> The updated order
+   * @param id Id to identify address
+   * @param orderId Order ID to update order address for
+   * @param input Order address update input data
    */
-  async updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<OrderAddress> {
-    const result = await this.executeMutation('orderAddressUpdate', variables);
-    return new OrderAddress(result.data.orderAddressUpdate);
-  }
+  updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<OrderAddress> { return this._svc.updateOrderAddress(variables); }
   /**
-   Sends order confirmation email
+   * Sends order confirmation email
    * @param orderId Order ID
-   * @returns Promise<boolean> Success status
    */
-  async sendOrderConfirmationEmail(orderId: number): Promise<SendOrderConfirmResponseType> {
-    const variables = { orderId };
-    const result = await this.executeMutation('orderSendConfirmationEmail', variables);
-    return new SendOrderConfirmResponseType(result.data.orderSendConfirmationEmail);
-  }
+  sendOrderConfirmationEmail(orderId: number): Promise<SendOrderConfirmResponseType> { return this._svc.sendOrderConfirmationEmail(orderId); }
   /**
-   Fetches order PDF
+   * Fetches order PDF
    * @param orderId Order ID
-   * @returns Promise<any> The PDF data
    */
-  async getOrderPDF(orderId: number): Promise<Base64File> {
-    const variables = { orderId };
-    const result = await this.executeQuery('orderGetPDF', variables);
-    return new Base64File(result.data.orderGetPDF);
-  }
+  getOrderPDF(orderId: number): Promise<Base64File> { return this._svc.getOrderPDF(orderId); }
   /**
-   Fetches quote PDF
+   * Fetches quote PDF
    * @param quoteId Quote ID
-   * @returns Promise<any> The PDF data
    */
-  async getQuotePDF(quoteId: number): Promise<Base64File> {
-    const variables = { quoteId };
-    const result = await this.executeQuery('quoteGetPDF', variables);
-    return new Base64File(result.data.quoteGetPDF);
-  }
+  getQuotePDF(quoteId: number): Promise<Base64File> { return this._svc.getQuotePDF(quoteId); }
   /**
-   Fetches order address
+   * Fetches order address
    * @param orderId Order ID
    * @param addressType Address type
-   * @returns Promise<Address> The address data
    */
-  async getOrderAddress(orderId: number, addressType?: string): Promise<OrderAddress> {
-    const variables = { orderId, addressType };
-    const result = await this.executeQuery('orderAddress', variables);
-    return new OrderAddress(result.data.orderAddress);
-  }
+  getOrderAddress(orderId: number, addressType?: string): Promise<OrderAddress> { return this._svc.getOrderAddress(orderId, addressType); }
   /**
-   Fetches all addresses for an order
+   * Fetches all addresses for an order
    * @param orderId Order ID
-   * @returns Promise<Address[]> The addresses array
    */
-  async getOrderAddresses(orderId: number): Promise<OrderAddress[]> {
-    const variables = { orderId };
-    const result = await this.executeQuery('orderAddresses', variables);
-    return result.data.orderAddresses.map((x: any) => new OrderAddress(x));
-  }
+  getOrderAddresses(orderId: number): Promise<OrderAddress[]> { return this._svc.getOrderAddresses(orderId); }
   /**
-   Fetches addresses by order ID
-   * @deprecated The upstream `addressesByOrderId` query is deprecated. Use `getOrderAddresses` instead.
+   * Fetches addresses by order ID
    * @param orderId Order ID
-   * @returns Promise<Address[]> The addresses array
    */
-  async getAddressesByOrderId(orderId: number): Promise<Address[]> {
-    const variables = { orderId };
-    const result = await this.executeQuery('addressesByOrderId', variables);
-    return result.data.addressesByOrderId.map((x: any) => new Address(x));
-  }
+  getAddressesByOrderId(orderId: number): Promise<Address[]> { return this._svc.getAddressesByOrderId(orderId); }
   /**
-   Creates a new order item
+   * Creates a new order item
    * @param variables Variables for the order item creation mutation
-   * - orderId: number - Order ID to create order item for
-   * - orderItem: OrderItemCreateInput - Order item creation input data
-   * - language: string - Language for localized content
-   * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
-   * - imageVariantFilters: TransformationsInput - Image transformation filters
-   * @returns Promise<OrderItem> The created order item
+   * @param orderId Order ID to create order item for
+   * @param orderItem Order item creation input data
+   * @param language Language for localized content
+   * @param imageSearchFilters Image search filters
+   * @param imageVariantFilters Image transformation filters
    */
-  async createOrderItem(variables: OrderItemCreateVariables): Promise<OrderItem> {
-    const result = await this.executeMutation('orderItemCreate', variables);
-    return new OrderItem(result.data.orderItemCreate);
-  }
+  createOrderItem(variables: OrderItemCreateVariables): Promise<OrderItem> { return this._svc.createOrderItem(variables); }
   /**
-   Updates an existing order item
+   * Updates an existing order item
    * @param variables Variables for the order item update mutation
-   * - orderId: number - Order ID to update order item for
-   * - orderItem: OrderItemUpdateInput - Order item update input data
-   * - language: string - Language for localized content
-   * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
-   * - imageVariantFilters: TransformationsInput - Image transformation filters
-   * @returns Promise<OrderItem> The updated order item
+   * @param orderId Order ID to update order item for
+   * @param orderItem Order item update input data
+   * @param language Language for localized content
+   * @param imageSearchFilters Image search filters
+   * @param imageVariantFilters Image transformation filters
    */
-  async updateOrderItem(variables: OrderItemUpdateVariables): Promise<OrderItem> {
-    const result = await this.executeMutation('orderItemUpdate', variables);
-    return new OrderItem(result.data.orderItemUpdate);
-  }
+  updateOrderItem(variables: OrderItemUpdateVariables): Promise<OrderItem> { return this._svc.updateOrderItem(variables); }
   /**
-   Deletes an order item
+   * Deletes an order item
    * @param variables Variables for the order item deletion mutation
-   * - orderId: number - Order ID to delete order item for
-   * - orderItemId: number - Order item ID to delete
-   * @returns Promise<boolean> True if order item was deleted successfully
+   * @param orderId Order ID to delete order item for
+   * @param orderItemId Order item ID to delete
    */
-  async deleteOrderItem(variables: OrderItemDeleteVariables): Promise<boolean> {
-    const result = await this.executeMutation('orderItemDelete', variables);
-    return result.data.orderItemDelete;
-  }
+  deleteOrderItem(variables: OrderItemDeleteVariables): Promise<boolean> { return this._svc.deleteOrderItem(variables); }
   /**
-   Fetches a single orderlist by ID
+   * Fetches a single orderlist by ID
    * @param id Orderlist ID to fetch
-   * @returns Promise<Orderlist> The orderlist data
    */
-  async getOrderlist(id: number): Promise<Orderlist> {
-    const variables = { id };
-    const result = await this.executeQuery('orderlist', variables);
-    return new Orderlist(result.data.orderlist);
-  }
+  getOrderlist(id: number): Promise<Orderlist> { return this._svc.getOrderlist(id); }
   /**
-   Fetches a list of orderlists with search criteria
+   * Fetches a list of orderlists with search criteria
    * @param input Orderlist search input parameters
-   * @returns Promise<OrderlistsResponse> The orderlists response data
    */
-  async getOrderlists(input?: OrderlistSearchInput): Promise<OrderlistsResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('orderlists', variables);
-    return new OrderlistsResponse(result.data.orderlists);
-  }
+  getOrderlists(input?: OrderlistSearchInput): Promise<OrderlistsResponse> { return this._svc.getOrderlists(input); }
   /**
-   Creates a new orderlist
+   * Creates a new orderlist
    * @param input Orderlist creation input data
-   * @returns Promise<Orderlist> The created orderlist
    */
-  async createOrderlist(input: OrderlistCreateInput): Promise<Orderlist> {
-    const variables = { input };
-    const result = await this.executeMutation('orderlistCreate', variables);
-    return new Orderlist(result.data.orderlistCreate);
-  }
+  createOrderlist(input: OrderlistCreateInput): Promise<Orderlist> { return this._svc.createOrderlist(input); }
   /**
-   Updates an existing orderlist
+   * Updates an existing orderlist
    * @param input Orderlist update input data
-   * @returns Promise<Orderlist> The updated orderlist
    */
-  async updateOrderlist(input: OrderlistUpdateInput): Promise<Orderlist> {
-    const variables = { input };
-    const result = await this.executeMutation('orderlistUpdate', variables);
-    return new Orderlist(result.data.orderlistUpdate);
-  }
+  updateOrderlist(input: OrderlistUpdateInput): Promise<Orderlist> { return this._svc.updateOrderlist(input); }
   /**
-   Adds items to an orderlist
+   * Adds items to an orderlist
    * @param input Orderlist add items input data
-   * @returns Promise<Orderlist> The updated orderlist
    */
-  async addItemsToOrderlist(input: OrderlistItemsInput): Promise<Orderlist> {
-    const variables = { input };
-    const result = await this.executeMutation('orderlistAddItems', variables);
-    return new Orderlist(result.data.orderlistAddItems);
-  }
+  addItemsToOrderlist(input: OrderlistItemsInput): Promise<Orderlist> { return this._svc.addItemsToOrderlist(input); }
   /**
-   Removes items from an orderlist
+   * Removes items from an orderlist
    * @param input Orderlist remove items input data
-   * @returns Promise<Orderlist> The updated orderlist
    */
-  async removeItemsFromOrderlist(input: OrderlistItemsInput): Promise<Orderlist> {
-    const variables = { input };
-    const result = await this.executeMutation('orderlistRemoveItems', variables);
-    return new Orderlist(result.data.orderlistRemoveItems);
-  }
+  removeItemsFromOrderlist(input: OrderlistItemsInput): Promise<Orderlist> { return this._svc.removeItemsFromOrderlist(input); }
   /**
-   Assigns companies to an orderlist
+   * Assigns companies to an orderlist
    * @param input Orderlist assign companies input data
-   * @returns Promise<Orderlist> The updated orderlist
    */
-  async assignCompaniesToOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> {
-    const variables = { input };
-    const result = await this.executeMutation('orderlistAssignCompanies', variables);
-    return new Orderlist(result.data.orderlistAssignCompanies);
-  }
+  assignCompaniesToOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> { return this._svc.assignCompaniesToOrderlist(input); }
   /**
-   Unassigns companies from an orderlist
+   * Unassigns companies from an orderlist
    * @param input Orderlist unassign companies input data
-   * @returns Promise<Orderlist> The updated orderlist
    */
-  async unassignCompaniesFromOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> {
-    const variables = { input };
-    const result = await this.executeMutation('orderlistUnassignCompanies', variables);
-    return new Orderlist(result.data.orderlistUnassignCompanies);
-  }
+  unassignCompaniesFromOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> { return this._svc.unassignCompaniesFromOrderlist(input); }
   /**
-   Assigns users to an orderlist
+   * Assigns users to an orderlist
    * @param input Orderlist assign users input data
-   * @returns Promise<Orderlist> The updated orderlist
    */
-  async assignUsersToOrderlist(input: OrderlistUsersInput): Promise<Orderlist> {
-    const variables = { input };
-    const result = await this.executeMutation('orderlistAssignUsers', variables);
-    return new Orderlist(result.data.orderlistAssignUsers);
-  }
+  assignUsersToOrderlist(input: OrderlistUsersInput): Promise<Orderlist> { return this._svc.assignUsersToOrderlist(input); }
   /**
-   Unassigns users from an orderlist
+   * Unassigns users from an orderlist
    * @param input Orderlist unassign users input data
-   * @returns Promise<Orderlist> The updated orderlist
    */
-  async unassignUsersFromOrderlist(input: OrderlistUsersInput): Promise<Orderlist> {
-    const variables = { input };
-    const result = await this.executeMutation('orderlistUnassignUsers', variables);
-    return new Orderlist(result.data.orderlistUnassignUsers);
-  }
+  unassignUsersFromOrderlist(input: OrderlistUsersInput): Promise<Orderlist> { return this._svc.unassignUsersFromOrderlist(input); }
   /**
-   Fetches a single order status by ID
+   * Fetches a single order status by ID
    * @param id Order status ID to fetch
-   * @returns Promise<OrderStatus> The order status data
    */
-  async getOrderStatus(id: number): Promise<OrderStatus> {
-    const variables = { id };
-    const result = await this.executeQuery('orderStatus', variables);
-    return new OrderStatus(result.data.orderStatus);
-  }
+  getOrderStatus(id: number): Promise<OrderStatus> { return this._svc.getOrderStatus(id); }
   /**
-   Fetches a list of order statuses with search criteria
+   * Fetches a list of order statuses with search criteria
    * @param input Order status search input parameters
-   * @returns Promise<OrderStatusesResponse> The order statuses response data
    */
-  async getOrderStatuses(input?: OrderStatusesSearchInput): Promise<OrderStatusesResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('orderStatuses', variables);
-    return new OrderStatusesResponse(result.data.orderStatuses);
-  }
+  getOrderStatuses(input?: OrderStatusesSearchInput): Promise<OrderStatusesResponse> { return this._svc.getOrderStatuses(input); }
   /**
-   Creates a new order status
+   * Creates a new order status
    * @param input Order status creation input data
-   * @returns Promise<OrderStatus> The created order status
    */
-  async createOrderStatus(input: CreateOrderStatusInput): Promise<OrderStatus> {
-    const variables = { input };
-    const result = await this.executeMutation('orderStatusCreate', variables);
-    return new OrderStatus(result.data.orderStatusCreate);
-  }
+  createOrderStatus(input: CreateOrderStatusInput): Promise<OrderStatus> { return this._svc.createOrderStatus(input); }
   /**
-   Updates an existing order status
+   * Updates an existing order status
    * @param input Order status update input data
-   * @returns Promise<OrderStatus> The updated order status
    */
-  async updateOrderStatus(input: UpdateOrderStatusInput): Promise<OrderStatus> {
-    const variables = { input };
-    const result = await this.executeMutation('orderStatusUpdate', variables);
-    return new OrderStatus(result.data.orderStatusUpdate);
-  }
+  updateOrderStatus(input: UpdateOrderStatusInput): Promise<OrderStatus> { return this._svc.updateOrderStatus(input); }
   /**
-   Fetches a single order status set by ID
+   * Fetches a single order status set by ID
    * @param id Order status set ID to fetch
-   * @returns Promise<OrderStatusSet> The order status set data
    */
-  async getOrderStatusSet(id: number): Promise<OrderStatusSet> {
-    const variables = { id };
-    const result = await this.executeQuery('orderStatusSet', variables);
-    return new OrderStatusSet(result.data.orderStatusSet);
-  }
+  getOrderStatusSet(id: number): Promise<OrderStatusSet> { return this._svc.getOrderStatusSet(id); }
   /**
-   Fetches a list of order status sets with search criteria
+   * Fetches a list of order status sets with search criteria
    * @param input Order status set search input parameters
-   * @returns Promise<OrderStatusSetsResponse> The order status sets response data
    */
-  async getOrderStatusSets(input?: OrderStatusSetsSearchInput): Promise<OrderStatusSetsResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('orderStatusSets', variables);
-    return new OrderStatusSetsResponse(result.data.orderStatusSets);
-  }
+  getOrderStatusSets(input?: OrderStatusSetsSearchInput): Promise<OrderStatusSetsResponse> { return this._svc.getOrderStatusSets(input); }
   /**
-   Creates a new order status set
+   * Creates a new order status set
    * @param input Order status set creation input data
-   * @returns Promise<OrderStatusSet> The created order status set
    */
-  async createOrderStatusSet(input: CreateOrderStatusSetInput): Promise<OrderStatusSet> {
-    const variables = { input };
-    const result = await this.executeMutation('orderStatusSetCreate', variables);
-    return new OrderStatusSet(result.data.orderStatusSetCreate);
-  }
+  createOrderStatusSet(input: CreateOrderStatusSetInput): Promise<OrderStatusSet> { return this._svc.createOrderStatusSet(input); }
   /**
-   Updates an existing order status set
+   * Updates an existing order status set
    * @param input Order status set update input data
-   * @returns Promise<OrderStatusSet> The updated order status set
    */
-  async updateOrderStatusSet(input: UpdateOrderStatusSetInput): Promise<OrderStatusSet> {
-    const variables = { input };
-    const result = await this.executeMutation('orderStatusSetUpdate', variables);
-    return new OrderStatusSet(result.data.orderStatusSetUpdate);
-  }
+  updateOrderStatusSet(input: UpdateOrderStatusSetInput): Promise<OrderStatusSet> { return this._svc.updateOrderStatusSet(input); }
   /**
-   Adds order statuses to an order status set
+   * Adds order statuses to an order status set
    * @param input Add order statuses input data
-   * @returns Promise<OrderStatusSet> The updated order status set
    */
-  async addOrderStatusesToOrderStatusSet(input: AddOrderStatusesToOrderStatusSetInput): Promise<OrderStatusSet> {
-    const variables = { input };
-    const result = await this.executeMutation('orderStatusSetAddOrderStatuses', variables);
-    return new OrderStatusSet(result.data.orderStatusSetAddOrderStatuses);
-  }
+  addOrderStatusesToOrderStatusSet(input: AddOrderStatusesToOrderStatusSetInput): Promise<OrderStatusSet> { return this._svc.addOrderStatusesToOrderStatusSet(input); }
   /**
-   Removes order statuses from an order status set
+   * Removes order statuses from an order status set
    * @param input Remove order statuses input data
-   * @returns Promise<OrderStatusSet> The updated order status set
    */
-  async removeOrderStatusesFromOrderStatusSet(input: RemoveOrderStatusesFromOrderStatusSetInput): Promise<OrderStatusSet> {
-    const variables = { input };
-    const result = await this.executeMutation('orderStatusSetRemoveOrderStatuses', variables);
-    return new OrderStatusSet(result.data.orderStatusSetRemoveOrderStatuses);
-  }
+  removeOrderStatusesFromOrderStatusSet(input: RemoveOrderStatusesFromOrderStatusSetInput): Promise<OrderStatusSet> { return this._svc.removeOrderStatusesFromOrderStatusSet(input); }
   /**
-   Triggers the send request event for a quote
+   * Triggers the send request event for a quote
    * @param input Quote send request event input data
-   * @returns Promise<boolean> Success status
    */
-  async triggerQuoteSendRequest(input: TriggerQuoteSendRequestEventInput): Promise<boolean> {
-    const variables = { input };
-    const result = await this.executeMutation('triggerQuoteSendRequest', variables);
-    return result.data.triggerQuoteSendRequest;
-  }
+  triggerQuoteSendRequest(input: TriggerQuoteSendRequestEventInput): Promise<boolean> { return this._svc.triggerQuoteSendRequest(input); }
 }

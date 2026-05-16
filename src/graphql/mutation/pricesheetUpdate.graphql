@@ -1,4 +1,4 @@
-mutation pricesheetUpdate($id: String!, $input: PricesheetUpdateInput!) {
+mutation pricesheetUpdate($id: String!, $input: PricesheetUpdateInput!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
   pricesheetUpdate(id: $id, input: $input) {
     ...PricesheetFields
   }

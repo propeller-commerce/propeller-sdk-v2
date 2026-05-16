@@ -1,4 +1,4 @@
-query pricesheetsEffective($input: PricesheetsEffectiveInput!) {
+query pricesheetsEffective($input: PricesheetsEffectiveInput!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
   pricesheetsEffective(input: $input) {
     ...PricesheetResponseFields
   }

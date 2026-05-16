@@ -2,53 +2,19 @@ import { Category } from './Category';
 /**
  Object class for CategoryResponse
  */
-export class CategoryResponse {
+export interface CategoryResponse {
   /** List of items of type Category */
-  items!: Category[];
+  items: Category[];
   /** Total number of items found */
-  itemsFound!: number;
+  itemsFound: number;
   /** The amount of items to show per page */
-  offset!: number;
+  offset: number;
   /** The current page */
-  page!: number;
+  page: number;
   /** Total amount of pages */
-  pages!: number;
+  pages: number;
   /** Start position of the current page */
-  start!: number;
+  start: number;
   /** End position of the current page */
-  end!: number;
-  constructor(data: Partial<CategoryResponse> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `items` as Category instances (coerced on first access). */
-  getItems(): Category[] {
-    if (!this.items) return [];
-    this.items = this.items.map((x: any) => x instanceof Category ? x : new Category(x));
-    return this.items;
-  }
-  /** Returns `itemsFound`. */
-  getItemsFound(): number {
-    return this.itemsFound;
-  }
-  /** Returns `offset`. */
-  getOffset(): number {
-    return this.offset;
-  }
-  /** Returns `page`. */
-  getPage(): number {
-    return this.page;
-  }
-  /** Returns `pages`. */
-  getPages(): number {
-    return this.pages;
-  }
-  /** Returns `start`. */
-  getStart(): number {
-    return this.start;
-  }
-  /** Returns `end`. */
-  getEnd(): number {
-    return this.end;
-  }
+  end: number;
 }

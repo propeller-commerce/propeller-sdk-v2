@@ -1,4 +1,4 @@
-mutation customerCreateAccount($id: Int!, $input: CreateAccountInput) {
+mutation customerCreateAccount($id: Int!, $input: CreateAccountInput, $customerAttributesInput: AttributeResultSearchInput) {
   customerCreateAccount(id: $id, input: $input) {
     ...RegisterCustomerResponseFields
   }

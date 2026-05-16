@@ -1,4 +1,4 @@
-mutation pricesheetAssign($id: String!, $input: PricesheetAssignInput!) {
+mutation pricesheetAssign($id: String!, $input: PricesheetAssignInput!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
   pricesheetAssign(id: $id, input: $input) {
     ...PricesheetFields
   }

@@ -1,0 +1,3 @@
+fragment DeleteMediaVideoResponseFields on DeleteMediaVideoResponse {
+  mediaId
+}

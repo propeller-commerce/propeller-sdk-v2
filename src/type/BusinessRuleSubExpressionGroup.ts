@@ -3,33 +3,13 @@ import { IBusinessRuleExpression } from './IBusinessRuleExpression';
 /**
  Represents a business rule expression group when used as sub-expressions in a complex expression
  */
-export class BusinessRuleSubExpressionGroup {
+export interface BusinessRuleSubExpressionGroup {
   /** id field */
-  id!: string | number;
+  id: string | number;
   /** field field */
-  field!: string;
+  field: string;
   /** expressions field */
-  expressions!: IBusinessRuleExpression[];
+  expressions: IBusinessRuleExpression[];
   /** operator field */
   operator?: BusinessRuleExpressionGroupOperators;
-  constructor(data: Partial<BusinessRuleSubExpressionGroup> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `id`. */
-  getId(): string | number {
-    return this.id;
-  }
-  /** Returns `field`. */
-  getField(): string {
-    return this.field;
-  }
-  /** Returns `expressions`. */
-  getExpressions(): IBusinessRuleExpression[] {
-    return this.expressions;
-  }
-  /** Returns `operator`. */
-  getOperator(): BusinessRuleExpressionGroupOperators | undefined {
-    return this.operator;
-  }
 }

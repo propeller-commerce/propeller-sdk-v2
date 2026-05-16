@@ -1,4 +1,4 @@
-query crossupsell($id: String!) {
+query crossupsell($id: String!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   crossupsell(id: $id) {
     ...CrossupsellFields
   }

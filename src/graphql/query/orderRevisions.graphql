@@ -1,4 +1,4 @@
-query orderRevisions($input: OrderRevisionSearchInput!) {
+query orderRevisions($input: OrderRevisionSearchInput!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   orderRevisions(input: $input) {
     items {
       orderId
@@ -7,14 +7,16 @@ query orderRevisions($input: OrderRevisionSearchInput!) {
       createdByCustomerId
       createdByAdminUserId
       createdByAdminUser {
-        userId
+        id
         firstName
         lastName
         email
       }
       createdAt
       createdFromRevisionNumber
-      snapshot
+      snapshot {
+        ...OrderFields
+      }
       createdByContact {
         contactId
         firstName
@@ -35,4 +37,4 @@ query orderRevisions($input: OrderRevisionSearchInput!) {
     start
     end
   }
-} 
+}

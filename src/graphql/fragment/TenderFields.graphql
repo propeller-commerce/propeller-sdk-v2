@@ -1,0 +1,290 @@
+fragment TenderFields on Tender {
+  status
+  orderStatus {
+    ... OrderStatusFields
+  }
+  orderId
+  revisions {
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  tenderId
+  ownerId
+  type
+  siteId
+  channelId
+  shopId
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+  userId
+  contactId
+  customerId
+  companyId
+  invoiceUserId
+  firstName
+  middleName
+  lastName
+  email
+  debtorId
+  invoiceAddress {
+    company
+    gender
+    firstName
+    middleName
+    lastName
+    street
+    number
+    numberExtension
+    postalCode
+    city
+    region
+    country
+    code
+    email
+    mobile
+    phone
+    icp
+    notes
+  }
+  deliveryAddress {
+    company
+    gender
+    firstName
+    middleName
+    lastName
+    street
+    number
+    numberExtension
+    postalCode
+    city
+    region
+    country
+    code
+    email
+    mobile
+    phone
+    icp
+    notes
+  }
+  itemCount
+  items {
+    id
+    productId
+    product {
+      ... ProductFields
+    }
+    uuid
+    orderItemId
+    name
+    sku
+    quantity
+    supplier
+    supplierCode
+    price
+    priceNet
+    totalPrice
+    totalPriceNet
+    taxCode
+    taxPercentage
+    customerDiscountPercentage
+    discountPercentage
+    totalDiscountPercentage
+    marginAmount
+    marginPercentage
+    saleMarginAmount
+    saleMarginPercentage
+    attributedSaleDiscount
+    attributedSaleMargin
+    originalPrice
+    costPrice
+    customerPrice
+    valuePoints
+    expectedDeliveryDate
+    externalOrderitemId
+    notes
+    priority
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    discountPercentageSum
+    totalDiscountPercentageSum
+    saleMarginAmountSum
+    saleMarginPercentageSum
+    attributedSaleDiscountSum
+    attributedSaleMarginSum
+  }
+  bonusItems {
+    id
+    productId
+    product {
+      ... ProductFields
+    }
+    uuid
+    orderItemId
+    name
+    sku
+    quantity
+    supplier
+    supplierCode
+    price
+    priceNet
+    totalPrice
+    totalPriceNet
+    taxCode
+    taxPercentage
+    customerDiscountPercentage
+    discountPercentage
+    totalDiscountPercentage
+    marginAmount
+    marginPercentage
+    saleMarginAmount
+    saleMarginPercentage
+    attributedSaleDiscount
+    attributedSaleMargin
+    originalPrice
+    costPrice
+    customerPrice
+    valuePoints
+    expectedDeliveryDate
+    externalOrderitemId
+    notes
+    priority
+    sum
+    sumNet
+    totalSum
+    totalSumNet
+    discountPercentageSum
+    totalDiscountPercentageSum
+    saleMarginAmountSum
+    saleMarginPercentageSum
+    attributedSaleDiscountSum
+    attributedSaleMarginSum
+  }
+  paymentData {
+    price
+    priceNet
+    overruled
+    tax
+    taxPercentage
+    method
+    status
+    statusDate
+    accountingId
+  }
+  postageData {
+    method
+    taxPercentage
+    requestDate
+    carrier
+    price
+    priceNet
+    tax
+    overruled
+    partialDeliveryAllowed
+    pickUpLocationId
+    warehouse {
+      ... WarehouseFields
+    }
+  }
+  total {
+    subTotalGross
+    subTotalNet
+    discount
+    discountPercentage
+    discountType
+    discountOverruled
+    totalNet
+    totalGross
+    discountNet
+    discountGross
+    totalTax
+  }
+  taxLevels {
+    percentage
+    total
+    tax
+    discount
+  }
+  carriers {
+    id
+    price
+    name
+    description
+    logo
+    amount
+    deliveryDeadline
+  }
+  payMethods {
+    id
+    code
+    externalCode
+    type
+    description
+    amount
+    allowed
+  }
+  source
+  valuePoints
+  incentivesApplied
+  creditPoints
+  actionCode
+  reference
+  remarks
+  language
+  currency
+  currencyRatio
+  externalId
+  extra3
+  extra4
+  isEditable
+  validUntil
+  public
+  revisionNumber
+  publicVersionNumber
+  invalid
+  invalidationReason
+  createdByAdminUserId
+  createdByContactId
+  createdByCustomerId
+  createdFromRevisionNumber
+  user {
+    userId
+    debtorId
+    gender
+    firstName
+    middleName
+    lastName
+    phone
+    mobile
+    email
+    login
+    iban
+    bankAccount
+    bic
+    notes
+    primaryLanguage
+    expires
+    externalId
+    dateOfBirth
+    mailingList
+    isLoggedIn
+    createdAt
+    lastModifiedAt
+  }
+  contact {
+    ... ContactFields
+  }
+  customer {
+    ... CustomerFields
+  }
+  company {
+    ... CompanyFields
+  }
+}

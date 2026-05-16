@@ -1,0 +1,49 @@
+fragment EmailTemplateFields on EmailTemplate {
+  id
+  contents {
+    ... LocalizedTemplateContentFields
+  }
+  names {
+    ... LocalizedStringFields
+  }
+  content
+  customQuery
+  queryVariables
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  subjects {
+    ... LocalizedStringFields
+  }
+  from {
+    email
+    names {
+      ... LocalizedStringFields
+    }
+  }
+  tos {
+    email
+    name
+    contactId
+    customerId
+    adminUserId
+  }
+  ccs {
+    email
+    name
+    contactId
+    customerId
+    adminUserId
+  }
+  bccs {
+    email
+    name
+    contactId
+    customerId
+    adminUserId
+  }
+  attachments {
+    ... DocumentTemplateFields
+  }
+}

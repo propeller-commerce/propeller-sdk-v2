@@ -1,206 +1,265 @@
-import { BaseService } from './BaseService';
 import { GraphQLClient } from '../client/GraphQLClient';
-import { Contact } from '../type/Contact';
-import { Customer } from '../type/Customer';
-import { LoginInput } from '../type/LoginInput';
-import { Login } from '../type/Login';
-import { GCIPUser } from '../type/GCIPUser';
-import { AttributeResultSearchInput } from '../type/AttributeResultSearchInput';
-import { ContactPurchaseAuthorizationConfigSearchInput } from '../type/ContactPurchaseAuthorizationConfigSearchInput';
-import { RegisterContactInput } from '../type/RegisterContactInput';
-import { RegisterCustomerInput } from '../type/RegisterCustomerInput';
-import { RegisterContactResponse } from '../type/RegisterContactResponse';
-import { RegisterCustomerResponse } from '../type/RegisterCustomerResponse';
-import { Logout } from '../type/Logout';
-import { ContactCompaniesSearchInput, PasswordRecoveryLinkInput, TriggerContactSendWelcomeEmailEventInput, TriggerCustomerSendWelcomeEmailEventInput } from '../type';
+import { runOperation } from './runOperation';
+import { document as viewerDoc } from '../generated/operations/viewer';
+import { document as loginDoc } from '../generated/operations/login';
+import { document as userDoc } from '../generated/operations/user';
+import { document as authenticationDoc } from '../generated/operations/authentication';
+import { document as logoutDoc } from '../generated/operations/logout';
+import { document as contactRegisterDoc } from '../generated/operations/contactRegister';
+import { document as customerRegisterDoc } from '../generated/operations/customerRegister';
+import { document as triggerPasswordSendResetEmailEventDoc } from '../generated/operations/triggerPasswordSendResetEmailEvent';
+import { document as claimsResetDoc } from '../generated/operations/claimsReset';
+import { document as triggerContactSendWelcomeEmailEventDoc } from '../generated/operations/triggerContactSendWelcomeEmailEvent';
+import { document as triggerCustomerSendWelcomeEmailEventDoc } from '../generated/operations/triggerCustomerSendWelcomeEmailEvent';
+
+import type { Contact } from '../type/Contact';
+import type { Customer } from '../type/Customer';
+import type { LoginInput } from '../type/LoginInput';
+import type { Login } from '../type/Login';
+import type { GCIPUser } from '../type/GCIPUser';
+import type { AttributeResultSearchInput } from '../type/AttributeResultSearchInput';
+import type { ContactPurchaseAuthorizationConfigSearchInput } from '../type/ContactPurchaseAuthorizationConfigSearchInput';
+import type { RegisterContactInput } from '../type/RegisterContactInput';
+import type { RegisterCustomerInput } from '../type/RegisterCustomerInput';
+import type { RegisterContactResponse } from '../type/RegisterContactResponse';
+import type { RegisterCustomerResponse } from '../type/RegisterCustomerResponse';
+import type { Logout } from '../type/Logout';
+import type {
+  ContactCompaniesSearchInput,
+  PasswordRecoveryLinkInput,
+  TriggerContactSendWelcomeEmailEventInput,
+  TriggerCustomerSendWelcomeEmailEventInput,
+} from '../type';
+
 /**
- * Viewer result type alias
- * @type ViewerResult
- Union type for viewer query results
+ * Union type for `viewer` / `user` query results — schema returns either a
+ * Contact or a Customer, discriminated via `__typename`.
  */
 export type ViewerResult = Contact | Customer;
-/**
- * Simplified input object for password reset requests
- */
+
+/** Simplified input object for password reset requests. */
 export interface PasswordResetInput {
-    /** The email address of the user to generate the recovery link for */
-    email: string;
-    /** The page the user will be redirected to after the user changed their password */
-    redirectUrl?: string;
-    /** Text to display that will lead to link when clicked */
-    linkText?: string;
-    /** The subject of the email (optional, will use default if not provided) */
-    subject?: string;
-    /** Language for the email (optional) */
-    language?: string;
-    /** The id of the site to use when sending the email (optional) */
-    siteId?: number;
+  /** The email address of the user to generate the recovery link for */
+  email: string;
+  /** The page the user will be redirected to after the user changed their password */
+  redirectUrl?: string;
+  /** Text to display that will lead to link when clicked */
+  linkText?: string;
+  /** The subject of the email (optional, will use default if not provided) */
+  subject?: string;
+  /** Language for the email (optional) */
+  language?: string;
+  /** The id of the site to use when sending the email (optional) */
+  siteId?: number;
 }
 
+/** Input arguments for the `viewer` query. */
 export interface ViewerInput {
-    /** Contact attributes input arguments */
-    contactAttributesInput?: AttributeResultSearchInput;
-    /** Contact purchase authorization config input arguments */
-    contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
-    /** Company attributes input arguments */
-    companyAttributesInput?: AttributeResultSearchInput;
-    /** CustomerAttributesInput attributes input arguments */
-    customerAttributesInput?: AttributeResultSearchInput;
-    /** Contact companies search input arguments */
-    contactCompaniesSearchInput?: ContactCompaniesSearchInput;
+  /** Contact attributes input arguments */
+  contactAttributesInput?: AttributeResultSearchInput;
+  /** Contact purchase authorization config input arguments */
+  contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
+  /** Company attributes input arguments */
+  companyAttributesInput?: AttributeResultSearchInput;
+  /** Customer attributes input arguments */
+  customerAttributesInput?: AttributeResultSearchInput;
+  /** Contact companies search input arguments */
+  contactCompaniesSearchInput?: ContactCompaniesSearchInput;
 }
 
+/** Input arguments for the `contactRegister` mutation. */
 export interface ContactRegisterInput {
-    /** Contact registration input data */
-    contactRegisterInput: RegisterContactInput;
-    /** Contact attributes input arguments */
-    contactAttributesInput?: AttributeResultSearchInput;
-    /** Contact purchase authorization config input arguments */
-    contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
-    /** Company attributes input arguments */
-    companyAttributesInput?: AttributeResultSearchInput;
+  /** Contact registration input data */
+  contactRegisterInput: RegisterContactInput;
+  /** Contact attributes input arguments */
+  contactAttributesInput?: AttributeResultSearchInput;
+  /** Contact purchase authorization config input arguments */
+  contactPAConfigInput?: ContactPurchaseAuthorizationConfigSearchInput;
+  /** Company attributes input arguments */
+  companyAttributesInput?: AttributeResultSearchInput;
 }
 
+/** Input arguments for the `customerRegister` mutation. */
 export interface CustomerRegisterInput {
-    /** Contact registration input data */
-    customerRegisterInput: RegisterCustomerInput;
-    /** CustomerAttributesInput attributes input arguments */
-    customerAttributesInput?: AttributeResultSearchInput;
+  /** Customer registration input data */
+  customerRegisterInput: RegisterCustomerInput;
+  /** Customer attributes input arguments */
+  customerAttributesInput?: AttributeResultSearchInput;
 }
-
 
 /**
- * Service class for user-related GraphQL operations
+ * Factory for user-related GraphQL operations. Methods preserve the v0.9.x
+ * surface: same names, same parameter shapes, returns are now plain objects
+ * (with `__typename` available for discrimination, not class instances).
  */
-export class UserService extends BaseService {
-    constructor(client: GraphQLClient) {
-        super(client);
-    }
+export function userService(client: GraphQLClient) {
+  return {
     /**
-     * Get current viewer information (authenticated user)
-     * @param input Viewer input arguments
-     * @returns Promise<ViewerResult> The current viewer
+     * Get current viewer information (authenticated user).
+     * Returns `Contact | Customer` — discriminate on `result.__typename`.
      */
     async getViewer(input: ViewerInput): Promise<ViewerResult> {
-        const result = await this.executeQuery('viewer', input);
-        const viewerData = result.data.viewer;
-        // Return appropriate type based on __typename
-        if (viewerData.__typename === 'Contact') {
-            return new Contact(viewerData);
-        } else if (viewerData.__typename === 'Customer') {
-            return new Customer(viewerData);
-        }
-        // Default to Contact if typename is unclear
-        return new Contact(viewerData);
-    }
-    /**
-     * Login with credentials
-     * @param input Login credentials
-     * @returns Promise<Login> The login response with session information
-     */
+      const result = await runOperation(client, viewerDoc, 'viewer', input);
+      return result.data.viewer as ViewerResult;
+    },
+
+    /** Login with credentials. */
     async login(input: LoginInput): Promise<Login> {
-        const result = await this.executeMutation('login', { input });
-        return new Login(result.data.login);
-    }
+      const result = await runOperation(client, loginDoc, 'login', { input });
+      return result.data.login as Login;
+    },
+
     /**
      * Get user by id or login (mutually exclusive — provide one).
-     * Upstream replaced the previous `input: UserSearchInput` argument with
-     * direct `id: Int` and `login: String` arguments.
-     * @param variables `{ id?: number; login?: string }`
-     * @returns Promise<ViewerResult> The user information
+     * Returns `Contact | Customer` — discriminate on `result.__typename`.
      */
     async getUser(variables: { id?: number; login?: string }): Promise<ViewerResult> {
-        const result = await this.executeQuery('user', variables);
-        const userData = result.data.user;
-        // Return appropriate type based on __typename
-        if (userData.__typename === 'Contact') {
-            return new Contact(userData);
-        } else if (userData.__typename === 'Customer') {
-            return new Customer(userData);
-        }
-        // Default to Contact if typename is unclear
-        return new Contact(userData);
-    }
-    /**
-     * Get authentication information for user by email
-     * @param email User email address
-     * @returns Promise<GCIPUser> The authentication user information
-     */
+      const result = await runOperation(client, userDoc, 'user', variables);
+      return result.data.user as ViewerResult;
+    },
+
+    /** Get authentication information for user by email. */
     async authenticate(email: string): Promise<GCIPUser> {
-        const result = await this.executeQuery('authentication', { email });
-        return new GCIPUser(result.data.authentication);
-    }
+      const result = await runOperation(client, authenticationDoc, 'authentication', { email });
+      return result.data.authentication as GCIPUser;
+    },
+
     /**
-     * Logout current user
-     * @deprecated The upstream `logout` mutation is deprecated; a `signOut` mutation will be available in the future.
-     * @returns Promise<Logout> The logout response
+     * Logout current user.
+     * @deprecated The upstream `logout` mutation is deprecated; a `signOut`
+     * mutation will be available in the future.
      */
     async logout(): Promise<Logout> {
-        const result = await this.executeMutation('logout');
-        return new Logout(result.data.logout);
-    }
-    /**
-     * Register new contact
-     * @param variables Contact registration input data
-     * @returns Promise<RegisterContactResponse> The registration response
-     */
+      const result = await runOperation(client, logoutDoc, 'logout', {});
+      return result.data.logout as Logout;
+    },
+
+    /** Register a new contact. */
     async registerContact(variables: ContactRegisterInput): Promise<RegisterContactResponse> {
-        const result = await this.executeMutation('contactRegister', variables);
-        return new RegisterContactResponse(result.data.contactRegister);
-    }
-    /**
-     * Register new customer
-     * @param variables Customer registration input data
-     * @returns Promise<RegisterCustomerResponse> The registration response
-     */
+      const result = await runOperation(client, contactRegisterDoc, 'contactRegister', variables);
+      return result.data.contactRegister as RegisterContactResponse;
+    },
+
+    /** Register a new customer. */
     async registerCustomer(variables: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
-        const result = await this.executeMutation('customerRegister', variables);
-        return new RegisterCustomerResponse(result.data.customerRegister);
-    }
-    /**
-     * Send a password reset email to the specified user
-     * @param input Password reset request input data
-     * @returns Promise<string> The email send response
-     */
+      const result = await runOperation(client, customerRegisterDoc, 'customerRegister', variables);
+      return result.data.customerRegister as RegisterCustomerResponse;
+    },
+
+    /** Send a password reset email to the specified user. */
     async sendPasswordResetEmail(input: PasswordResetInput): Promise<boolean> {
-        // Build the full PasswordRecoveryLinkInput from the simplified input
-        const passwordResetInput: PasswordRecoveryLinkInput = {
-            email: input.email,
-            redirectUrl: input.redirectUrl,
-            language: input.language
-        };
-        const result = await this.executeMutation('triggerPasswordSendResetEmailEvent', { input: passwordResetInput });
-        return result.data.triggerPasswordSendResetEmailEvent;
-    }
-    /**
-     * Resets all claims for a user by email
-     * @param uid The user ID
-     * @param email The user email address
-     * @returns Promise<boolean> The response containing reset statistics
-     */
+      const passwordResetInput: PasswordRecoveryLinkInput = {
+        email: input.email,
+        redirectUrl: input.redirectUrl,
+        language: input.language,
+      };
+      const result = await runOperation(
+        client,
+        triggerPasswordSendResetEmailEventDoc,
+        'triggerPasswordSendResetEmailEvent',
+        { input: passwordResetInput }
+      );
+      return result.data.triggerPasswordSendResetEmailEvent;
+    },
+
+    /** Resets all claims for a user by email. */
     async claimsReset(uid: string, email: string): Promise<boolean> {
-        const result = await this.executeMutation('claimsReset', { uid, email });
-        return result.data.claimsReset;
-    }
+      const result = await runOperation(client, claimsResetDoc, 'claimsReset', { uid, email });
+      return result.data.claimsReset;
+    },
 
-    /**
-     * Sends a welcome email to a contact
-     * @param input Contact welcome email event input data
-     * @returns Promise<any> The response containing event details
-     */
-    async triggerContactSendWelcomeEmailEvent(input: TriggerContactSendWelcomeEmailEventInput): Promise<boolean> {
-        const result = await this.executeMutation('triggerContactSendWelcomeEmailEvent', { input });
-        return result.data.triggerContactSendWelcomeEmailEvent;
-    }
+    /** Sends a welcome email to a contact. */
+    async triggerContactSendWelcomeEmailEvent(
+      input: TriggerContactSendWelcomeEmailEventInput
+    ): Promise<boolean> {
+      const result = await runOperation(
+        client,
+        triggerContactSendWelcomeEmailEventDoc,
+        'triggerContactSendWelcomeEmailEvent',
+        { input }
+      );
+      return result.data.triggerContactSendWelcomeEmailEvent;
+    },
 
-    /**
-     * Sends a welcome email to a customer
-     * @param input Customer welcome email event input data
-     * @returns Promise<any> The response containing event details
-     */
-    async triggerCustomerSendWelcomeEmailEvent(input: TriggerCustomerSendWelcomeEmailEventInput): Promise<boolean> {
-        const result = await this.executeMutation('triggerCustomerSendWelcomeEmailEvent', { input });
-        return result.data.triggerCustomerSendWelcomeEmailEvent;
-    }
+    /** Sends a welcome email to a customer. */
+    async triggerCustomerSendWelcomeEmailEvent(
+      input: TriggerCustomerSendWelcomeEmailEventInput
+    ): Promise<boolean> {
+      const result = await runOperation(
+        client,
+        triggerCustomerSendWelcomeEmailEventDoc,
+        'triggerCustomerSendWelcomeEmailEvent',
+        { input }
+      );
+      return result.data.triggerCustomerSendWelcomeEmailEvent;
+    },
+  };
+}
 
+/**
+ * Backwards-compatible class form. New code should call `userService(client)`.
+ */
+export class UserService {
+  private readonly _svc: ReturnType<typeof userService>;
+  constructor(client: GraphQLClient) {
+    this._svc = userService(client);
+  }
+  /**
+   * Get current viewer information (authenticated user).
+   * Returns `Contact | Customer` — discriminate on `result.__typename`.
+   */
+  getViewer(input: ViewerInput): Promise<ViewerResult> {
+    return this._svc.getViewer(input);
+  }
+  /** Login with credentials. */
+  login(input: LoginInput): Promise<Login> {
+    return this._svc.login(input);
+  }
+  /**
+   * Get user by id or login (mutually exclusive — provide one).
+   * Returns `Contact | Customer` — discriminate on `result.__typename`.
+   */
+  getUser(variables: { id?: number; login?: string }): Promise<ViewerResult> {
+    return this._svc.getUser(variables);
+  }
+  /** Get authentication information for user by email. */
+  authenticate(email: string): Promise<GCIPUser> {
+    return this._svc.authenticate(email);
+  }
+  /**
+   * Logout current user.
+   * @deprecated The upstream `logout` mutation is deprecated; a `signOut`
+   * mutation will be available in the future.
+   */
+  logout(): Promise<Logout> {
+    return this._svc.logout();
+  }
+  /** Register a new contact. */
+  registerContact(variables: ContactRegisterInput): Promise<RegisterContactResponse> {
+    return this._svc.registerContact(variables);
+  }
+  /** Register a new customer. */
+  registerCustomer(variables: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
+    return this._svc.registerCustomer(variables);
+  }
+  /** Send a password reset email to the specified user. */
+  sendPasswordResetEmail(input: PasswordResetInput): Promise<boolean> {
+    return this._svc.sendPasswordResetEmail(input);
+  }
+  /** Resets all claims for a user by email. */
+  claimsReset(uid: string, email: string): Promise<boolean> {
+    return this._svc.claimsReset(uid, email);
+  }
+  /** Sends a welcome email to a contact. */
+  triggerContactSendWelcomeEmailEvent(
+    input: TriggerContactSendWelcomeEmailEventInput
+  ): Promise<boolean> {
+    return this._svc.triggerContactSendWelcomeEmailEvent(input);
+  }
+  /** Sends a welcome email to a customer. */
+  triggerCustomerSendWelcomeEmailEvent(
+    input: TriggerCustomerSendWelcomeEmailEventInput
+  ): Promise<boolean> {
+    return this._svc.triggerCustomerSendWelcomeEmailEvent(input);
+  }
 }

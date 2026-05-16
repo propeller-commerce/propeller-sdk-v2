@@ -1,4 +1,4 @@
-mutation clusterAssignProducts($clusterId: Int!, $input: ClusterAssignProductsInput!) {
+mutation clusterAssignProducts($clusterId: Int!, $input: ClusterAssignProductsInput!, $language: String, $attributeResultSearchInput: AttributeResultSearchInput, $priceCalculateProductInput: PriceCalculateProductInput, $userBulkPriceProductInput: UserBulkPriceProductInput, $imageSearchFilters: MediaImageProductSearchInput, $imageVariantFilters: TransformationsInput!, $mediaVideoSearchInput: MediaVideoProductSearchInput, $mediaDocumentSearchInput: MediaDocumentProductSearchInput) {
   clusterAssignProducts(clusterId: $clusterId, input: $input) {
     ...ClusterAssignProductsResponseFields
   }

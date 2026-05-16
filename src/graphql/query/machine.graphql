@@ -1,5 +1,11 @@
-query machine($id: String, $slug: String, $language: String, $source: String, $sourceId: String) {
-  machine(id: $id, slug: $slug, language: $language, source: $source, sourceId: $sourceId) {
+query machine($id: String, $slug: String, $language: String, $source: String, $sourceId: String, $imageVariantFilters: TransformationsInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput) {
+  machine(
+    id: $id
+    slug: $slug
+    language: $language
+    source: $source
+    sourceId: $sourceId
+  ) {
     ...SparePartsMachineFields
   }
 }

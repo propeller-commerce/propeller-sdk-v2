@@ -1,0 +1,22 @@
+/* Auto-generated. Do not edit. */
+export const document = `fragment ClusterConfigResponseFields on ClusterConfigResponse {
+  id
+  name
+  settings {
+    ...ClusterConfigSettingResponseFields
+  }
+}
+
+fragment ClusterConfigSettingResponseFields on ClusterConfigSettingResponse {
+  id
+  attributeName
+  displayType
+  priority
+  clusterConfigId
+}
+
+mutation clusterConfigCreate(\$input: ClusterConfigCreateInput!) {
+  clusterConfigCreate(input: \$input) {
+    ...ClusterConfigResponseFields
+  }
+}`;

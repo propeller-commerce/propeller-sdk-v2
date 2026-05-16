@@ -1,4 +1,3 @@
-import { BaseService } from './BaseService';
 import { Category } from '../type/Category';
 import { CategoryResponse } from '../type/CategoryResponse';
 import { CategoryAddProductsClustersResponse } from '../type/CategoryAddProductsClustersResponse';
@@ -40,102 +39,168 @@ export interface CategoryQueryVariables {
   /** Filter available attributes input */
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
 }
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as categoriesDoc } from '../generated/operations/categories';
+import { document as categoryDoc } from '../generated/operations/category';
+import { document as categoryCreateDoc } from '../generated/operations/categoryCreate';
+import { document as categoryUpdateDoc } from '../generated/operations/categoryUpdate';
+import { document as categoryCsvImportDoc } from '../generated/operations/categoryCsvImport';
+import { document as categoryAddProductsClustersDoc } from '../generated/operations/categoryAddProductsClusters';
+import { document as categoryRemoveProductsClustersDoc } from '../generated/operations/categoryRemoveProductsClusters';
+import { document as attributeResultByCategoryIdDoc } from '../generated/operations/attributeResultByCategoryId';
 /**
  Service class for Category-related GraphQL operations
  */
-export class CategoryService extends BaseService {
-  /**
-   Fetches a list of categories
-   * @param filter Category filter criteria
-   * @param userId User ID for personalization
-   * @returns Promise<Category[]> Array of categories
-   */
-  async getCategories(filter?: any, userId?: number): Promise<CategoryResponse> {
-    const variables = { filter, userId };
-    const result = await this.executeQuery('categories', variables);
-    return new CategoryResponse(result.data.categories);
-  }
-  /**
-   Fetches a single category by ID or slug
-   * @param variables Variables for the category query
-   *  - categoryId: number - Category ID to fetch
-   *  - slug: string - Category slug to fetch
-   *  - userId: number - User ID for personalization
-   *  - hidden: boolean - Whether to include hidden categories
-   *  - language: string - Language for localized content
-   *  - priceCalculateProductInput: PriceCalculateProductInput - Price calculation input
-   *  - categoryProductSearchInput: CategoryProductSearchInput - Category product search input
-   *  - imageSearchFilters: MediaImageProductSearchInput - Image search filters
-   *  - imageVariantFilters: TransformationsInput! - Image transformation filters
-   *  - filterAvailableAttributeInput: FilterAvailableAttributeInput - Filter available attributes
-   * @returns Promise<Category> The category data
-   */
-  async getCategory(variables: CategoryQueryVariables): Promise<Category> {
-    const result = await this.executeQuery('category', variables);
-    return new Category(result.data.category);
-  }
-  /**
-   Creates a new category
-   * @param input Category creation input data
-   * @returns Promise<Category> The created category
-   */
-  async createCategory(input: any): Promise<Category> {
-    const variables = { input };
-    const result = await this.executeMutation('categoryCreate', variables);
-    return new Category(result.data.categoryCreate);
-  }
-  /**
-   Updates an existing category
-   * @param input Category update input data
-   * @returns Promise<Category> The updated category
-   */
-  async updateCategory(input: any): Promise<Category> {
-    const variables = { input };
-    const result = await this.executeMutation('categoryUpdate', variables);
-    return new Category(result.data.categoryUpdate);
-  }
-  /**
-   Imports categories from CSV
-   * @param input CSV import input data
-   * @returns Promise<CsvImportResponse> The import response
-   */
-  async importCategoriesCsv(input: CategoryCsvInput): Promise<CsvImportResponse> {
-    const variables = { input };
-    const result = await this.executeMutation('categoryCsvImport', variables);
-    return new CsvImportResponse(result.data.categoryCsvImport);
-  }
-  /**
-   Adds products/clusters to a category
-   * @param input Category add products/clusters input data
-   * @returns Promise<Category> The updated category
-   */
-  async addProductsClustersToCategory(input: CategoryAddProductsClustersInput): Promise<CategoryAddProductsClustersResponse> {
-    const variables = { input };
-    const result = await this.executeMutation('categoryAddProductsClusters', variables);
-    return new CategoryAddProductsClustersResponse(result.data.categoryAddProductsClusters);
-  }
-  /**
-   Removes products/clusters from a category
-   * @param input Category remove products/clusters input data
-   * @returns Promise<Category> The updated category
-   */
-  async removeProductsClustersFromCategory(input: CategoryRemoveProductsClustersInput): Promise<CategoryRemoveProductsClustersResponse> {
-    const variables = { input };
-    const result = await this.executeMutation('categoryRemoveProductsClusters', variables);
-    return new CategoryRemoveProductsClustersResponse(result.data.categoryRemoveProductsClusters);
-  }
-  /**
-   Fetches attribute results for a category
-   * @param categoryId Category ID
-   * @param input Attribute result search input
-   * @returns Promise<AttributeResultResponse> The attribute result response
-   */
-  async getAttributeResultByCategoryId(
+export function categoryService(client: GraphQLClient) {
+  return {
+    /**
+       Fetches a list of categories
+       * @param filter Category filter criteria
+       * @param userId User ID for personalization
+       * @returns Promise<Category[]> Array of categories
+       */
+    async getCategories(filter?: any, userId?: number): Promise<CategoryResponse> {
+      const result = await runOperation(client, categoriesDoc, 'categories', { filter, userId });
+      return result.data.categories as CategoryResponse;
+    },
+    /**
+       Fetches a single category by ID or slug
+       * @param variables Variables for the category query
+       *  - categoryId: number - Category ID to fetch
+       *  - slug: string - Category slug to fetch
+       *  - userId: number - User ID for personalization
+       *  - hidden: boolean - Whether to include hidden categories
+       *  - language: string - Language for localized content
+       *  - priceCalculateProductInput: PriceCalculateProductInput - Price calculation input
+       *  - categoryProductSearchInput: CategoryProductSearchInput - Category product search input
+       *  - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+       *  - imageVariantFilters: TransformationsInput! - Image transformation filters
+       *  - filterAvailableAttributeInput: FilterAvailableAttributeInput - Filter available attributes
+       * @returns Promise<Category> The category data
+       */
+    async getCategory(variables: CategoryQueryVariables): Promise<Category> {
+      const language = variables.language ?? client.getDefaultLanguage();
+      const result = await runOperation(client, categoryDoc, 'category', { ...variables, language });
+      return result.data.category as Category;
+    },
+    /**
+       Creates a new category
+       * @param input Category creation input data
+       * @returns Promise<Category> The created category
+       */
+    async createCategory(input: any): Promise<Category> {
+      const result = await runOperation(client, categoryCreateDoc, 'categoryCreate', { input });
+      return result.data.categoryCreate as Category;
+    },
+    /**
+       Updates an existing category
+       * @param input Category update input data
+       * @returns Promise<Category> The updated category
+       */
+    async updateCategory(input: any): Promise<Category> {
+      const result = await runOperation(client, categoryUpdateDoc, 'categoryUpdate', { input });
+      return result.data.categoryUpdate as Category;
+    },
+    /**
+       Imports categories from CSV
+       * @param input CSV import input data
+       * @returns Promise<CsvImportResponse> The import response
+       */
+    async importCategoriesCsv(input: CategoryCsvInput): Promise<CsvImportResponse> {
+      const result = await runOperation(client, categoryCsvImportDoc, 'categoryCsvImport', { input });
+      return result.data.categoryCsvImport as CsvImportResponse;
+    },
+    /**
+       Adds products/clusters to a category
+       * @param input Category add products/clusters input data
+       * @returns Promise<Category> The updated category
+       */
+    async addProductsClustersToCategory(input: CategoryAddProductsClustersInput): Promise<CategoryAddProductsClustersResponse> {
+      const result = await runOperation(client, categoryAddProductsClustersDoc, 'categoryAddProductsClusters', { input });
+      return result.data.categoryAddProductsClusters as CategoryAddProductsClustersResponse;
+    },
+    /**
+       Removes products/clusters from a category
+       * @param input Category remove products/clusters input data
+       * @returns Promise<Category> The updated category
+       */
+    async removeProductsClustersFromCategory(input: CategoryRemoveProductsClustersInput): Promise<CategoryRemoveProductsClustersResponse> {
+      const result = await runOperation(client, categoryRemoveProductsClustersDoc, 'categoryRemoveProductsClusters', { input });
+      return result.data.categoryRemoveProductsClusters as CategoryRemoveProductsClustersResponse;
+    },
+    /**
+       Fetches attribute results for a category
+       * @param categoryId Category ID
+       * @param input Attribute result search input
+       * @returns Promise<AttributeResultResponse> The attribute result response
+       */
+    async getAttributeResultByCategoryId(
     categoryId: number,
     input: AttributeResultSearchInput
   ): Promise<AttributeResultResponse> {
-    const variables = { categoryId, input };
-    const result = await this.executeQuery('attributeResultByCategoryId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByCategoryId);
-  }
+      const result = await runOperation(client, attributeResultByCategoryIdDoc, 'attributeResultByCategoryId', { categoryId, input });
+      return result.data.attributeResultByCategoryId as AttributeResultResponse;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `categoryService(client)`.
+ */
+export class CategoryService {
+  private readonly _svc: ReturnType<typeof categoryService>;
+  constructor(client: GraphQLClient) { this._svc = categoryService(client); }
+  /**
+   * Fetches a list of categories
+   * @param filter Category filter criteria
+   * @param userId User ID for personalization
+   */
+  getCategories(filter?: any, userId?: number): Promise<CategoryResponse> { return this._svc.getCategories(filter, userId); }
+  /**
+   * Fetches a single category by ID or slug
+   * @param variables Variables for the category query
+   * @param categoryId Category ID to fetch
+   * @param slug Category slug to fetch
+   * @param userId User ID for personalization
+   * @param hidden Whether to include hidden categories
+   * @param language Language for localized content
+   * @param priceCalculateProductInput Price calculation input
+   * @param categoryProductSearchInput Category product search input
+   * @param imageSearchFilters Image search filters
+   * @param imageVariantFilters Image transformation filters
+   * @param filterAvailableAttributeInput Filter available attributes
+   */
+  getCategory(variables: CategoryQueryVariables): Promise<Category> { return this._svc.getCategory(variables); }
+  /**
+   * Creates a new category
+   * @param input Category creation input data
+   */
+  createCategory(input: any): Promise<Category> { return this._svc.createCategory(input); }
+  /**
+   * Updates an existing category
+   * @param input Category update input data
+   */
+  updateCategory(input: any): Promise<Category> { return this._svc.updateCategory(input); }
+  /**
+   * Imports categories from CSV
+   * @param input CSV import input data
+   */
+  importCategoriesCsv(input: CategoryCsvInput): Promise<CsvImportResponse> { return this._svc.importCategoriesCsv(input); }
+  /**
+   * Adds products/clusters to a category
+   * @param input Category add products/clusters input data
+   */
+  addProductsClustersToCategory(input: CategoryAddProductsClustersInput): Promise<CategoryAddProductsClustersResponse> { return this._svc.addProductsClustersToCategory(input); }
+  /**
+   * Removes products/clusters from a category
+   * @param input Category remove products/clusters input data
+   */
+  removeProductsClustersFromCategory(input: CategoryRemoveProductsClustersInput): Promise<CategoryRemoveProductsClustersResponse> { return this._svc.removeProductsClustersFromCategory(input); }
+  /**
+   * Fetches attribute results for a category
+   * @param categoryId Category ID
+   * @param input Attribute result search input
+   */
+  getAttributeResultByCategoryId(categoryId: number, input: AttributeResultSearchInput): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByCategoryId(categoryId, input); }
 }

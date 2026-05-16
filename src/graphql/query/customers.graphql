@@ -1,4 +1,4 @@
-query customers($input: CustomerSearchArguments) {
+query customers($input: CustomerSearchArguments, $customerAttributesInput: AttributeResultSearchInput) {
   customers(input: $input) {
     ...CustomersResponseFields
   }

@@ -1,4 +1,4 @@
-mutation contactAddToCompanies($id: Int!, $input: ContactAddToCompaniesInput!) {
+mutation contactAddToCompanies($id: Int!, $input: ContactAddToCompaniesInput!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput) {
   contactAddToCompanies(id: $id, input: $input) {
     ...ContactAddToCompaniesResponseFields
   }

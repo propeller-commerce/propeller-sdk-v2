@@ -1,4 +1,4 @@
-query mediaImage($mediaId: String!) {
+query mediaImage($mediaId: String!, $language: String, $imageVariantFilters: TransformationsInput!) {
   mediaImage(mediaId: $mediaId) {
     ...MediaImageFields
   }

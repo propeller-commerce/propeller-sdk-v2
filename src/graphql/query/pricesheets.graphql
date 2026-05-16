@@ -1,4 +1,4 @@
-query pricesheets($input: PricesheetSearchInput) {
+query pricesheets($input: PricesheetSearchInput, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
   pricesheets(input: $input) {
     ...PricesheetResponseFields
   }

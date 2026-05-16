@@ -1,0 +1,3 @@
+fragment TenderProcessResponseFields on TenderProcessResponse {
+  orderId
+}

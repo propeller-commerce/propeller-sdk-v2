@@ -1,4 +1,3 @@
-import { BaseService } from './BaseService';
 import { Pricesheet } from '../type/Pricesheet';
 import { PricesheetResponse } from '../type/PricesheetResponse';
 import { PricesheetSearchInput } from '../type/PricesheetSearchInput';
@@ -16,81 +15,133 @@ export interface PricesheetQueryVariables {
   /** Pricesheet ID to fetch */
   id: string;
 }
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as pricesheetsDoc } from '../generated/operations/pricesheets';
+import { document as pricesheetDoc } from '../generated/operations/pricesheet';
+import { document as pricesheetCreateDoc } from '../generated/operations/pricesheetCreate';
+import { document as pricesheetUpdateDoc } from '../generated/operations/pricesheetUpdate';
+import { document as pricesheetAssignDoc } from '../generated/operations/pricesheetAssign';
+import { document as pricesheetUnassignDoc } from '../generated/operations/pricesheetUnassign';
+import { document as pricesheetCsvImportDoc } from '../generated/operations/pricesheetCsvImport';
 /**
  Service class for Pricesheet-related GraphQL operations
  */
-export class PricesheetService extends BaseService {
+export function pricesheetService(client: GraphQLClient) {
+  return {
+    /**
+       Fetches a list of pricesheets with search criteria
+       * @param input Pricesheet search input parameters
+       * @returns Promise<PricesheetResponse> The pricesheets response data
+       */
+    async getPricesheets(input?: PricesheetSearchInput): Promise<PricesheetResponse> {
+      const result = await runOperation(client, pricesheetsDoc, 'pricesheets', { input });
+      return result.data.pricesheets as PricesheetResponse;
+    },
+    /**
+       Fetches a single pricesheet by ID
+       * @param variables Variables for the pricesheet query
+       * - id: string - Pricesheet ID to fetch
+       * @returns Promise<Pricesheet> The pricesheet data
+       */
+    async getPricesheet(variables: PricesheetQueryVariables): Promise<Pricesheet> {
+      const result = await runOperation(client, pricesheetDoc, 'pricesheet', variables);
+      return result.data.pricesheet as Pricesheet;
+    },
+    /**
+       Creates a new pricesheet
+       * @param input Pricesheet creation input data
+       * @returns Promise<Pricesheet> The created pricesheet data
+       */
+    async createPricesheet(input: PricesheetCreateInput): Promise<Pricesheet> {
+      const result = await runOperation(client, pricesheetCreateDoc, 'pricesheetCreate', { input });
+      return result.data.pricesheetCreate as Pricesheet;
+    },
+    /**
+       Updates an existing pricesheet
+       * @param id Pricesheet ID to update
+       * @param input Pricesheet update input data
+       * @returns Promise<Pricesheet> The updated pricesheet data
+       */
+    async updatePricesheet(id: string, input: PricesheetUpdateInput): Promise<Pricesheet> {
+      const result = await runOperation(client, pricesheetUpdateDoc, 'pricesheetUpdate', { id, input });
+      return result.data.pricesheetUpdate as Pricesheet;
+    },
+    /**
+       Assigns a pricesheet to entities
+       * @param id Pricesheet ID to assign
+       * @param input Pricesheet assignment input data
+       * @returns Promise<Pricesheet> The assigned pricesheet data
+       */
+    async assignPricesheet(id: string, input: PricesheetAssignInput): Promise<Pricesheet> {
+      const result = await runOperation(client, pricesheetAssignDoc, 'pricesheetAssign', { id, input });
+      return result.data.pricesheetAssign as Pricesheet;
+    },
+    /**
+       Unassigns a pricesheet from entities
+       * @param id Pricesheet ID to unassign
+       * @param input Pricesheet unassignment input data
+       * @returns Promise<Pricesheet> The unassigned pricesheet data
+       */
+    async unassignPricesheet(id: string, input: PricesheetUnassignInput): Promise<Pricesheet> {
+      const result = await runOperation(client, pricesheetUnassignDoc, 'pricesheetUnassign', { id, input });
+      return result.data.pricesheetUnassign as Pricesheet;
+    },
+    /**
+       Imports pricesheet data from CSV file
+       * @param input CSV import input data
+       * @returns Promise<CsvImportResponse> The CSV import response
+       */
+    async importPricesheetFromCSV(input: PricesheetCsvInput): Promise<CsvImportResponse> {
+      const result = await runOperation(client, pricesheetCsvImportDoc, 'pricesheetCsvImport', { input });
+      return result.data.pricesheetCsvImport as CsvImportResponse;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `pricesheetService(client)`.
+ */
+export class PricesheetService {
+  private readonly _svc: ReturnType<typeof pricesheetService>;
+  constructor(client: GraphQLClient) { this._svc = pricesheetService(client); }
   /**
-   Fetches a list of pricesheets with search criteria
+   * Fetches a list of pricesheets with search criteria
    * @param input Pricesheet search input parameters
-   * @returns Promise<PricesheetResponse> The pricesheets response data
    */
-  async getPricesheets(input?: PricesheetSearchInput): Promise<PricesheetResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('pricesheets', variables);
-    return new PricesheetResponse(result.data.pricesheets);
-  }
+  getPricesheets(input?: PricesheetSearchInput): Promise<PricesheetResponse> { return this._svc.getPricesheets(input); }
   /**
-   Fetches a single pricesheet by ID
+   * Fetches a single pricesheet by ID
    * @param variables Variables for the pricesheet query
-   * - id: string - Pricesheet ID to fetch
-   * @returns Promise<Pricesheet> The pricesheet data
+   * @param id Pricesheet ID to fetch
    */
-  async getPricesheet(variables: PricesheetQueryVariables): Promise<Pricesheet> {
-    const result = await this.executeQuery('pricesheet', variables);
-    return new Pricesheet(result.data.pricesheet);
-  }
+  getPricesheet(variables: PricesheetQueryVariables): Promise<Pricesheet> { return this._svc.getPricesheet(variables); }
   /**
-   Creates a new pricesheet
+   * Creates a new pricesheet
    * @param input Pricesheet creation input data
-   * @returns Promise<Pricesheet> The created pricesheet data
    */
-  async createPricesheet(input: PricesheetCreateInput): Promise<Pricesheet> {
-    const variables = { input };
-    const result = await this.executeMutation('pricesheetCreate', variables);
-    return new Pricesheet(result.data.pricesheetCreate);
-  }
+  createPricesheet(input: PricesheetCreateInput): Promise<Pricesheet> { return this._svc.createPricesheet(input); }
   /**
-   Updates an existing pricesheet
+   * Updates an existing pricesheet
    * @param id Pricesheet ID to update
    * @param input Pricesheet update input data
-   * @returns Promise<Pricesheet> The updated pricesheet data
    */
-  async updatePricesheet(id: string, input: PricesheetUpdateInput): Promise<Pricesheet> {
-    const variables = { id, input };
-    const result = await this.executeMutation('pricesheetUpdate', variables);
-    return new Pricesheet(result.data.pricesheetUpdate);
-  }
+  updatePricesheet(id: string, input: PricesheetUpdateInput): Promise<Pricesheet> { return this._svc.updatePricesheet(id, input); }
   /**
-   Assigns a pricesheet to entities
+   * Assigns a pricesheet to entities
    * @param id Pricesheet ID to assign
    * @param input Pricesheet assignment input data
-   * @returns Promise<Pricesheet> The assigned pricesheet data
    */
-  async assignPricesheet(id: string, input: PricesheetAssignInput): Promise<Pricesheet> {
-    const variables = { id, input };
-    const result = await this.executeMutation('pricesheetAssign', variables);
-    return new Pricesheet(result.data.pricesheetAssign);
-  }
+  assignPricesheet(id: string, input: PricesheetAssignInput): Promise<Pricesheet> { return this._svc.assignPricesheet(id, input); }
   /**
-   Unassigns a pricesheet from entities
+   * Unassigns a pricesheet from entities
    * @param id Pricesheet ID to unassign
    * @param input Pricesheet unassignment input data
-   * @returns Promise<Pricesheet> The unassigned pricesheet data
    */
-  async unassignPricesheet(id: string, input: PricesheetUnassignInput): Promise<Pricesheet> {
-    const variables = { id, input };
-    const result = await this.executeMutation('pricesheetUnassign', variables);
-    return new Pricesheet(result.data.pricesheetUnassign);
-  }
+  unassignPricesheet(id: string, input: PricesheetUnassignInput): Promise<Pricesheet> { return this._svc.unassignPricesheet(id, input); }
   /**
-   Imports pricesheet data from CSV file
+   * Imports pricesheet data from CSV file
    * @param input CSV import input data
-   * @returns Promise<CsvImportResponse> The CSV import response
    */
-  async importPricesheetFromCSV(input: PricesheetCsvInput): Promise<CsvImportResponse> {
-    const variables = { input };
-    const result = await this.executeMutation('pricesheetCsvImport', variables);
-    return new CsvImportResponse(result.data.pricesheetCsvImport);
-  }
+  importPricesheetFromCSV(input: PricesheetCsvInput): Promise<CsvImportResponse> { return this._svc.importPricesheetFromCSV(input); }
 }

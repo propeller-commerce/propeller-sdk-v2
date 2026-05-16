@@ -1,7 +1,4 @@
 fragment MediaFields on Media {
-  image {
-    ... MediaImageFields
-  }
   images {
     items {
       ... MediaImageFields
@@ -12,9 +9,6 @@ fragment MediaFields on Media {
     pages
     start
     end
-  }
-  video {
-    ... MediaVideoFields
   }
   videos {
     items {
@@ -27,9 +21,6 @@ fragment MediaFields on Media {
     start
     end
   }
-  document {
-    ... MediaDocumentFields
-  }
   documents {
     items {
       ... MediaDocumentFields
@@ -40,9 +31,6 @@ fragment MediaFields on Media {
     pages
     start
     end
-  }
-  attachment {
-    ... MediaAttachmentFields
   }
   attachments {
     items {

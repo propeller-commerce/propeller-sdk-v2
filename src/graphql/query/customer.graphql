@@ -1,4 +1,4 @@
-query customer($id: Int!) {
+query customer($id: Int!, $customerAttributesInput: AttributeResultSearchInput) {
   customer(id: $id) {
     ...CustomerFields
   }

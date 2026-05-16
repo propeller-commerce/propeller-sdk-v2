@@ -1,4 +1,3 @@
-import { BaseService } from './BaseService';
 import { BusinessRule } from '../type/BusinessRule';
 import { BusinessRuleFieldDefinitionGroup } from '../type/BusinessRuleFieldDefinitionGroup';
 import { BusinessRuleResponse } from '../type/BusinessRuleResponse';
@@ -13,146 +12,226 @@ import { BusinessRuleDecisionTableDeleteColumnInput } from '../type/BusinessRule
 import { BusinessRuleDecisionTableDeleteRowInput } from '../type/BusinessRuleDecisionTableDeleteRowInput';
 import { BusinessRuleDecisionTableMoveRowInput } from '../type/BusinessRuleDecisionTableMoveRowInput';
 import { BusinessRuleDecisionTableSetCellInput } from '../type/BusinessRuleDecisionTableSetCellInput';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as businessRuleDoc } from '../generated/operations/businessRule';
+import { document as businessRulesDoc } from '../generated/operations/businessRules';
+import { document as businessRuleDecisionTableDoc } from '../generated/operations/businessRuleDecisionTable';
+import { document as businessRuleFieldDefinitionsDoc } from '../generated/operations/businessRuleFieldDefinitions';
+import { document as businessRuleJDMDoc } from '../generated/operations/businessRuleJDM';
+import { document as businessRuleCreateDoc } from '../generated/operations/businessRuleCreate';
+import { document as businessRuleUpdateDoc } from '../generated/operations/businessRuleUpdate';
+import { document as businessRuleDecisionTableUpdateDoc } from '../generated/operations/businessRuleDecisionTableUpdate';
+import { document as businessRuleDecisionTableAddColumnDoc } from '../generated/operations/businessRuleDecisionTableAddColumn';
+import { document as businessRuleDecisionTableDeleteColumnDoc } from '../generated/operations/businessRuleDecisionTableDeleteColumn';
+import { document as businessRuleDecisionTableAddRowDoc } from '../generated/operations/businessRuleDecisionTableAddRow';
+import { document as businessRuleDecisionTableDeleteRowDoc } from '../generated/operations/businessRuleDecisionTableDeleteRow';
+import { document as businessRuleDecisionTableMoveRowDoc } from '../generated/operations/businessRuleDecisionTableMoveRow';
+import { document as businessRuleDecisionTableSetCellDoc } from '../generated/operations/businessRuleDecisionTableSetCell';
 /**
  Service class for BusinessRule-related GraphQL operations
  */
-export class BusinessRuleService extends BaseService {
+export function businessRuleService(client: GraphQLClient) {
+  return {
+    /**
+       Fetches a single business rule by ID
+       * @param id BusinessRule ID to fetch
+       * @returns Promise<BusinessRule> The business rule data
+       */
+    async getBusinessRule(id: number): Promise<BusinessRule> {
+      const result = await runOperation(client, businessRuleDoc, 'businessRule', { id });
+      return result.data.businessRule as BusinessRule;
+    },
+    /**
+       Fetches a list of business rules with search criteria
+       * @param input BusinessRule search input parameters
+       * @returns Promise<BusinessRuleResponse> The business rules response data
+       */
+    async getBusinessRules(input?: BusinessRuleSearchInput): Promise<BusinessRuleResponse> {
+      const result = await runOperation(client, businessRulesDoc, 'businessRules', { input });
+      return result.data.businessRules as BusinessRuleResponse;
+    },
+    /**
+       Fetches business rule decision table
+       * @param input BusinessRuleDecisionTable search input parameters
+       * @returns Promise<BusinessRuleDecisionTable> The decision table data
+       */
+    async getBusinessRuleDecisionTable(input?: BusinessRuleDecisionTableSearchInput): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableDoc, 'businessRuleDecisionTable', { input });
+      return result.data.businessRuleDecisionTable as BusinessRuleDecisionTable;
+    },
+    /**
+       Fetches business rule field definitions
+       * @returns Promise<BusinessRuleFieldDefinitionGroup> The field definitions data
+       */
+    async getBusinessRuleFieldDefinitions(): Promise<BusinessRuleFieldDefinitionGroup> {
+      const result = await runOperation(client, businessRuleFieldDefinitionsDoc, 'businessRuleFieldDefinitions', {  });
+      return result.data.businessRuleFieldDefinitions as BusinessRuleFieldDefinitionGroup;
+    },
+    /**
+       Fetches business rule JDM
+       * @param input Business rule JDM input parameters
+       * @returns Promise<any> The JDM data
+       */
+    async getBusinessRuleJDM(input?: any): Promise<any> {
+      const result = await runOperation(client, businessRuleJDMDoc, 'businessRuleJDM', { input });
+      return result.data.businessRuleJDM;
+    },
+    /**
+       Creates a new business rule
+       * @param input BusinessRule creation input data
+       * @returns Promise<BusinessRule> The created business rule
+       */
+    async createBusinessRule(input: BusinessRuleCreateInput): Promise<BusinessRule> {
+      const result = await runOperation(client, businessRuleCreateDoc, 'businessRuleCreate', { input });
+      return result.data.businessRuleCreate as BusinessRule;
+    },
+    /**
+       Updates an existing business rule
+       * @param input BusinessRule update input data
+       * @returns Promise<BusinessRule> The updated business rule
+       */
+    async updateBusinessRule(input: BusinessRuleUpdateInput): Promise<BusinessRule> {
+      const result = await runOperation(client, businessRuleUpdateDoc, 'businessRuleUpdate', { input });
+      return result.data.businessRuleUpdate as BusinessRule;
+    },
+    /**
+       Updates a business rule decision table
+       * @param input BusinessRuleDecisionTable update input data
+       * @returns Promise<BusinessRuleDecisionTable> The updated decision table
+       */
+    async updateBusinessRuleDecisionTable(input: BusinessRuleDecisionTableUpdateInput): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableUpdateDoc, 'businessRuleDecisionTableUpdate', { input });
+      return result.data.businessRuleDecisionTableUpdate as BusinessRuleDecisionTable;
+    },
+    /**
+       Adds a column to business rule decision table
+       * @param input Add column input data
+       * @returns Promise<BusinessRuleDecisionTable> The updated decision table
+       */
+    async addColumnToDecisionTable(input: BusinessRuleDecisionTableAddColumnInput): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableAddColumnDoc, 'businessRuleDecisionTableAddColumn', { input });
+      return result.data.businessRuleDecisionTableAddColumn as BusinessRuleDecisionTable;
+    },
+    /**
+       Deletes a column from business rule decision table
+       * @param input Delete column input data
+       * @returns Promise<BusinessRuleDecisionTable> The updated decision table
+       */
+    async deleteColumnFromDecisionTable(input: BusinessRuleDecisionTableDeleteColumnInput): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableDeleteColumnDoc, 'businessRuleDecisionTableDeleteColumn', { input });
+      return result.data.businessRuleDecisionTableDeleteColumn as BusinessRuleDecisionTable;
+    },
+    /**
+       Adds a row to business rule decision table
+       * @returns Promise<BusinessRuleDecisionTable> The updated decision table
+       */
+    async addRowToDecisionTable(): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableAddRowDoc, 'businessRuleDecisionTableAddRow', {  });
+      return result.data.businessRuleDecisionTableAddRow as BusinessRuleDecisionTable;
+    },
+    /**
+       Deletes a row from business rule decision table
+       * @param input Delete row input data
+       * @returns Promise<BusinessRuleDecisionTable> The updated decision table
+       */
+    async deleteRowFromDecisionTable(input: BusinessRuleDecisionTableDeleteRowInput): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableDeleteRowDoc, 'businessRuleDecisionTableDeleteRow', { input });
+      return result.data.businessRuleDecisionTableDeleteRow as BusinessRuleDecisionTable;
+    },
+    /**
+       Moves a row in business rule decision table
+       * @param input Move row input data
+       * @returns Promise<BusinessRuleDecisionTable> The updated decision table
+       */
+    async moveRowInDecisionTable(input: BusinessRuleDecisionTableMoveRowInput): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableMoveRowDoc, 'businessRuleDecisionTableMoveRow', { input });
+      return result.data.businessRuleDecisionTableMoveRow as BusinessRuleDecisionTable;
+    },
+    /**
+       Sets a cell value in business rule decision table
+       * @param input Set cell input data
+       * @returns Promise<BusinessRuleDecisionTable> The updated decision table
+       */
+    async setCellInDecisionTable(input: BusinessRuleDecisionTableSetCellInput): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableSetCellDoc, 'businessRuleDecisionTableSetCell', { input });
+      return result.data.businessRuleDecisionTableSetCell as BusinessRuleDecisionTable;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `businessRuleService(client)`.
+ */
+export class BusinessRuleService {
+  private readonly _svc: ReturnType<typeof businessRuleService>;
+  constructor(client: GraphQLClient) { this._svc = businessRuleService(client); }
   /**
-   Fetches a single business rule by ID
+   * Fetches a single business rule by ID
    * @param id BusinessRule ID to fetch
-   * @returns Promise<BusinessRule> The business rule data
    */
-  async getBusinessRule(id: number): Promise<BusinessRule> {
-    const variables = { id };
-    const result = await this.executeQuery('businessRule', variables);
-    return new BusinessRule(result.data.businessRule);
-  }
+  getBusinessRule(id: number): Promise<BusinessRule> { return this._svc.getBusinessRule(id); }
   /**
-   Fetches a list of business rules with search criteria
+   * Fetches a list of business rules with search criteria
    * @param input BusinessRule search input parameters
-   * @returns Promise<BusinessRuleResponse> The business rules response data
    */
-  async getBusinessRules(input?: BusinessRuleSearchInput): Promise<BusinessRuleResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('businessRules', variables);
-    return new BusinessRuleResponse(result.data.businessRules);
-  }
+  getBusinessRules(input?: BusinessRuleSearchInput): Promise<BusinessRuleResponse> { return this._svc.getBusinessRules(input); }
   /**
-   Fetches business rule decision table
+   * Fetches business rule decision table
    * @param input BusinessRuleDecisionTable search input parameters
-   * @returns Promise<BusinessRuleDecisionTable> The decision table data
    */
-  async getBusinessRuleDecisionTable(input?: BusinessRuleDecisionTableSearchInput): Promise<BusinessRuleDecisionTable> {
-    const variables = { input };
-    const result = await this.executeQuery('businessRuleDecisionTable', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTable);
-  }
+  getBusinessRuleDecisionTable(input?: BusinessRuleDecisionTableSearchInput): Promise<BusinessRuleDecisionTable> { return this._svc.getBusinessRuleDecisionTable(input); }
   /**
-   Fetches business rule field definitions
-   * @returns Promise<BusinessRuleFieldDefinitionGroup> The field definitions data
+   * Fetches business rule field definitions
    */
-  async getBusinessRuleFieldDefinitions(): Promise<BusinessRuleFieldDefinitionGroup> {
-    const variables = {};
-    const result = await this.executeQuery('businessRuleFieldDefinitions', variables);
-    return new BusinessRuleFieldDefinitionGroup(result.data.businessRuleFieldDefinitions);
-  }
+  getBusinessRuleFieldDefinitions(): Promise<BusinessRuleFieldDefinitionGroup> { return this._svc.getBusinessRuleFieldDefinitions(); }
   /**
-   Fetches business rule JDM
+   * Fetches business rule JDM
    * @param input Business rule JDM input parameters
-   * @returns Promise<any> The JDM data
    */
-  async getBusinessRuleJDM(input?: any): Promise<any> {
-    const variables = { input };
-    const result = await this.executeQuery('businessRuleJDM', variables);
-    return result.data.businessRuleJDM;
-  }
+  getBusinessRuleJDM(input?: any): Promise<any> { return this._svc.getBusinessRuleJDM(input); }
   /**
-   Creates a new business rule
+   * Creates a new business rule
    * @param input BusinessRule creation input data
-   * @returns Promise<BusinessRule> The created business rule
    */
-  async createBusinessRule(input: BusinessRuleCreateInput): Promise<BusinessRule> {
-    const variables = { input };
-    const result = await this.executeMutation('businessRuleCreate', variables);
-    return new BusinessRule(result.data.businessRuleCreate);
-  }
+  createBusinessRule(input: BusinessRuleCreateInput): Promise<BusinessRule> { return this._svc.createBusinessRule(input); }
   /**
-   Updates an existing business rule
+   * Updates an existing business rule
    * @param input BusinessRule update input data
-   * @returns Promise<BusinessRule> The updated business rule
    */
-  async updateBusinessRule(input: BusinessRuleUpdateInput): Promise<BusinessRule> {
-    const variables = { input };
-    const result = await this.executeMutation('businessRuleUpdate', variables);
-    return new BusinessRule(result.data.businessRuleUpdate);
-  }
+  updateBusinessRule(input: BusinessRuleUpdateInput): Promise<BusinessRule> { return this._svc.updateBusinessRule(input); }
   /**
-   Updates a business rule decision table
+   * Updates a business rule decision table
    * @param input BusinessRuleDecisionTable update input data
-   * @returns Promise<BusinessRuleDecisionTable> The updated decision table
    */
-  async updateBusinessRuleDecisionTable(input: BusinessRuleDecisionTableUpdateInput): Promise<BusinessRuleDecisionTable> {
-    const variables = { input };
-    const result = await this.executeMutation('businessRuleDecisionTableUpdate', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableUpdate);
-  }
+  updateBusinessRuleDecisionTable(input: BusinessRuleDecisionTableUpdateInput): Promise<BusinessRuleDecisionTable> { return this._svc.updateBusinessRuleDecisionTable(input); }
   /**
-   Adds a column to business rule decision table
+   * Adds a column to business rule decision table
    * @param input Add column input data
-   * @returns Promise<BusinessRuleDecisionTable> The updated decision table
    */
-  async addColumnToDecisionTable(input: BusinessRuleDecisionTableAddColumnInput): Promise<BusinessRuleDecisionTable> {
-    const variables = { input };
-    const result = await this.executeMutation('businessRuleDecisionTableAddColumn', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableAddColumn);
-  }
+  addColumnToDecisionTable(input: BusinessRuleDecisionTableAddColumnInput): Promise<BusinessRuleDecisionTable> { return this._svc.addColumnToDecisionTable(input); }
   /**
-   Deletes a column from business rule decision table
+   * Deletes a column from business rule decision table
    * @param input Delete column input data
-   * @returns Promise<BusinessRuleDecisionTable> The updated decision table
    */
-  async deleteColumnFromDecisionTable(input: BusinessRuleDecisionTableDeleteColumnInput): Promise<BusinessRuleDecisionTable> {
-    const variables = { input };
-    const result = await this.executeMutation('businessRuleDecisionTableDeleteColumn', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableDeleteColumn);
-  }
+  deleteColumnFromDecisionTable(input: BusinessRuleDecisionTableDeleteColumnInput): Promise<BusinessRuleDecisionTable> { return this._svc.deleteColumnFromDecisionTable(input); }
   /**
-   Adds a row to business rule decision table
-   * @returns Promise<BusinessRuleDecisionTable> The updated decision table
+   * Adds a row to business rule decision table
    */
-  async addRowToDecisionTable(): Promise<BusinessRuleDecisionTable> {
-    const variables = {};
-    const result = await this.executeMutation('businessRuleDecisionTableAddRow', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableAddRow);
-  }
+  addRowToDecisionTable(): Promise<BusinessRuleDecisionTable> { return this._svc.addRowToDecisionTable(); }
   /**
-   Deletes a row from business rule decision table
+   * Deletes a row from business rule decision table
    * @param input Delete row input data
-   * @returns Promise<BusinessRuleDecisionTable> The updated decision table
    */
-  async deleteRowFromDecisionTable(input: BusinessRuleDecisionTableDeleteRowInput): Promise<BusinessRuleDecisionTable> {
-    const variables = { input };
-    const result = await this.executeMutation('businessRuleDecisionTableDeleteRow', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableDeleteRow);
-  }
+  deleteRowFromDecisionTable(input: BusinessRuleDecisionTableDeleteRowInput): Promise<BusinessRuleDecisionTable> { return this._svc.deleteRowFromDecisionTable(input); }
   /**
-   Moves a row in business rule decision table
+   * Moves a row in business rule decision table
    * @param input Move row input data
-   * @returns Promise<BusinessRuleDecisionTable> The updated decision table
    */
-  async moveRowInDecisionTable(input: BusinessRuleDecisionTableMoveRowInput): Promise<BusinessRuleDecisionTable> {
-    const variables = { input };
-    const result = await this.executeMutation('businessRuleDecisionTableMoveRow', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableMoveRow);
-  }
+  moveRowInDecisionTable(input: BusinessRuleDecisionTableMoveRowInput): Promise<BusinessRuleDecisionTable> { return this._svc.moveRowInDecisionTable(input); }
   /**
-   Sets a cell value in business rule decision table
+   * Sets a cell value in business rule decision table
    * @param input Set cell input data
-   * @returns Promise<BusinessRuleDecisionTable> The updated decision table
    */
-  async setCellInDecisionTable(input: BusinessRuleDecisionTableSetCellInput): Promise<BusinessRuleDecisionTable> {
-    const variables = { input };
-    const result = await this.executeMutation('businessRuleDecisionTableSetCell', variables);
-    return new BusinessRuleDecisionTable(result.data.businessRuleDecisionTableSetCell);
-  }
+  setCellInDecisionTable(input: BusinessRuleDecisionTableSetCellInput): Promise<BusinessRuleDecisionTable> { return this._svc.setCellInDecisionTable(input); }
 }

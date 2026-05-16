@@ -3,9 +3,9 @@ import { YesNo } from '../enum/YesNo';
 /**
  Object class for WarehouseAddress
  */
-export class WarehouseAddress {
+export interface WarehouseAddress {
   /** Address primary identifier */
-  id!: number;
+  id: number;
   /** First name the address applies to */
   firstName?: string;
   /** Middle name the address applies to */
@@ -17,19 +17,19 @@ export class WarehouseAddress {
   /** Company the address applies to */
   company?: string;
   /** Address street */
-  street!: string;
+  street: string;
   /** Address street number */
   number?: string;
   /** Address street number extension */
   numberExtension?: string;
   /** Address postal code */
-  postalCode!: string;
+  postalCode: string;
   /** Address city */
-  city!: string;
+  city: string;
   /** Address region */
   region?: string;
   /** Address country */
-  country!: string;
+  country: string;
   /** Fixed phone number that applies to this address [min: 6, max: 30] */
   phone?: string;
   /** Mobile phone number that applies to this address [min: 6, max: 30] */
@@ -48,96 +48,4 @@ export class WarehouseAddress {
   url?: string;
   /** Address friendly descriptive name */
   name?: string;
-  constructor(data: Partial<WarehouseAddress> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `id`. */
-  getId(): number {
-    return this.id;
-  }
-  /** Returns `firstName`. */
-  getFirstName(): string | undefined {
-    return this.firstName;
-  }
-  /** Returns `middleName`. */
-  getMiddleName(): string | undefined {
-    return this.middleName;
-  }
-  /** Returns `lastName`. */
-  getLastName(): string | undefined {
-    return this.lastName;
-  }
-  /** Returns `gender`. */
-  getGender(): Gender | undefined {
-    return this.gender;
-  }
-  /** Returns `company`. */
-  getCompany(): string | undefined {
-    return this.company;
-  }
-  /** Returns `street`. */
-  getStreet(): string {
-    return this.street;
-  }
-  /** Returns `number`. */
-  getNumber(): string | undefined {
-    return this.number;
-  }
-  /** Returns `numberExtension`. */
-  getNumberExtension(): string | undefined {
-    return this.numberExtension;
-  }
-  /** Returns `postalCode`. */
-  getPostalCode(): string {
-    return this.postalCode;
-  }
-  /** Returns `city`. */
-  getCity(): string {
-    return this.city;
-  }
-  /** Returns `region`. */
-  getRegion(): string | undefined {
-    return this.region;
-  }
-  /** Returns `country`. */
-  getCountry(): string {
-    return this.country;
-  }
-  /** Returns `phone`. */
-  getPhone(): string | undefined {
-    return this.phone;
-  }
-  /** Returns `mobile`. */
-  getMobile(): string | undefined {
-    return this.mobile;
-  }
-  /** Returns `email`. */
-  getEmail(): string | undefined {
-    return this.email;
-  }
-  /** Returns `fax`. */
-  getFax(): string | undefined {
-    return this.fax;
-  }
-  /** Returns `code`. */
-  getCode(): string | undefined {
-    return this.code;
-  }
-  /** Returns `notes`. */
-  getNotes(): string | undefined {
-    return this.notes;
-  }
-  /** Returns `icp`. */
-  getIcp(): YesNo | undefined {
-    return this.icp;
-  }
-  /** Returns `url`. */
-  getUrl(): string | undefined {
-    return this.url;
-  }
-  /** Returns `name`. */
-  getName(): string | undefined {
-    return this.name;
-  }
 }

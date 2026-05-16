@@ -2,40 +2,16 @@ import { IAttributeTextFilter } from './IAttributeTextFilter';
 /**
  Object class for AttributeTextFilter
  */
-export class AttributeTextFilter implements IAttributeTextFilter {
+export interface AttributeTextFilter extends IAttributeTextFilter {
   /** The value of the attribute */
-  value!: string;
+  value: string;
   /** The number of products found with this attribute value with all attributes applied.     */
-  count!: number;
+  count: number;
   /** The number of products found with this attribute value  without any attribute filters applied.  */
   countTotal?: number;
   /** The number of products found with this attribute value without all attributes except it's own applied.
     This can be used to display the active filter's totals  */
   countActive?: number;
   /** Indicates whehter this values is currently selected */
-  isSelected!: boolean;
-  constructor(data: Partial<AttributeTextFilter> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `value`. */
-  getValue(): string {
-    return this.value;
-  }
-  /** Returns `count`. */
-  getCount(): number {
-    return this.count;
-  }
-  /** Returns `countTotal`. */
-  getCountTotal(): number | undefined {
-    return this.countTotal;
-  }
-  /** Returns `countActive`. */
-  getCountActive(): number | undefined {
-    return this.countActive;
-  }
-  /** Returns `isSelected`. */
-  getIsSelected(): boolean {
-    return this.isSelected;
-  }
+  isSelected: boolean;
 }

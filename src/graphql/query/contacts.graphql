@@ -1,4 +1,4 @@
-query contacts($input: ContactSearchArguments) {
+query contacts($input: ContactSearchArguments, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput) {
   contacts(input: $input) {
     ...ContactsResponseFields
   }

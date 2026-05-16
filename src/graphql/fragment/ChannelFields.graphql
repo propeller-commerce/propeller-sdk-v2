@@ -1,0 +1,28 @@
+fragment ChannelFields on Channel {
+  id
+  channelId
+  name
+  descriptions {
+    ... LocalizedStringFields
+  }
+  catalogRootId
+  anonymousUserId
+  defaultLetterId
+  createdAt
+  lastModifiedAt
+  tenant {
+    id
+    name
+    descriptions {
+      ... LocalizedStringFields
+    }
+    createdAt
+    lastModifiedAt
+    restrictSalesPricingVisibility
+    allowQuoteInvalidation
+    quoteDefaultExpiryPeriodDays
+  }
+  shop {
+    ... ShopFields
+  }
+}

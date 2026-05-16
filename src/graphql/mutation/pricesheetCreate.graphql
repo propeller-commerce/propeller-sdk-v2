@@ -1,4 +1,4 @@
-mutation pricesheetCreate($input: PricesheetCreateInput!) {
+mutation pricesheetCreate($input: PricesheetCreateInput!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
   pricesheetCreate(input: $input) {
     ...PricesheetFields
   }

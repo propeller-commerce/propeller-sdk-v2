@@ -1,19 +1,24 @@
 /**
- * Main entry point for the Propeller GraphQL package
- * TypeScript GraphQL client and types for Propeller eCommerce Platform
+ * Main entry point for the Propeller GraphQL SDK.
+ * TypeScript GraphQL client and types for Propeller eCommerce Platform.
+ *
  * @packageDocumentation
  */
 
-// Export GraphQL Client and related utilities
+// GraphQL client + helpers (createClient, GraphQLClient, GraphQLOperationError, …).
 export * from './client';
 
-// Export all services
+// Service factories (productService(client) → { getProduct, ... }) and BC
+// class shims (new ProductService(client) → same methods).
 export * from './service';
 
-// Export all GraphQL types and interfaces in a namespace to avoid conflicts
+// Response/input interfaces — all plain interfaces as of v0.10.0.
 export * from './type';
 
-// Export all GraphQL enums at the top level. Consumers preferring the
-// `Enums.*` qualified call-site form can use a namespace import:
+// Enums at the top level. Consumers preferring the `Enums.*` qualified
+// call-site form can use a namespace import:
 //   import * as Enums from 'propeller-sdk-v2';
 export * from './enum';
+
+// Utility helpers (getLocalized).
+export * from './util';

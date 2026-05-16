@@ -1,28 +1,48 @@
-import { BaseService } from './BaseService';
 import { Shop } from '../type/Shop';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as shopDoc } from '../generated/operations/shop';
+import { document as shopsDoc } from '../generated/operations/shops';
 /**
  * Service class for Shop-related GraphQL operations
  */
-export class ShopService extends BaseService {
+export function shopService(client: GraphQLClient) {
+  return {
+    /**
+       * Fetches a single shop by ID
+       * @deprecated The upstream `shop` query is deprecated; this query will be removed in a future version.
+       * @param id Shop ID to fetch
+       * @returns Promise<Shop> The shop data
+       */
+    async getShop(id: number): Promise<Shop> {
+      const result = await runOperation(client, shopDoc, 'shop', { id });
+      return result.data.shop as Shop;
+    },
+    /**
+       * Fetches a list of shops
+       * @deprecated The upstream `shops` query is deprecated; this query will be removed in a future version.
+       * @returns Promise<Shop[]> The shops data array
+       */
+    async getShops(): Promise<Shop[]> {
+      const result = await runOperation(client, shopsDoc, 'shops', {  });
+      return result.data.shops as Shop[];
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `shopService(client)`.
+ */
+export class ShopService {
+  private readonly _svc: ReturnType<typeof shopService>;
+  constructor(client: GraphQLClient) { this._svc = shopService(client); }
   /**
    * Fetches a single shop by ID
-   * @deprecated The upstream `shop` query is deprecated; this query will be removed in a future version.
    * @param id Shop ID to fetch
-   * @returns Promise<Shop> The shop data
    */
-  async getShop(id: number): Promise<Shop> {
-    const variables = { id };
-    const result = await this.executeQuery('shop', variables);
-    return new Shop(result.data.shop);
-  }
+  getShop(id: number): Promise<Shop> { return this._svc.getShop(id); }
   /**
    * Fetches a list of shops
-   * @deprecated The upstream `shops` query is deprecated; this query will be removed in a future version.
-   * @returns Promise<Shop[]> The shops data array
    */
-  async getShops(): Promise<Shop[]> {
-    const variables = {};
-    const result = await this.executeQuery('shops', variables);
-    return result.data.shops.map((x: any) => new Shop(x));
-  }
+  getShops(): Promise<Shop[]> { return this._svc.getShops(); }
 }

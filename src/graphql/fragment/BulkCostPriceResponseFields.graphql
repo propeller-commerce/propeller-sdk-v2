@@ -1,6 +1,6 @@
 fragment BulkCostPriceResponseFields on BulkCostPriceResponse {
   items {
-    ... BulkPriceFields
+    ... BulkCostPriceFields
   }
   itemsFound
   offset

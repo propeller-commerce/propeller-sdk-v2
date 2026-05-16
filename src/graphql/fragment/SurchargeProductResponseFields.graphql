@@ -1,6 +1,6 @@
 fragment SurchargeProductResponseFields on SurchargeProductResponse {
   items {
-    ... SurchargeProduct
+    ... SurchargeProductFields
   }
   itemsFound
   offset

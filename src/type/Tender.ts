@@ -15,10 +15,10 @@ import { OrderRevisionResponse } from './OrderRevisionResponse';
  Comprehensive tender entity representing a potential order in the system.
  * Tenders are draft orders that contain all necessary information for order processing including customer details, items, pricing, addresses, payment methods, and shipping information. They can be modified, processed into orders, or deleted as needed.
  */
-export class Tender {
+export interface Tender {
   /** Unique identifier for the tender.
    * This is the primary key used to reference and manage the tender throughout its lifecycle. */
-  tenderId!: string;
+  tenderId: string;
   /** Associated order identifier when tender was created from an existing order.
    * Links the tender to its source order for reference and audit purposes. */
   orderId?: number;
@@ -27,19 +27,19 @@ export class Tender {
   ownerId?: number;
   /** Classification of the tender type.
    * Determines the processing workflow and business rules that apply to this tender. */
-  type!: OrderType;
+  type: OrderType;
   /** Sales channel identifier where the tender originated.
    * Identifies the specific sales channel (website, mobile app, etc.) used to create this tender. */
   channelId?: number;
   /** Timestamp when the tender was initially created.
    * Records the exact moment this tender was first established in the system. */
-  createdAt!: string;
+  createdAt: string;
   /** Identifier of the user who created this tender.
    * Tracks the originator of the tender for audit and accountability purposes. */
   createdBy?: number;
   /** Timestamp of the most recent modification to the tender.
    * Updates automatically whenever any aspect of the tender is changed. */
-  lastModifiedAt!: string;
+  lastModifiedAt: string;
   /** Identifier of the user who last modified this tender.
    * Tracks the most recent editor for audit and accountability purposes. */
   lastModifiedBy?: number;
@@ -55,7 +55,7 @@ export class Tender {
   /** The invoice userId for this tender */
   invoiceUserId?: number;
   /** Tender/order status */
-  status!: string;
+  status: string;
   /** User's first name */
   firstName?: string;
   /** User's middle name */
@@ -63,7 +63,7 @@ export class Tender {
   /** User's last name */
   lastName?: string;
   /** User's email */
-  email!: string;
+  email: string;
   /** Invoice company debtor ID */
   debtorId?: string;
   /** The address the invoice for the order should be sent to */
@@ -147,286 +147,4 @@ export class Tender {
   createdByCustomerId?: number;
   /** Source revision number when tender was created from existing revision */
   createdFromRevisionNumber?: number;
-  constructor(data: Partial<Tender> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `tenderId`. */
-  getTenderId(): string {
-    return this.tenderId;
-  }
-  /** Returns `orderId`. */
-  getOrderId(): number | undefined {
-    return this.orderId;
-  }
-  /** Returns `ownerId`. */
-  getOwnerId(): number | undefined {
-    return this.ownerId;
-  }
-  /** Returns `type`. */
-  getType(): OrderType {
-    return this.type;
-  }
-  /** Returns `channelId`. */
-  getChannelId(): number | undefined {
-    return this.channelId;
-  }
-  /** Returns `createdAt`. */
-  getCreatedAt(): string {
-    return this.createdAt;
-  }
-  /** Returns `createdBy`. */
-  getCreatedBy(): number | undefined {
-    return this.createdBy;
-  }
-  /** Returns `lastModifiedAt`. */
-  getLastModifiedAt(): string {
-    return this.lastModifiedAt;
-  }
-  /** Returns `lastModifiedBy`. */
-  getLastModifiedBy(): number | undefined {
-    return this.lastModifiedBy;
-  }
-  /** Returns `contactId`. */
-  getContactId(): number | undefined {
-    return this.contactId;
-  }
-  /** Returns `customerId`. */
-  getCustomerId(): number | undefined {
-    return this.customerId;
-  }
-  /** Returns `companyId`. */
-  getCompanyId(): number | undefined {
-    return this.companyId;
-  }
-  /** Returns `invoiceUserId`. */
-  getInvoiceUserId(): number | undefined {
-    return this.invoiceUserId;
-  }
-  /** Returns `status`. */
-  getStatus(): string {
-    return this.status;
-  }
-  /** Returns `firstName`. */
-  getFirstName(): string | undefined {
-    return this.firstName;
-  }
-  /** Returns `middleName`. */
-  getMiddleName(): string | undefined {
-    return this.middleName;
-  }
-  /** Returns `lastName`. */
-  getLastName(): string | undefined {
-    return this.lastName;
-  }
-  /** Returns `email`. */
-  getEmail(): string {
-    return this.email;
-  }
-  /** Returns `debtorId`. */
-  getDebtorId(): string | undefined {
-    return this.debtorId;
-  }
-  /** Returns `invoiceAddress` as a TenderAddress instance (coerced on first access). */
-  getInvoiceAddress(): TenderAddress | undefined {
-    if (this.invoiceAddress == null) return undefined;
-    if (!(this.invoiceAddress instanceof TenderAddress)) {
-      this.invoiceAddress = new TenderAddress(this.invoiceAddress as any);
-    }
-    return this.invoiceAddress;
-  }
-  /** Returns `deliveryAddress` as a TenderAddress instance (coerced on first access). */
-  getDeliveryAddress(): TenderAddress | undefined {
-    if (this.deliveryAddress == null) return undefined;
-    if (!(this.deliveryAddress instanceof TenderAddress)) {
-      this.deliveryAddress = new TenderAddress(this.deliveryAddress as any);
-    }
-    return this.deliveryAddress;
-  }
-  /** Returns `itemCount`. */
-  getItemCount(): number | undefined {
-    return this.itemCount;
-  }
-  /** Returns `items` as TenderMainItem instances (coerced on first access). */
-  getItems(): TenderMainItem[] | undefined {
-    if (!this.items) return undefined;
-    this.items = this.items.map((x: any) => x instanceof TenderMainItem ? x : new TenderMainItem(x));
-    return this.items;
-  }
-  /** Returns `bonusItems` as TenderMainItem instances (coerced on first access). */
-  getBonusItems(): TenderMainItem[] | undefined {
-    if (!this.bonusItems) return undefined;
-    this.bonusItems = this.bonusItems.map((x: any) => x instanceof TenderMainItem ? x : new TenderMainItem(x));
-    return this.bonusItems;
-  }
-  /** Returns `paymentData` as a TenderPayment instance (coerced on first access). */
-  getPaymentData(): TenderPayment | undefined {
-    if (this.paymentData == null) return undefined;
-    if (!(this.paymentData instanceof TenderPayment)) {
-      this.paymentData = new TenderPayment(this.paymentData as any);
-    }
-    return this.paymentData;
-  }
-  /** Returns `postageData` as a TenderPostage instance (coerced on first access). */
-  getPostageData(): TenderPostage | undefined {
-    if (this.postageData == null) return undefined;
-    if (!(this.postageData instanceof TenderPostage)) {
-      this.postageData = new TenderPostage(this.postageData as any);
-    }
-    return this.postageData;
-  }
-  /** Returns `total` as a TenderTotal instance (coerced on first access). */
-  getTotal(): TenderTotal | undefined {
-    if (this.total == null) return undefined;
-    if (!(this.total instanceof TenderTotal)) {
-      this.total = new TenderTotal(this.total as any);
-    }
-    return this.total;
-  }
-  /** Returns `taxLevels` as TenderTaxLevel instances (coerced on first access). */
-  getTaxLevels(): TenderTaxLevel[] | undefined {
-    if (!this.taxLevels) return undefined;
-    this.taxLevels = this.taxLevels.map((x: any) => x instanceof TenderTaxLevel ? x : new TenderTaxLevel(x));
-    return this.taxLevels;
-  }
-  /** Returns `carriers` as TenderCarrier instances (coerced on first access). */
-  getCarriers(): TenderCarrier[] | undefined {
-    if (!this.carriers) return undefined;
-    this.carriers = this.carriers.map((x: any) => x instanceof TenderCarrier ? x : new TenderCarrier(x));
-    return this.carriers;
-  }
-  /** Returns `payMethods` as TenderPaymethod instances (coerced on first access). */
-  getPayMethods(): TenderPaymethod[] | undefined {
-    if (!this.payMethods) return undefined;
-    this.payMethods = this.payMethods.map((x: any) => x instanceof TenderPaymethod ? x : new TenderPaymethod(x));
-    return this.payMethods;
-  }
-  /** Returns `source`. */
-  getSource(): string | undefined {
-    return this.source;
-  }
-  /** Returns `valuePoints`. */
-  getValuePoints(): number | undefined {
-    return this.valuePoints;
-  }
-  /** Returns `incentivesApplied`. */
-  getIncentivesApplied(): boolean | undefined {
-    return this.incentivesApplied;
-  }
-  /** Returns `creditPoints`. */
-  getCreditPoints(): number | undefined {
-    return this.creditPoints;
-  }
-  /** Returns `actionCode`. */
-  getActionCode(): string | undefined {
-    return this.actionCode;
-  }
-  /** Returns `reference`. */
-  getReference(): string | undefined {
-    return this.reference;
-  }
-  /** Returns `remarks`. */
-  getRemarks(): string | undefined {
-    return this.remarks;
-  }
-  /** Returns `language`. */
-  getLanguage(): string | undefined {
-    return this.language;
-  }
-  /** Returns `currency`. */
-  getCurrency(): string | undefined {
-    return this.currency;
-  }
-  /** Returns `currencyRatio`. */
-  getCurrencyRatio(): number | undefined {
-    return this.currencyRatio;
-  }
-  /** Returns `externalId`. */
-  getExternalId(): string | undefined {
-    return this.externalId;
-  }
-  /** Returns `extra3`. */
-  getExtra3(): string | undefined {
-    return this.extra3;
-  }
-  /** Returns `extra4`. */
-  getExtra4(): string | undefined {
-    return this.extra4;
-  }
-  /** Returns `isEditable`. */
-  getIsEditable(): boolean | undefined {
-    return this.isEditable;
-  }
-  /** Returns `validUntil`. */
-  getValidUntil(): string | undefined {
-    return this.validUntil;
-  }
-  /** Returns `contact` as a Contact instance (coerced on first access). */
-  getContact(): Contact | undefined {
-    if (this.contact == null) return undefined;
-    if (!(this.contact instanceof Contact)) {
-      this.contact = new Contact(this.contact as any);
-    }
-    return this.contact;
-  }
-  /** Returns `customer` as a Customer instance (coerced on first access). */
-  getCustomer(): Customer | undefined {
-    if (this.customer == null) return undefined;
-    if (!(this.customer instanceof Customer)) {
-      this.customer = new Customer(this.customer as any);
-    }
-    return this.customer;
-  }
-  /** Returns `company` as a Company instance (coerced on first access). */
-  getCompany(): Company | undefined {
-    if (this.company == null) return undefined;
-    if (!(this.company instanceof Company)) {
-      this.company = new Company(this.company as any);
-    }
-    return this.company;
-  }
-  /** Returns `revisions` as an OrderRevisionResponse instance (coerced on first access). */
-  getRevisions(): OrderRevisionResponse | undefined {
-    if (this.revisions == null) return undefined;
-    if (!(this.revisions instanceof OrderRevisionResponse)) {
-      this.revisions = new OrderRevisionResponse(this.revisions as any);
-    }
-    return this.revisions;
-  }
-  /** Returns `public`. */
-  getPublic(): boolean | undefined {
-    return this.public;
-  }
-  /** Returns `revisionNumber`. */
-  getRevisionNumber(): number | undefined {
-    return this.revisionNumber;
-  }
-  /** Returns `publicVersionNumber`. */
-  getPublicVersionNumber(): number | undefined {
-    return this.publicVersionNumber;
-  }
-  /** Returns `invalid`. */
-  getInvalid(): boolean | undefined {
-    return this.invalid;
-  }
-  /** Returns `invalidationReason`. */
-  getInvalidationReason(): string | undefined {
-    return this.invalidationReason;
-  }
-  /** Returns `createdByAdminUserId`. */
-  getCreatedByAdminUserId(): number | undefined {
-    return this.createdByAdminUserId;
-  }
-  /** Returns `createdByContactId`. */
-  getCreatedByContactId(): number | undefined {
-    return this.createdByContactId;
-  }
-  /** Returns `createdByCustomerId`. */
-  getCreatedByCustomerId(): number | undefined {
-    return this.createdByCustomerId;
-  }
-  /** Returns `createdFromRevisionNumber`. */
-  getCreatedFromRevisionNumber(): number | undefined {
-    return this.createdFromRevisionNumber;
-  }
 }

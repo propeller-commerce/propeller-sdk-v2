@@ -1,4 +1,4 @@
-mutation machineCreate($input: CreateSparePartsMachineInput!) {
+mutation machineCreate($input: CreateSparePartsMachineInput!, $language: String, $imageVariantFilters: TransformationsInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput) {
   machineCreate(input: $input) {
     ...SparePartsMachineFields
   }

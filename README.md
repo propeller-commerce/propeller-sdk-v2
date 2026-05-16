@@ -13,22 +13,24 @@ A TypeScript GraphQL client for the Propeller Commerce Platform. Bundles every s
 npm install propeller-sdk-v2
 ```
 
-## Quick start
+## Quick start (v0.10.0)
 
 ```typescript
-import { initializeClient, getClient, ProductService, ProductStatus, Format, Fit } from 'propeller-sdk-v2';
+import { createClient, productService, ProductStatus, Format, Fit } from 'propeller-sdk-v2';
 
 // Initialize once in your app entry point.
-initializeClient({
+const client = createClient({
   endpoint: 'https://your-proxy.example.com/api/graphql',
   securityMode: 'proxy',          // recommended — keep API keys server-side
   clientId: 'my-storefront',      // optional, sent as X-Client-ID header
+  defaultLanguage: 'NL',          // optional; service calls without an explicit `language` fall back to this
   getAccessToken: () => localStorage.getItem('access_token') ?? undefined,
 });
 
-const productService = new ProductService(getClient());
+// Factory pattern (preferred, tree-shakes).
+const products = productService(client);
 
-const products = await productService.getProducts({
+const result = await products.getProducts({
   input: {
     page: 1,
     offset: 20,
@@ -52,6 +54,20 @@ const products = await productService.getProducts({
 });
 ```
 
+### Upgrading from v0.9.x
+
+The class form continues to work in v0.10.0 as a thin backward-compatible
+wrapper:
+
+```typescript
+import { GraphQLClient, ProductService } from 'propeller-sdk-v2';
+const client = new GraphQLClient({ endpoint: '/api/graphql' });
+const productService = new ProductService(client);
+const product = await productService.getProduct({ productId: 1 });
+```
+
+See [MIGRATION-0.10.0.md](./MIGRATION-0.10.0.md) for the full upgrade guide.
+
 ## Configuration
 
 `GraphQLClientConfig` accepts:
@@ -69,6 +85,7 @@ const products = await productService.getProducts({
 | `timeout` | `number` | `30000` | Request timeout (ms). Triggers `AbortController`. |
 | `debug` | `boolean` | `false` | Gates internal `[GraphQL Client]` logs. Config-validation warnings always fire. |
 | `getAccessToken` | `() => string \| undefined \| Promise<string \| undefined>` | reads `localStorage['access_token']` in browser | Use this for SSR (`getServerSession`, HTTP-only cookies) or in-memory token stores. |
+| `defaultLanguage` | `string` | — | ISO 639-1 tag (e.g. `'NL'`). Service methods that take an optional top-level `language` and don't receive one fall back to this value before sending the request. An explicit `language` on the call always wins. |
 
 ### Proxy contract
 
@@ -109,15 +126,28 @@ export async function handler(req: Request) {
 
 ## Services
 
-Services wrap related GraphQL operations and return typed response objects. Every service extends `BaseService` and takes a `GraphQLClient` in its constructor.
+Services group related GraphQL operations. Each service is exposed two ways:
 
-Core services include `ProductService`, `OrderService`, `CartService`, `UserService`, `PaymentService`, `CategoryService`, `AttributeService`, `DiscountService`, `BundleService`, `CrossupsellService`, `CompanyService`, `TaxService`, `ShipmentService`, `WarehouseService`, `BusinessRuleService` — 58 in total covering catalog, cart, order, user, B2B, media, and admin domains. See [the documentation](https://propeller-commerce.github.io/propeller-sdk-v2/) for the full list.
+- **Factory function** (preferred): `cartService(client)` returns an object
+  with the service methods. Tree-shakeable — only the operations you actually
+  call are bundled.
+- **Class form** (backward-compatible): `new CartService(client)` returns a
+  thin wrapper around the factory. Same method names, same signatures. Use
+  this when upgrading from v0.9.x without touching call sites.
+
+Core services include `productService`, `orderService`, `cartService`,
+`userService`, `paymentService`, `categoryService`, `attributeService`,
+`discountService`, `bundleService`, `crossupsellService`, `companyService`,
+`taxService`, `shipmentService`, `warehouseService`, `businessRuleService` —
+54 in total covering catalog, cart, order, user, B2B, media, and admin
+domains. See [the documentation](https://propeller-commerce.github.io/propeller-sdk-v2/)
+for the full list.
 
 ```typescript
-import { CartService } from 'propeller-sdk-v2';
+import { cartService } from 'propeller-sdk-v2';
 
-const cartService = new CartService(getClient());
-const cart = await cartService.getCart({
+const carts = cartService(client);
+const cart = await carts.getCart({
   cartId: '...',
   language: 'NL',
   imageSearchFilters: { page: 1, offset: 1 },
@@ -157,7 +187,14 @@ const data = await client.query<{ viewer: { id: number } }>(
 
 ## Error handling
 
-Services and the `query` / `mutate` / `queryByName` / `mutateByName` helpers throw `GraphQLOperationError` when the server returns a non-empty `errors` array. `client.execute()` itself returns the raw response so callers who want to inspect partial responses can.
+Services and the `query` / `mutate` / `queryByName` / `mutateByName` helpers
+throw `GraphQLOperationError` **only when the response is a hard failure** —
+the server returned errors *and no `data`*. When the server returns a partial
+response (GraphQL's normal contract: `data` present *alongside* `errors`), the
+data is returned and the errors are surfaced through the client's debug log
+rather than thrown. If you need the raw `errors` array in the partial case,
+call `client.execute()` directly — it never throws and always returns the raw
+`{ data, errors }`.
 
 ```typescript
 import { GraphQLOperationError } from 'propeller-sdk-v2';
@@ -166,10 +203,12 @@ try {
   const product = await productService.getProduct({ productId: 1 });
 } catch (err) {
   if (err instanceof GraphQLOperationError) {
-    // err.errors      — GraphQLErrorEntry[]
+    // err.errors        — GraphQLErrorEntry[]
     // err.operationName — string | undefined
-    // err.variables    — Record<string, any> | undefined
-    console.error('Operation failed:', err.errors);
+    // err.variables     — Record<string, any> | undefined
+    // err.document      — the exact GraphQL query/mutation string that failed
+    console.error('Operation failed:', err.operationName, err.errors);
+    console.error('Query was:', err.document);
   } else {
     // Network, HTTP, or timeout error
     console.error('Request failed:', err);
@@ -177,7 +216,12 @@ try {
 }
 ```
 
-HTTP errors (non-2xx) include the response body in the thrown message (truncated to 500 chars) so upstream GraphQL parse errors surface clearly.
+`err.document` carries the exact GraphQL document that produced the error —
+useful for logging the failing query verbatim (e.g. when diagnosing schema
+drift) without trawling the source.
+
+HTTP errors (non-2xx) include the response body in the thrown message
+(truncated to 500 chars) so upstream GraphQL parse errors surface clearly.
 
 ## Authentication
 
@@ -185,10 +229,10 @@ In proxy mode, every request runs `config.getAccessToken()` and attaches `Author
 
 ```typescript
 // Browser (default): reads localStorage['access_token']
-initializeClient({ endpoint: '/api/graphql' });
+const client = createClient({ endpoint: '/api/graphql' });
 
 // SSR (Next.js): read from cookies on each request
-initializeClient({
+const client = createClient({
   endpoint: '/api/graphql',
   getAccessToken: async () => {
     const session = await getServerSession();
@@ -198,19 +242,46 @@ initializeClient({
 
 // In-memory store
 let token: string | undefined;
-initializeClient({ endpoint: '/api/graphql', getAccessToken: () => token });
+const client = createClient({ endpoint: '/api/graphql', getAccessToken: () => token });
 ```
 
 `client.setAccessToken(token)` and `client.clearAccessToken()` write to / clear `localStorage` only when the default provider is in use; with a custom `getAccessToken` you manage the storage yourself.
 
 `client.isAuthenticated()` is async and resolves to `true` iff the configured provider yields a token.
 
-## Type definitions
+## Legacy / deprecated APIs
 
-The SDK exports every type used by Propeller's GraphQL schema as a TypeScript `class` with a single `constructor(data: Partial<X> = {}) { Object.assign(this, data); }` body. Service methods return real class instances (via `new X(data)`), which gives instance methods a home — getters and resolvers can be added on the prototype without changing any call site. Input types (`*Input`) stay as plain `interface`s. Enums are exported at the top level.
+The following are still exported from the package root for backward
+compatibility but are **deprecated** and will be removed in a future release.
+They emit a one-time `console.warn` on first use and carry `@deprecated` JSDoc
+so your IDE flags call sites.
+
+| Deprecated | Use instead |
+| --- | --- |
+| `createGraphQLClient(config)` | `createClient(config)` |
+| `initializeClient(config)` + `getClient()` (global singleton) | `const client = createClient(config)` and pass `client` explicitly to service factories |
 
 ```typescript
-import { Product, CreateProductInput, ProductStatus } from 'propeller-sdk-v2';
+// ❌ Deprecated — global singleton
+import { initializeClient, getClient, productService } from 'propeller-sdk-v2';
+initializeClient({ endpoint: '/api/graphql' });
+const products = productService(getClient());
+
+// ✅ Preferred — explicit client
+import { createClient, productService } from 'propeller-sdk-v2';
+const client = createClient({ endpoint: '/api/graphql' });
+const products = productService(client);
+```
+
+## Type definitions
+
+The SDK exports every response and input type as a plain TypeScript
+`interface`. Service methods return plain JSON values typed as those
+interfaces — no runtime wrapping, no class instances, no getter methods.
+
+```typescript
+import type { Product, CreateProductInput } from 'propeller-sdk-v2';
+import { ProductStatus } from 'propeller-sdk-v2';
 
 const status: ProductStatus = ProductStatus.A;
 
@@ -218,40 +289,45 @@ const input: CreateProductInput = {
   /* fields */
 };
 
-// Service methods return a class instance — `product instanceof Product` is true.
-const product: Product = await productService.getProduct({ productId: 1 });
+const product: Product = await productService(client).getProduct({ productId: 1 });
+
+// Field access, no getters:
+product.id;
+product.sku;
+product.price?.gross;
 ```
 
-### Generated getter methods
+### Localized fields
 
-Every class exposes a getter for each of its properties. Three behaviors:
+For localized arrays (e.g. `product.names: LocalizedString[]`), use the
+`getLocalized` helper:
 
 ```typescript
-// Localized arrays — match the requested language, fall back to 'NL'.
-product.getName('NL');           // string | undefined
-product.getName('EN');           // string | undefined
-product.getName();               // string | undefined (default 'NL')
+import { getLocalized } from 'propeller-sdk-v2';
 
-// Class-typed properties — coerce to a real instance on first access (memoized).
-const price = product.getPrice();    // ProductPrice | undefined
-price?.getCurrency();                // chained call works (price is a real instance)
-product.getPrice() === product.getPrice();  // true (memoized in-place)
-
-// Scalar / enum / primitive-array — pass-through.
-product.getSku();                // string
-product.getStatus();             // ProductStatus
+const name = getLocalized(product.names, 'EN', 'NL');         // EN, fall back to NL, then first
+const desc = getLocalized(product.descriptions, locale);      // no fallback
 ```
 
-Method names mirror the field name (`getSku` for `sku`), except for plural localized-array fields where the trailing `s` is dropped (`product.names` → `product.getName('NL')`).
+### Enum imports
 
-If you prefer the `Enums.X.Y` qualified call-site form, use a namespace import:
+Enums are top-level exports. Use direct or namespace imports:
 
 ```typescript
+// Direct:
+import { ProductStatus } from 'propeller-sdk-v2';
+const status = ProductStatus.A;
+
+// Namespace (preferred by the audited consumer apps):
 import * as Enums from 'propeller-sdk-v2';
 const status = Enums.ProductStatus.A;
 ```
 
-`JSON.stringify` on response objects produces a full payload (enumerable own properties from `Object.assign`), so Redux DevTools / IndexedDB / SSR rehydration all work normally. Note: instance methods are *not* serialized, so re-hydrated state will be a plain object — wrap with `new Product(rehydrated)` if you need the prototype back.
+### Serialization
+
+Responses are plain objects, so `JSON.stringify` / `JSON.parse` roundtrips
+(Redux DevTools, IndexedDB, SSR hydration, localStorage) work cleanly without
+needing to rewrap with `new Product(…)`.
 
 ## Development
 

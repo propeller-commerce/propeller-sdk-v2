@@ -1,11 +1,11 @@
-query user($id: Int, $login: String) {
+query user($id: Int, $login: String, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput) {
   user(id: $id, login: $login) {
     __typename
     ... on Contact {
-        ... ContactFields
+      ...ContactFields
     }
     ... on Customer {
-        ... CustomerFields
+      ...CustomerFields
     }
   }
 }

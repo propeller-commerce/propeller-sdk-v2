@@ -1,3 +1,22 @@
 fragment CompanyContactSearchFields on CompanyContactSearch {
-  ... ContactFields
+  id
+  firstName
+  lastName
+  middleName
+  phone
+  mobile
+  gender
+  email
+  iban
+  bankAccount
+  bic
+  notes
+  debtorId
+  primaryCompanyId
+  dateOfBirth
+  createdAt
+  lastModifiedAt
+  attributes {
+    ... CompanyAttributeSearchFields
+  }
 }

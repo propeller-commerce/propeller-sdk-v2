@@ -1,0 +1,28 @@
+/* Auto-generated. Do not edit. */
+export const document = `fragment VerifyTokenFields on VerifyToken {
+  uid
+  name
+  claims
+  iss
+  aud
+  auth_time
+  user_id
+  sub
+  iat
+  exp
+  email
+  email_verified
+  firebase {
+    identities
+    sign_in_provider
+    sign_in_second_factor
+    second_factor_identifier
+    tenant
+  }
+}
+
+mutation verifyToken(\$input: VerifyTokenInput!) {
+  verifyToken(input: \$input) {
+    ...VerifyTokenFields
+  }
+}`;

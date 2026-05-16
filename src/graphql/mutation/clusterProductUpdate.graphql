@@ -1,4 +1,4 @@
-mutation clusterProductUpdate($id: Int!, $productId: Int!, $input: UpdateProductInput!) {
+mutation clusterProductUpdate($id: Int!, $productId: Int!, $input: UpdateProductInput!, $attributeResultSearchInput: AttributeResultSearchInput, $priceCalculateProductInput: PriceCalculateProductInput, $userBulkPriceProductInput: UserBulkPriceProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $mediaVideoSearchInput: MediaVideoProductSearchInput, $mediaDocumentSearchInput: MediaDocumentProductSearchInput) {
   clusterProductUpdate(id: $id, productId: $productId, input: $input) {
     ...ProductFields
   }

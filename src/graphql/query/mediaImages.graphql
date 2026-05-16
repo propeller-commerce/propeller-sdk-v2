@@ -1,4 +1,4 @@
-query mediaImages($search: MediaImageProductSearchInput) {
+query mediaImages($search: MediaImageSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   mediaImages(search: $search) {
     ...PaginatedMediaImageResponseFields
   }

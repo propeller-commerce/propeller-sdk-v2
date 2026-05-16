@@ -6,7 +6,7 @@ fragment PriceFields on Price {
   per
   list
   costPrices {
-    ... BulkCostPriceFields
+    ... CostPriceFields
   }
   suggested
   store

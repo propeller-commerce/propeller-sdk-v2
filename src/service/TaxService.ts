@@ -1,4 +1,3 @@
-import { BaseService } from './BaseService';
 import { Tax } from '../type/Tax';
 import { TaxesResponse } from '../type/TaxesResponse';
 import { TaxSearchInput } from '../type/TaxSearchInput';
@@ -9,99 +8,155 @@ import { ZoneTaxCodeResponse } from '../type/ZoneTaxCodeResponse';
 import { ZoneTaxCodeSearchInput } from '../type/ZoneTaxCodeSearchInput';
 import { ZoneTaxCodeCreateInput } from '../type/ZoneTaxCodeCreateInput';
 import { ZoneTaxCodeUpdateInput } from '../type/ZoneTaxCodeUpdateInput';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as taxDoc } from '../generated/operations/tax';
+import { document as taxesDoc } from '../generated/operations/taxes';
+import { document as taxCreateDoc } from '../generated/operations/taxCreate';
+import { document as taxUpdateDoc } from '../generated/operations/taxUpdate';
+import { document as zoneTaxCodeDoc } from '../generated/operations/zoneTaxCode';
+import { document as zoneTaxCodesDoc } from '../generated/operations/zoneTaxCodes';
+import { document as zoneTaxCodeCreateDoc } from '../generated/operations/zoneTaxCodeCreate';
+import { document as zoneTaxCodesCreateDoc } from '../generated/operations/zoneTaxCodesCreate';
+import { document as zoneTaxCodeUpdateDoc } from '../generated/operations/zoneTaxCodeUpdate';
 /**
  Service for managing tax and zone tax code operations
- * @extends BaseService
  */
-export class TaxService extends BaseService {
+export function taxService(client: GraphQLClient) {
+  return {
+    /**
+       Retrieves a specific tax
+       * @param id Tax ID (UUID string)
+       * @returns Promise<Tax> Tax data
+       */
+    async getTax(id: string): Promise<Tax> {
+      const result = await runOperation(client, taxDoc, 'tax', { id });
+      return result.data.tax as Tax;
+    },
+    /**
+       Retrieves taxes with search criteria
+       * @param input Search input parameters
+       * @returns Promise<TaxesResponse> Taxes response
+       */
+    async getTaxes(input?: TaxSearchInput): Promise<TaxesResponse> {
+      const result = await runOperation(client, taxesDoc, 'taxes', { input });
+      return result.data.taxes as TaxesResponse;
+    },
+    /**
+       Creates a new tax
+       * @param input Tax creation input
+       * @returns Promise<Tax> The created tax
+       */
+    async createTax(input: TaxCreateInput): Promise<Tax> {
+      const result = await runOperation(client, taxCreateDoc, 'taxCreate', { input });
+      return result.data.taxCreate as Tax;
+    },
+    /**
+       Updates an existing tax
+       * @param input Tax update input
+       * @returns Promise<Tax> The updated tax
+       */
+    async updateTax(input: TaxUpdateInput): Promise<Tax> {
+      const result = await runOperation(client, taxUpdateDoc, 'taxUpdate', { input });
+      return result.data.taxUpdate as Tax;
+    },
+    /**
+       Retrieves a specific zone tax code
+       * @param id Zone tax code ID
+       * @returns Promise<ZoneTaxCode> Zone tax code data
+       */
+    async getZoneTaxCode(id: number): Promise<ZoneTaxCode> {
+      const result = await runOperation(client, zoneTaxCodeDoc, 'zoneTaxCode', { id });
+      return result.data.zoneTaxCode as ZoneTaxCode;
+    },
+    /**
+       Retrieves zone tax codes with search criteria
+       * @param input Search input parameters
+       * @returns Promise<ZoneTaxCodeResponse> Zone tax codes response
+       */
+    async getZoneTaxCodes(input?: ZoneTaxCodeSearchInput): Promise<ZoneTaxCodeResponse> {
+      const result = await runOperation(client, zoneTaxCodesDoc, 'zoneTaxCodes', { input });
+      return result.data.zoneTaxCodes as ZoneTaxCodeResponse;
+    },
+    /**
+       Creates a new zone tax code
+       * @param input Zone tax code creation input
+       * @returns Promise<ZoneTaxCode> The created zone tax code
+       */
+    async createZoneTaxCode(input: ZoneTaxCodeCreateInput): Promise<ZoneTaxCode> {
+      const result = await runOperation(client, zoneTaxCodeCreateDoc, 'zoneTaxCodeCreate', { input });
+      return result.data.zoneTaxCodeCreate as ZoneTaxCode;
+    },
+    /**
+       Creates multiple zone tax codes
+       * @param input Array of zone tax code creation inputs
+       * @returns Promise<ZoneTaxCode[]> Array of created zone tax codes
+       */
+    async createZoneTaxCodes(input: ZoneTaxCodeCreateInput[]): Promise<ZoneTaxCode[]> {
+      const result = await runOperation(client, zoneTaxCodesCreateDoc, 'zoneTaxCodesCreate', { input });
+      return result.data.zoneTaxCodesCreate as ZoneTaxCode[];
+    },
+    /**
+       Updates an existing zone tax code
+       * @param input Zone tax code update input
+       * @returns Promise<ZoneTaxCode> The updated zone tax code
+       */
+    async updateZoneTaxCode(input: ZoneTaxCodeUpdateInput): Promise<ZoneTaxCode> {
+      const result = await runOperation(client, zoneTaxCodeUpdateDoc, 'zoneTaxCodeUpdate', { input });
+      return result.data.zoneTaxCodeUpdate as ZoneTaxCode;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `taxService(client)`.
+ */
+export class TaxService {
+  private readonly _svc: ReturnType<typeof taxService>;
+  constructor(client: GraphQLClient) { this._svc = taxService(client); }
   /**
-   Retrieves a specific tax
+   * Retrieves a specific tax
    * @param id Tax ID (UUID string)
-   * @returns Promise<Tax> Tax data
    */
-  async getTax(id: string): Promise<Tax> {
-    const variables = { id };
-    const result = await this.executeQuery('tax', variables);
-    return new Tax(result.data.tax);
-  }
+  getTax(id: string): Promise<Tax> { return this._svc.getTax(id); }
   /**
-   Retrieves taxes with search criteria
+   * Retrieves taxes with search criteria
    * @param input Search input parameters
-   * @returns Promise<TaxesResponse> Taxes response
    */
-  async getTaxes(input?: TaxSearchInput): Promise<TaxesResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('taxes', variables);
-    return new TaxesResponse(result.data.taxes);
-  }
+  getTaxes(input?: TaxSearchInput): Promise<TaxesResponse> { return this._svc.getTaxes(input); }
   /**
-   Creates a new tax
+   * Creates a new tax
    * @param input Tax creation input
-   * @returns Promise<Tax> The created tax
    */
-  async createTax(input: TaxCreateInput): Promise<Tax> {
-    const variables = { input };
-    const result = await this.executeMutation('taxCreate', variables);
-    return new Tax(result.data.taxCreate);
-  }
+  createTax(input: TaxCreateInput): Promise<Tax> { return this._svc.createTax(input); }
   /**
-   Updates an existing tax
+   * Updates an existing tax
    * @param input Tax update input
-   * @returns Promise<Tax> The updated tax
    */
-  async updateTax(input: TaxUpdateInput): Promise<Tax> {
-    const variables = { input };
-    const result = await this.executeMutation('taxUpdate', variables);
-    return new Tax(result.data.taxUpdate);
-  }
+  updateTax(input: TaxUpdateInput): Promise<Tax> { return this._svc.updateTax(input); }
   /**
-   Retrieves a specific zone tax code
+   * Retrieves a specific zone tax code
    * @param id Zone tax code ID
-   * @returns Promise<ZoneTaxCode> Zone tax code data
    */
-  async getZoneTaxCode(id: number): Promise<ZoneTaxCode> {
-    const variables = { id };
-    const result = await this.executeQuery('zoneTaxCode', variables);
-    return new ZoneTaxCode(result.data.zoneTaxCode);
-  }
+  getZoneTaxCode(id: number): Promise<ZoneTaxCode> { return this._svc.getZoneTaxCode(id); }
   /**
-   Retrieves zone tax codes with search criteria
+   * Retrieves zone tax codes with search criteria
    * @param input Search input parameters
-   * @returns Promise<ZoneTaxCodeResponse> Zone tax codes response
    */
-  async getZoneTaxCodes(input?: ZoneTaxCodeSearchInput): Promise<ZoneTaxCodeResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('zoneTaxCodes', variables);
-    return new ZoneTaxCodeResponse(result.data.zoneTaxCodes);
-  }
+  getZoneTaxCodes(input?: ZoneTaxCodeSearchInput): Promise<ZoneTaxCodeResponse> { return this._svc.getZoneTaxCodes(input); }
   /**
-   Creates a new zone tax code
+   * Creates a new zone tax code
    * @param input Zone tax code creation input
-   * @returns Promise<ZoneTaxCode> The created zone tax code
    */
-  async createZoneTaxCode(input: ZoneTaxCodeCreateInput): Promise<ZoneTaxCode> {
-    const variables = { input };
-    const result = await this.executeMutation('zoneTaxCodeCreate', variables);
-    return new ZoneTaxCode(result.data.zoneTaxCodeCreate);
-  }
+  createZoneTaxCode(input: ZoneTaxCodeCreateInput): Promise<ZoneTaxCode> { return this._svc.createZoneTaxCode(input); }
   /**
-   Creates multiple zone tax codes
+   * Creates multiple zone tax codes
    * @param input Array of zone tax code creation inputs
-   * @returns Promise<ZoneTaxCode[]> Array of created zone tax codes
    */
-  async createZoneTaxCodes(input: ZoneTaxCodeCreateInput[]): Promise<ZoneTaxCode[]> {
-    const variables = { input };
-    const result = await this.executeMutation('zoneTaxCodesCreate', variables);
-    return result.data.zoneTaxCodesCreate.map((x: any) => new ZoneTaxCode(x));
-  }
+  createZoneTaxCodes(input: ZoneTaxCodeCreateInput[]): Promise<ZoneTaxCode[]> { return this._svc.createZoneTaxCodes(input); }
   /**
-   Updates an existing zone tax code
+   * Updates an existing zone tax code
    * @param input Zone tax code update input
-   * @returns Promise<ZoneTaxCode> The updated zone tax code
    */
-  async updateZoneTaxCode(input: ZoneTaxCodeUpdateInput): Promise<ZoneTaxCode> {
-    const variables = { input };
-    const result = await this.executeMutation('zoneTaxCodeUpdate', variables);
-    return new ZoneTaxCode(result.data.zoneTaxCodeUpdate);
-  }
+  updateZoneTaxCode(input: ZoneTaxCodeUpdateInput): Promise<ZoneTaxCode> { return this._svc.updateZoneTaxCode(input); }
 }

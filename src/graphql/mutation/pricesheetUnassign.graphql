@@ -1,4 +1,4 @@
-mutation pricesheetUnassign($id: String!, $input: PricesheetUnassignInput!) {
+mutation pricesheetUnassign($id: String!, $input: PricesheetUnassignInput!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
   pricesheetUnassign(id: $id, input: $input) {
     ...PricesheetFields
   }

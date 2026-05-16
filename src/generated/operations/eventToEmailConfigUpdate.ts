@@ -1,0 +1,26 @@
+/* Auto-generated. Do not edit. */
+export const document = `fragment EventToEmailConfigFields on EventToEmailConfig {
+  id
+  trigger
+  code
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  names {
+    ...LocalizedStringFields
+  }
+  channelIds
+  emailTemplateId
+}
+
+fragment LocalizedStringFields on LocalizedString {
+  language
+  value
+}
+
+mutation eventToEmailConfigUpdate(\$id: String!, \$input: EventToEmailConfigUpdateInput!) {
+  eventToEmailConfigUpdate(id: \$id, input: \$input) {
+    ...EventToEmailConfigFields
+  }
+}`;

@@ -1,4 +1,3 @@
-import { BaseService } from './BaseService';
 import { Cluster } from '../type/Cluster';
 import { ClusterConfigResponse } from '../type/ClusterConfigResponse';
 import { PriceCalculateProductInput } from '../type/PriceCalculateProductInput';
@@ -10,13 +9,22 @@ import { MediaDocumentProductSearchInput } from '../type/MediaDocumentProductSea
 import { TransformationsInput } from '../type/TransformationsInput';
 import { ClusterCreateInput } from '../type/ClusterCreateInput';
 import { ClusterUpdateInput } from '../type/ClusterUpdateInput';
+/**
+ * Variables for `cluster create` — creates a new cluster
+ */
 export interface ClusterCreateVariables {
   input: ClusterCreateInput;
 }
+/**
+ * Variables for `cluster update` — updates an existing cluster
+ */
 export interface ClusterUpdateVariables {
   id: number;
   input: ClusterUpdateInput;
 }
+/**
+ * Variables for `cluster delete` — deletes a cluster
+ */
 export interface ClusterDeleteVariables {
   id: number;
 }
@@ -46,64 +54,116 @@ export interface ClusterQueryVariables {
   /** Image transformation filters */
   imageVariantFilters?: TransformationsInput;
 }
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as clusterConfigDoc } from '../generated/operations/clusterConfig';
+import { document as clusterDoc } from '../generated/operations/cluster';
+import { document as clusterCreateDoc } from '../generated/operations/clusterCreate';
+import { document as clusterUpdateDoc } from '../generated/operations/clusterUpdate';
+import { document as clusterDeleteDoc } from '../generated/operations/clusterDelete';
 /**
  Service class for Cluster-related GraphQL operations
  */
-export class ClusterService extends BaseService {
+export function clusterService(client: GraphQLClient) {
+  return {
+    /**
+       Retrieves a specific cluster configuration
+       * @param clusterId Cluster ID to fetch
+       * @returns Promise<Cluster> Cluster config data
+       */
+    async getClusterConfig(clusterId: number): Promise<Cluster> {
+      const result = await runOperation(client, clusterConfigDoc, 'clusterConfig', { clusterId });
+      return result.data.cluster as Cluster;
+    },
+    /**
+       Fetches a single cluster by ID or slug
+       * @param variables Variables for cluster query
+       * - clusterId: number - Cluster ID to fetch
+       * - slug: string - Cluster slug to fetch
+       * - language: string - Language for localized content
+       * - priceCalculateProductInput: PriceCalculateProductInput - Price calculation input
+       * - userBulkPriceProductInput: UserBulkPriceProductInput - User bulk price input
+       * - attributeResultSearchInput: AttributeResultSearchInput - Attribute search input
+       * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+       * - mediaVideoSearchInput: MediaVideoProductSearchInput - Video search input
+       * - mediaDocumentSearchInput: MediaDocumentProductSearchInput - Document search input
+       * - imageVariantFilters: TransformationsInput - Image transformation filters
+       * @returns Promise<Cluster> Cluster data
+       */
+    async getCluster(variables: ClusterQueryVariables): Promise<Cluster> {
+      const language = variables.language ?? client.getDefaultLanguage();
+      const result = await runOperation(client, clusterDoc, 'cluster', { ...variables, language });
+      return result.data.cluster as Cluster;
+    },
+    /**
+       Creates a new cluster
+       * @param variables Cluster creation variables
+       * @returns Promise<Cluster> The created cluster
+       */
+    async createCluster(variables: ClusterCreateVariables): Promise<Cluster> {
+      const result = await runOperation(client, clusterCreateDoc, 'clusterCreate', variables);
+      return result.data.clusterCreate as Cluster;
+    },
+    /**
+       Updates an existing cluster
+       * @param variables Cluster update variables
+       * @returns Promise<Cluster> The updated cluster
+       */
+    async updateCluster(variables: ClusterUpdateVariables): Promise<Cluster> {
+      const result = await runOperation(client, clusterUpdateDoc, 'clusterUpdate', variables);
+      return result.data.clusterUpdate as Cluster;
+    },
+    /**
+       Deletes a cluster
+       * @param variables Cluster delete variables
+       * @returns Promise<boolean> Success status
+       */
+    async deleteCluster(variables: ClusterDeleteVariables): Promise<boolean> {
+      const result = await runOperation(client, clusterDeleteDoc, 'clusterDelete', variables);
+      return result.data.clusterDelete;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `clusterService(client)`.
+ */
+export class ClusterService {
+  private readonly _svc: ReturnType<typeof clusterService>;
+  constructor(client: GraphQLClient) { this._svc = clusterService(client); }
   /**
-   Retrieves a specific cluster configuration
+   * Retrieves a specific cluster configuration
    * @param clusterId Cluster ID to fetch
-   * @returns Promise<Cluster> Cluster config data
    */
-  async getClusterConfig(clusterId: number): Promise<Cluster> {
-    const variables = { clusterId };
-    const result = await this.executeQuery('clusterConfig', variables);
-    return new Cluster(result.data.cluster);
-  }
+  getClusterConfig(clusterId: number): Promise<Cluster> { return this._svc.getClusterConfig(clusterId); }
   /**
-   Fetches a single cluster by ID or slug
+   * Fetches a single cluster by ID or slug
    * @param variables Variables for cluster query
-   * - clusterId: number - Cluster ID to fetch
-   * - slug: string - Cluster slug to fetch
-   * - language: string - Language for localized content
-   * - priceCalculateProductInput: PriceCalculateProductInput - Price calculation input
-   * - userBulkPriceProductInput: UserBulkPriceProductInput - User bulk price input
-   * - attributeResultSearchInput: AttributeResultSearchInput - Attribute search input
-   * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
-   * - mediaVideoSearchInput: MediaVideoProductSearchInput - Video search input
-   * - mediaDocumentSearchInput: MediaDocumentProductSearchInput - Document search input
-   * - imageVariantFilters: TransformationsInput - Image transformation filters
-   * @returns Promise<Cluster> Cluster data
+   * @param clusterId Cluster ID to fetch
+   * @param slug Cluster slug to fetch
+   * @param language Language for localized content
+   * @param priceCalculateProductInput Price calculation input
+   * @param userBulkPriceProductInput User bulk price input
+   * @param attributeResultSearchInput Attribute search input
+   * @param imageSearchFilters Image search filters
+   * @param mediaVideoSearchInput Video search input
+   * @param mediaDocumentSearchInput Document search input
+   * @param imageVariantFilters Image transformation filters
    */
-  async getCluster(variables: ClusterQueryVariables): Promise<Cluster> {
-    const result = await this.executeQuery('cluster', variables);
-    return new Cluster(result.data.cluster);
-  }
+  getCluster(variables: ClusterQueryVariables): Promise<Cluster> { return this._svc.getCluster(variables); }
   /**
-   Creates a new cluster
+   * Creates a new cluster
    * @param variables Cluster creation variables
-   * @returns Promise<Cluster> The created cluster
    */
-  async createCluster(variables: ClusterCreateVariables): Promise<Cluster> {
-    const result = await this.executeMutation('clusterCreate', variables);
-    return new Cluster(result.data.clusterCreate);
-  }
+  createCluster(variables: ClusterCreateVariables): Promise<Cluster> { return this._svc.createCluster(variables); }
   /**
-   Updates an existing cluster
+   * Updates an existing cluster
    * @param variables Cluster update variables
-   * @returns Promise<Cluster> The updated cluster
    */
-  async updateCluster(variables: ClusterUpdateVariables): Promise<Cluster> {
-    const result = await this.executeMutation('clusterUpdate', variables);
-    return new Cluster(result.data.clusterUpdate);
-  }
+  updateCluster(variables: ClusterUpdateVariables): Promise<Cluster> { return this._svc.updateCluster(variables); }
   /**
-   Deletes a cluster
+   * Deletes a cluster
    * @param variables Cluster delete variables
-   * @returns Promise<boolean> Success status
    */
-  async deleteCluster(variables: ClusterDeleteVariables): Promise<boolean> {
-    const result = await this.executeMutation('clusterDelete', variables);
-    return result.data.clusterDelete;
-  }
+  deleteCluster(variables: ClusterDeleteVariables): Promise<boolean> { return this._svc.deleteCluster(variables); }
 }

@@ -1,4 +1,4 @@
-mutation orderCreate($order: OrderCreateInput!) {
+mutation orderCreate($order: OrderCreateInput!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   orderCreate(order: $order) {
     ...OrderFields
   }

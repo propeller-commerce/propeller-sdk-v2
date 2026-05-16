@@ -1,26 +1,46 @@
-import { BaseService } from './BaseService';
 import { Channel } from '../type/Channel';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as channelDoc } from '../generated/operations/channel';
+import { document as channelsDoc } from '../generated/operations/channels';
 /**
  Service class for Channel-related GraphQL operations
  */
-export class ChannelService extends BaseService {
+export function channelService(client: GraphQLClient) {
+  return {
+    /**
+       Fetches a single channel by ID
+       * @param id Channel ID to fetch
+       * @returns Promise<Channel> The channel data
+       */
+    async getChannel(id: number): Promise<Channel> {
+      const result = await runOperation(client, channelDoc, 'channel', { id });
+      return result.data.channel as Channel;
+    },
+    /**
+       Fetches a list of channels
+       * @returns Promise<Channel[]> The channels data array
+       */
+    async getChannels(): Promise<Channel[]> {
+      const result = await runOperation(client, channelsDoc, 'channels', {  });
+      return result.data.channels as Channel[];
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `channelService(client)`.
+ */
+export class ChannelService {
+  private readonly _svc: ReturnType<typeof channelService>;
+  constructor(client: GraphQLClient) { this._svc = channelService(client); }
   /**
-   Fetches a single channel by ID
+   * Fetches a single channel by ID
    * @param id Channel ID to fetch
-   * @returns Promise<Channel> The channel data
    */
-  async getChannel(id: number): Promise<Channel> {
-    const variables = { id };
-    const result = await this.executeQuery('channel', variables);
-    return new Channel(result.data.channel);
-  }
+  getChannel(id: number): Promise<Channel> { return this._svc.getChannel(id); }
   /**
-   Fetches a list of channels
-   * @returns Promise<Channel[]> The channels data array
+   * Fetches a list of channels
    */
-  async getChannels(): Promise<Channel[]> {
-    const variables = {};
-    const result = await this.executeQuery('channels', variables);
-    return result.data.channels.map((x: any) => new Channel(x));
-  }
+  getChannels(): Promise<Channel[]> { return this._svc.getChannels(); }
 }

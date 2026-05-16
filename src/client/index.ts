@@ -1,15 +1,18 @@
 /**
  * GraphQL Client for Propeller eCommerce Platform
- * Exports the main GraphQL client class and related utilities
- * @packageDocumentation
+ * Exports the main GraphQL client class and related utilities.
+ *
+ * As of v0.10.0, `createClient()` is the preferred entry point.
+ * The class form (`new GraphQLClient(...)`) is preserved for backwards
+ * compatibility with code written against 0.9.x.
  */
 
 export {
   GraphQLClient,
+  createClient,
   createGraphQLClient,
   initializeClient,
   getClient,
-  client,
 } from './GraphQLClient';
 
 export type {

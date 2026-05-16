@@ -1,4 +1,4 @@
-query categories($filter: CategorySearchInput, $userId: Int) {
+query categories($filter: CategorySearchInput, $userId: Int, $language: String) {
   categories(filter: $filter, userId: $userId) {
     ...CategoryResponseFields
   }

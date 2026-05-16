@@ -3,33 +3,13 @@ import { ClusterBulkMoveErrorCode } from '../enum/ClusterBulkMoveErrorCode';
  Object class for ClusterBulkMoveError
  Error information for a failed cluster move operation.
  */
-export class ClusterBulkMoveError {
+export interface ClusterBulkMoveError {
   /** Error code indicating the type of error. Can be VALIDATION, DB_INSERT, or UNKNOWN. */
-  code!: ClusterBulkMoveErrorCode;
+  code: ClusterBulkMoveErrorCode;
   /** List of error messages describing what went wrong during the cluster move operation */
-  messages!: string[];
+  messages: string[];
   /** The cluster record that failed (JSON representation) */
   record?: string;
   /** Row number in the input array where the error occurred */
   rowNumber?: number;
-  constructor(data: Partial<ClusterBulkMoveError> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `code`. */
-  getCode(): ClusterBulkMoveErrorCode {
-    return this.code;
-  }
-  /** Returns `messages`. */
-  getMessages(): string[] {
-    return this.messages;
-  }
-  /** Returns `record`. */
-  getRecord(): string | undefined {
-    return this.record;
-  }
-  /** Returns `rowNumber`. */
-  getRowNumber(): number | undefined {
-    return this.rowNumber;
-  }
 }

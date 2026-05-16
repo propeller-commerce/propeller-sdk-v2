@@ -1,0 +1,8 @@
+fragment ClusterUnassignProductsResponseFields on ClusterUnassignProductsResponse {
+  cluster {
+    ... ClusterFields
+  }
+  actions {
+    messages
+  }
+}

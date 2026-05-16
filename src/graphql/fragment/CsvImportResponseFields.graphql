@@ -1,0 +1,9 @@
+fragment CsvImportResponseFields on CsvImportResponse {
+  importedCount
+  errors {
+    code
+    messages
+    record
+    rowNumber
+  }
+}

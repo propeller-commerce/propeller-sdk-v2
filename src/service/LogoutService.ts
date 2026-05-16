@@ -1,19 +1,34 @@
-import { BaseService } from './BaseService';
 import { Logout } from '../type/Logout';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as logoutDoc } from '../generated/operations/logout';
 /**
  Service for handling user logout operations
- * @extends BaseService
  */
-export class LogoutService extends BaseService {
+export function logoutService(client: GraphQLClient) {
+  return {
+    /**
+       Logs out a user and ends their session
+       * @deprecated The upstream `logout` mutation is deprecated; a `signOut` mutation will be available in the future.
+       * @param userId User ID to logout
+       * @returns Promise<Logout> Logout response
+       */
+    async logout(userId: number): Promise<Logout> {
+      const result = await runOperation(client, logoutDoc, 'logout', { userId });
+      return result.data.logout as Logout;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `logoutService(client)`.
+ */
+export class LogoutService {
+  private readonly _svc: ReturnType<typeof logoutService>;
+  constructor(client: GraphQLClient) { this._svc = logoutService(client); }
   /**
-   Logs out a user and ends their session
-   * @deprecated The upstream `logout` mutation is deprecated; a `signOut` mutation will be available in the future.
+   * Logs out a user and ends their session
    * @param userId User ID to logout
-   * @returns Promise<Logout> Logout response
    */
-  async logout(userId: number): Promise<Logout> {
-    const variables = { userId };
-    const result = await this.executeMutation('logout', variables);
-    return new Logout(result.data.logout);
-  }
+  logout(userId: number): Promise<Logout> { return this._svc.logout(userId); }
 }

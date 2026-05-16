@@ -1,5 +1,5 @@
 query eventActionConfig($id: String!) {
   eventActionConfig(id: $id) {
-    ...IBaseTemplateFields
+    ...IEventActionConfigFields
   }
 }

@@ -1,0 +1,63 @@
+/* Auto-generated. Do not edit. */
+export const document = `fragment ProductPriceFields on ProductPrice {
+  productId
+  type
+  discountType
+  list
+  cost
+  net
+  gross
+  discount {
+    ... on BulkCostPrice {
+      ...BulkCostPriceFields
+    }
+    ... on BulkPrice {
+      ...BulkPriceFields
+    }
+    ... on Discount {
+      ...DiscountFields
+    }
+  }
+  taxCode
+  quantity
+}
+
+fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}
+
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}
+
+query priceCalculate(\$input: PriceCalculateInput!) {
+  priceCalculate(input: \$input) {
+    ...ProductPriceFields
+  }
+}`;

@@ -1,0 +1,11 @@
+fragment EventActionConfigResponseFields on EventActionConfigResponse {
+  items {
+    ... IEventActionConfigFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

@@ -4,6 +4,124 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.10.0] - 2026-05-15
+
+Architectural overhaul. Single coordinated breaking release addressing the
+class-wrapper, tree-shaking, and deprecated-symbol debt accumulated through
+0.x. See [MIGRATION-0.10.0.md](./MIGRATION-0.10.0.md) for the consumer playbook.
+
+### Breaking
+
+- **Wrapper classes → interfaces.** All 272 response types in `src/type/*.ts`
+  are now `export interface X` instead of `export class X` with `Object.assign`
+  constructors. Removed ~2,291 auto-generated getter methods. `new Product(…)`,
+  `product instanceof Product`, `product.getName('NL')` etc. no longer compile.
+  Use direct field access (`product.names`) and the new `getLocalized()` helper
+  for localized fields. Audited consumers (`propeller-next`, `propeller-vue`)
+  already used direct field access throughout — call-site change is zero.
+- **`client` Proxy export removed** from `src/client/GraphQLClient.ts`. Use
+  `createClient(config)` and pass the client explicitly to service factories.
+- **Service helpers no longer discard partial responses.** `runOperation` (and
+  `client.query` / `client.mutate`) now throw `GraphQLOperationError` **only
+  when the response has errors AND no `data`**. If the server returns partial
+  data alongside errors (the normal GraphQL contract), the data is returned and
+  the errors are logged via the client debug channel instead of thrown. Use
+  `client.execute()` for the raw `{ data, errors }`. Previously *any* non-empty
+  `errors` array threw, discarding partial data.
+- **Deprecated `GraphQLClientConfig` keys removed:** `customFragmentsPath`,
+  `customQueriesPath`, `customMutationsPath`, `allowCustomOverride`,
+  `skipFragmentResolution`. These were no-ops since v0.4.0 (fragment inlining
+  moved to build time) and have been emitting warnings.
+- **`BaseService` class removed.** Services no longer inherit from a base
+  class; each imports its own GraphQL documents and uses the internal
+  `runOperation(client, doc, opName, vars)` helper. Public method names and
+  signatures are unchanged.
+- **Bundled-map preload removed.** `new GraphQLClient(...)` no longer eats the
+  full ~46k-line `queries.ts` + `mutations.ts` bundle on construction. With
+  `sideEffects: false` (already set) + per-op imports, a consumer that imports
+  only `productService` ships only its query strings.
+- **`generated/queries.ts`, `generated/mutations.ts`, `generated/fragments.ts`
+  removed.** Replaced by per-op modules under `generated/operations/<op>.ts`,
+  each exporting a single `document` string.
+
+### Added
+
+- `createClient(config)` — preferred client factory, mirrors `new GraphQLClient(config)`.
+- `GraphQLClientConfig.defaultLanguage` — ISO 639-1 default locale. Service
+  factory methods that accept an optional top-level `language` variable and
+  aren't given one now fall back to this value (`variables.language ??
+  client.getDefaultLanguage()`) before the request is sent. An explicit
+  `language` on the call always wins. (In the initial v0.10.0 draft this config
+  field was stored but never read by any call site — now wired through.)
+- `GraphQLOperationError.document` — the exact GraphQL query/mutation string
+  that produced the error, for verbatim logging of failing operations.
+- `getLocalized(values, lang, fallback?)` — single helper that replaces ~100
+  per-class `getNameLocalized('NL')`-style methods.
+- `AnyAddress` — discriminated union of `Address | CartAddress | OrderAddress
+  | TenderAddress | WarehouseAddress` for UIs that render any address shape.
+- Service factory functions — every `XxxService` class now also has a
+  lower-case factory export (`xxxService(client) → { method1, method2, … }`).
+  The class form is preserved as a thin BC wrapper.
+- `runOperation(client, doc, opName, vars)` exported from `src/service/` —
+  internal helper used by every service factory.
+- `scripts/fetch-schema.js` — POST-based introspection helper that writes
+  `schema.json` as plain UTF-8 (fixes the legacy UTF-16 LE pitfall). Reads
+  `PROPELLER_ENDPOINT` + `PROPELLER_API_KEY` from `.env`.
+- `tests/integration/schemaAlignment.test.ts` — validates every one of the 459
+  generated GraphQL operations against the upstream schema. **The allowlist is
+  empty (`{}`)** — every operation matches the live schema with zero drift. The
+  test is now a strict regression guard: any new drift fails the build.
+- `tests/integration/treeShakeBudget.test.ts` — rewritten to bundle a
+  `{ createClient, productService }` fixture with **esbuild** (bundle + minify +
+  tree-shaking) and assert real output size. Measured at v0.10.0: ~73 KB
+  minified, ~11 KB minified+gzipped (budgets 150 / 30 KB). Replaces the prior
+  naive transitive-import file-size sum, which over-counted ~13×.
+- `scripts/build-schema-allowlist.js` — one-shot to rebuild the allowlist.
+
+### Deprecated
+
+- `createGraphQLClient(config)` — use `createClient(config)`.
+- `initializeClient(config)` + `getClient()` (the global-singleton pattern) —
+  create a client with `createClient()` and pass it explicitly to service
+  factories. All three now carry `@deprecated` JSDoc and emit a one-time
+  `console.warn` (per process, per function) on first use. They remain exported
+  from the package root for backward compatibility and will be removed in a
+  future release.
+
+### Removed (dead scripts / files)
+
+- `scripts/fix-all-jsdoc.js` and `scripts/fix-jsdoc.ps1` — not wired into build.
+- `src/service/BaseService.ts` — replaced by `runOperation`.
+- `MIGRATION-0.9.0.md` from repo root — archived to `docs/archive/`.
+
+### Internal
+
+- Build pipeline (`scripts/build-graphql-bundle.js`) now emits per-op modules
+  instead of one giant map. Fragment inlining logic is unchanged.
+- Source maps and declaration maps are no longer emitted to `dist/cjs`
+  (consumers don't need them; saves ~600 KB).
+- `tsconfig.cjs.json` sets `declarationMap: false`, `sourceMap: false`.
+- **Schema drift fully resolved.** The 177-op allowlist (latent v0.9.x drift
+  exposed by the new alignment test) was burned down to zero: authored 46
+  missing GraphQL fragments (schema-driven, cycle-broken, required-arg-aware),
+  added missing variable declarations to 71 operations (resolved from the
+  schema via `graphql` `TypeInfo`), and fixed ~10 individual source bugs
+  (wrong fragment-on-type spreads, a missing `...` spread operator, removed
+  fields, `Order!` selection-set, `Taxcode` schema-casing).
+- **BC class-shim methods are now fully typed.** Every `XxxService` class
+  wrapper method mirrors its factory counterpart's parameter and return types
+  instead of `(arg: any)` — consumers on the class form regain full
+  type-checking. Generated by `scripts/codemod-service-fixups.js`.
+- Stale `@extends BaseService` JSDoc lines stripped from 22 service files; the
+  no-op `{ ...variables }` defensive spread dropped from factory call sites.
+
+### Migration
+
+See [MIGRATION-0.10.0.md](./MIGRATION-0.10.0.md). Most consumers change ~10
+lines of `lib/api.ts` and nothing else.
+
+---
+
 ## [0.9.0] - 2026-05-15
 
 Full schema-sync release. Re-introspected from the upstream API and removed every point of drift between the SDK and the live schema. Service method names are preserved across the board — only the GraphQL operation strings inside `executeQuery`/`executeMutation` and the matching `.graphql` files were renamed.

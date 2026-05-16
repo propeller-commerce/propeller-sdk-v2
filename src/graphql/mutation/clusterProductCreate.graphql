@@ -1,4 +1,4 @@
-mutation clusterProductCreate($id: Int!, $input: CreateProductInput!) {
+mutation clusterProductCreate($id: Int!, $input: CreateProductInput!, $attributeResultSearchInput: AttributeResultSearchInput, $priceCalculateProductInput: PriceCalculateProductInput, $userBulkPriceProductInput: UserBulkPriceProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $mediaVideoSearchInput: MediaVideoProductSearchInput, $mediaDocumentSearchInput: MediaDocumentProductSearchInput) {
   clusterProductCreate(id: $id, input: $input) {
     ...ProductFields
   }

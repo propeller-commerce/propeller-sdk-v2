@@ -1,0 +1,16 @@
+fragment EventToWebHookConfigFields on EventToWebHookConfig {
+  id
+  trigger
+  code
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  names {
+    ... LocalizedStringFields
+  }
+  channelIds
+  url
+  signatureSalt
+  basicAuthUsername
+}

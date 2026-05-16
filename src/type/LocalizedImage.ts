@@ -1,27 +1,11 @@
 /**
  Object class for LocalizedImage
  */
-export class LocalizedImage {
+export interface LocalizedImage {
   /** Image language */
-  language!: string;
+  language: string;
   /** Original image url */
-  originalUrl!: string;
+  originalUrl: string;
   /** The MIME type of the image. */
-  mimeType!: string;
-  constructor(data: Partial<LocalizedImage> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `language`. */
-  getLanguage(): string {
-    return this.language;
-  }
-  /** Returns `originalUrl`. */
-  getOriginalUrl(): string {
-    return this.originalUrl;
-  }
-  /** Returns `mimeType`. */
-  getMimeType(): string {
-    return this.mimeType;
-  }
+  mimeType: string;
 }

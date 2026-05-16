@@ -6,11 +6,11 @@ import { Order } from './Order';
  Version control record for order modifications
  * Represents a specific version of an order at a point in time, including complete snapshot data and metadata about who created the revision and when. Used for audit trails, rollback capabilities, and tracking order evolution.
  */
-export class OrderRevision {
+export interface OrderRevision {
   /** ID of the order this revision belongs to */
-  orderId!: number;
+  orderId: number;
   /** Revision number */
-  revisionNumber!: number;
+  revisionNumber: number;
   /** ID of the contact who created this revision */
   createdByContactId?: number;
   /** ID of the customer who created this revision */
@@ -20,77 +20,13 @@ export class OrderRevision {
   /** Admin user that created the revision */
   createdByAdminUser?: AdminUser;
   /** Date and time when this revision was created */
-  createdAt!: string;
+  createdAt: string;
   /** The revision this was created from */
   createdFromRevisionNumber?: number;
   /** Complete snapshot of the order data at the time this revision was created */
-  snapshot!: Order;
+  snapshot: Order;
   /** Contact that created the revision */
   createdByContact?: Contact;
   /** Customer that created the revision */
   createdByCustomer?: Customer;
-  constructor(data: Partial<OrderRevision> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `orderId`. */
-  getOrderId(): number {
-    return this.orderId;
-  }
-  /** Returns `revisionNumber`. */
-  getRevisionNumber(): number {
-    return this.revisionNumber;
-  }
-  /** Returns `createdByContactId`. */
-  getCreatedByContactId(): number | undefined {
-    return this.createdByContactId;
-  }
-  /** Returns `createdByCustomerId`. */
-  getCreatedByCustomerId(): number | undefined {
-    return this.createdByCustomerId;
-  }
-  /** Returns `createdByAdminUserId`. */
-  getCreatedByAdminUserId(): number | undefined {
-    return this.createdByAdminUserId;
-  }
-  /** Returns `createdByAdminUser` as a AdminUser instance (coerced on first access). */
-  getCreatedByAdminUser(): AdminUser | undefined {
-    if (this.createdByAdminUser == null) return undefined;
-    if (!(this.createdByAdminUser instanceof AdminUser)) {
-      this.createdByAdminUser = new AdminUser(this.createdByAdminUser as any);
-    }
-    return this.createdByAdminUser;
-  }
-  /** Returns `createdAt`. */
-  getCreatedAt(): string {
-    return this.createdAt;
-  }
-  /** Returns `createdFromRevisionNumber`. */
-  getCreatedFromRevisionNumber(): number | undefined {
-    return this.createdFromRevisionNumber;
-  }
-  /** Returns `snapshot` as an Order instance (coerced on first access). */
-  getSnapshot(): Order | undefined {
-    if (this.snapshot == null) return undefined;
-    if (!(this.snapshot instanceof Order)) {
-      this.snapshot = new Order(this.snapshot as any);
-    }
-    return this.snapshot;
-  }
-  /** Returns `createdByContact` as a Contact instance (coerced on first access). */
-  getCreatedByContact(): Contact | undefined {
-    if (this.createdByContact == null) return undefined;
-    if (!(this.createdByContact instanceof Contact)) {
-      this.createdByContact = new Contact(this.createdByContact as any);
-    }
-    return this.createdByContact;
-  }
-  /** Returns `createdByCustomer` as a Customer instance (coerced on first access). */
-  getCreatedByCustomer(): Customer | undefined {
-    if (this.createdByCustomer == null) return undefined;
-    if (!(this.createdByCustomer instanceof Customer)) {
-      this.createdByCustomer = new Customer(this.createdByCustomer as any);
-    }
-    return this.createdByCustomer;
-  }
 }

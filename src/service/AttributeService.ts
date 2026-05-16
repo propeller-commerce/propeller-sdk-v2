@@ -1,4 +1,3 @@
-import { BaseService } from './BaseService';
 import { Attribute } from '../type/Attribute';
 import { AttributeCreateInput } from '../type/AttributeCreateInput';
 import { AttributeUpdateInput } from '../type/AttributeUpdateInput';
@@ -13,193 +12,295 @@ import { AttributeDescriptionUpdateInput } from '../type/AttributeDescriptionUpd
 import { AttributeDescriptionCsvInput } from '../type/AttributeDescriptionCsvInput';
 import { CsvImportResponse } from '../type/CsvImportResponse';
 import { BulkDeleteResponse } from '../type/BulkDeleteResponse';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as attributeDoc } from '../generated/operations/attribute';
+import { document as attributesDoc } from '../generated/operations/attributes';
+import { document as attributeCreateDoc } from '../generated/operations/attributeCreate';
+import { document as attributeUpdateDoc } from '../generated/operations/attributeUpdate';
+import { document as attributeDeleteDoc } from '../generated/operations/attributeDelete';
+import { document as attributeResultByCategoryIdDoc } from '../generated/operations/attributeResultByCategoryId';
+import { document as attributeResultByClusterIdDoc } from '../generated/operations/attributeResultByClusterId';
+import { document as attributeResultByCompanyIdDoc } from '../generated/operations/attributeResultByCompanyId';
+import { document as attributeResultByContactIdDoc } from '../generated/operations/attributeResultByContactId';
+import { document as attributeResultByCustomerIdDoc } from '../generated/operations/attributeResultByCustomerId';
+import { document as attributeResultByProductIdDoc } from '../generated/operations/attributeResultByProductId';
+import { document as attributeDescriptionDoc } from '../generated/operations/attributeDescription';
+import { document as attributeDescriptionsDoc } from '../generated/operations/attributeDescriptions';
+import { document as attributeDescriptionCreateDoc } from '../generated/operations/attributeDescriptionCreate';
+import { document as attributeDescriptionUpdateDoc } from '../generated/operations/attributeDescriptionUpdate';
+import { document as attributeDescriptionDeleteDoc } from '../generated/operations/attributeDescriptionDelete';
+import { document as attributeDescriptionDeleteBulkDoc } from '../generated/operations/attributeDescriptionDeleteBulk';
+import { document as attributeDescriptionCsvImportDoc } from '../generated/operations/attributeDescriptionCsvImport';
 /**
  Service class for Attribute and AttributeDescription-related GraphQL operations
  */
-export class AttributeService extends BaseService {
-  // Attribute
+export function attributeService(client: GraphQLClient) {
+  return {
+    /**
+       Fetches a single attribute by ID
+       * @param id Attribute ID to fetch
+       * @returns Promise<Attribute> The attribute data
+       */
+    async getAttribute(id: string): Promise<Attribute> {
+      const result = await runOperation(client, attributeDoc, 'attribute', { id });
+      return result.data.attribute;
+    },
+    /**
+       Fetches a list of attributes with search criteria
+       * @param input Attribute search input parameters
+       * @returns Promise<AttributeResponse> The attributes response data
+       */
+    async getAttributes(input: AttributeSearchInput): Promise<AttributeResponse> {
+      const result = await runOperation(client, attributesDoc, 'attributes', { input });
+      return result.data.attributes;
+    },
+    /**
+       Creates a new attribute
+       * @param input Attribute creation input data
+       * @returns Promise<Attribute> The created attribute
+       */
+    async createAttribute(input: AttributeCreateInput): Promise<Attribute> {
+      const result = await runOperation(client, attributeCreateDoc, 'attributeCreate', { input });
+      return result.data.attributeCreate;
+    },
+    /**
+       Updates an existing attribute
+       * @param id Attribute ID to update
+       * @param input Attribute update input data
+       * @returns Promise<Attribute> The updated attribute
+       */
+    async updateAttribute(id: string, input: AttributeUpdateInput): Promise<Attribute> {
+      const result = await runOperation(client, attributeUpdateDoc, 'attributeUpdate', { id, input });
+      return result.data.attributeUpdate;
+    },
+    /**
+       Deletes an attribute by ID
+       * @param id Attribute ID to delete
+       * @returns Promise<boolean> Success status
+       */
+    async deleteAttribute(id: string): Promise<boolean> {
+      const result = await runOperation(client, attributeDeleteDoc, 'attributeDelete', { id });
+      return result.data.attributeDelete;
+    },
+    /**
+       Fetches attribute results by category ID
+       * @param categoryId Category ID to fetch attributes for
+       * @returns Promise<AttributeResultResponse> The attribute result data
+       */
+    async getAttributeResultByCategoryId(categoryId: number): Promise<AttributeResultResponse> {
+      const result = await runOperation(client, attributeResultByCategoryIdDoc, 'attributeResultByCategoryId', { categoryId });
+      return result.data.attributeResultByCategoryId as AttributeResultResponse;
+    },
+    /**
+       Fetches attribute results by cluster ID
+       * @param clusterId Cluster ID to fetch attributes for
+       * @returns Promise<AttributeResultResponse> The attribute result data
+       */
+    async getAttributeResultByClusterId(clusterId: number): Promise<AttributeResultResponse> {
+      const result = await runOperation(client, attributeResultByClusterIdDoc, 'attributeResultByClusterId', { clusterId });
+      return result.data.attributeResultByClusterId as AttributeResultResponse;
+    },
+    /**
+       Fetches attribute results by company ID
+       * @param companyId Company ID to fetch attributes for
+       * @returns Promise<AttributeResultResponse> The attribute result data
+       */
+    async getAttributeResultByCompanyId(companyId: number): Promise<AttributeResultResponse> {
+      const result = await runOperation(client, attributeResultByCompanyIdDoc, 'attributeResultByCompanyId', { companyId });
+      return result.data.attributeResultByCompanyId as AttributeResultResponse;
+    },
+    /**
+       Fetches attribute results by contact ID
+       * @param contactId Contact ID to fetch attributes for
+       * @returns Promise<AttributeResultResponse> The attribute result data
+       */
+    async getAttributeResultByContactId(contactId: number): Promise<AttributeResultResponse> {
+      const result = await runOperation(client, attributeResultByContactIdDoc, 'attributeResultByContactId', { contactId });
+      return result.data.attributeResultByContactId as AttributeResultResponse;
+    },
+    /**
+       Fetches attribute results by customer ID
+       * @param customerId Customer ID to fetch attributes for
+       * @returns Promise<AttributeResultResponse> The attribute result data
+       */
+    async getAttributeResultByCustomerId(customerId: number): Promise<AttributeResultResponse> {
+      const result = await runOperation(client, attributeResultByCustomerIdDoc, 'attributeResultByCustomerId', { customerId });
+      return result.data.attributeResultByCustomerId as AttributeResultResponse;
+    },
+    /**
+       Fetches attribute results by product ID
+       * @param productId Product ID to fetch attributes for
+       * @returns Promise<AttributeResultResponse> The attribute result data
+       */
+    async getAttributeResultByProductId(productId: number): Promise<AttributeResultResponse> {
+      const result = await runOperation(client, attributeResultByProductIdDoc, 'attributeResultByProductId', { productId });
+      return result.data.attributeResultByProductId as AttributeResultResponse;
+    },
+    /**
+       Fetches a single attribute description by ID
+       * @param id AttributeDescription ID to fetch
+       * @returns Promise<AttributeDescription> The attribute description data
+       */
+    async getAttributeDescription(id: string): Promise<AttributeDescription> {
+      const result = await runOperation(client, attributeDescriptionDoc, 'attributeDescription', { id });
+      return result.data.attributeDescription as AttributeDescription;
+    },
+    /**
+       Fetches a list of attribute descriptions with search criteria
+       * @param input AttributeDescription search input parameters
+       * @returns Promise<AttributeDescriptionResponse> The attribute descriptions response data
+       */
+    async getAttributeDescriptions(input: AttributeDescriptionSearchInput): Promise<AttributeDescriptionResponse> {
+      const result = await runOperation(client, attributeDescriptionsDoc, 'attributeDescriptions', { input });
+      return result.data.attributeDescriptions as AttributeDescriptionResponse;
+    },
+    /**
+       Creates a new attribute description
+       * @param input AttributeDescription creation input data
+       * @returns Promise<AttributeDescription> The created attribute description
+       */
+    async createAttributeDescription(input: AttributeDescriptionCreateInput): Promise<AttributeDescription> {
+      const result = await runOperation(client, attributeDescriptionCreateDoc, 'attributeDescriptionCreate', { input });
+      return result.data.attributeDescriptionCreate as AttributeDescription;
+    },
+    /**
+       Updates an existing attribute description
+       * @param id AttributeDescription ID to update
+       * @param input AttributeDescription update input data
+       * @returns Promise<AttributeDescription> The updated attribute description
+       */
+    async updateAttributeDescription(id: string, input: AttributeDescriptionUpdateInput): Promise<AttributeDescription> {
+      const result = await runOperation(client, attributeDescriptionUpdateDoc, 'attributeDescriptionUpdate', { id, input });
+      return result.data.attributeDescriptionUpdate as AttributeDescription;
+    },
+    /**
+       Deletes an attribute description by ID
+       * @param id AttributeDescription ID to delete
+       * @returns Promise<boolean> Success status
+       */
+    async deleteAttributeDescription(id: string): Promise<boolean> {
+      const result = await runOperation(client, attributeDescriptionDeleteDoc, 'attributeDescriptionDelete', { id });
+      return result.data.attributeDescriptionDelete;
+    },
+    /**
+       Deletes multiple attribute descriptions by IDs
+       * @param ids Array of AttributeDescription IDs to delete
+       * @returns Promise<BulkDeleteResponse> Bulk delete result
+       */
+    async deleteAttributeDescriptionBulk(ids: string[]): Promise<BulkDeleteResponse> {
+      const result = await runOperation(client, attributeDescriptionDeleteBulkDoc, 'attributeDescriptionDeleteBulk', { ids });
+      return result.data.attributeDescriptionDeleteBulk as BulkDeleteResponse;
+    },
+    /**
+       Imports attribute descriptions via CSV
+       * @param input CSV import input data
+       * @returns Promise<CsvImportResponse> Import result
+       */
+    async importAttributeDescriptionCsv(input: AttributeDescriptionCsvInput): Promise<CsvImportResponse> {
+      const result = await runOperation(client, attributeDescriptionCsvImportDoc, 'attributeDescriptionCsvImport', { input });
+      return result.data.attributeDescriptionCsvImport as CsvImportResponse;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call `attributeService(client)`.
+ */
+export class AttributeService {
+  private readonly _svc: ReturnType<typeof attributeService>;
+  constructor(client: GraphQLClient) { this._svc = attributeService(client); }
   /**
-   Fetches a single attribute by ID
+   * Fetches a single attribute by ID
    * @param id Attribute ID to fetch
-   * @returns Promise<Attribute> The attribute data
    */
-  async getAttribute(id: string): Promise<Attribute> {
-    const variables = { id };
-    const result = await this.executeQuery('attribute', variables);
-    return result.data.attribute;
-  }
+  getAttribute(id: string): Promise<Attribute> { return this._svc.getAttribute(id); }
   /**
-   Fetches a list of attributes with search criteria
+   * Fetches a list of attributes with search criteria
    * @param input Attribute search input parameters
-   * @returns Promise<AttributeResponse> The attributes response data
    */
-  async getAttributes(input: AttributeSearchInput): Promise<AttributeResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('attributes', variables);
-    return result.data.attributes;
-  }
+  getAttributes(input: AttributeSearchInput): Promise<AttributeResponse> { return this._svc.getAttributes(input); }
   /**
-   Creates a new attribute
+   * Creates a new attribute
    * @param input Attribute creation input data
-   * @returns Promise<Attribute> The created attribute
    */
-  async createAttribute(input: AttributeCreateInput): Promise<Attribute> {
-    const variables = { input };
-    const result = await this.executeMutation('attributeCreate', variables);
-    return result.data.attributeCreate;
-  }
+  createAttribute(input: AttributeCreateInput): Promise<Attribute> { return this._svc.createAttribute(input); }
   /**
-   Updates an existing attribute
+   * Updates an existing attribute
    * @param id Attribute ID to update
    * @param input Attribute update input data
-   * @returns Promise<Attribute> The updated attribute
    */
-  async updateAttribute(id: string, input: AttributeUpdateInput): Promise<Attribute> {
-    const variables = { id, input };
-    const result = await this.executeMutation('attributeUpdate', variables);
-    return result.data.attributeUpdate;
-  }
+  updateAttribute(id: string, input: AttributeUpdateInput): Promise<Attribute> { return this._svc.updateAttribute(id, input); }
   /**
-   Deletes an attribute by ID
+   * Deletes an attribute by ID
    * @param id Attribute ID to delete
-   * @returns Promise<boolean> Success status
    */
-  async deleteAttribute(id: string): Promise<boolean> {
-    const variables = { id };
-    const result = await this.executeMutation('attributeDelete', variables);
-    return result.data.attributeDelete;
-  }
-  // AttributeResult
+  deleteAttribute(id: string): Promise<boolean> { return this._svc.deleteAttribute(id); }
   /**
-   Fetches attribute results by category ID
+   * Fetches attribute results by category ID
    * @param categoryId Category ID to fetch attributes for
-   * @returns Promise<AttributeResultResponse> The attribute result data
    */
-  async getAttributeResultByCategoryId(categoryId: number): Promise<AttributeResultResponse> {
-    const variables = { categoryId };
-    const result = await this.executeQuery('attributeResultByCategoryId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByCategoryId);
-  }
+  getAttributeResultByCategoryId(categoryId: number): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByCategoryId(categoryId); }
   /**
-   Fetches attribute results by cluster ID
+   * Fetches attribute results by cluster ID
    * @param clusterId Cluster ID to fetch attributes for
-   * @returns Promise<AttributeResultResponse> The attribute result data
    */
-  async getAttributeResultByClusterId(clusterId: number): Promise<AttributeResultResponse> {
-    const variables = { clusterId };
-    const result = await this.executeQuery('attributeResultByClusterId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByClusterId);
-  }
+  getAttributeResultByClusterId(clusterId: number): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByClusterId(clusterId); }
   /**
-   Fetches attribute results by company ID
+   * Fetches attribute results by company ID
    * @param companyId Company ID to fetch attributes for
-   * @returns Promise<AttributeResultResponse> The attribute result data
    */
-  async getAttributeResultByCompanyId(companyId: number): Promise<AttributeResultResponse> {
-    const variables = { companyId };
-    const result = await this.executeQuery('attributeResultByCompanyId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByCompanyId);
-  }
+  getAttributeResultByCompanyId(companyId: number): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByCompanyId(companyId); }
   /**
-   Fetches attribute results by contact ID
+   * Fetches attribute results by contact ID
    * @param contactId Contact ID to fetch attributes for
-   * @returns Promise<AttributeResultResponse> The attribute result data
    */
-  async getAttributeResultByContactId(contactId: number): Promise<AttributeResultResponse> {
-    const variables = { contactId };
-    const result = await this.executeQuery('attributeResultByContactId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByContactId);
-  }
+  getAttributeResultByContactId(contactId: number): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByContactId(contactId); }
   /**
-   Fetches attribute results by customer ID
+   * Fetches attribute results by customer ID
    * @param customerId Customer ID to fetch attributes for
-   * @returns Promise<AttributeResultResponse> The attribute result data
    */
-  async getAttributeResultByCustomerId(customerId: number): Promise<AttributeResultResponse> {
-    const variables = { customerId };
-    const result = await this.executeQuery('attributeResultByCustomerId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByCustomerId);
-  }
+  getAttributeResultByCustomerId(customerId: number): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByCustomerId(customerId); }
   /**
-   Fetches attribute results by product ID
+   * Fetches attribute results by product ID
    * @param productId Product ID to fetch attributes for
-   * @returns Promise<AttributeResultResponse> The attribute result data
    */
-  async getAttributeResultByProductId(productId: number): Promise<AttributeResultResponse> {
-    const variables = { productId };
-    const result = await this.executeQuery('attributeResultByProductId', variables);
-    return new AttributeResultResponse(result.data.attributeResultByProductId);
-  }
-  // AttributeDescription
+  getAttributeResultByProductId(productId: number): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByProductId(productId); }
   /**
-   Fetches a single attribute description by ID
+   * Fetches a single attribute description by ID
    * @param id AttributeDescription ID to fetch
-   * @returns Promise<AttributeDescription> The attribute description data
    */
-  async getAttributeDescription(id: string): Promise<AttributeDescription> {
-    const variables = { id };
-    const result = await this.executeQuery('attributeDescription', variables);
-    return new AttributeDescription(result.data.attributeDescription);
-  }
+  getAttributeDescription(id: string): Promise<AttributeDescription> { return this._svc.getAttributeDescription(id); }
   /**
-   Fetches a list of attribute descriptions with search criteria
+   * Fetches a list of attribute descriptions with search criteria
    * @param input AttributeDescription search input parameters
-   * @returns Promise<AttributeDescriptionResponse> The attribute descriptions response data
    */
-  async getAttributeDescriptions(input: AttributeDescriptionSearchInput): Promise<AttributeDescriptionResponse> {
-    const variables = { input };
-    const result = await this.executeQuery('attributeDescriptions', variables);
-    return new AttributeDescriptionResponse(result.data.attributeDescriptions);
-  }
+  getAttributeDescriptions(input: AttributeDescriptionSearchInput): Promise<AttributeDescriptionResponse> { return this._svc.getAttributeDescriptions(input); }
   /**
-   Creates a new attribute description
+   * Creates a new attribute description
    * @param input AttributeDescription creation input data
-   * @returns Promise<AttributeDescription> The created attribute description
    */
-  async createAttributeDescription(input: AttributeDescriptionCreateInput): Promise<AttributeDescription> {
-    const variables = { input };
-    const result = await this.executeMutation('attributeDescriptionCreate', variables);
-    return new AttributeDescription(result.data.attributeDescriptionCreate);
-  }
+  createAttributeDescription(input: AttributeDescriptionCreateInput): Promise<AttributeDescription> { return this._svc.createAttributeDescription(input); }
   /**
-   Updates an existing attribute description
+   * Updates an existing attribute description
    * @param id AttributeDescription ID to update
    * @param input AttributeDescription update input data
-   * @returns Promise<AttributeDescription> The updated attribute description
    */
-  async updateAttributeDescription(id: string, input: AttributeDescriptionUpdateInput): Promise<AttributeDescription> {
-    const variables = { id, input };
-    const result = await this.executeMutation('attributeDescriptionUpdate', variables);
-    return new AttributeDescription(result.data.attributeDescriptionUpdate);
-  }
+  updateAttributeDescription(id: string, input: AttributeDescriptionUpdateInput): Promise<AttributeDescription> { return this._svc.updateAttributeDescription(id, input); }
   /**
-   Deletes an attribute description by ID
+   * Deletes an attribute description by ID
    * @param id AttributeDescription ID to delete
-   * @returns Promise<boolean> Success status
    */
-  async deleteAttributeDescription(id: string): Promise<boolean> {
-    const variables = { id };
-    const result = await this.executeMutation('attributeDescriptionDelete', variables);
-    return result.data.attributeDescriptionDelete;
-  }
+  deleteAttributeDescription(id: string): Promise<boolean> { return this._svc.deleteAttributeDescription(id); }
   /**
-   Deletes multiple attribute descriptions by IDs
+   * Deletes multiple attribute descriptions by IDs
    * @param ids Array of AttributeDescription IDs to delete
-   * @returns Promise<BulkDeleteResponse> Bulk delete result
    */
-  async deleteAttributeDescriptionBulk(ids: string[]): Promise<BulkDeleteResponse> {
-    const variables = { ids };
-    const result = await this.executeMutation('attributeDescriptionDeleteBulk', variables);
-    return new BulkDeleteResponse(result.data.attributeDescriptionDeleteBulk);
-  }
+  deleteAttributeDescriptionBulk(ids: string[]): Promise<BulkDeleteResponse> { return this._svc.deleteAttributeDescriptionBulk(ids); }
   /**
-   Imports attribute descriptions via CSV
+   * Imports attribute descriptions via CSV
    * @param input CSV import input data
-   * @returns Promise<CsvImportResponse> Import result
    */
-  async importAttributeDescriptionCsv(input: AttributeDescriptionCsvInput): Promise<CsvImportResponse> {
-    const variables = { input };
-    const result = await this.executeMutation('attributeDescriptionCsvImport', variables);
-    return new CsvImportResponse(result.data.attributeDescriptionCsvImport);
-  }
+  importAttributeDescriptionCsv(input: AttributeDescriptionCsvInput): Promise<CsvImportResponse> { return this._svc.importAttributeDescriptionCsv(input); }
 }
+

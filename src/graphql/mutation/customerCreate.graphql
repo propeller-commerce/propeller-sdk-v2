@@ -1,4 +1,4 @@
-mutation customerCreate($input: CustomerInput!) {
+mutation customerCreate($input: CustomerInput!, $customerAttributesInput: AttributeResultSearchInput) {
   customerCreate(input: $input) {
     ...CustomerFields
   }

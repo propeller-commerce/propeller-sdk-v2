@@ -1,6 +1,6 @@
 import { GraphQLClient } from '../../src/client/GraphQLClient';
 import { ProductService } from '../../src/service/ProductService';
-import { Product } from '../../src/type/Product';
+import type { Product } from '../../src/type/Product';
 
 const okResponse = (data: any) =>
   new Response(JSON.stringify({ data }), { status: 200 });
@@ -30,7 +30,9 @@ describe('ProductService', () => {
 
     const product: Product = await svc.getProduct({ productId: 42 } as any);
 
-    expect(product).toBeInstanceOf(Product);
+    // v0.10.0: returned value is a plain object satisfying the Product
+    // interface (no longer a class instance).
+    expect(product).toEqual(expect.objectContaining({ id: 42, sku: 'SKU-42' }));
     expect(product.id).toBe(42);
     expect(product.sku).toBe('SKU-42');
 

@@ -1,4 +1,4 @@
-mutation crossupsellUpdate($id: String!, $input: CrossupsellUpdateInput!) {
+mutation crossupsellUpdate($id: String!, $input: CrossupsellUpdateInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   crossupsellUpdate(id: $id, input: $input) {
     ...CrossupsellFields
   }

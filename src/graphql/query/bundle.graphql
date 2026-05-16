@@ -1,4 +1,4 @@
-query bundle($id: String!, $taxZone: String) {
+query bundle($id: String!, $taxZone: String, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   bundle(id: $id, taxZone: $taxZone) {
     ...BundleFields
   }

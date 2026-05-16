@@ -1,0 +1,146 @@
+# Migrating to propeller-sdk-v2 v0.10.0
+
+v0.10.0 is an architectural overhaul. The public surface is intentionally kept
+close to v0.9.x so most consumer code does **not** need to change. The places
+that do change are concentrated in one file per consumer (`lib/api.ts`), with
+a short rename table for a few methods.
+
+If you previously used `propeller-sdk-v2` v0.9.x via the `lib/api.ts`
+singleton-export pattern (the recommended setup for `propeller-next` and
+`propeller-vue`), your migration is ~10 lines of edits.
+
+---
+
+## What changed conceptually
+
+| | v0.9.x | v0.10.0 |
+|---|---|---|
+| Response types (`Product`, `Cart`, …) | Wrapper classes with constructors + 2,291 generated getter methods | Plain TypeScript interfaces |
+| `product.getName('NL')` | Method on the class | Use `getLocalized(product.names, 'NL')` |
+| Service constructor | `new ProductService(client)` | `new ProductService(client)` *(still works)* or `productService(client)` |
+| Bundled query/mutation maps | All 459 ops preloaded into every client | Per-op imports — services bring their own GraphQL documents |
+| Tree-shaking | Broken (every client preloaded ~46k lines of GraphQL strings) | Working — `sideEffects: false` + per-op imports |
+| `client` Proxy export | Available, `@deprecated` | **Removed** |
+| Deprecated config keys (`customFragmentsPath`, …) | Available, `@deprecated` | **Removed** |
+| `BaseService` parent class | Used by every service | **Removed** (services use `runOperation` internally) |
+| Schema-alignment test | None | New: `tests/integration/schemaAlignment.test.ts` |
+
+## The mechanical changes for consumers
+
+### 1. Class wrappers → interfaces
+
+Response objects are now plain TypeScript interfaces. They come back from the
+server as JSON; the SDK no longer wraps them in `new Product(…)` (this was
+runtime-overhead for no gain — consumers never used the class methods).
+
+**Effects you might notice:**
+
+- `product instanceof Product` no longer compiles (and never worked sensibly
+  after `JSON.parse(localStorage.getItem('product'))` round-trips anyway).
+- `product.getName('NL')`, `product.getPrice()`, etc. do not exist. Use
+  field access directly: `product.name`, `product.price`. For localized
+  fields, use the new `getLocalized` helper.
+- `JSON.stringify(cart) → localStorage → JSON.parse as Cart` continues to
+  work; in fact it works *better* (no class methods to lose).
+
+```diff
+- import { Product } from 'propeller-sdk-v2';
+- const name = product.getName('EN');
+- const price = product.getPrice();
++ import type { Product } from 'propeller-sdk-v2';
++ import { getLocalized } from 'propeller-sdk-v2';
++ const name = getLocalized(product.names, 'EN', 'NL');
++ const price = product.price; // plain field access
+```
+
+In practice both audited consumer apps (`propeller-next`, `propeller-vue`)
+already use direct field access (`product.price`, `cart.cartId`) and never
+called any getters. If your code matches that pattern, there is **no call-site
+change**.
+
+### 2. `lib/api.ts` wiring — minimum churn path
+
+The class form is preserved. You can keep your wiring file almost untouched:
+
+```ts
+// v0.9.x — KEEP WORKING in v0.10.0
+import { GraphQLClient, ProductService, CartService } from 'propeller-sdk-v2';
+const graphqlClient = new GraphQLClient({ endpoint, apiKey });
+export const productService = new ProductService(graphqlClient);
+export const cartService = new CartService(graphqlClient);
+```
+
+This continues to compile and run. The class form (`new ProductService`) is a
+thin wrapper over the factory form (`productService(client)`) — both are
+exported.
+
+If you want the tree-shake benefit (only import the ops a given service
+uses), prefer the factory form:
+
+```ts
+// v0.10.0 — preferred
+import { createClient, productService, cartService } from 'propeller-sdk-v2';
+const graphqlClient = createClient({ endpoint, apiKey, defaultLanguage: 'NL' });
+export const productServiceInstance = productService(graphqlClient);
+export const cartServiceInstance = cartService(graphqlClient);
+```
+
+Both styles can coexist.
+
+### 3. Removed deprecated symbols
+
+These were `@deprecated` in v0.9.x and emitted warnings — they are gone in
+v0.10.0.
+
+| Removed | Replacement |
+|---|---|
+| `client` Proxy export | `getClient()` |
+| `GraphQLClientConfig.customFragmentsPath` | (no replacement needed — fragments inline at build time) |
+| `GraphQLClientConfig.customQueriesPath` | (no replacement needed) |
+| `GraphQLClientConfig.customMutationsPath` | (no replacement needed) |
+| `GraphQLClientConfig.allowCustomOverride` | (no replacement needed) |
+| `GraphQLOperation.skipFragmentResolution` | (no replacement needed) |
+| `BaseService` | service factories use the internal `runOperation` helper |
+| `client.reloadOperations()` | not needed (no preload) |
+
+If you were relying on `queryByName('foo')` returning a bundled operation,
+note that bundled queries are no longer preloaded into the client. Register
+your custom queries explicitly via `client.registerQuery('foo', '<query>')`
+before calling `queryByName('foo')`. The service factories cover all 459
+bundled operations directly — prefer those for service-defined ops.
+
+### 4. Schema-alignment test (optional but recommended)
+
+If you contribute back to this repo or run our test suite in CI, you'll see a
+new `tests/integration/schemaAlignment.test.ts` that validates every
+`.graphql` file against the upstream schema (`schema.json`). The schema is
+**not** committed — it's fetched on demand via
+`node scripts/fetch-schema.js`, which reads `PROPELLER_ENDPOINT` and
+`PROPELLER_API_KEY` from `.env`.
+
+Set up:
+
+```bash
+echo "PROPELLER_ENDPOINT=https://api.helice.cloud/v2/graphql" >> .env
+echo "PROPELLER_API_KEY=<your-api-key>" >> .env
+node scripts/fetch-schema.js
+npm test
+```
+
+## Quick checklist
+
+- [ ] Search your codebase for `instanceof Product`, `instanceof Cart`, etc. Replace with field/`__typename` checks (or delete — exploration found zero such checks in `propeller-next`/`propeller-vue`).
+- [ ] Search for `.get*(` method calls on response objects (e.g. `product.getName('NL')`, `cart.getCartId()`). Replace with field access (`product.names…`, `cart.cartId`) or `getLocalized()` for localized fields.
+- [ ] Remove any deprecated `GraphQLClientConfig` keys from your wiring.
+- [ ] Optional: switch `new ProductService(client)` to `productService(client)` for tree-shake friendliness.
+- [ ] Run `tsc --noEmit` / `vue-tsc --noEmit` to surface any remaining issues.
+
+## Reverting
+
+v0.10.0 is a major architectural change but no `package.json` minor-bump
+changes are sticky — if anything breaks, pin back to `0.9.0` while we work
+through the diff.
+
+```bash
+npm install propeller-sdk-v2@0.9.0
+```

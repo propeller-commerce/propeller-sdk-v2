@@ -1,4 +1,4 @@
-mutation contactUpdate($id: Int!, $input: UpdateContactInput!) {
+mutation contactUpdate($id: Int!, $input: UpdateContactInput!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput) {
   contactUpdate(id: $id, input: $input) {
     ...ContactFields
   }

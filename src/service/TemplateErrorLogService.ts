@@ -1,86 +1,82 @@
-import { BaseService } from './BaseService';
-import { TemplateErrorLog } from '../type/TemplateErrorLog';
-import { TemplateErrorLogSearchInput } from '../type/TemplateErrorLogSearchInput';
-import { TemplateErrorLogResponse } from '../type/TemplateErrorLogResponse';
-import { TemplateErrorLogStats } from '../type/TemplateErrorLogStats';
+import { GraphQLClient } from '../client/GraphQLClient';
+import { runOperation } from './runOperation';
+import { document as templateErrorLogDoc } from '../generated/operations/templateErrorLog';
+import { document as templateErrorLogsDoc } from '../generated/operations/templateErrorLogs';
+import { document as templateErrorLogStatsDoc } from '../generated/operations/templateErrorLogStats';
+
+import type { TemplateErrorLog } from '../type/TemplateErrorLog';
+import type { TemplateErrorLogSearchInput } from '../type/TemplateErrorLogSearchInput';
+import type { TemplateErrorLogResponse } from '../type/TemplateErrorLogResponse';
+import type { TemplateErrorLogStats } from '../type/TemplateErrorLogStats';
+
 /**
- Service for managing template error logs
- * Provides methods for retrieving, searching, and analyzing template error logs including individual error details, paginated search results, and statistical summaries for monitoring and debugging purposes.
+ * Factory for template-error-log GraphQL operations. Retrieval, paginated
+ * search, and statistical summaries for monitoring and debugging templates.
  */
-export class TemplateErrorLogService extends BaseService {
-  /**
-   Retrieve a specific template error log by ID
-   * @param id - Unique identifier for the error log
-   * @returns Promise resolving to the template error log
-   */
-  async getTemplateErrorLog(id: string): Promise<TemplateErrorLog> {
-    const query = `
-      query templateErrorLog($id: String!) {
-        templateErrorLog(id: $id) {
-          id
-          stackTrace
-          createdAt
-          eventInstance
-          topicName
-          errorType
-          errorMessage
-          templateId
-          fieldName
-        }
-      }
-    `;
-    const result = await this.client.query(query, { id });
-    return new TemplateErrorLog(result.templateErrorLog);
+export function templateErrorLogService(client: GraphQLClient) {
+  return {
+    /**
+     * Retrieve a specific template error log by ID.
+     * @param id Unique identifier for the error log
+     */
+    async getTemplateErrorLog(id: string): Promise<TemplateErrorLog> {
+      const result = await runOperation(client, templateErrorLogDoc, 'templateErrorLog', { id });
+      return result.data.templateErrorLog as TemplateErrorLog;
+    },
+
+    /**
+     * Search for template error logs with filtering and pagination.
+     * @param input Search criteria and pagination parameters
+     */
+    async searchTemplateErrorLogs(
+      input: TemplateErrorLogSearchInput
+    ): Promise<TemplateErrorLogResponse> {
+      const result = await runOperation(client, templateErrorLogsDoc, 'templateErrorLogs', { input });
+      return result.data.templateErrorLogs as TemplateErrorLogResponse;
+    },
+
+    /**
+     * Retrieve a statistical summary of template error logs.
+     */
+    async getTemplateErrorLogStats(): Promise<TemplateErrorLogStats> {
+      const result = await runOperation(
+        client,
+        templateErrorLogStatsDoc,
+        'templateErrorLogStats',
+        {}
+      );
+      return result.data.templateErrorLogStats as TemplateErrorLogStats;
+    },
+  };
+}
+
+/**
+ * Backwards-compatible class form. New code should call
+ * `templateErrorLogService(client)`.
+ */
+export class TemplateErrorLogService {
+  private readonly _svc: ReturnType<typeof templateErrorLogService>;
+  constructor(client: GraphQLClient) {
+    this._svc = templateErrorLogService(client);
   }
   /**
-   Search for template error logs with filtering and pagination
-   * @param input - Search criteria and pagination parameters
-   * @returns Promise resolving to paginated template error log results
+   * Retrieve a specific template error log by ID.
+   * @param id Unique identifier for the error log
    */
-  async searchTemplateErrorLogs(input: TemplateErrorLogSearchInput): Promise<TemplateErrorLogResponse> {
-    const query = `
-      query templateErrorLogs($input: TemplateErrorLogSearchInput!) {
-        templateErrorLogs(input: $input) {
-          items {
-            id
-            stackTrace
-            createdAt
-            eventInstance
-            topicName
-            errorType
-            errorMessage
-            templateId
-            fieldName
-          }
-          itemsFound
-          page
-          offset
-          pages
-          start
-          end
-        }
-      }
-    `;
-    const result = await this.client.query(query, { input });
-    return result.templateErrorLogs as TemplateErrorLogResponse;
+  getTemplateErrorLog(id: string): Promise<TemplateErrorLog> {
+    return this._svc.getTemplateErrorLog(id);
   }
   /**
-   Retrieve statistical summary of template error logs
-   * @returns Promise resolving to template error log statistics
+   * Search for template error logs with filtering and pagination.
+   * @param input Search criteria and pagination parameters
    */
-  async getTemplateErrorLogStats(): Promise<TemplateErrorLogStats> {
-    const query = `
-      query templateErrorLogStats {
-        templateErrorLogStats {
-          totalCount
-          renderErrorCount
-          customQueryErrorCount
-          oldestEntry
-          newestEntry
-        }
-      }
-    `;
-    const result = await this.client.query(query);
-    return result.templateErrorLogStats;
+  searchTemplateErrorLogs(input: TemplateErrorLogSearchInput): Promise<TemplateErrorLogResponse> {
+    return this._svc.searchTemplateErrorLogs(input);
+  }
+  /**
+   * Retrieve a statistical summary of template error logs.
+   */
+  getTemplateErrorLogStats(): Promise<TemplateErrorLogStats> {
+    return this._svc.getTemplateErrorLogStats();
   }
 }

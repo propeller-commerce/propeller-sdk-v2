@@ -1,21 +1,9 @@
 /**
  Object class for OrderTotalTaxPercentage
  */
-export class OrderTotalTaxPercentage {
+export interface OrderTotalTaxPercentage {
   /** The tax percentage */
-  percentage!: number;
+  percentage: number;
   /** The total for the tax percentage */
-  total!: number;
-  constructor(data: Partial<OrderTotalTaxPercentage> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `percentage`. */
-  getPercentage(): number {
-    return this.percentage;
-  }
-  /** Returns `total`. */
-  getTotal(): number {
-    return this.total;
-  }
+  total: number;
 }

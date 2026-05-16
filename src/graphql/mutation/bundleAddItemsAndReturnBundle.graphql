@@ -1,4 +1,4 @@
-mutation bundleAddItemsAndReturnBundle($id: String!, $input: BundleAddItemsInput!) {
+mutation bundleAddItemsAndReturnBundle($id: String!, $input: BundleAddItemsInput!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
   bundleAddItemsAndReturnBundle(id: $id, input: $input) {
     ...BundleFields
   }

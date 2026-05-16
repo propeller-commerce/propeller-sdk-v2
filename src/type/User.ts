@@ -6,25 +6,25 @@ import { Company } from './Company';
 /**
  Object class for User
  */
-export class User {
+export interface User {
   /** The id of the user. */
-  userId!: number;
-/** debtorId field */
+  userId: number;
+  /** debtorId field */
   debtorId?: string;
   /** The gender of the user. */
   gender?: Gender;
   /** The first name of the user. */
-  firstName!: string;
+  firstName: string;
   /** The middle name of the user. */
   middleName?: string;
   /** The last name of the user. */
-  lastName!: string;
+  lastName: string;
   /** The phone number of the user. */
   phone?: string;
   /** The mobile number of the user. */
   mobile?: string;
   /** The email of the user. */
-  email!: string;
+  email: string;
   /** The login name (email) the account is linked to, generally the same as email address. When null a account has not been linked yet. */
   login?: string;
   /** The International Bank Account Number of the user */
@@ -61,118 +61,4 @@ export class User {
   company?: string;
   /** Companies managed by the user. */
   managedCompanies?: Company[];
-  constructor(data: Partial<User> = {}) {
-    Object.assign(this, data);
-  }
-
-  /** Returns `userId`. */
-  getUserId(): number {
-    return this.userId;
-  }
-  /** Returns `debtorId`. */
-  getDebtorId(): string | undefined {
-    return this.debtorId;
-  }
-  /** Returns `gender`. */
-  getGender(): Gender | undefined {
-    return this.gender;
-  }
-  /** Returns `firstName`. */
-  getFirstName(): string {
-    return this.firstName;
-  }
-  /** Returns `middleName`. */
-  getMiddleName(): string | undefined {
-    return this.middleName;
-  }
-  /** Returns `lastName`. */
-  getLastName(): string {
-    return this.lastName;
-  }
-  /** Returns `phone`. */
-  getPhone(): string | undefined {
-    return this.phone;
-  }
-  /** Returns `mobile`. */
-  getMobile(): string | undefined {
-    return this.mobile;
-  }
-  /** Returns `email`. */
-  getEmail(): string {
-    return this.email;
-  }
-  /** Returns `login`. */
-  getLogin(): string | undefined {
-    return this.login;
-  }
-  /** Returns `iban`. */
-  getIban(): string | undefined {
-    return this.iban;
-  }
-  /** Returns `bankAccount`. */
-  getBankAccount(): string | undefined {
-    return this.bankAccount;
-  }
-  /** Returns `bic`. */
-  getBic(): string | undefined {
-    return this.bic;
-  }
-  /** Returns `notes`. */
-  getNotes(): string | undefined {
-    return this.notes;
-  }
-  /** Returns `primaryLanguage`. */
-  getPrimaryLanguage(): string | undefined {
-    return this.primaryLanguage;
-  }
-  /** Returns `expires`. */
-  getExpires(): string | undefined {
-    return this.expires;
-  }
-  /** Returns `externalId`. */
-  getExternalId(): string | undefined {
-    return this.externalId;
-  }
-  /** Returns `dateOfBirth`. */
-  getDateOfBirth(): string | undefined {
-    return this.dateOfBirth;
-  }
-  /** Returns `mailingList`. */
-  getMailingList(): YesNo | undefined {
-    return this.mailingList;
-  }
-  /** Returns `isLoggedIn`. */
-  getIsLoggedIn(): boolean | undefined {
-    return this.isLoggedIn;
-  }
-  /** Returns `createdAt`. */
-  getCreatedAt(): string | undefined {
-    return this.createdAt;
-  }
-  /** Returns `lastModifiedAt`. */
-  getLastModifiedAt(): string | undefined {
-    return this.lastModifiedAt;
-  }
-  /** Returns `taxNumber`. */
-  getTaxNumber(): string | undefined {
-    return this.taxNumber;
-  }
-  /** Returns `cocNumber`. */
-  getCocNumber(): string | undefined {
-    return this.cocNumber;
-  }
-  /** Returns `loginRoot`. */
-  getLoginRoot(): number | undefined {
-    return this.loginRoot;
-  }
-  /** Returns `company`. */
-  getCompany(): string | undefined {
-    return this.company;
-  }
-  /** Returns `managedCompanies` as Company instances (coerced on first access). */
-  getManagedCompanies(): Company[] | undefined {
-    if (!this.managedCompanies) return undefined;
-    this.managedCompanies = this.managedCompanies.map((x: any) => x instanceof Company ? x : new Company(x));
-    return this.managedCompanies;
-  }
 }
