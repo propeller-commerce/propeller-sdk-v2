@@ -2,6 +2,7 @@ import { InventoryResponse } from '../type/InventoryResponse';
 import { GraphQLClient } from '../client/GraphQLClient';
 import { runOperation } from './runOperation';
 import { document as inventoryDoc } from '../generated/operations/inventory';
+import type { InventoryVariables } from '../generated/operationVariables';
 /**
  Service class for Inventory-related GraphQL operations
  */
@@ -12,8 +13,8 @@ export function inventoryService(client: GraphQLClient) {
        * @param input Inventory search input parameters
        * @returns Promise<InventoryResponse> The inventory response
        */
-    async getInventory(input?: any): Promise<InventoryResponse> {
-      const result = await runOperation(client, inventoryDoc, 'inventory', { input });
+    async getInventory(variables: InventoryVariables): Promise<InventoryResponse> {
+      const result = await runOperation(client, inventoryDoc, 'inventory', variables);
       return result.data.inventory as InventoryResponse;
     },
   };
@@ -29,6 +30,6 @@ export class InventoryService {
    * Fetches inventory with search criteria
    * @param input Inventory search input parameters
    */
-  getInventory(input?: any): Promise<InventoryResponse> { return this._svc.getInventory(input); }
+  getInventory(variables: InventoryVariables): Promise<InventoryResponse> { return this._svc.getInventory(variables); }
 }
 

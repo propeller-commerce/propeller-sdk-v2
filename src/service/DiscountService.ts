@@ -12,6 +12,7 @@ import { document as discountsDoc } from '../generated/operations/discounts';
 import { document as discountCreateDoc } from '../generated/operations/discountCreate';
 import { document as discountUpdateDoc } from '../generated/operations/discountUpdate';
 import { document as discountCsvImportDoc } from '../generated/operations/discountCsvImport';
+import type { DiscountUpdateVariables } from '../generated/operationVariables';
 /**
  Service class for Discount-related GraphQL operations
  */
@@ -49,8 +50,8 @@ export function discountService(client: GraphQLClient) {
        * @param input Discount update input data
        * @returns Promise<Discount> The updated discount
        */
-    async updateDiscount(input: DiscountUpdateInput): Promise<Discount> {
-      const result = await runOperation(client, discountUpdateDoc, 'discountUpdate', { input });
+    async updateDiscount(variables: DiscountUpdateVariables): Promise<Discount> {
+      const result = await runOperation(client, discountUpdateDoc, 'discountUpdate', variables);
       return result.data.discountUpdate as Discount;
     },
     /**
@@ -90,7 +91,7 @@ export class DiscountService {
    * Updates an existing discount
    * @param input Discount update input data
    */
-  updateDiscount(input: DiscountUpdateInput): Promise<Discount> { return this._svc.updateDiscount(input); }
+  updateDiscount(variables: DiscountUpdateVariables): Promise<Discount> { return this._svc.updateDiscount(variables); }
   /**
    * Imports discounts from CSV
    * @param input Discount CSV import input data

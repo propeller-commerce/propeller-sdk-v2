@@ -28,7 +28,7 @@ export function clusterConfigService(client: GraphQLClient) {
        * @returns Promise<ClusterConfigResponse[]> List of cluster configurations
        */
     async getClusterConfigs(): Promise<ClusterConfigResponse[]> {
-      const result = await runOperation(client, clusterConfigsDoc, 'clusterConfigs', {  });
+      const result = await runOperation(client, clusterConfigsDoc, 'clusterConfigs');
       return result.data.clusterConfigs as ClusterConfigResponse[];
     },
     /**

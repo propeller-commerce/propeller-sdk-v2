@@ -17,7 +17,7 @@ export function tenantService(client: GraphQLClient) {
        * @returns Promise<Tenant> The tenant data
        */
     async getTenant(): Promise<Tenant> {
-      const result = await runOperation(client, tenantDoc, 'tenant', {  });
+      const result = await runOperation(client, tenantDoc, 'tenant');
       return result.data.tenant as Tenant;
     },
     /**

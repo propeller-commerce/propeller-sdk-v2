@@ -11,6 +11,7 @@ import { document as mediaVideosDoc } from '../generated/operations/mediaVideos'
 import { document as mediaVideoCreateDoc } from '../generated/operations/mediaVideoCreate';
 import { document as mediaVideoUpdateDoc } from '../generated/operations/mediaVideoUpdate';
 import { document as mediaVideoDeleteDoc } from '../generated/operations/mediaVideoDelete';
+import type { MediaVideoDeleteVariables, MediaVideoVariables, MediaVideosVariables } from '../generated/operationVariables';
 /**
  Service for managing media videos
  */
@@ -22,8 +23,8 @@ export function mediaVideoService(client: GraphQLClient) {
        * @param id Media video ID
        * @returns Promise<MediaVideo> Media video data
        */
-    async getMediaVideo(id: number): Promise<MediaVideo> {
-      const result = await runOperation(client, mediaVideoDoc, 'mediaVideo', { id });
+    async getMediaVideo(variables: MediaVideoVariables): Promise<MediaVideo> {
+      const result = await runOperation(client, mediaVideoDoc, 'mediaVideo', variables);
       return result.data.mediaVideo as MediaVideo;
     },
     /**
@@ -32,8 +33,8 @@ export function mediaVideoService(client: GraphQLClient) {
        * @param input Search input parameters
        * @returns Promise<PaginatedMediaVideoResponse> Paginated media videos
        */
-    async getMediaVideos(input?: MediaVideoSearchInput): Promise<PaginatedMediaVideoResponse> {
-      const result = await runOperation(client, mediaVideosDoc, 'mediaVideos', { input });
+    async getMediaVideos(variables: MediaVideosVariables): Promise<PaginatedMediaVideoResponse> {
+      const result = await runOperation(client, mediaVideosDoc, 'mediaVideos', variables);
       return result.data.mediaVideos as PaginatedMediaVideoResponse;
     },
     /**
@@ -59,8 +60,8 @@ export function mediaVideoService(client: GraphQLClient) {
        * @param id Media video ID
        * @returns Promise<boolean> Success status
        */
-    async deleteMediaVideo(id: number): Promise<DeleteMediaVideoResponse> {
-      const result = await runOperation(client, mediaVideoDeleteDoc, 'mediaVideoDelete', { id });
+    async deleteMediaVideo(variables: MediaVideoDeleteVariables): Promise<DeleteMediaVideoResponse> {
+      const result = await runOperation(client, mediaVideoDeleteDoc, 'mediaVideoDelete', variables);
       return result.data.mediaVideoDelete as DeleteMediaVideoResponse;
     },
   };
@@ -76,12 +77,12 @@ export class MediaVideoService {
    * Retrieves a specific media video
    * @param id Media video ID
    */
-  getMediaVideo(id: number): Promise<MediaVideo> { return this._svc.getMediaVideo(id); }
+  getMediaVideo(variables: MediaVideoVariables): Promise<MediaVideo> { return this._svc.getMediaVideo(variables); }
   /**
    * Retrieves media videos with pagination
    * @param input Search input parameters
    */
-  getMediaVideos(input?: MediaVideoSearchInput): Promise<PaginatedMediaVideoResponse> { return this._svc.getMediaVideos(input); }
+  getMediaVideos(variables: MediaVideosVariables): Promise<PaginatedMediaVideoResponse> { return this._svc.getMediaVideos(variables); }
   /**
    * Creates a new media video
    * @param input Media video creation input
@@ -96,5 +97,5 @@ export class MediaVideoService {
    * Deletes a media video
    * @param id Media video ID
    */
-  deleteMediaVideo(id: number): Promise<DeleteMediaVideoResponse> { return this._svc.deleteMediaVideo(id); }
+  deleteMediaVideo(variables: MediaVideoDeleteVariables): Promise<DeleteMediaVideoResponse> { return this._svc.deleteMediaVideo(variables); }
 }

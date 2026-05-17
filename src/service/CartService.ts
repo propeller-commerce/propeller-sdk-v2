@@ -93,25 +93,6 @@ export interface CartActionCodeVariables {
   imageVariantFilters?: TransformationsInput;
 }
 /**
- * Variables for `cart item bulk` — bulk updates cart items
- */
-export interface CartItemBulkVariables {
-  id: string;
-  /** Cart item bulk input data */
-  input?: CartChildItemBulkInput;
-  language?: string;
-  imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters?: TransformationsInput;
-}
-/**
- * Variables for `cart purchase authorization request` — requests purchase authorization for a cart
- */
-export interface CartPurchaseAuthorizationRequestVariables {
-  id: string;
-  /** Cart purchase authorization request input data */
-  input?: any;
-}
-/**
  * Variables for `cart accept purchase authorization` — accepts a purchase authorization request for a cart
  */
 export interface CartAcceptPurchaseAuthorizationVariables {
@@ -188,24 +169,6 @@ export interface CartUpdateItemVariables {
   /** Image transformation filters */
   imageVariantFilters?: TransformationsInput;
 }
-/**
- * Cart delete item variables interface
- Variables for deleting an item from the cart
- */
-export interface CartDeleteItemVariables {
-  /** Cart ID to delete item to */
-  id: string;
-  /** Item ID to update in the cart */
-  itemId: string;
-  /** Cart delete item input data */
-  input?: CartDeleteItemInput;
-  /** Language for localized content */
-  language?: string;
-  /** Image search filters */
-  imageSearchFilters?: MediaImageProductSearchInput;
-  /** Image transformation filters */
-  imageVariantFilters?: TransformationsInput;
-}
 import { GraphQLClient } from '../client/GraphQLClient';
 import { runOperation } from './runOperation';
 import { document as cartDoc } from '../generated/operations/cart';
@@ -227,6 +190,7 @@ import { document as cartRemoveActionCodeDoc } from '../generated/operations/car
 import { document as cartItemBulkDoc } from '../generated/operations/cartItemBulk';
 import { document as cartRequestPurchaseAuthorizationDoc } from '../generated/operations/cartRequestPurchaseAuthorization';
 import { document as cartAcceptPurchaseAuthorizationRequestDoc } from '../generated/operations/cartAcceptPurchaseAuthorizationRequest';
+import type { CartDeleteItemVariables, CartItemBulkVariables, CartRequestPurchaseAuthorizationVariables, CartSetContactVariables, CartSetCustomerVariables, CartSetUserVariables } from '../generated/operationVariables';
 /**
  Service class for Cart-related GraphQL operations
  */
@@ -308,8 +272,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async deleteCartItem(variables: CartDeleteItemVariables): Promise<Cart> {
-      const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartDeleteItemDoc, 'cartDeleteItem', { ...variables, language });
+      const result = await runOperation(client, cartDeleteItemDoc, 'cartDeleteItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.cartDeleteItem as Cart;
     },
     /**
@@ -362,8 +325,8 @@ export function cartService(client: GraphQLClient) {
        * @param input Cart set customer input data
        * @returns Promise<Cart> The updated cart
        */
-    async setCartCustomer(input: CartSetCustomerInput): Promise<Cart> {
-      const result = await runOperation(client, cartSetCustomerDoc, 'cartSetCustomer', { input });
+    async setCartCustomer(variables: CartSetCustomerVariables): Promise<Cart> {
+      const result = await runOperation(client, cartSetCustomerDoc, 'cartSetCustomer', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.cartSetCustomer as Cart;
     },
     /**
@@ -371,8 +334,8 @@ export function cartService(client: GraphQLClient) {
        * @param input Cart set contact input data
        * @returns Promise<Cart> The updated cart
        */
-    async setCartContact(input: CartSetContactInput): Promise<Cart> {
-      const result = await runOperation(client, cartSetContactDoc, 'cartSetContact', { input });
+    async setCartContact(variables: CartSetContactVariables): Promise<Cart> {
+      const result = await runOperation(client, cartSetContactDoc, 'cartSetContact', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.cartSetContact as Cart;
     },
     /**
@@ -381,8 +344,8 @@ export function cartService(client: GraphQLClient) {
        * @param input Cart set user input data
        * @returns Promise<Cart> The updated cart
        */
-    async setCartUser(input: CartSetUserInput): Promise<Cart> {
-      const result = await runOperation(client, cartSetUserDoc, 'cartSetUser', { input });
+    async setCartUser(variables: CartSetUserVariables): Promise<Cart> {
+      const result = await runOperation(client, cartSetUserDoc, 'cartSetUser', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.cartSetUser as Cart;
     },
     /**
@@ -443,8 +406,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async bulkUpdateCartItems(variables: CartItemBulkVariables): Promise<BulkResponseData> {
-      const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartItemBulkDoc, 'cartItemBulk', { ...variables, language });
+      const result = await runOperation(client, cartItemBulkDoc, 'cartItemBulk', variables);
       return result.data.cartItemBulk as BulkResponseData;
     },
     /**
@@ -453,7 +415,7 @@ export function cartService(client: GraphQLClient) {
        * - input: CartPurchaseAuthorizationRequestInput - Cart purchase authorization request input data
        * @returns Promise<Cart> The updated cart
        */
-    async requestPurchaseAuthorization(variables: CartPurchaseAuthorizationRequestVariables): Promise<Cart> {
+    async requestPurchaseAuthorization(variables: CartRequestPurchaseAuthorizationVariables): Promise<Cart> {
       const result = await runOperation(client, cartRequestPurchaseAuthorizationDoc, 'cartRequestPurchaseAuthorization', variables);
       return result.data.cartRequestPurchaseAuthorization as Cart;
     },
@@ -561,17 +523,17 @@ export class CartService {
    * Sets the customer for a cart
    * @param input Cart set customer input data
    */
-  setCartCustomer(input: CartSetCustomerInput): Promise<Cart> { return this._svc.setCartCustomer(input); }
+  setCartCustomer(variables: CartSetCustomerVariables): Promise<Cart> { return this._svc.setCartCustomer(variables); }
   /**
    * Sets the contact for a cart
    * @param input Cart set contact input data
    */
-  setCartContact(input: CartSetContactInput): Promise<Cart> { return this._svc.setCartContact(input); }
+  setCartContact(variables: CartSetContactVariables): Promise<Cart> { return this._svc.setCartContact(variables); }
   /**
    * Sets the user for a cart
    * @param input Cart set user input data
    */
-  setCartUser(input: CartSetUserInput): Promise<Cart> { return this._svc.setCartUser(input); }
+  setCartUser(variables: CartSetUserVariables): Promise<Cart> { return this._svc.setCartUser(variables); }
   /**
    * Processes a cart (checkout)
    * @param id Cart ID to process
@@ -610,7 +572,7 @@ export class CartService {
    * Requests purchase authorization for a cart
    * @param input Cart purchase authorization request input data
    */
-  requestPurchaseAuthorization(variables: CartPurchaseAuthorizationRequestVariables): Promise<Cart> { return this._svc.requestPurchaseAuthorization(variables); }
+  requestPurchaseAuthorization(variables: CartRequestPurchaseAuthorizationVariables): Promise<Cart> { return this._svc.requestPurchaseAuthorization(variables); }
   /**
    * Accepts a purchase authorization request for a cart
    * @param id Cart ID to accept purchase authorization for

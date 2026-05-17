@@ -18,6 +18,7 @@ import { document as roleDefinitionDoc } from '../generated/operations/roleDefin
 import { document as roleDefinitionsDoc } from '../generated/operations/roleDefinitions';
 import { document as roleDefinitionCreateDoc } from '../generated/operations/roleDefinitionCreate';
 import { document as roleDefinitionUpdateDoc } from '../generated/operations/roleDefinitionUpdate';
+import type { RoleDefinitionUpdateVariables, RoleUpdateVariables } from '../generated/operationVariables';
 /**
  Service class for Role and RoleDefinition-related GraphQL operations
  */
@@ -55,8 +56,8 @@ export function roleService(client: GraphQLClient) {
        * @param input Role update input data
        * @returns Promise<Role> The updated role
        */
-    async updateRole(input: RoleUpdateInput): Promise<Role> {
-      const result = await runOperation(client, roleUpdateDoc, 'roleUpdate', { input });
+    async updateRole(variables: RoleUpdateVariables): Promise<Role> {
+      const result = await runOperation(client, roleUpdateDoc, 'roleUpdate', variables);
       return result.data.roleUpdate as Role;
     },
     /**
@@ -91,8 +92,8 @@ export function roleService(client: GraphQLClient) {
        * @param input RoleDefinition update input data
        * @returns Promise<RoleDefinition> The updated role definition
        */
-    async updateRoleDefinition(input: RoleDefinitionUpdateInput): Promise<RoleDefinition> {
-      const result = await runOperation(client, roleDefinitionUpdateDoc, 'roleDefinitionUpdate', { input });
+    async updateRoleDefinition(variables: RoleDefinitionUpdateVariables): Promise<RoleDefinition> {
+      const result = await runOperation(client, roleDefinitionUpdateDoc, 'roleDefinitionUpdate', variables);
       return result.data.roleDefinitionUpdate as RoleDefinition;
     },
   };
@@ -123,7 +124,7 @@ export class RoleService {
    * Updates an existing role
    * @param input Role update input data
    */
-  updateRole(input: RoleUpdateInput): Promise<Role> { return this._svc.updateRole(input); }
+  updateRole(variables: RoleUpdateVariables): Promise<Role> { return this._svc.updateRole(variables); }
   /**
    * Fetches a single role definition by ID
    * @param id RoleDefinition ID to fetch
@@ -143,5 +144,5 @@ export class RoleService {
    * Updates an existing role definition
    * @param input RoleDefinition update input data
    */
-  updateRoleDefinition(input: RoleDefinitionUpdateInput): Promise<RoleDefinition> { return this._svc.updateRoleDefinition(input); }
+  updateRoleDefinition(variables: RoleDefinitionUpdateVariables): Promise<RoleDefinition> { return this._svc.updateRoleDefinition(variables); }
 }

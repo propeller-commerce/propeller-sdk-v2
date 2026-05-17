@@ -3,6 +3,7 @@ import { GraphQLClient } from '../client/GraphQLClient';
 import { runOperation } from './runOperation';
 import { document as channelDoc } from '../generated/operations/channel';
 import { document as channelsDoc } from '../generated/operations/channels';
+import type { ChannelVariables } from '../generated/operationVariables';
 /**
  Service class for Channel-related GraphQL operations
  */
@@ -13,8 +14,8 @@ export function channelService(client: GraphQLClient) {
        * @param id Channel ID to fetch
        * @returns Promise<Channel> The channel data
        */
-    async getChannel(id: number): Promise<Channel> {
-      const result = await runOperation(client, channelDoc, 'channel', { id });
+    async getChannel(variables: ChannelVariables): Promise<Channel> {
+      const result = await runOperation(client, channelDoc, 'channel', variables);
       return result.data.channel as Channel;
     },
     /**
@@ -22,7 +23,7 @@ export function channelService(client: GraphQLClient) {
        * @returns Promise<Channel[]> The channels data array
        */
     async getChannels(): Promise<Channel[]> {
-      const result = await runOperation(client, channelsDoc, 'channels', {  });
+      const result = await runOperation(client, channelsDoc, 'channels');
       return result.data.channels as Channel[];
     },
   };
@@ -38,7 +39,7 @@ export class ChannelService {
    * Fetches a single channel by ID
    * @param id Channel ID to fetch
    */
-  getChannel(id: number): Promise<Channel> { return this._svc.getChannel(id); }
+  getChannel(variables: ChannelVariables): Promise<Channel> { return this._svc.getChannel(variables); }
   /**
    * Fetches a list of channels
    */

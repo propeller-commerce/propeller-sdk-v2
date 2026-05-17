@@ -9,6 +9,7 @@ import { document as warehouseDoc } from '../generated/operations/warehouse';
 import { document as warehousesDoc } from '../generated/operations/warehouses';
 import { document as warehouseCreateDoc } from '../generated/operations/warehouseCreate';
 import { document as warehouseUpdateDoc } from '../generated/operations/warehouseUpdate';
+import type { WarehouseUpdateVariables } from '../generated/operationVariables';
 /**
  Service class for Warehouse-related GraphQL operations
  */
@@ -46,8 +47,8 @@ export function warehouseService(client: GraphQLClient) {
        * @param input Warehouse update input data
        * @returns Promise<Warehouse> The updated warehouse
        */
-    async updateWarehouse(input: UpdateWarehouseInput): Promise<Warehouse> {
-      const result = await runOperation(client, warehouseUpdateDoc, 'warehouseUpdate', { input });
+    async updateWarehouse(variables: WarehouseUpdateVariables): Promise<Warehouse> {
+      const result = await runOperation(client, warehouseUpdateDoc, 'warehouseUpdate', variables);
       return result.data.warehouseUpdate as Warehouse;
     },
   };
@@ -78,5 +79,5 @@ export class WarehouseService {
    * Updates an existing warehouse
    * @param input Warehouse update input data
    */
-  updateWarehouse(input: UpdateWarehouseInput): Promise<Warehouse> { return this._svc.updateWarehouse(input); }
+  updateWarehouse(variables: WarehouseUpdateVariables): Promise<Warehouse> { return this._svc.updateWarehouse(variables); }
 }

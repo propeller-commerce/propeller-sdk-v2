@@ -39,12 +39,7 @@ export function templateErrorLogService(client: GraphQLClient) {
      * Retrieve a statistical summary of template error logs.
      */
     async getTemplateErrorLogStats(): Promise<TemplateErrorLogStats> {
-      const result = await runOperation(
-        client,
-        templateErrorLogStatsDoc,
-        'templateErrorLogStats',
-        {}
-      );
+      const result = await runOperation(client, templateErrorLogStatsDoc, 'templateErrorLogStats');
       return result.data.templateErrorLogStats as TemplateErrorLogStats;
     },
   };

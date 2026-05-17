@@ -9,6 +9,7 @@ import { document as trackAndTraceDoc } from '../generated/operations/trackAndTr
 import { document as trackAndTracesDoc } from '../generated/operations/trackAndTraces';
 import { document as trackAndTraceCreateDoc } from '../generated/operations/trackAndTraceCreate';
 import { document as trackAndTraceUpdateDoc } from '../generated/operations/trackAndTraceUpdate';
+import type { TrackAndTraceUpdateVariables } from '../generated/operationVariables';
 /**
  Service for managing track and trace operations
  */
@@ -46,8 +47,8 @@ export function trackAndTraceService(client: GraphQLClient) {
        * @param input Track and trace update input
        * @returns Promise<TrackAndTrace> The updated track and trace record
        */
-    async updateTrackAndTrace(input: TrackAndTraceUpdateInput): Promise<TrackAndTrace> {
-      const result = await runOperation(client, trackAndTraceUpdateDoc, 'trackAndTraceUpdate', { input });
+    async updateTrackAndTrace(variables: TrackAndTraceUpdateVariables): Promise<TrackAndTrace> {
+      const result = await runOperation(client, trackAndTraceUpdateDoc, 'trackAndTraceUpdate', variables);
       return result.data.trackAndTraceUpdate as TrackAndTrace;
     },
   };
@@ -78,5 +79,5 @@ export class TrackAndTraceService {
    * Updates an existing track and trace record
    * @param input Track and trace update input
    */
-  updateTrackAndTrace(input: TrackAndTraceUpdateInput): Promise<TrackAndTrace> { return this._svc.updateTrackAndTrace(input); }
+  updateTrackAndTrace(variables: TrackAndTraceUpdateVariables): Promise<TrackAndTrace> { return this._svc.updateTrackAndTrace(variables); }
 }

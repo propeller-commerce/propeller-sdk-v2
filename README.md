@@ -132,8 +132,10 @@ Services group related GraphQL operations. Each service is exposed two ways:
   with the service methods. Tree-shakeable — only the operations you actually
   call are bundled.
 - **Class form** (backward-compatible): `new CartService(client)` returns a
-  thin wrapper around the factory. Same method names, same signatures. Use
-  this when upgrading from v0.9.x without touching call sites.
+  thin wrapper around the factory. Same method names. Most signatures are
+  unchanged from v0.9.x; methods whose operation needs more variables than the
+  old signature could express now take a single `variables` object (see
+  [Operation variables](#operation-variables) below).
 
 Core services include `productService`, `orderService`, `cartService`,
 `userService`, `paymentService`, `categoryService`, `attributeService`,
@@ -154,6 +156,34 @@ const cart = await carts.getCart({
   imageVariantFilters: { /* ... */ },
 });
 ```
+
+### Operation variables
+
+Each service method takes the variables its GraphQL operation actually
+declares. For every operation the SDK exports a schema-faithful
+`<Op>Variables` interface whose fields — and their required/optional status —
+mirror the operation's declared variables exactly. Methods that need more
+than a single input take that interface as one `variables` argument:
+
+```typescript
+import { productService, type ProductUpdateVariables } from 'propeller-sdk-v2';
+
+const products = productService(client);
+
+// `productUpdate` declares $productId: Int! and $input: UpdateProductInput!
+const vars: ProductUpdateVariables = {
+  productId: 123,
+  input: { /* UpdateProductInput */ },
+};
+await products.updateProduct(vars);
+```
+
+Methods whose operation takes a single value keep their direct signature
+(e.g. `getProductSurcharges(productId)`, `loginService.login(input)`).
+Operations that declare no variables take no argument
+(`logoutService.logout()`). An explicit `language` always wins; when omitted,
+methods whose operation accepts `$language` fall back to the client's
+`defaultLanguage`.
 
 ## Direct GraphQL access
 

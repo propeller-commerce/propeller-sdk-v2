@@ -3,6 +3,7 @@ import { GraphQLClient } from '../client/GraphQLClient';
 import { runOperation } from './runOperation';
 import { document as shopDoc } from '../generated/operations/shop';
 import { document as shopsDoc } from '../generated/operations/shops';
+import type { ShopVariables } from '../generated/operationVariables';
 /**
  * Service class for Shop-related GraphQL operations
  */
@@ -14,8 +15,8 @@ export function shopService(client: GraphQLClient) {
        * @param id Shop ID to fetch
        * @returns Promise<Shop> The shop data
        */
-    async getShop(id: number): Promise<Shop> {
-      const result = await runOperation(client, shopDoc, 'shop', { id });
+    async getShop(variables: ShopVariables): Promise<Shop> {
+      const result = await runOperation(client, shopDoc, 'shop', variables);
       return result.data.shop as Shop;
     },
     /**
@@ -24,7 +25,7 @@ export function shopService(client: GraphQLClient) {
        * @returns Promise<Shop[]> The shops data array
        */
     async getShops(): Promise<Shop[]> {
-      const result = await runOperation(client, shopsDoc, 'shops', {  });
+      const result = await runOperation(client, shopsDoc, 'shops');
       return result.data.shops as Shop[];
     },
   };
@@ -40,7 +41,7 @@ export class ShopService {
    * Fetches a single shop by ID
    * @param id Shop ID to fetch
    */
-  getShop(id: number): Promise<Shop> { return this._svc.getShop(id); }
+  getShop(variables: ShopVariables): Promise<Shop> { return this._svc.getShop(variables); }
   /**
    * Fetches a list of shops
    */

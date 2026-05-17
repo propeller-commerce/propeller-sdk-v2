@@ -22,6 +22,7 @@ import { document as eventToWebHookConfigUpdateDoc } from '../generated/operatio
 import { document as publishEmailEventDoc } from '../generated/operations/publishEmailEvent';
 import { document as publishEmailSendEventDoc } from '../generated/operations/publishEmailSendEvent';
 import { document as publishPasswordResetEmailEventDoc } from '../generated/operations/publishPasswordResetEmailEvent';
+import type { EventToEmailConfigUpdateVariables, EventToWebHookConfigUpdateVariables } from '../generated/operationVariables';
 /**
  Service for managing event action configurations
  */
@@ -59,8 +60,8 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @param input EventToEmailConfig update input data
        * @returns Promise<EventToEmailConfig> The updated event-to-email config
        */
-    async updateEventToEmailConfig(input: EventToEmailConfigUpdateInput): Promise<EventToEmailConfig> {
-      const result = await runOperation(client, eventToEmailConfigUpdateDoc, 'eventToEmailConfigUpdate', { input });
+    async updateEventToEmailConfig(variables: EventToEmailConfigUpdateVariables): Promise<EventToEmailConfig> {
+      const result = await runOperation(client, eventToEmailConfigUpdateDoc, 'eventToEmailConfigUpdate', variables);
       return result.data.eventToEmailConfigUpdate as EventToEmailConfig;
     },
     /**
@@ -77,8 +78,8 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @param input EventToWebHookConfig update input data
        * @returns Promise<EventToWebHookConfig> The updated event-to-webhook config
        */
-    async updateEventToWebHookConfig(input: EventToWebHookConfigUpdateInput): Promise<EventToWebHookConfig> {
-      const result = await runOperation(client, eventToWebHookConfigUpdateDoc, 'eventToWebHookConfigUpdate', { input });
+    async updateEventToWebHookConfig(variables: EventToWebHookConfigUpdateVariables): Promise<EventToWebHookConfig> {
+      const result = await runOperation(client, eventToWebHookConfigUpdateDoc, 'eventToWebHookConfigUpdate', variables);
       return result.data.eventToWebHookConfigUpdate as EventToWebHookConfig;
     },
     /**
@@ -137,7 +138,7 @@ export class EventActionConfigService {
    * Updates an existing event to email configuration
    * @param input EventToEmailConfig update input data
    */
-  updateEventToEmailConfig(input: EventToEmailConfigUpdateInput): Promise<EventToEmailConfig> { return this._svc.updateEventToEmailConfig(input); }
+  updateEventToEmailConfig(variables: EventToEmailConfigUpdateVariables): Promise<EventToEmailConfig> { return this._svc.updateEventToEmailConfig(variables); }
   /**
    * Creates a new event to webhook configuration
    * @param input EventToWebHookConfig creation input data
@@ -147,7 +148,7 @@ export class EventActionConfigService {
    * Updates an existing event to webhook configuration
    * @param input EventToWebHookConfig update input data
    */
-  updateEventToWebHookConfig(input: EventToWebHookConfigUpdateInput): Promise<EventToWebHookConfig> { return this._svc.updateEventToWebHookConfig(input); }
+  updateEventToWebHookConfig(variables: EventToWebHookConfigUpdateVariables): Promise<EventToWebHookConfig> { return this._svc.updateEventToWebHookConfig(variables); }
   /**
    * Publishes an email event
    * @param input Email event input data

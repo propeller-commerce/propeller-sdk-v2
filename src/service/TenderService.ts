@@ -22,6 +22,7 @@ import { document as tenderUpdatePostageDoc } from '../generated/operations/tend
 import { document as tenderUpdateInvoiceUserDoc } from '../generated/operations/tenderUpdateInvoiceUser';
 import { document as tenderApplyIncentivesDoc } from '../generated/operations/tenderApplyIncentives';
 import { document as tenderProcessDoc } from '../generated/operations/tenderProcess';
+import type { TenderAddItemsVariables, TenderApplyIncentivesVariables, TenderDeleteItemVariables, TenderProcessVariables, TenderStartVariables, TenderUpdateAddressVariables, TenderUpdateDiscountVariables, TenderUpdateInvoiceUserVariables, TenderUpdateItemVariables, TenderUpdatePaymentVariables, TenderUpdatePostageVariables, TenderUpdateVariables, TenderVariables } from '../generated/operationVariables';
 /**
  Service class for Tender-related GraphQL operations
  */
@@ -32,8 +33,8 @@ export function tenderService(client: GraphQLClient) {
        * @param id Tender ID to fetch
        * @returns Promise<Tender> The tender data
        */
-    async getTender(id: number): Promise<Tender> {
-      const result = await runOperation(client, tenderDoc, 'tender', { id });
+    async getTender(variables: TenderVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderDoc, 'tender', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tender as Tender;
     },
     /**
@@ -41,8 +42,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender start input data
        * @returns Promise<Tender> The started tender
        */
-    async startTender(input: TenderStartInput): Promise<Tender> {
-      const result = await runOperation(client, tenderStartDoc, 'tenderStart', { input });
+    async startTender(variables: TenderStartVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderStartDoc, 'tenderStart', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderStart as Tender;
     },
     /**
@@ -50,8 +51,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender update input data
        * @returns Promise<Tender> The updated tender
        */
-    async updateTender(input: TenderUpdateInput): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateDoc, 'tenderUpdate', { input });
+    async updateTender(variables: TenderUpdateVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderUpdateDoc, 'tenderUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdate as Tender;
     },
     /**
@@ -59,8 +60,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender update address input data
        * @returns Promise<Tender> The updated tender
        */
-    async updateTenderAddress(input: TenderUpdateAddressInput): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateAddressDoc, 'tenderUpdateAddress', { input });
+    async updateTenderAddress(variables: TenderUpdateAddressVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderUpdateAddressDoc, 'tenderUpdateAddress', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdateAddress as Tender;
     },
     /**
@@ -69,8 +70,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender add item input data
        * @returns Promise<Tender> The updated tender
        */
-    async addItemToTender(id: string, input: TenderAddItemInput): Promise<TenderResponse> {
-      const result = await runOperation(client, tenderAddItemsDoc, 'tenderAddItems', { id, input });
+    async addItemToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> {
+      const result = await runOperation(client, tenderAddItemsDoc, 'tenderAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderAddItems as TenderResponse;
     },
     /**
@@ -79,8 +80,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender add items input data
        * @returns Promise<Tender> The updated tender
        */
-    async addItemsToTender(id: string, input: TenderAddItemsInput): Promise<TenderResponse> {
-      const result = await runOperation(client, tenderAddItemsDoc, 'tenderAddItems', { id, input });
+    async addItemsToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> {
+      const result = await runOperation(client, tenderAddItemsDoc, 'tenderAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderAddItems as TenderResponse;
     },
     /**
@@ -88,8 +89,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender update item input data
        * @returns Promise<Tender> The updated tender
        */
-    async updateTenderItem(input: TenderUpdateItemInput): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateItemDoc, 'tenderUpdateItem', { input });
+    async updateTenderItem(variables: TenderUpdateItemVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderUpdateItemDoc, 'tenderUpdateItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdateItem as Tender;
     },
     /**
@@ -97,8 +98,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Delete item input data
        * @returns Promise<Tender> The updated tender
        */
-    async deleteTenderItem(input: any): Promise<Tender> {
-      const result = await runOperation(client, tenderDeleteItemDoc, 'tenderDeleteItem', { input });
+    async deleteTenderItem(variables: TenderDeleteItemVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderDeleteItemDoc, 'tenderDeleteItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderDeleteItem as Tender;
     },
     /**
@@ -106,8 +107,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender discount input data
        * @returns Promise<Tender> The updated tender
        */
-    async updateTenderDiscount(input: any): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateDiscountDoc, 'tenderUpdateDiscount', { input });
+    async updateTenderDiscount(variables: TenderUpdateDiscountVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderUpdateDiscountDoc, 'tenderUpdateDiscount', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdateDiscount as Tender;
     },
     /**
@@ -115,8 +116,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender payment input data
        * @returns Promise<Tender> The updated tender
        */
-    async updateTenderPayment(input: any): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdatePaymentDoc, 'tenderUpdatePayment', { input });
+    async updateTenderPayment(variables: TenderUpdatePaymentVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderUpdatePaymentDoc, 'tenderUpdatePayment', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdatePayment as Tender;
     },
     /**
@@ -124,8 +125,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender postage input data
        * @returns Promise<Tender> The updated tender
        */
-    async updateTenderPostage(input: any): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdatePostageDoc, 'tenderUpdatePostage', { input });
+    async updateTenderPostage(variables: TenderUpdatePostageVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderUpdatePostageDoc, 'tenderUpdatePostage', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdatePostage as Tender;
     },
     /**
@@ -133,8 +134,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender invoice user input data
        * @returns Promise<Tender> The updated tender
        */
-    async updateTenderInvoiceUser(input: any): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateInvoiceUserDoc, 'tenderUpdateInvoiceUser', { input });
+    async updateTenderInvoiceUser(variables: TenderUpdateInvoiceUserVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderUpdateInvoiceUserDoc, 'tenderUpdateInvoiceUser', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdateInvoiceUser as Tender;
     },
     /**
@@ -142,8 +143,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Apply incentives input data
        * @returns Promise<Tender> The updated tender
        */
-    async applyIncentivesToTender(input: any): Promise<Tender> {
-      const result = await runOperation(client, tenderApplyIncentivesDoc, 'tenderApplyIncentives', { input });
+    async applyIncentivesToTender(variables: TenderApplyIncentivesVariables): Promise<Tender> {
+      const result = await runOperation(client, tenderApplyIncentivesDoc, 'tenderApplyIncentives', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderApplyIncentives as Tender;
     },
     /**
@@ -151,8 +152,8 @@ export function tenderService(client: GraphQLClient) {
        * @param input Tender process input data
        * @returns Promise<TenderProcessResponse> The process response
        */
-    async processTender(input: any): Promise<TenderProcessResponse> {
-      const result = await runOperation(client, tenderProcessDoc, 'tenderProcess', { input });
+    async processTender(variables: TenderProcessVariables): Promise<TenderProcessResponse> {
+      const result = await runOperation(client, tenderProcessDoc, 'tenderProcess', variables);
       return result.data.tenderProcess as TenderProcessResponse;
     },
   };
@@ -168,72 +169,72 @@ export class TenderService {
    * Fetches a single tender by ID
    * @param id Tender ID to fetch
    */
-  getTender(id: number): Promise<Tender> { return this._svc.getTender(id); }
+  getTender(variables: TenderVariables): Promise<Tender> { return this._svc.getTender(variables); }
   /**
    * Starts a new tender
    * @param input Tender start input data
    */
-  startTender(input: TenderStartInput): Promise<Tender> { return this._svc.startTender(input); }
+  startTender(variables: TenderStartVariables): Promise<Tender> { return this._svc.startTender(variables); }
   /**
    * Updates an existing tender
    * @param input Tender update input data
    */
-  updateTender(input: TenderUpdateInput): Promise<Tender> { return this._svc.updateTender(input); }
+  updateTender(variables: TenderUpdateVariables): Promise<Tender> { return this._svc.updateTender(variables); }
   /**
    * Updates a tender address
    * @param input Tender update address input data
    */
-  updateTenderAddress(input: TenderUpdateAddressInput): Promise<Tender> { return this._svc.updateTenderAddress(input); }
+  updateTenderAddress(variables: TenderUpdateAddressVariables): Promise<Tender> { return this._svc.updateTenderAddress(variables); }
   /**
    * Adds an item to a tender
    * @param id Tender ID
    * @param input Tender add item input data
    */
-  addItemToTender(id: string, input: TenderAddItemInput): Promise<TenderResponse> { return this._svc.addItemToTender(id, input); }
+  addItemToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> { return this._svc.addItemToTender(variables); }
   /**
    * Adds multiple items to a tender
    * @param id Tender ID
    * @param input Tender add items input data
    */
-  addItemsToTender(id: string, input: TenderAddItemsInput): Promise<TenderResponse> { return this._svc.addItemsToTender(id, input); }
+  addItemsToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> { return this._svc.addItemsToTender(variables); }
   /**
    * Updates an item in a tender
    * @param input Tender update item input data
    */
-  updateTenderItem(input: TenderUpdateItemInput): Promise<Tender> { return this._svc.updateTenderItem(input); }
+  updateTenderItem(variables: TenderUpdateItemVariables): Promise<Tender> { return this._svc.updateTenderItem(variables); }
   /**
    * Deletes an item from a tender
    * @param input Delete item input data
    */
-  deleteTenderItem(input: any): Promise<Tender> { return this._svc.deleteTenderItem(input); }
+  deleteTenderItem(variables: TenderDeleteItemVariables): Promise<Tender> { return this._svc.deleteTenderItem(variables); }
   /**
    * Updates tender discount
    * @param input Tender discount input data
    */
-  updateTenderDiscount(input: any): Promise<Tender> { return this._svc.updateTenderDiscount(input); }
+  updateTenderDiscount(variables: TenderUpdateDiscountVariables): Promise<Tender> { return this._svc.updateTenderDiscount(variables); }
   /**
    * Updates tender payment
    * @param input Tender payment input data
    */
-  updateTenderPayment(input: any): Promise<Tender> { return this._svc.updateTenderPayment(input); }
+  updateTenderPayment(variables: TenderUpdatePaymentVariables): Promise<Tender> { return this._svc.updateTenderPayment(variables); }
   /**
    * Updates tender postage
    * @param input Tender postage input data
    */
-  updateTenderPostage(input: any): Promise<Tender> { return this._svc.updateTenderPostage(input); }
+  updateTenderPostage(variables: TenderUpdatePostageVariables): Promise<Tender> { return this._svc.updateTenderPostage(variables); }
   /**
    * Updates tender invoice user
    * @param input Tender invoice user input data
    */
-  updateTenderInvoiceUser(input: any): Promise<Tender> { return this._svc.updateTenderInvoiceUser(input); }
+  updateTenderInvoiceUser(variables: TenderUpdateInvoiceUserVariables): Promise<Tender> { return this._svc.updateTenderInvoiceUser(variables); }
   /**
    * Applies incentives to a tender
    * @param input Apply incentives input data
    */
-  applyIncentivesToTender(input: any): Promise<Tender> { return this._svc.applyIncentivesToTender(input); }
+  applyIncentivesToTender(variables: TenderApplyIncentivesVariables): Promise<Tender> { return this._svc.applyIncentivesToTender(variables); }
   /**
    * Processes a tender (checkout)
    * @param input Tender process input data
    */
-  processTender(input: any): Promise<TenderProcessResponse> { return this._svc.processTender(input); }
+  processTender(variables: TenderProcessVariables): Promise<TenderProcessResponse> { return this._svc.processTender(variables); }
 }

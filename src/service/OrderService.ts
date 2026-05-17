@@ -156,6 +156,7 @@ import { document as orderStatusSetUpdateDoc } from '../generated/operations/ord
 import { document as orderStatusSetAddOrderStatusesDoc } from '../generated/operations/orderStatusSetAddOrderStatuses';
 import { document as orderStatusSetRemoveOrderStatusesDoc } from '../generated/operations/orderStatusSetRemoveOrderStatuses';
 import { document as triggerQuoteSendRequestDoc } from '../generated/operations/triggerQuoteSendRequest';
+import type { OrderAddressVariables, OrderCreateVariables, OrderStatusSetAddOrderStatusesVariables, OrderStatusSetRemoveOrderStatusesVariables, OrderStatusSetUpdateVariables, OrderStatusSetVariables, OrderStatusUpdateVariables, OrderStatusVariables, OrderlistAddItemsVariables, OrderlistAssignCompaniesVariables, OrderlistAssignUsersVariables, OrderlistRemoveItemsVariables, OrderlistUnassignCompaniesVariables, OrderlistUnassignUsersVariables, OrderlistUpdateVariables } from '../generated/operationVariables';
 /**
  Service class for Order-related GraphQL operations
  */
@@ -190,8 +191,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Order creation input data
        * @returns Promise<Order> The created order
        */
-    async createOrder(input: any): Promise<Order> {
-      const result = await runOperation(client, orderCreateDoc, 'orderCreate', { input });
+    async createOrder(variables: OrderCreateVariables): Promise<Order> {
+      const result = await runOperation(client, orderCreateDoc, 'orderCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.orderCreate as Order;
     },
     /**
@@ -263,8 +264,8 @@ export function orderService(client: GraphQLClient) {
        * @param addressType Address type
        * @returns Promise<Address> The address data
        */
-    async getOrderAddress(orderId: number, addressType?: string): Promise<OrderAddress> {
-      const result = await runOperation(client, orderAddressDoc, 'orderAddress', { orderId, addressType });
+    async getOrderAddress(variables: OrderAddressVariables): Promise<OrderAddress> {
+      const result = await runOperation(client, orderAddressDoc, 'orderAddress', variables);
       return result.data.orderAddress as OrderAddress;
     },
     /**
@@ -359,8 +360,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Orderlist update input data
        * @returns Promise<Orderlist> The updated orderlist
        */
-    async updateOrderlist(input: OrderlistUpdateInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUpdateDoc, 'orderlistUpdate', { input });
+    async updateOrderlist(variables: OrderlistUpdateVariables): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistUpdateDoc, 'orderlistUpdate', variables);
       return result.data.orderlistUpdate as Orderlist;
     },
     /**
@@ -368,8 +369,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Orderlist add items input data
        * @returns Promise<Orderlist> The updated orderlist
        */
-    async addItemsToOrderlist(input: OrderlistItemsInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAddItemsDoc, 'orderlistAddItems', { input });
+    async addItemsToOrderlist(variables: OrderlistAddItemsVariables): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistAddItemsDoc, 'orderlistAddItems', variables);
       return result.data.orderlistAddItems as Orderlist;
     },
     /**
@@ -377,8 +378,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Orderlist remove items input data
        * @returns Promise<Orderlist> The updated orderlist
        */
-    async removeItemsFromOrderlist(input: OrderlistItemsInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistRemoveItemsDoc, 'orderlistRemoveItems', { input });
+    async removeItemsFromOrderlist(variables: OrderlistRemoveItemsVariables): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistRemoveItemsDoc, 'orderlistRemoveItems', variables);
       return result.data.orderlistRemoveItems as Orderlist;
     },
     /**
@@ -386,8 +387,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Orderlist assign companies input data
        * @returns Promise<Orderlist> The updated orderlist
        */
-    async assignCompaniesToOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAssignCompaniesDoc, 'orderlistAssignCompanies', { input });
+    async assignCompaniesToOrderlist(variables: OrderlistAssignCompaniesVariables): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistAssignCompaniesDoc, 'orderlistAssignCompanies', variables);
       return result.data.orderlistAssignCompanies as Orderlist;
     },
     /**
@@ -395,8 +396,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Orderlist unassign companies input data
        * @returns Promise<Orderlist> The updated orderlist
        */
-    async unassignCompaniesFromOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUnassignCompaniesDoc, 'orderlistUnassignCompanies', { input });
+    async unassignCompaniesFromOrderlist(variables: OrderlistUnassignCompaniesVariables): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistUnassignCompaniesDoc, 'orderlistUnassignCompanies', variables);
       return result.data.orderlistUnassignCompanies as Orderlist;
     },
     /**
@@ -404,8 +405,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Orderlist assign users input data
        * @returns Promise<Orderlist> The updated orderlist
        */
-    async assignUsersToOrderlist(input: OrderlistUsersInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAssignUsersDoc, 'orderlistAssignUsers', { input });
+    async assignUsersToOrderlist(variables: OrderlistAssignUsersVariables): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistAssignUsersDoc, 'orderlistAssignUsers', variables);
       return result.data.orderlistAssignUsers as Orderlist;
     },
     /**
@@ -413,8 +414,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Orderlist unassign users input data
        * @returns Promise<Orderlist> The updated orderlist
        */
-    async unassignUsersFromOrderlist(input: OrderlistUsersInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUnassignUsersDoc, 'orderlistUnassignUsers', { input });
+    async unassignUsersFromOrderlist(variables: OrderlistUnassignUsersVariables): Promise<Orderlist> {
+      const result = await runOperation(client, orderlistUnassignUsersDoc, 'orderlistUnassignUsers', variables);
       return result.data.orderlistUnassignUsers as Orderlist;
     },
     /**
@@ -422,8 +423,8 @@ export function orderService(client: GraphQLClient) {
        * @param id Order status ID to fetch
        * @returns Promise<OrderStatus> The order status data
        */
-    async getOrderStatus(id: number): Promise<OrderStatus> {
-      const result = await runOperation(client, orderStatusDoc, 'orderStatus', { id });
+    async getOrderStatus(variables: OrderStatusVariables): Promise<OrderStatus> {
+      const result = await runOperation(client, orderStatusDoc, 'orderStatus', variables);
       return result.data.orderStatus as OrderStatus;
     },
     /**
@@ -449,8 +450,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Order status update input data
        * @returns Promise<OrderStatus> The updated order status
        */
-    async updateOrderStatus(input: UpdateOrderStatusInput): Promise<OrderStatus> {
-      const result = await runOperation(client, orderStatusUpdateDoc, 'orderStatusUpdate', { input });
+    async updateOrderStatus(variables: OrderStatusUpdateVariables): Promise<OrderStatus> {
+      const result = await runOperation(client, orderStatusUpdateDoc, 'orderStatusUpdate', variables);
       return result.data.orderStatusUpdate as OrderStatus;
     },
     /**
@@ -458,8 +459,8 @@ export function orderService(client: GraphQLClient) {
        * @param id Order status set ID to fetch
        * @returns Promise<OrderStatusSet> The order status set data
        */
-    async getOrderStatusSet(id: number): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetDoc, 'orderStatusSet', { id });
+    async getOrderStatusSet(variables: OrderStatusSetVariables): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetDoc, 'orderStatusSet', variables);
       return result.data.orderStatusSet as OrderStatusSet;
     },
     /**
@@ -485,8 +486,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Order status set update input data
        * @returns Promise<OrderStatusSet> The updated order status set
        */
-    async updateOrderStatusSet(input: UpdateOrderStatusSetInput): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetUpdateDoc, 'orderStatusSetUpdate', { input });
+    async updateOrderStatusSet(variables: OrderStatusSetUpdateVariables): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetUpdateDoc, 'orderStatusSetUpdate', variables);
       return result.data.orderStatusSetUpdate as OrderStatusSet;
     },
     /**
@@ -494,8 +495,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Add order statuses input data
        * @returns Promise<OrderStatusSet> The updated order status set
        */
-    async addOrderStatusesToOrderStatusSet(input: AddOrderStatusesToOrderStatusSetInput): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetAddOrderStatusesDoc, 'orderStatusSetAddOrderStatuses', { input });
+    async addOrderStatusesToOrderStatusSet(variables: OrderStatusSetAddOrderStatusesVariables): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetAddOrderStatusesDoc, 'orderStatusSetAddOrderStatuses', variables);
       return result.data.orderStatusSetAddOrderStatuses as OrderStatusSet;
     },
     /**
@@ -503,8 +504,8 @@ export function orderService(client: GraphQLClient) {
        * @param input Remove order statuses input data
        * @returns Promise<OrderStatusSet> The updated order status set
        */
-    async removeOrderStatusesFromOrderStatusSet(input: RemoveOrderStatusesFromOrderStatusSetInput): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetRemoveOrderStatusesDoc, 'orderStatusSetRemoveOrderStatuses', { input });
+    async removeOrderStatusesFromOrderStatusSet(variables: OrderStatusSetRemoveOrderStatusesVariables): Promise<OrderStatusSet> {
+      const result = await runOperation(client, orderStatusSetRemoveOrderStatusesDoc, 'orderStatusSetRemoveOrderStatuses', variables);
       return result.data.orderStatusSetRemoveOrderStatuses as OrderStatusSet;
     },
     /**
@@ -544,7 +545,7 @@ export class OrderService {
    * Creates a new order
    * @param input Order creation input data
    */
-  createOrder(input: any): Promise<Order> { return this._svc.createOrder(input); }
+  createOrder(variables: OrderCreateVariables): Promise<Order> { return this._svc.createOrder(variables); }
   /**
    * Updates an existing order
    * @param variables Variables for the order update mutation
@@ -588,7 +589,7 @@ export class OrderService {
    * @param orderId Order ID
    * @param addressType Address type
    */
-  getOrderAddress(orderId: number, addressType?: string): Promise<OrderAddress> { return this._svc.getOrderAddress(orderId, addressType); }
+  getOrderAddress(variables: OrderAddressVariables): Promise<OrderAddress> { return this._svc.getOrderAddress(variables); }
   /**
    * Fetches all addresses for an order
    * @param orderId Order ID
@@ -645,42 +646,42 @@ export class OrderService {
    * Updates an existing orderlist
    * @param input Orderlist update input data
    */
-  updateOrderlist(input: OrderlistUpdateInput): Promise<Orderlist> { return this._svc.updateOrderlist(input); }
+  updateOrderlist(variables: OrderlistUpdateVariables): Promise<Orderlist> { return this._svc.updateOrderlist(variables); }
   /**
    * Adds items to an orderlist
    * @param input Orderlist add items input data
    */
-  addItemsToOrderlist(input: OrderlistItemsInput): Promise<Orderlist> { return this._svc.addItemsToOrderlist(input); }
+  addItemsToOrderlist(variables: OrderlistAddItemsVariables): Promise<Orderlist> { return this._svc.addItemsToOrderlist(variables); }
   /**
    * Removes items from an orderlist
    * @param input Orderlist remove items input data
    */
-  removeItemsFromOrderlist(input: OrderlistItemsInput): Promise<Orderlist> { return this._svc.removeItemsFromOrderlist(input); }
+  removeItemsFromOrderlist(variables: OrderlistRemoveItemsVariables): Promise<Orderlist> { return this._svc.removeItemsFromOrderlist(variables); }
   /**
    * Assigns companies to an orderlist
    * @param input Orderlist assign companies input data
    */
-  assignCompaniesToOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> { return this._svc.assignCompaniesToOrderlist(input); }
+  assignCompaniesToOrderlist(variables: OrderlistAssignCompaniesVariables): Promise<Orderlist> { return this._svc.assignCompaniesToOrderlist(variables); }
   /**
    * Unassigns companies from an orderlist
    * @param input Orderlist unassign companies input data
    */
-  unassignCompaniesFromOrderlist(input: OrderlistCompaniesInput): Promise<Orderlist> { return this._svc.unassignCompaniesFromOrderlist(input); }
+  unassignCompaniesFromOrderlist(variables: OrderlistUnassignCompaniesVariables): Promise<Orderlist> { return this._svc.unassignCompaniesFromOrderlist(variables); }
   /**
    * Assigns users to an orderlist
    * @param input Orderlist assign users input data
    */
-  assignUsersToOrderlist(input: OrderlistUsersInput): Promise<Orderlist> { return this._svc.assignUsersToOrderlist(input); }
+  assignUsersToOrderlist(variables: OrderlistAssignUsersVariables): Promise<Orderlist> { return this._svc.assignUsersToOrderlist(variables); }
   /**
    * Unassigns users from an orderlist
    * @param input Orderlist unassign users input data
    */
-  unassignUsersFromOrderlist(input: OrderlistUsersInput): Promise<Orderlist> { return this._svc.unassignUsersFromOrderlist(input); }
+  unassignUsersFromOrderlist(variables: OrderlistUnassignUsersVariables): Promise<Orderlist> { return this._svc.unassignUsersFromOrderlist(variables); }
   /**
    * Fetches a single order status by ID
    * @param id Order status ID to fetch
    */
-  getOrderStatus(id: number): Promise<OrderStatus> { return this._svc.getOrderStatus(id); }
+  getOrderStatus(variables: OrderStatusVariables): Promise<OrderStatus> { return this._svc.getOrderStatus(variables); }
   /**
    * Fetches a list of order statuses with search criteria
    * @param input Order status search input parameters
@@ -695,12 +696,12 @@ export class OrderService {
    * Updates an existing order status
    * @param input Order status update input data
    */
-  updateOrderStatus(input: UpdateOrderStatusInput): Promise<OrderStatus> { return this._svc.updateOrderStatus(input); }
+  updateOrderStatus(variables: OrderStatusUpdateVariables): Promise<OrderStatus> { return this._svc.updateOrderStatus(variables); }
   /**
    * Fetches a single order status set by ID
    * @param id Order status set ID to fetch
    */
-  getOrderStatusSet(id: number): Promise<OrderStatusSet> { return this._svc.getOrderStatusSet(id); }
+  getOrderStatusSet(variables: OrderStatusSetVariables): Promise<OrderStatusSet> { return this._svc.getOrderStatusSet(variables); }
   /**
    * Fetches a list of order status sets with search criteria
    * @param input Order status set search input parameters
@@ -715,17 +716,17 @@ export class OrderService {
    * Updates an existing order status set
    * @param input Order status set update input data
    */
-  updateOrderStatusSet(input: UpdateOrderStatusSetInput): Promise<OrderStatusSet> { return this._svc.updateOrderStatusSet(input); }
+  updateOrderStatusSet(variables: OrderStatusSetUpdateVariables): Promise<OrderStatusSet> { return this._svc.updateOrderStatusSet(variables); }
   /**
    * Adds order statuses to an order status set
    * @param input Add order statuses input data
    */
-  addOrderStatusesToOrderStatusSet(input: AddOrderStatusesToOrderStatusSetInput): Promise<OrderStatusSet> { return this._svc.addOrderStatusesToOrderStatusSet(input); }
+  addOrderStatusesToOrderStatusSet(variables: OrderStatusSetAddOrderStatusesVariables): Promise<OrderStatusSet> { return this._svc.addOrderStatusesToOrderStatusSet(variables); }
   /**
    * Removes order statuses from an order status set
    * @param input Remove order statuses input data
    */
-  removeOrderStatusesFromOrderStatusSet(input: RemoveOrderStatusesFromOrderStatusSetInput): Promise<OrderStatusSet> { return this._svc.removeOrderStatusesFromOrderStatusSet(input); }
+  removeOrderStatusesFromOrderStatusSet(variables: OrderStatusSetRemoveOrderStatusesVariables): Promise<OrderStatusSet> { return this._svc.removeOrderStatusesFromOrderStatusSet(variables); }
   /**
    * Triggers the send request event for a quote
    * @param input Quote send request event input data

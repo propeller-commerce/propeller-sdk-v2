@@ -9,6 +9,7 @@ import { document as machineDoc } from '../generated/operations/machine';
 import { document as machinesDoc } from '../generated/operations/machines';
 import { document as machineCreateDoc } from '../generated/operations/machineCreate';
 import { document as machineUpsertDoc } from '../generated/operations/machineUpsert';
+import type { MachineCreateVariables, MachineUpsertVariables, MachineVariables, MachinesVariables } from '../generated/operationVariables';
 /**
  Service for managing machines (spare parts machines)
  */
@@ -19,8 +20,8 @@ export function machineService(client: GraphQLClient) {
        * @param id Machine ID
        * @returns Promise<SparePartsMachine> Machine data
        */
-    async getMachine(id: number): Promise<SparePartsMachine> {
-      const result = await runOperation(client, machineDoc, 'machine', { id });
+    async getMachine(variables: MachineVariables): Promise<SparePartsMachine> {
+      const result = await runOperation(client, machineDoc, 'machine', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.machine as SparePartsMachine;
     },
     /**
@@ -28,8 +29,8 @@ export function machineService(client: GraphQLClient) {
        * @param input Search input parameters
        * @returns Promise<SparePartsMachineResponse> Machines response
        */
-    async getMachines(input?: SearchSparePartsMachineInput): Promise<SparePartsMachineResponse> {
-      const result = await runOperation(client, machinesDoc, 'machines', { input });
+    async getMachines(variables: MachinesVariables): Promise<SparePartsMachineResponse> {
+      const result = await runOperation(client, machinesDoc, 'machines', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.machines as SparePartsMachineResponse;
     },
     /**
@@ -37,8 +38,8 @@ export function machineService(client: GraphQLClient) {
        * @param input Machine creation input
        * @returns Promise<SparePartsMachine> The created machine
        */
-    async createMachine(input: CreateSparePartsMachineInput): Promise<SparePartsMachine> {
-      const result = await runOperation(client, machineCreateDoc, 'machineCreate', { input });
+    async createMachine(variables: MachineCreateVariables): Promise<SparePartsMachine> {
+      const result = await runOperation(client, machineCreateDoc, 'machineCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.machineCreate as SparePartsMachine;
     },
     /**
@@ -46,8 +47,8 @@ export function machineService(client: GraphQLClient) {
        * @param input Machine update input
        * @returns Promise<SparePartsMachine> The updated machine
        */
-    async updateMachine(input: UpsertSparePartsMachineInput): Promise<SparePartsMachine> {
-      const result = await runOperation(client, machineUpsertDoc, 'machineUpsert', { input });
+    async updateMachine(variables: MachineUpsertVariables): Promise<SparePartsMachine> {
+      const result = await runOperation(client, machineUpsertDoc, 'machineUpsert', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.machineUpsert as SparePartsMachine;
     },
   };
@@ -63,20 +64,20 @@ export class MachineService {
    * Retrieves a specific machine
    * @param id Machine ID
    */
-  getMachine(id: number): Promise<SparePartsMachine> { return this._svc.getMachine(id); }
+  getMachine(variables: MachineVariables): Promise<SparePartsMachine> { return this._svc.getMachine(variables); }
   /**
    * Retrieves machines with search criteria
    * @param input Search input parameters
    */
-  getMachines(input?: SearchSparePartsMachineInput): Promise<SparePartsMachineResponse> { return this._svc.getMachines(input); }
+  getMachines(variables: MachinesVariables): Promise<SparePartsMachineResponse> { return this._svc.getMachines(variables); }
   /**
    * Creates a new machine
    * @param input Machine creation input
    */
-  createMachine(input: CreateSparePartsMachineInput): Promise<SparePartsMachine> { return this._svc.createMachine(input); }
+  createMachine(variables: MachineCreateVariables): Promise<SparePartsMachine> { return this._svc.createMachine(variables); }
   /**
    * Updates an existing machine
    * @param input Machine update input
    */
-  updateMachine(input: UpsertSparePartsMachineInput): Promise<SparePartsMachine> { return this._svc.updateMachine(input); }
+  updateMachine(variables: MachineUpsertVariables): Promise<SparePartsMachine> { return this._svc.updateMachine(variables); }
 }

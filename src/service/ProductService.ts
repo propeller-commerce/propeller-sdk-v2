@@ -81,6 +81,7 @@ import { document as addSurchargesToProductDoc } from '../generated/operations/a
 import { document as productSurchargesDoc } from '../generated/operations/productSurcharges';
 import { document as attributesByProductIdDoc } from '../generated/operations/attributesByProductId';
 import { document as attributeResultByProductIdDoc } from '../generated/operations/attributeResultByProductId';
+import type { ProductUpdateVariables } from '../generated/operationVariables';
 /**
  Service class for Product-related GraphQL operations
  */
@@ -136,11 +137,13 @@ export function productService(client: GraphQLClient) {
     },
     /**
        Updates an existing product
-       * @param input Product update input data
+       * @param variables ProductUpdateVariables update input data
+       * - productId: number - ID of the product to update
+       * - input: UpdateProductInput - The fields to update for the product
        * @returns Promise<Product> The updated product
        */
-    async updateProduct(input: UpdateProductInput): Promise<Product> {
-      const result = await runOperation(client, productUpdateDoc, 'productUpdate', { input });
+    async updateProduct(variables: ProductUpdateVariables): Promise<Product> {
+      const result = await runOperation(client, productUpdateDoc, 'productUpdate', variables);
       return result.data.productUpdate as Product;
     },
     /**
@@ -208,19 +211,19 @@ export class ProductService {
   /**
    * Fetches a single product by ID, slug, or SKU
    * @param variables input variables for aproduct to fetch
-   * @param productId Product ID to fetch
-   * @param slug Product slug to fetch
-   * @param sku Product SKU to fetch
-   * @param language Language for localized content
-   * @param applyOrderlists Whether to apply orderlist logic
-   * @param orderlistIds Array of orderlist IDs to apply
-   * @param priceCalculateProductInput Price calculation input
-   * @param userBulkPriceProductInput User bulk price input
-   * @param attributeResultSearchInput Attribute search input
-   * @param imageSearchFilters Image search filters
-   * @param mediaVideoSearchInput Video search input
-   * @param mediaDocumentSearchInput Document search input
-   * @param imageVariantFilters Image transformation filters
+   * - productId: int - Product ID to fetch
+    * - slug: string - Product slug to fetch
+    * - sku: string - Product SKU to fetch
+    * - language: string - Language for localized content
+    * - applyOrderlists: boolean - Whether to apply orderlist logic
+    * - orderlistIds: number[] - Array of orderlist IDs to apply
+    * - priceCalculateProductInput: PriceCalculateProductInput - Price calculation input
+    * - userBulkPriceProductInput: UserBulkPriceProductInput - User bulk price input
+    * - attributeResultSearchInput: AttributeResultSearchInput - Attribute search input
+    * - imageSearchFilters: MediaImageProductSearchInput - Image search filters
+    * - mediaVideoSearchInput: MediaVideoProductSearchInput - Video search input
+    * - mediaDocumentSearchInput: MediaDocumentProductSearchInput - Document search input
+    * - imageVariantFilters: TransformationsInput - Image transformation filters
    */
   getProduct(variables: ProductQueryVariables): Promise<Product> { return this._svc.getProduct(variables); }
   /**
@@ -240,9 +243,11 @@ export class ProductService {
   createProduct(input: CreateProductInput): Promise<Product> { return this._svc.createProduct(input); }
   /**
    * Updates an existing product
-   * @param input Product update input data
+   * @param variables Product update input data
+   * - productId: number - ID of the product to update
+   * - input: UpdateProductInput - The fields to update for the product
    */
-  updateProduct(input: UpdateProductInput): Promise<Product> { return this._svc.updateProduct(input); }
+  updateProduct(variables: ProductUpdateVariables): Promise<Product> { return this._svc.updateProduct(variables); }
   /**
    * Imports products from CSV
    * @param input CSV import input data

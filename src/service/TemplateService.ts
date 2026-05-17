@@ -19,6 +19,7 @@ import { document as emailTemplateCreateDoc } from '../generated/operations/emai
 import { document as emailTemplateUpdateDoc } from '../generated/operations/emailTemplateUpdate';
 import { document as emailTemplateAddAttachmentDoc } from '../generated/operations/emailTemplateAddAttachment';
 import { document as emailTemplateRemoveAttachmentDoc } from '../generated/operations/emailTemplateRemoveAttachment';
+import type { DocumentTemplateRenderToPDFVariables, DocumentTemplateUpdateVariables, EmailTemplateAddAttachmentVariables, EmailTemplateRemoveAttachmentVariables, EmailTemplateUpdateVariables } from '../generated/operationVariables';
 /**
  Service for managing document and email templates
  */
@@ -65,8 +66,8 @@ export function templateService(client: GraphQLClient) {
        * @param input Document template update input
        * @returns Promise<DocumentTemplate> The updated document template
        */
-    async updateDocumentTemplate(input: DocumentTemplateUpdateInput): Promise<DocumentTemplate> {
-      const result = await runOperation(client, documentTemplateUpdateDoc, 'documentTemplateUpdate', { input });
+    async updateDocumentTemplate(variables: DocumentTemplateUpdateVariables): Promise<DocumentTemplate> {
+      const result = await runOperation(client, documentTemplateUpdateDoc, 'documentTemplateUpdate', variables);
       return result.data.documentTemplateUpdate as DocumentTemplate;
     },
     /**
@@ -74,8 +75,8 @@ export function templateService(client: GraphQLClient) {
        * @param input Template render input data
        * @returns Promise<any> The PDF response
        */
-    async renderDocumentTemplateToPDF(input: TemplateRenderInput): Promise<Base64File> {
-      const result = await runOperation(client, documentTemplateRenderToPDFDoc, 'documentTemplateRenderToPDF', { input });
+    async renderDocumentTemplateToPDF(variables: DocumentTemplateRenderToPDFVariables): Promise<Base64File> {
+      const result = await runOperation(client, documentTemplateRenderToPDFDoc, 'documentTemplateRenderToPDF', variables);
       return result.data.documentTemplateRenderToPDF as Base64File;
     },
     /**
@@ -92,8 +93,8 @@ export function templateService(client: GraphQLClient) {
        * @param input Email template update input
        * @returns Promise<EmailTemplate> The updated email template
        */
-    async updateEmailTemplate(input: EmailTemplateUpdateInput): Promise<EmailTemplate> {
-      const result = await runOperation(client, emailTemplateUpdateDoc, 'emailTemplateUpdate', { input });
+    async updateEmailTemplate(variables: EmailTemplateUpdateVariables): Promise<EmailTemplate> {
+      const result = await runOperation(client, emailTemplateUpdateDoc, 'emailTemplateUpdate', variables);
       return result.data.emailTemplateUpdate as EmailTemplate;
     },
     /**
@@ -101,8 +102,8 @@ export function templateService(client: GraphQLClient) {
        * @param input Attachment input data
        * @returns Promise<EmailTemplate> The updated email template
        */
-    async addAttachmentToEmailTemplate(input: any): Promise<EmailTemplate> {
-      const result = await runOperation(client, emailTemplateAddAttachmentDoc, 'emailTemplateAddAttachment', { input });
+    async addAttachmentToEmailTemplate(variables: EmailTemplateAddAttachmentVariables): Promise<EmailTemplate> {
+      const result = await runOperation(client, emailTemplateAddAttachmentDoc, 'emailTemplateAddAttachment', variables);
       return result.data.emailTemplateAddAttachment as EmailTemplate;
     },
     /**
@@ -110,8 +111,8 @@ export function templateService(client: GraphQLClient) {
        * @param input Attachment removal input data
        * @returns Promise<EmailTemplate> The updated email template
        */
-    async removeAttachmentFromEmailTemplate(input: any): Promise<EmailTemplate> {
-      const result = await runOperation(client, emailTemplateRemoveAttachmentDoc, 'emailTemplateRemoveAttachment', { input });
+    async removeAttachmentFromEmailTemplate(variables: EmailTemplateRemoveAttachmentVariables): Promise<EmailTemplate> {
+      const result = await runOperation(client, emailTemplateRemoveAttachmentDoc, 'emailTemplateRemoveAttachment', variables);
       return result.data.emailTemplateRemoveAttachment as EmailTemplate;
     },
   };
@@ -147,12 +148,12 @@ export class TemplateService {
    * Updates an existing document template
    * @param input Document template update input
    */
-  updateDocumentTemplate(input: DocumentTemplateUpdateInput): Promise<DocumentTemplate> { return this._svc.updateDocumentTemplate(input); }
+  updateDocumentTemplate(variables: DocumentTemplateUpdateVariables): Promise<DocumentTemplate> { return this._svc.updateDocumentTemplate(variables); }
   /**
    * Renders a document template to PDF
    * @param input Template render input data
    */
-  renderDocumentTemplateToPDF(input: TemplateRenderInput): Promise<Base64File> { return this._svc.renderDocumentTemplateToPDF(input); }
+  renderDocumentTemplateToPDF(variables: DocumentTemplateRenderToPDFVariables): Promise<Base64File> { return this._svc.renderDocumentTemplateToPDF(variables); }
   /**
    * Creates a new email template
    * @param input Email template creation input
@@ -162,15 +163,15 @@ export class TemplateService {
    * Updates an existing email template
    * @param input Email template update input
    */
-  updateEmailTemplate(input: EmailTemplateUpdateInput): Promise<EmailTemplate> { return this._svc.updateEmailTemplate(input); }
+  updateEmailTemplate(variables: EmailTemplateUpdateVariables): Promise<EmailTemplate> { return this._svc.updateEmailTemplate(variables); }
   /**
    * Adds an attachment to email template
    * @param input Attachment input data
    */
-  addAttachmentToEmailTemplate(input: any): Promise<EmailTemplate> { return this._svc.addAttachmentToEmailTemplate(input); }
+  addAttachmentToEmailTemplate(variables: EmailTemplateAddAttachmentVariables): Promise<EmailTemplate> { return this._svc.addAttachmentToEmailTemplate(variables); }
   /**
    * Removes an attachment from email template
    * @param input Attachment removal input data
    */
-  removeAttachmentFromEmailTemplate(input: any): Promise<EmailTemplate> { return this._svc.removeAttachmentFromEmailTemplate(input); }
+  removeAttachmentFromEmailTemplate(variables: EmailTemplateRemoveAttachmentVariables): Promise<EmailTemplate> { return this._svc.removeAttachmentFromEmailTemplate(variables); }
 }

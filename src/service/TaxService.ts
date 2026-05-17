@@ -19,6 +19,7 @@ import { document as zoneTaxCodesDoc } from '../generated/operations/zoneTaxCode
 import { document as zoneTaxCodeCreateDoc } from '../generated/operations/zoneTaxCodeCreate';
 import { document as zoneTaxCodesCreateDoc } from '../generated/operations/zoneTaxCodesCreate';
 import { document as zoneTaxCodeUpdateDoc } from '../generated/operations/zoneTaxCodeUpdate';
+import type { TaxUpdateVariables, ZoneTaxCodeUpdateVariables } from '../generated/operationVariables';
 /**
  Service for managing tax and zone tax code operations
  */
@@ -56,8 +57,8 @@ export function taxService(client: GraphQLClient) {
        * @param input Tax update input
        * @returns Promise<Tax> The updated tax
        */
-    async updateTax(input: TaxUpdateInput): Promise<Tax> {
-      const result = await runOperation(client, taxUpdateDoc, 'taxUpdate', { input });
+    async updateTax(variables: TaxUpdateVariables): Promise<Tax> {
+      const result = await runOperation(client, taxUpdateDoc, 'taxUpdate', variables);
       return result.data.taxUpdate as Tax;
     },
     /**
@@ -101,8 +102,8 @@ export function taxService(client: GraphQLClient) {
        * @param input Zone tax code update input
        * @returns Promise<ZoneTaxCode> The updated zone tax code
        */
-    async updateZoneTaxCode(input: ZoneTaxCodeUpdateInput): Promise<ZoneTaxCode> {
-      const result = await runOperation(client, zoneTaxCodeUpdateDoc, 'zoneTaxCodeUpdate', { input });
+    async updateZoneTaxCode(variables: ZoneTaxCodeUpdateVariables): Promise<ZoneTaxCode> {
+      const result = await runOperation(client, zoneTaxCodeUpdateDoc, 'zoneTaxCodeUpdate', variables);
       return result.data.zoneTaxCodeUpdate as ZoneTaxCode;
     },
   };
@@ -133,7 +134,7 @@ export class TaxService {
    * Updates an existing tax
    * @param input Tax update input
    */
-  updateTax(input: TaxUpdateInput): Promise<Tax> { return this._svc.updateTax(input); }
+  updateTax(variables: TaxUpdateVariables): Promise<Tax> { return this._svc.updateTax(variables); }
   /**
    * Retrieves a specific zone tax code
    * @param id Zone tax code ID
@@ -158,5 +159,5 @@ export class TaxService {
    * Updates an existing zone tax code
    * @param input Zone tax code update input
    */
-  updateZoneTaxCode(input: ZoneTaxCodeUpdateInput): Promise<ZoneTaxCode> { return this._svc.updateZoneTaxCode(input); }
+  updateZoneTaxCode(variables: ZoneTaxCodeUpdateVariables): Promise<ZoneTaxCode> { return this._svc.updateZoneTaxCode(variables); }
 }

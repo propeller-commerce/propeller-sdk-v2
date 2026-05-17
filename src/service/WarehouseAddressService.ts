@@ -6,6 +6,7 @@ import { runOperation } from './runOperation';
 import { document as warehouseAddressCreateDoc } from '../generated/operations/warehouseAddressCreate';
 import { document as warehouseAddressUpdateDoc } from '../generated/operations/warehouseAddressUpdate';
 import { document as warehouseAddressDeleteDoc } from '../generated/operations/warehouseAddressDelete';
+import type { WarehouseAddressCreateVariables, WarehouseAddressDeleteVariables, WarehouseAddressUpdateVariables } from '../generated/operationVariables';
 /**
  Service for managing warehouse addresses
  */
@@ -16,8 +17,8 @@ export function warehouseAddressService(client: GraphQLClient) {
        * @param input Warehouse address creation input
        * @returns Promise<WarehouseAddress> The created warehouse address
        */
-    async createWarehouseAddress(input: CreateWarehouseAddressInput): Promise<WarehouseAddress> {
-      const result = await runOperation(client, warehouseAddressCreateDoc, 'warehouseAddressCreate', { input });
+    async createWarehouseAddress(variables: WarehouseAddressCreateVariables): Promise<WarehouseAddress> {
+      const result = await runOperation(client, warehouseAddressCreateDoc, 'warehouseAddressCreate', variables);
       return result.data.warehouseAddressCreate as WarehouseAddress;
     },
     /**
@@ -25,8 +26,8 @@ export function warehouseAddressService(client: GraphQLClient) {
        * @param input Warehouse address update input
        * @returns Promise<WarehouseAddress> The updated warehouse address
        */
-    async updateWarehouseAddress(input: UpdateWarehouseAddressInput): Promise<WarehouseAddress> {
-      const result = await runOperation(client, warehouseAddressUpdateDoc, 'warehouseAddressUpdate', { input });
+    async updateWarehouseAddress(variables: WarehouseAddressUpdateVariables): Promise<WarehouseAddress> {
+      const result = await runOperation(client, warehouseAddressUpdateDoc, 'warehouseAddressUpdate', variables);
       return result.data.warehouseAddressUpdate as WarehouseAddress;
     },
     /**
@@ -34,8 +35,8 @@ export function warehouseAddressService(client: GraphQLClient) {
        * @param id WarehouseAddress ID to delete
        * @returns Promise<boolean> Success status
        */
-    async deleteWarehouseAddress(id: number): Promise<boolean> {
-      const result = await runOperation(client, warehouseAddressDeleteDoc, 'warehouseAddressDelete', { id });
+    async deleteWarehouseAddress(variables: WarehouseAddressDeleteVariables): Promise<boolean> {
+      const result = await runOperation(client, warehouseAddressDeleteDoc, 'warehouseAddressDelete', variables);
       return result.data.warehouseAddressDelete;
     },
   };
@@ -51,15 +52,15 @@ export class WarehouseAddressService {
    * Creates a new warehouse address
    * @param input Warehouse address creation input
    */
-  createWarehouseAddress(input: CreateWarehouseAddressInput): Promise<WarehouseAddress> { return this._svc.createWarehouseAddress(input); }
+  createWarehouseAddress(variables: WarehouseAddressCreateVariables): Promise<WarehouseAddress> { return this._svc.createWarehouseAddress(variables); }
   /**
    * Updates an existing warehouse address
    * @param input Warehouse address update input
    */
-  updateWarehouseAddress(input: UpdateWarehouseAddressInput): Promise<WarehouseAddress> { return this._svc.updateWarehouseAddress(input); }
+  updateWarehouseAddress(variables: WarehouseAddressUpdateVariables): Promise<WarehouseAddress> { return this._svc.updateWarehouseAddress(variables); }
   /**
    * Deletes a warehouse address
    * @param id WarehouseAddress ID to delete
    */
-  deleteWarehouseAddress(id: number): Promise<boolean> { return this._svc.deleteWarehouseAddress(id); }
+  deleteWarehouseAddress(variables: WarehouseAddressDeleteVariables): Promise<boolean> { return this._svc.deleteWarehouseAddress(variables); }
 }

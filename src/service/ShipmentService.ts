@@ -20,6 +20,7 @@ import { document as shipmentItemsDoc } from '../generated/operations/shipmentIt
 import { document as shipmentItemCreateDoc } from '../generated/operations/shipmentItemCreate';
 import { document as shipmentItemUpdateDoc } from '../generated/operations/shipmentItemUpdate';
 import { document as shipmentItemDeleteDoc } from '../generated/operations/shipmentItemDelete';
+import type { ShipmentItemUpdateVariables, ShipmentUpdateVariables } from '../generated/operationVariables';
 /**
  Service for managing shipments and shipment items
  */
@@ -57,8 +58,8 @@ export function shipmentService(client: GraphQLClient) {
        * @param input Shipment update input
        * @returns Promise<Shipment> The updated shipment
        */
-    async updateShipment(input: ShipmentUpdateInput): Promise<Shipment> {
-      const result = await runOperation(client, shipmentUpdateDoc, 'shipmentUpdate', { input });
+    async updateShipment(variables: ShipmentUpdateVariables): Promise<Shipment> {
+      const result = await runOperation(client, shipmentUpdateDoc, 'shipmentUpdate', variables);
       return result.data.shipmentUpdate as Shipment;
     },
     /**
@@ -102,8 +103,8 @@ export function shipmentService(client: GraphQLClient) {
        * @param input Shipment item update input
        * @returns Promise<ShipmentItem> The updated shipment item
        */
-    async updateShipmentItem(input: ShipmentItemUpdateInput): Promise<ShipmentItem> {
-      const result = await runOperation(client, shipmentItemUpdateDoc, 'shipmentItemUpdate', { input });
+    async updateShipmentItem(variables: ShipmentItemUpdateVariables): Promise<ShipmentItem> {
+      const result = await runOperation(client, shipmentItemUpdateDoc, 'shipmentItemUpdate', variables);
       return result.data.shipmentItemUpdate as ShipmentItem;
     },
     /**
@@ -143,7 +144,7 @@ export class ShipmentService {
    * Updates an existing shipment
    * @param input Shipment update input
    */
-  updateShipment(input: ShipmentUpdateInput): Promise<Shipment> { return this._svc.updateShipment(input); }
+  updateShipment(variables: ShipmentUpdateVariables): Promise<Shipment> { return this._svc.updateShipment(variables); }
   /**
    * Deletes a shipment
    * @param id Shipment ID
@@ -168,7 +169,7 @@ export class ShipmentService {
    * Updates an existing shipment item
    * @param input Shipment item update input
    */
-  updateShipmentItem(input: ShipmentItemUpdateInput): Promise<ShipmentItem> { return this._svc.updateShipmentItem(input); }
+  updateShipmentItem(variables: ShipmentItemUpdateVariables): Promise<ShipmentItem> { return this._svc.updateShipmentItem(variables); }
   /**
    * Deletes a shipment item
    * @param id Shipment item ID

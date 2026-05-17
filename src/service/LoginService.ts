@@ -8,6 +8,7 @@ import { runOperation } from './runOperation';
 import { document as loginDoc } from '../generated/operations/login';
 import { document as authenticationCreateDoc } from '../generated/operations/authenticationCreate';
 import { document as exchangeRefreshTokenDoc } from '../generated/operations/exchangeRefreshToken';
+import type { ExchangeRefreshTokenVariables } from '../generated/operationVariables';
 /**
  Service for handling user authentication and login operations
  */
@@ -36,8 +37,8 @@ export function loginService(client: GraphQLClient) {
        * @param refreshToken The refresh token to exchange
        * @returns Promise<RefreshTokenResponse> New token response with fresh access token
        */
-    async exchangeRefreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
-      const result = await runOperation(client, exchangeRefreshTokenDoc, 'exchangeRefreshToken', { refreshToken });
+    async exchangeRefreshToken(variables: ExchangeRefreshTokenVariables): Promise<RefreshTokenResponse> {
+      const result = await runOperation(client, exchangeRefreshTokenDoc, 'exchangeRefreshToken', variables);
       return result.data.exchangeRefreshToken as RefreshTokenResponse;
     },
   };
@@ -63,5 +64,5 @@ export class LoginService {
    * Exchanges a refresh token for a new access token
    * @param refreshToken The refresh token to exchange
    */
-  exchangeRefreshToken(refreshToken: string): Promise<RefreshTokenResponse> { return this._svc.exchangeRefreshToken(refreshToken); }
+  exchangeRefreshToken(variables: ExchangeRefreshTokenVariables): Promise<RefreshTokenResponse> { return this._svc.exchangeRefreshToken(variables); }
 }

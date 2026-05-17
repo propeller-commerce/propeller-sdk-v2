@@ -11,6 +11,7 @@ import { document as mediaDocumentsDoc } from '../generated/operations/mediaDocu
 import { document as mediaDocumentCreateDoc } from '../generated/operations/mediaDocumentCreate';
 import { document as mediaDocumentUpdateDoc } from '../generated/operations/mediaDocumentUpdate';
 import { document as mediaDocumentDeleteDoc } from '../generated/operations/mediaDocumentDelete';
+import type { MediaDocumentDeleteVariables, MediaDocumentVariables, MediaDocumentsVariables } from '../generated/operationVariables';
 /**
  Service for managing media documents
  */
@@ -22,8 +23,8 @@ export function mediaDocumentService(client: GraphQLClient) {
        * @param id Media document ID
        * @returns Promise<MediaDocument> Media document data
        */
-    async getMediaDocument(id: number): Promise<MediaDocument> {
-      const result = await runOperation(client, mediaDocumentDoc, 'mediaDocument', { id });
+    async getMediaDocument(variables: MediaDocumentVariables): Promise<MediaDocument> {
+      const result = await runOperation(client, mediaDocumentDoc, 'mediaDocument', variables);
       return result.data.mediaDocument as MediaDocument;
     },
     /**
@@ -32,8 +33,8 @@ export function mediaDocumentService(client: GraphQLClient) {
        * @param input Search input parameters
        * @returns Promise<PaginatedMediaDocumentResponse> Paginated media documents
        */
-    async getMediaDocuments(input?: MediaDocumentSearchInput): Promise<PaginatedMediaDocumentResponse> {
-      const result = await runOperation(client, mediaDocumentsDoc, 'mediaDocuments', { input });
+    async getMediaDocuments(variables: MediaDocumentsVariables): Promise<PaginatedMediaDocumentResponse> {
+      const result = await runOperation(client, mediaDocumentsDoc, 'mediaDocuments', variables);
       return result.data.mediaDocuments as PaginatedMediaDocumentResponse;
     },
     /**
@@ -59,8 +60,8 @@ export function mediaDocumentService(client: GraphQLClient) {
        * @param id Media document ID
        * @returns Promise<boolean> Success status
        */
-    async deleteMediaDocument(id: number): Promise<DeleteMediaDocumentResponse> {
-      const result = await runOperation(client, mediaDocumentDeleteDoc, 'mediaDocumentDelete', { id });
+    async deleteMediaDocument(variables: MediaDocumentDeleteVariables): Promise<DeleteMediaDocumentResponse> {
+      const result = await runOperation(client, mediaDocumentDeleteDoc, 'mediaDocumentDelete', variables);
       return result.data.mediaDocumentDelete as DeleteMediaDocumentResponse;
     },
   };
@@ -76,12 +77,12 @@ export class MediaDocumentService {
    * Retrieves a specific media document
    * @param id Media document ID
    */
-  getMediaDocument(id: number): Promise<MediaDocument> { return this._svc.getMediaDocument(id); }
+  getMediaDocument(variables: MediaDocumentVariables): Promise<MediaDocument> { return this._svc.getMediaDocument(variables); }
   /**
    * Retrieves media documents with pagination
    * @param input Search input parameters
    */
-  getMediaDocuments(input?: MediaDocumentSearchInput): Promise<PaginatedMediaDocumentResponse> { return this._svc.getMediaDocuments(input); }
+  getMediaDocuments(variables: MediaDocumentsVariables): Promise<PaginatedMediaDocumentResponse> { return this._svc.getMediaDocuments(variables); }
   /**
    * Creates a new media document
    * @param input Media document creation input
@@ -96,5 +97,5 @@ export class MediaDocumentService {
    * Deletes a media document
    * @param id Media document ID
    */
-  deleteMediaDocument(id: number): Promise<DeleteMediaDocumentResponse> { return this._svc.deleteMediaDocument(id); }
+  deleteMediaDocument(variables: MediaDocumentDeleteVariables): Promise<DeleteMediaDocumentResponse> { return this._svc.deleteMediaDocument(variables); }
 }

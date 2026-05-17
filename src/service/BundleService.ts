@@ -24,6 +24,7 @@ import { document as bundleCreateDoc } from '../generated/operations/bundleCreat
 import { document as bundleUpdateDoc } from '../generated/operations/bundleUpdate';
 import { document as bundleAddItemsDoc } from '../generated/operations/bundleAddItems';
 import { document as bundleDeleteDoc } from '../generated/operations/bundleDelete';
+import type { BundleAddItemsVariables, BundleCreateVariables, BundleUpdateVariables, BundleVariables } from '../generated/operationVariables';
 /**
  Service class for Bundle-related GraphQL operations
  */
@@ -34,8 +35,8 @@ export function bundleService(client: GraphQLClient) {
        * @param id Bundle ID to fetch
        * @returns Promise<Bundle> The bundle data
        */
-    async getBundle(id: number): Promise<Bundle> {
-      const result = await runOperation(client, bundleDoc, 'bundle', { id });
+    async getBundle(variables: BundleVariables): Promise<Bundle> {
+      const result = await runOperation(client, bundleDoc, 'bundle', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.bundle as Bundle;
     },
     /**
@@ -52,8 +53,8 @@ export function bundleService(client: GraphQLClient) {
        * @param input Bundle creation input data
        * @returns Promise<Bundle> The created bundle
        */
-    async createBundle(input: BundleCreateInput): Promise<Bundle> {
-      const result = await runOperation(client, bundleCreateDoc, 'bundleCreate', { input });
+    async createBundle(variables: BundleCreateVariables): Promise<Bundle> {
+      const result = await runOperation(client, bundleCreateDoc, 'bundleCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.bundleCreate as Bundle;
     },
     /**
@@ -61,8 +62,8 @@ export function bundleService(client: GraphQLClient) {
        * @param input Bundle update input data
        * @returns Promise<Bundle> The updated bundle
        */
-    async updateBundle(input: BundleUpdateInput): Promise<Bundle> {
-      const result = await runOperation(client, bundleUpdateDoc, 'bundleUpdate', { input });
+    async updateBundle(variables: BundleUpdateVariables): Promise<Bundle> {
+      const result = await runOperation(client, bundleUpdateDoc, 'bundleUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.bundleUpdate as Bundle;
     },
     /**
@@ -71,8 +72,8 @@ export function bundleService(client: GraphQLClient) {
        * @param input Bundle add items input data
        * @returns Promise<BundleItem[]> The added bundle items
        */
-    async addItemsToBundle(input: BundleAddItemsInput): Promise<BundleItem[]> {
-      const result = await runOperation(client, bundleAddItemsDoc, 'bundleAddItems', { input });
+    async addItemsToBundle(variables: BundleAddItemsVariables): Promise<BundleItem[]> {
+      const result = await runOperation(client, bundleAddItemsDoc, 'bundleAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.bundleAddItems as BundleItem[];
     },
     /**
@@ -97,7 +98,7 @@ export class BundleService {
    * Fetches a single bundle by ID
    * @param id Bundle ID to fetch
    */
-  getBundle(id: number): Promise<Bundle> { return this._svc.getBundle(id); }
+  getBundle(variables: BundleVariables): Promise<Bundle> { return this._svc.getBundle(variables); }
   /**
    * Fetches a list of bundles with search criteria
    * @param variables Bundle query variables
@@ -107,17 +108,17 @@ export class BundleService {
    * Creates a new bundle
    * @param input Bundle creation input data
    */
-  createBundle(input: BundleCreateInput): Promise<Bundle> { return this._svc.createBundle(input); }
+  createBundle(variables: BundleCreateVariables): Promise<Bundle> { return this._svc.createBundle(variables); }
   /**
    * Updates an existing bundle
    * @param input Bundle update input data
    */
-  updateBundle(input: BundleUpdateInput): Promise<Bundle> { return this._svc.updateBundle(input); }
+  updateBundle(variables: BundleUpdateVariables): Promise<Bundle> { return this._svc.updateBundle(variables); }
   /**
    * Adds items to a bundle
    * @param input Bundle add items input data
    */
-  addItemsToBundle(input: BundleAddItemsInput): Promise<BundleItem[]> { return this._svc.addItemsToBundle(input); }
+  addItemsToBundle(variables: BundleAddItemsVariables): Promise<BundleItem[]> { return this._svc.addItemsToBundle(variables); }
   /**
    * Deletes a bundle
    * @param id Bundle ID to delete

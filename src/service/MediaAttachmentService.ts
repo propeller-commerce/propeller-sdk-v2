@@ -7,6 +7,7 @@ import { runOperation } from './runOperation';
 import { document as mediaAttachmentCreateDoc } from '../generated/operations/mediaAttachmentCreate';
 import { document as mediaAttachmentUpdateDoc } from '../generated/operations/mediaAttachmentUpdate';
 import { document as mediaAttachmentDeleteDoc } from '../generated/operations/mediaAttachmentDelete';
+import type { MediaAttachmentUpdateVariables } from '../generated/operationVariables';
 /**
  Service for managing media attachments
  */
@@ -26,8 +27,8 @@ export function mediaAttachmentService(client: GraphQLClient) {
        * @param input Media attachment update input
        * @returns Promise<MediaAttachment> The updated media attachment
        */
-    async updateMediaAttachment(input: UpdateMediaAttachmentInput): Promise<MediaAttachment> {
-      const result = await runOperation(client, mediaAttachmentUpdateDoc, 'mediaAttachmentUpdate', { input });
+    async updateMediaAttachment(variables: MediaAttachmentUpdateVariables): Promise<MediaAttachment> {
+      const result = await runOperation(client, mediaAttachmentUpdateDoc, 'mediaAttachmentUpdate', variables);
       return result.data.mediaAttachmentUpdate as MediaAttachment;
     },
     /**
@@ -57,7 +58,7 @@ export class MediaAttachmentService {
    * Updates an existing media attachment
    * @param input Media attachment update input
    */
-  updateMediaAttachment(input: UpdateMediaAttachmentInput): Promise<MediaAttachment> { return this._svc.updateMediaAttachment(input); }
+  updateMediaAttachment(variables: MediaAttachmentUpdateVariables): Promise<MediaAttachment> { return this._svc.updateMediaAttachment(variables); }
   /**
    * Deletes a media attachment
    * @param id MediaAttachment ID to delete

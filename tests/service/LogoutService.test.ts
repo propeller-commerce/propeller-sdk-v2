@@ -29,14 +29,15 @@ describe('LogoutService', () => {
     });
     const svc = new LogoutService(client);
 
-    const result: Logout = await svc.logout(123);
+    const result: Logout = await svc.logout();
 
     // v0.10.0: returned value is a plain object satisfying the Logout
-    // interface (no longer a class instance).
+    // interface (no longer a class instance). The `logout` mutation declares
+    // no GraphQL variables, so the method takes no arguments and sends `{}`.
     expect(result).toEqual({ todo: 'ok' });
     const body = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
     expect(body.operationName).toBe('logout');
-    expect(body.variables).toEqual({ userId: 123 });
+    expect(body.variables).toEqual({});
   });
 
   it('throws GraphQLOperationError when the server returns errors', async () => {
@@ -48,6 +49,6 @@ describe('LogoutService', () => {
     });
     const svc = new LogoutService(client);
 
-    await expect(svc.logout(456)).rejects.toBeInstanceOf(GraphQLOperationError);
+    await expect(svc.logout()).rejects.toBeInstanceOf(GraphQLOperationError);
   });
 });

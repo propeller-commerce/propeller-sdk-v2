@@ -10,6 +10,7 @@ import { document as payMethodsDoc } from '../generated/operations/payMethods';
 import { document as payMethodCreateDoc } from '../generated/operations/payMethodCreate';
 import { document as payMethodUpdateDoc } from '../generated/operations/payMethodUpdate';
 import { document as payMethodDeleteDoc } from '../generated/operations/payMethodDelete';
+import type { PayMethodUpdateVariables } from '../generated/operationVariables';
 /**
  Service for managing payment methods
  */
@@ -47,8 +48,8 @@ export function payMethodService(client: GraphQLClient) {
        * @param input Payment method update input
        * @returns Promise<PayMethod> The updated payment method
        */
-    async updatePayMethod(input: PayMethodUpdateInput): Promise<PayMethod> {
-      const result = await runOperation(client, payMethodUpdateDoc, 'payMethodUpdate', { input });
+    async updatePayMethod(variables: PayMethodUpdateVariables): Promise<PayMethod> {
+      const result = await runOperation(client, payMethodUpdateDoc, 'payMethodUpdate', variables);
       return result.data.payMethodUpdate as PayMethod;
     },
     /**
@@ -88,7 +89,7 @@ export class PayMethodService {
    * Updates an existing payment method
    * @param input Payment method update input
    */
-  updatePayMethod(input: PayMethodUpdateInput): Promise<PayMethod> { return this._svc.updatePayMethod(input); }
+  updatePayMethod(variables: PayMethodUpdateVariables): Promise<PayMethod> { return this._svc.updatePayMethod(variables); }
   /**
    * Deletes a payment method
    * @param id PayMethod ID to delete

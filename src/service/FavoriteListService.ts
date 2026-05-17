@@ -14,6 +14,7 @@ import { document as favoriteListDeleteDoc } from '../generated/operations/favor
 import { document as favoriteListAddItemsDoc } from '../generated/operations/favoriteListAddItems';
 import { document as favoriteListRemoveItemsDoc } from '../generated/operations/favoriteListRemoveItems';
 import { document as favoriteListClearItemsDoc } from '../generated/operations/favoriteListClearItems';
+import type { FavoriteListVariables } from '../generated/operationVariables';
 /**
  Service for managing favorite lists
  */
@@ -29,8 +30,8 @@ export function favoriteListService(client: GraphQLClient) {
        * - imageVariantFilters: TransformationsInput - Image transformation filters
        * @returns Promise<FavoriteList> Favorite list data
        */
-    async getFavoriteList(variables: any): Promise<FavoriteList> {
-      const result = await runOperation(client, favoriteListDoc, 'favoriteList', variables);
+    async getFavoriteList(variables: FavoriteListVariables): Promise<FavoriteList> {
+      const result = await runOperation(client, favoriteListDoc, 'favoriteList', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.favoriteList as FavoriteList;
     },
     /**
@@ -118,7 +119,7 @@ export class FavoriteListService {
    * @param imageSearchFilters Image search filters
    * @param imageVariantFilters Image transformation filters
    */
-  getFavoriteList(variables: any): Promise<FavoriteList> { return this._svc.getFavoriteList(variables); }
+  getFavoriteList(variables: FavoriteListVariables): Promise<FavoriteList> { return this._svc.getFavoriteList(variables); }
   /**
    * Retrieves favorite lists with search
    * @param input Search input parameters

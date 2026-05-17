@@ -28,6 +28,7 @@ import { document as businessRuleDecisionTableAddRowDoc } from '../generated/ope
 import { document as businessRuleDecisionTableDeleteRowDoc } from '../generated/operations/businessRuleDecisionTableDeleteRow';
 import { document as businessRuleDecisionTableMoveRowDoc } from '../generated/operations/businessRuleDecisionTableMoveRow';
 import { document as businessRuleDecisionTableSetCellDoc } from '../generated/operations/businessRuleDecisionTableSetCell';
+import type { BusinessRuleDecisionTableAddRowVariables, BusinessRuleFieldDefinitionsVariables, BusinessRuleJDMVariables, BusinessRuleUpdateVariables, BusinessRulesVariables } from '../generated/operationVariables';
 /**
  Service class for BusinessRule-related GraphQL operations
  */
@@ -47,8 +48,8 @@ export function businessRuleService(client: GraphQLClient) {
        * @param input BusinessRule search input parameters
        * @returns Promise<BusinessRuleResponse> The business rules response data
        */
-    async getBusinessRules(input?: BusinessRuleSearchInput): Promise<BusinessRuleResponse> {
-      const result = await runOperation(client, businessRulesDoc, 'businessRules', { input });
+    async getBusinessRules(variables: BusinessRulesVariables): Promise<BusinessRuleResponse> {
+      const result = await runOperation(client, businessRulesDoc, 'businessRules', variables);
       return result.data.businessRules as BusinessRuleResponse;
     },
     /**
@@ -64,8 +65,8 @@ export function businessRuleService(client: GraphQLClient) {
        Fetches business rule field definitions
        * @returns Promise<BusinessRuleFieldDefinitionGroup> The field definitions data
        */
-    async getBusinessRuleFieldDefinitions(): Promise<BusinessRuleFieldDefinitionGroup> {
-      const result = await runOperation(client, businessRuleFieldDefinitionsDoc, 'businessRuleFieldDefinitions', {  });
+    async getBusinessRuleFieldDefinitions(variables: BusinessRuleFieldDefinitionsVariables): Promise<BusinessRuleFieldDefinitionGroup> {
+      const result = await runOperation(client, businessRuleFieldDefinitionsDoc, 'businessRuleFieldDefinitions', variables);
       return result.data.businessRuleFieldDefinitions as BusinessRuleFieldDefinitionGroup;
     },
     /**
@@ -73,8 +74,8 @@ export function businessRuleService(client: GraphQLClient) {
        * @param input Business rule JDM input parameters
        * @returns Promise<any> The JDM data
        */
-    async getBusinessRuleJDM(input?: any): Promise<any> {
-      const result = await runOperation(client, businessRuleJDMDoc, 'businessRuleJDM', { input });
+    async getBusinessRuleJDM(variables: BusinessRuleJDMVariables): Promise<any> {
+      const result = await runOperation(client, businessRuleJDMDoc, 'businessRuleJDM', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.businessRuleJDM;
     },
     /**
@@ -91,8 +92,8 @@ export function businessRuleService(client: GraphQLClient) {
        * @param input BusinessRule update input data
        * @returns Promise<BusinessRule> The updated business rule
        */
-    async updateBusinessRule(input: BusinessRuleUpdateInput): Promise<BusinessRule> {
-      const result = await runOperation(client, businessRuleUpdateDoc, 'businessRuleUpdate', { input });
+    async updateBusinessRule(variables: BusinessRuleUpdateVariables): Promise<BusinessRule> {
+      const result = await runOperation(client, businessRuleUpdateDoc, 'businessRuleUpdate', variables);
       return result.data.businessRuleUpdate as BusinessRule;
     },
     /**
@@ -126,8 +127,8 @@ export function businessRuleService(client: GraphQLClient) {
        Adds a row to business rule decision table
        * @returns Promise<BusinessRuleDecisionTable> The updated decision table
        */
-    async addRowToDecisionTable(): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableAddRowDoc, 'businessRuleDecisionTableAddRow', {  });
+    async addRowToDecisionTable(variables: BusinessRuleDecisionTableAddRowVariables): Promise<BusinessRuleDecisionTable> {
+      const result = await runOperation(client, businessRuleDecisionTableAddRowDoc, 'businessRuleDecisionTableAddRow', variables);
       return result.data.businessRuleDecisionTableAddRow as BusinessRuleDecisionTable;
     },
     /**
@@ -175,7 +176,7 @@ export class BusinessRuleService {
    * Fetches a list of business rules with search criteria
    * @param input BusinessRule search input parameters
    */
-  getBusinessRules(input?: BusinessRuleSearchInput): Promise<BusinessRuleResponse> { return this._svc.getBusinessRules(input); }
+  getBusinessRules(variables: BusinessRulesVariables): Promise<BusinessRuleResponse> { return this._svc.getBusinessRules(variables); }
   /**
    * Fetches business rule decision table
    * @param input BusinessRuleDecisionTable search input parameters
@@ -184,12 +185,12 @@ export class BusinessRuleService {
   /**
    * Fetches business rule field definitions
    */
-  getBusinessRuleFieldDefinitions(): Promise<BusinessRuleFieldDefinitionGroup> { return this._svc.getBusinessRuleFieldDefinitions(); }
+  getBusinessRuleFieldDefinitions(variables: BusinessRuleFieldDefinitionsVariables): Promise<BusinessRuleFieldDefinitionGroup> { return this._svc.getBusinessRuleFieldDefinitions(variables); }
   /**
    * Fetches business rule JDM
    * @param input Business rule JDM input parameters
    */
-  getBusinessRuleJDM(input?: any): Promise<any> { return this._svc.getBusinessRuleJDM(input); }
+  getBusinessRuleJDM(variables: BusinessRuleJDMVariables): Promise<any> { return this._svc.getBusinessRuleJDM(variables); }
   /**
    * Creates a new business rule
    * @param input BusinessRule creation input data
@@ -199,7 +200,7 @@ export class BusinessRuleService {
    * Updates an existing business rule
    * @param input BusinessRule update input data
    */
-  updateBusinessRule(input: BusinessRuleUpdateInput): Promise<BusinessRule> { return this._svc.updateBusinessRule(input); }
+  updateBusinessRule(variables: BusinessRuleUpdateVariables): Promise<BusinessRule> { return this._svc.updateBusinessRule(variables); }
   /**
    * Updates a business rule decision table
    * @param input BusinessRuleDecisionTable update input data
@@ -218,7 +219,7 @@ export class BusinessRuleService {
   /**
    * Adds a row to business rule decision table
    */
-  addRowToDecisionTable(): Promise<BusinessRuleDecisionTable> { return this._svc.addRowToDecisionTable(); }
+  addRowToDecisionTable(variables: BusinessRuleDecisionTableAddRowVariables): Promise<BusinessRuleDecisionTable> { return this._svc.addRowToDecisionTable(variables); }
   /**
    * Deletes a row from business rule decision table
    * @param input Delete row input data

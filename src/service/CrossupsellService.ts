@@ -27,6 +27,7 @@ import { document as crossupsellDoc } from '../generated/operations/crossupsell'
 import { document as crossupsellsDoc } from '../generated/operations/crossupsells';
 import { document as crossupsellCreateDoc } from '../generated/operations/crossupsellCreate';
 import { document as crossupsellUpdateDoc } from '../generated/operations/crossupsellUpdate';
+import type { CrossupsellCreateVariables, CrossupsellUpdateVariables, CrossupsellVariables } from '../generated/operationVariables';
 /**
  Service class for Crossupsell-related GraphQL operations
  */
@@ -37,8 +38,8 @@ export function crossupsellService(client: GraphQLClient) {
        * @param id Crossupsell ID to fetch
        * @returns Promise<Crossupsell> The crossupsell data
        */
-    async getCrossupsell(id: number): Promise<Crossupsell> {
-      const result = await runOperation(client, crossupsellDoc, 'crossupsell', { id });
+    async getCrossupsell(variables: CrossupsellVariables): Promise<Crossupsell> {
+      const result = await runOperation(client, crossupsellDoc, 'crossupsell', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.crossupsell as Crossupsell;
     },
     /**
@@ -56,8 +57,8 @@ export function crossupsellService(client: GraphQLClient) {
        * @param input Crossupsell creation input data
        * @returns Promise<Crossupsell> The created crossupsell
        */
-    async createCrossupsell(input: CrossupsellCreateInput): Promise<Crossupsell> {
-      const result = await runOperation(client, crossupsellCreateDoc, 'crossupsellCreate', { input });
+    async createCrossupsell(variables: CrossupsellCreateVariables): Promise<Crossupsell> {
+      const result = await runOperation(client, crossupsellCreateDoc, 'crossupsellCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.crossupsellCreate as Crossupsell;
     },
     /**
@@ -65,8 +66,8 @@ export function crossupsellService(client: GraphQLClient) {
        * @param input Crossupsell update input data
        * @returns Promise<Crossupsell> The updated crossupsell
        */
-    async updateCrossupsell(input: CrossupsellUpdateInput): Promise<Crossupsell> {
-      const result = await runOperation(client, crossupsellUpdateDoc, 'crossupsellUpdate', { input });
+    async updateCrossupsell(variables: CrossupsellUpdateVariables): Promise<Crossupsell> {
+      const result = await runOperation(client, crossupsellUpdateDoc, 'crossupsellUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.crossupsellUpdate as Crossupsell;
     },
   };
@@ -82,7 +83,7 @@ export class CrossupsellService {
    * Fetches a single crossupsell by ID
    * @param id Crossupsell ID to fetch
    */
-  getCrossupsell(id: number): Promise<Crossupsell> { return this._svc.getCrossupsell(id); }
+  getCrossupsell(variables: CrossupsellVariables): Promise<Crossupsell> { return this._svc.getCrossupsell(variables); }
   /**
    * Fetches a list of crossupsells with search criteria
    * @param variables Crossupsell search input parameters
@@ -92,10 +93,10 @@ export class CrossupsellService {
    * Creates a new crossupsell
    * @param input Crossupsell creation input data
    */
-  createCrossupsell(input: CrossupsellCreateInput): Promise<Crossupsell> { return this._svc.createCrossupsell(input); }
+  createCrossupsell(variables: CrossupsellCreateVariables): Promise<Crossupsell> { return this._svc.createCrossupsell(variables); }
   /**
    * Updates an existing crossupsell
    * @param input Crossupsell update input data
    */
-  updateCrossupsell(input: CrossupsellUpdateInput): Promise<Crossupsell> { return this._svc.updateCrossupsell(input); }
+  updateCrossupsell(variables: CrossupsellUpdateVariables): Promise<Crossupsell> { return this._svc.updateCrossupsell(variables); }
 }

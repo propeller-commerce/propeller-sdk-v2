@@ -13,8 +13,8 @@ export function logoutService(client: GraphQLClient) {
        * @param userId User ID to logout
        * @returns Promise<Logout> Logout response
        */
-    async logout(userId: number): Promise<Logout> {
-      const result = await runOperation(client, logoutDoc, 'logout', { userId });
+    async logout(): Promise<Logout> {
+      const result = await runOperation(client, logoutDoc, 'logout');
       return result.data.logout as Logout;
     },
   };
@@ -30,5 +30,5 @@ export class LogoutService {
    * Logs out a user and ends their session
    * @param userId User ID to logout
    */
-  logout(userId: number): Promise<Logout> { return this._svc.logout(userId); }
+  logout(): Promise<Logout> { return this._svc.logout(); }
 }

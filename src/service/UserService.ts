@@ -30,6 +30,7 @@ import type {
   TriggerContactSendWelcomeEmailEventInput,
   TriggerCustomerSendWelcomeEmailEventInput,
 } from '../type';
+import type { ContactRegisterVariables, CustomerRegisterVariables, UserVariables, ViewerVariables } from '../generated/operationVariables';
 
 /**
  * Union type for `viewer` / `user` query results — schema returns either a
@@ -98,8 +99,8 @@ export function userService(client: GraphQLClient) {
      * Get current viewer information (authenticated user).
      * Returns `Contact | Customer` — discriminate on `result.__typename`.
      */
-    async getViewer(input: ViewerInput): Promise<ViewerResult> {
-      const result = await runOperation(client, viewerDoc, 'viewer', input);
+    async getViewer(variables: ViewerVariables): Promise<ViewerResult> {
+      const result = await runOperation(client, viewerDoc, 'viewer', variables);
       return result.data.viewer as ViewerResult;
     },
 
@@ -113,7 +114,7 @@ export function userService(client: GraphQLClient) {
      * Get user by id or login (mutually exclusive — provide one).
      * Returns `Contact | Customer` — discriminate on `result.__typename`.
      */
-    async getUser(variables: { id?: number; login?: string }): Promise<ViewerResult> {
+    async getUser(variables: UserVariables): Promise<ViewerResult> {
       const result = await runOperation(client, userDoc, 'user', variables);
       return result.data.user as ViewerResult;
     },
@@ -130,18 +131,18 @@ export function userService(client: GraphQLClient) {
      * mutation will be available in the future.
      */
     async logout(): Promise<Logout> {
-      const result = await runOperation(client, logoutDoc, 'logout', {});
+      const result = await runOperation(client, logoutDoc, 'logout');
       return result.data.logout as Logout;
     },
 
     /** Register a new contact. */
-    async registerContact(variables: ContactRegisterInput): Promise<RegisterContactResponse> {
+    async registerContact(variables: ContactRegisterVariables): Promise<RegisterContactResponse> {
       const result = await runOperation(client, contactRegisterDoc, 'contactRegister', variables);
       return result.data.contactRegister as RegisterContactResponse;
     },
 
     /** Register a new customer. */
-    async registerCustomer(variables: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
+    async registerCustomer(variables: CustomerRegisterVariables): Promise<RegisterCustomerResponse> {
       const result = await runOperation(client, customerRegisterDoc, 'customerRegister', variables);
       return result.data.customerRegister as RegisterCustomerResponse;
     },
@@ -208,8 +209,8 @@ export class UserService {
    * Get current viewer information (authenticated user).
    * Returns `Contact | Customer` — discriminate on `result.__typename`.
    */
-  getViewer(input: ViewerInput): Promise<ViewerResult> {
-    return this._svc.getViewer(input);
+  getViewer(variables: ViewerVariables): Promise<ViewerResult> {
+    return this._svc.getViewer(variables);
   }
   /** Login with credentials. */
   login(input: LoginInput): Promise<Login> {
@@ -219,7 +220,7 @@ export class UserService {
    * Get user by id or login (mutually exclusive — provide one).
    * Returns `Contact | Customer` — discriminate on `result.__typename`.
    */
-  getUser(variables: { id?: number; login?: string }): Promise<ViewerResult> {
+  getUser(variables: UserVariables): Promise<ViewerResult> {
     return this._svc.getUser(variables);
   }
   /** Get authentication information for user by email. */
@@ -235,11 +236,11 @@ export class UserService {
     return this._svc.logout();
   }
   /** Register a new contact. */
-  registerContact(variables: ContactRegisterInput): Promise<RegisterContactResponse> {
+  registerContact(variables: ContactRegisterVariables): Promise<RegisterContactResponse> {
     return this._svc.registerContact(variables);
   }
   /** Register a new customer. */
-  registerCustomer(variables: CustomerRegisterInput): Promise<RegisterCustomerResponse> {
+  registerCustomer(variables: CustomerRegisterVariables): Promise<RegisterCustomerResponse> {
     return this._svc.registerCustomer(variables);
   }
   /** Send a password reset email to the specified user. */

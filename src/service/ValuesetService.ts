@@ -14,6 +14,7 @@ import { document as valuesetCreateDoc } from '../generated/operations/valuesetC
 import { document as valuesetUpdateDoc } from '../generated/operations/valuesetUpdate';
 import { document as valuesetDeleteDoc } from '../generated/operations/valuesetDelete';
 import { document as valuesetItemsDoc } from '../generated/operations/valuesetItems';
+import type { ValuesetUpdateVariables } from '../generated/operationVariables';
 /**
  Service class for Valueset-related GraphQL operations
  */
@@ -51,8 +52,8 @@ export function valuesetService(client: GraphQLClient) {
        * @param input Valueset update input data
        * @returns Promise<Valueset> The updated valueset
        */
-    async updateValueset(input: ValuesetUpdateInput): Promise<Valueset> {
-      const result = await runOperation(client, valuesetUpdateDoc, 'valuesetUpdate', { input });
+    async updateValueset(variables: ValuesetUpdateVariables): Promise<Valueset> {
+      const result = await runOperation(client, valuesetUpdateDoc, 'valuesetUpdate', variables);
       return result.data.valuesetUpdate as Valueset;
     },
     /**
@@ -101,7 +102,7 @@ export class ValuesetService {
    * Updates an existing valueset
    * @param input Valueset update input data
    */
-  updateValueset(input: ValuesetUpdateInput): Promise<Valueset> { return this._svc.updateValueset(input); }
+  updateValueset(variables: ValuesetUpdateVariables): Promise<Valueset> { return this._svc.updateValueset(variables); }
   /**
    * Deletes a valueset
    * @param id Valueset ID to delete

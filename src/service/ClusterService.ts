@@ -10,49 +10,10 @@ import { TransformationsInput } from '../type/TransformationsInput';
 import { ClusterCreateInput } from '../type/ClusterCreateInput';
 import { ClusterUpdateInput } from '../type/ClusterUpdateInput';
 /**
- * Variables for `cluster create` — creates a new cluster
- */
-export interface ClusterCreateVariables {
-  input: ClusterCreateInput;
-}
-/**
- * Variables for `cluster update` — updates an existing cluster
- */
-export interface ClusterUpdateVariables {
-  id: number;
-  input: ClusterUpdateInput;
-}
-/**
  * Variables for `cluster delete` — deletes a cluster
  */
 export interface ClusterDeleteVariables {
   id: number;
-}
-/**
- * Cluster query variables interface
- Variables for the cluster query
- */
-export interface ClusterQueryVariables {
-  /** Cluster ID to fetch */
-  clusterId?: number;
-  /** Cluster slug to fetch */
-  slug?: string;
-  /** Language for localized content */
-  language?: string;
-  /** Price calculation input */
-  priceCalculateProductInput?: PriceCalculateProductInput;
-  /** User bulk price input */
-  userBulkPriceProductInput?: UserBulkPriceProductInput;
-  /** Attribute search input */
-  attributeResultSearchInput?: AttributeResultSearchInput;
-  /** Image search filters */
-  imageSearchFilters?: MediaImageProductSearchInput;
-  /** Video search input */
-  mediaVideoSearchInput?: MediaVideoProductSearchInput;
-  /** Document search input */
-  mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
-  /** Image transformation filters */
-  imageVariantFilters?: TransformationsInput;
 }
 import { GraphQLClient } from '../client/GraphQLClient';
 import { runOperation } from './runOperation';
@@ -61,6 +22,7 @@ import { document as clusterDoc } from '../generated/operations/cluster';
 import { document as clusterCreateDoc } from '../generated/operations/clusterCreate';
 import { document as clusterUpdateDoc } from '../generated/operations/clusterUpdate';
 import { document as clusterDeleteDoc } from '../generated/operations/clusterDelete';
+import type { ClusterCreateVariables, ClusterUpdateVariables, ClusterVariables } from '../generated/operationVariables';
 /**
  Service class for Cluster-related GraphQL operations
  */
@@ -90,9 +52,8 @@ export function clusterService(client: GraphQLClient) {
        * - imageVariantFilters: TransformationsInput - Image transformation filters
        * @returns Promise<Cluster> Cluster data
        */
-    async getCluster(variables: ClusterQueryVariables): Promise<Cluster> {
-      const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, clusterDoc, 'cluster', { ...variables, language });
+    async getCluster(variables: ClusterVariables): Promise<Cluster> {
+      const result = await runOperation(client, clusterDoc, 'cluster', variables);
       return result.data.cluster as Cluster;
     },
     /**
@@ -101,7 +62,7 @@ export function clusterService(client: GraphQLClient) {
        * @returns Promise<Cluster> The created cluster
        */
     async createCluster(variables: ClusterCreateVariables): Promise<Cluster> {
-      const result = await runOperation(client, clusterCreateDoc, 'clusterCreate', variables);
+      const result = await runOperation(client, clusterCreateDoc, 'clusterCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.clusterCreate as Cluster;
     },
     /**
@@ -110,7 +71,7 @@ export function clusterService(client: GraphQLClient) {
        * @returns Promise<Cluster> The updated cluster
        */
     async updateCluster(variables: ClusterUpdateVariables): Promise<Cluster> {
-      const result = await runOperation(client, clusterUpdateDoc, 'clusterUpdate', variables);
+      const result = await runOperation(client, clusterUpdateDoc, 'clusterUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.clusterUpdate as Cluster;
     },
     /**
@@ -150,7 +111,7 @@ export class ClusterService {
    * @param mediaDocumentSearchInput Document search input
    * @param imageVariantFilters Image transformation filters
    */
-  getCluster(variables: ClusterQueryVariables): Promise<Cluster> { return this._svc.getCluster(variables); }
+  getCluster(variables: ClusterVariables): Promise<Cluster> { return this._svc.getCluster(variables); }
   /**
    * Creates a new cluster
    * @param variables Cluster creation variables

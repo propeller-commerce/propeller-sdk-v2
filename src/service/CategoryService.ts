@@ -49,6 +49,7 @@ import { document as categoryCsvImportDoc } from '../generated/operations/catego
 import { document as categoryAddProductsClustersDoc } from '../generated/operations/categoryAddProductsClusters';
 import { document as categoryRemoveProductsClustersDoc } from '../generated/operations/categoryRemoveProductsClusters';
 import { document as attributeResultByCategoryIdDoc } from '../generated/operations/attributeResultByCategoryId';
+import type { CategoryAddProductsClustersVariables, CategoryCreateVariables, CategoryRemoveProductsClustersVariables, CategoryUpdateVariables } from '../generated/operationVariables';
 /**
  Service class for Category-related GraphQL operations
  */
@@ -89,8 +90,8 @@ export function categoryService(client: GraphQLClient) {
        * @param input Category creation input data
        * @returns Promise<Category> The created category
        */
-    async createCategory(input: any): Promise<Category> {
-      const result = await runOperation(client, categoryCreateDoc, 'categoryCreate', { input });
+    async createCategory(variables: CategoryCreateVariables): Promise<Category> {
+      const result = await runOperation(client, categoryCreateDoc, 'categoryCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.categoryCreate as Category;
     },
     /**
@@ -98,8 +99,8 @@ export function categoryService(client: GraphQLClient) {
        * @param input Category update input data
        * @returns Promise<Category> The updated category
        */
-    async updateCategory(input: any): Promise<Category> {
-      const result = await runOperation(client, categoryUpdateDoc, 'categoryUpdate', { input });
+    async updateCategory(variables: CategoryUpdateVariables): Promise<Category> {
+      const result = await runOperation(client, categoryUpdateDoc, 'categoryUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.categoryUpdate as Category;
     },
     /**
@@ -116,8 +117,8 @@ export function categoryService(client: GraphQLClient) {
        * @param input Category add products/clusters input data
        * @returns Promise<Category> The updated category
        */
-    async addProductsClustersToCategory(input: CategoryAddProductsClustersInput): Promise<CategoryAddProductsClustersResponse> {
-      const result = await runOperation(client, categoryAddProductsClustersDoc, 'categoryAddProductsClusters', { input });
+    async addProductsClustersToCategory(variables: CategoryAddProductsClustersVariables): Promise<CategoryAddProductsClustersResponse> {
+      const result = await runOperation(client, categoryAddProductsClustersDoc, 'categoryAddProductsClusters', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.categoryAddProductsClusters as CategoryAddProductsClustersResponse;
     },
     /**
@@ -125,8 +126,8 @@ export function categoryService(client: GraphQLClient) {
        * @param input Category remove products/clusters input data
        * @returns Promise<Category> The updated category
        */
-    async removeProductsClustersFromCategory(input: CategoryRemoveProductsClustersInput): Promise<CategoryRemoveProductsClustersResponse> {
-      const result = await runOperation(client, categoryRemoveProductsClustersDoc, 'categoryRemoveProductsClusters', { input });
+    async removeProductsClustersFromCategory(variables: CategoryRemoveProductsClustersVariables): Promise<CategoryRemoveProductsClustersResponse> {
+      const result = await runOperation(client, categoryRemoveProductsClustersDoc, 'categoryRemoveProductsClusters', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.categoryRemoveProductsClusters as CategoryRemoveProductsClustersResponse;
     },
     /**
@@ -176,12 +177,12 @@ export class CategoryService {
    * Creates a new category
    * @param input Category creation input data
    */
-  createCategory(input: any): Promise<Category> { return this._svc.createCategory(input); }
+  createCategory(variables: CategoryCreateVariables): Promise<Category> { return this._svc.createCategory(variables); }
   /**
    * Updates an existing category
    * @param input Category update input data
    */
-  updateCategory(input: any): Promise<Category> { return this._svc.updateCategory(input); }
+  updateCategory(variables: CategoryUpdateVariables): Promise<Category> { return this._svc.updateCategory(variables); }
   /**
    * Imports categories from CSV
    * @param input CSV import input data
@@ -191,12 +192,12 @@ export class CategoryService {
    * Adds products/clusters to a category
    * @param input Category add products/clusters input data
    */
-  addProductsClustersToCategory(input: CategoryAddProductsClustersInput): Promise<CategoryAddProductsClustersResponse> { return this._svc.addProductsClustersToCategory(input); }
+  addProductsClustersToCategory(variables: CategoryAddProductsClustersVariables): Promise<CategoryAddProductsClustersResponse> { return this._svc.addProductsClustersToCategory(variables); }
   /**
    * Removes products/clusters from a category
    * @param input Category remove products/clusters input data
    */
-  removeProductsClustersFromCategory(input: CategoryRemoveProductsClustersInput): Promise<CategoryRemoveProductsClustersResponse> { return this._svc.removeProductsClustersFromCategory(input); }
+  removeProductsClustersFromCategory(variables: CategoryRemoveProductsClustersVariables): Promise<CategoryRemoveProductsClustersResponse> { return this._svc.removeProductsClustersFromCategory(variables); }
   /**
    * Fetches attribute results for a category
    * @param categoryId Category ID

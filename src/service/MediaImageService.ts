@@ -11,6 +11,7 @@ import { document as mediaImagesDoc } from '../generated/operations/mediaImages'
 import { document as mediaImageCreateDoc } from '../generated/operations/mediaImageCreate';
 import { document as mediaImageUpdateDoc } from '../generated/operations/mediaImageUpdate';
 import { document as mediaImageDeleteDoc } from '../generated/operations/mediaImageDelete';
+import type { MediaImageCreateVariables, MediaImageDeleteVariables, MediaImageUpdateVariables, MediaImageVariables, MediaImagesVariables } from '../generated/operationVariables';
 /**
  Service for managing media images
  */
@@ -22,8 +23,8 @@ export function mediaImageService(client: GraphQLClient) {
        * @param id Media image ID
        * @returns Promise<MediaImage> Media image data
        */
-    async getMediaImage(id: number): Promise<MediaImage> {
-      const result = await runOperation(client, mediaImageDoc, 'mediaImage', { id });
+    async getMediaImage(variables: MediaImageVariables): Promise<MediaImage> {
+      const result = await runOperation(client, mediaImageDoc, 'mediaImage', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.mediaImage as MediaImage;
     },
     /**
@@ -32,8 +33,8 @@ export function mediaImageService(client: GraphQLClient) {
        * @param input Search input parameters
        * @returns Promise<PaginatedMediaImageResponse> Paginated media images
        */
-    async getMediaImages(input?: MediaImageSearchInput): Promise<PaginatedMediaImageResponse> {
-      const result = await runOperation(client, mediaImagesDoc, 'mediaImages', { input });
+    async getMediaImages(variables: MediaImagesVariables): Promise<PaginatedMediaImageResponse> {
+      const result = await runOperation(client, mediaImagesDoc, 'mediaImages', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.mediaImages as PaginatedMediaImageResponse;
     },
     /**
@@ -41,8 +42,8 @@ export function mediaImageService(client: GraphQLClient) {
        * @param input Media image creation input
        * @returns Promise<MediaImage> The created media image
        */
-    async createMediaImage(input: MediaImageInput): Promise<MediaImage> {
-      const result = await runOperation(client, mediaImageCreateDoc, 'mediaImageCreate', { input });
+    async createMediaImage(variables: MediaImageCreateVariables): Promise<MediaImage> {
+      const result = await runOperation(client, mediaImageCreateDoc, 'mediaImageCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.mediaImageCreate as MediaImage;
     },
     /**
@@ -50,8 +51,8 @@ export function mediaImageService(client: GraphQLClient) {
        * @param input Media image update input
        * @returns Promise<MediaImage> The updated media image
        */
-    async updateMediaImage(input: UpdateMediaImageInput): Promise<MediaImage> {
-      const result = await runOperation(client, mediaImageUpdateDoc, 'mediaImageUpdate', { input });
+    async updateMediaImage(variables: MediaImageUpdateVariables): Promise<MediaImage> {
+      const result = await runOperation(client, mediaImageUpdateDoc, 'mediaImageUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.mediaImageUpdate as MediaImage;
     },
     /**
@@ -59,8 +60,8 @@ export function mediaImageService(client: GraphQLClient) {
        * @param id Media image ID
        * @returns Promise<boolean> Success status
        */
-    async deleteMediaImage(id: number): Promise<DeleteMediaImageResponse> {
-      const result = await runOperation(client, mediaImageDeleteDoc, 'mediaImageDelete', { id });
+    async deleteMediaImage(variables: MediaImageDeleteVariables): Promise<DeleteMediaImageResponse> {
+      const result = await runOperation(client, mediaImageDeleteDoc, 'mediaImageDelete', variables);
       return result.data.mediaImageDelete as DeleteMediaImageResponse;
     },
   };
@@ -76,25 +77,25 @@ export class MediaImageService {
    * Retrieves a specific media image
    * @param id Media image ID
    */
-  getMediaImage(id: number): Promise<MediaImage> { return this._svc.getMediaImage(id); }
+  getMediaImage(variables: MediaImageVariables): Promise<MediaImage> { return this._svc.getMediaImage(variables); }
   /**
    * Retrieves media images with pagination
    * @param input Search input parameters
    */
-  getMediaImages(input?: MediaImageSearchInput): Promise<PaginatedMediaImageResponse> { return this._svc.getMediaImages(input); }
+  getMediaImages(variables: MediaImagesVariables): Promise<PaginatedMediaImageResponse> { return this._svc.getMediaImages(variables); }
   /**
    * Creates a new media image
    * @param input Media image creation input
    */
-  createMediaImage(input: MediaImageInput): Promise<MediaImage> { return this._svc.createMediaImage(input); }
+  createMediaImage(variables: MediaImageCreateVariables): Promise<MediaImage> { return this._svc.createMediaImage(variables); }
   /**
    * Updates an existing media image
    * @param input Media image update input
    */
-  updateMediaImage(input: UpdateMediaImageInput): Promise<MediaImage> { return this._svc.updateMediaImage(input); }
+  updateMediaImage(variables: MediaImageUpdateVariables): Promise<MediaImage> { return this._svc.updateMediaImage(variables); }
   /**
    * Deletes a media image
    * @param id Media image ID
    */
-  deleteMediaImage(id: number): Promise<DeleteMediaImageResponse> { return this._svc.deleteMediaImage(id); }
+  deleteMediaImage(variables: MediaImageDeleteVariables): Promise<DeleteMediaImageResponse> { return this._svc.deleteMediaImage(variables); }
 }

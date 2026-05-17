@@ -10,6 +10,7 @@ import { document as carriersDoc } from '../generated/operations/carriers';
 import { document as carrierCreateDoc } from '../generated/operations/carrierCreate';
 import { document as carrierUpdateDoc } from '../generated/operations/carrierUpdate';
 import { document as carrierDeleteDoc } from '../generated/operations/carrierDelete';
+import type { CarrierUpdateVariables } from '../generated/operationVariables';
 /**
  Service class for Carrier-related GraphQL operations
  */
@@ -47,8 +48,8 @@ export function carrierService(client: GraphQLClient) {
        * @param input Carrier update input data
        * @returns Promise<Carrier> The updated carrier
        */
-    async updateCarrier(input: CarrierUpdateInput): Promise<Carrier> {
-      const result = await runOperation(client, carrierUpdateDoc, 'carrierUpdate', { input });
+    async updateCarrier(variables: CarrierUpdateVariables): Promise<Carrier> {
+      const result = await runOperation(client, carrierUpdateDoc, 'carrierUpdate', variables);
       return result.data.carrierUpdate as Carrier;
     },
     /**
@@ -88,7 +89,7 @@ export class CarrierService {
    * Updates an existing carrier
    * @param input Carrier update input data
    */
-  updateCarrier(input: CarrierUpdateInput): Promise<Carrier> { return this._svc.updateCarrier(input); }
+  updateCarrier(variables: CarrierUpdateVariables): Promise<Carrier> { return this._svc.updateCarrier(variables); }
   /**
    * Deletes a carrier
    * @param id Carrier ID to delete
