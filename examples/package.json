@@ -14,7 +14,7 @@
     "setup:angular": "echo 'Copy angular-example.ts to your Angular project src/app folder'"
   },
   "dependencies": {
-    "propeller-sdk-v2": "^0.1.0"
+    "propeller-sdk-v2": "^0.10.0"
   },
   "devDependencies": {
     "http-server": "^14.1.1"

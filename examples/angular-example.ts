@@ -1,37 +1,64 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, from, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { 
-  initializeClient, 
-  getClient, 
-  ProductService, 
-  CategoryService, 
-  UserService,
-  OrderService,
-  type Product, 
-  type Category, 
+import {
+  createClient,
+  productService,
+  categoryService,
+  userService,
+  orderService,
+  OrderType,
+  ProductStatus,
+  type GraphQLClient,
+  type Product,
+  type Category,
   type ViewerResult,
-  type Order 
+  type Order,
+  type ProductSearchInput,
+  type OrderCreateInput,
+  type TransformationsInput,
 } from 'propeller-sdk-v2';
 
-// Initialize Propeller client (do this in main.ts or app.module.ts)
-export function initializePropellerClient() {
-  initializeClient({
-    endpoint: 'https://your-propeller-api.com/graphql',
-    apiKey: 'your-api-key',
-    orderEditorApiKey: 'your-order-editor-api-key'
+// v0.10.0: create the client once (e.g. in main.ts) and provide it.
+export function createPropellerClient(): GraphQLClient {
+  return createClient({
+    endpoint: 'https://your-proxy.example.com/api/graphql',
+    securityMode: 'proxy',
+    clientId: 'my-angular-app',
+    defaultLanguage: 'NL',
   });
 }
 
+// `imageVariantFilters` is a required variable on product/category operations.
+const imageVariantFilters: TransformationsInput = {
+  transformations: [
+    { name: 'thumb', transformation: { width: 300, height: 300 } },
+  ],
+};
+
+// `products` requires a fully-formed ProductSearchInput (language + statuses
+// are required by the schema). Helper to build one from optional overrides.
+function searchInput(
+  over: Partial<ProductSearchInput> = {}
+): ProductSearchInput {
+  return {
+    language: 'NL',
+    page: 1,
+    offset: 20,
+    statuses: [ProductStatus.A],
+    ...over,
+  };
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PropellerService {
-  private client = getClient();
-  private productService = new ProductService(this.client);
-  private categoryService = new CategoryService(this.client);
-  private userService = new UserService(this.client);
-  private orderService = new OrderService(this.client);
+  private client = createPropellerClient();
+  private products = productService(this.client);
+  private categories = categoryService(this.client);
+  private users = userService(this.client);
+  private orders = orderService(this.client);
 
   // Reactive state subjects
   private viewerSubject = new BehaviorSubject<ViewerResult | null>(null);
@@ -52,7 +79,7 @@ export class PropellerService {
     this.loadingSubject.next(true);
     this.errorSubject.next(null);
 
-    return from(this.userService.getViewer()).pipe(
+    return from(this.users.getViewer({})).pipe(
       tap(viewer => {
         this.viewerSubject.next(viewer);
         this.loadingSubject.next(false);
@@ -66,13 +93,21 @@ export class PropellerService {
   }
 
   /**
-   * Load products with optional filters
+   * Load products. `getProducts` returns a ProductsResponse; `.items` is the
+   * product list. Search is `input.term`, paging is `input.page/offset`.
    */
-  loadProducts(filters?: { limit?: number; offset?: number; search?: string }): Observable<Product[]> {
+  loadProducts(input?: Partial<ProductSearchInput>): Observable<Product[]> {
     this.loadingSubject.next(true);
     this.errorSubject.next(null);
 
-    return from(this.productService.getProducts(filters || { limit: 20 })).pipe(
+    return from(
+      this.products.getProducts({
+        input: searchInput(input),
+        imageVariantFilters,
+        language: 'NL',
+      })
+    ).pipe(
+      map(res => res.items as Product[]),
       tap(products => {
         this.productsSubject.next(products);
         this.loadingSubject.next(false);
@@ -86,10 +121,12 @@ export class PropellerService {
   }
 
   /**
-   * Load single product by ID
+   * Load a single product. `getProduct` takes ProductQueryVariables.
    */
   loadProduct(productId: number): Observable<Product> {
-    return from(this.productService.getProduct(productId)).pipe(
+    return from(
+      this.products.getProduct({ productId, imageVariantFilters, language: 'NL' })
+    ).pipe(
       catchError(error => {
         this.errorSubject.next(error.message);
         return throwError(() => error);
@@ -98,14 +135,12 @@ export class PropellerService {
   }
 
   /**
-   * Load category by slug
+   * Load category by slug.
    */
-  loadCategory(slug: string, userId?: number): Observable<Category> {
-    return from(this.categoryService.getCategory({ 
-      slug, 
-      userId: userId || 1,
-      hidden: 'No' 
-    })).pipe(
+  loadCategory(slug: string): Observable<Category> {
+    return from(
+      this.categories.getCategory({ slug, imageVariantFilters, language: 'NL' })
+    ).pipe(
       catchError(error => {
         this.errorSubject.next(error.message);
         return throwError(() => error);
@@ -114,15 +149,31 @@ export class PropellerService {
   }
 
   /**
-   * Create a new order
+   * Create a new order. `createOrder` takes OrderCreateVariables.
    */
-  createOrder(orderData: { 
-    customerId?: number; 
-    items: Array<{ productId: number; quantity: number }> 
-  }): Observable<Order> {
+  createOrder(): Observable<Order> {
     this.loadingSubject.next(true);
 
-    return from(this.orderService.createOrder(orderData)).pipe(
+    // OrderCreateInput requires items/paymentData/postageData/total — fill
+    // these from your catalog/checkout state. Cast keeps the example focused
+    // on the SDK call shape rather than a full order schema.
+    const order = {
+      userId: 1,
+      status: 'NEW',
+      type: OrderType.purchase,
+      email: 'customer@example.com',
+      currency: 'EUR',
+      language: 'NL',
+      shopId: 1,
+      items: [],
+      paymentData: {},
+      postageData: {},
+      total: {},
+    } as unknown as OrderCreateInput;
+
+    return from(
+      this.orders.createOrder({ order, imageVariantFilters, language: 'NL' })
+    ).pipe(
       tap(() => this.loadingSubject.next(false)),
       catchError(error => {
         this.errorSubject.next(error.message);
@@ -133,13 +184,17 @@ export class PropellerService {
   }
 
   /**
-   * Search products
+   * Search products via `getProducts` with a search term.
    */
-  searchProducts(query: string, filters?: any): Observable<Product[]> {
-    return from(this.productService.searchProducts({ 
-      search: query,
-      ...filters 
-    })).pipe(
+  searchProducts(term: string): Observable<Product[]> {
+    return from(
+      this.products.getProducts({
+        input: searchInput({ term }),
+        imageVariantFilters,
+        language: 'NL',
+      })
+    ).pipe(
+      map(res => res.items as Product[]),
       catchError(error => {
         this.errorSubject.next(error.message);
         return throwError(() => error);
@@ -201,13 +256,12 @@ import { PropellerService } from './propeller.service';
       </div>
       
       <div class="products-grid">
-        <div 
-          *ngFor="let product of products$ | async" 
+        <div
+          *ngFor="let product of products$ | async"
           class="product-card"
         >
-          <h3>{{ product.name }}</h3>
-          <p>{{ product.description }}</p>
-          <span class="price">\${{ product.price }}</span>
+          <h3>{{ product.names?.[0]?.value }}</h3>
+          <span class="sku">{{ product.sku }}</span>
           <button (click)="viewProduct(product.id)">View Details</button>
         </div>
       </div>
@@ -262,7 +316,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Load initial products
-    this.propellerService.loadProducts({ limit: this.pageSize })
+    this.propellerService.loadProducts({ offset: this.pageSize })
       .pipe(takeUntil(this.destroy$))
       .subscribe();
   }
@@ -278,7 +332,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe();
     } else {
-      this.propellerService.loadProducts({ limit: this.pageSize })
+      this.propellerService.loadProducts({ offset: this.pageSize })
         .pipe(takeUntil(this.destroy$))
         .subscribe();
     }
@@ -286,10 +340,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   loadMore() {
     this.currentOffset += this.pageSize;
-    this.propellerService.loadProducts({ 
-      limit: this.pageSize, 
-      offset: this.currentOffset 
-    })
+    this.propellerService.loadProducts({ offset: this.currentOffset })
       .pipe(takeUntil(this.destroy$))
       .subscribe();
   }

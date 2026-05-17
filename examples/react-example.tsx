@@ -1,67 +1,73 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { 
-  initializeClient, 
-  getClient, 
-  ProductService, 
-  CategoryService, 
-  UserService,
-  OrderService,
-  Product, 
-  Category, 
-  ViewerResult 
+/**
+ * React example — Propeller SDK v0.10.0
+ *
+ * Shows the v0.10.0 API: `createClient()` + tree-shakeable service factories,
+ * passing the client explicitly (no global singleton). Service methods take a
+ * single variables object that mirrors the GraphQL operation's variables.
+ */
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import {
+  createClient,
+  productService,
+  categoryService,
+  userService,
+  getLocalized,
+  ProductStatus,
+  type Product,
+  type Category,
+  type ViewerResult,
+  type TransformationsInput,
 } from 'propeller-sdk-v2';
 
-// Initialize the Propeller client (do this once in your app)
-initializeClient({
-  endpoint: 'https://your-propeller-api.com/graphql',
-  apiKey: 'your-api-key',
-  orderEditorApiKey: 'your-order-editor-api-key' // For order operations
+// Create the client once and share it (module scope, context, or a store).
+const client = createClient({
+  endpoint: 'https://your-proxy.example.com/api/graphql',
+  securityMode: 'proxy', // keep API keys server-side
+  clientId: 'my-react-app',
+  defaultLanguage: 'NL',
 });
 
-// Custom hook for Propeller services
-function usePropellerServices() {
-  const client = getClient();
-  
-  return {
-    productService: new ProductService(client),
-    categoryService: new CategoryService(client),
-    userService: new UserService(client),
-    orderService: new OrderService(client)
-  };
-}
+// `imageVariantFilters` is a required variable on product/category operations.
+const imageVariantFilters: TransformationsInput = {
+  transformations: [
+    { name: 'thumb', transformation: { width: 300, height: 300 } },
+  ],
+};
 
-// Product listing component
+// Product listing — `getProducts` returns a ProductsResponse ({ items, itemsFound }).
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { productService } = usePropellerServices();
+  const products$ = useMemo(() => productService(client), []);
 
   const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      
-      // Using the ProductService to get products
-      const productList = await productService.getProducts({
-        // Add your filter parameters here
-        limit: 20,
-        offset: 0
+      const result = await products$.getProducts({
+        input: {
+          language: 'NL',
+          page: 1,
+          offset: 20,
+          statuses: [ProductStatus.A],
+        },
+        imageVariantFilters,
+        language: 'NL',
       });
-      
-      setProducts(productList);
+      setProducts(result.items as Product[]);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch products');
     } finally {
       setLoading(false);
     }
-  }, [productService]);
+  }, [products$]);
 
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
-  if (loading) return <div>Loading products...</div>;
+  if (loading) return <div>Loading products…</div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -70,135 +76,103 @@ const ProductList: React.FC = () => {
       <div className="products-grid">
         {products.map((product) => (
           <div key={product.id} className="product-card">
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <span className="price">${product.price}</span>
+            <h3>{getLocalized(product.names, 'NL')}</h3>
+            <span className="sku">{product.sku}</span>
           </div>
         ))}
       </div>
-      <button onClick={fetchProducts}>Refresh Products</button>
+      <button onClick={fetchProducts}>Refresh products</button>
     </div>
   );
 };
 
-// Category browser component
+// Category browser — `getCategory` takes the hand-authored CategoryQueryVariables.
 const CategoryBrowser: React.FC = () => {
   const [category, setCategory] = useState<Category | null>(null);
-  const [categorySlug, setCategorySlug] = useState('electronics');
+  const [slug, setSlug] = useState('electronics');
   const [loading, setLoading] = useState(false);
-  const { categoryService } = usePropellerServices();
+  const categories$ = useMemo(() => categoryService(client), []);
 
-  const loadCategory = useCallback(async (slug: string) => {
-    try {
-      setLoading(true);
-      const categoryData = await categoryService.getCategory({
-        slug,
-        userId: 1, // Your user ID
-        hidden: 'No'
-      });
-      setCategory(categoryData);
-    } catch (err) {
-      console.error('Failed to load category:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, [categoryService]);
-
-  useEffect(() => {
-    loadCategory(categorySlug);
-  }, [categorySlug, loadCategory]);
-
-  return (
-    <div className="category-browser">
-      <div>
-        <label>
-          Category:
-          <select 
-            value={categorySlug} 
-            onChange={(e) => setCategorySlug(e.target.value)}
-          >
-            <option value="electronics">Electronics</option>
-            <option value="clothing">Clothing</option>
-            <option value="books">Books</option>
-          </select>
-        </label>
-      </div>
-      
-      {loading && <div>Loading category...</div>}
-      {category && (
-        <div className="category-details">
-          <h2>{category.name}</h2>
-          <p>{category.description}</p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-// User profile component
-const UserProfile: React.FC = () => {
-  const [viewer, setViewer] = useState<ViewerResult | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { userService } = usePropellerServices();
-
-  useEffect(() => {
-    const loadViewer = async () => {
+  const loadCategory = useCallback(
+    async (s: string) => {
       try {
-        const viewerData = await userService.getViewer();
-        setViewer(viewerData);
+        setLoading(true);
+        const data = await categories$.getCategory({
+          slug: s,
+          imageVariantFilters,
+          language: 'NL',
+        });
+        setCategory(data);
       } catch (err) {
-        console.error('Failed to load viewer:', err);
+        console.error('Failed to load category:', err);
       } finally {
         setLoading(false);
       }
-    };
+    },
+    [categories$]
+  );
 
-    loadViewer();
-  }, [userService]);
+  useEffect(() => {
+    loadCategory(slug);
+  }, [slug, loadCategory]);
 
-  if (loading) return <div>Loading profile...</div>;
+  return (
+    <div className="category-browser">
+      <label>
+        Category:
+        <select value={slug} onChange={(e) => setSlug(e.target.value)}>
+          <option value="electronics">Electronics</option>
+          <option value="clothing">Clothing</option>
+          <option value="books">Books</option>
+        </select>
+      </label>
+      {loading && <div>Loading category…</div>}
+      {category && <h2>{getLocalized(category.names, 'NL')}</h2>}
+    </div>
+  );
+};
+
+// Viewer (logged-in customer/contact). `getViewer` takes optional ViewerVariables.
+const UserProfile: React.FC = () => {
+  const [viewer, setViewer] = useState<ViewerResult | null>(null);
+  const [loading, setLoading] = useState(true);
+  const users$ = useMemo(() => userService(client), []);
+
+  useEffect(() => {
+    users$
+      .getViewer({})
+      .then(setViewer)
+      .catch((err) => console.error('Failed to load viewer:', err))
+      .finally(() => setLoading(false));
+  }, [users$]);
+
+  if (loading) return <div>Loading profile…</div>;
   if (!viewer) return <div>Not logged in</div>;
 
   return (
     <div className="user-profile">
       <h2>Profile</h2>
-      {'email' in viewer ? (
-        <div>
-          <p>Type: Customer</p>
-          <p>Email: {viewer.email}</p>
-          <p>Company: {viewer.companyName}</p>
-        </div>
-      ) : (
-        <div>
-          <p>Type: Contact</p>
-          <p>Email: {viewer.email}</p>
-          <p>Name: {viewer.firstName} {viewer.lastName}</p>
-        </div>
-      )}
+      <pre>{JSON.stringify(viewer, null, 2)}</pre>
     </div>
   );
 };
 
-// Main App component
-const App: React.FC = () => {
-  return (
-    <div className="app">
-      <header>
-        <h1>Propeller eCommerce Demo</h1>
-      </header>
-      <main>
-        <UserProfile />
-        <CategoryBrowser />
-        <ProductList />
-      </main>
-    </div>
-  );
-};
+const App: React.FC = () => (
+  <div className="app">
+    <header>
+      <h1>Propeller eCommerce demo</h1>
+    </header>
+    <main>
+      <UserProfile />
+      <CategoryBrowser />
+      <ProductList />
+    </main>
+  </div>
+);
 
 export default App;
 
-// Usage in your React app:
-// 1. Install: npm install propeller-sdk-v2
-// 2. Import and initialize as shown above
-// 3. Use the services in your components
-// 4. The client handles caching, authentication, and error handling automatically 
+// Usage:
+// 1. npm install propeller-sdk-v2
+// 2. createClient(...) once; pass it to the service factories
+// 3. Service methods take a single variables object matching the operation

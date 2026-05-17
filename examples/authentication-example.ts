@@ -1,356 +1,117 @@
 /**
- * Authentication Example - Propeller GraphQL Client
- * 
- * This example demonstrates how to handle user authentication with the secure proxy,
- * including login, automatic token handling, and logout.
+ * Authentication example — Propeller SDK v0.10.0
+ *
+ * Login via `loginService`, automatic token handling on the client, and
+ * logout. v0.10.0: `createClient()` + service factories; the client's
+ * `isAuthenticated()` / `getAccessToken()` are async.
  */
+import {
+  createClient,
+  loginService,
+  userService,
+  type Login,
+  type ViewerResult,
+} from 'propeller-sdk-v2';
 
-import { initializeClient, getClient } from '../src/client';
-
-// ============================================================================
-// 🚀 Initialize Client with Secure Proxy Mode
-// ============================================================================
-
-initializeClient({
-  endpoint: 'https://npm-proxy-p-v2.vercel.app/api/graphql-proxy',
-  securityMode: 'proxy', // ✅ SECURE - No API keys in client code
-  clientId: 'my-react-app',
-  timeout: 30000
+// Create the client once. Proxy mode keeps API keys server-side.
+const client = createClient({
+  endpoint: 'https://your-proxy.example.com/api/graphql',
+  securityMode: 'proxy',
+  clientId: 'my-app',
+  timeout: 30000,
 });
 
-const client = getClient();
-
-// ============================================================================
-// 🔐 Authentication Flow Examples
-// ============================================================================
+const auth = loginService(client);
+const users = userService(client);
 
 /**
- * Example 1: User Login
+ * Example 1: User login. `login` takes a LoginInput ({ email, password }).
+ * The returned `Login.session` carries the GCIP tokens.
  */
-async function userLogin(email: string, password: string) {
-  try {
-    console.log('🔐 Attempting login...');
-    
-    // Login mutation
-    const loginMutation = `
-      mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
-          access_token
-          user {
-            id
-            email
-            name
-          }
-        }
-      }
-    `;
+async function userLogin(email: string, password: string): Promise<Login> {
+  console.log('Attempting login…');
+  const result = await auth.login({ email, password });
 
-    // Execute login
-    const result = await client.mutate(loginMutation, {
-      email,
-      password
-    });
-
-    // Store token automatically (client handles this now)
-    const accessToken = result.login.access_token;
+  const accessToken = result.session?.accessToken;
+  if (accessToken) {
+    // Persist the token so subsequent requests send Authorization.
     client.setAccessToken(accessToken);
-
-    console.log('✅ Login successful!');
-    console.log('👤 User:', result.login.user);
-    console.log('🔑 Token stored automatically');
-    
-    return result.login;
-
-  } catch (error) {
-    console.error('❌ Login failed:', error);
-    throw error;
+    console.log('Login successful; token stored.');
+  } else {
+    console.warn('Login returned no session token.');
   }
+  return result;
 }
 
 /**
- * Example 2: Authenticated Query
+ * Example 2: Authenticated query. Once a token is set, the client adds the
+ * Authorization header automatically. `getViewer` returns the logged-in
+ * Customer/Contact.
  */
-async function getAuthenticatedUserData() {
-  try {
-    console.log('🔍 Fetching authenticated user data...');
-    
-    // Check if user is authenticated
-    if (!client.isAuthenticated()) {
-      throw new Error('User not authenticated. Please login first.');
-    }
-
-    // Query that requires authentication
-    const userQuery = `
-      query GetUserProfile {
-        me {
-          id
-          email
-          name
-          profile {
-            avatar
-            preferences
-          }
-        }
-      }
-    `;
-
-    // Execute query (Authorization header is automatically included)
-    const result = await client.query(userQuery);
-    
-    console.log('✅ User data fetched successfully!');
-    console.log('👤 Profile:', result.me);
-    
-    return result.me;
-
-  } catch (error) {
-    console.error('❌ Failed to fetch user data:', error);
-    throw error;
+async function getAuthenticatedUserData(): Promise<ViewerResult> {
+  if (!(await client.isAuthenticated())) {
+    throw new Error('User not authenticated. Please login first.');
   }
+  const viewer = await users.getViewer({});
+  console.log('Viewer:', viewer);
+  return viewer;
 }
 
 /**
- * Example 3: Authenticated Mutation
+ * Example 3: Logout — clear the stored access token.
  */
-async function updateUserProfile(updates: any) {
-  try {
-    console.log('✏️ Updating user profile...');
-    
-    // Check authentication
-    if (!client.isAuthenticated()) {
-      throw new Error('User not authenticated. Please login first.');
-    }
-
-    // Update profile mutation
-    const updateMutation = `
-      mutation UpdateProfile($input: ProfileUpdateInput!) {
-        updateProfile(input: $input) {
-          id
-          email
-          name
-          profile {
-            avatar
-            preferences
-          }
-        }
-      }
-    `;
-
-    // Execute mutation
-    const result = await client.mutate(updateMutation, {
-      input: updates
-    });
-    
-    console.log('✅ Profile updated successfully!');
-    console.log('👤 Updated profile:', result.updateProfile);
-    
-    return result.updateProfile;
-
-  } catch (error) {
-    console.error('❌ Failed to update profile:', error);
-    throw error;
-  }
+function userLogout(): void {
+  client.clearAccessToken();
+  console.log('Logged out; token cleared.');
 }
 
 /**
- * Example 4: User Logout
+ * Example 4: Check authentication status (async in v0.10.0).
  */
-function userLogout() {
-  try {
-    console.log('🚪 Logging out...');
-    
-    // Clear the access token
+async function checkAuthStatus(): Promise<{ isAuthenticated: boolean; hasToken: boolean }> {
+  const isAuthenticated = await client.isAuthenticated();
+  const accessToken = await client.getAccessToken();
+  console.log('Authenticated:', isAuthenticated, '| has token:', !!accessToken);
+  return { isAuthenticated, hasToken: !!accessToken };
+}
+
+/**
+ * Example 5: Handle auth errors — clear token on 401/unauthorized so the app
+ * can route back to login.
+ */
+function handleAuthError(error: unknown): boolean {
+  const msg = error instanceof Error ? error.message : String(error);
+  if (msg.includes('unauthorized') || msg.includes('401')) {
     client.clearAccessToken();
-    
-    console.log('✅ Logout successful!');
-    console.log('🔑 Token cleared from localStorage');
-    
-    // Verify token is cleared
-    if (!client.isAuthenticated()) {
-      console.log('✅ Authentication status verified: User is logged out');
-    }
-    
-  } catch (error) {
-    console.error('❌ Logout failed:', error);
-    throw error;
+    return true; // handled
   }
+  return false;
 }
 
-/**
- * Example 5: Check Authentication Status
- */
-function checkAuthStatus() {
-  const isAuthenticated = client.isAuthenticated();
-  const accessToken = client.getAccessToken();
-  
-  console.log('🔍 Authentication Status Check:');
-  console.log('   Is Authenticated:', isAuthenticated);
-  console.log('   Has Access Token:', !!accessToken);
-  console.log('   Token Preview:', accessToken ? `${accessToken.substring(0, 20)}...` : 'None');
-  
-  return {
-    isAuthenticated,
-    hasToken: !!accessToken
-  };
-}
-
-// ============================================================================
-// 🧪 Test Authentication Flow
-// ============================================================================
-
-async function testAuthenticationFlow() {
-  console.log('🚀 Starting Authentication Flow Test...\n');
-  
+async function testAuthenticationFlow(): Promise<void> {
   try {
-    // 1. Check initial status
-    console.log('📋 Step 1: Initial Status');
-    checkAuthStatus();
-    console.log('');
-    
-    // 2. Attempt login
-    console.log('📋 Step 2: User Login');
+    await checkAuthStatus();
     await userLogin('test@example.com', 'password123');
-    console.log('');
-    
-    // 3. Check status after login
-    console.log('📋 Step 3: Status After Login');
-    checkAuthStatus();
-    console.log('');
-    
-    // 4. Fetch authenticated data
-    console.log('📋 Step 4: Fetch Authenticated Data');
+    await checkAuthStatus();
     await getAuthenticatedUserData();
-    console.log('');
-    
-    // 5. Update profile
-    console.log('📋 Step 5: Update Profile');
-    await updateUserProfile({
-      name: 'Updated Name',
-      preferences: { theme: 'dark' }
-    });
-    console.log('');
-    
-    // 6. Logout
-    console.log('📋 Step 6: User Logout');
     userLogout();
-    console.log('');
-    
-    // 7. Final status check
-    console.log('📋 Step 7: Final Status Check');
-    checkAuthStatus();
-    console.log('');
-    
-    console.log('🎉 Authentication Flow Test Completed Successfully!');
-    
+    await checkAuthStatus();
+    console.log('Authentication flow completed.');
   } catch (error) {
-    console.error('💥 Authentication Flow Test Failed:', error);
-  }
-}
-
-// ============================================================================
-// 🔧 Utility Functions
-// ============================================================================
-
-/**
- * Refresh token if needed
- */
-async function refreshTokenIfNeeded() {
-  try {
-    const accessToken = client.getAccessToken();
-    
-    if (!accessToken) {
-      return false; // No token to refresh
+    if (!handleAuthError(error)) {
+      console.error('Authentication flow failed:', error);
     }
-    
-    // Check if token is expired (you might want to decode JWT to check expiration)
-    // For now, we'll just return true if token exists
-    return true;
-    
-  } catch (error) {
-    console.error('❌ Token refresh check failed:', error);
-    return false;
   }
 }
-
-/**
- * Handle authentication errors
- */
-function handleAuthError(error: any) {
-  if (error.message?.includes('unauthorized') || error.message?.includes('401')) {
-    console.log('🔐 Authentication error detected, clearing token...');
-    client.clearAccessToken();
-    // Redirect to login page or show login modal
-    return true; // Error was handled
-  }
-  return false; // Error was not handled
-}
-
-// ============================================================================
-// 📱 React/Vue/Angular Integration Examples
-// ============================================================================
-
-/**
- * React Hook Example (if using React)
- */
-/*
-import { useState, useEffect } from 'react';
-
-export function useAuth() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
-  const checkAuthStatus = () => {
-    const authStatus = client.isAuthenticated();
-    setIsAuthenticated(authStatus);
-    setLoading(false);
-  };
-
-  const login = async (email: string, password: string) => {
-    try {
-      const result = await userLogin(email, password);
-      setUser(result.user);
-      setIsAuthenticated(true);
-      return result;
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const logout = () => {
-    userLogout();
-    setUser(null);
-    setIsAuthenticated(false);
-  };
-
-  return {
-    isAuthenticated,
-    user,
-    loading,
-    login,
-    logout,
-    checkAuthStatus
-  };
-}
-*/
-
-// ============================================================================
-// 🚀 Export Functions
-// ============================================================================
 
 export {
   userLogin,
   userLogout,
   getAuthenticatedUserData,
-  updateUserProfile,
   checkAuthStatus,
+  handleAuthError,
   testAuthenticationFlow,
-  refreshTokenIfNeeded,
-  handleAuthError
 };
 
-// Uncomment to run the test
-// testAuthenticationFlow(); 
+// Uncomment to run:
+// testAuthenticationFlow();

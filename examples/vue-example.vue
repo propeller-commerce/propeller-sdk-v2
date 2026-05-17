@@ -9,16 +9,7 @@
       <h2>User Profile</h2>
       <div v-if="userLoading">Loading profile...</div>
       <div v-else-if="viewer">
-        <div v-if="viewer.__typename === 'Customer'">
-          <p>Type: Customer</p>
-          <p>Email: {{ viewer.email }}</p>
-          <p>Company: {{ viewer.companyName }}</p>
-        </div>
-        <div v-else>
-          <p>Type: Contact</p>
-          <p>Email: {{ viewer.email }}</p>
-          <p>Name: {{ viewer.firstName }} {{ viewer.lastName }}</p>
-        </div>
+        <pre>{{ JSON.stringify(viewer, null, 2) }}</pre>
       </div>
       <div v-else>Not logged in</div>
     </section>
@@ -39,8 +30,7 @@
       
       <div v-if="categoryLoading">Loading category...</div>
       <div v-else-if="currentCategory" class="category-details">
-        <h3>{{ currentCategory.name }}</h3>
-        <p>{{ currentCategory.description }}</p>
+        <h3>{{ getLocalized(currentCategory.names, 'NL') }}</h3>
       </div>
     </section>
 
@@ -56,14 +46,13 @@
       </div>
       
       <div v-else-if="products.length" class="products-grid">
-        <div 
-          v-for="product in products" 
-          :key="product.id" 
+        <div
+          v-for="product in products"
+          :key="product.id"
           class="product-card"
         >
-          <h4>{{ product.name }}</h4>
-          <p>{{ product.description }}</p>
-          <span class="price">${{ product.price }}</span>
+          <h4>{{ getLocalized(product.names, 'NL') }}</h4>
+          <span class="sku">{{ product.sku }}</span>
         </div>
       </div>
       <div v-else-if="!productsLoading">No products found</div>
@@ -85,33 +74,44 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, computed } from 'vue'
-import { 
-  initializeClient, 
-  getClient, 
-  ProductService, 
-  CategoryService, 
-  UserService,
-  OrderService,
-  type Product, 
-  type Category, 
+import { ref, onMounted, watch } from 'vue'
+import {
+  createClient,
+  productService,
+  categoryService,
+  userService,
+  orderService,
+  getLocalized,
+  OrderType,
+  ProductStatus,
+  type Product,
+  type Category,
   type ViewerResult,
-  type Order
+  type Order,
+  type OrderCreateInput,
+  type TransformationsInput,
 } from 'propeller-sdk-v2'
 
-// Initialize Propeller client
-initializeClient({
-  endpoint: 'https://your-propeller-api.com/graphql',
-  apiKey: 'your-api-key',
-  orderEditorApiKey: 'your-order-editor-api-key'
+// v0.10.0: create the client once and pass it to the tree-shakeable
+// service factories (no global singleton).
+const client = createClient({
+  endpoint: 'https://your-proxy.example.com/api/graphql',
+  securityMode: 'proxy',
+  clientId: 'my-vue-app',
+  defaultLanguage: 'NL',
 })
 
-// Get client and create services
-const client = getClient()
-const productService = new ProductService(client)
-const categoryService = new CategoryService(client)
-const userService = new UserService(client)
-const orderService = new OrderService(client)
+const products$ = productService(client)
+const categories$ = categoryService(client)
+const users$ = userService(client)
+const orders$ = orderService(client)
+
+// `imageVariantFilters` is a required variable on product/category operations.
+const imageVariantFilters: TransformationsInput = {
+  transformations: [
+    { name: 'thumb', transformation: { width: 300, height: 300 } },
+  ],
+}
 
 // Reactive state
 const viewer = ref<ViewerResult | null>(null)
@@ -128,17 +128,10 @@ const categoryLoading = ref(false)
 const orderResult = ref<Order | null>(null)
 const orderLoading = ref(false)
 
-// Computed properties
-const isCustomer = computed(() => 
-  viewer.value && viewer.value.__typename === 'Customer'
-)
-
-// Load user profile
 const loadUserProfile = async () => {
   try {
     userLoading.value = true
-    const viewerData = await userService.getViewer()
-    viewer.value = viewerData
+    viewer.value = await users$.getViewer({})
   } catch (error) {
     console.error('Failed to load user profile:', error)
   } finally {
@@ -146,20 +139,24 @@ const loadUserProfile = async () => {
   }
 }
 
-// Load products
 const loadProducts = async () => {
   try {
     productsLoading.value = true
     productsError.value = null
-    
-    const productList = await productService.getProducts({
-      limit: 20,
-      offset: 0
+    const result = await products$.getProducts({
+      input: {
+        language: 'NL',
+        page: 1,
+        offset: 20,
+        statuses: [ProductStatus.A],
+      },
+      imageVariantFilters,
+      language: 'NL',
     })
-    
-    products.value = productList
+    products.value = result.items as Product[]
   } catch (error) {
-    productsError.value = error instanceof Error ? error.message : 'Failed to load products'
+    productsError.value =
+      error instanceof Error ? error.message : 'Failed to load products'
   } finally {
     productsLoading.value = false
   }
@@ -169,16 +166,14 @@ const refreshProducts = () => {
   loadProducts()
 }
 
-// Load category
 const loadCategory = async (slug: string) => {
   try {
     categoryLoading.value = true
-    const categoryData = await categoryService.getCategory({
+    currentCategory.value = await categories$.getCategory({
       slug,
-      userId: 1,
-      hidden: 'No'
+      imageVariantFilters,
+      language: 'NL',
     })
-    currentCategory.value = categoryData
   } catch (error) {
     console.error('Failed to load category:', error)
   } finally {
@@ -186,24 +181,32 @@ const loadCategory = async (slug: string) => {
   }
 }
 
-// Create sample order
+// `createOrder` takes OrderCreateVariables: { order: OrderCreateInput, ... }.
 const createSampleOrder = async () => {
   if (!viewer.value) return
-  
   try {
     orderLoading.value = true
-    
-    // Example order creation - adjust based on your schema
-    const order = await orderService.createOrder({
-      customerId: viewer.value.__typename === 'Customer' ? viewer.value.id : null,
-      items: [
-        {
-          productId: products.value[0]?.id || 1,
-          quantity: 1
-        }
-      ]
+    // OrderCreateInput requires items/paymentData/postageData/total — fill
+    // these from your catalog/checkout state. Cast keeps the example focused
+    // on the SDK call shape rather than a full order schema.
+    const orderInput = {
+      userId: 1,
+      status: 'NEW',
+      type: OrderType.purchase,
+      email: 'customer@example.com',
+      currency: 'EUR',
+      language: 'NL',
+      shopId: 1,
+      items: [],
+      paymentData: {},
+      postageData: {},
+      total: {},
+    } as unknown as OrderCreateInput
+    const order = await orders$.createOrder({
+      order: orderInput,
+      imageVariantFilters,
+      language: 'NL',
     })
-    
     orderResult.value = order
   } catch (error) {
     console.error('Failed to create order:', error)
@@ -212,12 +215,10 @@ const createSampleOrder = async () => {
   }
 }
 
-// Watch category slug changes
 watch(selectedCategorySlug, (newSlug) => {
   loadCategory(newSlug)
 })
 
-// Load initial data
 onMounted(() => {
   loadUserProfile()
   loadProducts()

@@ -5,7 +5,7 @@
  * to keep API keys server-side while maintaining the same client API.
  */
 
-import { initializeClient, getClient } from '../src/client';
+import { createClient } from 'propeller-sdk-v2';
 
 // ============================================================================
 // 🚨 INSECURE MODE (NOT RECOMMENDED FOR PRODUCTION)
@@ -13,25 +13,25 @@ import { initializeClient, getClient } from '../src/client';
 // This mode exposes API keys in client-side code, which is a security risk.
 
 /*
-initializeClient({
+const insecureClient = createClient({
   endpoint: 'https://external-api.propeller.com/graphql',
   securityMode: 'direct', // ⚠️ INSECURE - API keys exposed in client code
   apiKey: 'your-api-key-here', // ⚠️ VISIBLE IN BROWSER DEV TOOLS
-  orderEditorApiKey: 'your-order-editor-key', // ⚠️ EXPOSED TO USERS
-  timeout: 30000
+  timeout: 30000,
 });
 */
 
 // ============================================================================
 // ✅ SECURE MODE (RECOMMENDED FOR PRODUCTION)
 // ============================================================================
-// This mode keeps all API keys server-side in a serverless proxy function.
+// Keeps all API keys server-side in a serverless proxy. v0.10.0: create the
+// client once with `createClient()` and pass it where needed.
 
-initializeClient({
-  endpoint: 'https://your-proxy.vercel.app/api/graphql-proxy', // Proxy endpoint
+const client = createClient({
+  endpoint: 'https://your-proxy.example.com/api/graphql',
   securityMode: 'proxy', // ✅ SECURE - No API keys in client code
-  clientId: 'my-react-app', // Optional: for tracking and monitoring
-  timeout: 30000
+  clientId: 'my-app', // Optional: for tracking and monitoring
+  timeout: 30000,
 });
 
 // ============================================================================
@@ -39,8 +39,7 @@ initializeClient({
 // ============================================================================
 
 async function exampleUsage() {
-  const client = getClient();
-  
+
   try {
     // Check if we're in secure mode
     console.log('Security mode:', client.getSecurityMode());
@@ -95,8 +94,7 @@ function migrateToSecureMode() {
  * Test the proxy connection
  */
 async function testProxyConnection() {
-  const client = getClient();
-  
+
   try {
     // Simple introspection query to test connection
     const result = await client.query(`
@@ -118,8 +116,7 @@ async function testProxyConnection() {
  * Test with a real GraphQL query
  */
 async function testRealQuery() {
-  const client = getClient();
-  
+
   try {
     // This query should work if your proxy is properly configured
     const result = await client.query(`
