@@ -44,7 +44,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<Attribute> The attribute data
        */
     async getAttribute(id: string): Promise<Attribute> {
-      const result = await runOperation(client, attributeDoc, 'attribute', { id });
+      const result = await runOperation<{ attribute: Attribute }>(client, attributeDoc, 'attribute', { id });
       return result.data.attribute;
     },
     /**
@@ -53,7 +53,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeResponse> The attributes response data
        */
     async getAttributes(input: AttributeSearchInput): Promise<AttributeResponse> {
-      const result = await runOperation(client, attributesDoc, 'attributes', { input });
+      const result = await runOperation<{ attributes: AttributeResponse }>(client, attributesDoc, 'attributes', { input });
       return result.data.attributes;
     },
     /**
@@ -62,7 +62,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<Attribute> The created attribute
        */
     async createAttribute(input: AttributeCreateInput): Promise<Attribute> {
-      const result = await runOperation(client, attributeCreateDoc, 'attributeCreate', { input });
+      const result = await runOperation<{ attributeCreate: Attribute }>(client, attributeCreateDoc, 'attributeCreate', { input });
       return result.data.attributeCreate;
     },
     /**
@@ -72,7 +72,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<Attribute> The updated attribute
        */
     async updateAttribute(id: string, input: AttributeUpdateInput): Promise<Attribute> {
-      const result = await runOperation(client, attributeUpdateDoc, 'attributeUpdate', { id, input });
+      const result = await runOperation<{ attributeUpdate: Attribute }>(client, attributeUpdateDoc, 'attributeUpdate', { id, input });
       return result.data.attributeUpdate;
     },
     /**
@@ -81,7 +81,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteAttribute(id: string): Promise<boolean> {
-      const result = await runOperation(client, attributeDeleteDoc, 'attributeDelete', { id });
+      const result = await runOperation<{ attributeDelete: boolean }>(client, attributeDeleteDoc, 'attributeDelete', { id });
       return result.data.attributeDelete;
     },
     /**
@@ -90,7 +90,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByCategoryId(variables: AttributeResultByCategoryIdVariables): Promise<AttributeResultResponse> {
-      const result = await runOperation(client, attributeResultByCategoryIdDoc, 'attributeResultByCategoryId', variables);
+      const result = await runOperation<{ attributeResultByCategoryId: AttributeResultResponse }>(client, attributeResultByCategoryIdDoc, 'attributeResultByCategoryId', variables);
       return result.data.attributeResultByCategoryId as AttributeResultResponse;
     },
     /**
@@ -99,7 +99,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByClusterId(variables: AttributeResultByClusterIdVariables): Promise<AttributeResultResponse> {
-      const result = await runOperation(client, attributeResultByClusterIdDoc, 'attributeResultByClusterId', variables);
+      const result = await runOperation<{ attributeResultByClusterId: AttributeResultResponse }>(client, attributeResultByClusterIdDoc, 'attributeResultByClusterId', variables);
       return result.data.attributeResultByClusterId as AttributeResultResponse;
     },
     /**
@@ -108,7 +108,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByCompanyId(variables: AttributeResultByCompanyIdVariables): Promise<AttributeResultResponse> {
-      const result = await runOperation(client, attributeResultByCompanyIdDoc, 'attributeResultByCompanyId', variables);
+      const result = await runOperation<{ attributeResultByCompanyId: AttributeResultResponse }>(client, attributeResultByCompanyIdDoc, 'attributeResultByCompanyId', variables);
       return result.data.attributeResultByCompanyId as AttributeResultResponse;
     },
     /**
@@ -117,7 +117,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByContactId(variables: AttributeResultByContactIdVariables): Promise<AttributeResultResponse> {
-      const result = await runOperation(client, attributeResultByContactIdDoc, 'attributeResultByContactId', variables);
+      const result = await runOperation<{ attributeResultByContactId: AttributeResultResponse }>(client, attributeResultByContactIdDoc, 'attributeResultByContactId', variables);
       return result.data.attributeResultByContactId as AttributeResultResponse;
     },
     /**
@@ -126,7 +126,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByCustomerId(variables: AttributeResultByCustomerIdVariables): Promise<AttributeResultResponse> {
-      const result = await runOperation(client, attributeResultByCustomerIdDoc, 'attributeResultByCustomerId', variables);
+      const result = await runOperation<{ attributeResultByCustomerId: AttributeResultResponse }>(client, attributeResultByCustomerIdDoc, 'attributeResultByCustomerId', variables);
       return result.data.attributeResultByCustomerId as AttributeResultResponse;
     },
     /**
@@ -135,7 +135,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByProductId(variables: AttributeResultByProductIdVariables): Promise<AttributeResultResponse> {
-      const result = await runOperation(client, attributeResultByProductIdDoc, 'attributeResultByProductId', variables);
+      const result = await runOperation<{ attributeResultByProductId: AttributeResultResponse }>(client, attributeResultByProductIdDoc, 'attributeResultByProductId', variables);
       return result.data.attributeResultByProductId as AttributeResultResponse;
     },
     /**
@@ -144,7 +144,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeDescription> The attribute description data
        */
     async getAttributeDescription(id: string): Promise<AttributeDescription> {
-      const result = await runOperation(client, attributeDescriptionDoc, 'attributeDescription', { id });
+      const result = await runOperation<{ attributeDescription: AttributeDescription }>(client, attributeDescriptionDoc, 'attributeDescription', { id });
       return result.data.attributeDescription as AttributeDescription;
     },
     /**
@@ -153,7 +153,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeDescriptionResponse> The attribute descriptions response data
        */
     async getAttributeDescriptions(input: AttributeDescriptionSearchInput): Promise<AttributeDescriptionResponse> {
-      const result = await runOperation(client, attributeDescriptionsDoc, 'attributeDescriptions', { input });
+      const result = await runOperation<{ attributeDescriptions: AttributeDescriptionResponse }>(client, attributeDescriptionsDoc, 'attributeDescriptions', { input });
       return result.data.attributeDescriptions as AttributeDescriptionResponse;
     },
     /**
@@ -162,7 +162,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeDescription> The created attribute description
        */
     async createAttributeDescription(input: AttributeDescriptionCreateInput): Promise<AttributeDescription> {
-      const result = await runOperation(client, attributeDescriptionCreateDoc, 'attributeDescriptionCreate', { input });
+      const result = await runOperation<{ attributeDescriptionCreate: AttributeDescription }>(client, attributeDescriptionCreateDoc, 'attributeDescriptionCreate', { input });
       return result.data.attributeDescriptionCreate as AttributeDescription;
     },
     /**
@@ -172,7 +172,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<AttributeDescription> The updated attribute description
        */
     async updateAttributeDescription(id: string, input: AttributeDescriptionUpdateInput): Promise<AttributeDescription> {
-      const result = await runOperation(client, attributeDescriptionUpdateDoc, 'attributeDescriptionUpdate', { id, input });
+      const result = await runOperation<{ attributeDescriptionUpdate: AttributeDescription }>(client, attributeDescriptionUpdateDoc, 'attributeDescriptionUpdate', { id, input });
       return result.data.attributeDescriptionUpdate as AttributeDescription;
     },
     /**
@@ -181,7 +181,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteAttributeDescription(id: string): Promise<boolean> {
-      const result = await runOperation(client, attributeDescriptionDeleteDoc, 'attributeDescriptionDelete', { id });
+      const result = await runOperation<{ attributeDescriptionDelete: boolean }>(client, attributeDescriptionDeleteDoc, 'attributeDescriptionDelete', { id });
       return result.data.attributeDescriptionDelete;
     },
     /**
@@ -190,7 +190,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<BulkDeleteResponse> Bulk delete result
        */
     async deleteAttributeDescriptionBulk(ids: string[]): Promise<BulkDeleteResponse> {
-      const result = await runOperation(client, attributeDescriptionDeleteBulkDoc, 'attributeDescriptionDeleteBulk', { ids });
+      const result = await runOperation<{ attributeDescriptionDeleteBulk: BulkDeleteResponse }>(client, attributeDescriptionDeleteBulkDoc, 'attributeDescriptionDeleteBulk', { ids });
       return result.data.attributeDescriptionDeleteBulk as BulkDeleteResponse;
     },
     /**
@@ -199,7 +199,7 @@ export function attributeService(client: GraphQLClient) {
        * @returns Promise<CsvImportResponse> Import result
        */
     async importAttributeDescriptionCsv(input: AttributeDescriptionCsvInput): Promise<CsvImportResponse> {
-      const result = await runOperation(client, attributeDescriptionCsvImportDoc, 'attributeDescriptionCsvImport', { input });
+      const result = await runOperation<{ attributeDescriptionCsvImport: CsvImportResponse }>(client, attributeDescriptionCsvImportDoc, 'attributeDescriptionCsvImport', { input });
       return result.data.attributeDescriptionCsvImport as CsvImportResponse;
     },
   };

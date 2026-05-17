@@ -17,7 +17,7 @@ export function tenantService(client: GraphQLClient) {
        * @returns Promise<Tenant> The tenant data
        */
     async getTenant(): Promise<Tenant> {
-      const result = await runOperation(client, tenantDoc, 'tenant');
+      const result = await runOperation<{ tenant: Tenant }>(client, tenantDoc, 'tenant');
       return result.data.tenant as Tenant;
     },
     /**
@@ -26,7 +26,7 @@ export function tenantService(client: GraphQLClient) {
        * @returns Promise<Tenant> The created tenant
        */
     async createTenant(input: TenantCreateInput): Promise<Tenant> {
-      const result = await runOperation(client, tenantCreateDoc, 'tenantCreate', { input });
+      const result = await runOperation<{ tenantCreate: Tenant }>(client, tenantCreateDoc, 'tenantCreate', { input });
       return result.data.tenantCreate as Tenant;
     },
     /**
@@ -36,7 +36,7 @@ export function tenantService(client: GraphQLClient) {
        * @returns Promise<Tenant> The updated tenant
        */
     async updateTenant(id: string, input: TenantUpdateInput): Promise<Tenant> {
-      const result = await runOperation(client, tenantUpdateDoc, 'tenantUpdate', { id, input });
+      const result = await runOperation<{ tenantUpdate: Tenant }>(client, tenantUpdateDoc, 'tenantUpdate', { id, input });
       return result.data.tenantUpdate as Tenant;
     },
     /**
@@ -45,7 +45,7 @@ export function tenantService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteTenant(id: string): Promise<boolean> {
-      const result = await runOperation(client, tenantDeleteDoc, 'tenantDelete', { id });
+      const result = await runOperation<{ tenantDelete: boolean }>(client, tenantDeleteDoc, 'tenantDelete', { id });
       return result.data.tenantDelete;
     },
   };

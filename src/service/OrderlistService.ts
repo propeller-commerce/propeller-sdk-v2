@@ -33,7 +33,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> Orderlist data
        */
     async getOrderlist(id: number): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistDoc, 'orderlist', { id });
+      const result = await runOperation<{ orderlist: Orderlist }>(client, orderlistDoc, 'orderlist', { id });
       return result.data.orderlist as Orderlist;
     },
     /**
@@ -42,7 +42,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<OrderlistsResponse> Orderlists response
        */
     async getOrderlists(input?: OrderlistSearchInput): Promise<OrderlistsResponse> {
-      const result = await runOperation(client, orderlistsDoc, 'orderlists', { input });
+      const result = await runOperation<{ orderlists: OrderlistsResponse }>(client, orderlistsDoc, 'orderlists', { input });
       return result.data.orderlists as OrderlistsResponse;
     },
     /**
@@ -51,7 +51,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<ComputedOrderlistsResponse> Computed orderlists response
        */
     async getComputedOrderlists(input: ComputedOrderlistsInput): Promise<ComputedOrderlistsResponse> {
-      const result = await runOperation(client, computedOrderlistsDoc, 'computedOrderlists', { input });
+      const result = await runOperation<{ computedOrderlists: ComputedOrderlistsResponse }>(client, computedOrderlistsDoc, 'computedOrderlists', { input });
       return result.data.computedOrderlists as ComputedOrderlistsResponse;
     },
     /**
@@ -60,7 +60,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The created orderlist
        */
     async createOrderlist(input: OrderlistCreateInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistCreateDoc, 'orderlistCreate', { input });
+      const result = await runOperation<{ orderlistCreate: Orderlist }>(client, orderlistCreateDoc, 'orderlistCreate', { input });
       return result.data.orderlistCreate as Orderlist;
     },
     /**
@@ -70,7 +70,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async updateOrderlist(id: number, input: OrderlistUpdateInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUpdateDoc, 'orderlistUpdate', { id, input });
+      const result = await runOperation<{ orderlistUpdate: Orderlist }>(client, orderlistUpdateDoc, 'orderlistUpdate', { id, input });
       return result.data.orderlistUpdate as Orderlist;
     },
     /**
@@ -79,7 +79,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteOrderlist(id: number): Promise<boolean> {
-      const result = await runOperation(client, orderlistDeleteDoc, 'orderlistDelete', { id });
+      const result = await runOperation<{ orderlistDelete: boolean }>(client, orderlistDeleteDoc, 'orderlistDelete', { id });
       return result.data.orderlistDelete;
     },
     /**
@@ -89,7 +89,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async addOrderlistItems(id: number, input: OrderlistItemsInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAddItemsDoc, 'orderlistAddItems', { id, input });
+      const result = await runOperation<{ orderlistAddItems: Orderlist }>(client, orderlistAddItemsDoc, 'orderlistAddItems', { id, input });
       return result.data.orderlistAddItems as Orderlist;
     },
     /**
@@ -99,7 +99,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async removeOrderlistItems(id: number, input: OrderlistItemsInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistRemoveItemsDoc, 'orderlistRemoveItems', { id, input });
+      const result = await runOperation<{ orderlistRemoveItems: Orderlist }>(client, orderlistRemoveItemsDoc, 'orderlistRemoveItems', { id, input });
       return result.data.orderlistRemoveItems as Orderlist;
     },
     /**
@@ -109,7 +109,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async assignOrderlistUsers(id: number, input: OrderlistUsersInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAssignUsersDoc, 'orderlistAssignUsers', { id, input });
+      const result = await runOperation<{ orderlistAssignUsers: Orderlist }>(client, orderlistAssignUsersDoc, 'orderlistAssignUsers', { id, input });
       return result.data.orderlistAssignUsers as Orderlist;
     },
     /**
@@ -119,7 +119,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async unassignOrderlistUsers(id: number, input: OrderlistUsersInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUnassignUsersDoc, 'orderlistUnassignUsers', { id, input });
+      const result = await runOperation<{ orderlistUnassignUsers: Orderlist }>(client, orderlistUnassignUsersDoc, 'orderlistUnassignUsers', { id, input });
       return result.data.orderlistUnassignUsers as Orderlist;
     },
     /**
@@ -129,7 +129,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async assignOrderlistCompanies(id: number, input: OrderlistCompaniesInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAssignCompaniesDoc, 'orderlistAssignCompanies', { id, input });
+      const result = await runOperation<{ orderlistAssignCompanies: Orderlist }>(client, orderlistAssignCompaniesDoc, 'orderlistAssignCompanies', { id, input });
       return result.data.orderlistAssignCompanies as Orderlist;
     },
     /**
@@ -139,7 +139,7 @@ export function orderlistService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async unassignOrderlistCompanies(id: number, input: OrderlistCompaniesInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUnassignCompaniesDoc, 'orderlistUnassignCompanies', { id, input });
+      const result = await runOperation<{ orderlistUnassignCompanies: Orderlist }>(client, orderlistUnassignCompaniesDoc, 'orderlistUnassignCompanies', { id, input });
       return result.data.orderlistUnassignCompanies as Orderlist;
     },
   };

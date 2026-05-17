@@ -34,7 +34,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The tender data
        */
     async getTender(variables: TenderVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderDoc, 'tender', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tender: Tender }>(client, tenderDoc, 'tender', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tender as Tender;
     },
     /**
@@ -43,7 +43,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The started tender
        */
     async startTender(variables: TenderStartVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderStartDoc, 'tenderStart', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderStart: Tender }>(client, tenderStartDoc, 'tenderStart', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderStart as Tender;
     },
     /**
@@ -52,7 +52,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async updateTender(variables: TenderUpdateVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateDoc, 'tenderUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderUpdate: Tender }>(client, tenderUpdateDoc, 'tenderUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdate as Tender;
     },
     /**
@@ -61,7 +61,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderAddress(variables: TenderUpdateAddressVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateAddressDoc, 'tenderUpdateAddress', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderUpdateAddress: Tender }>(client, tenderUpdateAddressDoc, 'tenderUpdateAddress', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdateAddress as Tender;
     },
     /**
@@ -71,7 +71,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async addItemToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> {
-      const result = await runOperation(client, tenderAddItemsDoc, 'tenderAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderAddItems: TenderResponse }>(client, tenderAddItemsDoc, 'tenderAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderAddItems as TenderResponse;
     },
     /**
@@ -81,7 +81,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async addItemsToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> {
-      const result = await runOperation(client, tenderAddItemsDoc, 'tenderAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderAddItems: TenderResponse }>(client, tenderAddItemsDoc, 'tenderAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderAddItems as TenderResponse;
     },
     /**
@@ -90,7 +90,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderItem(variables: TenderUpdateItemVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateItemDoc, 'tenderUpdateItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderUpdateItem: Tender }>(client, tenderUpdateItemDoc, 'tenderUpdateItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdateItem as Tender;
     },
     /**
@@ -99,7 +99,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async deleteTenderItem(variables: TenderDeleteItemVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderDeleteItemDoc, 'tenderDeleteItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderDeleteItem: Tender }>(client, tenderDeleteItemDoc, 'tenderDeleteItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderDeleteItem as Tender;
     },
     /**
@@ -108,7 +108,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderDiscount(variables: TenderUpdateDiscountVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateDiscountDoc, 'tenderUpdateDiscount', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderUpdateDiscount: Tender }>(client, tenderUpdateDiscountDoc, 'tenderUpdateDiscount', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdateDiscount as Tender;
     },
     /**
@@ -117,7 +117,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderPayment(variables: TenderUpdatePaymentVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdatePaymentDoc, 'tenderUpdatePayment', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderUpdatePayment: Tender }>(client, tenderUpdatePaymentDoc, 'tenderUpdatePayment', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdatePayment as Tender;
     },
     /**
@@ -126,7 +126,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderPostage(variables: TenderUpdatePostageVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdatePostageDoc, 'tenderUpdatePostage', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderUpdatePostage: Tender }>(client, tenderUpdatePostageDoc, 'tenderUpdatePostage', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdatePostage as Tender;
     },
     /**
@@ -135,7 +135,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderInvoiceUser(variables: TenderUpdateInvoiceUserVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderUpdateInvoiceUserDoc, 'tenderUpdateInvoiceUser', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderUpdateInvoiceUser: Tender }>(client, tenderUpdateInvoiceUserDoc, 'tenderUpdateInvoiceUser', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderUpdateInvoiceUser as Tender;
     },
     /**
@@ -144,7 +144,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<Tender> The updated tender
        */
     async applyIncentivesToTender(variables: TenderApplyIncentivesVariables): Promise<Tender> {
-      const result = await runOperation(client, tenderApplyIncentivesDoc, 'tenderApplyIncentives', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ tenderApplyIncentives: Tender }>(client, tenderApplyIncentivesDoc, 'tenderApplyIncentives', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.tenderApplyIncentives as Tender;
     },
     /**
@@ -153,7 +153,7 @@ export function tenderService(client: GraphQLClient) {
        * @returns Promise<TenderProcessResponse> The process response
        */
     async processTender(variables: TenderProcessVariables): Promise<TenderProcessResponse> {
-      const result = await runOperation(client, tenderProcessDoc, 'tenderProcess', variables);
+      const result = await runOperation<{ tenderProcess: TenderProcessResponse }>(client, tenderProcessDoc, 'tenderProcess', variables);
       return result.data.tenderProcess as TenderProcessResponse;
     },
   };

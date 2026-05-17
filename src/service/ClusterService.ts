@@ -34,7 +34,7 @@ export function clusterService(client: GraphQLClient) {
        * @returns Promise<Cluster> Cluster config data
        */
     async getClusterConfig(clusterId: number): Promise<Cluster> {
-      const result = await runOperation(client, clusterConfigDoc, 'clusterConfig', { clusterId });
+      const result = await runOperation<{ cluster: Cluster }>(client, clusterConfigDoc, 'clusterConfig', { clusterId });
       return result.data.cluster as Cluster;
     },
     /**
@@ -53,7 +53,7 @@ export function clusterService(client: GraphQLClient) {
        * @returns Promise<Cluster> Cluster data
        */
     async getCluster(variables: ClusterVariables): Promise<Cluster> {
-      const result = await runOperation(client, clusterDoc, 'cluster', variables);
+      const result = await runOperation<{ cluster: Cluster }>(client, clusterDoc, 'cluster', variables);
       return result.data.cluster as Cluster;
     },
     /**
@@ -62,7 +62,7 @@ export function clusterService(client: GraphQLClient) {
        * @returns Promise<Cluster> The created cluster
        */
     async createCluster(variables: ClusterCreateVariables): Promise<Cluster> {
-      const result = await runOperation(client, clusterCreateDoc, 'clusterCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ clusterCreate: Cluster }>(client, clusterCreateDoc, 'clusterCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.clusterCreate as Cluster;
     },
     /**
@@ -71,7 +71,7 @@ export function clusterService(client: GraphQLClient) {
        * @returns Promise<Cluster> The updated cluster
        */
     async updateCluster(variables: ClusterUpdateVariables): Promise<Cluster> {
-      const result = await runOperation(client, clusterUpdateDoc, 'clusterUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ clusterUpdate: Cluster }>(client, clusterUpdateDoc, 'clusterUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.clusterUpdate as Cluster;
     },
     /**
@@ -80,7 +80,7 @@ export function clusterService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteCluster(variables: ClusterDeleteVariables): Promise<boolean> {
-      const result = await runOperation(client, clusterDeleteDoc, 'clusterDelete', variables);
+      const result = await runOperation<{ clusterDelete: boolean }>(client, clusterDeleteDoc, 'clusterDelete', variables);
       return result.data.clusterDelete;
     },
   };

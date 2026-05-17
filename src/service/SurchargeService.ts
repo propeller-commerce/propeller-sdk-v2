@@ -21,7 +21,7 @@ export function surchargeService(client: GraphQLClient) {
        * @returns Promise<Surcharge> The surcharge data
        */
     async getSurcharge(id: number): Promise<Surcharge> {
-      const result = await runOperation(client, surchargeDoc, 'surcharge', { id });
+      const result = await runOperation<{ surcharge: Surcharge }>(client, surchargeDoc, 'surcharge', { id });
       return result.data.surcharge as Surcharge;
     },
     /**
@@ -30,7 +30,7 @@ export function surchargeService(client: GraphQLClient) {
        * @returns Promise<SurchargesResponse> The surcharges response data
        */
     async getSurcharges(input?: SurchargeSearchInput): Promise<SurchargesResponse> {
-      const result = await runOperation(client, surchargesDoc, 'surcharges', { input });
+      const result = await runOperation<{ surcharges: SurchargesResponse }>(client, surchargesDoc, 'surcharges', { input });
       return result.data.surcharges as SurchargesResponse;
     },
     /**
@@ -39,7 +39,7 @@ export function surchargeService(client: GraphQLClient) {
        * @returns Promise<Surcharge> The created surcharge
        */
     async createSurcharge(input: CreateSurchargeInput): Promise<Surcharge> {
-      const result = await runOperation(client, surchargeCreateDoc, 'surchargeCreate', { input });
+      const result = await runOperation<{ surchargeCreate: Surcharge }>(client, surchargeCreateDoc, 'surchargeCreate', { input });
       return result.data.surchargeCreate as Surcharge;
     },
     /**
@@ -48,7 +48,7 @@ export function surchargeService(client: GraphQLClient) {
        * @returns Promise<Surcharge> The updated surcharge
        */
     async updateSurcharge(id: string, input: UpdateSurchargeInput): Promise<Surcharge> {
-      const result = await runOperation(client, surchargeUpdateDoc, 'surchargeUpdate', { id, input });
+      const result = await runOperation<{ surchargeUpdate: Surcharge }>(client, surchargeUpdateDoc, 'surchargeUpdate', { id, input });
       return result.data.surchargeUpdate as Surcharge;
     },
     /**
@@ -57,7 +57,7 @@ export function surchargeService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteSurcharge(id: string): Promise<Surcharge> {
-      const result = await runOperation(client, surchargeDeleteDoc, 'surchargeDelete', { id });
+      const result = await runOperation<{ surchargeDelete: Surcharge }>(client, surchargeDeleteDoc, 'surchargeDelete', { id });
       return result.data.surchargeDelete as Surcharge;
     },
   };

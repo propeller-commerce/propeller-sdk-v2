@@ -24,7 +24,7 @@ export function mediaImageService(client: GraphQLClient) {
        * @returns Promise<MediaImage> Media image data
        */
     async getMediaImage(variables: MediaImageVariables): Promise<MediaImage> {
-      const result = await runOperation(client, mediaImageDoc, 'mediaImage', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ mediaImage: MediaImage }>(client, mediaImageDoc, 'mediaImage', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.mediaImage as MediaImage;
     },
     /**
@@ -34,7 +34,7 @@ export function mediaImageService(client: GraphQLClient) {
        * @returns Promise<PaginatedMediaImageResponse> Paginated media images
        */
     async getMediaImages(variables: MediaImagesVariables): Promise<PaginatedMediaImageResponse> {
-      const result = await runOperation(client, mediaImagesDoc, 'mediaImages', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ mediaImages: PaginatedMediaImageResponse }>(client, mediaImagesDoc, 'mediaImages', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.mediaImages as PaginatedMediaImageResponse;
     },
     /**
@@ -43,7 +43,7 @@ export function mediaImageService(client: GraphQLClient) {
        * @returns Promise<MediaImage> The created media image
        */
     async createMediaImage(variables: MediaImageCreateVariables): Promise<MediaImage> {
-      const result = await runOperation(client, mediaImageCreateDoc, 'mediaImageCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ mediaImageCreate: MediaImage }>(client, mediaImageCreateDoc, 'mediaImageCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.mediaImageCreate as MediaImage;
     },
     /**
@@ -52,7 +52,7 @@ export function mediaImageService(client: GraphQLClient) {
        * @returns Promise<MediaImage> The updated media image
        */
     async updateMediaImage(variables: MediaImageUpdateVariables): Promise<MediaImage> {
-      const result = await runOperation(client, mediaImageUpdateDoc, 'mediaImageUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ mediaImageUpdate: MediaImage }>(client, mediaImageUpdateDoc, 'mediaImageUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.mediaImageUpdate as MediaImage;
     },
     /**
@@ -61,7 +61,7 @@ export function mediaImageService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteMediaImage(variables: MediaImageDeleteVariables): Promise<DeleteMediaImageResponse> {
-      const result = await runOperation(client, mediaImageDeleteDoc, 'mediaImageDelete', variables);
+      const result = await runOperation<{ mediaImageDelete: DeleteMediaImageResponse }>(client, mediaImageDeleteDoc, 'mediaImageDelete', variables);
       return result.data.mediaImageDelete as DeleteMediaImageResponse;
     },
   };

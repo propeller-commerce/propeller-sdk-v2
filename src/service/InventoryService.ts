@@ -14,7 +14,7 @@ export function inventoryService(client: GraphQLClient) {
        * @returns Promise<InventoryResponse> The inventory response
        */
     async getInventory(variables: InventoryVariables): Promise<InventoryResponse> {
-      const result = await runOperation(client, inventoryDoc, 'inventory', variables);
+      const result = await runOperation<{ inventory: InventoryResponse }>(client, inventoryDoc, 'inventory', variables);
       return result.data.inventory as InventoryResponse;
     },
   };

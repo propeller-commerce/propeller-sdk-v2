@@ -27,7 +27,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<Address[]> The addresses array
        */
     async getAddressesByCompanyId(companyId: number): Promise<Address[]> {
-      const result = await runOperation(client, addressesByCompanyIdDoc, 'addressesByCompanyId', { companyId });
+      const result = await runOperation<{ addressesByCompanyId: Address[] }>(client, addressesByCompanyIdDoc, 'addressesByCompanyId', { companyId });
       return result.data.addressesByCompanyId as Address[];
     },
     /**
@@ -36,7 +36,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<Address[]> The addresses array
        */
     async getAddressesByCustomerId(customerId: number): Promise<Address[]> {
-      const result = await runOperation(client, addressesByCustomerIdDoc, 'addressesByCustomerId', { customerId });
+      const result = await runOperation<{ addressesByCustomerId: Address[] }>(client, addressesByCustomerIdDoc, 'addressesByCustomerId', { customerId });
       return result.data.addressesByCustomerId as Address[];
     },
     /**
@@ -46,7 +46,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<Address[]> The addresses array
        */
     async getAddressesByOrderId(orderId: number): Promise<Address[]> {
-      const result = await runOperation(client, addressesByOrderIdDoc, 'addressesByOrderId', { orderId });
+      const result = await runOperation<{ addressesByOrderId: Address[] }>(client, addressesByOrderIdDoc, 'addressesByOrderId', { orderId });
       return result.data.addressesByOrderId as Address[];
     },
     /**
@@ -55,7 +55,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<Address> The created address
        */
     async createCompanyAddress(input: CompanyAddressCreateInput): Promise<Address> {
-      const result = await runOperation(client, companyAddressCreateDoc, 'companyAddressCreate', { input });
+      const result = await runOperation<{ companyAddressCreate: Address }>(client, companyAddressCreateDoc, 'companyAddressCreate', { input });
       return result.data.companyAddressCreate as Address;
     },
     /**
@@ -64,7 +64,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<Address> The updated address
        */
     async updateCompanyAddress(input: CompanyAddressUpdateInput): Promise<Address> {
-      const result = await runOperation(client, companyAddressUpdateDoc, 'companyAddressUpdate', { input });
+      const result = await runOperation<{ companyAddressUpdate: Address }>(client, companyAddressUpdateDoc, 'companyAddressUpdate', { input });
       return result.data.companyAddressUpdate as Address;
     },
     /**
@@ -73,7 +73,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status of the deletion
        */
     async deleteCompanyAddress(input: CompanyAddressDeleteInput): Promise<boolean> {
-      const result = await runOperation(client, companyAddressDeleteDoc, 'companyAddressDelete', { input });
+      const result = await runOperation<{ companyAddressDelete: boolean }>(client, companyAddressDeleteDoc, 'companyAddressDelete', { input });
       return result.data.companyAddressDelete;
     },
     /**
@@ -82,7 +82,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<Address> The created address
        */
     async createCustomerAddress(input: CustomerAddressCreateInput): Promise<Address> {
-      const result = await runOperation(client, customerAddressCreateDoc, 'customerAddressCreate', { input });
+      const result = await runOperation<{ customerAddressCreate: Address }>(client, customerAddressCreateDoc, 'customerAddressCreate', { input });
       return result.data.customerAddressCreate as Address;
     },
     /**
@@ -91,7 +91,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<Address> The updated address
        */
     async updateCustomerAddress(input: CustomerAddressUpdateInput): Promise<Address> {
-      const result = await runOperation(client, customerAddressUpdateDoc, 'customerAddressUpdate', { input });
+      const result = await runOperation<{ customerAddressUpdate: Address }>(client, customerAddressUpdateDoc, 'customerAddressUpdate', { input });
       return result.data.customerAddressUpdate as Address;
     },
     /**
@@ -100,7 +100,7 @@ export function addressService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status of the deletion
        */
     async deleteCustomerAddress(input: CustomerAddressDeleteInput): Promise<boolean> {
-      const result = await runOperation(client, customerAddressDeleteDoc, 'customerAddressDelete', { input });
+      const result = await runOperation<{ customerAddressDelete: boolean }>(client, customerAddressDeleteDoc, 'customerAddressDelete', { input });
       return result.data.customerAddressDelete;
     },
   };

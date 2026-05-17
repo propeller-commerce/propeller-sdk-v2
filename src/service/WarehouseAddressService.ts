@@ -18,7 +18,7 @@ export function warehouseAddressService(client: GraphQLClient) {
        * @returns Promise<WarehouseAddress> The created warehouse address
        */
     async createWarehouseAddress(variables: WarehouseAddressCreateVariables): Promise<WarehouseAddress> {
-      const result = await runOperation(client, warehouseAddressCreateDoc, 'warehouseAddressCreate', variables);
+      const result = await runOperation<{ warehouseAddressCreate: WarehouseAddress }>(client, warehouseAddressCreateDoc, 'warehouseAddressCreate', variables);
       return result.data.warehouseAddressCreate as WarehouseAddress;
     },
     /**
@@ -27,7 +27,7 @@ export function warehouseAddressService(client: GraphQLClient) {
        * @returns Promise<WarehouseAddress> The updated warehouse address
        */
     async updateWarehouseAddress(variables: WarehouseAddressUpdateVariables): Promise<WarehouseAddress> {
-      const result = await runOperation(client, warehouseAddressUpdateDoc, 'warehouseAddressUpdate', variables);
+      const result = await runOperation<{ warehouseAddressUpdate: WarehouseAddress }>(client, warehouseAddressUpdateDoc, 'warehouseAddressUpdate', variables);
       return result.data.warehouseAddressUpdate as WarehouseAddress;
     },
     /**
@@ -36,7 +36,7 @@ export function warehouseAddressService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteWarehouseAddress(variables: WarehouseAddressDeleteVariables): Promise<boolean> {
-      const result = await runOperation(client, warehouseAddressDeleteDoc, 'warehouseAddressDelete', variables);
+      const result = await runOperation<{ warehouseAddressDelete: boolean }>(client, warehouseAddressDeleteDoc, 'warehouseAddressDelete', variables);
       return result.data.warehouseAddressDelete;
     },
   };

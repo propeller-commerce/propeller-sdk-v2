@@ -72,6 +72,16 @@ export interface GraphQLClientConfig {
    * mutations. Override to add custom mutations without an SDK upgrade.
    */
   orderEditorMutations?: string[];
+  /**
+   * When the server returns a *partial* GraphQL response (data present
+   * alongside `errors` — the normal GraphQL contract), `runOperation` and the
+   * service methods built on it return the data and, by default, only surface
+   * the errors via the debug log. Set this to `true` to instead throw a
+   * `GraphQLOperationError` on any partial-error response, so server-reported
+   * problems can't be silently rendered. Defaults to `false` (backward
+   * compatible). The low-level `client.execute()` never throws regardless.
+   */
+  throwOnPartialErrors?: boolean;
 }
 
 const DEFAULT_TOKEN_STORAGE_KEY = 'access_token';
@@ -443,6 +453,15 @@ export class GraphQLClient {
    * is configured, this method does not affect what that resolver returns.
    */
   setAccessToken(token: string): void {
+    if (this.config.getAccessToken) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        '[propeller-sdk-v2] setAccessToken() was called but a custom `getAccessToken` ' +
+          'resolver is configured. This call writes localStorage["access_token"], which ' +
+          'your resolver does not read — the new token will NOT be used. Update your own ' +
+          'token store instead (the resolver is the source of truth).'
+      );
+    }
     if (typeof window !== 'undefined' && window.localStorage) {
       window.localStorage.setItem(DEFAULT_TOKEN_STORAGE_KEY, token);
     }

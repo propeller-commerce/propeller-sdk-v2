@@ -16,7 +16,7 @@ export function shopService(client: GraphQLClient) {
        * @returns Promise<Shop> The shop data
        */
     async getShop(variables: ShopVariables): Promise<Shop> {
-      const result = await runOperation(client, shopDoc, 'shop', variables);
+      const result = await runOperation<{ shop: Shop }>(client, shopDoc, 'shop', variables);
       return result.data.shop as Shop;
     },
     /**
@@ -25,7 +25,7 @@ export function shopService(client: GraphQLClient) {
        * @returns Promise<Shop[]> The shops data array
        */
     async getShops(): Promise<Shop[]> {
-      const result = await runOperation(client, shopsDoc, 'shops');
+      const result = await runOperation<{ shops: Shop[] }>(client, shopsDoc, 'shops');
       return result.data.shops as Shop[];
     },
   };

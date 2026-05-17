@@ -21,7 +21,7 @@ export function trackAndTraceService(client: GraphQLClient) {
        * @returns Promise<TrackAndTrace> Track and trace data
        */
     async getTrackAndTrace(id: number): Promise<TrackAndTrace> {
-      const result = await runOperation(client, trackAndTraceDoc, 'trackAndTrace', { id });
+      const result = await runOperation<{ trackAndTrace: TrackAndTrace }>(client, trackAndTraceDoc, 'trackAndTrace', { id });
       return result.data.trackAndTrace as TrackAndTrace;
     },
     /**
@@ -30,7 +30,7 @@ export function trackAndTraceService(client: GraphQLClient) {
        * @returns Promise<TrackAndTraceResponse> Track and trace response
        */
     async getTrackAndTraces(input?: TrackAndTraceSearchInput): Promise<TrackAndTraceResponse> {
-      const result = await runOperation(client, trackAndTracesDoc, 'trackAndTraces', { input });
+      const result = await runOperation<{ trackAndTraces: TrackAndTraceResponse }>(client, trackAndTracesDoc, 'trackAndTraces', { input });
       return result.data.trackAndTraces as TrackAndTraceResponse;
     },
     /**
@@ -39,7 +39,7 @@ export function trackAndTraceService(client: GraphQLClient) {
        * @returns Promise<TrackAndTrace> The created track and trace record
        */
     async createTrackAndTrace(input: TrackAndTraceCreateInput): Promise<TrackAndTrace> {
-      const result = await runOperation(client, trackAndTraceCreateDoc, 'trackAndTraceCreate', { input });
+      const result = await runOperation<{ trackAndTraceCreate: TrackAndTrace }>(client, trackAndTraceCreateDoc, 'trackAndTraceCreate', { input });
       return result.data.trackAndTraceCreate as TrackAndTrace;
     },
     /**
@@ -48,7 +48,7 @@ export function trackAndTraceService(client: GraphQLClient) {
        * @returns Promise<TrackAndTrace> The updated track and trace record
        */
     async updateTrackAndTrace(variables: TrackAndTraceUpdateVariables): Promise<TrackAndTrace> {
-      const result = await runOperation(client, trackAndTraceUpdateDoc, 'trackAndTraceUpdate', variables);
+      const result = await runOperation<{ trackAndTraceUpdate: TrackAndTrace }>(client, trackAndTraceUpdateDoc, 'trackAndTraceUpdate', variables);
       return result.data.trackAndTraceUpdate as TrackAndTrace;
     },
   };

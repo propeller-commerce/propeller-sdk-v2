@@ -20,7 +20,7 @@ export function loginService(client: GraphQLClient) {
        * @returns Promise<Login> Login response with user data
        */
     async login(input: LoginInput): Promise<Login> {
-      const result = await runOperation(client, loginDoc, 'login', { input });
+      const result = await runOperation<{ login: Login }>(client, loginDoc, 'login', { input });
       return result.data.login as Login;
     },
     /**
@@ -29,7 +29,7 @@ export function loginService(client: GraphQLClient) {
        * @returns Promise<Login> Authentication response
        */
     async authenticate(input: CreateAuthenticationInput): Promise<Login> {
-      const result = await runOperation(client, authenticationCreateDoc, 'authenticationCreate', { input });
+      const result = await runOperation<{ authenticationCreate: Login }>(client, authenticationCreateDoc, 'authenticationCreate', { input });
       return result.data.authenticationCreate as Login;
     },
     /**
@@ -38,7 +38,7 @@ export function loginService(client: GraphQLClient) {
        * @returns Promise<RefreshTokenResponse> New token response with fresh access token
        */
     async exchangeRefreshToken(variables: ExchangeRefreshTokenVariables): Promise<RefreshTokenResponse> {
-      const result = await runOperation(client, exchangeRefreshTokenDoc, 'exchangeRefreshToken', variables);
+      const result = await runOperation<{ exchangeRefreshToken: RefreshTokenResponse }>(client, exchangeRefreshTokenDoc, 'exchangeRefreshToken', variables);
       return result.data.exchangeRefreshToken as RefreshTokenResponse;
     },
   };

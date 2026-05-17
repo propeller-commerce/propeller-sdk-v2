@@ -21,7 +21,7 @@ export function purchaseAuthorizationConfigService(client: GraphQLClient) {
        * @returns Promise<PurchaseAuthorizationConfig> Purchase authorization configuration data
        */
     async getPurchaseAuthorizationConfig(id: number): Promise<PurchaseAuthorizationConfig> {
-      const result = await runOperation(client, purchaseAuthorizationConfigDoc, 'purchaseAuthorizationConfig', { id });
+      const result = await runOperation<{ purchaseAuthorizationConfig: PurchaseAuthorizationConfig }>(client, purchaseAuthorizationConfigDoc, 'purchaseAuthorizationConfig', { id });
       return result.data.purchaseAuthorizationConfig as PurchaseAuthorizationConfig;
     },
     /**
@@ -30,7 +30,7 @@ export function purchaseAuthorizationConfigService(client: GraphQLClient) {
        * @returns Promise<PurchaseAuthorizationConfigResponse[]> List of purchase authorization configurations
        */
     async getPurchaseAuthorizationConfigs(input?: PurchaseAuthorizationConfigSearchInput): Promise<PurchaseAuthorizationConfigResponse> {
-      const result = await runOperation(client, purchaseAuthorizationConfigsDoc, 'purchaseAuthorizationConfigs', { input });
+      const result = await runOperation<{ purchaseAuthorizationConfigs: PurchaseAuthorizationConfigResponse }>(client, purchaseAuthorizationConfigsDoc, 'purchaseAuthorizationConfigs', { input });
       return result.data.purchaseAuthorizationConfigs as PurchaseAuthorizationConfigResponse;
     },
     /**
@@ -39,7 +39,7 @@ export function purchaseAuthorizationConfigService(client: GraphQLClient) {
        * @returns Promise<PurchaseAuthorizationConfig> The created configuration
        */
     async createPurchaseAuthorizationConfig(input: PurchaseAuthorizationConfigCreateInput): Promise<PurchaseAuthorizationConfig> {
-      const result = await runOperation(client, purchaseAuthorizationConfigCreateDoc, 'purchaseAuthorizationConfigCreate', { input });
+      const result = await runOperation<{ purchaseAuthorizationConfigCreate: PurchaseAuthorizationConfig }>(client, purchaseAuthorizationConfigCreateDoc, 'purchaseAuthorizationConfigCreate', { input });
       return result.data.purchaseAuthorizationConfigCreate as PurchaseAuthorizationConfig;
     },
     /**
@@ -49,7 +49,7 @@ export function purchaseAuthorizationConfigService(client: GraphQLClient) {
        * @returns Promise<PurchaseAuthorizationConfig> The updated configuration
        */
     async updatePurchaseAuthorizationConfig(id: string, input: PurchaseAuthorizationConfigUpdateInput): Promise<PurchaseAuthorizationConfig> {
-      const result = await runOperation(client, purchaseAuthorizationConfigUpdateDoc, 'purchaseAuthorizationConfigUpdate', { id, input });
+      const result = await runOperation<{ purchaseAuthorizationConfigUpdate: PurchaseAuthorizationConfig }>(client, purchaseAuthorizationConfigUpdateDoc, 'purchaseAuthorizationConfigUpdate', { id, input });
       return result.data.purchaseAuthorizationConfigUpdate as PurchaseAuthorizationConfig;
     },
     /**
@@ -58,7 +58,7 @@ export function purchaseAuthorizationConfigService(client: GraphQLClient) {
        * @returns Promise<boolean> True if deletion was successful
        */
     async deletePurchaseAuthorizationConfig(id: string): Promise<boolean> {
-      const result = await runOperation(client, purchaseAuthorizationConfigDeleteDoc, 'purchaseAuthorizationConfigDelete', { id });
+      const result = await runOperation<{ purchaseAuthorizationConfigDelete: boolean }>(client, purchaseAuthorizationConfigDeleteDoc, 'purchaseAuthorizationConfigDelete', { id });
       return result.data.purchaseAuthorizationConfigDelete;
     },
   };

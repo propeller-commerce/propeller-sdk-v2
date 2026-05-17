@@ -32,7 +32,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<Shipment> Shipment data
        */
     async getShipment(id: number): Promise<Shipment> {
-      const result = await runOperation(client, shipmentDoc, 'shipment', { id });
+      const result = await runOperation<{ shipment: Shipment }>(client, shipmentDoc, 'shipment', { id });
       return result.data.shipment as Shipment;
     },
     /**
@@ -41,7 +41,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<ShipmentResponse> Shipments response
        */
     async getShipments(input?: ShipmentSearchInput): Promise<ShipmentResponse> {
-      const result = await runOperation(client, shipmentsDoc, 'shipments', { input });
+      const result = await runOperation<{ shipments: ShipmentResponse }>(client, shipmentsDoc, 'shipments', { input });
       return result.data.shipments as ShipmentResponse;
     },
     /**
@@ -50,7 +50,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<Shipment> The created shipment
        */
     async createShipment(input: ShipmentCreateInput): Promise<Shipment> {
-      const result = await runOperation(client, shipmentCreateDoc, 'shipmentCreate', { input });
+      const result = await runOperation<{ shipmentCreate: Shipment }>(client, shipmentCreateDoc, 'shipmentCreate', { input });
       return result.data.shipmentCreate as Shipment;
     },
     /**
@@ -59,7 +59,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<Shipment> The updated shipment
        */
     async updateShipment(variables: ShipmentUpdateVariables): Promise<Shipment> {
-      const result = await runOperation(client, shipmentUpdateDoc, 'shipmentUpdate', variables);
+      const result = await runOperation<{ shipmentUpdate: Shipment }>(client, shipmentUpdateDoc, 'shipmentUpdate', variables);
       return result.data.shipmentUpdate as Shipment;
     },
     /**
@@ -68,7 +68,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteShipment(id: number): Promise<boolean> {
-      const result = await runOperation(client, shipmentDeleteDoc, 'shipmentDelete', { id });
+      const result = await runOperation<{ shipmentDelete: boolean }>(client, shipmentDeleteDoc, 'shipmentDelete', { id });
       return result.data.shipmentDelete;
     },
     /**
@@ -77,7 +77,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<ShipmentItem> Shipment item data
        */
     async getShipmentItem(id: number): Promise<ShipmentItem> {
-      const result = await runOperation(client, shipmentItemDoc, 'shipmentItem', { id });
+      const result = await runOperation<{ shipmentItem: ShipmentItem }>(client, shipmentItemDoc, 'shipmentItem', { id });
       return result.data.shipmentItem as ShipmentItem;
     },
     /**
@@ -86,7 +86,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<ShipmentItemResponse> Shipment items response
        */
     async getShipmentItems(input?: ShipmentItemSearchInput): Promise<ShipmentItemResponse> {
-      const result = await runOperation(client, shipmentItemsDoc, 'shipmentItems', { input });
+      const result = await runOperation<{ shipmentItems: ShipmentItemResponse }>(client, shipmentItemsDoc, 'shipmentItems', { input });
       return result.data.shipmentItems as ShipmentItemResponse;
     },
     /**
@@ -95,7 +95,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<ShipmentItem> The created shipment item
        */
     async createShipmentItem(input: ShipmentItemCreateInput): Promise<ShipmentItem> {
-      const result = await runOperation(client, shipmentItemCreateDoc, 'shipmentItemCreate', { input });
+      const result = await runOperation<{ shipmentItemCreate: ShipmentItem }>(client, shipmentItemCreateDoc, 'shipmentItemCreate', { input });
       return result.data.shipmentItemCreate as ShipmentItem;
     },
     /**
@@ -104,7 +104,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<ShipmentItem> The updated shipment item
        */
     async updateShipmentItem(variables: ShipmentItemUpdateVariables): Promise<ShipmentItem> {
-      const result = await runOperation(client, shipmentItemUpdateDoc, 'shipmentItemUpdate', variables);
+      const result = await runOperation<{ shipmentItemUpdate: ShipmentItem }>(client, shipmentItemUpdateDoc, 'shipmentItemUpdate', variables);
       return result.data.shipmentItemUpdate as ShipmentItem;
     },
     /**
@@ -113,7 +113,7 @@ export function shipmentService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteShipmentItem(id: number): Promise<boolean> {
-      const result = await runOperation(client, shipmentItemDeleteDoc, 'shipmentItemDelete', { id });
+      const result = await runOperation<{ shipmentItemDelete: boolean }>(client, shipmentItemDeleteDoc, 'shipmentItemDelete', { id });
       return result.data.shipmentItemDelete;
     },
   };

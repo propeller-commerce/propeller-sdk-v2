@@ -21,7 +21,7 @@ export function machineService(client: GraphQLClient) {
        * @returns Promise<SparePartsMachine> Machine data
        */
     async getMachine(variables: MachineVariables): Promise<SparePartsMachine> {
-      const result = await runOperation(client, machineDoc, 'machine', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ machine: SparePartsMachine }>(client, machineDoc, 'machine', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.machine as SparePartsMachine;
     },
     /**
@@ -30,7 +30,7 @@ export function machineService(client: GraphQLClient) {
        * @returns Promise<SparePartsMachineResponse> Machines response
        */
     async getMachines(variables: MachinesVariables): Promise<SparePartsMachineResponse> {
-      const result = await runOperation(client, machinesDoc, 'machines', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ machines: SparePartsMachineResponse }>(client, machinesDoc, 'machines', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.machines as SparePartsMachineResponse;
     },
     /**
@@ -39,7 +39,7 @@ export function machineService(client: GraphQLClient) {
        * @returns Promise<SparePartsMachine> The created machine
        */
     async createMachine(variables: MachineCreateVariables): Promise<SparePartsMachine> {
-      const result = await runOperation(client, machineCreateDoc, 'machineCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ machineCreate: SparePartsMachine }>(client, machineCreateDoc, 'machineCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.machineCreate as SparePartsMachine;
     },
     /**
@@ -48,7 +48,7 @@ export function machineService(client: GraphQLClient) {
        * @returns Promise<SparePartsMachine> The updated machine
        */
     async updateMachine(variables: MachineUpsertVariables): Promise<SparePartsMachine> {
-      const result = await runOperation(client, machineUpsertDoc, 'machineUpsert', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ machineUpsert: SparePartsMachine }>(client, machineUpsertDoc, 'machineUpsert', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.machineUpsert as SparePartsMachine;
     },
   };

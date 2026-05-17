@@ -13,7 +13,7 @@ export function gCIPUserService(client: GraphQLClient) {
        * @returns Promise resolving to user data
        */
     async getGCIPUser(id: number): Promise<IBaseUser> {
-      const result = await runOperation(client, userDoc, 'user', { id });
+      const result = await runOperation<{ user: IBaseUser }>(client, userDoc, 'user', { id });
       return result.data.user as IBaseUser;
     },
   };

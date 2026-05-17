@@ -14,7 +14,7 @@ export function verifyTokenService(client: GraphQLClient) {
        * @returns Promise<VerifyToken> The verify token response data
        */
     async verifyToken(input: VerifyTokenInput): Promise<VerifyToken> {
-      const result = await runOperation(client, verifyTokenDoc, 'verifyToken', { input });
+      const result = await runOperation<{ verifyToken: VerifyToken }>(client, verifyTokenDoc, 'verifyToken', { input });
       return result.data.verifyToken as VerifyToken;
     },
   };

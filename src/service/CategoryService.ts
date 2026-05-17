@@ -62,7 +62,7 @@ export function categoryService(client: GraphQLClient) {
        * @returns Promise<Category[]> Array of categories
        */
     async getCategories(filter?: any, userId?: number): Promise<CategoryResponse> {
-      const result = await runOperation(client, categoriesDoc, 'categories', { filter, userId });
+      const result = await runOperation<{ categories: CategoryResponse }>(client, categoriesDoc, 'categories', { filter, userId });
       return result.data.categories as CategoryResponse;
     },
     /**
@@ -82,7 +82,7 @@ export function categoryService(client: GraphQLClient) {
        */
     async getCategory(variables: CategoryQueryVariables): Promise<Category> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, categoryDoc, 'category', { ...variables, language });
+      const result = await runOperation<{ category: Category }>(client, categoryDoc, 'category', { ...variables, language });
       return result.data.category as Category;
     },
     /**
@@ -91,7 +91,7 @@ export function categoryService(client: GraphQLClient) {
        * @returns Promise<Category> The created category
        */
     async createCategory(variables: CategoryCreateVariables): Promise<Category> {
-      const result = await runOperation(client, categoryCreateDoc, 'categoryCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ categoryCreate: Category }>(client, categoryCreateDoc, 'categoryCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.categoryCreate as Category;
     },
     /**
@@ -100,7 +100,7 @@ export function categoryService(client: GraphQLClient) {
        * @returns Promise<Category> The updated category
        */
     async updateCategory(variables: CategoryUpdateVariables): Promise<Category> {
-      const result = await runOperation(client, categoryUpdateDoc, 'categoryUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ categoryUpdate: Category }>(client, categoryUpdateDoc, 'categoryUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.categoryUpdate as Category;
     },
     /**
@@ -109,7 +109,7 @@ export function categoryService(client: GraphQLClient) {
        * @returns Promise<CsvImportResponse> The import response
        */
     async importCategoriesCsv(input: CategoryCsvInput): Promise<CsvImportResponse> {
-      const result = await runOperation(client, categoryCsvImportDoc, 'categoryCsvImport', { input });
+      const result = await runOperation<{ categoryCsvImport: CsvImportResponse }>(client, categoryCsvImportDoc, 'categoryCsvImport', { input });
       return result.data.categoryCsvImport as CsvImportResponse;
     },
     /**
@@ -118,7 +118,7 @@ export function categoryService(client: GraphQLClient) {
        * @returns Promise<Category> The updated category
        */
     async addProductsClustersToCategory(variables: CategoryAddProductsClustersVariables): Promise<CategoryAddProductsClustersResponse> {
-      const result = await runOperation(client, categoryAddProductsClustersDoc, 'categoryAddProductsClusters', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ categoryAddProductsClusters: CategoryAddProductsClustersResponse }>(client, categoryAddProductsClustersDoc, 'categoryAddProductsClusters', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.categoryAddProductsClusters as CategoryAddProductsClustersResponse;
     },
     /**
@@ -127,7 +127,7 @@ export function categoryService(client: GraphQLClient) {
        * @returns Promise<Category> The updated category
        */
     async removeProductsClustersFromCategory(variables: CategoryRemoveProductsClustersVariables): Promise<CategoryRemoveProductsClustersResponse> {
-      const result = await runOperation(client, categoryRemoveProductsClustersDoc, 'categoryRemoveProductsClusters', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ categoryRemoveProductsClusters: CategoryRemoveProductsClustersResponse }>(client, categoryRemoveProductsClustersDoc, 'categoryRemoveProductsClusters', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.categoryRemoveProductsClusters as CategoryRemoveProductsClustersResponse;
     },
     /**
@@ -140,7 +140,7 @@ export function categoryService(client: GraphQLClient) {
     categoryId: number,
     input: AttributeResultSearchInput
   ): Promise<AttributeResultResponse> {
-      const result = await runOperation(client, attributeResultByCategoryIdDoc, 'attributeResultByCategoryId', { categoryId, input });
+      const result = await runOperation<{ attributeResultByCategoryId: AttributeResultResponse }>(client, attributeResultByCategoryIdDoc, 'attributeResultByCategoryId', { categoryId, input });
       return result.data.attributeResultByCategoryId as AttributeResultResponse;
     },
   };

@@ -24,7 +24,7 @@ export function mediaDocumentService(client: GraphQLClient) {
        * @returns Promise<MediaDocument> Media document data
        */
     async getMediaDocument(variables: MediaDocumentVariables): Promise<MediaDocument> {
-      const result = await runOperation(client, mediaDocumentDoc, 'mediaDocument', variables);
+      const result = await runOperation<{ mediaDocument: MediaDocument }>(client, mediaDocumentDoc, 'mediaDocument', variables);
       return result.data.mediaDocument as MediaDocument;
     },
     /**
@@ -34,7 +34,7 @@ export function mediaDocumentService(client: GraphQLClient) {
        * @returns Promise<PaginatedMediaDocumentResponse> Paginated media documents
        */
     async getMediaDocuments(variables: MediaDocumentsVariables): Promise<PaginatedMediaDocumentResponse> {
-      const result = await runOperation(client, mediaDocumentsDoc, 'mediaDocuments', variables);
+      const result = await runOperation<{ mediaDocuments: PaginatedMediaDocumentResponse }>(client, mediaDocumentsDoc, 'mediaDocuments', variables);
       return result.data.mediaDocuments as PaginatedMediaDocumentResponse;
     },
     /**
@@ -43,7 +43,7 @@ export function mediaDocumentService(client: GraphQLClient) {
        * @returns Promise<MediaDocument> The created media document
        */
     async createMediaDocument(input: MediaDocumentInput): Promise<MediaDocument> {
-      const result = await runOperation(client, mediaDocumentCreateDoc, 'mediaDocumentCreate', { input });
+      const result = await runOperation<{ mediaDocumentCreate: MediaDocument }>(client, mediaDocumentCreateDoc, 'mediaDocumentCreate', { input });
       return result.data.mediaDocumentCreate as MediaDocument;
     },
     /**
@@ -52,7 +52,7 @@ export function mediaDocumentService(client: GraphQLClient) {
        * @returns Promise<MediaDocument> The updated media document
        */
     async updateMediaDocument(input: UpdateMediaDocumentInput): Promise<MediaDocument> {
-      const result = await runOperation(client, mediaDocumentUpdateDoc, 'mediaDocumentUpdate', { input });
+      const result = await runOperation<{ mediaDocumentUpdate: MediaDocument }>(client, mediaDocumentUpdateDoc, 'mediaDocumentUpdate', { input });
       return result.data.mediaDocumentUpdate as MediaDocument;
     },
     /**
@@ -61,7 +61,7 @@ export function mediaDocumentService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteMediaDocument(variables: MediaDocumentDeleteVariables): Promise<DeleteMediaDocumentResponse> {
-      const result = await runOperation(client, mediaDocumentDeleteDoc, 'mediaDocumentDelete', variables);
+      const result = await runOperation<{ mediaDocumentDelete: DeleteMediaDocumentResponse }>(client, mediaDocumentDeleteDoc, 'mediaDocumentDelete', variables);
       return result.data.mediaDocumentDelete as DeleteMediaDocumentResponse;
     },
   };

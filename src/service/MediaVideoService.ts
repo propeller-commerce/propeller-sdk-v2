@@ -24,7 +24,7 @@ export function mediaVideoService(client: GraphQLClient) {
        * @returns Promise<MediaVideo> Media video data
        */
     async getMediaVideo(variables: MediaVideoVariables): Promise<MediaVideo> {
-      const result = await runOperation(client, mediaVideoDoc, 'mediaVideo', variables);
+      const result = await runOperation<{ mediaVideo: MediaVideo }>(client, mediaVideoDoc, 'mediaVideo', variables);
       return result.data.mediaVideo as MediaVideo;
     },
     /**
@@ -34,7 +34,7 @@ export function mediaVideoService(client: GraphQLClient) {
        * @returns Promise<PaginatedMediaVideoResponse> Paginated media videos
        */
     async getMediaVideos(variables: MediaVideosVariables): Promise<PaginatedMediaVideoResponse> {
-      const result = await runOperation(client, mediaVideosDoc, 'mediaVideos', variables);
+      const result = await runOperation<{ mediaVideos: PaginatedMediaVideoResponse }>(client, mediaVideosDoc, 'mediaVideos', variables);
       return result.data.mediaVideos as PaginatedMediaVideoResponse;
     },
     /**
@@ -43,7 +43,7 @@ export function mediaVideoService(client: GraphQLClient) {
        * @returns Promise<MediaVideo> The created media video
        */
     async createMediaVideo(input: MediaVideoInput): Promise<MediaVideo> {
-      const result = await runOperation(client, mediaVideoCreateDoc, 'mediaVideoCreate', { input });
+      const result = await runOperation<{ mediaVideoCreate: MediaVideo }>(client, mediaVideoCreateDoc, 'mediaVideoCreate', { input });
       return result.data.mediaVideoCreate as MediaVideo;
     },
     /**
@@ -52,7 +52,7 @@ export function mediaVideoService(client: GraphQLClient) {
        * @returns Promise<MediaVideo> The updated media video
        */
     async updateMediaVideo(input: UpdateMediaVideoInput): Promise<MediaVideo> {
-      const result = await runOperation(client, mediaVideoUpdateDoc, 'mediaVideoUpdate', { input });
+      const result = await runOperation<{ mediaVideoUpdate: MediaVideo }>(client, mediaVideoUpdateDoc, 'mediaVideoUpdate', { input });
       return result.data.mediaVideoUpdate as MediaVideo;
     },
     /**
@@ -61,7 +61,7 @@ export function mediaVideoService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteMediaVideo(variables: MediaVideoDeleteVariables): Promise<DeleteMediaVideoResponse> {
-      const result = await runOperation(client, mediaVideoDeleteDoc, 'mediaVideoDelete', variables);
+      const result = await runOperation<{ mediaVideoDelete: DeleteMediaVideoResponse }>(client, mediaVideoDeleteDoc, 'mediaVideoDelete', variables);
       return result.data.mediaVideoDelete as DeleteMediaVideoResponse;
     },
   };

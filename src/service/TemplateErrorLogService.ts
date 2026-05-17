@@ -20,7 +20,7 @@ export function templateErrorLogService(client: GraphQLClient) {
      * @param id Unique identifier for the error log
      */
     async getTemplateErrorLog(id: string): Promise<TemplateErrorLog> {
-      const result = await runOperation(client, templateErrorLogDoc, 'templateErrorLog', { id });
+      const result = await runOperation<{ templateErrorLog: TemplateErrorLog }>(client, templateErrorLogDoc, 'templateErrorLog', { id });
       return result.data.templateErrorLog as TemplateErrorLog;
     },
 
@@ -31,7 +31,7 @@ export function templateErrorLogService(client: GraphQLClient) {
     async searchTemplateErrorLogs(
       input: TemplateErrorLogSearchInput
     ): Promise<TemplateErrorLogResponse> {
-      const result = await runOperation(client, templateErrorLogsDoc, 'templateErrorLogs', { input });
+      const result = await runOperation<{ templateErrorLogs: TemplateErrorLogResponse }>(client, templateErrorLogsDoc, 'templateErrorLogs', { input });
       return result.data.templateErrorLogs as TemplateErrorLogResponse;
     },
 
@@ -39,7 +39,7 @@ export function templateErrorLogService(client: GraphQLClient) {
      * Retrieve a statistical summary of template error logs.
      */
     async getTemplateErrorLogStats(): Promise<TemplateErrorLogStats> {
-      const result = await runOperation(client, templateErrorLogStatsDoc, 'templateErrorLogStats');
+      const result = await runOperation<{ templateErrorLogStats: TemplateErrorLogStats }>(client, templateErrorLogStatsDoc, 'templateErrorLogStats');
       return result.data.templateErrorLogStats as TemplateErrorLogStats;
     },
   };

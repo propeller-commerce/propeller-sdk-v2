@@ -31,7 +31,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<Tax> Tax data
        */
     async getTax(id: string): Promise<Tax> {
-      const result = await runOperation(client, taxDoc, 'tax', { id });
+      const result = await runOperation<{ tax: Tax }>(client, taxDoc, 'tax', { id });
       return result.data.tax as Tax;
     },
     /**
@@ -40,7 +40,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<TaxesResponse> Taxes response
        */
     async getTaxes(input?: TaxSearchInput): Promise<TaxesResponse> {
-      const result = await runOperation(client, taxesDoc, 'taxes', { input });
+      const result = await runOperation<{ taxes: TaxesResponse }>(client, taxesDoc, 'taxes', { input });
       return result.data.taxes as TaxesResponse;
     },
     /**
@@ -49,7 +49,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<Tax> The created tax
        */
     async createTax(input: TaxCreateInput): Promise<Tax> {
-      const result = await runOperation(client, taxCreateDoc, 'taxCreate', { input });
+      const result = await runOperation<{ taxCreate: Tax }>(client, taxCreateDoc, 'taxCreate', { input });
       return result.data.taxCreate as Tax;
     },
     /**
@@ -58,7 +58,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<Tax> The updated tax
        */
     async updateTax(variables: TaxUpdateVariables): Promise<Tax> {
-      const result = await runOperation(client, taxUpdateDoc, 'taxUpdate', variables);
+      const result = await runOperation<{ taxUpdate: Tax }>(client, taxUpdateDoc, 'taxUpdate', variables);
       return result.data.taxUpdate as Tax;
     },
     /**
@@ -67,7 +67,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<ZoneTaxCode> Zone tax code data
        */
     async getZoneTaxCode(id: number): Promise<ZoneTaxCode> {
-      const result = await runOperation(client, zoneTaxCodeDoc, 'zoneTaxCode', { id });
+      const result = await runOperation<{ zoneTaxCode: ZoneTaxCode }>(client, zoneTaxCodeDoc, 'zoneTaxCode', { id });
       return result.data.zoneTaxCode as ZoneTaxCode;
     },
     /**
@@ -76,7 +76,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<ZoneTaxCodeResponse> Zone tax codes response
        */
     async getZoneTaxCodes(input?: ZoneTaxCodeSearchInput): Promise<ZoneTaxCodeResponse> {
-      const result = await runOperation(client, zoneTaxCodesDoc, 'zoneTaxCodes', { input });
+      const result = await runOperation<{ zoneTaxCodes: ZoneTaxCodeResponse }>(client, zoneTaxCodesDoc, 'zoneTaxCodes', { input });
       return result.data.zoneTaxCodes as ZoneTaxCodeResponse;
     },
     /**
@@ -85,7 +85,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<ZoneTaxCode> The created zone tax code
        */
     async createZoneTaxCode(input: ZoneTaxCodeCreateInput): Promise<ZoneTaxCode> {
-      const result = await runOperation(client, zoneTaxCodeCreateDoc, 'zoneTaxCodeCreate', { input });
+      const result = await runOperation<{ zoneTaxCodeCreate: ZoneTaxCode }>(client, zoneTaxCodeCreateDoc, 'zoneTaxCodeCreate', { input });
       return result.data.zoneTaxCodeCreate as ZoneTaxCode;
     },
     /**
@@ -94,7 +94,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<ZoneTaxCode[]> Array of created zone tax codes
        */
     async createZoneTaxCodes(input: ZoneTaxCodeCreateInput[]): Promise<ZoneTaxCode[]> {
-      const result = await runOperation(client, zoneTaxCodesCreateDoc, 'zoneTaxCodesCreate', { input });
+      const result = await runOperation<{ zoneTaxCodesCreate: ZoneTaxCode[] }>(client, zoneTaxCodesCreateDoc, 'zoneTaxCodesCreate', { input });
       return result.data.zoneTaxCodesCreate as ZoneTaxCode[];
     },
     /**
@@ -103,7 +103,7 @@ export function taxService(client: GraphQLClient) {
        * @returns Promise<ZoneTaxCode> The updated zone tax code
        */
     async updateZoneTaxCode(variables: ZoneTaxCodeUpdateVariables): Promise<ZoneTaxCode> {
-      const result = await runOperation(client, zoneTaxCodeUpdateDoc, 'zoneTaxCodeUpdate', variables);
+      const result = await runOperation<{ zoneTaxCodeUpdate: ZoneTaxCode }>(client, zoneTaxCodeUpdateDoc, 'zoneTaxCodeUpdate', variables);
       return result.data.zoneTaxCodeUpdate as ZoneTaxCode;
     },
   };

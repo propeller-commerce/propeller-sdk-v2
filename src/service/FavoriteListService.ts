@@ -31,7 +31,7 @@ export function favoriteListService(client: GraphQLClient) {
        * @returns Promise<FavoriteList> Favorite list data
        */
     async getFavoriteList(variables: FavoriteListVariables): Promise<FavoriteList> {
-      const result = await runOperation(client, favoriteListDoc, 'favoriteList', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ favoriteList: FavoriteList }>(client, favoriteListDoc, 'favoriteList', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.favoriteList as FavoriteList;
     },
     /**
@@ -40,7 +40,7 @@ export function favoriteListService(client: GraphQLClient) {
        * @returns Promise<FavoriteListsResponse> Favorite lists response
        */
     async getFavoriteLists(input?: FavoriteListsSearchInput): Promise<FavoriteListsResponse> {
-      const result = await runOperation(client, favoriteListsDoc, 'favoriteLists', { input });
+      const result = await runOperation<{ favoriteLists: FavoriteListsResponse }>(client, favoriteListsDoc, 'favoriteLists', { input });
       return result.data.favoriteLists as FavoriteListsResponse;
     },
     /**
@@ -49,7 +49,7 @@ export function favoriteListService(client: GraphQLClient) {
        * @returns Promise<FavoriteList> The created favorite list
        */
     async createFavoriteList(input: FavoriteListsCreateInput): Promise<FavoriteList> {
-      const result = await runOperation(client, favoriteListCreateDoc, 'favoriteListCreate', { input });
+      const result = await runOperation<{ favoriteListCreate: FavoriteList }>(client, favoriteListCreateDoc, 'favoriteListCreate', { input });
       return result.data.favoriteListCreate as FavoriteList;
     },
     /**
@@ -59,7 +59,7 @@ export function favoriteListService(client: GraphQLClient) {
        * @returns Promise<FavoriteList> The updated favorite list
        */
     async updateFavoriteList(id: string, input: FavoriteListsUpdateInput): Promise<FavoriteList> {
-      const result = await runOperation(client, favoriteListUpdateDoc, 'favoriteListUpdate', { id, input });
+      const result = await runOperation<{ favoriteListUpdate: FavoriteList }>(client, favoriteListUpdateDoc, 'favoriteListUpdate', { id, input });
       return result.data.favoriteListUpdate as FavoriteList;
     },
     /**
@@ -68,7 +68,7 @@ export function favoriteListService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteFavoriteList(id: string): Promise<boolean> {
-      const result = await runOperation(client, favoriteListDeleteDoc, 'favoriteListDelete', { id });
+      const result = await runOperation<{ favoriteListDelete: boolean }>(client, favoriteListDeleteDoc, 'favoriteListDelete', { id });
       return result.data.favoriteListDelete;
     },
     /**
@@ -78,7 +78,7 @@ export function favoriteListService(client: GraphQLClient) {
        * @returns Promise<FavoriteList> The updated favorite list
        */
     async addFavoriteListItems(id: string, input: FavoriteListsItemsInput): Promise<FavoriteList> {
-      const result = await runOperation(client, favoriteListAddItemsDoc, 'favoriteListAddItems', { id, input });
+      const result = await runOperation<{ favoriteListAddItems: FavoriteList }>(client, favoriteListAddItemsDoc, 'favoriteListAddItems', { id, input });
       return result.data.favoriteListAddItems as FavoriteList;
     },
     /**
@@ -88,7 +88,7 @@ export function favoriteListService(client: GraphQLClient) {
        * @returns Promise<FavoriteList> The updated favorite list
        */
     async removeFavoriteListItems(id: string, input: FavoriteListsItemsInput): Promise<FavoriteList> {
-      const result = await runOperation(client, favoriteListRemoveItemsDoc, 'favoriteListRemoveItems', { id, input });
+      const result = await runOperation<{ favoriteListRemoveItems: FavoriteList }>(client, favoriteListRemoveItemsDoc, 'favoriteListRemoveItems', { id, input });
       return result.data.favoriteListRemoveItems as FavoriteList;
     },
     /**
@@ -99,7 +99,7 @@ export function favoriteListService(client: GraphQLClient) {
        * @returns Promise<FavoriteList> The updated favorite list
        */
     async clearFavoriteListItems(id: string, products?: boolean, clusters?: boolean): Promise<FavoriteList> {
-      const result = await runOperation(client, favoriteListClearItemsDoc, 'favoriteListClearItems', { id, products, clusters });
+      const result = await runOperation<{ favoriteListClearItems: FavoriteList }>(client, favoriteListClearItemsDoc, 'favoriteListClearItems', { id, products, clusters });
       return result.data.favoriteListClearItems as FavoriteList;
     },
   };

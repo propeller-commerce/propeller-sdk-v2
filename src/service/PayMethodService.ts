@@ -22,7 +22,7 @@ export function payMethodService(client: GraphQLClient) {
        * @returns Promise<PayMethod> Payment method data
        */
     async getPayMethod(id: number): Promise<PayMethod> {
-      const result = await runOperation(client, payMethodDoc, 'payMethod', { id });
+      const result = await runOperation<{ payMethod: PayMethod }>(client, payMethodDoc, 'payMethod', { id });
       return result.data.payMethod as PayMethod;
     },
     /**
@@ -31,7 +31,7 @@ export function payMethodService(client: GraphQLClient) {
        * @returns Promise<PayMethodsResponse> Payment methods response
        */
     async getPayMethods(input?: PayMethodSearchInput): Promise<PayMethodsResponse> {
-      const result = await runOperation(client, payMethodsDoc, 'payMethods', { input });
+      const result = await runOperation<{ payMethods: PayMethodsResponse }>(client, payMethodsDoc, 'payMethods', { input });
       return result.data.payMethods as PayMethodsResponse;
     },
     /**
@@ -40,7 +40,7 @@ export function payMethodService(client: GraphQLClient) {
        * @returns Promise<PayMethod> The created payment method
        */
     async createPayMethod(input: PayMethodCreateInput): Promise<PayMethod> {
-      const result = await runOperation(client, payMethodCreateDoc, 'payMethodCreate', { input });
+      const result = await runOperation<{ payMethodCreate: PayMethod }>(client, payMethodCreateDoc, 'payMethodCreate', { input });
       return result.data.payMethodCreate as PayMethod;
     },
     /**
@@ -49,7 +49,7 @@ export function payMethodService(client: GraphQLClient) {
        * @returns Promise<PayMethod> The updated payment method
        */
     async updatePayMethod(variables: PayMethodUpdateVariables): Promise<PayMethod> {
-      const result = await runOperation(client, payMethodUpdateDoc, 'payMethodUpdate', variables);
+      const result = await runOperation<{ payMethodUpdate: PayMethod }>(client, payMethodUpdateDoc, 'payMethodUpdate', variables);
       return result.data.payMethodUpdate as PayMethod;
     },
     /**
@@ -58,7 +58,7 @@ export function payMethodService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deletePayMethod(id: number): Promise<boolean> {
-      const result = await runOperation(client, payMethodDeleteDoc, 'payMethodDelete', { id });
+      const result = await runOperation<{ payMethodDelete: boolean }>(client, payMethodDeleteDoc, 'payMethodDelete', { id });
       return result.data.payMethodDelete;
     },
   };

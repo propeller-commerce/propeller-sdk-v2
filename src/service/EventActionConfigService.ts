@@ -34,7 +34,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<IEventActionConfig> Event action configuration data
        */
     async getEventActionConfig(id: number): Promise<IEventActionConfig> {
-      const result = await runOperation(client, eventActionConfigDoc, 'eventActionConfig', { id });
+      const result = await runOperation<{ eventActionConfig: IEventActionConfig }>(client, eventActionConfigDoc, 'eventActionConfig', { id });
       return result.data.eventActionConfig as IEventActionConfig;
     },
     /**
@@ -43,7 +43,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<EventActionConfigResponse> The event action configurations response
        */
     async getEventActionConfigs(input?: EventActionConfigSearchInput): Promise<EventActionConfigResponse> {
-      const result = await runOperation(client, eventActionConfigsDoc, 'eventActionConfigs', { input });
+      const result = await runOperation<{ eventActionConfigs: EventActionConfigResponse }>(client, eventActionConfigsDoc, 'eventActionConfigs', { input });
       return result.data.eventActionConfigs as EventActionConfigResponse;
     },
     /**
@@ -52,7 +52,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<EventToEmailConfig> The created event-to-email config
        */
     async createEventToEmailConfig(input: EventToEmailConfigCreateInput): Promise<EventToEmailConfig> {
-      const result = await runOperation(client, eventToEmailConfigCreateDoc, 'eventToEmailConfigCreate', { input });
+      const result = await runOperation<{ eventToEmailConfigCreate: EventToEmailConfig }>(client, eventToEmailConfigCreateDoc, 'eventToEmailConfigCreate', { input });
       return result.data.eventToEmailConfigCreate as EventToEmailConfig;
     },
     /**
@@ -61,7 +61,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<EventToEmailConfig> The updated event-to-email config
        */
     async updateEventToEmailConfig(variables: EventToEmailConfigUpdateVariables): Promise<EventToEmailConfig> {
-      const result = await runOperation(client, eventToEmailConfigUpdateDoc, 'eventToEmailConfigUpdate', variables);
+      const result = await runOperation<{ eventToEmailConfigUpdate: EventToEmailConfig }>(client, eventToEmailConfigUpdateDoc, 'eventToEmailConfigUpdate', variables);
       return result.data.eventToEmailConfigUpdate as EventToEmailConfig;
     },
     /**
@@ -70,7 +70,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<EventToWebHookConfig> The created event-to-webhook config
        */
     async createEventToWebHookConfig(input: EventToWebHookConfigCreateInput): Promise<EventToWebHookConfig> {
-      const result = await runOperation(client, eventToWebHookConfigCreateDoc, 'eventToWebHookConfigCreate', { input });
+      const result = await runOperation<{ eventToWebHookConfigCreate: EventToWebHookConfig }>(client, eventToWebHookConfigCreateDoc, 'eventToWebHookConfigCreate', { input });
       return result.data.eventToWebHookConfigCreate as EventToWebHookConfig;
     },
     /**
@@ -79,7 +79,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<EventToWebHookConfig> The updated event-to-webhook config
        */
     async updateEventToWebHookConfig(variables: EventToWebHookConfigUpdateVariables): Promise<EventToWebHookConfig> {
-      const result = await runOperation(client, eventToWebHookConfigUpdateDoc, 'eventToWebHookConfigUpdate', variables);
+      const result = await runOperation<{ eventToWebHookConfigUpdate: EventToWebHookConfig }>(client, eventToWebHookConfigUpdateDoc, 'eventToWebHookConfigUpdate', variables);
       return result.data.eventToWebHookConfigUpdate as EventToWebHookConfig;
     },
     /**
@@ -88,7 +88,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<PublishEmailEventResponse> The publish response
        */
     async publishEmailEvent(input: EmailEventInput): Promise<PublishEmailEventResponse> {
-      const result = await runOperation(client, publishEmailEventDoc, 'publishEmailEvent', { input });
+      const result = await runOperation<{ publishEmailEvent: PublishEmailEventResponse }>(client, publishEmailEventDoc, 'publishEmailEvent', { input });
       return result.data.publishEmailEvent as PublishEmailEventResponse;
     },
     /**
@@ -97,7 +97,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<PublishEmailEventResponse> The publish response
        */
     async publishEmailSendEvent(input: EmailSendEventInput): Promise<PublishEmailEventResponse> {
-      const result = await runOperation(client, publishEmailSendEventDoc, 'publishEmailSendEvent', { input });
+      const result = await runOperation<{ publishEmailSendEvent: PublishEmailEventResponse }>(client, publishEmailSendEventDoc, 'publishEmailSendEvent', { input });
       return result.data.publishEmailSendEvent as PublishEmailEventResponse;
     },
     /**
@@ -107,7 +107,7 @@ export function eventActionConfigService(client: GraphQLClient) {
        * @returns Promise<PublishEmailEventResponse> The publish response
        */
     async publishPasswordResetEmailEvent(input: PasswordResetLinkEmailInput): Promise<PublishEmailEventResponse> {
-      const result = await runOperation(client, publishPasswordResetEmailEventDoc, 'publishPasswordResetEmailEvent', { input });
+      const result = await runOperation<{ publishPasswordResetEmailEvent: PublishEmailEventResponse }>(client, publishPasswordResetEmailEventDoc, 'publishPasswordResetEmailEvent', { input });
       return result.data.publishPasswordResetEmailEvent as PublishEmailEventResponse;
     },
   };

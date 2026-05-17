@@ -53,7 +53,7 @@ export function priceService(client: GraphQLClient) {
        * @returns Promise<PriceResponse> The prices response data
        */
     async getPrices(input?: PriceSearchInput): Promise<PriceResponse> {
-      const result = await runOperation(client, pricesDoc, 'prices', { input });
+      const result = await runOperation<{ prices: PriceResponse }>(client, pricesDoc, 'prices', { input });
       return result.data.prices as PriceResponse;
     },
     /**
@@ -63,7 +63,7 @@ export function priceService(client: GraphQLClient) {
        * @returns Promise<Price> The price data
        */
     async getPrice(variables: PriceQueryVariables): Promise<Price> {
-      const result = await runOperation(client, priceDoc, 'price', variables);
+      const result = await runOperation<{ price: Price }>(client, priceDoc, 'price', variables);
       return result.data.price as Price;
     },
     /**
@@ -73,7 +73,7 @@ export function priceService(client: GraphQLClient) {
        * @returns Promise<ProductPrice> The calculated price data
        */
     async calculatePrice(variables: PriceCalculateQueryVariables): Promise<ProductPrice> {
-      const result = await runOperation(client, priceCalculateDoc, 'priceCalculate', variables);
+      const result = await runOperation<{ priceCalculate: ProductPrice }>(client, priceCalculateDoc, 'priceCalculate', variables);
       return result.data.priceCalculate as ProductPrice;
     },
     /**
@@ -83,7 +83,7 @@ export function priceService(client: GraphQLClient) {
        * @returns Promise<ProductPrice> The default price data
        */
     async getDefaultPrice(variables: PriceDefaultQueryVariables): Promise<ProductPrice[]> {
-      const result = await runOperation(client, priceDefaultDoc, 'priceDefault', variables);
+      const result = await runOperation<{ priceDefault: ProductPrice[] }>(client, priceDefaultDoc, 'priceDefault', variables);
       return result.data.priceDefault as ProductPrice[];
     },
     /**
@@ -93,7 +93,7 @@ export function priceService(client: GraphQLClient) {
        * @returns Promise<ProductPrice> The price explanation data
        */
     async explainPrice(variables: PriceCalculateQueryVariables): Promise<ProductPrice[]> {
-      const result = await runOperation(client, priceExplainDoc, 'priceExplain', variables);
+      const result = await runOperation<{ priceExplain: ProductPrice[] }>(client, priceExplainDoc, 'priceExplain', variables);
       return result.data.priceExplain as ProductPrice[];
     },
     /**
@@ -102,7 +102,7 @@ export function priceService(client: GraphQLClient) {
        * @returns Promise<Price> The created price data
        */
     async createPrice(input: PriceCreateInput): Promise<Price> {
-      const result = await runOperation(client, priceCreateDoc, 'priceCreate', { input });
+      const result = await runOperation<{ priceCreate: Price }>(client, priceCreateDoc, 'priceCreate', { input });
       return result.data.priceCreate as Price;
     },
     /**
@@ -112,7 +112,7 @@ export function priceService(client: GraphQLClient) {
        * @returns Promise<Price> The updated price data
        */
     async updatePrice(id: string, input: PriceUpdateInput): Promise<Price> {
-      const result = await runOperation(client, priceUpdateDoc, 'priceUpdate', { id, input });
+      const result = await runOperation<{ priceUpdate: Price }>(client, priceUpdateDoc, 'priceUpdate', { id, input });
       return result.data.priceUpdate as Price;
     },
     /**
@@ -121,7 +121,7 @@ export function priceService(client: GraphQLClient) {
        * @returns Promise<CsvImportResponse> The CSV import response
        */
     async importPricesFromCSV(input: PriceCsvInput): Promise<CsvImportResponse> {
-      const result = await runOperation(client, priceCsvImportDoc, 'priceCsvImport', { input });
+      const result = await runOperation<{ priceCsvImport: CsvImportResponse }>(client, priceCsvImportDoc, 'priceCsvImport', { input });
       return result.data.priceCsvImport as CsvImportResponse;
     },
   };

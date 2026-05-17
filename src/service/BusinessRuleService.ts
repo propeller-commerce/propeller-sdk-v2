@@ -40,7 +40,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRule> The business rule data
        */
     async getBusinessRule(id: number): Promise<BusinessRule> {
-      const result = await runOperation(client, businessRuleDoc, 'businessRule', { id });
+      const result = await runOperation<{ businessRule: BusinessRule }>(client, businessRuleDoc, 'businessRule', { id });
       return result.data.businessRule as BusinessRule;
     },
     /**
@@ -49,7 +49,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleResponse> The business rules response data
        */
     async getBusinessRules(variables: BusinessRulesVariables): Promise<BusinessRuleResponse> {
-      const result = await runOperation(client, businessRulesDoc, 'businessRules', variables);
+      const result = await runOperation<{ businessRules: BusinessRuleResponse }>(client, businessRulesDoc, 'businessRules', variables);
       return result.data.businessRules as BusinessRuleResponse;
     },
     /**
@@ -58,7 +58,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleDecisionTable> The decision table data
        */
     async getBusinessRuleDecisionTable(input?: BusinessRuleDecisionTableSearchInput): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableDoc, 'businessRuleDecisionTable', { input });
+      const result = await runOperation<{ businessRuleDecisionTable: BusinessRuleDecisionTable }>(client, businessRuleDecisionTableDoc, 'businessRuleDecisionTable', { input });
       return result.data.businessRuleDecisionTable as BusinessRuleDecisionTable;
     },
     /**
@@ -66,7 +66,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleFieldDefinitionGroup> The field definitions data
        */
     async getBusinessRuleFieldDefinitions(variables: BusinessRuleFieldDefinitionsVariables): Promise<BusinessRuleFieldDefinitionGroup> {
-      const result = await runOperation(client, businessRuleFieldDefinitionsDoc, 'businessRuleFieldDefinitions', variables);
+      const result = await runOperation<{ businessRuleFieldDefinitions: BusinessRuleFieldDefinitionGroup }>(client, businessRuleFieldDefinitionsDoc, 'businessRuleFieldDefinitions', variables);
       return result.data.businessRuleFieldDefinitions as BusinessRuleFieldDefinitionGroup;
     },
     /**
@@ -75,7 +75,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<any> The JDM data
        */
     async getBusinessRuleJDM(variables: BusinessRuleJDMVariables): Promise<any> {
-      const result = await runOperation(client, businessRuleJDMDoc, 'businessRuleJDM', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ businessRuleJDM: any }>(client, businessRuleJDMDoc, 'businessRuleJDM', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.businessRuleJDM;
     },
     /**
@@ -84,7 +84,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRule> The created business rule
        */
     async createBusinessRule(input: BusinessRuleCreateInput): Promise<BusinessRule> {
-      const result = await runOperation(client, businessRuleCreateDoc, 'businessRuleCreate', { input });
+      const result = await runOperation<{ businessRuleCreate: BusinessRule }>(client, businessRuleCreateDoc, 'businessRuleCreate', { input });
       return result.data.businessRuleCreate as BusinessRule;
     },
     /**
@@ -93,7 +93,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRule> The updated business rule
        */
     async updateBusinessRule(variables: BusinessRuleUpdateVariables): Promise<BusinessRule> {
-      const result = await runOperation(client, businessRuleUpdateDoc, 'businessRuleUpdate', variables);
+      const result = await runOperation<{ businessRuleUpdate: BusinessRule }>(client, businessRuleUpdateDoc, 'businessRuleUpdate', variables);
       return result.data.businessRuleUpdate as BusinessRule;
     },
     /**
@@ -102,7 +102,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleDecisionTable> The updated decision table
        */
     async updateBusinessRuleDecisionTable(input: BusinessRuleDecisionTableUpdateInput): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableUpdateDoc, 'businessRuleDecisionTableUpdate', { input });
+      const result = await runOperation<{ businessRuleDecisionTableUpdate: BusinessRuleDecisionTable }>(client, businessRuleDecisionTableUpdateDoc, 'businessRuleDecisionTableUpdate', { input });
       return result.data.businessRuleDecisionTableUpdate as BusinessRuleDecisionTable;
     },
     /**
@@ -111,7 +111,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleDecisionTable> The updated decision table
        */
     async addColumnToDecisionTable(input: BusinessRuleDecisionTableAddColumnInput): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableAddColumnDoc, 'businessRuleDecisionTableAddColumn', { input });
+      const result = await runOperation<{ businessRuleDecisionTableAddColumn: BusinessRuleDecisionTable }>(client, businessRuleDecisionTableAddColumnDoc, 'businessRuleDecisionTableAddColumn', { input });
       return result.data.businessRuleDecisionTableAddColumn as BusinessRuleDecisionTable;
     },
     /**
@@ -120,7 +120,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleDecisionTable> The updated decision table
        */
     async deleteColumnFromDecisionTable(input: BusinessRuleDecisionTableDeleteColumnInput): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableDeleteColumnDoc, 'businessRuleDecisionTableDeleteColumn', { input });
+      const result = await runOperation<{ businessRuleDecisionTableDeleteColumn: BusinessRuleDecisionTable }>(client, businessRuleDecisionTableDeleteColumnDoc, 'businessRuleDecisionTableDeleteColumn', { input });
       return result.data.businessRuleDecisionTableDeleteColumn as BusinessRuleDecisionTable;
     },
     /**
@@ -128,7 +128,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleDecisionTable> The updated decision table
        */
     async addRowToDecisionTable(variables: BusinessRuleDecisionTableAddRowVariables): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableAddRowDoc, 'businessRuleDecisionTableAddRow', variables);
+      const result = await runOperation<{ businessRuleDecisionTableAddRow: BusinessRuleDecisionTable }>(client, businessRuleDecisionTableAddRowDoc, 'businessRuleDecisionTableAddRow', variables);
       return result.data.businessRuleDecisionTableAddRow as BusinessRuleDecisionTable;
     },
     /**
@@ -137,7 +137,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleDecisionTable> The updated decision table
        */
     async deleteRowFromDecisionTable(input: BusinessRuleDecisionTableDeleteRowInput): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableDeleteRowDoc, 'businessRuleDecisionTableDeleteRow', { input });
+      const result = await runOperation<{ businessRuleDecisionTableDeleteRow: BusinessRuleDecisionTable }>(client, businessRuleDecisionTableDeleteRowDoc, 'businessRuleDecisionTableDeleteRow', { input });
       return result.data.businessRuleDecisionTableDeleteRow as BusinessRuleDecisionTable;
     },
     /**
@@ -146,7 +146,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleDecisionTable> The updated decision table
        */
     async moveRowInDecisionTable(input: BusinessRuleDecisionTableMoveRowInput): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableMoveRowDoc, 'businessRuleDecisionTableMoveRow', { input });
+      const result = await runOperation<{ businessRuleDecisionTableMoveRow: BusinessRuleDecisionTable }>(client, businessRuleDecisionTableMoveRowDoc, 'businessRuleDecisionTableMoveRow', { input });
       return result.data.businessRuleDecisionTableMoveRow as BusinessRuleDecisionTable;
     },
     /**
@@ -155,7 +155,7 @@ export function businessRuleService(client: GraphQLClient) {
        * @returns Promise<BusinessRuleDecisionTable> The updated decision table
        */
     async setCellInDecisionTable(input: BusinessRuleDecisionTableSetCellInput): Promise<BusinessRuleDecisionTable> {
-      const result = await runOperation(client, businessRuleDecisionTableSetCellDoc, 'businessRuleDecisionTableSetCell', { input });
+      const result = await runOperation<{ businessRuleDecisionTableSetCell: BusinessRuleDecisionTable }>(client, businessRuleDecisionTableSetCellDoc, 'businessRuleDecisionTableSetCell', { input });
       return result.data.businessRuleDecisionTableSetCell as BusinessRuleDecisionTable;
     },
   };

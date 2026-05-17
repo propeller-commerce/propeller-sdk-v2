@@ -22,7 +22,7 @@ export function carrierService(client: GraphQLClient) {
        * @returns Promise<Carrier> The carrier data
        */
     async getCarrier(id: number): Promise<Carrier> {
-      const result = await runOperation(client, carrierDoc, 'carrier', { id });
+      const result = await runOperation<{ carrier: Carrier }>(client, carrierDoc, 'carrier', { id });
       return result.data.carrier as Carrier;
     },
     /**
@@ -31,7 +31,7 @@ export function carrierService(client: GraphQLClient) {
        * @returns Promise<CarriersResponse> The carriers response data
        */
     async getCarriers(input?: CarriersSearchInput): Promise<CarriersResponse> {
-      const result = await runOperation(client, carriersDoc, 'carriers', { input });
+      const result = await runOperation<{ carriers: CarriersResponse }>(client, carriersDoc, 'carriers', { input });
       return result.data.carriers as CarriersResponse;
     },
     /**
@@ -40,7 +40,7 @@ export function carrierService(client: GraphQLClient) {
        * @returns Promise<Carrier> The created carrier
        */
     async createCarrier(input: CarrierCreateInput): Promise<Carrier> {
-      const result = await runOperation(client, carrierCreateDoc, 'carrierCreate', { input });
+      const result = await runOperation<{ carrierCreate: Carrier }>(client, carrierCreateDoc, 'carrierCreate', { input });
       return result.data.carrierCreate as Carrier;
     },
     /**
@@ -49,7 +49,7 @@ export function carrierService(client: GraphQLClient) {
        * @returns Promise<Carrier> The updated carrier
        */
     async updateCarrier(variables: CarrierUpdateVariables): Promise<Carrier> {
-      const result = await runOperation(client, carrierUpdateDoc, 'carrierUpdate', variables);
+      const result = await runOperation<{ carrierUpdate: Carrier }>(client, carrierUpdateDoc, 'carrierUpdate', variables);
       return result.data.carrierUpdate as Carrier;
     },
     /**
@@ -58,7 +58,7 @@ export function carrierService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteCarrier(id: number): Promise<boolean> {
-      const result = await runOperation(client, carrierDeleteDoc, 'carrierDelete', { id });
+      const result = await runOperation<{ carrierDelete: boolean }>(client, carrierDeleteDoc, 'carrierDelete', { id });
       return result.data.carrierDelete;
     },
   };

@@ -21,7 +21,7 @@ export function ticketService(client: GraphQLClient) {
        * @returns Promise<Ticket> The ticket data
        */
     async getTicket(id: string): Promise<Ticket> {
-      const result = await runOperation(client, ticketDoc, 'ticket', { id });
+      const result = await runOperation<{ ticket: Ticket }>(client, ticketDoc, 'ticket', { id });
       return result.data.ticket as Ticket;
     },
     /**
@@ -30,7 +30,7 @@ export function ticketService(client: GraphQLClient) {
        * @returns Promise<TicketResponse> The tickets response data
        */
     async getTickets(input?: TicketSearchInput): Promise<TicketResponse> {
-      const result = await runOperation(client, ticketsDoc, 'tickets', { input });
+      const result = await runOperation<{ tickets: TicketResponse }>(client, ticketsDoc, 'tickets', { input });
       return result.data.tickets as TicketResponse;
     },
     /**
@@ -39,7 +39,7 @@ export function ticketService(client: GraphQLClient) {
        * @returns Promise<Ticket> The created ticket
        */
     async createTicket(input: TicketCreateInput): Promise<Ticket> {
-      const result = await runOperation(client, ticketCreateDoc, 'ticketCreate', { input });
+      const result = await runOperation<{ ticketCreate: Ticket }>(client, ticketCreateDoc, 'ticketCreate', { input });
       return result.data.ticketCreate as Ticket;
     },
     /**
@@ -49,7 +49,7 @@ export function ticketService(client: GraphQLClient) {
        * @returns Promise<Ticket> The updated ticket
        */
     async updateTicket(id: string, input: TicketUpdateInput): Promise<Ticket> {
-      const result = await runOperation(client, ticketUpdateDoc, 'ticketUpdate', { id, input });
+      const result = await runOperation<{ ticketUpdate: Ticket }>(client, ticketUpdateDoc, 'ticketUpdate', { id, input });
       return result.data.ticketUpdate as Ticket;
     },
     /**
@@ -58,7 +58,7 @@ export function ticketService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteTicket(id: string): Promise<boolean> {
-      const result = await runOperation(client, ticketDeleteDoc, 'ticketDelete', { id });
+      const result = await runOperation<{ ticketDelete: boolean }>(client, ticketDeleteDoc, 'ticketDelete', { id });
       return result.data.ticketDelete;
     },
   };

@@ -30,7 +30,7 @@ export function roleService(client: GraphQLClient) {
        * @returns Promise<Role> The role data
        */
     async getRole(id: number): Promise<Role> {
-      const result = await runOperation(client, roleDoc, 'role', { id });
+      const result = await runOperation<{ role: Role }>(client, roleDoc, 'role', { id });
       return result.data.role as Role;
     },
     /**
@@ -39,7 +39,7 @@ export function roleService(client: GraphQLClient) {
        * @returns Promise<RoleResponse> The roles response data
        */
     async getRoles(input?: RoleSearchInput): Promise<RoleResponse> {
-      const result = await runOperation(client, rolesDoc, 'roles', { input });
+      const result = await runOperation<{ roles: RoleResponse }>(client, rolesDoc, 'roles', { input });
       return result.data.roles as RoleResponse;
     },
     /**
@@ -48,7 +48,7 @@ export function roleService(client: GraphQLClient) {
        * @returns Promise<Role> The created role
        */
     async createRole(input: RoleCreateInput): Promise<Role> {
-      const result = await runOperation(client, roleCreateDoc, 'roleCreate', { input });
+      const result = await runOperation<{ roleCreate: Role }>(client, roleCreateDoc, 'roleCreate', { input });
       return result.data.roleCreate as Role;
     },
     /**
@@ -57,7 +57,7 @@ export function roleService(client: GraphQLClient) {
        * @returns Promise<Role> The updated role
        */
     async updateRole(variables: RoleUpdateVariables): Promise<Role> {
-      const result = await runOperation(client, roleUpdateDoc, 'roleUpdate', variables);
+      const result = await runOperation<{ roleUpdate: Role }>(client, roleUpdateDoc, 'roleUpdate', variables);
       return result.data.roleUpdate as Role;
     },
     /**
@@ -66,7 +66,7 @@ export function roleService(client: GraphQLClient) {
        * @returns Promise<RoleDefinition> The role definition data
        */
     async getRoleDefinition(id: number): Promise<RoleDefinition> {
-      const result = await runOperation(client, roleDefinitionDoc, 'roleDefinition', { id });
+      const result = await runOperation<{ roleDefinition: RoleDefinition }>(client, roleDefinitionDoc, 'roleDefinition', { id });
       return result.data.roleDefinition as RoleDefinition;
     },
     /**
@@ -75,7 +75,7 @@ export function roleService(client: GraphQLClient) {
        * @returns Promise<RoleDefinitionResponse> The role definitions response data
        */
     async getRoleDefinitions(input?: RoleDefinitionSearchInput): Promise<RoleDefinitionResponse> {
-      const result = await runOperation(client, roleDefinitionsDoc, 'roleDefinitions', { input });
+      const result = await runOperation<{ roleDefinitions: RoleDefinitionResponse }>(client, roleDefinitionsDoc, 'roleDefinitions', { input });
       return result.data.roleDefinitions as RoleDefinitionResponse;
     },
     /**
@@ -84,7 +84,7 @@ export function roleService(client: GraphQLClient) {
        * @returns Promise<RoleDefinition> The created role definition
        */
     async createRoleDefinition(input: RoleDefinitionCreateInput): Promise<RoleDefinition> {
-      const result = await runOperation(client, roleDefinitionCreateDoc, 'roleDefinitionCreate', { input });
+      const result = await runOperation<{ roleDefinitionCreate: RoleDefinition }>(client, roleDefinitionCreateDoc, 'roleDefinitionCreate', { input });
       return result.data.roleDefinitionCreate as RoleDefinition;
     },
     /**
@@ -93,7 +93,7 @@ export function roleService(client: GraphQLClient) {
        * @returns Promise<RoleDefinition> The updated role definition
        */
     async updateRoleDefinition(variables: RoleDefinitionUpdateVariables): Promise<RoleDefinition> {
-      const result = await runOperation(client, roleDefinitionUpdateDoc, 'roleDefinitionUpdate', variables);
+      const result = await runOperation<{ roleDefinitionUpdate: RoleDefinition }>(client, roleDefinitionUpdateDoc, 'roleDefinitionUpdate', variables);
       return result.data.roleDefinitionUpdate as RoleDefinition;
     },
   };

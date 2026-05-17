@@ -39,7 +39,7 @@ export function crossupsellService(client: GraphQLClient) {
        * @returns Promise<Crossupsell> The crossupsell data
        */
     async getCrossupsell(variables: CrossupsellVariables): Promise<Crossupsell> {
-      const result = await runOperation(client, crossupsellDoc, 'crossupsell', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ crossupsell: Crossupsell }>(client, crossupsellDoc, 'crossupsell', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.crossupsell as Crossupsell;
     },
     /**
@@ -49,7 +49,7 @@ export function crossupsellService(client: GraphQLClient) {
        */
     async getCrossupsells(variables?: CrossupsellsQueryVariables): Promise<CrossupsellsResponse> {
       const language = variables?.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, crossupsellsDoc, 'crossupsells', { ...variables, language });
+      const result = await runOperation<{ crossupsells: CrossupsellsResponse }>(client, crossupsellsDoc, 'crossupsells', { ...variables, language });
       return result.data.crossupsells as CrossupsellsResponse;
     },
     /**
@@ -58,7 +58,7 @@ export function crossupsellService(client: GraphQLClient) {
        * @returns Promise<Crossupsell> The created crossupsell
        */
     async createCrossupsell(variables: CrossupsellCreateVariables): Promise<Crossupsell> {
-      const result = await runOperation(client, crossupsellCreateDoc, 'crossupsellCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ crossupsellCreate: Crossupsell }>(client, crossupsellCreateDoc, 'crossupsellCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.crossupsellCreate as Crossupsell;
     },
     /**
@@ -67,7 +67,7 @@ export function crossupsellService(client: GraphQLClient) {
        * @returns Promise<Crossupsell> The updated crossupsell
        */
     async updateCrossupsell(variables: CrossupsellUpdateVariables): Promise<Crossupsell> {
-      const result = await runOperation(client, crossupsellUpdateDoc, 'crossupsellUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ crossupsellUpdate: Crossupsell }>(client, crossupsellUpdateDoc, 'crossupsellUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.crossupsellUpdate as Crossupsell;
     },
   };

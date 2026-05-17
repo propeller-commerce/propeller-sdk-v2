@@ -21,7 +21,7 @@ export function warehouseService(client: GraphQLClient) {
        * @returns Promise<Warehouse> The warehouse data
        */
     async getWarehouse(id: number): Promise<Warehouse> {
-      const result = await runOperation(client, warehouseDoc, 'warehouse', { id });
+      const result = await runOperation<{ warehouse: Warehouse }>(client, warehouseDoc, 'warehouse', { id });
       return result.data.warehouse as Warehouse;
     },
     /**
@@ -30,7 +30,7 @@ export function warehouseService(client: GraphQLClient) {
        * @returns Promise<WarehousesResponse> The warehouses response data
        */
     async getWarehouses(input?: WarehousesSearchInput): Promise<WarehousesResponse> {
-      const result = await runOperation(client, warehousesDoc, 'warehouses', { input });
+      const result = await runOperation<{ warehouses: WarehousesResponse }>(client, warehousesDoc, 'warehouses', { input });
       return result.data.warehouses as WarehousesResponse;
     },
     /**
@@ -39,7 +39,7 @@ export function warehouseService(client: GraphQLClient) {
        * @returns Promise<Warehouse> The created warehouse
        */
     async createWarehouse(input: CreateWarehouseInput): Promise<Warehouse> {
-      const result = await runOperation(client, warehouseCreateDoc, 'warehouseCreate', { input });
+      const result = await runOperation<{ warehouseCreate: Warehouse }>(client, warehouseCreateDoc, 'warehouseCreate', { input });
       return result.data.warehouseCreate as Warehouse;
     },
     /**
@@ -48,7 +48,7 @@ export function warehouseService(client: GraphQLClient) {
        * @returns Promise<Warehouse> The updated warehouse
        */
     async updateWarehouse(variables: WarehouseUpdateVariables): Promise<Warehouse> {
-      const result = await runOperation(client, warehouseUpdateDoc, 'warehouseUpdate', variables);
+      const result = await runOperation<{ warehouseUpdate: Warehouse }>(client, warehouseUpdateDoc, 'warehouseUpdate', variables);
       return result.data.warehouseUpdate as Warehouse;
     },
   };

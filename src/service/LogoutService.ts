@@ -14,7 +14,7 @@ export function logoutService(client: GraphQLClient) {
        * @returns Promise<Logout> Logout response
        */
     async logout(): Promise<Logout> {
-      const result = await runOperation(client, logoutDoc, 'logout');
+      const result = await runOperation<{ logout: Logout }>(client, logoutDoc, 'logout');
       return result.data.logout as Logout;
     },
   };

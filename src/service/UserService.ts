@@ -100,13 +100,13 @@ export function userService(client: GraphQLClient) {
      * Returns `Contact | Customer` — discriminate on `result.__typename`.
      */
     async getViewer(variables: ViewerVariables): Promise<ViewerResult> {
-      const result = await runOperation(client, viewerDoc, 'viewer', variables);
+      const result = await runOperation<{ viewer: ViewerResult }>(client, viewerDoc, 'viewer', variables);
       return result.data.viewer as ViewerResult;
     },
 
     /** Login with credentials. */
     async login(input: LoginInput): Promise<Login> {
-      const result = await runOperation(client, loginDoc, 'login', { input });
+      const result = await runOperation<{ login: Login }>(client, loginDoc, 'login', { input });
       return result.data.login as Login;
     },
 
@@ -115,13 +115,13 @@ export function userService(client: GraphQLClient) {
      * Returns `Contact | Customer` — discriminate on `result.__typename`.
      */
     async getUser(variables: UserVariables): Promise<ViewerResult> {
-      const result = await runOperation(client, userDoc, 'user', variables);
+      const result = await runOperation<{ user: ViewerResult }>(client, userDoc, 'user', variables);
       return result.data.user as ViewerResult;
     },
 
     /** Get authentication information for user by email. */
     async authenticate(email: string): Promise<GCIPUser> {
-      const result = await runOperation(client, authenticationDoc, 'authentication', { email });
+      const result = await runOperation<{ authentication: GCIPUser }>(client, authenticationDoc, 'authentication', { email });
       return result.data.authentication as GCIPUser;
     },
 
@@ -131,19 +131,19 @@ export function userService(client: GraphQLClient) {
      * mutation will be available in the future.
      */
     async logout(): Promise<Logout> {
-      const result = await runOperation(client, logoutDoc, 'logout');
+      const result = await runOperation<{ logout: Logout }>(client, logoutDoc, 'logout');
       return result.data.logout as Logout;
     },
 
     /** Register a new contact. */
     async registerContact(variables: ContactRegisterVariables): Promise<RegisterContactResponse> {
-      const result = await runOperation(client, contactRegisterDoc, 'contactRegister', variables);
+      const result = await runOperation<{ contactRegister: RegisterContactResponse }>(client, contactRegisterDoc, 'contactRegister', variables);
       return result.data.contactRegister as RegisterContactResponse;
     },
 
     /** Register a new customer. */
     async registerCustomer(variables: CustomerRegisterVariables): Promise<RegisterCustomerResponse> {
-      const result = await runOperation(client, customerRegisterDoc, 'customerRegister', variables);
+      const result = await runOperation<{ customerRegister: RegisterCustomerResponse }>(client, customerRegisterDoc, 'customerRegister', variables);
       return result.data.customerRegister as RegisterCustomerResponse;
     },
 
@@ -154,7 +154,7 @@ export function userService(client: GraphQLClient) {
         redirectUrl: input.redirectUrl,
         language: input.language,
       };
-      const result = await runOperation(
+      const result = await runOperation<{ triggerPasswordSendResetEmailEvent: boolean }>(
         client,
         triggerPasswordSendResetEmailEventDoc,
         'triggerPasswordSendResetEmailEvent',
@@ -165,7 +165,7 @@ export function userService(client: GraphQLClient) {
 
     /** Resets all claims for a user by email. */
     async claimsReset(uid: string, email: string): Promise<boolean> {
-      const result = await runOperation(client, claimsResetDoc, 'claimsReset', { uid, email });
+      const result = await runOperation<{ claimsReset: boolean }>(client, claimsResetDoc, 'claimsReset', { uid, email });
       return result.data.claimsReset;
     },
 
@@ -173,7 +173,7 @@ export function userService(client: GraphQLClient) {
     async triggerContactSendWelcomeEmailEvent(
       input: TriggerContactSendWelcomeEmailEventInput
     ): Promise<boolean> {
-      const result = await runOperation(
+      const result = await runOperation<{ triggerContactSendWelcomeEmailEvent: boolean }>(
         client,
         triggerContactSendWelcomeEmailEventDoc,
         'triggerContactSendWelcomeEmailEvent',
@@ -186,7 +186,7 @@ export function userService(client: GraphQLClient) {
     async triggerCustomerSendWelcomeEmailEvent(
       input: TriggerCustomerSendWelcomeEmailEventInput
     ): Promise<boolean> {
-      const result = await runOperation(
+      const result = await runOperation<{ triggerCustomerSendWelcomeEmailEvent: boolean }>(
         client,
         triggerCustomerSendWelcomeEmailEventDoc,
         'triggerCustomerSendWelcomeEmailEvent',

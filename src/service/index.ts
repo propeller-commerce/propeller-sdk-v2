@@ -1,4 +1,6 @@
-export * from './runOperation';
+// `runOperation` is an internal executor (see its own doc) — deliberately NOT
+// re-exported from the package root. Services import it directly from
+// './runOperation'. Consumers use the service factories or `client.execute()`.
 export * from './AddressService';
 export * from './BundleService';
 export * from './BusinessRuleService';

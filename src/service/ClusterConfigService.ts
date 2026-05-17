@@ -20,7 +20,7 @@ export function clusterConfigService(client: GraphQLClient) {
        * @returns Promise<ClusterConfigResponse> Cluster configuration data
        */
     async getClusterConfig(clusterConfigId: number): Promise<ClusterConfigResponse> {
-      const result = await runOperation(client, clusterConfigDoc, 'clusterConfig', { clusterConfigId });
+      const result = await runOperation<{ clusterConfig: ClusterConfigResponse }>(client, clusterConfigDoc, 'clusterConfig', { clusterConfigId });
       return result.data.clusterConfig as ClusterConfigResponse;
     },
     /**
@@ -28,7 +28,7 @@ export function clusterConfigService(client: GraphQLClient) {
        * @returns Promise<ClusterConfigResponse[]> List of cluster configurations
        */
     async getClusterConfigs(): Promise<ClusterConfigResponse[]> {
-      const result = await runOperation(client, clusterConfigsDoc, 'clusterConfigs');
+      const result = await runOperation<{ clusterConfigs: ClusterConfigResponse[] }>(client, clusterConfigsDoc, 'clusterConfigs');
       return result.data.clusterConfigs as ClusterConfigResponse[];
     },
     /**
@@ -37,7 +37,7 @@ export function clusterConfigService(client: GraphQLClient) {
        * @returns Promise<ClusterConfig> The created cluster configuration
        */
     async createClusterConfig(input: ClusterConfigCreateInput): Promise<ClusterConfigResponse> {
-      const result = await runOperation(client, clusterConfigCreateDoc, 'clusterConfigCreate', { input });
+      const result = await runOperation<{ clusterConfigCreate: ClusterConfigResponse }>(client, clusterConfigCreateDoc, 'clusterConfigCreate', { input });
       return result.data.clusterConfigCreate as ClusterConfigResponse;
     },
     /**
@@ -48,7 +48,7 @@ export function clusterConfigService(client: GraphQLClient) {
        * @returns Promise<UpdateClusterConfigSettingResponse> The update response
        */
     async updateClusterConfigSetting(clusterConfigId: number, settingId: number, input: ClusterConfigSettingUpdateInput): Promise<UpdateClusterConfigSettingResponse> {
-      const result = await runOperation(client, clusterConfigUpdateSettingDoc, 'clusterConfigUpdateSetting', { clusterConfigId, settingId, input });
+      const result = await runOperation<{ clusterConfigUpdateSetting: UpdateClusterConfigSettingResponse }>(client, clusterConfigUpdateSettingDoc, 'clusterConfigUpdateSetting', { clusterConfigId, settingId, input });
       return result.data.clusterConfigUpdateSetting as UpdateClusterConfigSettingResponse;
     },
   };

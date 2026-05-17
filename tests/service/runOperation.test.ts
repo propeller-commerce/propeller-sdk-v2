@@ -81,4 +81,41 @@ describe('runOperation()', () => {
 
     await expect(runOperation(client, DOC, 'foo', {})).rejects.toBeInstanceOf(GraphQLOperationError);
   });
+
+  it('throws when the response has neither data nor errors (malformed/empty)', async () => {
+    // This is what lets the return type guarantee non-null `data` so service
+    // methods can read `result.data.<field>` without a null check (finding #1).
+    fetchSpy.mockResolvedValueOnce(new Response(JSON.stringify({}), { status: 200 }));
+    const client = new GraphQLClient({ endpoint: 'https://x.test/gql', securityMode: 'direct', apiKey: 'k' });
+
+    await expect(runOperation(client, DOC, 'foo', {})).rejects.toBeInstanceOf(GraphQLOperationError);
+  });
+
+  it('throws on a partial-error response when throwOnPartialErrors is set (finding #7)', async () => {
+    const partial = new Response(
+      JSON.stringify({ data: { foo: 7 }, errors: [{ message: 'field bar failed' }] }),
+      { status: 200 }
+    );
+    fetchSpy.mockResolvedValueOnce(partial);
+    const client = new GraphQLClient({
+      endpoint: 'https://x.test/gql',
+      securityMode: 'direct',
+      apiKey: 'k',
+      throwOnPartialErrors: true,
+    });
+
+    await expect(runOperation(client, DOC, 'foo', {})).rejects.toBeInstanceOf(GraphQLOperationError);
+  });
+
+  it('default (throwOnPartialErrors unset) still returns partial data, not throwing', async () => {
+    const partial = new Response(
+      JSON.stringify({ data: { foo: 7 }, errors: [{ message: 'field bar failed' }] }),
+      { status: 200 }
+    );
+    fetchSpy.mockResolvedValueOnce(partial);
+    const client = new GraphQLClient({ endpoint: 'https://x.test/gql', securityMode: 'direct', apiKey: 'k' });
+
+    const result = await runOperation(client, DOC, 'foo', {});
+    expect(result.data).toEqual({ foo: 7 });
+  });
 });

@@ -22,7 +22,7 @@ export function magicTokenService(client: GraphQLClient) {
        * @returns Promise<MagicToken> Magic token data
        */
     async getMagicToken(id: number): Promise<MagicToken> {
-      const result = await runOperation(client, magicTokenDoc, 'magicToken', { id });
+      const result = await runOperation<{ magicToken: MagicToken }>(client, magicTokenDoc, 'magicToken', { id });
       return result.data.magicToken as MagicToken;
     },
     /**
@@ -31,7 +31,7 @@ export function magicTokenService(client: GraphQLClient) {
        * @returns Promise<MagicTokenResponse> Magic tokens response
        */
     async getMagicTokens(input?: MagicTokenSearchInput): Promise<MagicTokenResponse> {
-      const result = await runOperation(client, magicTokensDoc, 'magicTokens', { input });
+      const result = await runOperation<{ magicTokens: MagicTokenResponse }>(client, magicTokensDoc, 'magicTokens', { input });
       return result.data.magicTokens as MagicTokenResponse;
     },
     /**
@@ -40,7 +40,7 @@ export function magicTokenService(client: GraphQLClient) {
        * @returns Promise<MagicToken> The created magic token
        */
     async createMagicToken(input: MagicTokenCreateInput): Promise<MagicToken> {
-      const result = await runOperation(client, magicTokenCreateDoc, 'magicTokenCreate', { input });
+      const result = await runOperation<{ magicTokenCreate: MagicToken }>(client, magicTokenCreateDoc, 'magicTokenCreate', { input });
       return result.data.magicTokenCreate as MagicToken;
     },
     /**
@@ -50,7 +50,7 @@ export function magicTokenService(client: GraphQLClient) {
        * @returns Promise<MagicToken> The updated magic token
        */
     async updateMagicToken(id: string, input: MagicTokenUpdateInput): Promise<MagicToken> {
-      const result = await runOperation(client, magicTokenUpdateDoc, 'magicTokenUpdate', { id, input });
+      const result = await runOperation<{ magicTokenUpdate: MagicToken }>(client, magicTokenUpdateDoc, 'magicTokenUpdate', { id, input });
       return result.data.magicTokenUpdate as MagicToken;
     },
     /**
@@ -59,7 +59,7 @@ export function magicTokenService(client: GraphQLClient) {
        * @returns Promise<Login> Login response with user data
        */
     async magicTokenLogin(id: string): Promise<Login> {
-      const result = await runOperation(client, magicTokenLoginDoc, 'magicTokenLogin', { id });
+      const result = await runOperation<{ magicTokenLogin: Login }>(client, magicTokenLoginDoc, 'magicTokenLogin', { id });
       return result.data.magicTokenLogin as Login;
     },
   };

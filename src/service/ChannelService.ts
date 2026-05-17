@@ -15,7 +15,7 @@ export function channelService(client: GraphQLClient) {
        * @returns Promise<Channel> The channel data
        */
     async getChannel(variables: ChannelVariables): Promise<Channel> {
-      const result = await runOperation(client, channelDoc, 'channel', variables);
+      const result = await runOperation<{ channel: Channel }>(client, channelDoc, 'channel', variables);
       return result.data.channel as Channel;
     },
     /**
@@ -23,7 +23,7 @@ export function channelService(client: GraphQLClient) {
        * @returns Promise<Channel[]> The channels data array
        */
     async getChannels(): Promise<Channel[]> {
-      const result = await runOperation(client, channelsDoc, 'channels');
+      const result = await runOperation<{ channels: Channel[] }>(client, channelsDoc, 'channels');
       return result.data.channels as Channel[];
     },
   };

@@ -31,7 +31,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<DocumentTemplate> Document template data
        */
     async getDocumentTemplate(id: string): Promise<DocumentTemplate> {
-      const result = await runOperation(client, templateDoc, 'template', { id });
+      const result = await runOperation<{ template: DocumentTemplate }>(client, templateDoc, 'template', { id });
       return result.data.template as DocumentTemplate;
     },
     /**
@@ -40,7 +40,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<EmailTemplate> Email template data
        */
     async getEmailTemplate(id: string): Promise<EmailTemplate> {
-      const result = await runOperation(client, templateDoc, 'template', { id });
+      const result = await runOperation<{ template: EmailTemplate }>(client, templateDoc, 'template', { id });
       return result.data.template as EmailTemplate;
     },
     /**
@@ -49,7 +49,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<TemplateResponse> The templates response data
        */
     async getTemplates(input?: TemplateSearchInput): Promise<TemplateResponse> {
-      const result = await runOperation(client, templatesDoc, 'templates', { input });
+      const result = await runOperation<{ templates: TemplateResponse }>(client, templatesDoc, 'templates', { input });
       return result.data.templates as TemplateResponse;
     },
     /**
@@ -58,7 +58,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<DocumentTemplate> The created document template
        */
     async createDocumentTemplate(input: DocumentTemplateCreateInput): Promise<DocumentTemplate> {
-      const result = await runOperation(client, documentTemplateCreateDoc, 'documentTemplateCreate', { input });
+      const result = await runOperation<{ documentTemplateCreate: DocumentTemplate }>(client, documentTemplateCreateDoc, 'documentTemplateCreate', { input });
       return result.data.documentTemplateCreate as DocumentTemplate;
     },
     /**
@@ -67,7 +67,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<DocumentTemplate> The updated document template
        */
     async updateDocumentTemplate(variables: DocumentTemplateUpdateVariables): Promise<DocumentTemplate> {
-      const result = await runOperation(client, documentTemplateUpdateDoc, 'documentTemplateUpdate', variables);
+      const result = await runOperation<{ documentTemplateUpdate: DocumentTemplate }>(client, documentTemplateUpdateDoc, 'documentTemplateUpdate', variables);
       return result.data.documentTemplateUpdate as DocumentTemplate;
     },
     /**
@@ -76,7 +76,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<any> The PDF response
        */
     async renderDocumentTemplateToPDF(variables: DocumentTemplateRenderToPDFVariables): Promise<Base64File> {
-      const result = await runOperation(client, documentTemplateRenderToPDFDoc, 'documentTemplateRenderToPDF', variables);
+      const result = await runOperation<{ documentTemplateRenderToPDF: Base64File }>(client, documentTemplateRenderToPDFDoc, 'documentTemplateRenderToPDF', variables);
       return result.data.documentTemplateRenderToPDF as Base64File;
     },
     /**
@@ -85,7 +85,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<EmailTemplate> The created email template
        */
     async createEmailTemplate(input: EmailTemplateCreateInput): Promise<EmailTemplate> {
-      const result = await runOperation(client, emailTemplateCreateDoc, 'emailTemplateCreate', { input });
+      const result = await runOperation<{ emailTemplateCreate: EmailTemplate }>(client, emailTemplateCreateDoc, 'emailTemplateCreate', { input });
       return result.data.emailTemplateCreate as EmailTemplate;
     },
     /**
@@ -94,7 +94,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<EmailTemplate> The updated email template
        */
     async updateEmailTemplate(variables: EmailTemplateUpdateVariables): Promise<EmailTemplate> {
-      const result = await runOperation(client, emailTemplateUpdateDoc, 'emailTemplateUpdate', variables);
+      const result = await runOperation<{ emailTemplateUpdate: EmailTemplate }>(client, emailTemplateUpdateDoc, 'emailTemplateUpdate', variables);
       return result.data.emailTemplateUpdate as EmailTemplate;
     },
     /**
@@ -103,7 +103,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<EmailTemplate> The updated email template
        */
     async addAttachmentToEmailTemplate(variables: EmailTemplateAddAttachmentVariables): Promise<EmailTemplate> {
-      const result = await runOperation(client, emailTemplateAddAttachmentDoc, 'emailTemplateAddAttachment', variables);
+      const result = await runOperation<{ emailTemplateAddAttachment: EmailTemplate }>(client, emailTemplateAddAttachmentDoc, 'emailTemplateAddAttachment', variables);
       return result.data.emailTemplateAddAttachment as EmailTemplate;
     },
     /**
@@ -112,7 +112,7 @@ export function templateService(client: GraphQLClient) {
        * @returns Promise<EmailTemplate> The updated email template
        */
     async removeAttachmentFromEmailTemplate(variables: EmailTemplateRemoveAttachmentVariables): Promise<EmailTemplate> {
-      const result = await runOperation(client, emailTemplateRemoveAttachmentDoc, 'emailTemplateRemoveAttachment', variables);
+      const result = await runOperation<{ emailTemplateRemoveAttachment: EmailTemplate }>(client, emailTemplateRemoveAttachmentDoc, 'emailTemplateRemoveAttachment', variables);
       return result.data.emailTemplateRemoveAttachment as EmailTemplate;
     },
   };

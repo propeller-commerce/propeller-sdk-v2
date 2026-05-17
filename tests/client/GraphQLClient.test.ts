@@ -212,6 +212,28 @@ describe('GraphQLClient', () => {
       });
       await expect(c.isAuthenticated()).resolves.toBe(true);
     });
+
+    it('setAccessToken() warns when a custom getAccessToken resolver is configured (finding #7)', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'proxy',
+        getAccessToken: () => 'from-resolver',
+      });
+      c.setAccessToken('ignored-by-resolver');
+      expect(warn).toHaveBeenCalledWith(
+        expect.stringContaining('a custom `getAccessToken` resolver is configured')
+      );
+      warn.mockRestore();
+    });
+
+    it('setAccessToken() does not warn with the default resolver', () => {
+      const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+      const c = new GraphQLClient({ endpoint: ENDPOINT, securityMode: 'proxy' });
+      c.setAccessToken('tok');
+      expect(warn).not.toHaveBeenCalled();
+      warn.mockRestore();
+    });
   });
 
   describe('endpoint selection', () => {

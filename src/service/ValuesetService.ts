@@ -26,7 +26,7 @@ export function valuesetService(client: GraphQLClient) {
        * @returns Promise<Valueset> The valueset data
        */
     async getValueset(id: number): Promise<Valueset> {
-      const result = await runOperation(client, valuesetDoc, 'valueset', { id });
+      const result = await runOperation<{ valueset: Valueset }>(client, valuesetDoc, 'valueset', { id });
       return result.data.valueset as Valueset;
     },
     /**
@@ -35,7 +35,7 @@ export function valuesetService(client: GraphQLClient) {
        * @returns Promise<ValuesetResponse> The valuesets response data
        */
     async getValuesets(input?: ValuesetSearchInput): Promise<ValuesetResponse> {
-      const result = await runOperation(client, valuesetsDoc, 'valuesets', { input });
+      const result = await runOperation<{ valuesets: ValuesetResponse }>(client, valuesetsDoc, 'valuesets', { input });
       return result.data.valuesets as ValuesetResponse;
     },
     /**
@@ -44,7 +44,7 @@ export function valuesetService(client: GraphQLClient) {
        * @returns Promise<Valueset> The created valueset
        */
     async createValueset(input: ValuesetCreateInput): Promise<Valueset> {
-      const result = await runOperation(client, valuesetCreateDoc, 'valuesetCreate', { input });
+      const result = await runOperation<{ valuesetCreate: Valueset }>(client, valuesetCreateDoc, 'valuesetCreate', { input });
       return result.data.valuesetCreate as Valueset;
     },
     /**
@@ -53,7 +53,7 @@ export function valuesetService(client: GraphQLClient) {
        * @returns Promise<Valueset> The updated valueset
        */
     async updateValueset(variables: ValuesetUpdateVariables): Promise<Valueset> {
-      const result = await runOperation(client, valuesetUpdateDoc, 'valuesetUpdate', variables);
+      const result = await runOperation<{ valuesetUpdate: Valueset }>(client, valuesetUpdateDoc, 'valuesetUpdate', variables);
       return result.data.valuesetUpdate as Valueset;
     },
     /**
@@ -62,7 +62,7 @@ export function valuesetService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteValueset(id: number): Promise<boolean> {
-      const result = await runOperation(client, valuesetDeleteDoc, 'valuesetDelete', { id });
+      const result = await runOperation<{ valuesetDelete: boolean }>(client, valuesetDeleteDoc, 'valuesetDelete', { id });
       return result.data.valuesetDelete;
     },
     /**
@@ -71,7 +71,7 @@ export function valuesetService(client: GraphQLClient) {
        * @returns Promise<ValuesetItemResponse> The valueset items response data
        */
     async getValuesetItems(input?: ValuesetItemSearchInput): Promise<ValuesetItemResponse> {
-      const result = await runOperation(client, valuesetItemsDoc, 'valuesetItems', { input });
+      const result = await runOperation<{ valuesetItems: ValuesetItemResponse }>(client, valuesetItemsDoc, 'valuesetItems', { input });
       return result.data.valuesetItems as ValuesetItemResponse;
     },
   };

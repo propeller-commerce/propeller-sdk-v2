@@ -24,7 +24,7 @@ export function discountService(client: GraphQLClient) {
        * @returns Promise<Discount> The discount data
        */
     async getDiscount(id: number): Promise<Discount> {
-      const result = await runOperation(client, discountDoc, 'discount', { id });
+      const result = await runOperation<{ discount: Discount }>(client, discountDoc, 'discount', { id });
       return result.data.discount as Discount;
     },
     /**
@@ -33,7 +33,7 @@ export function discountService(client: GraphQLClient) {
        * @returns Promise<DiscountResponse> The discounts response data
        */
     async getDiscounts(input?: DiscountSearchInput): Promise<DiscountResponse> {
-      const result = await runOperation(client, discountsDoc, 'discounts', { input });
+      const result = await runOperation<{ discounts: DiscountResponse }>(client, discountsDoc, 'discounts', { input });
       return result.data.discounts as DiscountResponse;
     },
     /**
@@ -42,7 +42,7 @@ export function discountService(client: GraphQLClient) {
        * @returns Promise<Discount> The created discount
        */
     async createDiscount(input: DiscountCreateInput): Promise<Discount> {
-      const result = await runOperation(client, discountCreateDoc, 'discountCreate', { input });
+      const result = await runOperation<{ discountCreate: Discount }>(client, discountCreateDoc, 'discountCreate', { input });
       return result.data.discountCreate as Discount;
     },
     /**
@@ -51,7 +51,7 @@ export function discountService(client: GraphQLClient) {
        * @returns Promise<Discount> The updated discount
        */
     async updateDiscount(variables: DiscountUpdateVariables): Promise<Discount> {
-      const result = await runOperation(client, discountUpdateDoc, 'discountUpdate', variables);
+      const result = await runOperation<{ discountUpdate: Discount }>(client, discountUpdateDoc, 'discountUpdate', variables);
       return result.data.discountUpdate as Discount;
     },
     /**
@@ -60,7 +60,7 @@ export function discountService(client: GraphQLClient) {
        * @returns Promise<any> The import response
        */
     async importDiscountsCsv(input: DiscountCsvInput): Promise<CsvImportResponse> {
-      const result = await runOperation(client, discountCsvImportDoc, 'discountCsvImport', { input });
+      const result = await runOperation<{ discountCsvImport: CsvImportResponse }>(client, discountCsvImportDoc, 'discountCsvImport', { input });
       return result.data.discountCsvImport as CsvImportResponse;
     },
   };

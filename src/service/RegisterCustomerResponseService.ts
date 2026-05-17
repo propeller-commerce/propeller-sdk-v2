@@ -15,7 +15,7 @@ export function registerCustomerResponseService(client: GraphQLClient) {
        * @returns Promise<RegisterCustomerResponse> The register customer response data
        */
     async registerCustomer(variables: CustomerRegisterVariables): Promise<RegisterCustomerResponse> {
-      const result = await runOperation(client, customerRegisterDoc, 'customerRegister', variables);
+      const result = await runOperation<{ customerRegister: RegisterCustomerResponse }>(client, customerRegisterDoc, 'customerRegister', variables);
       return result.data.customerRegister as RegisterCustomerResponse;
     },
   };

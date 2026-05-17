@@ -21,7 +21,7 @@ export function paymentService(client: GraphQLClient) {
        * @returns Promise<Payment> Payment data
        */
     async getPayment(variables: PaymentVariables): Promise<Payment> {
-      const result = await runOperation(client, paymentDoc, 'payment', variables);
+      const result = await runOperation<{ payment: Payment }>(client, paymentDoc, 'payment', variables);
       return result.data.payment as Payment;
     },
     /**
@@ -30,7 +30,7 @@ export function paymentService(client: GraphQLClient) {
        * @returns Promise<PaymentsResponse> Payments response
        */
     async getPayments(input?: PaymentsSearchInput): Promise<PaymentsResponse> {
-      const result = await runOperation(client, paymentsDoc, 'payments', { input });
+      const result = await runOperation<{ payments: PaymentsResponse }>(client, paymentsDoc, 'payments', { input });
       return result.data.payments as PaymentsResponse;
     },
     /**
@@ -39,7 +39,7 @@ export function paymentService(client: GraphQLClient) {
        * @returns Promise<Payment> The created payment
        */
     async createPayment(input: any): Promise<Payment> {
-      const result = await runOperation(client, paymentCreateDoc, 'paymentCreate', { input });
+      const result = await runOperation<{ paymentCreate: Payment }>(client, paymentCreateDoc, 'paymentCreate', { input });
       return result.data.paymentCreate as Payment;
     },
     /**
@@ -48,7 +48,7 @@ export function paymentService(client: GraphQLClient) {
        * @returns Promise<Payment> The updated payment
        */
     async updatePayment(variables: PaymentUpdateVariables): Promise<Payment> {
-      const result = await runOperation(client, paymentUpdateDoc, 'paymentUpdate', variables);
+      const result = await runOperation<{ paymentUpdate: Payment }>(client, paymentUpdateDoc, 'paymentUpdate', variables);
       return result.data.paymentUpdate as Payment;
     },
     /**
@@ -57,7 +57,7 @@ export function paymentService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deletePayment(variables: PaymentDeleteVariables): Promise<Payment> {
-      const result = await runOperation(client, paymentDeleteDoc, 'paymentDelete', variables);
+      const result = await runOperation<{ paymentDelete: Payment }>(client, paymentDeleteDoc, 'paymentDelete', variables);
       return result.data.paymentDelete as Payment;
     },
   };

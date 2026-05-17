@@ -168,7 +168,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderResponse> The orders response data
        */
     async getOrders(input?: OrderSearchArguments): Promise<OrderResponse> {
-      const result = await runOperation(client, ordersDoc, 'orders', { input });
+      const result = await runOperation<{ orders: OrderResponse }>(client, ordersDoc, 'orders', { input });
       return result.data.orders as OrderResponse;
     },
     /**
@@ -183,7 +183,7 @@ export function orderService(client: GraphQLClient) {
        */
     async getOrder(variables: OrderQueryVariables): Promise<Order> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, orderDoc, 'order', { ...variables, language });
+      const result = await runOperation<{ order: Order }>(client, orderDoc, 'order', { ...variables, language });
       return result.data.order as Order;
     },
     /**
@@ -192,7 +192,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Order> The created order
        */
     async createOrder(variables: OrderCreateVariables): Promise<Order> {
-      const result = await runOperation(client, orderCreateDoc, 'orderCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ orderCreate: Order }>(client, orderCreateDoc, 'orderCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.orderCreate as Order;
     },
     /**
@@ -207,7 +207,7 @@ export function orderService(client: GraphQLClient) {
        */
     async updateOrder(variables: OrderUpdateVariables): Promise<Order> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, orderUpdateDoc, 'orderUpdate', { ...variables, language });
+      const result = await runOperation<{ orderUpdate: Order }>(client, orderUpdateDoc, 'orderUpdate', { ...variables, language });
       return result.data.orderUpdate as Order;
     },
     /**
@@ -216,7 +216,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Order> The updated order
        */
     async setOrderStatus(input: OrderSetStatusInput): Promise<Order> {
-      const result = await runOperation(client, orderSetStatusDoc, 'orderSetStatus', { input });
+      const result = await runOperation<{ orderSetStatus: Order }>(client, orderSetStatusDoc, 'orderSetStatus', { input });
       return result.data.orderSetStatus as Order;
     },
     /**
@@ -228,7 +228,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderAddress> The updated order
        */
     async updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<OrderAddress> {
-      const result = await runOperation(client, orderAddressUpdateDoc, 'orderAddressUpdate', variables);
+      const result = await runOperation<{ orderAddressUpdate: OrderAddress }>(client, orderAddressUpdateDoc, 'orderAddressUpdate', variables);
       return result.data.orderAddressUpdate as OrderAddress;
     },
     /**
@@ -237,7 +237,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async sendOrderConfirmationEmail(orderId: number): Promise<SendOrderConfirmResponseType> {
-      const result = await runOperation(client, orderSendConfirmationEmailDoc, 'orderSendConfirmationEmail', { orderId });
+      const result = await runOperation<{ orderSendConfirmationEmail: SendOrderConfirmResponseType }>(client, orderSendConfirmationEmailDoc, 'orderSendConfirmationEmail', { orderId });
       return result.data.orderSendConfirmationEmail as SendOrderConfirmResponseType;
     },
     /**
@@ -246,7 +246,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<any> The PDF data
        */
     async getOrderPDF(orderId: number): Promise<Base64File> {
-      const result = await runOperation(client, orderGetPDFDoc, 'orderGetPDF', { orderId });
+      const result = await runOperation<{ orderGetPDF: Base64File }>(client, orderGetPDFDoc, 'orderGetPDF', { orderId });
       return result.data.orderGetPDF as Base64File;
     },
     /**
@@ -255,7 +255,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<any> The PDF data
        */
     async getQuotePDF(quoteId: number): Promise<Base64File> {
-      const result = await runOperation(client, quoteGetPDFDoc, 'quoteGetPDF', { quoteId });
+      const result = await runOperation<{ quoteGetPDF: Base64File }>(client, quoteGetPDFDoc, 'quoteGetPDF', { quoteId });
       return result.data.quoteGetPDF as Base64File;
     },
     /**
@@ -265,7 +265,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Address> The address data
        */
     async getOrderAddress(variables: OrderAddressVariables): Promise<OrderAddress> {
-      const result = await runOperation(client, orderAddressDoc, 'orderAddress', variables);
+      const result = await runOperation<{ orderAddress: OrderAddress }>(client, orderAddressDoc, 'orderAddress', variables);
       return result.data.orderAddress as OrderAddress;
     },
     /**
@@ -274,7 +274,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Address[]> The addresses array
        */
     async getOrderAddresses(orderId: number): Promise<OrderAddress[]> {
-      const result = await runOperation(client, orderAddressesDoc, 'orderAddresses', { orderId });
+      const result = await runOperation<{ orderAddresses: OrderAddress[] }>(client, orderAddressesDoc, 'orderAddresses', { orderId });
       return result.data.orderAddresses as OrderAddress[];
     },
     /**
@@ -284,7 +284,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Address[]> The addresses array
        */
     async getAddressesByOrderId(orderId: number): Promise<Address[]> {
-      const result = await runOperation(client, addressesByOrderIdDoc, 'addressesByOrderId', { orderId });
+      const result = await runOperation<{ addressesByOrderId: Address[] }>(client, addressesByOrderIdDoc, 'addressesByOrderId', { orderId });
       return result.data.addressesByOrderId as Address[];
     },
     /**
@@ -299,7 +299,7 @@ export function orderService(client: GraphQLClient) {
        */
     async createOrderItem(variables: OrderItemCreateVariables): Promise<OrderItem> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, orderItemCreateDoc, 'orderItemCreate', { ...variables, language });
+      const result = await runOperation<{ orderItemCreate: OrderItem }>(client, orderItemCreateDoc, 'orderItemCreate', { ...variables, language });
       return result.data.orderItemCreate as OrderItem;
     },
     /**
@@ -314,7 +314,7 @@ export function orderService(client: GraphQLClient) {
        */
     async updateOrderItem(variables: OrderItemUpdateVariables): Promise<OrderItem> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, orderItemUpdateDoc, 'orderItemUpdate', { ...variables, language });
+      const result = await runOperation<{ orderItemUpdate: OrderItem }>(client, orderItemUpdateDoc, 'orderItemUpdate', { ...variables, language });
       return result.data.orderItemUpdate as OrderItem;
     },
     /**
@@ -325,7 +325,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<boolean> True if order item was deleted successfully
        */
     async deleteOrderItem(variables: OrderItemDeleteVariables): Promise<boolean> {
-      const result = await runOperation(client, orderItemDeleteDoc, 'orderItemDelete', variables);
+      const result = await runOperation<{ orderItemDelete: boolean }>(client, orderItemDeleteDoc, 'orderItemDelete', variables);
       return result.data.orderItemDelete;
     },
     /**
@@ -334,7 +334,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The orderlist data
        */
     async getOrderlist(id: number): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistDoc, 'orderlist', { id });
+      const result = await runOperation<{ orderlist: Orderlist }>(client, orderlistDoc, 'orderlist', { id });
       return result.data.orderlist as Orderlist;
     },
     /**
@@ -343,7 +343,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderlistsResponse> The orderlists response data
        */
     async getOrderlists(input?: OrderlistSearchInput): Promise<OrderlistsResponse> {
-      const result = await runOperation(client, orderlistsDoc, 'orderlists', { input });
+      const result = await runOperation<{ orderlists: OrderlistsResponse }>(client, orderlistsDoc, 'orderlists', { input });
       return result.data.orderlists as OrderlistsResponse;
     },
     /**
@@ -352,7 +352,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The created orderlist
        */
     async createOrderlist(input: OrderlistCreateInput): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistCreateDoc, 'orderlistCreate', { input });
+      const result = await runOperation<{ orderlistCreate: Orderlist }>(client, orderlistCreateDoc, 'orderlistCreate', { input });
       return result.data.orderlistCreate as Orderlist;
     },
     /**
@@ -361,7 +361,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async updateOrderlist(variables: OrderlistUpdateVariables): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUpdateDoc, 'orderlistUpdate', variables);
+      const result = await runOperation<{ orderlistUpdate: Orderlist }>(client, orderlistUpdateDoc, 'orderlistUpdate', variables);
       return result.data.orderlistUpdate as Orderlist;
     },
     /**
@@ -370,7 +370,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async addItemsToOrderlist(variables: OrderlistAddItemsVariables): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAddItemsDoc, 'orderlistAddItems', variables);
+      const result = await runOperation<{ orderlistAddItems: Orderlist }>(client, orderlistAddItemsDoc, 'orderlistAddItems', variables);
       return result.data.orderlistAddItems as Orderlist;
     },
     /**
@@ -379,7 +379,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async removeItemsFromOrderlist(variables: OrderlistRemoveItemsVariables): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistRemoveItemsDoc, 'orderlistRemoveItems', variables);
+      const result = await runOperation<{ orderlistRemoveItems: Orderlist }>(client, orderlistRemoveItemsDoc, 'orderlistRemoveItems', variables);
       return result.data.orderlistRemoveItems as Orderlist;
     },
     /**
@@ -388,7 +388,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async assignCompaniesToOrderlist(variables: OrderlistAssignCompaniesVariables): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAssignCompaniesDoc, 'orderlistAssignCompanies', variables);
+      const result = await runOperation<{ orderlistAssignCompanies: Orderlist }>(client, orderlistAssignCompaniesDoc, 'orderlistAssignCompanies', variables);
       return result.data.orderlistAssignCompanies as Orderlist;
     },
     /**
@@ -397,7 +397,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async unassignCompaniesFromOrderlist(variables: OrderlistUnassignCompaniesVariables): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUnassignCompaniesDoc, 'orderlistUnassignCompanies', variables);
+      const result = await runOperation<{ orderlistUnassignCompanies: Orderlist }>(client, orderlistUnassignCompaniesDoc, 'orderlistUnassignCompanies', variables);
       return result.data.orderlistUnassignCompanies as Orderlist;
     },
     /**
@@ -406,7 +406,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async assignUsersToOrderlist(variables: OrderlistAssignUsersVariables): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistAssignUsersDoc, 'orderlistAssignUsers', variables);
+      const result = await runOperation<{ orderlistAssignUsers: Orderlist }>(client, orderlistAssignUsersDoc, 'orderlistAssignUsers', variables);
       return result.data.orderlistAssignUsers as Orderlist;
     },
     /**
@@ -415,7 +415,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<Orderlist> The updated orderlist
        */
     async unassignUsersFromOrderlist(variables: OrderlistUnassignUsersVariables): Promise<Orderlist> {
-      const result = await runOperation(client, orderlistUnassignUsersDoc, 'orderlistUnassignUsers', variables);
+      const result = await runOperation<{ orderlistUnassignUsers: Orderlist }>(client, orderlistUnassignUsersDoc, 'orderlistUnassignUsers', variables);
       return result.data.orderlistUnassignUsers as Orderlist;
     },
     /**
@@ -424,7 +424,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatus> The order status data
        */
     async getOrderStatus(variables: OrderStatusVariables): Promise<OrderStatus> {
-      const result = await runOperation(client, orderStatusDoc, 'orderStatus', variables);
+      const result = await runOperation<{ orderStatus: OrderStatus }>(client, orderStatusDoc, 'orderStatus', variables);
       return result.data.orderStatus as OrderStatus;
     },
     /**
@@ -433,7 +433,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatusesResponse> The order statuses response data
        */
     async getOrderStatuses(input?: OrderStatusesSearchInput): Promise<OrderStatusesResponse> {
-      const result = await runOperation(client, orderStatusesDoc, 'orderStatuses', { input });
+      const result = await runOperation<{ orderStatuses: OrderStatusesResponse }>(client, orderStatusesDoc, 'orderStatuses', { input });
       return result.data.orderStatuses as OrderStatusesResponse;
     },
     /**
@@ -442,7 +442,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatus> The created order status
        */
     async createOrderStatus(input: CreateOrderStatusInput): Promise<OrderStatus> {
-      const result = await runOperation(client, orderStatusCreateDoc, 'orderStatusCreate', { input });
+      const result = await runOperation<{ orderStatusCreate: OrderStatus }>(client, orderStatusCreateDoc, 'orderStatusCreate', { input });
       return result.data.orderStatusCreate as OrderStatus;
     },
     /**
@@ -451,7 +451,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatus> The updated order status
        */
     async updateOrderStatus(variables: OrderStatusUpdateVariables): Promise<OrderStatus> {
-      const result = await runOperation(client, orderStatusUpdateDoc, 'orderStatusUpdate', variables);
+      const result = await runOperation<{ orderStatusUpdate: OrderStatus }>(client, orderStatusUpdateDoc, 'orderStatusUpdate', variables);
       return result.data.orderStatusUpdate as OrderStatus;
     },
     /**
@@ -460,7 +460,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatusSet> The order status set data
        */
     async getOrderStatusSet(variables: OrderStatusSetVariables): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetDoc, 'orderStatusSet', variables);
+      const result = await runOperation<{ orderStatusSet: OrderStatusSet }>(client, orderStatusSetDoc, 'orderStatusSet', variables);
       return result.data.orderStatusSet as OrderStatusSet;
     },
     /**
@@ -469,7 +469,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatusSetsResponse> The order status sets response data
        */
     async getOrderStatusSets(input?: OrderStatusSetsSearchInput): Promise<OrderStatusSetsResponse> {
-      const result = await runOperation(client, orderStatusSetsDoc, 'orderStatusSets', { input });
+      const result = await runOperation<{ orderStatusSets: OrderStatusSetsResponse }>(client, orderStatusSetsDoc, 'orderStatusSets', { input });
       return result.data.orderStatusSets as OrderStatusSetsResponse;
     },
     /**
@@ -478,7 +478,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatusSet> The created order status set
        */
     async createOrderStatusSet(input: CreateOrderStatusSetInput): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetCreateDoc, 'orderStatusSetCreate', { input });
+      const result = await runOperation<{ orderStatusSetCreate: OrderStatusSet }>(client, orderStatusSetCreateDoc, 'orderStatusSetCreate', { input });
       return result.data.orderStatusSetCreate as OrderStatusSet;
     },
     /**
@@ -487,7 +487,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatusSet> The updated order status set
        */
     async updateOrderStatusSet(variables: OrderStatusSetUpdateVariables): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetUpdateDoc, 'orderStatusSetUpdate', variables);
+      const result = await runOperation<{ orderStatusSetUpdate: OrderStatusSet }>(client, orderStatusSetUpdateDoc, 'orderStatusSetUpdate', variables);
       return result.data.orderStatusSetUpdate as OrderStatusSet;
     },
     /**
@@ -496,7 +496,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatusSet> The updated order status set
        */
     async addOrderStatusesToOrderStatusSet(variables: OrderStatusSetAddOrderStatusesVariables): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetAddOrderStatusesDoc, 'orderStatusSetAddOrderStatuses', variables);
+      const result = await runOperation<{ orderStatusSetAddOrderStatuses: OrderStatusSet }>(client, orderStatusSetAddOrderStatusesDoc, 'orderStatusSetAddOrderStatuses', variables);
       return result.data.orderStatusSetAddOrderStatuses as OrderStatusSet;
     },
     /**
@@ -505,7 +505,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<OrderStatusSet> The updated order status set
        */
     async removeOrderStatusesFromOrderStatusSet(variables: OrderStatusSetRemoveOrderStatusesVariables): Promise<OrderStatusSet> {
-      const result = await runOperation(client, orderStatusSetRemoveOrderStatusesDoc, 'orderStatusSetRemoveOrderStatuses', variables);
+      const result = await runOperation<{ orderStatusSetRemoveOrderStatuses: OrderStatusSet }>(client, orderStatusSetRemoveOrderStatusesDoc, 'orderStatusSetRemoveOrderStatuses', variables);
       return result.data.orderStatusSetRemoveOrderStatuses as OrderStatusSet;
     },
     /**
@@ -514,7 +514,7 @@ export function orderService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async triggerQuoteSendRequest(input: TriggerQuoteSendRequestEventInput): Promise<boolean> {
-      const result = await runOperation(client, triggerQuoteSendRequestDoc, 'triggerQuoteSendRequest', { input });
+      const result = await runOperation<{ triggerQuoteSendRequest: boolean }>(client, triggerQuoteSendRequestDoc, 'triggerQuoteSendRequest', { input });
       return result.data.triggerQuoteSendRequest;
     },
   };

@@ -36,7 +36,7 @@ export function bundleService(client: GraphQLClient) {
        * @returns Promise<Bundle> The bundle data
        */
     async getBundle(variables: BundleVariables): Promise<Bundle> {
-      const result = await runOperation(client, bundleDoc, 'bundle', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ bundle: Bundle }>(client, bundleDoc, 'bundle', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.bundle as Bundle;
     },
     /**
@@ -45,7 +45,7 @@ export function bundleService(client: GraphQLClient) {
        * @returns Promise<BundlesResponse> The bundles response data
        */
     async getBundles(variables?: BundleQueryVariables): Promise<BundlesResponse> {
-      const result = await runOperation(client, bundlesDoc, 'bundles', variables);
+      const result = await runOperation<{ bundles: BundlesResponse }>(client, bundlesDoc, 'bundles', variables);
       return result.data.bundles as BundlesResponse;
     },
     /**
@@ -54,7 +54,7 @@ export function bundleService(client: GraphQLClient) {
        * @returns Promise<Bundle> The created bundle
        */
     async createBundle(variables: BundleCreateVariables): Promise<Bundle> {
-      const result = await runOperation(client, bundleCreateDoc, 'bundleCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ bundleCreate: Bundle }>(client, bundleCreateDoc, 'bundleCreate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.bundleCreate as Bundle;
     },
     /**
@@ -63,7 +63,7 @@ export function bundleService(client: GraphQLClient) {
        * @returns Promise<Bundle> The updated bundle
        */
     async updateBundle(variables: BundleUpdateVariables): Promise<Bundle> {
-      const result = await runOperation(client, bundleUpdateDoc, 'bundleUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ bundleUpdate: Bundle }>(client, bundleUpdateDoc, 'bundleUpdate', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.bundleUpdate as Bundle;
     },
     /**
@@ -73,7 +73,7 @@ export function bundleService(client: GraphQLClient) {
        * @returns Promise<BundleItem[]> The added bundle items
        */
     async addItemsToBundle(variables: BundleAddItemsVariables): Promise<BundleItem[]> {
-      const result = await runOperation(client, bundleAddItemsDoc, 'bundleAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ bundleAddItems: BundleItem[] }>(client, bundleAddItemsDoc, 'bundleAddItems', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.bundleAddItems as BundleItem[];
     },
     /**
@@ -82,7 +82,7 @@ export function bundleService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteBundle(id: number): Promise<boolean> {
-      const result = await runOperation(client, bundleDeleteDoc, 'bundleDelete', { id });
+      const result = await runOperation<{ bundleDelete: boolean }>(client, bundleDeleteDoc, 'bundleDelete', { id });
       return result.data.bundleDelete;
     },
   };

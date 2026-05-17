@@ -107,7 +107,7 @@ export function productService(client: GraphQLClient) {
        */
     async getProduct(variables: ProductQueryVariables): Promise<Product> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, productDoc, 'product', { ...variables, language });
+      const result = await runOperation<{ product: Product }>(client, productDoc, 'product', { ...variables, language });
       return result.data.product as Product;
     },
     /**
@@ -123,7 +123,7 @@ export function productService(client: GraphQLClient) {
        */
     async getProducts(variables: ProductsQueryVariables): Promise<ProductsResponse> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, productsDoc, 'products', { ...variables, language });
+      const result = await runOperation<{ products: ProductsResponse }>(client, productsDoc, 'products', { ...variables, language });
       return result.data.products as ProductsResponse;
     },
     /**
@@ -132,7 +132,7 @@ export function productService(client: GraphQLClient) {
        * @returns Promise<Product> The created product
        */
     async createProduct(input: CreateProductInput): Promise<Product> {
-      const result = await runOperation(client, productCreateDoc, 'productCreate', { input });
+      const result = await runOperation<{ productCreate: Product }>(client, productCreateDoc, 'productCreate', { input });
       return result.data.productCreate as Product;
     },
     /**
@@ -143,7 +143,7 @@ export function productService(client: GraphQLClient) {
        * @returns Promise<Product> The updated product
        */
     async updateProduct(variables: ProductUpdateVariables): Promise<Product> {
-      const result = await runOperation(client, productUpdateDoc, 'productUpdate', variables);
+      const result = await runOperation<{ productUpdate: Product }>(client, productUpdateDoc, 'productUpdate', variables);
       return result.data.productUpdate as Product;
     },
     /**
@@ -152,7 +152,7 @@ export function productService(client: GraphQLClient) {
        * @returns Promise<CsvImportResponse> The import response
        */
     async importProductsCsv(input: ProductCsvInput): Promise<CsvImportResponse> {
-      const result = await runOperation(client, productCsvImportDoc, 'productCsvImport', { input });
+      const result = await runOperation<{ productCsvImport: CsvImportResponse }>(client, productCsvImportDoc, 'productCsvImport', { input });
       return result.data.productCsvImport as CsvImportResponse;
     },
     /**
@@ -161,7 +161,7 @@ export function productService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async addSurchargesToProduct(input: AddSurchargesToProductInput): Promise<ConfirmationResponse> {
-      const result = await runOperation(client, addSurchargesToProductDoc, 'addSurchargesToProduct', { input });
+      const result = await runOperation<{ addSurchargesToProduct: ConfirmationResponse }>(client, addSurchargesToProductDoc, 'addSurchargesToProduct', { input });
       return result.data.addSurchargesToProduct as ConfirmationResponse;
     },
     /**
@@ -170,7 +170,7 @@ export function productService(client: GraphQLClient) {
        * @returns Promise<SurchargesResponse> The surcharges response
        */
     async getProductSurcharges(productId: number): Promise<SurchargeProductResponse> {
-      const result = await runOperation(client, productSurchargesDoc, 'productSurcharges', { productId });
+      const result = await runOperation<{ productSurcharges: SurchargeProductResponse }>(client, productSurchargesDoc, 'productSurcharges', { productId });
       return result.data.productSurcharges as SurchargeProductResponse;
     },
     /**
@@ -183,7 +183,7 @@ export function productService(client: GraphQLClient) {
     productId: number,
     input: AttributeSearchInput
   ): Promise<AttributeResponse> {
-      const result = await runOperation(client, attributesByProductIdDoc, 'attributesByProductId', { productId, input });
+      const result = await runOperation<{ attributesByProductId: AttributeResponse }>(client, attributesByProductIdDoc, 'attributesByProductId', { productId, input });
       return result.data.attributesByProductId as AttributeResponse;
     },
     /**
@@ -196,7 +196,7 @@ export function productService(client: GraphQLClient) {
     productId: number,
     input: AttributeResultSearchInput
   ): Promise<AttributeResultResponse> {
-      const result = await runOperation(client, attributeResultByProductIdDoc, 'attributeResultByProductId', { productId, input });
+      const result = await runOperation<{ attributeResultByProductId: AttributeResultResponse }>(client, attributeResultByProductIdDoc, 'attributeResultByProductId', { productId, input });
       return result.data.attributeResultByProductId as AttributeResultResponse;
     },
   };

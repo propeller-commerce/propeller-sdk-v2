@@ -19,7 +19,7 @@ export function mediaAttachmentService(client: GraphQLClient) {
        * @returns Promise<MediaAttachment> The created media attachment
        */
     async createMediaAttachment(input: MediaAttachmentInput): Promise<MediaAttachment> {
-      const result = await runOperation(client, mediaAttachmentCreateDoc, 'mediaAttachmentCreate', { input });
+      const result = await runOperation<{ mediaAttachmentCreate: MediaAttachment }>(client, mediaAttachmentCreateDoc, 'mediaAttachmentCreate', { input });
       return result.data.mediaAttachmentCreate as MediaAttachment;
     },
     /**
@@ -28,7 +28,7 @@ export function mediaAttachmentService(client: GraphQLClient) {
        * @returns Promise<MediaAttachment> The updated media attachment
        */
     async updateMediaAttachment(variables: MediaAttachmentUpdateVariables): Promise<MediaAttachment> {
-      const result = await runOperation(client, mediaAttachmentUpdateDoc, 'mediaAttachmentUpdate', variables);
+      const result = await runOperation<{ mediaAttachmentUpdate: MediaAttachment }>(client, mediaAttachmentUpdateDoc, 'mediaAttachmentUpdate', variables);
       return result.data.mediaAttachmentUpdate as MediaAttachment;
     },
     /**
@@ -37,7 +37,7 @@ export function mediaAttachmentService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteMediaAttachment(id: number): Promise<DeleteMediaAttachmentResponse> {
-      const result = await runOperation(client, mediaAttachmentDeleteDoc, 'mediaAttachmentDelete', { id });
+      const result = await runOperation<{ mediaAttachmentDelete: DeleteMediaAttachmentResponse }>(client, mediaAttachmentDeleteDoc, 'mediaAttachmentDelete', { id });
       return result.data.mediaAttachmentDelete as DeleteMediaAttachmentResponse;
     },
   };

@@ -81,7 +81,7 @@ export function companyService(client: GraphQLClient) {
        * @returns Promise<Company> Company data
        */
     async getCompany(variables: CompanyVariables): Promise<Company> {
-      const result = await runOperation(client, companyDoc, 'company', variables);
+      const result = await runOperation<{ company: Company }>(client, companyDoc, 'company', variables);
       return result.data.company as Company;
     },
     /**
@@ -94,7 +94,7 @@ export function companyService(client: GraphQLClient) {
        * @returns Promise<CompaniesResponse> Companies response
        */
     async getCompanies(variables: CompanySearchVariables): Promise<CompaniesResponse> {
-      const result = await runOperation(client, companiesDoc, 'companies', variables);
+      const result = await runOperation<{ companies: CompaniesResponse }>(client, companiesDoc, 'companies', variables);
       return result.data.companies as CompaniesResponse;
     },
     /**
@@ -107,7 +107,7 @@ export function companyService(client: GraphQLClient) {
        * @returns Promise<Company> The created company
        */
     async createCompany(variables: CompanyCreateVariables): Promise<Company> {
-      const result = await runOperation(client, companyCreateDoc, 'companyCreate', variables);
+      const result = await runOperation<{ companyCreate: Company }>(client, companyCreateDoc, 'companyCreate', variables);
       return result.data.companyCreate as Company;
     },
     /**
@@ -120,7 +120,7 @@ export function companyService(client: GraphQLClient) {
        * @returns Promise<Company> The updated company
        */
     async updateCompany(variables: CompanyUpdateVariables): Promise<Company> {
-      const result = await runOperation(client, companyUpdateDoc, 'companyUpdate', variables);
+      const result = await runOperation<{ companyUpdate: Company }>(client, companyUpdateDoc, 'companyUpdate', variables);
       return result.data.companyUpdate as Company;
     },
     /**
@@ -129,7 +129,7 @@ export function companyService(client: GraphQLClient) {
        * @returns Promise<Company[]> Array of imported companies
        */
     async importCompaniesCsv(input: CompanyCsvInput): Promise<CsvImportResponse> {
-      const result = await runOperation(client, companyCsvImportDoc, 'companyCsvImport', { input });
+      const result = await runOperation<{ companyCsvImport: CsvImportResponse }>(client, companyCsvImportDoc, 'companyCsvImport', { input });
       return result.data.companyCsvImport as CsvImportResponse;
     },
   };

@@ -206,7 +206,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The cart data
        */
     async getCart(variables: CartQueryVariables): Promise<Cart> {
-      const result = await runOperation(client, cartDoc, 'cart', variables);
+      const result = await runOperation<{ cart: Cart }>(client, cartDoc, 'cart', variables);
       return result.data.cart as Cart;
     },
     /**
@@ -215,7 +215,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<CartResponse> The carts response data
        */
     async getCarts(input?: CartSearchInput): Promise<CartResponse> {
-      const result = await runOperation(client, cartsDoc, 'carts', { input });
+      const result = await runOperation<{ carts: CartResponse }>(client, cartsDoc, 'carts', { input });
       return result.data.carts as CartResponse;
     },
     /**
@@ -228,7 +228,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The started cart
        */
     async startCart(variables: CartStartVariables): Promise<Cart> {
-      const result = await runOperation(client, cartStartDoc, 'cartStart', variables);
+      const result = await runOperation<{ cartStart: Cart }>(client, cartStartDoc, 'cartStart', variables);
       return result.data.cartStart as Cart;
     },
     /**
@@ -242,7 +242,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async addItemToCart(variables: CartAddItemVariables): Promise<Cart> {
-      const result = await runOperation(client, cartAddItemDoc, 'cartAddItem', variables);
+      const result = await runOperation<{ cartAddItem: Cart }>(client, cartAddItemDoc, 'cartAddItem', variables);
       return result.data.cartAddItem as Cart;
     },
     /**
@@ -258,7 +258,7 @@ export function cartService(client: GraphQLClient) {
        */
     async updateCartItem(variables: CartUpdateItemVariables): Promise<Cart> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartUpdateItemDoc, 'cartUpdateItem', { ...variables, language });
+      const result = await runOperation<{ cartUpdateItem: Cart }>(client, cartUpdateItemDoc, 'cartUpdateItem', { ...variables, language });
       return result.data.cartUpdateItem as Cart;
     },
     /**
@@ -272,7 +272,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async deleteCartItem(variables: CartDeleteItemVariables): Promise<Cart> {
-      const result = await runOperation(client, cartDeleteItemDoc, 'cartDeleteItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ cartDeleteItem: Cart }>(client, cartDeleteItemDoc, 'cartDeleteItem', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.cartDeleteItem as Cart;
     },
     /**
@@ -287,7 +287,7 @@ export function cartService(client: GraphQLClient) {
        */
     async updateCart(variables: CartUpdateVariables): Promise<Cart> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartUpdateDoc, 'cartUpdate', { ...variables, language });
+      const result = await runOperation<{ cartUpdate: Cart }>(client, cartUpdateDoc, 'cartUpdate', { ...variables, language });
       return result.data.cartUpdate as Cart;
     },
     /**
@@ -302,7 +302,7 @@ export function cartService(client: GraphQLClient) {
        */
     async updateCartAddress(variables: CartUpdateAddressVariables): Promise<Cart> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartUpdateAddressDoc, 'cartUpdateAddress', { ...variables, language });
+      const result = await runOperation<{ cartUpdateAddress: Cart }>(client, cartUpdateAddressDoc, 'cartUpdateAddress', { ...variables, language });
       return result.data.cartUpdateAddress as Cart;
     },
     /**
@@ -317,7 +317,7 @@ export function cartService(client: GraphQLClient) {
        */
     async addBundleToCart(variables: CartAddBundleVariables): Promise<Cart> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartAddBundleDoc, 'cartAddBundle', { ...variables, language });
+      const result = await runOperation<{ cartAddBundle: Cart }>(client, cartAddBundleDoc, 'cartAddBundle', { ...variables, language });
       return result.data.cartAddBundle as Cart;
     },
     /**
@@ -326,7 +326,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async setCartCustomer(variables: CartSetCustomerVariables): Promise<Cart> {
-      const result = await runOperation(client, cartSetCustomerDoc, 'cartSetCustomer', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ cartSetCustomer: Cart }>(client, cartSetCustomerDoc, 'cartSetCustomer', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.cartSetCustomer as Cart;
     },
     /**
@@ -335,7 +335,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async setCartContact(variables: CartSetContactVariables): Promise<Cart> {
-      const result = await runOperation(client, cartSetContactDoc, 'cartSetContact', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ cartSetContact: Cart }>(client, cartSetContactDoc, 'cartSetContact', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.cartSetContact as Cart;
     },
     /**
@@ -345,7 +345,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async setCartUser(variables: CartSetUserVariables): Promise<Cart> {
-      const result = await runOperation(client, cartSetUserDoc, 'cartSetUser', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
+      const result = await runOperation<{ cartSetUser: Cart }>(client, cartSetUserDoc, 'cartSetUser', { ...variables, language: variables.language ?? client.getDefaultLanguage() });
       return result.data.cartSetUser as Cart;
     },
     /**
@@ -356,7 +356,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<CartProcessResponse> The processed cart
        */
     async processCart(variables: CartProcessVariables): Promise<CartProcessResponse> {
-      const result = await runOperation(client, cartProcessDoc, 'cartProcess', variables);
+      const result = await runOperation<{ cartProcess: CartProcessResponse }>(client, cartProcessDoc, 'cartProcess', variables);
       return result.data.cartProcess as CartProcessResponse;
     },
     /**
@@ -366,7 +366,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<boolean> Success status
        */
     async deleteCart(variables: CartDeleteVariables): Promise<boolean> {
-      const result = await runOperation(client, cartDeleteDoc, 'cartDelete', variables);
+      const result = await runOperation<{ cartDelete: boolean }>(client, cartDeleteDoc, 'cartDelete', variables);
       return result.data.cartDelete;
     },
     /**
@@ -381,7 +381,7 @@ export function cartService(client: GraphQLClient) {
        */
     async addActionCodeToCart(variables: CartActionCodeVariables): Promise<Cart> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartAddActionCodeDoc, 'cartAddActionCode', { ...variables, language });
+      const result = await runOperation<{ cartAddActionCode: Cart }>(client, cartAddActionCodeDoc, 'cartAddActionCode', { ...variables, language });
       return result.data.cartAddActionCode as Cart;
     },
     /**
@@ -396,7 +396,7 @@ export function cartService(client: GraphQLClient) {
        */
     async removeActionCodeFromCart(variables: CartActionCodeVariables): Promise<Cart> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartRemoveActionCodeDoc, 'cartRemoveActionCode', { ...variables, language });
+      const result = await runOperation<{ cartRemoveActionCode: Cart }>(client, cartRemoveActionCodeDoc, 'cartRemoveActionCode', { ...variables, language });
       return result.data.cartRemoveActionCode as Cart;
     },
     /**
@@ -406,7 +406,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async bulkUpdateCartItems(variables: CartItemBulkVariables): Promise<BulkResponseData> {
-      const result = await runOperation(client, cartItemBulkDoc, 'cartItemBulk', variables);
+      const result = await runOperation<{ cartItemBulk: BulkResponseData }>(client, cartItemBulkDoc, 'cartItemBulk', variables);
       return result.data.cartItemBulk as BulkResponseData;
     },
     /**
@@ -416,7 +416,7 @@ export function cartService(client: GraphQLClient) {
        * @returns Promise<Cart> The updated cart
        */
     async requestPurchaseAuthorization(variables: CartRequestPurchaseAuthorizationVariables): Promise<Cart> {
-      const result = await runOperation(client, cartRequestPurchaseAuthorizationDoc, 'cartRequestPurchaseAuthorization', variables);
+      const result = await runOperation<{ cartRequestPurchaseAuthorization: Cart }>(client, cartRequestPurchaseAuthorizationDoc, 'cartRequestPurchaseAuthorization', variables);
       return result.data.cartRequestPurchaseAuthorization as Cart;
     },
     /**
@@ -431,7 +431,7 @@ export function cartService(client: GraphQLClient) {
        */
     async acceptPurchaseAuthorizationRequest(variables: CartAcceptPurchaseAuthorizationVariables): Promise<Cart> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation(client, cartAcceptPurchaseAuthorizationRequestDoc, 'cartAcceptPurchaseAuthorizationRequest', { ...variables, language });
+      const result = await runOperation<{ cartAcceptPurchaseAuthorizationRequest: Cart }>(client, cartAcceptPurchaseAuthorizationRequestDoc, 'cartAcceptPurchaseAuthorizationRequest', { ...variables, language });
       return result.data.cartAcceptPurchaseAuthorizationRequest as Cart;
     },
   };

@@ -35,7 +35,7 @@ export function pricesheetService(client: GraphQLClient) {
        * @returns Promise<PricesheetResponse> The pricesheets response data
        */
     async getPricesheets(input?: PricesheetSearchInput): Promise<PricesheetResponse> {
-      const result = await runOperation(client, pricesheetsDoc, 'pricesheets', { input });
+      const result = await runOperation<{ pricesheets: PricesheetResponse }>(client, pricesheetsDoc, 'pricesheets', { input });
       return result.data.pricesheets as PricesheetResponse;
     },
     /**
@@ -45,7 +45,7 @@ export function pricesheetService(client: GraphQLClient) {
        * @returns Promise<Pricesheet> The pricesheet data
        */
     async getPricesheet(variables: PricesheetQueryVariables): Promise<Pricesheet> {
-      const result = await runOperation(client, pricesheetDoc, 'pricesheet', variables);
+      const result = await runOperation<{ pricesheet: Pricesheet }>(client, pricesheetDoc, 'pricesheet', variables);
       return result.data.pricesheet as Pricesheet;
     },
     /**
@@ -54,7 +54,7 @@ export function pricesheetService(client: GraphQLClient) {
        * @returns Promise<Pricesheet> The created pricesheet data
        */
     async createPricesheet(input: PricesheetCreateInput): Promise<Pricesheet> {
-      const result = await runOperation(client, pricesheetCreateDoc, 'pricesheetCreate', { input });
+      const result = await runOperation<{ pricesheetCreate: Pricesheet }>(client, pricesheetCreateDoc, 'pricesheetCreate', { input });
       return result.data.pricesheetCreate as Pricesheet;
     },
     /**
@@ -64,7 +64,7 @@ export function pricesheetService(client: GraphQLClient) {
        * @returns Promise<Pricesheet> The updated pricesheet data
        */
     async updatePricesheet(id: string, input: PricesheetUpdateInput): Promise<Pricesheet> {
-      const result = await runOperation(client, pricesheetUpdateDoc, 'pricesheetUpdate', { id, input });
+      const result = await runOperation<{ pricesheetUpdate: Pricesheet }>(client, pricesheetUpdateDoc, 'pricesheetUpdate', { id, input });
       return result.data.pricesheetUpdate as Pricesheet;
     },
     /**
@@ -74,7 +74,7 @@ export function pricesheetService(client: GraphQLClient) {
        * @returns Promise<Pricesheet> The assigned pricesheet data
        */
     async assignPricesheet(id: string, input: PricesheetAssignInput): Promise<Pricesheet> {
-      const result = await runOperation(client, pricesheetAssignDoc, 'pricesheetAssign', { id, input });
+      const result = await runOperation<{ pricesheetAssign: Pricesheet }>(client, pricesheetAssignDoc, 'pricesheetAssign', { id, input });
       return result.data.pricesheetAssign as Pricesheet;
     },
     /**
@@ -84,7 +84,7 @@ export function pricesheetService(client: GraphQLClient) {
        * @returns Promise<Pricesheet> The unassigned pricesheet data
        */
     async unassignPricesheet(id: string, input: PricesheetUnassignInput): Promise<Pricesheet> {
-      const result = await runOperation(client, pricesheetUnassignDoc, 'pricesheetUnassign', { id, input });
+      const result = await runOperation<{ pricesheetUnassign: Pricesheet }>(client, pricesheetUnassignDoc, 'pricesheetUnassign', { id, input });
       return result.data.pricesheetUnassign as Pricesheet;
     },
     /**
@@ -93,7 +93,7 @@ export function pricesheetService(client: GraphQLClient) {
        * @returns Promise<CsvImportResponse> The CSV import response
        */
     async importPricesheetFromCSV(input: PricesheetCsvInput): Promise<CsvImportResponse> {
-      const result = await runOperation(client, pricesheetCsvImportDoc, 'pricesheetCsvImport', { input });
+      const result = await runOperation<{ pricesheetCsvImport: CsvImportResponse }>(client, pricesheetCsvImportDoc, 'pricesheetCsvImport', { input });
       return result.data.pricesheetCsvImport as CsvImportResponse;
     },
   };
