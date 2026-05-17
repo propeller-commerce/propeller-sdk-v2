@@ -12,8 +12,17 @@ pattern (the setup `propeller-next` and `propeller-vue` use), the bulk of the
 change is ~10 lines in that one file plus the method-rename table below. If
 you instantiated services or read class methods (`product.getName(...)`,
 `instanceof`) directly across your codebase, expect proportionally more.
-Run `tsc --noEmit` after upgrading — the compiler now enumerates every site
-that needs changing (the result types are real as of 0.10.0).
+Run `tsc --noEmit` after upgrading — the compiler enumerates the call sites
+that need changing.
+
+> **Return types are the named GraphQL type, not a per-operation projection.**
+> A method that returns `Promise<Product>` is typed as the full `Product`, but
+> a given operation only *populates* the fields its GraphQL document selects
+> (e.g. `productService(client).updateProduct(...)` resolves with a `Product`
+> whose `productId` is set and the rest absent — standard GraphQL
+> partial-response behaviour). Don't assume every field of a returned object
+> is present; read only what the operation fetches. See "Operation variables
+> and return shapes" in the README.
 
 ---
 

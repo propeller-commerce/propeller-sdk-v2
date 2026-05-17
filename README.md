@@ -157,7 +157,7 @@ const cart = await carts.getCart({
 });
 ```
 
-### Operation variables
+### Operation variables and return shapes
 
 Each service method takes the variables its GraphQL operation actually
 declares. Methods that need more than a single input take one `variables`
@@ -208,6 +208,18 @@ Operations that declare no variables take no argument
 surfaced as *optional* on the interfaces even where the operation declares
 them non-null, because the SDK guarantees a valid value reaches the wire — so
 a plain `getProduct({ productId })` just works. An explicit value always wins.
+
+**Return types are the named type; only selected fields are populated.**
+A method's return type is the operation's named GraphQL type (e.g.
+`updateProduct(...)` → `Promise<Product>`). That type describes the *shape* of
+the entity, not a promise that every field is filled. Each operation only
+selects — and the server only returns — the fields its GraphQL document asks
+for. `updateProduct` selects just `productId`, so you get a `Product` with
+`productId` set and the other fields absent (`undefined`). This is normal
+GraphQL partial-response behaviour: read only the fields the operation
+fetches, exactly as you would with any GraphQL client. The strongly-typed
+`Product` is a convenience for the fields you *do* get back, not a guarantee
+that the whole entity was fetched.
 
 ## Direct GraphQL access
 
