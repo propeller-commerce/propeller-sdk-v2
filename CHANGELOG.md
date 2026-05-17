@@ -144,8 +144,9 @@ class-wrapper, tree-shaking, and deprecated-symbol debt accumulated through
   barrel listing only names the generator declared — so a generated name can
   never ambiguously re-export against a hand-authored service interface.
   `scripts/lib/align-classify.js` is the shared classifier (single source of
-  truth) used by both the generator and `scripts/codemod-align-variables.js`,
-  which performs the AST-surgical method conversion. `npm run validate` now
+  truth) used by the generator and, originally, the one-shot AST-surgical
+  alignment codemod (now spent — its output is committed and the driver lives
+  in `docs/history/` for provenance, not in the build). `npm run validate` now
   runs `check:drift` (regenerate + byte-compare) so a stale generated surface
   fails the build. `ClusterService.getClusterConfig` is hard-exempt and
   byte-identical to its prior form.

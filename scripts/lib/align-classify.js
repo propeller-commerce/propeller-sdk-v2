@@ -3,15 +3,16 @@
 /**
  * Shared classifier for service-method ↔ GraphQL-operation variable alignment.
  *
- * Single source of truth used by BOTH:
- *  - scripts/build-graphql-bundle.js  (to know which generated `<Op>Variables`
- *    names to suppress because a service hand-authors a KEPT interface of the
- *    same name), and
- *  - scripts/codemod-align-variables.js (to decide, per method, whether to
- *    convert it to a single `variables: <Op>Variables` argument).
+ * Live consumer: scripts/build-graphql-bundle.js — to know which generated
+ * `<Op>Variables` names to suppress because a service hand-authors a KEPT
+ * interface of the same name.
  *
- * It is read-only: it parses sources and returns a structured report. It never
- * writes files. The codemod and generator act on its output.
+ * It was ALSO written for the one-shot alignment/typing codemods (now spent
+ * and relocated to docs/history/ — they are not part of any build). Their
+ * output is committed; only the generator still calls this at build time.
+ *
+ * It is read-only: it parses sources and returns a structured report. It
+ * never writes files.
  *
  * Classification per factory method that calls `runOperation`:
  *   FROZEN   — hard allowlist (ClusterService.getClusterConfig). Never touched.

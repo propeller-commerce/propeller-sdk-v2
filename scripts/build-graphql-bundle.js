@@ -179,14 +179,14 @@ function resolveInner(node, sets, named, unknown) {
   return 'any';
 }
 
-// Variables the SDK service layer fills a safe default for when the caller
-// omits them (review findings #4/#8) — same treatment `language` already gets
-// de-facto. These are emitted as OPTIONAL in the generated interface even when
-// the operation declares them non-null, because the SDK guarantees a valid
-// value reaches the wire (the schema-alignment test validates the generated
-// *document*, not interface optionality, so this stays honest). The matching
-// default is injected into the runOperation call by
-// scripts/codemod-align-variables.js / codemod-typed-results.js.
+// Variables the SDK fills a safe default for when the caller omits them
+// (review findings #4/#8). These are emitted as OPTIONAL in the generated
+// interface even when the operation declares them non-null, because the SDK
+// guarantees a valid value reaches the wire (the schema-alignment test
+// validates the generated *document*, not interface optionality, so this
+// stays honest). The default itself is injected at request time by
+// `applySdkDefaults` in src/service/runOperation.ts — only when the operation
+// document declares the variable and the caller did not pass it.
 const SDK_DEFAULTED_VARS = new Set(['imageVariantFilters']);
 
 function resolveGqlVarType(typeNode, sets, named, unknown, varName) {
@@ -233,21 +233,21 @@ function emitOperationVariables(rawQueries, rawMutations) {
     }
     const vars = op.variableDefinitions || [];
     if (vars.length === 0) continue;
+    const relaxed = [];
     const fields = vars
       .map((v) => {
-        const { ts: tsType, required } = resolveGqlVarType(
-          v.type,
-          sets,
-          named,
-          unknown,
-          v.variable.name.value
-        );
-        return `  ${v.variable.name.value}${required ? '' : '?'}: ${tsType};`;
+        const varName = v.variable.name.value;
+        const { ts: tsType, required } = resolveGqlVarType(v.type, sets, named, unknown, varName);
+        // Did we surface a schema-required ($x: T!) var as optional because
+        // the SDK fills a default for it? Track it so the JSDoc stays honest.
+        if (v.type.kind === 'NonNullType' && !required) relaxed.push(varName);
+        return `  ${varName}${required ? '' : '?'}: ${tsType};`;
       })
       .join('\n');
     interfaces.push({
       name: ifaceName,
       op: op.name.value,
+      relaxed,
       body: `export interface ${ifaceName} {\n${fields}\n}`,
     });
   }
@@ -266,12 +266,21 @@ function emitOperationVariables(rawQueries, rawMutations) {
   header += '\n';
 
   const body = interfaces
-    .map(
-      (i) =>
+    .map((i) => {
+      let doc =
         `/**\n * Variables for the \`${i.op}\` GraphQL operation. Generated from the\n` +
         ` * operation signature — field names and required/optional status mirror\n` +
-        ` * the operation's declared variables exactly.\n */\n${i.body}`
-    )
+        ` * the operation's declared variables exactly`;
+      if (i.relaxed && i.relaxed.length) {
+        doc +=
+          `,\n * EXCEPT ${i.relaxed.map((n) => `\`${n}\``).join(', ')}: the operation\n` +
+          ` * declares ${i.relaxed.length > 1 ? 'these' : 'this'} non-null but the SDK supplies a default when\n` +
+          ` * omitted (findings #4/#8), so ${i.relaxed.length > 1 ? 'they are' : 'it is'} surfaced as optional here.\n */`;
+      } else {
+        doc += `.\n */`;
+      }
+      return `${doc}\n${i.body}`;
+    })
     .join('\n\n');
 
   fs.writeFileSync(path.join(OUTPUT_DIR, 'operationVariables.ts'), header + body + '\n', 'utf8');

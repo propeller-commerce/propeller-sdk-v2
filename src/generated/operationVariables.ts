@@ -471,7 +471,10 @@ export interface BulkPriceUpdateVariables {
 /**
  * Variables for the `bundleAddItemsAndReturnBundle` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface BundleAddItemsAndReturnBundleVariables {
   id: string;
@@ -484,7 +487,10 @@ export interface BundleAddItemsAndReturnBundleVariables {
 /**
  * Variables for the `bundleAddItems` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface BundleAddItemsVariables {
   id: string;
@@ -497,7 +503,10 @@ export interface BundleAddItemsVariables {
 /**
  * Variables for the `bundleCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface BundleCreateVariables {
   input: BundleCreateInput;
@@ -518,7 +527,10 @@ export interface BundleDeleteVariables {
 /**
  * Variables for the `bundleRemoveItemAndReturnBundle` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface BundleRemoveItemAndReturnBundleVariables {
   id: string;
@@ -542,7 +554,10 @@ export interface BundleRemoveItemVariables {
 /**
  * Variables for the `bundles` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface BundlesVariables {
   input?: BundleSearchInput;
@@ -554,7 +569,10 @@ export interface BundlesVariables {
 /**
  * Variables for the `bundleUpdate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface BundleUpdateVariables {
   id: string;
@@ -567,7 +585,10 @@ export interface BundleUpdateVariables {
 /**
  * Variables for the `bundle` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface BundleVariables {
   id: string;
@@ -803,7 +824,10 @@ export interface CarrierVariables {
 /**
  * Variables for the `cartAcceptPurchaseAuthorizationRequest` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CartAcceptPurchaseAuthorizationRequestVariables {
   id: string;
@@ -816,7 +840,10 @@ export interface CartAcceptPurchaseAuthorizationRequestVariables {
 /**
  * Variables for the `cartAddActionCode` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CartAddActionCodeVariables {
   id: string;
@@ -829,7 +856,10 @@ export interface CartAddActionCodeVariables {
 /**
  * Variables for the `cartDeleteItem` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CartDeleteItemVariables {
   id: string;
@@ -860,7 +890,10 @@ export interface CartItemBulkVariables {
 /**
  * Variables for the `cartRemoveActionCode` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CartRemoveActionCodeVariables {
   id: string;
@@ -882,7 +915,10 @@ export interface CartRequestPurchaseAuthorizationVariables {
 /**
  * Variables for the `cartSetContact` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CartSetContactVariables {
   id: string;
@@ -895,7 +931,10 @@ export interface CartSetContactVariables {
 /**
  * Variables for the `cartSetCustomer` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CartSetCustomerVariables {
   id: string;
@@ -908,7 +947,10 @@ export interface CartSetCustomerVariables {
 /**
  * Variables for the `cartSetUser` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CartSetUserVariables {
   id: string;
@@ -930,7 +972,10 @@ export interface CartsVariables {
 /**
  * Variables for the `cart` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CartVariables {
   cartId: string;
@@ -953,7 +998,10 @@ export interface CategoriesVariables {
 /**
  * Variables for the `categoryAddProductsClusters` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CategoryAddProductsClustersVariables {
   id: number;
@@ -969,7 +1017,10 @@ export interface CategoryAddProductsClustersVariables {
 /**
  * Variables for the `categoryCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CategoryCreateVariables {
   input: CreateCategoryInput;
@@ -1002,7 +1053,10 @@ export interface CategoryDeleteVariables {
 /**
  * Variables for the `categoryRemoveProductsClusters` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CategoryRemoveProductsClustersVariables {
   id: number;
@@ -1018,7 +1072,10 @@ export interface CategoryRemoveProductsClustersVariables {
 /**
  * Variables for the `categoryUpdate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CategoryUpdateVariables {
   categoryId: number;
@@ -1034,7 +1091,10 @@ export interface CategoryUpdateVariables {
 /**
  * Variables for the `category` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CategoryVariables {
   categoryId?: number;
@@ -1099,7 +1159,10 @@ export interface ClaimsResetVariables {
 /**
  * Variables for the `clusterAssignProducts` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterAssignProductsVariables {
   clusterId: number;
@@ -1175,7 +1238,10 @@ export interface ClusterConfigUpdateSettingVariables {
 /**
  * Variables for the `clusterCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterCreateVariables {
   input: ClusterCreateInput;
@@ -1201,7 +1267,10 @@ export interface ClusterCsvImportVariables {
 /**
  * Variables for the `clusterOptionCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterOptionCreateVariables {
   clusterId: number;
@@ -1225,7 +1294,10 @@ export interface ClusterOptionDeleteVariables {
 /**
  * Variables for the `clusterOptionUpdate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterOptionUpdateVariables {
   clusterId: number;
@@ -1240,7 +1312,10 @@ export interface ClusterOptionUpdateVariables {
 /**
  * Variables for the `clusterProductCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterProductCreateVariables {
   id: number;
@@ -1268,7 +1343,10 @@ export interface ClusterProductDeleteVariables {
 /**
  * Variables for the `clusterProductUpdate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterProductUpdateVariables {
   id: number;
@@ -1287,7 +1365,10 @@ export interface ClusterProductUpdateVariables {
 /**
  * Variables for the `clusterUnassignProducts` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterUnassignProductsVariables {
   clusterId: number;
@@ -1305,7 +1386,10 @@ export interface ClusterUnassignProductsVariables {
 /**
  * Variables for the `clusterUpdate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterUpdateVariables {
   id: number;
@@ -1323,7 +1407,10 @@ export interface ClusterUpdateVariables {
 /**
  * Variables for the `cluster` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ClusterVariables {
   clusterId?: number;
@@ -1635,7 +1722,10 @@ export interface CostPriceUpdateVariables {
 /**
  * Variables for the `crossupsellCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CrossupsellCreateVariables {
   input: CrossupsellCreateInput;
@@ -1657,7 +1747,10 @@ export interface CrossupsellDeleteVariables {
 /**
  * Variables for the `crossupsells` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CrossupsellsVariables {
   input?: CrossupsellSearchInput;
@@ -1670,7 +1763,10 @@ export interface CrossupsellsVariables {
 /**
  * Variables for the `crossupsellUpdate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CrossupsellUpdateVariables {
   id: string;
@@ -1684,7 +1780,10 @@ export interface CrossupsellUpdateVariables {
 /**
  * Variables for the `crossupsell` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface CrossupsellVariables {
   id: string;
@@ -2097,7 +2196,10 @@ export interface FavoriteListUpdateVariables {
 /**
  * Variables for the `favoriteList` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface FavoriteListVariables {
   id: string;
@@ -2192,7 +2294,10 @@ export interface LoginVariables {
 /**
  * Variables for the `machineCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MachineCreateVariables {
   input: CreateSparePartsMachineInput;
@@ -2214,7 +2319,10 @@ export interface MachineDeleteVariables {
 /**
  * Variables for the `machines` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MachinesVariables {
   input?: SearchSparePartsMachineInput;
@@ -2227,7 +2335,10 @@ export interface MachinesVariables {
 /**
  * Variables for the `machineUpsert` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MachineUpsertVariables {
   input: UpsertSparePartsMachineInput;
@@ -2240,7 +2351,10 @@ export interface MachineUpsertVariables {
 /**
  * Variables for the `machine` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MachineVariables {
   id?: string;
@@ -2393,7 +2507,10 @@ export interface MediaDocumentVariables {
 /**
  * Variables for the `mediaImageCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MediaImageCreateVariables {
   input: MediaImageInput;
@@ -2422,7 +2539,10 @@ export interface MediaImageDeleteVariables {
 /**
  * Variables for the `mediaImages` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MediaImagesVariables {
   search?: MediaImageSearchInput;
@@ -2433,7 +2553,10 @@ export interface MediaImagesVariables {
 /**
  * Variables for the `mediaImageUpdate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MediaImageUpdateVariables {
   input: UpdateMediaImageInput;
@@ -2444,7 +2567,10 @@ export interface MediaImageUpdateVariables {
 /**
  * Variables for the `mediaImage` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MediaImageVariables {
   mediaId: string;
@@ -2455,7 +2581,10 @@ export interface MediaImageVariables {
 /**
  * Variables for the `media` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface MediaVariables {
   language?: string;
@@ -2539,7 +2668,10 @@ export interface OrderAddressVariables {
 /**
  * Variables for the `orderCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface OrderCreateVariables {
   order: OrderCreateInput;
@@ -2675,7 +2807,10 @@ export interface OrderlistVariables {
 /**
  * Variables for the `orderRevisionRestore` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface OrderRevisionRestoreVariables {
   orderId: number;
@@ -2697,7 +2832,10 @@ export interface OrderRevisionsInvalidateVariables {
 /**
  * Variables for the `orderRevisions` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface OrderRevisionsVariables {
   input: OrderRevisionSearchInput;
@@ -2709,7 +2847,10 @@ export interface OrderRevisionsVariables {
 /**
  * Variables for the `orderRevision` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface OrderRevisionVariables {
   orderId: number;
@@ -2873,7 +3014,10 @@ export interface OrderUpdateAddressVariables {
 /**
  * Variables for the `order` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface OrderVariables {
   orderId?: number;
@@ -3241,7 +3385,10 @@ export interface ProductSurchargesVariables {
 /**
  * Variables for the `products` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ProductsVariables {
   input?: ProductSearchInput;
@@ -3265,7 +3412,10 @@ export interface ProductUpdateVariables {
 /**
  * Variables for the `product` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface ProductVariables {
   productId?: number;
@@ -3757,7 +3907,10 @@ export interface TenantUpdateVariables {
 /**
  * Variables for the `tenderAddItems` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderAddItemsVariables {
   id: string;
@@ -3781,7 +3934,10 @@ export interface TenderAddItemsVariables {
 /**
  * Variables for the `tenderApplyIncentives` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderApplyIncentivesVariables {
   id: string;
@@ -3804,7 +3960,10 @@ export interface TenderApplyIncentivesVariables {
 /**
  * Variables for the `tenderDeleteBonusItem` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderDeleteBonusItemVariables {
   id: string;
@@ -3828,7 +3987,10 @@ export interface TenderDeleteBonusItemVariables {
 /**
  * Variables for the `tenderDeleteItem` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderDeleteItemVariables {
   id: string;
@@ -3870,7 +4032,10 @@ export interface TenderProcessVariables {
 /**
  * Variables for the `tenderStart` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderStartVariables {
   input: TenderStartInput;
@@ -3893,7 +4058,10 @@ export interface TenderStartVariables {
 /**
  * Variables for the `tenderUpdateAddress` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderUpdateAddressVariables {
   id: string;
@@ -3917,7 +4085,10 @@ export interface TenderUpdateAddressVariables {
 /**
  * Variables for the `tenderUpdateDiscount` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderUpdateDiscountVariables {
   id: string;
@@ -3941,7 +4112,10 @@ export interface TenderUpdateDiscountVariables {
 /**
  * Variables for the `tenderUpdateInvoiceUser` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderUpdateInvoiceUserVariables {
   id: string;
@@ -3965,7 +4139,10 @@ export interface TenderUpdateInvoiceUserVariables {
 /**
  * Variables for the `tenderUpdateItem` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderUpdateItemVariables {
   id: string;
@@ -3990,7 +4167,10 @@ export interface TenderUpdateItemVariables {
 /**
  * Variables for the `tenderUpdatePayment` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderUpdatePaymentVariables {
   id: string;
@@ -4014,7 +4194,10 @@ export interface TenderUpdatePaymentVariables {
 /**
  * Variables for the `tenderUpdatePostage` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderUpdatePostageVariables {
   id: string;
@@ -4038,7 +4221,10 @@ export interface TenderUpdatePostageVariables {
 /**
  * Variables for the `tenderUpdate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderUpdateVariables {
   id: string;
@@ -4062,7 +4248,10 @@ export interface TenderUpdateVariables {
 /**
  * Variables for the `tender` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
- * the operation's declared variables exactly.
+ * the operation's declared variables exactly,
+ * EXCEPT `imageVariantFilters`: the operation
+ * declares this non-null but the SDK supplies a default when
+ * omitted (findings #4/#8), so it is surfaced as optional here.
  */
 export interface TenderVariables {
   tenderId?: string;
