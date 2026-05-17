@@ -32,6 +32,7 @@
     "clean:docs": "rimraf documentation",
     "prebuild": "npm run clean",
     "typecheck": "npm run build:graphql && tsc --noEmit -p tsconfig.cjs.json",
+    "prepare": "node scripts/prepare.js",
     "prepack": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
