@@ -160,10 +160,8 @@ const cart = await carts.getCart({
 ### Operation variables
 
 Each service method takes the variables its GraphQL operation actually
-declares. For every operation the SDK exports a schema-faithful
-`<Op>Variables` interface whose fields — and their required/optional status —
-mirror the operation's declared variables exactly. Methods that need more
-than a single input take that interface as one `variables` argument:
+declares. Methods that need more than a single input take one `variables`
+object argument:
 
 ```typescript
 import { productService, type ProductUpdateVariables } from 'propeller-sdk-v2';
@@ -178,12 +176,38 @@ const vars: ProductUpdateVariables = {
 await products.updateProduct(vars);
 ```
 
+**Two interface families, by design.** You'll see two naming shapes and it's
+worth knowing why:
+
+- **`<Op>Variables`** (e.g. `ProductUpdateVariables`) — *generated* from the
+  GraphQL operation. Field names and required/optional status mirror the
+  operation's declared variables exactly. These are emitted by the build and
+  re-exported through an explicit public barrel
+  (`generated/operationVariablesPublic`), so they can never collide with the
+  hand-authored names below.
+- **`<Op>QueryVariables`** / a few `<Op>Variables` (e.g.
+  `ProductQueryVariables`, `CartStartVariables`) — *hand-authored* in the
+  service file, kept because they carry per-field JSDoc and are the stable
+  names existing consumers already import. The committed manifest
+  `scripts/.kept-service-variables.json` is the single source of truth for
+  which names are hand-authored; a drift guard (`npm run validate`) fails the
+  build if the generated set and the kept set ever overlap.
+
+You don't have to track which is which day-to-day — your editor resolves the
+correct type from the method signature. The split is documented here only so
+the two names aren't a mystery.
+
 Methods whose operation takes a single value keep their direct signature
 (e.g. `getProductSurcharges(productId)`, `loginService.login(input)`).
 Operations that declare no variables take no argument
-(`logoutService.logout()`). An explicit `language` always wins; when omitted,
-methods whose operation accepts `$language` fall back to the client's
-`defaultLanguage`.
+(`logoutService.logout()`).
+
+**SDK-defaulted variables.** Two variables are filled in for you when omitted:
+`language` (falls back to the client's `defaultLanguage`) and
+`imageVariantFilters` (defaults to `{ transformations: [] }`). Both are
+surfaced as *optional* on the interfaces even where the operation declares
+them non-null, because the SDK guarantees a valid value reaches the wire — so
+a plain `getProduct({ productId })` just works. An explicit value always wins.
 
 ## Direct GraphQL access
 
