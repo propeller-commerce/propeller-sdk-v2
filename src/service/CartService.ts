@@ -118,8 +118,9 @@ export interface CartQueryVariables {
   language: string;
   /** Image search filters */
   imageSearchFilters: MediaImageProductSearchInput;
-  /** Image transformation filters */
-  imageVariantFilters: TransformationsInput;
+  /** Image transformation filters. Optional — the SDK defaults this to
+   * `{ transformations: [] }` when omitted (findings #4/#8). */
+  imageVariantFilters?: TransformationsInput;
 }
 /**
  * Cart start variables interface
@@ -132,8 +133,9 @@ export interface CartStartVariables {
   language: string;
   /** Image search filters */
   imageSearchFilters: MediaImageProductSearchInput;
-  /** Image transformation filters */
-  imageVariantFilters: TransformationsInput;
+  /** Image transformation filters. Optional — the SDK defaults this to
+   * `{ transformations: [] }` when omitted (findings #4/#8). */
+  imageVariantFilters?: TransformationsInput;
 }
 /**
  * Cart add item variables interface
@@ -148,8 +150,9 @@ export interface CartAddItemVariables {
   language: string;
   /** Image search filters */
   imageSearchFilters: MediaImageProductSearchInput;
-  /** Image transformation filters */
-  imageVariantFilters: TransformationsInput;
+  /** Image transformation filters. Optional — the SDK defaults this to
+   * `{ transformations: [] }` when omitted (findings #4/#8). */
+  imageVariantFilters?: TransformationsInput;
 }
 /**
  * Cart update item variables interface

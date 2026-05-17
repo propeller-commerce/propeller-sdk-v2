@@ -107,6 +107,41 @@ describe('runOperation()', () => {
     await expect(runOperation(client, DOC, 'foo', {})).rejects.toBeInstanceOf(GraphQLOperationError);
   });
 
+  it('defaults imageVariantFilters when the op declares it and the caller omits it (findings #4/#8)', async () => {
+    fetchSpy.mockResolvedValueOnce(okResponse({ product: { productId: 1 } }));
+    const client = new GraphQLClient({ endpoint: 'https://x.test/gql', securityMode: 'direct', apiKey: 'k' });
+    const DOC_WITH_IVF = `query product($productId: Int!, $imageVariantFilters: TransformationsInput!) { product(productId: $productId, imageVariantFilters: $imageVariantFilters) { productId } }`;
+
+    await runOperation(client, DOC_WITH_IVF, 'product', { productId: 1 });
+
+    const body = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+    expect(body.variables.imageVariantFilters).toEqual({ transformations: [] });
+    expect(body.variables.productId).toBe(1);
+  });
+
+  it('does NOT inject imageVariantFilters when the op does not declare it', async () => {
+    fetchSpy.mockResolvedValueOnce(okResponse({ foo: 1 }));
+    const client = new GraphQLClient({ endpoint: 'https://x.test/gql', securityMode: 'direct', apiKey: 'k' });
+
+    await runOperation(client, `query foo($id: Int!) { foo(id: $id) }`, 'foo', { id: 1 });
+
+    const body = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+    expect(body.variables).toEqual({ id: 1 });
+    expect('imageVariantFilters' in body.variables).toBe(false);
+  });
+
+  it('an explicit imageVariantFilters always wins over the SDK default', async () => {
+    fetchSpy.mockResolvedValueOnce(okResponse({ product: {} }));
+    const client = new GraphQLClient({ endpoint: 'https://x.test/gql', securityMode: 'direct', apiKey: 'k' });
+    const DOC_WITH_IVF = `query product($imageVariantFilters: TransformationsInput!) { product(imageVariantFilters: $imageVariantFilters) { productId } }`;
+    const explicit = { transformations: [{ name: 'thumb', transformation: { width: 10, height: 10 } }] };
+
+    await runOperation(client, DOC_WITH_IVF, 'product', { imageVariantFilters: explicit });
+
+    const body = JSON.parse(fetchSpy.mock.calls[0][1].body as string);
+    expect(body.variables.imageVariantFilters).toEqual(explicit);
+  });
+
   it('default (throwOnPartialErrors unset) still returns partial data, not throwing', async () => {
     const partial = new Response(
       JSON.stringify({ data: { foo: 7 }, errors: [{ message: 'field bar failed' }] }),

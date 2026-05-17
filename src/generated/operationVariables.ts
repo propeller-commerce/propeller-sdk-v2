@@ -478,7 +478,7 @@ export interface BundleAddItemsAndReturnBundleVariables {
   input: BundleAddItemsInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -491,7 +491,7 @@ export interface BundleAddItemsVariables {
   input: BundleAddItemsInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -503,7 +503,7 @@ export interface BundleCreateVariables {
   input: BundleCreateInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -526,7 +526,7 @@ export interface BundleRemoveItemAndReturnBundleVariables {
   taxZone?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -548,7 +548,7 @@ export interface BundlesVariables {
   input?: BundleSearchInput;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -561,7 +561,7 @@ export interface BundleUpdateVariables {
   input: BundleUpdateInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -574,7 +574,7 @@ export interface BundleVariables {
   taxZone?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -810,7 +810,7 @@ export interface CartAcceptPurchaseAuthorizationRequestVariables {
   input?: CartAcceptPurchaseAuthorizationRequestInput;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -823,7 +823,7 @@ export interface CartAddActionCodeVariables {
   input: CartActionCodeInput;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -836,7 +836,7 @@ export interface CartDeleteItemVariables {
   input: CartDeleteItemInput;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -867,7 +867,7 @@ export interface CartRemoveActionCodeVariables {
   input: CartActionCodeInput;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -889,7 +889,7 @@ export interface CartSetContactVariables {
   input: CartSetContactInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -902,7 +902,7 @@ export interface CartSetCustomerVariables {
   input: CartSetCustomerInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -915,7 +915,7 @@ export interface CartSetUserVariables {
   input: CartSetUserInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -936,7 +936,7 @@ export interface CartVariables {
   cartId: string;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -963,7 +963,7 @@ export interface CategoryAddProductsClustersVariables {
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -978,7 +978,7 @@ export interface CategoryCreateVariables {
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -1012,7 +1012,7 @@ export interface CategoryRemoveProductsClustersVariables {
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -1028,7 +1028,7 @@ export interface CategoryUpdateVariables {
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -1045,7 +1045,7 @@ export interface CategoryVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   categoryProductSearchInput?: CategoryProductSearchInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
 }
 
@@ -1109,7 +1109,7 @@ export interface ClusterAssignProductsVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
 }
@@ -1184,7 +1184,7 @@ export interface ClusterCreateVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
 }
@@ -1209,7 +1209,7 @@ export interface ClusterOptionCreateVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -1234,7 +1234,7 @@ export interface ClusterOptionUpdateVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -1250,7 +1250,7 @@ export interface ClusterProductCreateVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
 }
@@ -1279,7 +1279,7 @@ export interface ClusterProductUpdateVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
 }
@@ -1297,7 +1297,7 @@ export interface ClusterUnassignProductsVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
 }
@@ -1315,7 +1315,7 @@ export interface ClusterUpdateVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
 }
@@ -1337,7 +1337,7 @@ export interface ClusterVariables {
   imageSearchFilters?: MediaImageProductSearchInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -1642,7 +1642,7 @@ export interface CrossupsellCreateVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -1663,7 +1663,7 @@ export interface CrossupsellsVariables {
   input?: CrossupsellSearchInput;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   priceCalculateProductInput: PriceCalculateProductInput;
 }
 
@@ -1678,7 +1678,7 @@ export interface CrossupsellUpdateVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -1691,7 +1691,7 @@ export interface CrossupsellVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2104,7 +2104,7 @@ export interface FavoriteListVariables {
   language?: string;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2197,7 +2197,7 @@ export interface LoginVariables {
 export interface MachineCreateVariables {
   input: CreateSparePartsMachineInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
 }
@@ -2219,7 +2219,7 @@ export interface MachineDeleteVariables {
 export interface MachinesVariables {
   input?: SearchSparePartsMachineInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
 }
@@ -2232,7 +2232,7 @@ export interface MachinesVariables {
 export interface MachineUpsertVariables {
   input: UpsertSparePartsMachineInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
 }
@@ -2248,7 +2248,7 @@ export interface MachineVariables {
   language?: string;
   source?: string;
   sourceId?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
 }
@@ -2398,7 +2398,7 @@ export interface MediaDocumentVariables {
 export interface MediaImageCreateVariables {
   input: MediaImageInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2427,7 +2427,7 @@ export interface MediaImageDeleteVariables {
 export interface MediaImagesVariables {
   search?: MediaImageSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2438,7 +2438,7 @@ export interface MediaImagesVariables {
 export interface MediaImageUpdateVariables {
   input: UpdateMediaImageInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2449,7 +2449,7 @@ export interface MediaImageUpdateVariables {
 export interface MediaImageVariables {
   mediaId: string;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2459,7 +2459,7 @@ export interface MediaImageVariables {
  */
 export interface MediaVariables {
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2545,7 +2545,7 @@ export interface OrderCreateVariables {
   order: OrderCreateInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2682,7 +2682,7 @@ export interface OrderRevisionRestoreVariables {
   revisionNumber: number;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2703,7 +2703,7 @@ export interface OrderRevisionsVariables {
   input: OrderRevisionSearchInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2716,7 +2716,7 @@ export interface OrderRevisionVariables {
   revisionNumber: number;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -2880,7 +2880,7 @@ export interface OrderVariables {
   orderUUID?: string;
   language?: string;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -3248,7 +3248,7 @@ export interface ProductsVariables {
   language?: string;
   priceCalculateProductInput?: PriceCalculateProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
 }
 
@@ -3280,7 +3280,7 @@ export interface ProductVariables {
   imageSearchFilters?: MediaImageProductSearchInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
 }
 
 /**
@@ -3767,7 +3767,7 @@ export interface TenderAddItemsVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -3790,7 +3790,7 @@ export interface TenderApplyIncentivesVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -3814,7 +3814,7 @@ export interface TenderDeleteBonusItemVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -3838,7 +3838,7 @@ export interface TenderDeleteItemVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -3879,7 +3879,7 @@ export interface TenderStartVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -3903,7 +3903,7 @@ export interface TenderUpdateAddressVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -3927,7 +3927,7 @@ export interface TenderUpdateDiscountVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -3951,7 +3951,7 @@ export interface TenderUpdateInvoiceUserVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -3976,7 +3976,7 @@ export interface TenderUpdateItemVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -4000,7 +4000,7 @@ export interface TenderUpdatePaymentVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -4024,7 +4024,7 @@ export interface TenderUpdatePostageVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -4048,7 +4048,7 @@ export interface TenderUpdateVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;
@@ -4072,7 +4072,7 @@ export interface TenderVariables {
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   imageSearchFilters?: MediaImageProductSearchInput;
   language?: string;
-  imageVariantFilters: TransformationsInput;
+  imageVariantFilters?: TransformationsInput;
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
   contactAttributesInput?: AttributeResultSearchInput;

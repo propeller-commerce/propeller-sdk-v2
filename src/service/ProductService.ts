@@ -49,8 +49,9 @@ export interface ProductQueryVariables {
   mediaVideoSearchInput?: MediaVideoProductSearchInput;
   /** Document search input */
   mediaDocumentSearchInput?: MediaDocumentProductSearchInput;
-  /** Image transformation filters */
-  imageVariantFilters: TransformationsInput;
+  /** Image transformation filters. Optional — the SDK defaults this to
+   * `{ transformations: [] }` when omitted (findings #4/#8). */
+  imageVariantFilters?: TransformationsInput;
 }
 /**
  * Products query variables interface
@@ -65,8 +66,9 @@ export interface ProductsQueryVariables {
   priceCalculateProductInput?: PriceCalculateProductInput;
   /** Image search filters */
   imageSearchFilters?: MediaImageProductSearchInput;
-  /** Image transformation filters */
-  imageVariantFilters: TransformationsInput;
+  /** Image transformation filters. Optional — the SDK defaults this to
+   * `{ transformations: [] }` when omitted (findings #4/#8). */
+  imageVariantFilters?: TransformationsInput;
   /** Filter available attributes input */
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
 }

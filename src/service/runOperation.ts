@@ -9,6 +9,38 @@ import { GraphQLOperationError } from '../client/GraphQLOperationError';
 export type ResolvedResponse<TData> = GraphQLResponse<TData> & { data: TData };
 
 /**
+ * Variables for which the SDK supplies a safe default when the caller omits
+ * them, even though the operation declares them non-null (review findings
+ * #4/#8). The generated `<Op>Variables` interfaces surface these as optional;
+ * the default below is what makes that honest — a caller doing a plain
+ * `getProduct({ productId })` no longer has to hand-construct an
+ * image-transformation object just to satisfy the wire contract.
+ *
+ * The default is injected only when (a) the operation document actually
+ * declares the variable and (b) the caller did not provide it — so requests
+ * never carry variables the operation doesn't use, and an explicit value
+ * always wins.
+ */
+const SDK_VAR_DEFAULTS: Record<string, () => unknown> = {
+  imageVariantFilters: () => ({ transformations: [] }),
+};
+
+function applySdkDefaults(document: string, variables: any): any {
+  if (variables == null || typeof variables !== 'object') return variables;
+  let out: any = variables;
+  for (const name of Object.keys(SDK_VAR_DEFAULTS)) {
+    const provided = out[name] !== undefined && out[name] !== null;
+    if (provided) continue;
+    // Only inject if the operation declares `$<name>` (cheap textual check —
+    // documents are SDK-generated and always declare variables as `$name:`).
+    if (!new RegExp(`\\$${name}\\b`).test(document)) continue;
+    if (out === variables) out = { ...variables };
+    out[name] = SDK_VAR_DEFAULTS[name]();
+  }
+  return out;
+}
+
+/**
  * Internal helper used by every service factory and free-function operation.
  *
  * Executes a GraphQL document against the client and resolves to a response
@@ -41,7 +73,7 @@ export async function runOperation<TData = any>(
 ): Promise<ResolvedResponse<TData>> {
   const result = await client.execute<TData>({
     query: document,
-    variables,
+    variables: applySdkDefaults(document, variables),
     operationName,
   });
   const hasData = result.data !== undefined && result.data !== null;

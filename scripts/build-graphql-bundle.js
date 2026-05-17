@@ -174,10 +174,23 @@ function resolveInner(node, sets, named, unknown) {
   return 'any';
 }
 
-function resolveGqlVarType(typeNode, sets, named, unknown) {
+// Variables the SDK service layer fills a safe default for when the caller
+// omits them (review findings #4/#8) — same treatment `language` already gets
+// de-facto. These are emitted as OPTIONAL in the generated interface even when
+// the operation declares them non-null, because the SDK guarantees a valid
+// value reaches the wire (the schema-alignment test validates the generated
+// *document*, not interface optionality, so this stays honest). The matching
+// default is injected into the runOperation call by
+// scripts/codemod-align-variables.js / codemod-typed-results.js.
+const SDK_DEFAULTED_VARS = new Set(['imageVariantFilters']);
+
+function resolveGqlVarType(typeNode, sets, named, unknown, varName) {
   const required = typeNode.kind === 'NonNullType';
   const node = required ? typeNode.type : typeNode;
-  return { ts: resolveInner(node, sets, named, unknown), required };
+  // SDK-defaulted convenience vars are surfaced as optional to the caller.
+  const effectiveRequired =
+    required && !(varName && SDK_DEFAULTED_VARS.has(varName));
+  return { ts: resolveInner(node, sets, named, unknown), required: effectiveRequired };
 }
 
 function pascalOp(s) {
@@ -217,7 +230,13 @@ function emitOperationVariables(rawQueries, rawMutations) {
     if (vars.length === 0) continue;
     const fields = vars
       .map((v) => {
-        const { ts: tsType, required } = resolveGqlVarType(v.type, sets, named, unknown);
+        const { ts: tsType, required } = resolveGqlVarType(
+          v.type,
+          sets,
+          named,
+          unknown,
+          v.variable.name.value
+        );
         return `  ${v.variable.name.value}${required ? '' : '?'}: ${tsType};`;
       })
       .join('\n');
