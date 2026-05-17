@@ -25,6 +25,12 @@ import {
 
 const REPO_ROOT = path.join(__dirname, '..', '..');
 const SCHEMA_PATH = path.join(REPO_ROOT, 'schema.json');
+// Committed, compact (UTF-8, minified, introspection-only — no endpoint or
+// credentials) schema snapshot so this test runs offline in CI and forks
+// without PROPELLER_ENDPOINT/PROPELLER_API_KEY (review finding #5). The live
+// schema.json (.gitignored, may be UTF-16) wins when present so a developer
+// refreshing the schema still validates against the latest.
+const SCHEMA_SNAPSHOT_PATH = path.join(__dirname, 'schema.snapshot.json');
 const OPERATIONS_DIR = path.join(REPO_ROOT, 'src', 'generated', 'operations');
 const ALLOWLIST_PATH = path.join(__dirname, 'schemaAlignment.allowlist.json');
 
@@ -48,15 +54,29 @@ function ensureSchema(): void {
 }
 
 function loadSchema(): GraphQLSchema {
-  ensureSchema();
-  if (!fs.existsSync(SCHEMA_PATH)) {
-    throw new Error(
-      `schema.json missing at ${SCHEMA_PATH}. Run \`node scripts/fetch-schema.js\` (needs PROPELLER_ENDPOINT + PROPELLER_API_KEY).`
-    );
+  // Prefer the live schema.json if a developer has fetched it (latest truth);
+  // otherwise fall back to the committed offline snapshot. Only try the
+  // network fetch when neither file exists.
+  let schemaFile: string;
+  if (fs.existsSync(SCHEMA_PATH)) {
+    schemaFile = SCHEMA_PATH;
+  } else if (fs.existsSync(SCHEMA_SNAPSHOT_PATH)) {
+    schemaFile = SCHEMA_SNAPSHOT_PATH;
+  } else {
+    ensureSchema();
+    if (!fs.existsSync(SCHEMA_PATH)) {
+      throw new Error(
+        `No schema available: ${SCHEMA_PATH} and ${SCHEMA_SNAPSHOT_PATH} both missing. ` +
+          `Run \`node scripts/fetch-schema.js\` (needs PROPELLER_ENDPOINT + PROPELLER_API_KEY) ` +
+          `or restore tests/integration/schema.snapshot.json.`
+      );
+    }
+    schemaFile = SCHEMA_PATH;
   }
-  const raw = fs.readFileSync(SCHEMA_PATH);
-  // schema.json may be UTF-16 LE with BOM (legacy `gq` output) or plain UTF-8
-  // (fetch-schema.js output). Detect via BOM bytes.
+
+  const raw = fs.readFileSync(schemaFile);
+  // The live schema.json may be UTF-16 LE with BOM (legacy `gq` output) or
+  // plain UTF-8 (fetch-schema.js output); the snapshot is always UTF-8.
   let text: string;
   if (raw.length >= 2 && raw[0] === 0xff && raw[1] === 0xfe) {
     text = raw.toString('utf16le').replace(/^﻿/, '');
