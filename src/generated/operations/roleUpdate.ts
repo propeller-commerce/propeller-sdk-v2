@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment RoleFields on Role {
+export const document: string = `fragment RoleFields on Role {
   id
   roleDefinition {
     id

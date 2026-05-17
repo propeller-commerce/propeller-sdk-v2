@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ShipmentResponseFields on ShipmentResponse {
+export const document: string = `fragment ShipmentResponseFields on ShipmentResponse {
   items {
     ...ShipmentFields
   }

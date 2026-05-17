@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BulkPriceFields on BulkPrice {
+export const document: string = `fragment BulkPriceFields on BulkPrice {
   value
   quantityFrom
   validFrom

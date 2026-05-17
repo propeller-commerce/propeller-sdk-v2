@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ClusterOptionFields on ClusterOption {
+export const document: string = `fragment ClusterOptionFields on ClusterOption {
   id
   clusterOptionId
   isRequired

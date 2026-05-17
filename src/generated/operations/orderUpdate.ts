@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment OrderFields on Order {
+export const document: string = `fragment OrderFields on Order {
   id
   media {
     ...OrderMediaFields

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CategoryFields on Category {
+export const document: string = `fragment CategoryFields on Category {
   categoryId
   urlId: categoryId
   ...CategoryMinimalFields

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+export const document: string = `fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
   id
   purchaseRole
   authorizationLimit

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BundleFields on Bundle {
+export const document: string = `fragment BundleFields on Bundle {
   id
   name
   description

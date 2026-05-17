@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BulkCostPriceResponseFields on BulkCostPriceResponse {
+export const document: string = `fragment BulkCostPriceResponseFields on BulkCostPriceResponse {
   items {
     ...BulkCostPriceFields
   }

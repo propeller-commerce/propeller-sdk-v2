@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment MediaAttachmentFields on MediaAttachment {
+export const document: string = `fragment MediaAttachmentFields on MediaAttachment {
   id
   sparePartsMachineId
   alt {

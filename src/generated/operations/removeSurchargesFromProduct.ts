@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ConfirmationResponseFields on ConfirmationResponse {
+export const document: string = `fragment ConfirmationResponseFields on ConfirmationResponse {
   status
   message
 }

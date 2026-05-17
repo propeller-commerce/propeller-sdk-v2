@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment UserResponseFields on UserResponse {
+export const document: string = `fragment UserResponseFields on UserResponse {
   items {
     ...AdminUserFields
   }

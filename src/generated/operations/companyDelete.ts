@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `mutation companyDelete(\$id: Int!) {
+export const document: string = `mutation companyDelete(\$id: Int!) {
   companyDelete(id: \$id)
 }
 `;

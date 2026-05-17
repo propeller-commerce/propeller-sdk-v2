@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `query templateErrorLogs(\$input: TemplateErrorLogSearchInput!) {
+export const document: string = `query templateErrorLogs(\$input: TemplateErrorLogSearchInput!) {
   templateErrorLogs(input: \$input) {
     items {
       id

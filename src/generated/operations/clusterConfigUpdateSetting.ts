@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment UpdateClusterConfigSettingResponseFields on UpdateClusterConfigSettingResponse {
+export const document: string = `fragment UpdateClusterConfigSettingResponseFields on UpdateClusterConfigSettingResponse {
   id
   displayType
   priority

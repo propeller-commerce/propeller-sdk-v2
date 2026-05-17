@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CrossupsellFields on Crossupsell {
+export const document: string = `fragment CrossupsellFields on Crossupsell {
   id
   createdAt
   lastModifiedAt

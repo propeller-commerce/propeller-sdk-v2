@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CartResponseFields on CartResponse {
+export const document: string = `fragment CartResponseFields on CartResponse {
   items {
     cartId
     channelId

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment PayMethodFields on PayMethod {
+export const document: string = `fragment PayMethodFields on PayMethod {
   id
   createdAt
   lastModifiedAt

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ValuesetItemResponseFields on ValuesetItemResponse {
+export const document: string = `fragment ValuesetItemResponseFields on ValuesetItemResponse {
   items {
     ...ValuesetItemFields
   }

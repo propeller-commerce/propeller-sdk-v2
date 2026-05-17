@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment MagicTokenResponseFields on MagicTokenResponse {
+export const document: string = `fragment MagicTokenResponseFields on MagicTokenResponse {
   items {
     ...MagicTokenFields
   }

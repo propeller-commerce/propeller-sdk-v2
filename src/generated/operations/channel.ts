@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ChannelFields on Channel {
+export const document: string = `fragment ChannelFields on Channel {
   id
   channelId
   name

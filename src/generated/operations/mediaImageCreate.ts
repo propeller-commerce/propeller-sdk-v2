@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment MediaImageFields on MediaImage {
+export const document: string = `fragment MediaImageFields on MediaImage {
   id
   productId
   clusterId

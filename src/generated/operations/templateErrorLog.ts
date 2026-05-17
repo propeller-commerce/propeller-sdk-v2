@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `query templateErrorLog(\$id: String!) {
+export const document: string = `query templateErrorLog(\$id: String!) {
   templateErrorLog(id: \$id) {
     id
     stackTrace

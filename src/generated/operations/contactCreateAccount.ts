@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment RegisterContactResponseFields on RegisterContactResponse {
+export const document: string = `fragment RegisterContactResponseFields on RegisterContactResponse {
   contact {
     ... on Contact {
       ...ContactFields

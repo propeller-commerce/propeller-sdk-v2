@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BundlesResponseFields on BundlesResponse {
+export const document: string = `fragment BundlesResponseFields on BundlesResponse {
   items {
     ...BundleFields
   }

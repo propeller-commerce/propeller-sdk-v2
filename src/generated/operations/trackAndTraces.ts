@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TrackAndTraceResponseFields on TrackAndTraceResponse {
+export const document: string = `fragment TrackAndTraceResponseFields on TrackAndTraceResponse {
   items {
     ...TrackAndTraceFields
   }

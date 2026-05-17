@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ShipmentFields on Shipment {
+export const document: string = `fragment ShipmentFields on Shipment {
   id
   createdAt
   lastModifiedAt

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment FavoriteListOnlyFields on FavoriteList {
+export const document: string = `fragment FavoriteListOnlyFields on FavoriteList {
   id
   name
   companyId

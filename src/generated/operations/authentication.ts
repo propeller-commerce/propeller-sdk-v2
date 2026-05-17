@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment GCIPUserFields on GCIPUser {
+export const document: string = `fragment GCIPUserFields on GCIPUser {
   uid
   email
   emailVerified

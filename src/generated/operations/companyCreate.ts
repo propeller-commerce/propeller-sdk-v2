@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CompanyFields on Company {
+export const document: string = `fragment CompanyFields on Company {
   companyId
   addresses {
     ...AddressFields

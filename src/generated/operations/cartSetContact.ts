@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CartFields on Cart {
+export const document: string = `fragment CartFields on Cart {
   cartId
   channelId
   contactId

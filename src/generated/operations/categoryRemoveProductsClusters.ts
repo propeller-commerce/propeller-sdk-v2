@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CategoryRemoveProductsClustersResponseFields on CategoryRemoveProductsClustersResponse {
+export const document: string = `fragment CategoryRemoveProductsClustersResponseFields on CategoryRemoveProductsClustersResponse {
   category {
     ...CategoryFields
   }

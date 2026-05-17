@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment EventToWebHookConfigFields on EventToWebHookConfig {
+export const document: string = `fragment EventToWebHookConfigFields on EventToWebHookConfig {
   id
   trigger
   code

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `mutation carrierDelete(\$id: Int!) {
+export const document: string = `mutation carrierDelete(\$id: Int!) {
   carrierDelete(id: \$id)
 }
 `;

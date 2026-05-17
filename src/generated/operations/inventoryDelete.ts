@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment InventoryDeleteResponseFields on InventoryDeleteResponse {
+export const document: string = `fragment InventoryDeleteResponseFields on InventoryDeleteResponse {
   __typename
 }
 

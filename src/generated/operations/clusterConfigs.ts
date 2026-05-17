@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ClusterConfigResponseFields on ClusterConfigResponse {
+export const document: string = `fragment ClusterConfigResponseFields on ClusterConfigResponse {
   id
   name
   settings {

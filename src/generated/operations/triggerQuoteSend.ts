@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `mutation triggerQuoteSend(\$input: TriggerQuoteSendEventInput!) {
+export const document: string = `mutation triggerQuoteSend(\$input: TriggerQuoteSendEventInput!) {
   triggerQuoteSend(input: \$input)
 }
 `;

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ProductsResponseFields on ProductsResponse {
+export const document: string = `fragment ProductsResponseFields on ProductsResponse {
   items {
     ... on Cluster {
       ...ClusterGridFields

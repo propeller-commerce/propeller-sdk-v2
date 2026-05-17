@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment MagicTokenFields on MagicToken {
+export const document: string = `fragment MagicTokenFields on MagicToken {
   id
   contactId
   customerId

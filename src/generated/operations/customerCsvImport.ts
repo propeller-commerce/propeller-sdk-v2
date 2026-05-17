@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CsvImportResponseFields on CsvImportResponse {
+export const document: string = `fragment CsvImportResponseFields on CsvImportResponse {
   importedCount
   errors {
     code

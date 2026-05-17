@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment MediaVideoFields on MediaVideo {
+export const document: string = `fragment MediaVideoFields on MediaVideo {
   id
   productId
   clusterId

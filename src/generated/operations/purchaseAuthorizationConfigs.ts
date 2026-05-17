@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment PurchaseAuthorizationConfigResponseFields on PurchaseAuthorizationConfigResponse {
+export const document: string = `fragment PurchaseAuthorizationConfigResponseFields on PurchaseAuthorizationConfigResponse {
   items {
     ...PurchaseAuthorizationConfigFields
   }

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BusinessRuleFieldDefinitionGroupFields on BusinessRuleFieldDefinitionGroup {
+export const document: string = `fragment BusinessRuleFieldDefinitionGroupFields on BusinessRuleFieldDefinitionGroup {
   id
   name
   isRoot

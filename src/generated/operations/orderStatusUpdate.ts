@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment OrderStatusFields on OrderStatus {
+export const document: string = `fragment OrderStatusFields on OrderStatus {
   id
   name
   code

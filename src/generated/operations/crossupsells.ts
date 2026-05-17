@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CrossupsellsResponseFields on CrossupsellsResponse {
+export const document: string = `fragment CrossupsellsResponseFields on CrossupsellsResponse {
   items {
     ...CrossupsellFields
   }

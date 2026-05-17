@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment WarehousesResponseFields on WarehousesResponse {
+export const document: string = `fragment WarehousesResponseFields on WarehousesResponse {
   items {
     ...WarehouseFields
   }

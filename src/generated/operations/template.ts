@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment IBaseTemplateFields on IBaseTemplate {
+export const document: string = `fragment IBaseTemplateFields on IBaseTemplate {
   ... on DocumentTemplate {
     ...DocumentTemplateFields
   }

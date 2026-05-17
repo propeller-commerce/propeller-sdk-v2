@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ClusterBulkMoveResponseFields on ClusterBulkMoveResponse {
+export const document: string = `fragment ClusterBulkMoveResponseFields on ClusterBulkMoveResponse {
   movedCount
   errors {
     ...ClusterBulkMoveErrorFields

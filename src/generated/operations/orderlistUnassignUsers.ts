@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment OrderlistFields on Orderlist {
+export const document: string = `fragment OrderlistFields on Orderlist {
   id
   createdAt
   lastModifiedAt

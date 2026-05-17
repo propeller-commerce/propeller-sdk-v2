@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment EventToEmailConfigFields on EventToEmailConfig {
+export const document: string = `fragment EventToEmailConfigFields on EventToEmailConfig {
   id
   trigger
   code

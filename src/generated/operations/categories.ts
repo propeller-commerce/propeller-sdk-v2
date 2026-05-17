@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CategoryResponseFields on CategoryResponse {
+export const document: string = `fragment CategoryResponseFields on CategoryResponse {
   items {
     ...CategoryMinimalFields
   }

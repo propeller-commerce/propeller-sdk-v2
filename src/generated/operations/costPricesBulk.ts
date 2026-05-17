@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BulkResponseDataFields on BulkResponseData {
+export const document: string = `fragment BulkResponseDataFields on BulkResponseData {
   created
   updated
   total

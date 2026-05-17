@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TenantFields on Tenant {
+export const document: string = `fragment TenantFields on Tenant {
   id
   name
   descriptions {

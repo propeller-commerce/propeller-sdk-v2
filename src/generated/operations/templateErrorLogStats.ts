@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `query templateErrorLogStats {
+export const document: string = `query templateErrorLogStats {
   templateErrorLogStats {
     totalCount
     renderErrorCount

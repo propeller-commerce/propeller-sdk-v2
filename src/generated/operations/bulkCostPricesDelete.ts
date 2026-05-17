@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `mutation bulkCostPricesDelete(\$priceId: String!) {
+export const document: string = `mutation bulkCostPricesDelete(\$priceId: String!) {
   bulkCostPricesDelete(priceId: \$priceId)
 }
 `;

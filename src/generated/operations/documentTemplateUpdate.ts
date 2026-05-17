@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment DocumentTemplateFields on DocumentTemplate {
+export const document: string = `fragment DocumentTemplateFields on DocumentTemplate {
   id
   contents {
     ...LocalizedTemplateContentFields

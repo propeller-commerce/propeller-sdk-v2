@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `mutation companySearchIndexUpdateMapping(\$input: CompanySearchIndexUpdateMappingInput!) {
+export const document: string = `mutation companySearchIndexUpdateMapping(\$input: CompanySearchIndexUpdateMappingInput!) {
   companySearchIndexUpdateMapping(input: \$input)
 }
 `;

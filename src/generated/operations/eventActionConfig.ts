@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment IEventActionConfigFields on IEventActionConfig {
+export const document: string = `fragment IEventActionConfigFields on IEventActionConfig {
   id
   trigger
   code

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ContactFields on Contact {
+export const document: string = `fragment ContactFields on Contact {
   contactId
   attributes(input: \$contactAttributesInput) {
     items {

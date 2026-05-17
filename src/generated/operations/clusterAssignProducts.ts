@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ClusterAssignProductsResponseFields on ClusterAssignProductsResponse {
+export const document: string = `fragment ClusterAssignProductsResponseFields on ClusterAssignProductsResponse {
   cluster {
     ...ClusterFields
   }

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BusinessRuleResponseFields on BusinessRuleResponse {
+export const document: string = `fragment BusinessRuleResponseFields on BusinessRuleResponse {
   items {
     ...BusinessRuleFields
   }

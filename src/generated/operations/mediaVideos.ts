@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment PaginatedMediaVideoResponseFields on PaginatedMediaVideoResponse {
+export const document: string = `fragment PaginatedMediaVideoResponseFields on PaginatedMediaVideoResponse {
   items {
     ...MediaVideoFields
   }

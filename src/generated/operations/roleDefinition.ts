@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment RoleDefinitionFields on RoleDefinition {
+export const document: string = `fragment RoleDefinitionFields on RoleDefinition {
   id
   name
   descriptions {

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CarriersResponseFields on CarriersResponse {
+export const document: string = `fragment CarriersResponseFields on CarriersResponse {
   items {
     ...CarrierFields
   }

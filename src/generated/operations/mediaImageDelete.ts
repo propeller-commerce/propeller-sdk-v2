@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment DeleteMediaImageResponseFields on DeleteMediaImageResponse {
+export const document: string = `fragment DeleteMediaImageResponseFields on DeleteMediaImageResponse {
   mediaId
 }
 

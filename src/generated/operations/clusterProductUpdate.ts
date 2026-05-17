@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ProductFields on Product {
+export const document: string = `fragment ProductFields on Product {
   ...IBaseProductFields
   productId
   categoryId

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment EmailTemplateFields on EmailTemplate {
+export const document: string = `fragment EmailTemplateFields on EmailTemplate {
   id
   contents {
     ...LocalizedTemplateContentFields

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TicketFields on Ticket {
+export const document: string = `fragment TicketFields on Ticket {
   id
   titles {
     language

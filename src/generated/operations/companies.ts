@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CompaniesResponseFields on CompaniesResponse {
+export const document: string = `fragment CompaniesResponseFields on CompaniesResponse {
   items {
     ...CompanyFields
   }

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `mutation shopInvalidateCache {
+export const document: string = `mutation shopInvalidateCache {
   shopInvalidateCache
 }
 `;

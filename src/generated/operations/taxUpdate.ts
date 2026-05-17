@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TaxFields on Tax {
+export const document: string = `fragment TaxFields on Tax {
   id
   code
   zone

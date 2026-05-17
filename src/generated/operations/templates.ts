@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TemplateResponseFields on TemplateResponse {
+export const document: string = `fragment TemplateResponseFields on TemplateResponse {
   items {
     ...IBaseTemplateFields
   }

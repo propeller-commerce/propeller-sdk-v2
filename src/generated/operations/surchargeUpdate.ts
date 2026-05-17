@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment SurchargeFields on Surcharge {
+export const document: string = `fragment SurchargeFields on Surcharge {
   id
   name {
     ...LocalizedStringFields

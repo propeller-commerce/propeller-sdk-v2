@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment InventoryResponseFields on InventoryResponse {
+export const document: string = `fragment InventoryResponseFields on InventoryResponse {
   id
   productId
   quantity

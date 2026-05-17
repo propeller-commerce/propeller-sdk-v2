@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ZoneTaxCodeFields on ZoneTaxCode {
+export const document: string = `fragment ZoneTaxCodeFields on ZoneTaxCode {
   id
   priceId
   createdAt

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment LogoutFields on Logout {
+export const document: string = `fragment LogoutFields on Logout {
   todo
 }
 

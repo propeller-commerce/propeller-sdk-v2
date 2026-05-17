@@ -12,8 +12,9 @@ class-wrapper, tree-shaking, and deprecated-symbol debt accumulated through
 
 ### Breaking
 
-- **Wrapper classes → interfaces.** All 272 response types in `src/type/*.ts`
-  are now `export interface X` instead of `export class X` with `Object.assign`
+- **Wrapper classes → interfaces.** Every type in `src/type/*.ts` (721 files
+  — ~400 `*Input` types and ~321 entity/response types) is now
+  `export interface X` instead of `export class X` with `Object.assign`
   constructors. Removed ~2,291 auto-generated getter methods. `new Product(…)`,
   `product instanceof Product`, `product.getName('NL')` etc. no longer compile.
   Use direct field access (`product.names`) and the new `getLocalized()` helper

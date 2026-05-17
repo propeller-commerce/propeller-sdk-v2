@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TaxesResponseFields on TaxesResponse {
+export const document: string = `fragment TaxesResponseFields on TaxesResponse {
   items {
     ...TaxFields
   }

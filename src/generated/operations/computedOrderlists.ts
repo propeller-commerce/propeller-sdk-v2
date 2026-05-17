@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ComputedOrderlistsResponseFields on ComputedOrderlistsResponse {
+export const document: string = `fragment ComputedOrderlistsResponseFields on ComputedOrderlistsResponse {
   positiveOrderlistsProductIds
   negativeOrderListsProductIds
   positiveOrderListsClusterIds

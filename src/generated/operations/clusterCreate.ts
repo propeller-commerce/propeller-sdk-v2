@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ClusterFields on Cluster {
+export const document: string = `fragment ClusterFields on Cluster {
   ...IBaseProductFields
   clusterId
   categoryId

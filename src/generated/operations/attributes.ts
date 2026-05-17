@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment AttributeResponseFields on AttributeResponse {
+export const document: string = `fragment AttributeResponseFields on AttributeResponse {
   items {
     ... on CategoryAttribute {
       ...CategoryAttributeFields

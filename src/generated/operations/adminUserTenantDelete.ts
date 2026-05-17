@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment AdminUserTenantFields on AdminUserTenant {
+export const document: string = `fragment AdminUserTenantFields on AdminUserTenant {
   id
   tenant
   name

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment PriceResponseFields on PriceResponse {
+export const document: string = `fragment PriceResponseFields on PriceResponse {
   items {
     ...PriceFields
   }

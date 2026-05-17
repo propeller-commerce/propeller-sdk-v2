@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TrackAndTraceFields on TrackAndTrace {
+export const document: string = `fragment TrackAndTraceFields on TrackAndTrace {
   carrierId
   carrier {
     id

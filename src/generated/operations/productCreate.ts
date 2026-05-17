@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `mutation productCreate(\$input: CreateProductInput!) {
+export const document: string = `mutation productCreate(\$input: CreateProductInput!) {
   productCreate(input: \$input) {
     productId
   }

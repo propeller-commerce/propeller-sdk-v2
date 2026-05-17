@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment PriceFields on Price {
+export const document: string = `fragment PriceFields on Price {
   id
   createdAt
   lastModifiedAt

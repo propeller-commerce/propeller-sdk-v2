@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment AttributeDescriptionFields on AttributeDescription {
+export const document: string = `fragment AttributeDescriptionFields on AttributeDescription {
   id
   name
   descriptions {

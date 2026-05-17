@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment LoginFields on Login {
+export const document: string = `fragment LoginFields on Login {
   providerId
   operationType
   session {

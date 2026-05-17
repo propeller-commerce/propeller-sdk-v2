@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment RefreshTokenResponseFields on RefreshTokenResponse {
+export const document: string = `fragment RefreshTokenResponseFields on RefreshTokenResponse {
   access_token
   refresh_token
   expires_in

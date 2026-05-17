@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment FavoriteListsResponseFields on FavoriteListsResponse {
+export const document: string = `fragment FavoriteListsResponseFields on FavoriteListsResponse {
   items {
     ...FavoriteListOnlyFields
   }

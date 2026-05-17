@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment CompanySearchResponseFields on CompanySearchResponse {
+export const document: string = `fragment CompanySearchResponseFields on CompanySearchResponse {
   items {
     id
     name

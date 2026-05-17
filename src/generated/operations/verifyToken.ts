@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment VerifyTokenFields on VerifyToken {
+export const document: string = `fragment VerifyTokenFields on VerifyToken {
   uid
   name
   claims

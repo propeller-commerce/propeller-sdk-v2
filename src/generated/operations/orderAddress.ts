@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment OrderAddressFields on OrderAddress {
+export const document: string = `fragment OrderAddressFields on OrderAddress {
   id
   orderId
   createdAt

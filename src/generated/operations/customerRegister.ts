@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment RegisterCustomerResponseFields on RegisterCustomerResponse {
+export const document: string = `fragment RegisterCustomerResponseFields on RegisterCustomerResponse {
   customer {
     ... on Customer {
       ...CustomerFields

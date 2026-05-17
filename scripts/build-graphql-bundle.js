@@ -90,7 +90,12 @@ function escapeForTemplate(content) {
 
 function emitOperation(name, source) {
   const filePath = path.join(OPERATIONS_DIR, `${name}.ts`);
-  const body = `/* Auto-generated. Do not edit. */\nexport const document = \`${escapeForTemplate(source)}\`;\n`;
+  // Annotate as `: string` (not an inferred string-literal type) so the
+  // emitted .d.ts is `export declare const document: string;` — a few bytes —
+  // instead of re-inlining the entire ~8 KB GraphQL literal into the
+  // declaration file (review finding #9: that duplication was ~1.2 MB of the
+  // shipped package across 458 ops, for zero type value).
+  const body = `/* Auto-generated. Do not edit. */\nexport const document: string = \`${escapeForTemplate(source)}\`;\n`;
   fs.writeFileSync(filePath, body, 'utf8');
 }
 

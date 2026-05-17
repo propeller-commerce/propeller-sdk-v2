@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment OrderItemFields on OrderItem {
+export const document: string = `fragment OrderItemFields on OrderItem {
   id
   orderId
   uuid

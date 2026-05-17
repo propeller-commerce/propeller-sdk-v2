@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment EventActionConfigResponseFields on EventActionConfigResponse {
+export const document: string = `fragment EventActionConfigResponseFields on EventActionConfigResponse {
   items {
     ...IEventActionConfigFields
   }

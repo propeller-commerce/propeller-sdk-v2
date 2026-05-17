@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment SparePartsMachineResponseFields on SparePartsMachineResponse {
+export const document: string = `fragment SparePartsMachineResponseFields on SparePartsMachineResponse {
   items {
     ...SparePartsMachineFields
   }

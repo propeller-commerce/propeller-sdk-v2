@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ContactAddToCompaniesResponseFields on ContactAddToCompaniesResponse {
+export const document: string = `fragment ContactAddToCompaniesResponseFields on ContactAddToCompaniesResponse {
   contact {
     ...ContactFields
   }

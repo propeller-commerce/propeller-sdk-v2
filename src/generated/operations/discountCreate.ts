@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment DiscountFields on Discount {
+export const document: string = `fragment DiscountFields on Discount {
   categoryId
   id
   createdAt

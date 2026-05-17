@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment PaymentFields on Payment {
+export const document: string = `fragment PaymentFields on Payment {
   id
   userId
   anonymousId

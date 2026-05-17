@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TicketResponseFields on TicketResponse {
+export const document: string = `fragment TicketResponseFields on TicketResponse {
   items {
     ...TicketFields
   }

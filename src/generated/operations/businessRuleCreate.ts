@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BusinessRuleFields on BusinessRule {
+export const document: string = `fragment BusinessRuleFields on BusinessRule {
   id
   shopId
   type

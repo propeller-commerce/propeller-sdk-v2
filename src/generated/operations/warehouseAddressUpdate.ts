@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment WarehouseAddressFields on WarehouseAddress {
+export const document: string = `fragment WarehouseAddressFields on WarehouseAddress {
   id
   firstName
   middleName

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ProductBulkMoveResponseFields on ProductBulkMoveResponse {
+export const document: string = `fragment ProductBulkMoveResponseFields on ProductBulkMoveResponse {
   movedCount
   errors {
     ...ProductBulkMoveErrorFields

@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment MediaFields on Media {
+export const document: string = `fragment MediaFields on Media {
   images {
     items {
       ...MediaImageFields

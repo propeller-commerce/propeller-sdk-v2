@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BundleItemFields on BundleItem {
+export const document: string = `fragment BundleItemFields on BundleItem {
   productId
   price {
     ...BundlePriceFields

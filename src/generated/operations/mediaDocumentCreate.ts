@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment MediaDocumentFields on MediaDocument {
+export const document: string = `fragment MediaDocumentFields on MediaDocument {
   id
   productId
   clusterId

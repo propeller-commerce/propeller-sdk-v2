@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ZoneTaxCodeResponseFields on ZoneTaxCodeResponse {
+export const document: string = `fragment ZoneTaxCodeResponseFields on ZoneTaxCodeResponse {
   items {
     ...ZoneTaxCodeFields
   }

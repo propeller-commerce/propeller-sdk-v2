@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment TenderFields on Tender {
+export const document: string = `fragment TenderFields on Tender {
   status
   orderStatus {
     ...OrderStatusFields

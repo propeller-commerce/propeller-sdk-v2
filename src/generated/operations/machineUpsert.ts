@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment SparePartsMachineFields on SparePartsMachine {
+export const document: string = `fragment SparePartsMachineFields on SparePartsMachine {
   id
   media {
     ...SparePartsMachineMediaImagesOnlyFields

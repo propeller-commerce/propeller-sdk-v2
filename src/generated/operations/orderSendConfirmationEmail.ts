@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment SendOrderConfirmResponseTypeFields on SendOrderConfirmResponseType {
+export const document: string = `fragment SendOrderConfirmResponseTypeFields on SendOrderConfirmResponseType {
   messageId
   success
 }

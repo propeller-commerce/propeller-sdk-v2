@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ShopFields on Shop {
+export const document: string = `fragment ShopFields on Shop {
   shopId
   name
   purchaseRootId

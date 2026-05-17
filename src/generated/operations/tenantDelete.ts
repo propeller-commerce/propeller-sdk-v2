@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `mutation tenantDelete(\$id: String) {
+export const document: string = `mutation tenantDelete(\$id: String) {
   tenantDelete(id: \$id)
 }
 `;

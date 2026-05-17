@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment BulkCostPriceFields on BulkCostPrice {
+export const document: string = `fragment BulkCostPriceFields on BulkCostPrice {
   id
   createdAt
   lastModifiedAt

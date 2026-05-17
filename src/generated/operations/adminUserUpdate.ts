@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment AdminUserFields on AdminUser {
+export const document: string = `fragment AdminUserFields on AdminUser {
   id
   email
   gender

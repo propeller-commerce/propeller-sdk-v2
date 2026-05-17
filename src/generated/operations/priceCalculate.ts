@@ -1,5 +1,5 @@
 /* Auto-generated. Do not edit. */
-export const document = `fragment ProductPriceFields on ProductPrice {
+export const document: string = `fragment ProductPriceFields on ProductPrice {
   productId
   type
   discountType
