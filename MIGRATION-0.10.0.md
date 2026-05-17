@@ -1,13 +1,19 @@
 # Migrating to propeller-sdk-v2 v0.10.0
 
-v0.10.0 is an architectural overhaul. The public surface is intentionally kept
-close to v0.9.x so most consumer code does **not** need to change. The places
-that do change are concentrated in one file per consumer (`lib/api.ts`), with
-a short rename table for a few methods.
+v0.10.0 is a **breaking** architectural overhaul. It removes the wrapper
+classes (response types are now plain interfaces), the `client` Proxy export,
+and several deprecated config keys, and it changes 117 service-method
+signatures to take a single `variables` object. Every consumer needs *some*
+code change; how much depends on how you used v0.9.x.
 
-If you previously used `propeller-sdk-v2` v0.9.x via the `lib/api.ts`
-singleton-export pattern (the recommended setup for `propeller-next` and
-`propeller-vue`), your migration is ~10 lines of edits.
+The public surface was kept as close to v0.9.x as practical: the heaviest
+edits are concentrated. **If** you used the `lib/api.ts` singleton-export
+pattern (the setup `propeller-next` and `propeller-vue` use), the bulk of the
+change is ~10 lines in that one file plus the method-rename table below. If
+you instantiated services or read class methods (`product.getName(...)`,
+`instanceof`) directly across your codebase, expect proportionally more.
+Run `tsc --noEmit` after upgrading — the compiler now enumerates every site
+that needs changing (the result types are real as of 0.10.0).
 
 ---
 
@@ -137,10 +143,20 @@ npm test
 
 ## Reverting
 
-v0.10.0 is a major architectural change but no `package.json` minor-bump
-changes are sticky — if anything breaks, pin back to `0.9.0` while we work
-through the diff.
+v0.10.0 is a breaking, architectural change. It removes wrapper classes, the
+`client` Proxy export, and several deprecated config keys, and it changes 117
+service-method signatures — reverting requires *code* changes back, not just a
+dependency flip. There is no in-place compatibility shim.
+
+To go back, pin the exact previous version and restore the call sites you
+changed (the v0.9.x class/`new XService(client)` forms, `product.getName(...)`,
+etc.):
 
 ```bash
-npm install propeller-sdk-v2@0.9.0
+npm install --save-exact propeller-sdk-v2@0.9.0
 ```
+
+Note this is a `0.x` line: under SemVer, even a minor bump may break. Pin an
+**exact** version (`--save-exact` / a non-range `package.json` entry) and
+upgrade deliberately against this changelog until a 1.0.0 stabilizes the
+public surface.

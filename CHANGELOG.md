@@ -4,7 +4,13 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
-## [0.10.0] - 2026-05-15
+## [0.10.0] - Unreleased
+
+> **Status: unreleased / work in progress.** Not yet published to npm — the
+> latest published version is 0.9.0. The date is intentionally omitted until
+> this is tagged and published; do not assume `npm install propeller-sdk-v2`
+> resolves to 0.10.0 yet. Because the changes below are breaking, pin an exact
+> version when this does ship (see Reverting in the migration guide).
 
 Architectural overhaul. Single coordinated breaking release addressing the
 class-wrapper, tree-shaking, and deprecated-symbol debt accumulated through
