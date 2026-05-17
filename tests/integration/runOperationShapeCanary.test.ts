@@ -1,18 +1,22 @@
 /**
- * Per-method result-typing guard (review finding #5 + locks in finding #1).
+ * Service runOperation-shape consistency canary.
  *
- * After finding #1, every service method must call
- *   `runOperation<{ <field>: <RetType> }>(client, <doc>, '<op>', ...)`
- * and then `return result.data.<field> [as ...];` — where the type-argument
- * key, the returned `result.data.<field>` property, and (where present) the
- * `as <Cast>` all agree, and the method's declared `Promise<RetType>` matches
- * the type-argument value.
+ * HONEST SCOPE (second-review finding #3): this is NOT a correctness guard
+ * against the GraphQL schema. The three things it compares per method — the
+ * `runOperation<{ field: T }>` type-argument, the `result.data.<field>`
+ * property read, and the declared `Promise<T>` — are all authored by the
+ * same codemod in the same file, so their agreement proves *internal
+ * consistency*, not that `T` is what the operation actually returns. It does
+ * NOT validate selection sets or schema shapes (the partial-response
+ * behaviour where a method returns the named type but the operation selects
+ * a subset is expected and documented — see README "Operation variables and
+ * return shapes"; it is not something this test should or does flag).
  *
- * This walks every service file's AST and asserts that invariant for all 346
- * runOperation methods. It fails the build if a future edit (or a codemod
- * regression) reintroduces an untyped `runOperation(...)` call or a
- * key/return/cast mismatch — the class of bug finding #1 was about, which the
- * compiler now catches but which this test pins explicitly and readably.
+ * What it DOES protect: a future edit or codemod regression that
+ * reintroduces an untyped `runOperation(...)` (silently `any` again) or
+ * desyncs the type-arg / return-field / declared-return within a method.
+ * That regression is real and this catches it cheaply across all ~346
+ * methods; the value is the canary, not a schema proof.
  */
 import * as fs from 'fs';
 import * as path from 'path';
@@ -122,7 +126,7 @@ function collectCalls(): Call[] {
   return calls;
 }
 
-describe('service result typing invariant (finding #1/#5)', () => {
+describe('service runOperation-shape consistency canary (internal, not a schema guard)', () => {
   const calls = collectCalls();
 
   it('discovers the expected number of runOperation methods', () => {

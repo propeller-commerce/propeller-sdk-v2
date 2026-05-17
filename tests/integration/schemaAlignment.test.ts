@@ -84,6 +84,24 @@ function loadSchema(): GraphQLSchema {
     text = raw.toString('utf8').replace(/^﻿/, '');
   }
   const parsed = JSON.parse(text);
+
+  // Staleness nudge (review finding #5): when validating against the COMMITTED
+  // snapshot (no live schema fetched), warn — don't fail — if the snapshot is
+  // older than the threshold. Keeps offline/CI green while making silent rot
+  // visible. Refresh with `node scripts/build-schema-snapshot.js`.
+  if (schemaFile === SCHEMA_SNAPSHOT_PATH && typeof parsed.__generatedAt === 'string') {
+    const ageDays = (Date.now() - Date.parse(parsed.__generatedAt)) / 86_400_000;
+    const STALE_AFTER_DAYS = 60;
+    if (ageDays > STALE_AFTER_DAYS) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[schemaAlignment] Offline schema snapshot is ${Math.round(ageDays)} days old ` +
+          `(generated ${parsed.__generatedAt}). It may not reflect the live API. ` +
+          `Refresh: \`node scripts/build-schema-snapshot.js\`.`
+      );
+    }
+  }
+
   const introspection: IntrospectionQuery = parsed.data ?? parsed;
   return buildClientSchema(introspection);
 }

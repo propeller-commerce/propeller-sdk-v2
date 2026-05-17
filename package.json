@@ -39,6 +39,7 @@
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
     "check:drift": "node scripts/check-generated-drift.js",
+    "snapshot:schema": "node scripts/build-schema-snapshot.js",
     "validate": "npm run typecheck && npm run check:drift && npm run build",
     "prepublishOnly": "npm run validate",
     "docs:build": "typedoc",
