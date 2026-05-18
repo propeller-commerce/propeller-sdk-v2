@@ -22,9 +22,14 @@ mirror_to_github:
     - git config --global user.email "ci@propeller-commerce.com"
     - git config --global user.name "GitLab CI"
     - git remote add github https://${GITHUB_TOKEN}@github.com/propeller-commerce/propeller-sdk-v2.git || true
-    - git fetch --all || true
-    - git push github HEAD:refs/heads/${CI_COMMIT_REF_NAME} --force
-    - git push github --tags --force
+    # GitLab clones shallow by default; a shallow history + thin pack against
+    # the divergent GitHub mirror causes "remote unpack failed: index-pack
+    # failed". Unshallow so the full object graph is present locally, do NOT
+    # fetch the GitHub remote (that is what makes git deltify the pack against
+    # objects GitHub may not have), and push a complete (--no-thin) pack.
+    - git fetch origin --unshallow || git fetch origin || true
+    - git push --no-thin github HEAD:refs/heads/${CI_COMMIT_REF_NAME} --force
+    - git push --no-thin github --tags --force
   when: on_success
   allow_failure: false
 
