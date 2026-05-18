@@ -12,7 +12,7 @@ export function shopService(client: GraphQLClient) {
     /**
        * Fetches a single shop by ID
        * @deprecated The upstream `shop` query is deprecated; this query will be removed in a future version.
-       * @param id Shop ID to fetch
+       * @param variables Shop ID to fetch
        * @returns Promise<Shop> The shop data
        */
     async getShop(variables: ShopVariables): Promise<Shop> {
@@ -39,7 +39,7 @@ export class ShopService {
   constructor(client: GraphQLClient) { this._svc = shopService(client); }
   /**
    * Fetches a single shop by ID
-   * @param id Shop ID to fetch
+   * @param variables Shop ID to fetch
    */
   getShop(variables: ShopVariables): Promise<Shop> { return this._svc.getShop(variables); }
   /**

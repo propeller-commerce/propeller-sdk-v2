@@ -87,7 +87,7 @@ export function categoryService(client: GraphQLClient) {
     },
     /**
        Creates a new category
-       * @param input Category creation input data
+       * @param variables Category creation input data
        * @returns Promise<Category> The created category
        */
     async createCategory(variables: CategoryCreateVariables): Promise<Category> {
@@ -96,7 +96,7 @@ export function categoryService(client: GraphQLClient) {
     },
     /**
        Updates an existing category
-       * @param input Category update input data
+       * @param variables Category update input data
        * @returns Promise<Category> The updated category
        */
     async updateCategory(variables: CategoryUpdateVariables): Promise<Category> {
@@ -114,7 +114,7 @@ export function categoryService(client: GraphQLClient) {
     },
     /**
        Adds products/clusters to a category
-       * @param input Category add products/clusters input data
+       * @param variables Category add products/clusters input data
        * @returns Promise<Category> The updated category
        */
     async addProductsClustersToCategory(variables: CategoryAddProductsClustersVariables): Promise<CategoryAddProductsClustersResponse> {
@@ -123,7 +123,7 @@ export function categoryService(client: GraphQLClient) {
     },
     /**
        Removes products/clusters from a category
-       * @param input Category remove products/clusters input data
+       * @param variables Category remove products/clusters input data
        * @returns Promise<Category> The updated category
        */
     async removeProductsClustersFromCategory(variables: CategoryRemoveProductsClustersVariables): Promise<CategoryRemoveProductsClustersResponse> {
@@ -161,26 +161,16 @@ export class CategoryService {
   /**
    * Fetches a single category by ID or slug
    * @param variables Variables for the category query
-   * @param categoryId Category ID to fetch
-   * @param slug Category slug to fetch
-   * @param userId User ID for personalization
-   * @param hidden Whether to include hidden categories
-   * @param language Language for localized content
-   * @param priceCalculateProductInput Price calculation input
-   * @param categoryProductSearchInput Category product search input
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
-   * @param filterAvailableAttributeInput Filter available attributes
    */
   getCategory(variables: CategoryQueryVariables): Promise<Category> { return this._svc.getCategory(variables); }
   /**
    * Creates a new category
-   * @param input Category creation input data
+   * @param variables Category creation input data
    */
   createCategory(variables: CategoryCreateVariables): Promise<Category> { return this._svc.createCategory(variables); }
   /**
    * Updates an existing category
-   * @param input Category update input data
+   * @param variables Category update input data
    */
   updateCategory(variables: CategoryUpdateVariables): Promise<Category> { return this._svc.updateCategory(variables); }
   /**
@@ -190,12 +180,12 @@ export class CategoryService {
   importCategoriesCsv(input: CategoryCsvInput): Promise<CsvImportResponse> { return this._svc.importCategoriesCsv(input); }
   /**
    * Adds products/clusters to a category
-   * @param input Category add products/clusters input data
+   * @param variables Category add products/clusters input data
    */
   addProductsClustersToCategory(variables: CategoryAddProductsClustersVariables): Promise<CategoryAddProductsClustersResponse> { return this._svc.addProductsClustersToCategory(variables); }
   /**
    * Removes products/clusters from a category
-   * @param input Category remove products/clusters input data
+   * @param variables Category remove products/clusters input data
    */
   removeProductsClustersFromCategory(variables: CategoryRemoveProductsClustersVariables): Promise<CategoryRemoveProductsClustersResponse> { return this._svc.removeProductsClustersFromCategory(variables); }
   /**

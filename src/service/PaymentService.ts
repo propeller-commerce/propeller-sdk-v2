@@ -17,7 +17,7 @@ export function paymentService(client: GraphQLClient) {
   return {
     /**
        Retrieves a specific payment
-       * @param id Payment ID
+       * @param variables Payment ID
        * @returns Promise<Payment> Payment data
        */
     async getPayment(variables: PaymentVariables): Promise<Payment> {
@@ -44,7 +44,7 @@ export function paymentService(client: GraphQLClient) {
     },
     /**
        Updates an existing payment
-       * @param input Payment update input
+       * @param variables Payment update input
        * @returns Promise<Payment> The updated payment
        */
     async updatePayment(variables: PaymentUpdateVariables): Promise<Payment> {
@@ -53,7 +53,7 @@ export function paymentService(client: GraphQLClient) {
     },
     /**
        Deletes a payment
-       * @param id Payment ID to delete
+       * @param variables Payment ID to delete
        * @returns Promise<boolean> Success status
        */
     async deletePayment(variables: PaymentDeleteVariables): Promise<Payment> {
@@ -71,7 +71,7 @@ export class PaymentService {
   constructor(client: GraphQLClient) { this._svc = paymentService(client); }
   /**
    * Retrieves a specific payment
-   * @param id Payment ID
+   * @param variables Payment ID
    */
   getPayment(variables: PaymentVariables): Promise<Payment> { return this._svc.getPayment(variables); }
   /**
@@ -86,12 +86,12 @@ export class PaymentService {
   createPayment(input: any): Promise<Payment> { return this._svc.createPayment(input); }
   /**
    * Updates an existing payment
-   * @param input Payment update input
+   * @param variables Payment update input
    */
   updatePayment(variables: PaymentUpdateVariables): Promise<Payment> { return this._svc.updatePayment(variables); }
   /**
    * Deletes a payment
-   * @param id Payment ID to delete
+   * @param variables Payment ID to delete
    */
   deletePayment(variables: PaymentDeleteVariables): Promise<Payment> { return this._svc.deletePayment(variables); }
 }

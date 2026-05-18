@@ -11,7 +11,7 @@ export function registerCustomerResponseService(client: GraphQLClient) {
   return {
     /**
        Registers a new customer and returns response
-       * @param input RegisterCustomer input data
+       * @param variables RegisterCustomer input data
        * @returns Promise<RegisterCustomerResponse> The register customer response data
        */
     async registerCustomer(variables: CustomerRegisterVariables): Promise<RegisterCustomerResponse> {
@@ -29,7 +29,7 @@ export class RegisterCustomerResponseService {
   constructor(client: GraphQLClient) { this._svc = registerCustomerResponseService(client); }
   /**
    * Registers a new customer and returns response
-   * @param input RegisterCustomer input data
+   * @param variables RegisterCustomer input data
    */
   registerCustomer(variables: CustomerRegisterVariables): Promise<RegisterCustomerResponse> { return this._svc.registerCustomer(variables); }
 }

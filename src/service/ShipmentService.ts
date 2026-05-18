@@ -55,7 +55,7 @@ export function shipmentService(client: GraphQLClient) {
     },
     /**
        Updates an existing shipment
-       * @param input Shipment update input
+       * @param variables Shipment update input
        * @returns Promise<Shipment> The updated shipment
        */
     async updateShipment(variables: ShipmentUpdateVariables): Promise<Shipment> {
@@ -100,7 +100,7 @@ export function shipmentService(client: GraphQLClient) {
     },
     /**
        Updates an existing shipment item
-       * @param input Shipment item update input
+       * @param variables Shipment item update input
        * @returns Promise<ShipmentItem> The updated shipment item
        */
     async updateShipmentItem(variables: ShipmentItemUpdateVariables): Promise<ShipmentItem> {
@@ -142,7 +142,7 @@ export class ShipmentService {
   createShipment(input: ShipmentCreateInput): Promise<Shipment> { return this._svc.createShipment(input); }
   /**
    * Updates an existing shipment
-   * @param input Shipment update input
+   * @param variables Shipment update input
    */
   updateShipment(variables: ShipmentUpdateVariables): Promise<Shipment> { return this._svc.updateShipment(variables); }
   /**
@@ -167,7 +167,7 @@ export class ShipmentService {
   createShipmentItem(input: ShipmentItemCreateInput): Promise<ShipmentItem> { return this._svc.createShipmentItem(input); }
   /**
    * Updates an existing shipment item
-   * @param input Shipment item update input
+   * @param variables Shipment item update input
    */
   updateShipmentItem(variables: ShipmentItemUpdateVariables): Promise<ShipmentItem> { return this._svc.updateShipmentItem(variables); }
   /**

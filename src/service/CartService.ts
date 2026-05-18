@@ -325,7 +325,7 @@ export function cartService(client: GraphQLClient) {
     },
     /**
        Sets the customer for a cart
-       * @param input Cart set customer input data
+       * @param variables Cart set customer input data
        * @returns Promise<Cart> The updated cart
        */
     async setCartCustomer(variables: CartSetCustomerVariables): Promise<Cart> {
@@ -334,7 +334,7 @@ export function cartService(client: GraphQLClient) {
     },
     /**
        Sets the contact for a cart
-       * @param input Cart set contact input data
+       * @param variables Cart set contact input data
        * @returns Promise<Cart> The updated cart
        */
     async setCartContact(variables: CartSetContactVariables): Promise<Cart> {
@@ -344,7 +344,7 @@ export function cartService(client: GraphQLClient) {
     /**
        Sets the user for a cart
        * @deprecated The upstream `cartSetUser` mutation is deprecated. Use `setCartContact` or `setCartCustomer` instead.
-       * @param input Cart set user input data
+       * @param variables Cart set user input data
        * @returns Promise<Cart> The updated cart
        */
     async setCartUser(variables: CartSetUserVariables): Promise<Cart> {
@@ -448,10 +448,7 @@ export class CartService {
   constructor(client: GraphQLClient) { this._svc = cartService(client); }
   /**
    * Fetches a single cart by ID
-   * @param id Cart ID to fetch
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to fetch
    */
   getCart(variables: CartQueryVariables): Promise<Cart> { return this._svc.getCart(variables); }
   /**
@@ -461,128 +458,87 @@ export class CartService {
   getCarts(input?: CartSearchInput): Promise<CartResponse> { return this._svc.getCarts(input); }
   /**
    * Starts a new cart
-   * @param input Cart start input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart start input data
    */
   startCart(variables: CartStartVariables): Promise<Cart> { return this._svc.startCart(variables); }
   /**
    * Adds an item to a cart
-   * @param id Cart ID to add item to
-   * @param input Cart add item input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to add item to
    */
   addItemToCart(variables: CartAddItemVariables): Promise<Cart> { return this._svc.addItemToCart(variables); }
   /**
    * Updates an item in a cart
-   * @param id Cart ID to update item in
-   * @param itemId Item ID to update in the cart
-   * @param input Cart update item input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to update item in
    */
   updateCartItem(variables: CartUpdateItemVariables): Promise<Cart> { return this._svc.updateCartItem(variables); }
   /**
    * Deletes an item from a cart
-   * @param id Cart ID to delete item from
-   * @param input Cart delete item input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to delete item from
    */
   deleteCartItem(variables: CartDeleteItemVariables): Promise<Cart> { return this._svc.deleteCartItem(variables); }
   /**
    * Updates a cart
-   * @param id Cart ID to update
-   * @param input Cart update input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to update
    */
   updateCart(variables: CartUpdateVariables): Promise<Cart> { return this._svc.updateCart(variables); }
   /**
    * Updates a cart address
-   * @param id Cart ID to update address for
-   * @param input Cart update address input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to update address for
    */
   updateCartAddress(variables: CartUpdateAddressVariables): Promise<Cart> { return this._svc.updateCartAddress(variables); }
   /**
    * Adds a bundle to a cart
-   * @param id Cart ID to add bundle to
-   * @param input Cart add bundle input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to add bundle to
    */
   addBundleToCart(variables: CartAddBundleVariables): Promise<Cart> { return this._svc.addBundleToCart(variables); }
   /**
    * Sets the customer for a cart
-   * @param input Cart set customer input data
+   * @param variables Cart set customer input data
    */
   setCartCustomer(variables: CartSetCustomerVariables): Promise<Cart> { return this._svc.setCartCustomer(variables); }
   /**
    * Sets the contact for a cart
-   * @param input Cart set contact input data
+   * @param variables Cart set contact input data
    */
   setCartContact(variables: CartSetContactVariables): Promise<Cart> { return this._svc.setCartContact(variables); }
   /**
    * Sets the user for a cart
-   * @param input Cart set user input data
+   * @param variables Cart set user input data
    */
   setCartUser(variables: CartSetUserVariables): Promise<Cart> { return this._svc.setCartUser(variables); }
   /**
    * Processes a cart (checkout)
-   * @param id Cart ID to process
-   * @param input Cart process input data
+   * @param variables Cart ID to process
    */
   processCart(variables: CartProcessVariables): Promise<CartProcessResponse> { return this._svc.processCart(variables); }
   /**
    * Deletes a cart
-   * @param id Cart ID to delete
+   * @param variables Cart ID to delete
    */
   deleteCart(variables: CartDeleteVariables): Promise<boolean> { return this._svc.deleteCart(variables); }
   /**
    * Adds an action code to a cart
-   * @param id Cart ID to add action code to
-   * @param input Cart action code input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to add action code to
    */
   addActionCodeToCart(variables: CartActionCodeVariables): Promise<Cart> { return this._svc.addActionCodeToCart(variables); }
   /**
    * Removes an action code from a cart
-   * @param id Cart ID to remove action code from
-   * @param input Cart action code input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to remove action code from
    */
   removeActionCodeFromCart(variables: CartActionCodeVariables): Promise<Cart> { return this._svc.removeActionCodeFromCart(variables); }
   /**
    * Bulk updates cart items
-   * @param input Cart item bulk input data
+   * @param variables Cart item bulk input data
    */
   bulkUpdateCartItems(variables: CartItemBulkVariables): Promise<BulkResponseData> { return this._svc.bulkUpdateCartItems(variables); }
   /**
    * Requests purchase authorization for a cart
-   * @param input Cart purchase authorization request input data
+   * @param variables Cart purchase authorization request input data
    */
   requestPurchaseAuthorization(variables: CartRequestPurchaseAuthorizationVariables): Promise<Cart> { return this._svc.requestPurchaseAuthorization(variables); }
   /**
    * Accepts a purchase authorization request for a cart
-   * @param id Cart ID to accept purchase authorization for
-   * @param input Cart accept purchase authorization input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Cart ID to accept purchase authorization for
    */
   acceptPurchaseAuthorizationRequest(variables: CartAcceptPurchaseAuthorizationVariables): Promise<Cart> { return this._svc.acceptPurchaseAuthorizationRequest(variables); }
 }

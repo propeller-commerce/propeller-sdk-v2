@@ -10,7 +10,7 @@ export function inventoryService(client: GraphQLClient) {
   return {
     /**
        Fetches inventory with search criteria
-       * @param input Inventory search input parameters
+       * @param variables Inventory search input parameters
        * @returns Promise<InventoryResponse> The inventory response
        */
     async getInventory(variables: InventoryVariables): Promise<InventoryResponse> {
@@ -28,7 +28,7 @@ export class InventoryService {
   constructor(client: GraphQLClient) { this._svc = inventoryService(client); }
   /**
    * Fetches inventory with search criteria
-   * @param input Inventory search input parameters
+   * @param variables Inventory search input parameters
    */
   getInventory(variables: InventoryVariables): Promise<InventoryResponse> { return this._svc.getInventory(variables); }
 }

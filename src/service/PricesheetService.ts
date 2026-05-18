@@ -113,7 +113,6 @@ export class PricesheetService {
   /**
    * Fetches a single pricesheet by ID
    * @param variables Variables for the pricesheet query
-   * @param id Pricesheet ID to fetch
    */
   getPricesheet(variables: PricesheetQueryVariables): Promise<Pricesheet> { return this._svc.getPricesheet(variables); }
   /**

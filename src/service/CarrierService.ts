@@ -45,7 +45,7 @@ export function carrierService(client: GraphQLClient) {
     },
     /**
        Updates an existing carrier
-       * @param input Carrier update input data
+       * @param variables Carrier update input data
        * @returns Promise<Carrier> The updated carrier
        */
     async updateCarrier(variables: CarrierUpdateVariables): Promise<Carrier> {
@@ -87,7 +87,7 @@ export class CarrierService {
   createCarrier(input: CarrierCreateInput): Promise<Carrier> { return this._svc.createCarrier(input); }
   /**
    * Updates an existing carrier
-   * @param input Carrier update input data
+   * @param variables Carrier update input data
    */
   updateCarrier(variables: CarrierUpdateVariables): Promise<Carrier> { return this._svc.updateCarrier(variables); }
   /**

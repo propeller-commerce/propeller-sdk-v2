@@ -86,7 +86,7 @@ export function attributeService(client: GraphQLClient) {
     },
     /**
        Fetches attribute results by category ID
-       * @param categoryId Category ID to fetch attributes for
+       * @param variables Category ID to fetch attributes for
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByCategoryId(variables: AttributeResultByCategoryIdVariables): Promise<AttributeResultResponse> {
@@ -95,7 +95,7 @@ export function attributeService(client: GraphQLClient) {
     },
     /**
        Fetches attribute results by cluster ID
-       * @param clusterId Cluster ID to fetch attributes for
+       * @param variables Cluster ID to fetch attributes for
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByClusterId(variables: AttributeResultByClusterIdVariables): Promise<AttributeResultResponse> {
@@ -104,7 +104,7 @@ export function attributeService(client: GraphQLClient) {
     },
     /**
        Fetches attribute results by company ID
-       * @param companyId Company ID to fetch attributes for
+       * @param variables Company ID to fetch attributes for
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByCompanyId(variables: AttributeResultByCompanyIdVariables): Promise<AttributeResultResponse> {
@@ -113,7 +113,7 @@ export function attributeService(client: GraphQLClient) {
     },
     /**
        Fetches attribute results by contact ID
-       * @param contactId Contact ID to fetch attributes for
+       * @param variables Contact ID to fetch attributes for
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByContactId(variables: AttributeResultByContactIdVariables): Promise<AttributeResultResponse> {
@@ -122,7 +122,7 @@ export function attributeService(client: GraphQLClient) {
     },
     /**
        Fetches attribute results by customer ID
-       * @param customerId Customer ID to fetch attributes for
+       * @param variables Customer ID to fetch attributes for
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByCustomerId(variables: AttributeResultByCustomerIdVariables): Promise<AttributeResultResponse> {
@@ -131,7 +131,7 @@ export function attributeService(client: GraphQLClient) {
     },
     /**
        Fetches attribute results by product ID
-       * @param productId Product ID to fetch attributes for
+       * @param variables Product ID to fetch attributes for
        * @returns Promise<AttributeResultResponse> The attribute result data
        */
     async getAttributeResultByProductId(variables: AttributeResultByProductIdVariables): Promise<AttributeResultResponse> {
@@ -239,32 +239,32 @@ export class AttributeService {
   deleteAttribute(id: string): Promise<boolean> { return this._svc.deleteAttribute(id); }
   /**
    * Fetches attribute results by category ID
-   * @param categoryId Category ID to fetch attributes for
+   * @param variables Category ID to fetch attributes for
    */
   getAttributeResultByCategoryId(variables: AttributeResultByCategoryIdVariables): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByCategoryId(variables); }
   /**
    * Fetches attribute results by cluster ID
-   * @param clusterId Cluster ID to fetch attributes for
+   * @param variables Cluster ID to fetch attributes for
    */
   getAttributeResultByClusterId(variables: AttributeResultByClusterIdVariables): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByClusterId(variables); }
   /**
    * Fetches attribute results by company ID
-   * @param companyId Company ID to fetch attributes for
+   * @param variables Company ID to fetch attributes for
    */
   getAttributeResultByCompanyId(variables: AttributeResultByCompanyIdVariables): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByCompanyId(variables); }
   /**
    * Fetches attribute results by contact ID
-   * @param contactId Contact ID to fetch attributes for
+   * @param variables Contact ID to fetch attributes for
    */
   getAttributeResultByContactId(variables: AttributeResultByContactIdVariables): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByContactId(variables); }
   /**
    * Fetches attribute results by customer ID
-   * @param customerId Customer ID to fetch attributes for
+   * @param variables Customer ID to fetch attributes for
    */
   getAttributeResultByCustomerId(variables: AttributeResultByCustomerIdVariables): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByCustomerId(variables); }
   /**
    * Fetches attribute results by product ID
-   * @param productId Product ID to fetch attributes for
+   * @param variables Product ID to fetch attributes for
    */
   getAttributeResultByProductId(variables: AttributeResultByProductIdVariables): Promise<AttributeResultResponse> { return this._svc.getAttributeResultByProductId(variables); }
   /**

@@ -20,7 +20,7 @@ export function mediaImageService(client: GraphQLClient) {
     /**
        Retrieves a specific media image
        * @deprecated The upstream `mediaImage` query is deprecated; read via `media.image` from the parent resource instead.
-       * @param id Media image ID
+       * @param variables Media image ID
        * @returns Promise<MediaImage> Media image data
        */
     async getMediaImage(variables: MediaImageVariables): Promise<MediaImage> {
@@ -30,7 +30,7 @@ export function mediaImageService(client: GraphQLClient) {
     /**
        Retrieves media images with pagination
        * @deprecated The upstream `mediaImages` query is deprecated; read via `media.images` from the parent resource instead.
-       * @param input Search input parameters
+       * @param variables Search input parameters
        * @returns Promise<PaginatedMediaImageResponse> Paginated media images
        */
     async getMediaImages(variables: MediaImagesVariables): Promise<PaginatedMediaImageResponse> {
@@ -39,7 +39,7 @@ export function mediaImageService(client: GraphQLClient) {
     },
     /**
        Creates a new media image
-       * @param input Media image creation input
+       * @param variables Media image creation input
        * @returns Promise<MediaImage> The created media image
        */
     async createMediaImage(variables: MediaImageCreateVariables): Promise<MediaImage> {
@@ -48,7 +48,7 @@ export function mediaImageService(client: GraphQLClient) {
     },
     /**
        Updates an existing media image
-       * @param input Media image update input
+       * @param variables Media image update input
        * @returns Promise<MediaImage> The updated media image
        */
     async updateMediaImage(variables: MediaImageUpdateVariables): Promise<MediaImage> {
@@ -57,7 +57,7 @@ export function mediaImageService(client: GraphQLClient) {
     },
     /**
        Deletes a media image
-       * @param id Media image ID
+       * @param variables Media image ID
        * @returns Promise<boolean> Success status
        */
     async deleteMediaImage(variables: MediaImageDeleteVariables): Promise<DeleteMediaImageResponse> {
@@ -75,27 +75,27 @@ export class MediaImageService {
   constructor(client: GraphQLClient) { this._svc = mediaImageService(client); }
   /**
    * Retrieves a specific media image
-   * @param id Media image ID
+   * @param variables Media image ID
    */
   getMediaImage(variables: MediaImageVariables): Promise<MediaImage> { return this._svc.getMediaImage(variables); }
   /**
    * Retrieves media images with pagination
-   * @param input Search input parameters
+   * @param variables Search input parameters
    */
   getMediaImages(variables: MediaImagesVariables): Promise<PaginatedMediaImageResponse> { return this._svc.getMediaImages(variables); }
   /**
    * Creates a new media image
-   * @param input Media image creation input
+   * @param variables Media image creation input
    */
   createMediaImage(variables: MediaImageCreateVariables): Promise<MediaImage> { return this._svc.createMediaImage(variables); }
   /**
    * Updates an existing media image
-   * @param input Media image update input
+   * @param variables Media image update input
    */
   updateMediaImage(variables: MediaImageUpdateVariables): Promise<MediaImage> { return this._svc.updateMediaImage(variables); }
   /**
    * Deletes a media image
-   * @param id Media image ID
+   * @param variables Media image ID
    */
   deleteMediaImage(variables: MediaImageDeleteVariables): Promise<DeleteMediaImageResponse> { return this._svc.deleteMediaImage(variables); }
 }

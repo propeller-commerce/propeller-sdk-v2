@@ -53,7 +53,7 @@ export function roleService(client: GraphQLClient) {
     },
     /**
        Updates an existing role
-       * @param input Role update input data
+       * @param variables Role update input data
        * @returns Promise<Role> The updated role
        */
     async updateRole(variables: RoleUpdateVariables): Promise<Role> {
@@ -89,7 +89,7 @@ export function roleService(client: GraphQLClient) {
     },
     /**
        Updates an existing role definition
-       * @param input RoleDefinition update input data
+       * @param variables RoleDefinition update input data
        * @returns Promise<RoleDefinition> The updated role definition
        */
     async updateRoleDefinition(variables: RoleDefinitionUpdateVariables): Promise<RoleDefinition> {
@@ -122,7 +122,7 @@ export class RoleService {
   createRole(input: RoleCreateInput): Promise<Role> { return this._svc.createRole(input); }
   /**
    * Updates an existing role
-   * @param input Role update input data
+   * @param variables Role update input data
    */
   updateRole(variables: RoleUpdateVariables): Promise<Role> { return this._svc.updateRole(variables); }
   /**
@@ -142,7 +142,7 @@ export class RoleService {
   createRoleDefinition(input: RoleDefinitionCreateInput): Promise<RoleDefinition> { return this._svc.createRoleDefinition(input); }
   /**
    * Updates an existing role definition
-   * @param input RoleDefinition update input data
+   * @param variables RoleDefinition update input data
    */
   updateRoleDefinition(variables: RoleDefinitionUpdateVariables): Promise<RoleDefinition> { return this._svc.updateRoleDefinition(variables); }
 }

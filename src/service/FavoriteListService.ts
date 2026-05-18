@@ -113,11 +113,7 @@ export class FavoriteListService {
   constructor(client: GraphQLClient) { this._svc = favoriteListService(client); }
   /**
    * Retrieves a specific favorite list
-   * @param id Favorite list ID
-   * @param language language to fetch the list data in
-   * @param priceCalculateProductInput Price calculation input
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
+   * @param variables Favorite list ID
    */
   getFavoriteList(variables: FavoriteListVariables): Promise<FavoriteList> { return this._svc.getFavoriteList(variables); }
   /**

@@ -17,7 +17,7 @@ export function sparePartsMachineService(client: GraphQLClient) {
   return {
     /**
        Retrieves a specific spare parts machine
-       * @param id Spare parts machine ID
+       * @param variables Spare parts machine ID
        * @returns Promise<SparePartsMachine> Spare parts machine data
        */
     async getSparePartsMachine(variables: MachineVariables): Promise<SparePartsMachine> {
@@ -26,7 +26,7 @@ export function sparePartsMachineService(client: GraphQLClient) {
     },
     /**
        Retrieves spare parts machines with search criteria
-       * @param input Search input parameters
+       * @param variables Search input parameters
        * @returns Promise<SparePartsMachineResponse> Spare parts machines response
        */
     async getSparePartsMachines(variables: MachinesVariables): Promise<SparePartsMachineResponse> {
@@ -35,7 +35,7 @@ export function sparePartsMachineService(client: GraphQLClient) {
     },
     /**
        Creates a new spare parts machine
-       * @param input Spare parts machine creation input
+       * @param variables Spare parts machine creation input
        * @returns Promise<SparePartsMachine> The created spare parts machine
        */
     async createSparePartsMachine(variables: MachineCreateVariables): Promise<SparePartsMachine> {
@@ -44,7 +44,7 @@ export function sparePartsMachineService(client: GraphQLClient) {
     },
     /**
        Updates an existing spare parts machine
-       * @param input Spare parts machine update input
+       * @param variables Spare parts machine update input
        * @returns Promise<SparePartsMachine> The updated spare parts machine
        */
     async updateSparePartsMachine(variables: MachineUpsertVariables): Promise<SparePartsMachine> {
@@ -62,22 +62,22 @@ export class SparePartsMachineService {
   constructor(client: GraphQLClient) { this._svc = sparePartsMachineService(client); }
   /**
    * Retrieves a specific spare parts machine
-   * @param id Spare parts machine ID
+   * @param variables Spare parts machine ID
    */
   getSparePartsMachine(variables: MachineVariables): Promise<SparePartsMachine> { return this._svc.getSparePartsMachine(variables); }
   /**
    * Retrieves spare parts machines with search criteria
-   * @param input Search input parameters
+   * @param variables Search input parameters
    */
   getSparePartsMachines(variables: MachinesVariables): Promise<SparePartsMachineResponse> { return this._svc.getSparePartsMachines(variables); }
   /**
    * Creates a new spare parts machine
-   * @param input Spare parts machine creation input
+   * @param variables Spare parts machine creation input
    */
   createSparePartsMachine(variables: MachineCreateVariables): Promise<SparePartsMachine> { return this._svc.createSparePartsMachine(variables); }
   /**
    * Updates an existing spare parts machine
-   * @param input Spare parts machine update input
+   * @param variables Spare parts machine update input
    */
   updateSparePartsMachine(variables: MachineUpsertVariables): Promise<SparePartsMachine> { return this._svc.updateSparePartsMachine(variables); }
 }

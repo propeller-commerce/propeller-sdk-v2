@@ -20,7 +20,7 @@ export function mediaDocumentService(client: GraphQLClient) {
     /**
        Retrieves a specific media document
        * @deprecated The upstream `mediaDocument` query is deprecated; read via `media.document` from the parent resource instead.
-       * @param id Media document ID
+       * @param variables Media document ID
        * @returns Promise<MediaDocument> Media document data
        */
     async getMediaDocument(variables: MediaDocumentVariables): Promise<MediaDocument> {
@@ -30,7 +30,7 @@ export function mediaDocumentService(client: GraphQLClient) {
     /**
        Retrieves media documents with pagination
        * @deprecated The upstream `mediaDocuments` query is deprecated; read via `media.documents` from the parent resource instead.
-       * @param input Search input parameters
+       * @param variables Search input parameters
        * @returns Promise<PaginatedMediaDocumentResponse> Paginated media documents
        */
     async getMediaDocuments(variables: MediaDocumentsVariables): Promise<PaginatedMediaDocumentResponse> {
@@ -57,7 +57,7 @@ export function mediaDocumentService(client: GraphQLClient) {
     },
     /**
        Deletes a media document
-       * @param id Media document ID
+       * @param variables Media document ID
        * @returns Promise<boolean> Success status
        */
     async deleteMediaDocument(variables: MediaDocumentDeleteVariables): Promise<DeleteMediaDocumentResponse> {
@@ -75,12 +75,12 @@ export class MediaDocumentService {
   constructor(client: GraphQLClient) { this._svc = mediaDocumentService(client); }
   /**
    * Retrieves a specific media document
-   * @param id Media document ID
+   * @param variables Media document ID
    */
   getMediaDocument(variables: MediaDocumentVariables): Promise<MediaDocument> { return this._svc.getMediaDocument(variables); }
   /**
    * Retrieves media documents with pagination
-   * @param input Search input parameters
+   * @param variables Search input parameters
    */
   getMediaDocuments(variables: MediaDocumentsVariables): Promise<PaginatedMediaDocumentResponse> { return this._svc.getMediaDocuments(variables); }
   /**
@@ -95,7 +95,7 @@ export class MediaDocumentService {
   updateMediaDocument(input: UpdateMediaDocumentInput): Promise<MediaDocument> { return this._svc.updateMediaDocument(input); }
   /**
    * Deletes a media document
-   * @param id Media document ID
+   * @param variables Media document ID
    */
   deleteMediaDocument(variables: MediaDocumentDeleteVariables): Promise<DeleteMediaDocumentResponse> { return this._svc.deleteMediaDocument(variables); }
 }

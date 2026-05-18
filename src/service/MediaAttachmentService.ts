@@ -24,7 +24,7 @@ export function mediaAttachmentService(client: GraphQLClient) {
     },
     /**
        Updates an existing media attachment
-       * @param input Media attachment update input
+       * @param variables Media attachment update input
        * @returns Promise<MediaAttachment> The updated media attachment
        */
     async updateMediaAttachment(variables: MediaAttachmentUpdateVariables): Promise<MediaAttachment> {
@@ -56,7 +56,7 @@ export class MediaAttachmentService {
   createMediaAttachment(input: MediaAttachmentInput): Promise<MediaAttachment> { return this._svc.createMediaAttachment(input); }
   /**
    * Updates an existing media attachment
-   * @param input Media attachment update input
+   * @param variables Media attachment update input
    */
   updateMediaAttachment(variables: MediaAttachmentUpdateVariables): Promise<MediaAttachment> { return this._svc.updateMediaAttachment(variables); }
   /**

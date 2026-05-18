@@ -32,7 +32,7 @@ export function bundleService(client: GraphQLClient) {
   return {
     /**
        Fetches a single bundle by ID
-       * @param id Bundle ID to fetch
+       * @param variables Bundle ID to fetch
        * @returns Promise<Bundle> The bundle data
        */
     async getBundle(variables: BundleVariables): Promise<Bundle> {
@@ -50,7 +50,7 @@ export function bundleService(client: GraphQLClient) {
     },
     /**
        Creates a new bundle
-       * @param input Bundle creation input data
+       * @param variables Bundle creation input data
        * @returns Promise<Bundle> The created bundle
        */
     async createBundle(variables: BundleCreateVariables): Promise<Bundle> {
@@ -59,7 +59,7 @@ export function bundleService(client: GraphQLClient) {
     },
     /**
        Updates an existing bundle
-       * @param input Bundle update input data
+       * @param variables Bundle update input data
        * @returns Promise<Bundle> The updated bundle
        */
     async updateBundle(variables: BundleUpdateVariables): Promise<Bundle> {
@@ -69,7 +69,7 @@ export function bundleService(client: GraphQLClient) {
     /**
        Adds items to a bundle
        * @deprecated Schema-side `bundleAddItems` is deprecated — prefer `bundleAddItemsAndReturnBundle` for a Bundle response.
-       * @param input Bundle add items input data
+       * @param variables Bundle add items input data
        * @returns Promise<BundleItem[]> The added bundle items
        */
     async addItemsToBundle(variables: BundleAddItemsVariables): Promise<BundleItem[]> {
@@ -96,7 +96,7 @@ export class BundleService {
   constructor(client: GraphQLClient) { this._svc = bundleService(client); }
   /**
    * Fetches a single bundle by ID
-   * @param id Bundle ID to fetch
+   * @param variables Bundle ID to fetch
    */
   getBundle(variables: BundleVariables): Promise<Bundle> { return this._svc.getBundle(variables); }
   /**
@@ -106,17 +106,17 @@ export class BundleService {
   getBundles(variables?: BundleQueryVariables): Promise<BundlesResponse> { return this._svc.getBundles(variables); }
   /**
    * Creates a new bundle
-   * @param input Bundle creation input data
+   * @param variables Bundle creation input data
    */
   createBundle(variables: BundleCreateVariables): Promise<Bundle> { return this._svc.createBundle(variables); }
   /**
    * Updates an existing bundle
-   * @param input Bundle update input data
+   * @param variables Bundle update input data
    */
   updateBundle(variables: BundleUpdateVariables): Promise<Bundle> { return this._svc.updateBundle(variables); }
   /**
    * Adds items to a bundle
-   * @param input Bundle add items input data
+   * @param variables Bundle add items input data
    */
   addItemsToBundle(variables: BundleAddItemsVariables): Promise<BundleItem[]> { return this._svc.addItemsToBundle(variables); }
   /**

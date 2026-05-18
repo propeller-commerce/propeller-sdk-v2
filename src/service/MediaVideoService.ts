@@ -20,7 +20,7 @@ export function mediaVideoService(client: GraphQLClient) {
     /**
        Retrieves a specific media video
        * @deprecated The upstream `mediaVideo` query is deprecated; read via `media.video` from the parent resource instead.
-       * @param id Media video ID
+       * @param variables Media video ID
        * @returns Promise<MediaVideo> Media video data
        */
     async getMediaVideo(variables: MediaVideoVariables): Promise<MediaVideo> {
@@ -30,7 +30,7 @@ export function mediaVideoService(client: GraphQLClient) {
     /**
        Retrieves media videos with pagination
        * @deprecated The upstream `mediaVideos` query is deprecated; read via `media.videos` from the parent resource instead.
-       * @param input Search input parameters
+       * @param variables Search input parameters
        * @returns Promise<PaginatedMediaVideoResponse> Paginated media videos
        */
     async getMediaVideos(variables: MediaVideosVariables): Promise<PaginatedMediaVideoResponse> {
@@ -57,7 +57,7 @@ export function mediaVideoService(client: GraphQLClient) {
     },
     /**
        Deletes a media video
-       * @param id Media video ID
+       * @param variables Media video ID
        * @returns Promise<boolean> Success status
        */
     async deleteMediaVideo(variables: MediaVideoDeleteVariables): Promise<DeleteMediaVideoResponse> {
@@ -75,12 +75,12 @@ export class MediaVideoService {
   constructor(client: GraphQLClient) { this._svc = mediaVideoService(client); }
   /**
    * Retrieves a specific media video
-   * @param id Media video ID
+   * @param variables Media video ID
    */
   getMediaVideo(variables: MediaVideoVariables): Promise<MediaVideo> { return this._svc.getMediaVideo(variables); }
   /**
    * Retrieves media videos with pagination
-   * @param input Search input parameters
+   * @param variables Search input parameters
    */
   getMediaVideos(variables: MediaVideosVariables): Promise<PaginatedMediaVideoResponse> { return this._svc.getMediaVideos(variables); }
   /**
@@ -95,7 +95,7 @@ export class MediaVideoService {
   updateMediaVideo(input: UpdateMediaVideoInput): Promise<MediaVideo> { return this._svc.updateMediaVideo(input); }
   /**
    * Deletes a media video
-   * @param id Media video ID
+   * @param variables Media video ID
    */
   deleteMediaVideo(variables: MediaVideoDeleteVariables): Promise<DeleteMediaVideoResponse> { return this._svc.deleteMediaVideo(variables); }
 }

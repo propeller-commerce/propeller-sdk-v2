@@ -54,7 +54,7 @@ export function taxService(client: GraphQLClient) {
     },
     /**
        Updates an existing tax
-       * @param input Tax update input
+       * @param variables Tax update input
        * @returns Promise<Tax> The updated tax
        */
     async updateTax(variables: TaxUpdateVariables): Promise<Tax> {
@@ -99,7 +99,7 @@ export function taxService(client: GraphQLClient) {
     },
     /**
        Updates an existing zone tax code
-       * @param input Zone tax code update input
+       * @param variables Zone tax code update input
        * @returns Promise<ZoneTaxCode> The updated zone tax code
        */
     async updateZoneTaxCode(variables: ZoneTaxCodeUpdateVariables): Promise<ZoneTaxCode> {
@@ -132,7 +132,7 @@ export class TaxService {
   createTax(input: TaxCreateInput): Promise<Tax> { return this._svc.createTax(input); }
   /**
    * Updates an existing tax
-   * @param input Tax update input
+   * @param variables Tax update input
    */
   updateTax(variables: TaxUpdateVariables): Promise<Tax> { return this._svc.updateTax(variables); }
   /**
@@ -157,7 +157,7 @@ export class TaxService {
   createZoneTaxCodes(input: ZoneTaxCodeCreateInput[]): Promise<ZoneTaxCode[]> { return this._svc.createZoneTaxCodes(input); }
   /**
    * Updates an existing zone tax code
-   * @param input Zone tax code update input
+   * @param variables Zone tax code update input
    */
   updateZoneTaxCode(variables: ZoneTaxCodeUpdateVariables): Promise<ZoneTaxCode> { return this._svc.updateZoneTaxCode(variables); }
 }

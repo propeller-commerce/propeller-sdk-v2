@@ -47,7 +47,7 @@ export function discountService(client: GraphQLClient) {
     },
     /**
        Updates an existing discount
-       * @param input Discount update input data
+       * @param variables Discount update input data
        * @returns Promise<Discount> The updated discount
        */
     async updateDiscount(variables: DiscountUpdateVariables): Promise<Discount> {
@@ -89,7 +89,7 @@ export class DiscountService {
   createDiscount(input: DiscountCreateInput): Promise<Discount> { return this._svc.createDiscount(input); }
   /**
    * Updates an existing discount
-   * @param input Discount update input data
+   * @param variables Discount update input data
    */
   updateDiscount(variables: DiscountUpdateVariables): Promise<Discount> { return this._svc.updateDiscount(variables); }
   /**

@@ -143,34 +143,22 @@ export class CompanyService {
   constructor(client: GraphQLClient) { this._svc = companyService(client); }
   /**
    * Retrieves a specific company
-   * @param id Company ID
-   * @param contactPAConfigInput Contact purchase authorization config search input
-   * @param companyAttributesInput Company attributes search input
-   * @param contactSearchArguments Contact search arguments
+   * @param variables Company ID
    */
   getCompany(variables: CompanyVariables): Promise<Company> { return this._svc.getCompany(variables); }
   /**
    * Retrieves companies with search criteria
-   * @param input Company search input
-   * @param contactPAConfigInput Contact purchase authorization config search input
-   * @param companyAttributesInput Company attributes search input
-   * @param contactSearchArguments Contact search arguments
+   * @param variables Company search input
    */
   getCompanies(variables: CompanySearchVariables): Promise<CompaniesResponse> { return this._svc.getCompanies(variables); }
   /**
    * Creates a new company
-   * @param input Company creation input
-   * @param contactPAConfigInput Contact purchase authorization config search input
-   * @param companyAttributesInput Company attributes search input
-   * @param contactSearchArguments Contact search arguments
+   * @param variables Company creation input
    */
   createCompany(variables: CompanyCreateVariables): Promise<Company> { return this._svc.createCompany(variables); }
   /**
    * Updates an existing company
-   * @param input Company update input
-   * @param contactPAConfigInput Contact purchase authorization config search input
-   * @param companyAttributesInput Company attributes search input
-   * @param contactSearchArguments Contact search arguments
+   * @param variables Company update input
    */
   updateCompany(variables: CompanyUpdateVariables): Promise<Company> { return this._svc.updateCompany(variables); }
   /**

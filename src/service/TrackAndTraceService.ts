@@ -44,7 +44,7 @@ export function trackAndTraceService(client: GraphQLClient) {
     },
     /**
        Updates an existing track and trace record
-       * @param input Track and trace update input
+       * @param variables Track and trace update input
        * @returns Promise<TrackAndTrace> The updated track and trace record
        */
     async updateTrackAndTrace(variables: TrackAndTraceUpdateVariables): Promise<TrackAndTrace> {
@@ -77,7 +77,7 @@ export class TrackAndTraceService {
   createTrackAndTrace(input: TrackAndTraceCreateInput): Promise<TrackAndTrace> { return this._svc.createTrackAndTrace(input); }
   /**
    * Updates an existing track and trace record
-   * @param input Track and trace update input
+   * @param variables Track and trace update input
    */
   updateTrackAndTrace(variables: TrackAndTraceUpdateVariables): Promise<TrackAndTrace> { return this._svc.updateTrackAndTrace(variables); }
 }

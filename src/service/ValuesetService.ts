@@ -49,7 +49,7 @@ export function valuesetService(client: GraphQLClient) {
     },
     /**
        Updates an existing valueset
-       * @param input Valueset update input data
+       * @param variables Valueset update input data
        * @returns Promise<Valueset> The updated valueset
        */
     async updateValueset(variables: ValuesetUpdateVariables): Promise<Valueset> {
@@ -100,7 +100,7 @@ export class ValuesetService {
   createValueset(input: ValuesetCreateInput): Promise<Valueset> { return this._svc.createValueset(input); }
   /**
    * Updates an existing valueset
-   * @param input Valueset update input data
+   * @param variables Valueset update input data
    */
   updateValueset(variables: ValuesetUpdateVariables): Promise<Valueset> { return this._svc.updateValueset(variables); }
   /**

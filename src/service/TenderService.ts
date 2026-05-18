@@ -30,7 +30,7 @@ export function tenderService(client: GraphQLClient) {
   return {
     /**
        Fetches a single tender by ID
-       * @param id Tender ID to fetch
+       * @param variables Tender ID to fetch
        * @returns Promise<Tender> The tender data
        */
     async getTender(variables: TenderVariables): Promise<Tender> {
@@ -39,7 +39,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Starts a new tender
-       * @param input Tender start input data
+       * @param variables Tender start input data
        * @returns Promise<Tender> The started tender
        */
     async startTender(variables: TenderStartVariables): Promise<Tender> {
@@ -48,7 +48,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Updates an existing tender
-       * @param input Tender update input data
+       * @param variables Tender update input data
        * @returns Promise<Tender> The updated tender
        */
     async updateTender(variables: TenderUpdateVariables): Promise<Tender> {
@@ -57,7 +57,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Updates a tender address
-       * @param input Tender update address input data
+       * @param variables Tender update address input data
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderAddress(variables: TenderUpdateAddressVariables): Promise<Tender> {
@@ -66,8 +66,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Adds an item to a tender
-       * @param id Tender ID
-       * @param input Tender add item input data
+       * @param variables Tender ID
        * @returns Promise<Tender> The updated tender
        */
     async addItemToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> {
@@ -76,8 +75,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Adds multiple items to a tender
-       * @param id Tender ID
-       * @param input Tender add items input data
+       * @param variables Tender ID
        * @returns Promise<Tender> The updated tender
        */
     async addItemsToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> {
@@ -86,7 +84,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Updates an item in a tender
-       * @param input Tender update item input data
+       * @param variables Tender update item input data
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderItem(variables: TenderUpdateItemVariables): Promise<Tender> {
@@ -95,7 +93,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Deletes an item from a tender
-       * @param input Delete item input data
+       * @param variables Delete item input data
        * @returns Promise<Tender> The updated tender
        */
     async deleteTenderItem(variables: TenderDeleteItemVariables): Promise<Tender> {
@@ -104,7 +102,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Updates tender discount
-       * @param input Tender discount input data
+       * @param variables Tender discount input data
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderDiscount(variables: TenderUpdateDiscountVariables): Promise<Tender> {
@@ -113,7 +111,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Updates tender payment
-       * @param input Tender payment input data
+       * @param variables Tender payment input data
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderPayment(variables: TenderUpdatePaymentVariables): Promise<Tender> {
@@ -122,7 +120,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Updates tender postage
-       * @param input Tender postage input data
+       * @param variables Tender postage input data
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderPostage(variables: TenderUpdatePostageVariables): Promise<Tender> {
@@ -131,7 +129,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Updates tender invoice user
-       * @param input Tender invoice user input data
+       * @param variables Tender invoice user input data
        * @returns Promise<Tender> The updated tender
        */
     async updateTenderInvoiceUser(variables: TenderUpdateInvoiceUserVariables): Promise<Tender> {
@@ -140,7 +138,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Applies incentives to a tender
-       * @param input Apply incentives input data
+       * @param variables Apply incentives input data
        * @returns Promise<Tender> The updated tender
        */
     async applyIncentivesToTender(variables: TenderApplyIncentivesVariables): Promise<Tender> {
@@ -149,7 +147,7 @@ export function tenderService(client: GraphQLClient) {
     },
     /**
        Processes a tender (checkout)
-       * @param input Tender process input data
+       * @param variables Tender process input data
        * @returns Promise<TenderProcessResponse> The process response
        */
     async processTender(variables: TenderProcessVariables): Promise<TenderProcessResponse> {
@@ -167,74 +165,72 @@ export class TenderService {
   constructor(client: GraphQLClient) { this._svc = tenderService(client); }
   /**
    * Fetches a single tender by ID
-   * @param id Tender ID to fetch
+   * @param variables Tender ID to fetch
    */
   getTender(variables: TenderVariables): Promise<Tender> { return this._svc.getTender(variables); }
   /**
    * Starts a new tender
-   * @param input Tender start input data
+   * @param variables Tender start input data
    */
   startTender(variables: TenderStartVariables): Promise<Tender> { return this._svc.startTender(variables); }
   /**
    * Updates an existing tender
-   * @param input Tender update input data
+   * @param variables Tender update input data
    */
   updateTender(variables: TenderUpdateVariables): Promise<Tender> { return this._svc.updateTender(variables); }
   /**
    * Updates a tender address
-   * @param input Tender update address input data
+   * @param variables Tender update address input data
    */
   updateTenderAddress(variables: TenderUpdateAddressVariables): Promise<Tender> { return this._svc.updateTenderAddress(variables); }
   /**
    * Adds an item to a tender
-   * @param id Tender ID
-   * @param input Tender add item input data
+   * @param variables Tender ID
    */
   addItemToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> { return this._svc.addItemToTender(variables); }
   /**
    * Adds multiple items to a tender
-   * @param id Tender ID
-   * @param input Tender add items input data
+   * @param variables Tender ID
    */
   addItemsToTender(variables: TenderAddItemsVariables): Promise<TenderResponse> { return this._svc.addItemsToTender(variables); }
   /**
    * Updates an item in a tender
-   * @param input Tender update item input data
+   * @param variables Tender update item input data
    */
   updateTenderItem(variables: TenderUpdateItemVariables): Promise<Tender> { return this._svc.updateTenderItem(variables); }
   /**
    * Deletes an item from a tender
-   * @param input Delete item input data
+   * @param variables Delete item input data
    */
   deleteTenderItem(variables: TenderDeleteItemVariables): Promise<Tender> { return this._svc.deleteTenderItem(variables); }
   /**
    * Updates tender discount
-   * @param input Tender discount input data
+   * @param variables Tender discount input data
    */
   updateTenderDiscount(variables: TenderUpdateDiscountVariables): Promise<Tender> { return this._svc.updateTenderDiscount(variables); }
   /**
    * Updates tender payment
-   * @param input Tender payment input data
+   * @param variables Tender payment input data
    */
   updateTenderPayment(variables: TenderUpdatePaymentVariables): Promise<Tender> { return this._svc.updateTenderPayment(variables); }
   /**
    * Updates tender postage
-   * @param input Tender postage input data
+   * @param variables Tender postage input data
    */
   updateTenderPostage(variables: TenderUpdatePostageVariables): Promise<Tender> { return this._svc.updateTenderPostage(variables); }
   /**
    * Updates tender invoice user
-   * @param input Tender invoice user input data
+   * @param variables Tender invoice user input data
    */
   updateTenderInvoiceUser(variables: TenderUpdateInvoiceUserVariables): Promise<Tender> { return this._svc.updateTenderInvoiceUser(variables); }
   /**
    * Applies incentives to a tender
-   * @param input Apply incentives input data
+   * @param variables Apply incentives input data
    */
   applyIncentivesToTender(variables: TenderApplyIncentivesVariables): Promise<Tender> { return this._svc.applyIncentivesToTender(variables); }
   /**
    * Processes a tender (checkout)
-   * @param input Tender process input data
+   * @param variables Tender process input data
    */
   processTender(variables: TenderProcessVariables): Promise<TenderProcessResponse> { return this._svc.processTender(variables); }
 }

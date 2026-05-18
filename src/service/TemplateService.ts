@@ -63,7 +63,7 @@ export function templateService(client: GraphQLClient) {
     },
     /**
        Updates an existing document template
-       * @param input Document template update input
+       * @param variables Document template update input
        * @returns Promise<DocumentTemplate> The updated document template
        */
     async updateDocumentTemplate(variables: DocumentTemplateUpdateVariables): Promise<DocumentTemplate> {
@@ -72,7 +72,7 @@ export function templateService(client: GraphQLClient) {
     },
     /**
        Renders a document template to PDF
-       * @param input Template render input data
+       * @param variables Template render input data
        * @returns Promise<any> The PDF response
        */
     async renderDocumentTemplateToPDF(variables: DocumentTemplateRenderToPDFVariables): Promise<Base64File> {
@@ -90,7 +90,7 @@ export function templateService(client: GraphQLClient) {
     },
     /**
        Updates an existing email template
-       * @param input Email template update input
+       * @param variables Email template update input
        * @returns Promise<EmailTemplate> The updated email template
        */
     async updateEmailTemplate(variables: EmailTemplateUpdateVariables): Promise<EmailTemplate> {
@@ -99,7 +99,7 @@ export function templateService(client: GraphQLClient) {
     },
     /**
        Adds an attachment to email template
-       * @param input Attachment input data
+       * @param variables Attachment input data
        * @returns Promise<EmailTemplate> The updated email template
        */
     async addAttachmentToEmailTemplate(variables: EmailTemplateAddAttachmentVariables): Promise<EmailTemplate> {
@@ -108,7 +108,7 @@ export function templateService(client: GraphQLClient) {
     },
     /**
        Removes an attachment from email template
-       * @param input Attachment removal input data
+       * @param variables Attachment removal input data
        * @returns Promise<EmailTemplate> The updated email template
        */
     async removeAttachmentFromEmailTemplate(variables: EmailTemplateRemoveAttachmentVariables): Promise<EmailTemplate> {
@@ -146,12 +146,12 @@ export class TemplateService {
   createDocumentTemplate(input: DocumentTemplateCreateInput): Promise<DocumentTemplate> { return this._svc.createDocumentTemplate(input); }
   /**
    * Updates an existing document template
-   * @param input Document template update input
+   * @param variables Document template update input
    */
   updateDocumentTemplate(variables: DocumentTemplateUpdateVariables): Promise<DocumentTemplate> { return this._svc.updateDocumentTemplate(variables); }
   /**
    * Renders a document template to PDF
-   * @param input Template render input data
+   * @param variables Template render input data
    */
   renderDocumentTemplateToPDF(variables: DocumentTemplateRenderToPDFVariables): Promise<Base64File> { return this._svc.renderDocumentTemplateToPDF(variables); }
   /**
@@ -161,17 +161,17 @@ export class TemplateService {
   createEmailTemplate(input: EmailTemplateCreateInput): Promise<EmailTemplate> { return this._svc.createEmailTemplate(input); }
   /**
    * Updates an existing email template
-   * @param input Email template update input
+   * @param variables Email template update input
    */
   updateEmailTemplate(variables: EmailTemplateUpdateVariables): Promise<EmailTemplate> { return this._svc.updateEmailTemplate(variables); }
   /**
    * Adds an attachment to email template
-   * @param input Attachment input data
+   * @param variables Attachment input data
    */
   addAttachmentToEmailTemplate(variables: EmailTemplateAddAttachmentVariables): Promise<EmailTemplate> { return this._svc.addAttachmentToEmailTemplate(variables); }
   /**
    * Removes an attachment from email template
-   * @param input Attachment removal input data
+   * @param variables Attachment removal input data
    */
   removeAttachmentFromEmailTemplate(variables: EmailTemplateRemoveAttachmentVariables): Promise<EmailTemplate> { return this._svc.removeAttachmentFromEmailTemplate(variables); }
 }

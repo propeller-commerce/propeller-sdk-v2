@@ -11,7 +11,7 @@ export function channelService(client: GraphQLClient) {
   return {
     /**
        Fetches a single channel by ID
-       * @param id Channel ID to fetch
+       * @param variables Channel ID to fetch
        * @returns Promise<Channel> The channel data
        */
     async getChannel(variables: ChannelVariables): Promise<Channel> {
@@ -37,7 +37,7 @@ export class ChannelService {
   constructor(client: GraphQLClient) { this._svc = channelService(client); }
   /**
    * Fetches a single channel by ID
-   * @param id Channel ID to fetch
+   * @param variables Channel ID to fetch
    */
   getChannel(variables: ChannelVariables): Promise<Channel> { return this._svc.getChannel(variables); }
   /**

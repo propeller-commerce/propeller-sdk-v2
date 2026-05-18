@@ -57,7 +57,7 @@ export function eventActionConfigService(client: GraphQLClient) {
     },
     /**
        Updates an existing event to email configuration
-       * @param input EventToEmailConfig update input data
+       * @param variables EventToEmailConfig update input data
        * @returns Promise<EventToEmailConfig> The updated event-to-email config
        */
     async updateEventToEmailConfig(variables: EventToEmailConfigUpdateVariables): Promise<EventToEmailConfig> {
@@ -75,7 +75,7 @@ export function eventActionConfigService(client: GraphQLClient) {
     },
     /**
        Updates an existing event to webhook configuration
-       * @param input EventToWebHookConfig update input data
+       * @param variables EventToWebHookConfig update input data
        * @returns Promise<EventToWebHookConfig> The updated event-to-webhook config
        */
     async updateEventToWebHookConfig(variables: EventToWebHookConfigUpdateVariables): Promise<EventToWebHookConfig> {
@@ -136,7 +136,7 @@ export class EventActionConfigService {
   createEventToEmailConfig(input: EventToEmailConfigCreateInput): Promise<EventToEmailConfig> { return this._svc.createEventToEmailConfig(input); }
   /**
    * Updates an existing event to email configuration
-   * @param input EventToEmailConfig update input data
+   * @param variables EventToEmailConfig update input data
    */
   updateEventToEmailConfig(variables: EventToEmailConfigUpdateVariables): Promise<EventToEmailConfig> { return this._svc.updateEventToEmailConfig(variables); }
   /**
@@ -146,7 +146,7 @@ export class EventActionConfigService {
   createEventToWebHookConfig(input: EventToWebHookConfigCreateInput): Promise<EventToWebHookConfig> { return this._svc.createEventToWebHookConfig(input); }
   /**
    * Updates an existing event to webhook configuration
-   * @param input EventToWebHookConfig update input data
+   * @param variables EventToWebHookConfig update input data
    */
   updateEventToWebHookConfig(variables: EventToWebHookConfigUpdateVariables): Promise<EventToWebHookConfig> { return this._svc.updateEventToWebHookConfig(variables); }
   /**

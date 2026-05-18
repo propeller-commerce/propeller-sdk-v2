@@ -4,6 +4,25 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.10.2] - 2026-05-18
+
+Documentation-quality release. **No runtime behaviour, types, or method
+signatures changed** — only JSDoc `@param` names. Safe to upgrade with no
+migration.
+
+### Fixed
+
+- Corrected JSDoc `@param` names on service methods so they match the actual
+  parameter. Methods aligned to take a single `variables: <Op>Variables`
+  object still documented the old conceptual names (`@param input`,
+  `@param id`, `@param categoryId`, …); these now read `@param variables`.
+  This removes ~350 TypeDoc "@param … which was not used" warnings and makes
+  the generated API reference and IDE parameter hints accurate. Correctly
+  documented multi-argument methods (e.g. `updateAttribute(id, input)`) are
+  unchanged.
+
+---
+
 ## [0.10.1] - 2026-05-18
 
 Documentation-only release. **No SDK code, types, or runtime behaviour changed**

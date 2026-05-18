@@ -35,7 +35,7 @@ export function crossupsellService(client: GraphQLClient) {
   return {
     /**
        Fetches a single crossupsell by ID
-       * @param id Crossupsell ID to fetch
+       * @param variables Crossupsell ID to fetch
        * @returns Promise<Crossupsell> The crossupsell data
        */
     async getCrossupsell(variables: CrossupsellVariables): Promise<Crossupsell> {
@@ -54,7 +54,7 @@ export function crossupsellService(client: GraphQLClient) {
     },
     /**
        Creates a new crossupsell
-       * @param input Crossupsell creation input data
+       * @param variables Crossupsell creation input data
        * @returns Promise<Crossupsell> The created crossupsell
        */
     async createCrossupsell(variables: CrossupsellCreateVariables): Promise<Crossupsell> {
@@ -63,7 +63,7 @@ export function crossupsellService(client: GraphQLClient) {
     },
     /**
        Updates an existing crossupsell
-       * @param input Crossupsell update input data
+       * @param variables Crossupsell update input data
        * @returns Promise<Crossupsell> The updated crossupsell
        */
     async updateCrossupsell(variables: CrossupsellUpdateVariables): Promise<Crossupsell> {
@@ -81,7 +81,7 @@ export class CrossupsellService {
   constructor(client: GraphQLClient) { this._svc = crossupsellService(client); }
   /**
    * Fetches a single crossupsell by ID
-   * @param id Crossupsell ID to fetch
+   * @param variables Crossupsell ID to fetch
    */
   getCrossupsell(variables: CrossupsellVariables): Promise<Crossupsell> { return this._svc.getCrossupsell(variables); }
   /**
@@ -91,12 +91,12 @@ export class CrossupsellService {
   getCrossupsells(variables?: CrossupsellsQueryVariables): Promise<CrossupsellsResponse> { return this._svc.getCrossupsells(variables); }
   /**
    * Creates a new crossupsell
-   * @param input Crossupsell creation input data
+   * @param variables Crossupsell creation input data
    */
   createCrossupsell(variables: CrossupsellCreateVariables): Promise<Crossupsell> { return this._svc.createCrossupsell(variables); }
   /**
    * Updates an existing crossupsell
-   * @param input Crossupsell update input data
+   * @param variables Crossupsell update input data
    */
   updateCrossupsell(variables: CrossupsellUpdateVariables): Promise<Crossupsell> { return this._svc.updateCrossupsell(variables); }
 }

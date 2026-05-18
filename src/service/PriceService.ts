@@ -141,25 +141,21 @@ export class PriceService {
   /**
    * Fetches a single price by ID
    * @param variables Variables for the price query
-   * @param id Price ID to fetch
    */
   getPrice(variables: PriceQueryVariables): Promise<Price> { return this._svc.getPrice(variables); }
   /**
    * Calculates price based on input parameters
    * @param variables Variables for the price calculate query
-   * @param input Price calculation input parameters
    */
   calculatePrice(variables: PriceCalculateQueryVariables): Promise<ProductPrice> { return this._svc.calculatePrice(variables); }
   /**
    * Gets the default price based on input parameters
    * @param variables Variables for the price default query
-   * @param input Price calculation default input parameters
    */
   getDefaultPrice(variables: PriceDefaultQueryVariables): Promise<ProductPrice[]> { return this._svc.getDefaultPrice(variables); }
   /**
    * Explains price calculation breakdown
    * @param variables Variables for the price explain query
-   * @param input Price calculation input parameters
    */
   explainPrice(variables: PriceCalculateQueryVariables): Promise<ProductPrice[]> { return this._svc.explainPrice(variables); }
   /**

@@ -230,12 +230,7 @@ export class ProductService {
   getProduct(variables: ProductQueryVariables): Promise<Product> { return this._svc.getProduct(variables); }
   /**
    * Fetches a list of products with search criteria
-   * @param input Product search input parameters
-   * @param language Language for localized content
-   * @param priceCalculateProductInput Price calculation input
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
-   * @param filterAvailableAttributeInput Filter available attributes input
+   * @param variables Product search input parameters
    */
   getProducts(variables: ProductsQueryVariables): Promise<ProductsResponse> { return this._svc.getProducts(variables); }
   /**

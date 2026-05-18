@@ -100,16 +100,6 @@ export class ClusterService {
   /**
    * Fetches a single cluster by ID or slug
    * @param variables Variables for cluster query
-   * @param clusterId Cluster ID to fetch
-   * @param slug Cluster slug to fetch
-   * @param language Language for localized content
-   * @param priceCalculateProductInput Price calculation input
-   * @param userBulkPriceProductInput User bulk price input
-   * @param attributeResultSearchInput Attribute search input
-   * @param imageSearchFilters Image search filters
-   * @param mediaVideoSearchInput Video search input
-   * @param mediaDocumentSearchInput Document search input
-   * @param imageVariantFilters Image transformation filters
    */
   getCluster(variables: ClusterVariables): Promise<Cluster> { return this._svc.getCluster(variables); }
   /**

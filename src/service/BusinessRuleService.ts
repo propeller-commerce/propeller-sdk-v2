@@ -45,7 +45,7 @@ export function businessRuleService(client: GraphQLClient) {
     },
     /**
        Fetches a list of business rules with search criteria
-       * @param input BusinessRule search input parameters
+       * @param variables BusinessRule search input parameters
        * @returns Promise<BusinessRuleResponse> The business rules response data
        */
     async getBusinessRules(variables: BusinessRulesVariables): Promise<BusinessRuleResponse> {
@@ -71,7 +71,7 @@ export function businessRuleService(client: GraphQLClient) {
     },
     /**
        Fetches business rule JDM
-       * @param input Business rule JDM input parameters
+       * @param variables Business rule JDM input parameters
        * @returns Promise<any> The JDM data
        */
     async getBusinessRuleJDM(variables: BusinessRuleJDMVariables): Promise<any> {
@@ -89,7 +89,7 @@ export function businessRuleService(client: GraphQLClient) {
     },
     /**
        Updates an existing business rule
-       * @param input BusinessRule update input data
+       * @param variables BusinessRule update input data
        * @returns Promise<BusinessRule> The updated business rule
        */
     async updateBusinessRule(variables: BusinessRuleUpdateVariables): Promise<BusinessRule> {
@@ -174,7 +174,7 @@ export class BusinessRuleService {
   getBusinessRule(id: number): Promise<BusinessRule> { return this._svc.getBusinessRule(id); }
   /**
    * Fetches a list of business rules with search criteria
-   * @param input BusinessRule search input parameters
+   * @param variables BusinessRule search input parameters
    */
   getBusinessRules(variables: BusinessRulesVariables): Promise<BusinessRuleResponse> { return this._svc.getBusinessRules(variables); }
   /**
@@ -188,7 +188,7 @@ export class BusinessRuleService {
   getBusinessRuleFieldDefinitions(variables: BusinessRuleFieldDefinitionsVariables): Promise<BusinessRuleFieldDefinitionGroup> { return this._svc.getBusinessRuleFieldDefinitions(variables); }
   /**
    * Fetches business rule JDM
-   * @param input Business rule JDM input parameters
+   * @param variables Business rule JDM input parameters
    */
   getBusinessRuleJDM(variables: BusinessRuleJDMVariables): Promise<any> { return this._svc.getBusinessRuleJDM(variables); }
   /**
@@ -198,7 +198,7 @@ export class BusinessRuleService {
   createBusinessRule(input: BusinessRuleCreateInput): Promise<BusinessRule> { return this._svc.createBusinessRule(input); }
   /**
    * Updates an existing business rule
-   * @param input BusinessRule update input data
+   * @param variables BusinessRule update input data
    */
   updateBusinessRule(variables: BusinessRuleUpdateVariables): Promise<BusinessRule> { return this._svc.updateBusinessRule(variables); }
   /**

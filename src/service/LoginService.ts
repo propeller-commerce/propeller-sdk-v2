@@ -34,7 +34,7 @@ export function loginService(client: GraphQLClient) {
     },
     /**
        Exchanges a refresh token for a new access token
-       * @param refreshToken The refresh token to exchange
+       * @param variables The refresh token to exchange
        * @returns Promise<RefreshTokenResponse> New token response with fresh access token
        */
     async exchangeRefreshToken(variables: ExchangeRefreshTokenVariables): Promise<RefreshTokenResponse> {
@@ -62,7 +62,7 @@ export class LoginService {
   authenticate(input: CreateAuthenticationInput): Promise<Login> { return this._svc.authenticate(input); }
   /**
    * Exchanges a refresh token for a new access token
-   * @param refreshToken The refresh token to exchange
+   * @param variables The refresh token to exchange
    */
   exchangeRefreshToken(variables: ExchangeRefreshTokenVariables): Promise<RefreshTokenResponse> { return this._svc.exchangeRefreshToken(variables); }
 }

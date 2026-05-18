@@ -44,7 +44,7 @@ export function warehouseService(client: GraphQLClient) {
     },
     /**
        Updates an existing warehouse
-       * @param input Warehouse update input data
+       * @param variables Warehouse update input data
        * @returns Promise<Warehouse> The updated warehouse
        */
     async updateWarehouse(variables: WarehouseUpdateVariables): Promise<Warehouse> {
@@ -77,7 +77,7 @@ export class WarehouseService {
   createWarehouse(input: CreateWarehouseInput): Promise<Warehouse> { return this._svc.createWarehouse(input); }
   /**
    * Updates an existing warehouse
-   * @param input Warehouse update input data
+   * @param variables Warehouse update input data
    */
   updateWarehouse(variables: WarehouseUpdateVariables): Promise<Warehouse> { return this._svc.updateWarehouse(variables); }
 }

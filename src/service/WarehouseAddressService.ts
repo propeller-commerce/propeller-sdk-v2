@@ -14,7 +14,7 @@ export function warehouseAddressService(client: GraphQLClient) {
   return {
     /**
        Creates a new warehouse address
-       * @param input Warehouse address creation input
+       * @param variables Warehouse address creation input
        * @returns Promise<WarehouseAddress> The created warehouse address
        */
     async createWarehouseAddress(variables: WarehouseAddressCreateVariables): Promise<WarehouseAddress> {
@@ -23,7 +23,7 @@ export function warehouseAddressService(client: GraphQLClient) {
     },
     /**
        Updates an existing warehouse address
-       * @param input Warehouse address update input
+       * @param variables Warehouse address update input
        * @returns Promise<WarehouseAddress> The updated warehouse address
        */
     async updateWarehouseAddress(variables: WarehouseAddressUpdateVariables): Promise<WarehouseAddress> {
@@ -32,7 +32,7 @@ export function warehouseAddressService(client: GraphQLClient) {
     },
     /**
        Deletes a warehouse address
-       * @param id WarehouseAddress ID to delete
+       * @param variables WarehouseAddress ID to delete
        * @returns Promise<boolean> Success status
        */
     async deleteWarehouseAddress(variables: WarehouseAddressDeleteVariables): Promise<boolean> {
@@ -50,17 +50,17 @@ export class WarehouseAddressService {
   constructor(client: GraphQLClient) { this._svc = warehouseAddressService(client); }
   /**
    * Creates a new warehouse address
-   * @param input Warehouse address creation input
+   * @param variables Warehouse address creation input
    */
   createWarehouseAddress(variables: WarehouseAddressCreateVariables): Promise<WarehouseAddress> { return this._svc.createWarehouseAddress(variables); }
   /**
    * Updates an existing warehouse address
-   * @param input Warehouse address update input
+   * @param variables Warehouse address update input
    */
   updateWarehouseAddress(variables: WarehouseAddressUpdateVariables): Promise<WarehouseAddress> { return this._svc.updateWarehouseAddress(variables); }
   /**
    * Deletes a warehouse address
-   * @param id WarehouseAddress ID to delete
+   * @param variables WarehouseAddress ID to delete
    */
   deleteWarehouseAddress(variables: WarehouseAddressDeleteVariables): Promise<boolean> { return this._svc.deleteWarehouseAddress(variables); }
 }

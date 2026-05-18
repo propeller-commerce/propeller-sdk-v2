@@ -10,7 +10,6 @@ export function logoutService(client: GraphQLClient) {
     /**
        Logs out a user and ends their session
        * @deprecated The upstream `logout` mutation is deprecated; a `signOut` mutation will be available in the future.
-       * @param userId User ID to logout
        * @returns Promise<Logout> Logout response
        */
     async logout(): Promise<Logout> {
@@ -28,7 +27,6 @@ export class LogoutService {
   constructor(client: GraphQLClient) { this._svc = logoutService(client); }
   /**
    * Logs out a user and ends their session
-   * @param userId User ID to logout
    */
   logout(): Promise<Logout> { return this._svc.logout(); }
 }

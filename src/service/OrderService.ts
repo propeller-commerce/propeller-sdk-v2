@@ -188,7 +188,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Creates a new order
-       * @param input Order creation input data
+       * @param variables Order creation input data
        * @returns Promise<Order> The created order
        */
     async createOrder(variables: OrderCreateVariables): Promise<Order> {
@@ -260,8 +260,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Fetches order address
-       * @param orderId Order ID
-       * @param addressType Address type
+       * @param variables Order ID
        * @returns Promise<Address> The address data
        */
     async getOrderAddress(variables: OrderAddressVariables): Promise<OrderAddress> {
@@ -357,7 +356,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Updates an existing orderlist
-       * @param input Orderlist update input data
+       * @param variables Orderlist update input data
        * @returns Promise<Orderlist> The updated orderlist
        */
     async updateOrderlist(variables: OrderlistUpdateVariables): Promise<Orderlist> {
@@ -366,7 +365,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Adds items to an orderlist
-       * @param input Orderlist add items input data
+       * @param variables Orderlist add items input data
        * @returns Promise<Orderlist> The updated orderlist
        */
     async addItemsToOrderlist(variables: OrderlistAddItemsVariables): Promise<Orderlist> {
@@ -375,7 +374,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Removes items from an orderlist
-       * @param input Orderlist remove items input data
+       * @param variables Orderlist remove items input data
        * @returns Promise<Orderlist> The updated orderlist
        */
     async removeItemsFromOrderlist(variables: OrderlistRemoveItemsVariables): Promise<Orderlist> {
@@ -384,7 +383,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Assigns companies to an orderlist
-       * @param input Orderlist assign companies input data
+       * @param variables Orderlist assign companies input data
        * @returns Promise<Orderlist> The updated orderlist
        */
     async assignCompaniesToOrderlist(variables: OrderlistAssignCompaniesVariables): Promise<Orderlist> {
@@ -393,7 +392,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Unassigns companies from an orderlist
-       * @param input Orderlist unassign companies input data
+       * @param variables Orderlist unassign companies input data
        * @returns Promise<Orderlist> The updated orderlist
        */
     async unassignCompaniesFromOrderlist(variables: OrderlistUnassignCompaniesVariables): Promise<Orderlist> {
@@ -402,7 +401,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Assigns users to an orderlist
-       * @param input Orderlist assign users input data
+       * @param variables Orderlist assign users input data
        * @returns Promise<Orderlist> The updated orderlist
        */
     async assignUsersToOrderlist(variables: OrderlistAssignUsersVariables): Promise<Orderlist> {
@@ -411,7 +410,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Unassigns users from an orderlist
-       * @param input Orderlist unassign users input data
+       * @param variables Orderlist unassign users input data
        * @returns Promise<Orderlist> The updated orderlist
        */
     async unassignUsersFromOrderlist(variables: OrderlistUnassignUsersVariables): Promise<Orderlist> {
@@ -420,7 +419,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Fetches a single order status by ID
-       * @param id Order status ID to fetch
+       * @param variables Order status ID to fetch
        * @returns Promise<OrderStatus> The order status data
        */
     async getOrderStatus(variables: OrderStatusVariables): Promise<OrderStatus> {
@@ -447,7 +446,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Updates an existing order status
-       * @param input Order status update input data
+       * @param variables Order status update input data
        * @returns Promise<OrderStatus> The updated order status
        */
     async updateOrderStatus(variables: OrderStatusUpdateVariables): Promise<OrderStatus> {
@@ -456,7 +455,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Fetches a single order status set by ID
-       * @param id Order status set ID to fetch
+       * @param variables Order status set ID to fetch
        * @returns Promise<OrderStatusSet> The order status set data
        */
     async getOrderStatusSet(variables: OrderStatusSetVariables): Promise<OrderStatusSet> {
@@ -483,7 +482,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Updates an existing order status set
-       * @param input Order status set update input data
+       * @param variables Order status set update input data
        * @returns Promise<OrderStatusSet> The updated order status set
        */
     async updateOrderStatusSet(variables: OrderStatusSetUpdateVariables): Promise<OrderStatusSet> {
@@ -492,7 +491,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Adds order statuses to an order status set
-       * @param input Add order statuses input data
+       * @param variables Add order statuses input data
        * @returns Promise<OrderStatusSet> The updated order status set
        */
     async addOrderStatusesToOrderStatusSet(variables: OrderStatusSetAddOrderStatusesVariables): Promise<OrderStatusSet> {
@@ -501,7 +500,7 @@ export function orderService(client: GraphQLClient) {
     },
     /**
        Removes order statuses from an order status set
-       * @param input Remove order statuses input data
+       * @param variables Remove order statuses input data
        * @returns Promise<OrderStatusSet> The updated order status set
        */
     async removeOrderStatusesFromOrderStatusSet(variables: OrderStatusSetRemoveOrderStatusesVariables): Promise<OrderStatusSet> {
@@ -534,26 +533,16 @@ export class OrderService {
   /**
    * Fetches a single order by ID or UUID
    * @param variables Variables for the order query
-   * @param orderId Order ID to fetch
-   * @param orderUUID Order UUID unique identifier
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
    */
   getOrder(variables: OrderQueryVariables): Promise<Order> { return this._svc.getOrder(variables); }
   /**
    * Creates a new order
-   * @param input Order creation input data
+   * @param variables Order creation input data
    */
   createOrder(variables: OrderCreateVariables): Promise<Order> { return this._svc.createOrder(variables); }
   /**
    * Updates an existing order
    * @param variables Variables for the order update mutation
-   * @param orderId Order ID to update
-   * @param order Order update input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
    */
   updateOrder(variables: OrderUpdateVariables): Promise<Order> { return this._svc.updateOrder(variables); }
   /**
@@ -564,9 +553,6 @@ export class OrderService {
   /**
    * Updates an order address
    * @param variables Variables for the order address update mutation
-   * @param id Id to identify address
-   * @param orderId Order ID to update order address for
-   * @param input Order address update input data
    */
   updateOrderAddress(variables: OrderAddressUpdateVariables): Promise<OrderAddress> { return this._svc.updateOrderAddress(variables); }
   /**
@@ -586,8 +572,7 @@ export class OrderService {
   getQuotePDF(quoteId: number): Promise<Base64File> { return this._svc.getQuotePDF(quoteId); }
   /**
    * Fetches order address
-   * @param orderId Order ID
-   * @param addressType Address type
+   * @param variables Order ID
    */
   getOrderAddress(variables: OrderAddressVariables): Promise<OrderAddress> { return this._svc.getOrderAddress(variables); }
   /**
@@ -603,28 +588,16 @@ export class OrderService {
   /**
    * Creates a new order item
    * @param variables Variables for the order item creation mutation
-   * @param orderId Order ID to create order item for
-   * @param orderItem Order item creation input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
    */
   createOrderItem(variables: OrderItemCreateVariables): Promise<OrderItem> { return this._svc.createOrderItem(variables); }
   /**
    * Updates an existing order item
    * @param variables Variables for the order item update mutation
-   * @param orderId Order ID to update order item for
-   * @param orderItem Order item update input data
-   * @param language Language for localized content
-   * @param imageSearchFilters Image search filters
-   * @param imageVariantFilters Image transformation filters
    */
   updateOrderItem(variables: OrderItemUpdateVariables): Promise<OrderItem> { return this._svc.updateOrderItem(variables); }
   /**
    * Deletes an order item
    * @param variables Variables for the order item deletion mutation
-   * @param orderId Order ID to delete order item for
-   * @param orderItemId Order item ID to delete
    */
   deleteOrderItem(variables: OrderItemDeleteVariables): Promise<boolean> { return this._svc.deleteOrderItem(variables); }
   /**
@@ -644,42 +617,42 @@ export class OrderService {
   createOrderlist(input: OrderlistCreateInput): Promise<Orderlist> { return this._svc.createOrderlist(input); }
   /**
    * Updates an existing orderlist
-   * @param input Orderlist update input data
+   * @param variables Orderlist update input data
    */
   updateOrderlist(variables: OrderlistUpdateVariables): Promise<Orderlist> { return this._svc.updateOrderlist(variables); }
   /**
    * Adds items to an orderlist
-   * @param input Orderlist add items input data
+   * @param variables Orderlist add items input data
    */
   addItemsToOrderlist(variables: OrderlistAddItemsVariables): Promise<Orderlist> { return this._svc.addItemsToOrderlist(variables); }
   /**
    * Removes items from an orderlist
-   * @param input Orderlist remove items input data
+   * @param variables Orderlist remove items input data
    */
   removeItemsFromOrderlist(variables: OrderlistRemoveItemsVariables): Promise<Orderlist> { return this._svc.removeItemsFromOrderlist(variables); }
   /**
    * Assigns companies to an orderlist
-   * @param input Orderlist assign companies input data
+   * @param variables Orderlist assign companies input data
    */
   assignCompaniesToOrderlist(variables: OrderlistAssignCompaniesVariables): Promise<Orderlist> { return this._svc.assignCompaniesToOrderlist(variables); }
   /**
    * Unassigns companies from an orderlist
-   * @param input Orderlist unassign companies input data
+   * @param variables Orderlist unassign companies input data
    */
   unassignCompaniesFromOrderlist(variables: OrderlistUnassignCompaniesVariables): Promise<Orderlist> { return this._svc.unassignCompaniesFromOrderlist(variables); }
   /**
    * Assigns users to an orderlist
-   * @param input Orderlist assign users input data
+   * @param variables Orderlist assign users input data
    */
   assignUsersToOrderlist(variables: OrderlistAssignUsersVariables): Promise<Orderlist> { return this._svc.assignUsersToOrderlist(variables); }
   /**
    * Unassigns users from an orderlist
-   * @param input Orderlist unassign users input data
+   * @param variables Orderlist unassign users input data
    */
   unassignUsersFromOrderlist(variables: OrderlistUnassignUsersVariables): Promise<Orderlist> { return this._svc.unassignUsersFromOrderlist(variables); }
   /**
    * Fetches a single order status by ID
-   * @param id Order status ID to fetch
+   * @param variables Order status ID to fetch
    */
   getOrderStatus(variables: OrderStatusVariables): Promise<OrderStatus> { return this._svc.getOrderStatus(variables); }
   /**
@@ -694,12 +667,12 @@ export class OrderService {
   createOrderStatus(input: CreateOrderStatusInput): Promise<OrderStatus> { return this._svc.createOrderStatus(input); }
   /**
    * Updates an existing order status
-   * @param input Order status update input data
+   * @param variables Order status update input data
    */
   updateOrderStatus(variables: OrderStatusUpdateVariables): Promise<OrderStatus> { return this._svc.updateOrderStatus(variables); }
   /**
    * Fetches a single order status set by ID
-   * @param id Order status set ID to fetch
+   * @param variables Order status set ID to fetch
    */
   getOrderStatusSet(variables: OrderStatusSetVariables): Promise<OrderStatusSet> { return this._svc.getOrderStatusSet(variables); }
   /**
@@ -714,17 +687,17 @@ export class OrderService {
   createOrderStatusSet(input: CreateOrderStatusSetInput): Promise<OrderStatusSet> { return this._svc.createOrderStatusSet(input); }
   /**
    * Updates an existing order status set
-   * @param input Order status set update input data
+   * @param variables Order status set update input data
    */
   updateOrderStatusSet(variables: OrderStatusSetUpdateVariables): Promise<OrderStatusSet> { return this._svc.updateOrderStatusSet(variables); }
   /**
    * Adds order statuses to an order status set
-   * @param input Add order statuses input data
+   * @param variables Add order statuses input data
    */
   addOrderStatusesToOrderStatusSet(variables: OrderStatusSetAddOrderStatusesVariables): Promise<OrderStatusSet> { return this._svc.addOrderStatusesToOrderStatusSet(variables); }
   /**
    * Removes order statuses from an order status set
-   * @param input Remove order statuses input data
+   * @param variables Remove order statuses input data
    */
   removeOrderStatusesFromOrderStatusSet(variables: OrderStatusSetRemoveOrderStatusesVariables): Promise<OrderStatusSet> { return this._svc.removeOrderStatusesFromOrderStatusSet(variables); }
   /**

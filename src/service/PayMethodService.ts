@@ -45,7 +45,7 @@ export function payMethodService(client: GraphQLClient) {
     },
     /**
        Updates an existing payment method
-       * @param input Payment method update input
+       * @param variables Payment method update input
        * @returns Promise<PayMethod> The updated payment method
        */
     async updatePayMethod(variables: PayMethodUpdateVariables): Promise<PayMethod> {
@@ -87,7 +87,7 @@ export class PayMethodService {
   createPayMethod(input: PayMethodCreateInput): Promise<PayMethod> { return this._svc.createPayMethod(input); }
   /**
    * Updates an existing payment method
-   * @param input Payment method update input
+   * @param variables Payment method update input
    */
   updatePayMethod(variables: PayMethodUpdateVariables): Promise<PayMethod> { return this._svc.updatePayMethod(variables); }
   /**
