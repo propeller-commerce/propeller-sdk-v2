@@ -1,19 +1,18 @@
-# Branding assets — PLACEHOLDERS, replace before go-live
+# Branding assets
 
-The files in this directory are **placeholders** so the site builds and the
-layout is correct. Replace them with the real Propeller Commerce brand assets
-before the site is considered production-ready.
+These are the **official Propeller Commerce brand assets**, sourced from the
+live docs site (`https://docs.propeller-commerce.com/img/...`).
 
-| File | Used for | Required | Replace with |
-| --- | --- | --- | --- |
-| `propeller-logo.svg` | Navbar logo (light mode) | ~28px tall, transparent | The real light-mode Propeller logo. Canonical source on the main docs site is `https://docs.propeller-commerce.com/img/propeller-logo.png`. |
-| `propeller-logo-dark.svg` | Navbar logo (dark mode) | ~28px tall, transparent | The real dark-mode Propeller logo (`.../img/propeller-logo-dark.png`). |
-| `favicon_v2.png` | Browser favicon | 32×32 (or larger square) PNG | The real favicon (`.../img/favicon_v2.png`). Currently a 1×1 transparent placeholder. |
-| `social-card.png` | Open Graph / social share image | 1200×630 PNG | The real social card. Currently a 1×1 transparent placeholder. |
+| File | Used for | Source |
+| --- | --- | --- |
+| `propeller-logo.png` | Navbar logo (light mode), 1614×369 RGBA | `docs.propeller-commerce.com/img/propeller-logo.png` |
+| `propeller-logo-dark.png` | Navbar logo (dark mode) | `docs.propeller-commerce.com/img/propeller-logo-dark.png` |
+| `favicon_v2.png` | Browser favicon, 1080×1080 | `docs.propeller-commerce.com/img/favicon_v2.png` |
+| `social-card.png` | Open Graph / social share image, 1200×630 | `docs.propeller-commerce.com/img/developerdocsocialcard.png` |
 
-If you replace the SVG logos with PNGs, update `logo.src` / `logo.srcDark` in
-`docs/docusaurus.config.ts` accordingly.
+To refresh them, re-download from those URLs.
 
-The brand primary color is set to a placeholder Propeller-blue in
-`docs/src/css/custom.css` (`--ifm-color-primary`). Update it to the exact
-Propeller brand hex when known.
+The brand primary color in `docs/src/css/custom.css` (`--ifm-color-primary`)
+is still a placeholder Propeller-blue — update it to the exact Propeller brand
+hex if/when known. (The logo PNGs are transparent so they sit correctly on any
+navbar background.)

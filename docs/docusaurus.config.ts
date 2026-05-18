@@ -55,10 +55,10 @@ const config: Config = {
     navbar: {
       title: '',
       logo: {
-        alt: 'propeller',
-        src: 'img/propeller-logo.svg',
-        srcDark: 'img/propeller-logo-dark.svg',
-        height: 32,
+        alt: 'Propeller',
+        src: 'img/propeller-logo.png',
+        srcDark: 'img/propeller-logo-dark.png',
+        height: 30,
       },
       items: [
         {to: '/intro', label: 'Getting Started', position: 'left'},
