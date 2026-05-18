@@ -4,6 +4,25 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.10.1] - 2026-05-18
+
+Documentation-only release. **No SDK code, types, or runtime behaviour changed**
+— the published package is byte-identical to `0.10.0` apart from the version
+number. Safe to upgrade with no migration.
+
+### Changed
+
+- Rebuilt the documentation site from scratch as a Docusaurus 3 app (replacing
+  the previous TypeDoc default-theme output) so it matches
+  `docs.propeller-commerce.com`: branded navbar/footer, dark mode, local
+  search, hand-authored guides plus the full generated API reference. Published
+  to the same URL (`https://propeller-commerce.github.io/propeller-sdk-v2/`).
+- Dropped the generated docs from the npm tarball (`documentation/**/*` removed
+  from `package.json` `files`) — the package is now leaner; the docs live only
+  on GitHub Pages.
+
+---
+
 ## [0.10.0] - 2026-05-18
 
 > **Breaking release.** Because the changes below are breaking, pin an exact

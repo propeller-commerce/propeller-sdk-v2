@@ -55,40 +55,15 @@ const config: Config = {
     navbar: {
       title: '',
       logo: {
-        alt: 'Propeller Commerce',
+        alt: 'propeller',
         src: 'img/propeller-logo.svg',
         srcDark: 'img/propeller-logo-dark.svg',
-        height: 28,
+        height: 32,
       },
       items: [
         {to: '/intro', label: 'Getting Started', position: 'left'},
         {to: '/guides/services', label: 'Guides', position: 'left'},
-        {
-          type: 'dropdown',
-          label: 'API Reference',
-          position: 'left',
-          items: [
-            {to: '/api/', label: 'Storefront SDK'},
-            {
-              href: 'https://docs.propeller-commerce.com/reference/graphql',
-              label: 'GraphQL API',
-            },
-            {
-              href: 'https://docs.propeller-commerce.com/reference/rest',
-              label: 'REST API',
-            },
-            {
-              href: 'https://docs.propeller-commerce.com/reference/legacy',
-              label: 'Legacy',
-            },
-          ],
-        },
         {to: '/changelog', label: 'Changelog', position: 'left'},
-        {
-          href: 'https://github.com/propeller-commerce/propeller-sdk-v2',
-          label: 'GitHub',
-          position: 'right',
-        },
       ],
     },
     footer: {
