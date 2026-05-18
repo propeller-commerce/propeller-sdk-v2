@@ -5,6 +5,13 @@ node_modules/
 /dist
 /documentation
 
+# Docusaurus docs site (docs/ is the Docusaurus app; only source is tracked)
+/docs/node_modules
+/docs/build
+/docs/.docusaurus
+/docs/content/api
+/docs/content/changelog.md
+
 # IDE and editor folders
 /.cursor
 /.vscode

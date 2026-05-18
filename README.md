@@ -466,7 +466,10 @@ credentials (it warns, never fails, when the snapshot is >60 days old).
 
 ## Documentation
 
-See the [generated TypeDoc site](https://propeller-commerce.github.io/propeller-sdk-v2/) for the full API reference.
+See the [documentation site](https://propeller-commerce.github.io/propeller-sdk-v2/)
+for guides and the full API reference. The site is a Docusaurus app in
+[`docs/`](./docs); guide pages live in `docs/content/**` and the API reference
+is generated from the source JSDoc.
 
 ## License
 

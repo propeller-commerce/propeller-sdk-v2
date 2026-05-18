@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="28" viewBox="0 0 150 28" role="img" aria-label="Propeller Commerce">
+  <g fill="none" fill-rule="evenodd">
+    <circle cx="14" cy="14" r="13" fill="#0A2540"/>
+    <path d="M14 5l3 7-3 2-3-2z M14 23l-3-7 3-2 3 2z M5 14l7-3 2 3-2 3z M23 14l-7 3-2-3 2-3z" fill="#FFF"/>
+    <text x="34" y="19" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#0A2540">Propeller</text>
+  </g>
+</svg>

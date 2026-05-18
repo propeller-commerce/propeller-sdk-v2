@@ -26,10 +26,8 @@
     "build:esm": "tsc -p tsconfig.esm.json && node scripts/fix-esm-extensions.js && node scripts/write-esm-package-json.js",
     "build:tsc": "npm run build:cjs && npm run build:esm",
     "build": "npm run build:graphql && npm run build:tsc",
-    "build:docs": "node scripts/build-docs.js",
     "clean": "rimraf dist",
     "clean:generated": "rimraf src/generated",
-    "clean:docs": "rimraf documentation",
     "prebuild": "npm run clean",
     "typecheck": "npm run build:graphql && tsc --noEmit -p tsconfig.cjs.json",
     "prepare": "node scripts/prepare.js",
@@ -43,11 +41,9 @@
     "snapshot:schema": "node scripts/build-schema-snapshot.js",
     "validate": "npm run typecheck && npm run check:drift && npm run check:type-drift && npm run build",
     "prepublishOnly": "npm run validate",
-    "docs:build": "typedoc",
-    "docs:serve": "http-server documentation -p 8080 -o",
-    "docs:watch": "typedoc --watch",
-    "docs:clean": "rimraf documentation",
-    "docs:full": "npm run build:docs"
+    "docs:install": "npm --prefix docs ci",
+    "docs:dev": "npm --prefix docs run start",
+    "docs:build": "npm run build:graphql && npm --prefix docs run build"
   },
   "keywords": [
     "graphql",
@@ -74,7 +70,6 @@
   },
   "files": [
     "dist/**/*",
-    "documentation/**/*",
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
@@ -85,13 +80,9 @@
     "dotenv": "^16.3.1",
     "esbuild": "^0.28.0",
     "graphql": "^16.11.0",
-    "http-server": "^14.1.1",
     "jest": "^29.5.0",
     "rimraf": "^5.0.0",
     "ts-jest": "^29.1.0",
-    "typedoc": "^0.28.11",
-    "typedoc-neo-theme": "^1.1.1",
-    "typedoc-plugin-markdown": "^4.8.1",
     "typescript": "^5.0.0"
   },
   "engines": {

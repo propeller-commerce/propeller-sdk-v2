@@ -9,64 +9,78 @@ on:
 jobs:
   build-docs:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build project
-      run: npm run build
-      
-    - name: Build documentation
-      run: node scripts/build-docs.js
-      
-    - name: Upload documentation artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: documentation
-        path: documentation/
-        
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            docs/package-lock.json
+
+      # SDK deps + generated GraphQL barrel. src/index.ts re-exports
+      # src/generated/operationVariablesPublic, which TypeDoc needs.
+      - name: Install SDK dependencies
+        run: npm ci
+
+      - name: Build GraphQL bundle
+        run: npm run build:graphql
+
+      - name: Install docs dependencies
+        working-directory: docs
+        run: npm ci
+
+      # `prebuild` runs gen:changelog + gen:api (standalone TypeDoc) +
+      # sanitize-api-mdx, then docusaurus build. The TypeDoc step is
+      # deliberately decoupled from the Docusaurus build (see
+      # docs/scripts/gen-api.js).
+      - name: Build documentation site
+        working-directory: docs
+        run: npm run build
+
+      - name: Ensure .nojekyll
+        run: touch docs/build/.nojekyll
+
+      - name: Upload site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: docs/build
+
   deploy-docs:
     needs: build-docs
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    
+
     permissions:
       contents: read
       pages: write
       id-token: write
-      
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-      
+
     steps:
-    - name: Download documentation artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: documentation
-        path: documentation/
-        
-    - name: Add .nojekyll file
-      run: touch documentation/.nojekyll
-        
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-      
-    - name: Upload to GitHub Pages
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: documentation/
-        
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: site
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

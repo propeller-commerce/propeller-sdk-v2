@@ -1,3 +1,10 @@
+---
+id: migration-0.9.0
+title: Migrating to v0.9.0
+sidebar_label: v0.9.0 migration
+description: Archived migration guide for the v0.9.0 release.
+---
+
 # Migrating to propeller-sdk-v2 v0.9.0
 
 This guide lists every change applied to the two reference consumer apps (`propeller-next`, `propeller-vue`) during the v0.9.0 bump, and turns them into a checklist any other consumer can follow.
