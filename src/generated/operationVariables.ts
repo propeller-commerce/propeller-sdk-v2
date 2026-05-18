@@ -1236,6 +1236,15 @@ export interface ClusterConfigUpdateSettingVariables {
 }
 
 /**
+ * Variables for the `clusterConfig` GraphQL operation. Generated from the
+ * operation signature — field names and required/optional status mirror
+ * the operation's declared variables exactly.
+ */
+export interface ClusterConfigVariables {
+  clusterId: number;
+}
+
+/**
  * Variables for the `clusterCreate` GraphQL operation. Generated from the
  * operation signature — field names and required/optional status mirror
  * the operation's declared variables exactly,

@@ -5,7 +5,7 @@
  * to keep API keys server-side while maintaining the same client API.
  */
 
-import { createClient } from 'propeller-sdk-v2';
+import { createClient, productService } from 'propeller-sdk-v2';
 
 // ============================================================================
 // 🚨 INSECURE MODE (NOT RECOMMENDED FOR PRODUCTION)
@@ -44,20 +44,16 @@ async function exampleUsage() {
     // Check if we're in secure mode
     console.log('Security mode:', client.getSecurityMode());
     console.log('Is secure mode:', client.isSecureMode());
-    
-    // Example GraphQL query
-    const result = await client.query(`
-      query GetProducts($limit: Int!) {
-        products(first: $limit) {
-          id
-          name
-          price
-        }
-      }
-    `, { limit: 10 });
-    
-    console.log('Products:', result);
-    
+
+    // Real Propeller operation through the proxy, via the service factory —
+    // same pattern as every other example. The proxy attaches the upstream
+    // API key server-side; the client never sees it.
+    const result = await productService(client).getProducts({
+      input: { language: 'NL', page: 1, offset: 10, statuses: ['A'] },
+    });
+
+    console.log('Products found:', result.itemsFound);
+
   } catch (error) {
     console.error('Query failed:', error);
   }
@@ -118,20 +114,15 @@ async function testProxyConnection() {
 async function testRealQuery() {
 
   try {
-    // This query should work if your proxy is properly configured
-    const result = await client.query(`
-      query GetCompanyInfo($companyId: ID!) {
-        company(id: $companyId) {
-          id
-          name
-          status
-        }
-      }
-    `, { companyId: '123' });
-    
-    console.log('✅ Real query successful:', result);
+    // A real Propeller operation — succeeds if your proxy is configured to
+    // forward to the upstream GraphQL endpoint with the API key attached.
+    const result = await productService(client).getProducts({
+      input: { language: 'NL', page: 1, offset: 1, statuses: ['A'] },
+    });
+
+    console.log('✅ Real query successful: itemsFound =', result.itemsFound);
     return true;
-    
+
   } catch (error) {
     console.error('❌ Real query failed:', error);
     return false;

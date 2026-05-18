@@ -115,6 +115,7 @@ export type {
   ClusterConfigDeleteVariables,
   ClusterConfigRemoveSettingVariables,
   ClusterConfigUpdateSettingVariables,
+  ClusterConfigVariables,
   ClusterCreateVariables,
   ClusterCsvImportVariables,
   ClusterOptionCreateVariables,

@@ -1,223 +1,85 @@
-# Propeller V2 Test Suite
+# Tests
 
-This directory contains comprehensive tests for the Propeller V2 GraphQL client package. The tests cover all major services, their methods, and various edge cases to ensure reliability and correctness.
+Unit and integration tests for `propeller-sdk-v2`. The whole suite runs
+**offline with no credentials** — every network call is mocked, and the
+schema check uses a committed snapshot.
 
-## Test Structure
+```bash
+npm test            # run once
+npm run test:watch  # watch mode
+npm run test:coverage
+npm run test:ci     # --ci --coverage --watchAll=false (what CI runs)
+```
+
+## Layout (what actually exists)
 
 ```
 tests/
-├── README.md                 # This file
-├── config.ts                 # Test configuration and test data
-├── setup.ts                  # Jest setup and global test utilities
-├── helpers/
-│   └── testHelpers.ts       # Common test utilities and helpers
-├── client/
-│   └── GraphQLClient.test.ts # Tests for the GraphQL client
-├── service/
-│   ├── BaseService.test.ts   # Tests for the base service class
-│   ├── ProductService.test.ts # Tests for product management
-│   ├── AddressService.test.ts # Tests for address management
-│   ├── CartService.test.ts   # Tests for cart operations
-│   ├── OrderService.test.ts  # Tests for order management
-│   └── UserService.test.ts   # Tests for user management
+  client/GraphQLClient.test.ts          unit — transport layer
+  service/ProductService.test.ts        unit — a representative service
+  service/LogoutService.test.ts         unit — a zero-variable service
+  service/runOperation.test.ts          unit — the shared executor
+  types/Getters.test.ts                 unit — getLocalized helper
+  integration/schemaAlignment.test.ts   guard — generated docs vs schema
+  integration/variablesNoCollision.test.ts  guard — variable-name barrels
+  integration/runOperationShapeCanary.test.ts  guard — codemod consistency
+  integration/treeShakeBudget.test.ts   guard — bundle size budget
+  integration/schema.snapshot.json      committed offline introspection
+  integration/schemaAlignment.allowlist.json  drift allowlist (empty `{}`)
+  setup.ts                              jest setup
+  config.ts, helpers/testHelpers.ts     legacy staging helpers, currently
+                                        UNUSED by any test (do not rely on
+                                        them; they hit no live API)
 ```
 
-## Running Tests
+There is intentionally **no** exhaustive per-service CRUD suite. The unit
+tests cover the transport and one representative service each; correctness of
+the ~460 bundled operations is covered structurally by the schema-alignment
+guard, not by per-operation behaviour tests.
 
-### Prerequisites
+## What the unit tests cover
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+- **`GraphQLClient.test.ts`** — header building, proxy vs direct mode, API-key
+  routing for order-editor mutations, `Authorization` injection, operation-name
+  extraction (incl. comment stripping), timeout/abort, HTTP-error mapping.
+  `global.fetch` is mocked; no real requests.
+- **`ProductService.test.ts` / `LogoutService.test.ts`** — that a service
+  factory (and its backward-compat class) sends the right operation name and
+  unwraps `data.<field>`. Mocked fetch with hand-built payloads — these prove
+  the SDK's wrapping/unwrapping plumbing, **not** that an operation is valid
+  against the real API (that is the schema-alignment guard's job).
+- **`runOperation.test.ts`** — partial-response handling, the
+  `throwOnPartialErrors` option, the no-data/no-errors throw that backs the
+  non-null `data` guarantee, and `imageVariantFilters` defaulting.
+- **`Getters.test.ts`** — `getLocalized` language match / fallback chain.
 
-2. Build the project:
-   ```bash
-   npm run build
-   ```
+## What the integration guards cover
 
-### Test Commands
+- **`schemaAlignment.test.ts`** — parses and `validate()`s **every** generated
+  document in `src/generated/operations/` against the Propeller schema. It
+  uses a live `schema.json` at the repo root if one is present (it is
+  `.gitignored` and not required), otherwise the committed
+  `schema.snapshot.json`. The allowlist is empty (`{}`) — **any** drift fails
+  the suite. The snapshot carries a generation date; the test only **warns**
+  (never fails) if it is more than 60 days old. This is the load-bearing
+  guard that substitutes for live-API testing of operation validity.
+- **`variablesNoCollision.test.ts`** — the generated and hand-authored
+  `*Variables` name sets are disjoint (no ambiguous re-export), and the kept
+  manifest equals the hand-authored set.
+- **`runOperationShapeCanary.test.ts`** — internal consistency across the
+  ~346 service methods: the `runOperation<{X:T}>` type arg, the
+  `result.data.X` read, the declared return, and the cast agree. It is a
+  **codemod-regression canary, not a schema proof** — the file's own header
+  says so.
+- **`treeShakeBudget.test.ts`** — bundles a fixture importing only one
+  service with esbuild and asserts a size budget, guarding against an
+  `export *` regression re-pulling the whole operations index.
 
-- **Run all tests:**
-  ```bash
-  npm test
-  ```
+## Refreshing the schema snapshot (maintainers only)
 
-- **Run tests in watch mode:**
-  ```bash
-  npm run test:watch
-  ```
+Contributors do not need this. To regenerate `schema.snapshot.json` (needs
+live introspection credentials):
 
-- **Run tests with coverage:**
-  ```bash
-  npm run test:coverage
-  ```
-
-- **Run tests in CI mode:**
-  ```bash
-  npm run test:ci
-  ```
-
-## Test Configuration
-
-The tests use the following configuration from `config.ts`:
-
-- **GraphQL Endpoint:** `https://api.staging.helice.cloud/v2/graphql`
-- **API Keys:** Test API keys for both standard and order editor operations
-- **Test Data IDs:** Predefined IDs for testing various scenarios
-- **Test Data:** Sample product, address, user, cart, and order data
-
-## Test Coverage
-
-### GraphQLClient Tests
-- ✅ Constructor and configuration
-- ✅ Fragment management
-- ✅ API key selection for different operations
-- ✅ Query and mutation execution
-- ✅ Error handling and timeout management
-- ✅ Fragment resolution
-- ✅ Utility functions
-
-### BaseService Tests
-- ✅ Constructor and initialization
-- ✅ Query and mutation execution
-- ✅ Fragment handling
-- ✅ Error handling
-- ✅ Performance and caching
-- ✅ Variable handling
-- ✅ Integration with GraphQLClient
-
-### Service Tests
-Each service is thoroughly tested for:
-
-- ✅ **Constructor and Initialization**
-- ✅ **CRUD Operations** (Create, Read, Update, Delete)
-- ✅ **Search and Filtering**
-- ✅ **Error Handling**
-- ✅ **Edge Cases**
-- ✅ **Integration Scenarios**
-
-#### ProductService
-- Product creation, retrieval, updates, and deletion
-- Product search and filtering
-- Product status management
-- Product media management
-- Product attributes and pricing
-
-#### AddressService
-- Company and customer address management
-- Address validation and suggestions
-- Address type handling
-- International address support
-
-#### CartService
-- Cart creation and management
-- Cart item operations
-- Cart status management
-- Cart calculations and discounts
-- Cart merging and splitting
-
-#### OrderService
-- Order creation and management
-- Order status transitions
-- Order item management
-- Order calculations and discounts
-- Order search and filtering
-
-#### UserService
-- User authentication and registration
-- User profile management
-- Password reset functionality
-- User address management
-- Contact and customer handling
-
-## Test Utilities
-
-### TestHelpers Class
-Provides common utilities for:
-- Creating test GraphQL clients
-- Generating mock responses and errors
-- Creating test data with overrides
-- Validating service methods and responses
-- Waiting for async operations
-
-### Mock Data
-Comprehensive test data including:
-- Sample products with various attributes
-- Test addresses for different countries
-- User profiles with different roles
-- Cart and order scenarios
-- Error conditions and edge cases
-
-## Testing Patterns
-
-### Mocking Strategy
-- **GraphQL Client:** Mocked to test service logic without network calls
-- **Responses:** Mocked using realistic data structures
-- **Errors:** Tested with various error conditions
-- **Network Issues:** Simulated network failures and timeouts
-
-### Assertion Patterns
-- **Service Initialization:** Verify proper instantiation
-- **Method Existence:** Check that all expected methods are available
-- **Response Validation:** Verify correct data structures and types
-- **Error Handling:** Ensure proper error propagation
-- **Integration:** Test with real GraphQL client instances
-
-### Test Organization
-- **Describe Blocks:** Group related functionality
-- **BeforeEach/AfterEach:** Setup and cleanup for each test
-- **Mock Management:** Proper mock creation and restoration
-- **Async Testing:** Proper handling of promises and async operations
-
-## Best Practices
-
-1. **Isolation:** Each test is independent and doesn't affect others
-2. **Mocking:** Use mocks to avoid external dependencies
-3. **Coverage:** Aim for comprehensive coverage of all service methods
-4. **Real Data:** Use realistic test data that matches production scenarios
-5. **Error Cases:** Test both success and failure scenarios
-6. **Performance:** Test caching and performance optimizations
-7. **Integration:** Include integration tests with real clients
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Type Errors:** Ensure all imported types exist in the source
-2. **Mock Failures:** Check that mocks are properly configured
-3. **Async Issues:** Use proper async/await patterns
-4. **Import Errors:** Verify correct import paths
-
-### Debug Mode
-
-Run tests with verbose output:
 ```bash
-npm test -- --verbose
+npm run snapshot:schema   # uses PROPELLER_ENDPOINT + PROPELLER_API_KEY
 ```
-
-### Coverage Reports
-
-After running coverage tests, view the HTML report:
-```bash
-open coverage/lcov-report/index.html
-```
-
-## Contributing
-
-When adding new tests:
-
-1. Follow the existing test structure and patterns
-2. Use the TestHelpers utilities for common operations
-3. Include both success and error scenarios
-4. Test edge cases and boundary conditions
-5. Ensure proper cleanup in afterEach blocks
-6. Add comprehensive JSDoc comments
-
-## Support
-
-For issues with the test suite:
-1. Check the test configuration in `config.ts`
-2. Verify all dependencies are installed
-3. Ensure the project builds successfully
-4. Check Jest configuration in `jest.config.js` 

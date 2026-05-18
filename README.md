@@ -1,10 +1,10 @@
 # Propeller V2 SDK
 
-A TypeScript GraphQL client for the Propeller Commerce Platform. Bundles every supported query, mutation, and fragment so consumers don't need to maintain GraphQL documents themselves.
+A TypeScript GraphQL client for the Propeller Commerce Platform. Ships a typed service for every supported query and mutation — with the GraphQL documents and fragments generated and bundled per operation, so consumers don't write or maintain GraphQL themselves and only the operations they import are pulled into their bundle.
 
 - **Framework-agnostic.** Ships dual ESM + CJS builds. Works with Next.js, Vite, Webpack, Node, and bare browsers.
 - **No runtime GraphQL parser.** Fragments are inlined at build time; the SDK does not depend on the `graphql` package at runtime.
-- **Type-safe.** Full TypeScript definitions for every enum, input, and response type.
+- **Type-safe.** Full TypeScript definitions for every enum, input, and response type. (Types describe the entity's full shape; an operation populates only the fields it selects — see "Return types are the named type; only selected fields are populated" below.)
 - **Secure-by-default config.** Defaults to proxy mode so API keys can stay server-side.
 
 ## Installation
@@ -86,6 +86,7 @@ See [MIGRATION-0.10.0.md](./MIGRATION-0.10.0.md) for the full upgrade guide.
 | `debug` | `boolean` | `false` | Gates internal `[GraphQL Client]` logs. Config-validation warnings always fire. |
 | `getAccessToken` | `() => string \| undefined \| Promise<string \| undefined>` | reads `localStorage['access_token']` in browser | Use this for SSR (`getServerSession`, HTTP-only cookies) or in-memory token stores. |
 | `defaultLanguage` | `string` | — | ISO 639-1 tag (e.g. `'NL'`). Service methods that take an optional top-level `language` and don't receive one fall back to this value before sending the request. An explicit `language` on the call always wins. |
+| `throwOnPartialErrors` | `boolean` | `false` | On a partial response (`data` *and* `errors`), services return the data and debug-log the errors. Set `true` to throw `GraphQLOperationError` instead. `client.execute()` never throws regardless. |
 
 ### Proxy contract
 
@@ -141,7 +142,7 @@ Core services include `productService`, `orderService`, `cartService`,
 `userService`, `paymentService`, `categoryService`, `attributeService`,
 `discountService`, `bundleService`, `crossupsellService`, `companyService`,
 `taxService`, `shipmentService`, `warehouseService`, `businessRuleService` —
-54 in total covering catalog, cart, order, user, B2B, media, and admin
+52 in total covering catalog, cart, order, user, B2B, media, and admin
 domains. See [the documentation](https://propeller-commerce.github.io/propeller-sdk-v2/)
 for the full list.
 
@@ -185,13 +186,17 @@ worth knowing why:
   re-exported through an explicit public barrel
   (`generated/operationVariablesPublic`), so they can never collide with the
   hand-authored names below.
-- **`<Op>QueryVariables`** / a few `<Op>Variables` (e.g.
-  `ProductQueryVariables`, `CartStartVariables`) — *hand-authored* in the
-  service file, kept because they carry per-field JSDoc and are the stable
-  names existing consumers already import. The committed manifest
-  `scripts/.kept-service-variables.json` is the single source of truth for
-  which names are hand-authored; a drift guard (`npm run validate`) fails the
-  build if the generated set and the kept set ever overlap.
+- **Hand-authored** interfaces use *both* suffixes — `<Op>QueryVariables`
+  (e.g. `ProductQueryVariables`) and plain `<Op>Variables` (e.g.
+  `CartStartVariables`), the plain form being the majority of the kept set.
+  They live in the service file, kept because they carry per-field JSDoc and
+  are the stable names existing consumers already import.
+
+The suffix is therefore *not* a reliable generated-vs-hand-authored signal —
+plenty of hand-authored names also end in plain `<Op>Variables`. The committed
+manifest `scripts/.kept-service-variables.json` is the single source of truth
+for which names are hand-authored; a drift guard (`npm run validate`) fails the
+build if the generated set and the kept set ever overlap.
 
 You don't have to track which is which day-to-day — your editor resolves the
 correct type from the method signature. The split is documented here only so
@@ -220,6 +225,18 @@ GraphQL partial-response behaviour: read only the fields the operation
 fetches, exactly as you would with any GraphQL client. The strongly-typed
 `Product` is a convenience for the fields you *do* get back, not a guarantee
 that the whole entity was fetched.
+
+> **Known, accepted limitation.** The return type is the *full* named
+> interface even though a given operation populates only a subset — so a
+> field the interface declares non-optional (e.g. `Product.categoryPath`) can
+> be `undefined` at runtime, and **TypeScript will not flag it**. This is a
+> deliberate trade-off, not a bug: the SDK does **not** generate
+> per-operation result types (`Pick<>`/`<Op>Result`) or widen returns to
+> `Partial<T>`. Treat any field outside the operation's selection set as
+> possibly absent and use optional chaining (`product.price?.gross`). To see
+> exactly which fields an operation selects, read its document in
+> [`src/generated/operations/`](./src/generated/operations/) (or the
+> [API docs](https://propeller-commerce.github.io/propeller-sdk-v2/)).
 
 ## Direct GraphQL access
 
@@ -341,9 +358,10 @@ const products = productService(client);
 
 ## Type definitions
 
-The SDK exports every response and input type as a plain TypeScript
-`interface`. Service methods return plain JSON values typed as those
-interfaces — no runtime wrapping, no class instances, no getter methods.
+Every response and input type is a plain TypeScript `interface`. Service
+methods return plain JSON values typed as those interfaces — what the server
+sends, accessed by field. Read fields directly; localized arrays use the
+`getLocalized` helper (below).
 
 ```typescript
 import type { Product, CreateProductInput } from 'propeller-sdk-v2';
@@ -355,9 +373,10 @@ const input: CreateProductInput = {
   /* fields */
 };
 
-const product: Product = await productService(client).getProduct({ productId: 1 });
+// Typed as `Product`; only the fields the `product` operation selects are
+// populated — see "Return types" above. Read with optional chaining.
+const product = await productService(client).getProduct({ productId: 1 });
 
-// Field access, no getters:
 product.id;
 product.sku;
 product.price?.gross;
@@ -392,8 +411,8 @@ const status = Enums.ProductStatus.A;
 ### Serialization
 
 Responses are plain objects, so `JSON.stringify` / `JSON.parse` roundtrips
-(Redux DevTools, IndexedDB, SSR hydration, localStorage) work cleanly without
-needing to rewrap with `new Product(…)`.
+(Redux DevTools, IndexedDB, SSR hydration, localStorage) work cleanly — no
+rehydration step.
 
 ## Development
 

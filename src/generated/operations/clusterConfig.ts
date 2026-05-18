@@ -15,7 +15,7 @@ fragment ClusterConfigSettingFields on ClusterConfigSetting {
   priority
 }
 
-query cluster(\$clusterId: Int!) {
+query clusterConfig(\$clusterId: Int!) {
   cluster(clusterId: \$clusterId) {
     config {
       ...ClusterConfigFields

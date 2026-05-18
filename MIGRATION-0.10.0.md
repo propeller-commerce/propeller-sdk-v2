@@ -124,23 +124,25 @@ your custom queries explicitly via `client.registerQuery('foo', '<query>')`
 before calling `queryByName('foo')`. The service factories cover all 459
 bundled operations directly — prefer those for service-defined ops.
 
-### 4. Schema-alignment test (optional but recommended)
+### 4. Schema-alignment test (no setup needed)
 
-If you contribute back to this repo or run our test suite in CI, you'll see a
-new `tests/integration/schemaAlignment.test.ts` that validates every
-`.graphql` file against the upstream schema (`schema.json`). The schema is
-**not** committed — it's fetched on demand via
-`node scripts/fetch-schema.js`, which reads `PROPELLER_ENDPOINT` and
-`PROPELLER_API_KEY` from `.env`.
-
-Set up:
+If you contribute back to this repo or run the test suite,
+`tests/integration/schemaAlignment.test.ts` validates every generated
+operation document against the Propeller schema. It runs **fully offline
+against a committed snapshot** — `tests/integration/schema.snapshot.json` is
+checked into the repo, so **no credentials and no `.env` are required**:
 
 ```bash
-echo "PROPELLER_ENDPOINT=https://api.helice.cloud/v2/graphql" >> .env
-echo "PROPELLER_API_KEY=<your-api-key>" >> .env
-node scripts/fetch-schema.js
 npm test
 ```
+
+The test prefers a live `schema.json` at the repo root if one is present (it
+is `.gitignored` and not required); otherwise it falls back to the committed
+snapshot. The snapshot carries a generation date, and the test **warns**
+(it does not fail) if the snapshot is more than 60 days old. Refreshing the
+snapshot is a maintainer step that needs live introspection credentials —
+`npm run snapshot:schema` (uses `PROPELLER_ENDPOINT` + `PROPELLER_API_KEY`).
+Contributors do not need to do this.
 
 ## Quick checklist
 

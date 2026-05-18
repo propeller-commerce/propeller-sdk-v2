@@ -18,8 +18,14 @@
  *   2. minifies it to introspection-only JSON,
  *   3. stamps `__generatedAt` (ISO date) so the test can warn when stale.
  *
- * Wired into `prepublishOnly` so a release can't ship a months-old snapshot
- * unnoticed. Run manually any time: `node scripts/build-schema-snapshot.js`.
+ * NOT wired into any automated chain — refreshing the snapshot needs live
+ * introspection credentials (PROPELLER_ENDPOINT + PROPELLER_API_KEY), so it
+ * is a deliberate maintainer step run via `npm run snapshot:schema` (or
+ * `node scripts/build-schema-snapshot.js`). `prepublishOnly` runs
+ * `npm run validate` (typecheck + check:drift + build) and does NOT rebuild
+ * the snapshot. Staleness is surfaced instead by the schema-alignment test,
+ * which WARNS (it does not fail) when the committed snapshot is >60 days old
+ * — so a months-old snapshot is visible, not silently shipped.
  *
  * Usage:
  *   node scripts/build-schema-snapshot.js          # fetch fresh, rebuild
