@@ -438,6 +438,32 @@ The build pipeline:
 
 The `graphql` package is only required at build time and lives in `devDependencies`.
 
+### Schema-type drift guard
+
+`src/type/*.ts` and `src/enum/*.ts` are hand-authored. `npm run check:type-drift`
+(part of `npm run validate`, and a CI step) projects the upstream GraphQL
+schema and fails the build when the committed types/enums structurally diverge
+from it — a missing/extra field, an enum-value change, a nullability flip, or a
+generated operation that selects a deprecated field.
+
+Two rules to know:
+
+- **Deprecated schema members are intentionally omitted.** A field or enum
+  value the schema marks `@deprecated` (e.g. `Product.mediaImages` →
+  *"Deprecated in favor of `media.images`"*) is dropped from the reference
+  projection. Its absence from the SDK is the *correct* state and is never a
+  finding. Don't add deprecated members back, and don't select them in
+  `src/graphql/**`.
+- **`scripts/.schema-drift-exceptions.json` is a reviewed debt ledger.**
+  Pre-existing drift is baselined there so the guard catches only *new*
+  divergence. The file should *shrink* over releases. To rebaseline after a
+  deliberate schema refresh: `node scripts/build-schema-drift-baseline.js`,
+  then review the `git diff` — every entry must be an explainable deviation.
+
+It is offline-first: it uses the committed `tests/integration/schema.snapshot.json`
+when no live `schema.json` is present, so CI and forks pass without
+credentials (it warns, never fails, when the snapshot is >60 days old).
+
 ## Documentation
 
 See the [generated TypeDoc site](https://propeller-commerce.github.io/propeller-sdk-v2/) for the full API reference.

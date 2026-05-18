@@ -37,5 +37,8 @@ jobs:
       - name: Check generated artifact drift
         run: npm run check:drift
 
+      - name: Check schema-type drift
+        run: npm run check:type-drift
+
       - name: Test
         run: npm test

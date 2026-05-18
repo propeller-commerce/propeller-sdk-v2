@@ -364,4 +364,7 @@ if (require.main === module) {
   buildGraphQLBundle();
 }
 
-module.exports = { buildGraphQLBundle };
+// SCALAR_TS / GQL_TS_ALIASES exported so the schema-type drift guard
+// (scripts/lib/schema-type-project.js) maps GraphQL scalars/aliases exactly
+// the same way the operation-variable generator does — one source of truth.
+module.exports = { buildGraphQLBundle, SCALAR_TS, GQL_TS_ALIASES };

@@ -1,0 +1,1317 @@
+{
+  "$comment": "Reviewed deliberate deviations + baselined pre-existing drift between the hand-authored src/type|enum and the upstream GraphQL schema. The guard (npm run check:type-drift) FAILS on any divergence NOT listed here, so this is a debt ledger: it should SHRINK over releases as types are brought back in line. Reseed after a deliberate schema refresh with `node scripts/build-schema-drift-baseline.js` and review the git diff. Deprecated schema members are already excluded from the projection — an absent deprecated member is correct and never appears here.",
+  "exemptTypes": {
+    "AnyAddress": "SDK-only convenience union of the five address shapes; no schema counterpart. Hand-authored on purpose (see src/type/AnyAddress.ts)."
+  },
+  "exemptFields": {
+    "AdminUser": {
+      "ticketsAssigned": "baselined: schema declares a member the SDK type is missing"
+    },
+    "AdminUserTenant": {
+      "tenantInfo": "baselined: schema declares a member the SDK type is missing"
+    },
+    "AttributeAttributeDescriptionSearchInput": {
+      "term": "baselined: schema declares a member the SDK type is missing",
+      "termFields": "baselined: schema declares a member the SDK type is missing",
+      "termLanguages": "baselined: schema declares a member the SDK type is missing"
+    },
+    "AttributeDescriptionSearchInput": {
+      "term": "baselined: schema declares a member the SDK type is missing",
+      "termFields": "baselined: schema declares a member the SDK type is missing",
+      "termLanguages": "baselined: schema declares a member the SDK type is missing"
+    },
+    "AttributeValue": {
+      "type": "baselined: SDK declares a member not in the live schema",
+      "value": "baselined: SDK declares a member not in the live schema"
+    },
+    "BundleAddItemsInput": {
+      "taxZone": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleArrayExpressionOperators": {
+      "all": "baselined: schema declares a member the SDK type is missing",
+      "contains": "baselined: schema declares a member the SDK type is missing",
+      "none": "baselined: schema declares a member the SDK type is missing",
+      "some": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleComplexExpressionAction": {
+      "collect": "baselined: schema declares a member the SDK type is missing",
+      "count": "baselined: schema declares a member the SDK type is missing",
+      "sum": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleDateExpressionOperators": {
+      "after": "baselined: schema declares a member the SDK type is missing",
+      "afterDaysFromToday": "baselined: schema declares a member the SDK type is missing",
+      "afterMinutesFromNow": "baselined: schema declares a member the SDK type is missing",
+      "afterTime": "baselined: schema declares a member the SDK type is missing",
+      "before": "baselined: schema declares a member the SDK type is missing",
+      "beforeDaysFromToday": "baselined: schema declares a member the SDK type is missing",
+      "beforeMinutesFromNow": "baselined: schema declares a member the SDK type is missing",
+      "beforeTime": "baselined: schema declares a member the SDK type is missing",
+      "onDayOfMonth": "baselined: schema declares a member the SDK type is missing",
+      "onDayOfWeek": "baselined: schema declares a member the SDK type is missing",
+      "onDaysFromToday": "baselined: schema declares a member the SDK type is missing",
+      "onMinutesFromNow": "baselined: schema declares a member the SDK type is missing",
+      "onMonthOfYear": "baselined: schema declares a member the SDK type is missing",
+      "onTime": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleDecisionTableColumnType": {
+      "input": "baselined: schema declares a member the SDK type is missing",
+      "output": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleDecisionTableRowReorderDirection": {
+      "above": "baselined: schema declares a member the SDK type is missing",
+      "below": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleExpressionGroupOperators": {
+      "and": "baselined: schema declares a member the SDK type is missing",
+      "or": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleExpressionTypes": {
+      "array": "baselined: schema declares a member the SDK type is missing",
+      "boolean": "baselined: schema declares a member the SDK type is missing",
+      "complex": "baselined: schema declares a member the SDK type is missing",
+      "date": "baselined: schema declares a member the SDK type is missing",
+      "datetime": "baselined: schema declares a member the SDK type is missing",
+      "number": "baselined: schema declares a member the SDK type is missing",
+      "string": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleHitPolicyOption": {
+      "collect": "baselined: schema declares a member the SDK type is missing",
+      "first": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleNodeType": {
+      "decisionTableNode": "baselined: schema declares a member the SDK type is missing",
+      "functionNode": "baselined: schema declares a member the SDK type is missing",
+      "inputNode": "baselined: schema declares a member the SDK type is missing",
+      "outputNode": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleNumberExpressionOperators": {
+      "equals": "baselined: schema declares a member the SDK type is missing",
+      "greaterThan": "baselined: schema declares a member the SDK type is missing",
+      "greaterThanOrEqualTo": "baselined: schema declares a member the SDK type is missing",
+      "lowerThan": "baselined: schema declares a member the SDK type is missing",
+      "lowerThanOrEqualTo": "baselined: schema declares a member the SDK type is missing",
+      "notEquals": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleStringExpressionOperators": {
+      "contains": "baselined: schema declares a member the SDK type is missing",
+      "endsWith": "baselined: schema declares a member the SDK type is missing",
+      "equals": "baselined: schema declares a member the SDK type is missing",
+      "existsInArray": "baselined: schema declares a member the SDK type is missing",
+      "notEquals": "baselined: schema declares a member the SDK type is missing",
+      "startsWith": "baselined: schema declares a member the SDK type is missing"
+    },
+    "BusinessRuleType": {
+      "orderCarriers": "baselined: schema declares a member the SDK type is missing",
+      "orderIncentives": "baselined: schema declares a member the SDK type is missing",
+      "orderPaymentMethods": "baselined: schema declares a member the SDK type is missing",
+      "orderShippingCosts": "baselined: schema declares a member the SDK type is missing",
+      "orderTransactionCosts": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartAddBundleInput": {
+      "requestDate": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartAddItemInput": {
+      "requestDate": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartBaseItem": {
+      "requestDate": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartChildItemInput": {
+      "requestDate": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartItemBulkInput": {
+      "childItems": "baselined: schema declares a member the SDK type is missing",
+      "requestDate": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartMainItem": {
+      "requestDate": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartPaymethod": {
+      "id": "baselined: schema declares a member the SDK type is missing",
+      "logo": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartPostageData": {
+      "carrierData": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartUnOrderableItem": {
+      "requestDate": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartUpdateInput": {
+      "language": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartUpdateItemInput": {
+      "requestDate": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CategoryProductSearchInput": {
+      "applyOrderlists": "baselined: schema declares a member the SDK type is missing",
+      "orderlistIds": "baselined: schema declares a member the SDK type is missing"
+    },
+    "ClusterDrillDownDisplayType": {
+      "COLOR": "baselined: schema declares a member the SDK type is missing",
+      "DROPDOWN": "baselined: schema declares a member the SDK type is missing",
+      "IMAGE": "baselined: schema declares a member the SDK type is missing",
+      "RADIO": "baselined: schema declares a member the SDK type is missing"
+    },
+    "Company": {
+      "uuid": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CompanyAddressCreateInput": {
+      "active": "baselined: schema declares a member the SDK type is missing",
+      "url": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CompanyAddressUpdateInput": {
+      "active": "baselined: schema declares a member the SDK type is missing",
+      "url": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CompanyContactSearch": {
+      "gender": "baselined: schema declares a member the SDK type is missing",
+      "primaryCompanyId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CompanyFieldName": {
+      "BUDGET": "baselined: schema declares a member the SDK type is missing",
+      "BUDGET_INHERIT": "baselined: schema declares a member the SDK type is missing",
+      "EMAIL": "baselined: schema declares a member the SDK type is missing",
+      "HIDDEN": "baselined: schema declares a member the SDK type is missing",
+      "INHERIT_ORDER_LIST": "baselined: schema declares a member the SDK type is missing",
+      "INHERIT_PRODUCT_LIST": "baselined: schema declares a member the SDK type is missing",
+      "PATH": "baselined: schema declares a member the SDK type is missing",
+      "PHONE": "baselined: schema declares a member the SDK type is missing",
+      "SLUG": "baselined: schema declares a member the SDK type is missing",
+      "TAG": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CompanySearch": {
+      "phone": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CompanySearchArguments": {
+      "cocNumber": "baselined: schema declares a member the SDK type is missing",
+      "debtorIds": "baselined: schema declares a member the SDK type is missing",
+      "email": "baselined: schema declares a member the SDK type is missing",
+      "phone": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing",
+      "taxNumber": "baselined: schema declares a member the SDK type is missing"
+    },
+    "Contact": {
+      "pricesheetsEffective": "baselined: schema declares a member the SDK type is missing",
+      "uuid": "baselined: schema declares a member the SDK type is missing"
+    },
+    "ContactFieldName": {
+      "BANK_ACCOUNT": "baselined: schema declares a member the SDK type is missing",
+      "BIC": "baselined: schema declares a member the SDK type is missing",
+      "COC_NUMBER": "baselined: schema declares a member the SDK type is missing",
+      "DEBTOR_ID": "baselined: schema declares a member the SDK type is missing",
+      "EXPIRES": "baselined: schema declares a member the SDK type is missing",
+      "IBAN": "baselined: schema declares a member the SDK type is missing",
+      "LOGIN": "baselined: schema declares a member the SDK type is missing",
+      "LOGIN_ROOT": "baselined: schema declares a member the SDK type is missing",
+      "NOTES": "baselined: schema declares a member the SDK type is missing",
+      "PRIMARY_COMPANY_ID": "baselined: schema declares a member the SDK type is missing",
+      "SSN": "baselined: schema declares a member the SDK type is missing",
+      "TAX_NUMBER": "baselined: schema declares a member the SDK type is missing"
+    },
+    "ContactSearchArguments": {
+      "debtorIds": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CreateCompanyInput": {
+      "addresses": "baselined: schema declares a member the SDK type is missing",
+      "attributes": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CreateContactInput": {
+      "attributes": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CreateInventoryInput": {
+      "companyId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CreateOrUpdateOrderItemInput": {
+      "delete": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CreateProductInput": {
+      "shortNames": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CreateSurchargeInput": {
+      "taxCodeValue": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CreateWarehouseAddressInput": {
+      "fax": "baselined: schema declares a member the SDK type is missing",
+      "icp": "baselined: schema declares a member the SDK type is missing",
+      "name": "baselined: schema declares a member the SDK type is missing",
+      "url": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CsvRecordErrorCode": {
+      "DB_INSERT": "baselined: schema declares a member the SDK type is missing",
+      "UNKNOWN": "baselined: schema declares a member the SDK type is missing",
+      "VALIDATION": "baselined: schema declares a member the SDK type is missing"
+    },
+    "Customer": {
+      "pricesheetsEffective": "baselined: schema declares a member the SDK type is missing",
+      "uuid": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CustomerAddressCreateInput": {
+      "active": "baselined: schema declares a member the SDK type is missing",
+      "url": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CustomerAddressUpdateInput": {
+      "active": "baselined: schema declares a member the SDK type is missing",
+      "url": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CustomerInput": {
+      "addresses": "baselined: schema declares a member the SDK type is missing",
+      "attributes": "baselined: schema declares a member the SDK type is missing",
+      "debtorId": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CustomerSearchArguments": {
+      "debtorIds": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EmailEventType": {
+      "campaign": "baselined: schema declares a member the SDK type is missing",
+      "custom": "baselined: schema declares a member the SDK type is missing",
+      "error": "baselined: schema declares a member the SDK type is missing",
+      "orderconfirm": "baselined: schema declares a member the SDK type is missing",
+      "quotation": "baselined: schema declares a member the SDK type is missing",
+      "registration": "baselined: schema declares a member the SDK type is missing",
+      "system": "baselined: schema declares a member the SDK type is missing",
+      "transactional": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EventActionConfigSearchInput": {
+      "channelIds": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EventToEmailConfig": {
+      "channelIds": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EventToEmailConfigCreateInput": {
+      "channelIds": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EventToEmailConfigUpdateInput": {
+      "channelIds": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EventToWebHookConfig": {
+      "basicAuthUsername": "baselined: schema declares a member the SDK type is missing",
+      "channelIds": "baselined: schema declares a member the SDK type is missing",
+      "signatureSalt": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EventToWebHookConfigCreateInput": {
+      "basicAuthPassword": "baselined: schema declares a member the SDK type is missing",
+      "basicAuthUsername": "baselined: schema declares a member the SDK type is missing",
+      "channelIds": "baselined: schema declares a member the SDK type is missing",
+      "signatureSalt": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EventToWebHookConfigUpdateInput": {
+      "basicAuthPassword": "baselined: schema declares a member the SDK type is missing",
+      "basicAuthUsername": "baselined: schema declares a member the SDK type is missing",
+      "channelIds": "baselined: schema declares a member the SDK type is missing",
+      "signatureSalt": "baselined: schema declares a member the SDK type is missing"
+    },
+    "EventTrigger": {
+      "CART_SEND_REQUEST_PURCHASE_AUTHORIZATION": "baselined: schema declares a member the SDK type is missing",
+      "COMPANY_BULK": "baselined: schema declares a member the SDK type is missing",
+      "COMPANY_CREATED": "baselined: schema declares a member the SDK type is missing",
+      "COMPANY_DELETED": "baselined: schema declares a member the SDK type is missing",
+      "COMPANY_UPDATED": "baselined: schema declares a member the SDK type is missing",
+      "CONTACT_BULK": "baselined: schema declares a member the SDK type is missing",
+      "CONTACT_CREATED": "baselined: schema declares a member the SDK type is missing",
+      "CONTACT_DELETED": "baselined: schema declares a member the SDK type is missing",
+      "CONTACT_SEND_WELCOME_EMAIL": "baselined: schema declares a member the SDK type is missing",
+      "CONTACT_UPDATED": "baselined: schema declares a member the SDK type is missing",
+      "CUSTOMER_BULK": "baselined: schema declares a member the SDK type is missing",
+      "CUSTOMER_CREATED": "baselined: schema declares a member the SDK type is missing",
+      "CUSTOMER_DELETED": "baselined: schema declares a member the SDK type is missing",
+      "CUSTOMER_SEND_WELCOME_EMAIL": "baselined: schema declares a member the SDK type is missing",
+      "CUSTOMER_UPDATED": "baselined: schema declares a member the SDK type is missing",
+      "CUSTOM_EVENT": "baselined: schema declares a member the SDK type is missing",
+      "ORDER_BULK": "baselined: schema declares a member the SDK type is missing",
+      "ORDER_DELETED": "baselined: schema declares a member the SDK type is missing",
+      "ORDER_SEND_CONFIRMATION": "baselined: schema declares a member the SDK type is missing",
+      "QUOTE_SEND": "baselined: schema declares a member the SDK type is missing",
+      "QUOTE_SEND_REQUEST": "baselined: schema declares a member the SDK type is missing",
+      "QUOTE_SEND_VALIDATION": "baselined: schema declares a member the SDK type is missing",
+      "SEND_INIT_PASSWORD": "baselined: schema declares a member the SDK type is missing",
+      "SEND_RESET_PASSWORD": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IAttributeTextFilter": {
+      "count": "baselined: schema declares a member the SDK type is missing",
+      "countActive": "baselined: schema declares a member the SDK type is missing",
+      "countTotal": "baselined: schema declares a member the SDK type is missing",
+      "isSelected": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IBaseProduct": {
+      "shortNames": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IBaseUser": {
+      "bankAccount": "baselined: schema declares a member the SDK type is missing",
+      "bic": "baselined: schema declares a member the SDK type is missing",
+      "createdAt": "baselined: schema declares a member the SDK type is missing",
+      "dateOfBirth": "baselined: schema declares a member the SDK type is missing",
+      "debtorId": "baselined: schema declares a member the SDK type is missing",
+      "expires": "baselined: schema declares a member the SDK type is missing",
+      "externalId": "baselined: schema declares a member the SDK type is missing",
+      "gender": "baselined: schema declares a member the SDK type is missing",
+      "iban": "baselined: schema declares a member the SDK type is missing",
+      "isLoggedIn": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing",
+      "login": "baselined: schema declares a member the SDK type is missing",
+      "mailingList": "baselined: schema declares a member the SDK type is missing",
+      "middleName": "baselined: schema declares a member the SDK type is missing",
+      "mobile": "baselined: schema declares a member the SDK type is missing",
+      "notes": "baselined: schema declares a member the SDK type is missing",
+      "phone": "baselined: schema declares a member the SDK type is missing",
+      "primaryLanguage": "baselined: schema declares a member the SDK type is missing",
+      "userId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "ICluster": {
+      "categoryId": "baselined: schema declares a member the SDK type is missing",
+      "class": "baselined: schema declares a member the SDK type is missing",
+      "clusterId": "baselined: schema declares a member the SDK type is missing",
+      "config": "baselined: schema declares a member the SDK type is missing",
+      "createdAt": "baselined: schema declares a member the SDK type is missing",
+      "defaultLanguage": "baselined: schema declares a member the SDK type is missing",
+      "defaultProduct": "baselined: schema declares a member the SDK type is missing",
+      "descriptions": "baselined: schema declares a member the SDK type is missing",
+      "hidden": "baselined: schema declares a member the SDK type is missing",
+      "language": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing",
+      "metadataCanonicalUrls": "baselined: schema declares a member the SDK type is missing",
+      "metadataDescriptions": "baselined: schema declares a member the SDK type is missing",
+      "metadataKeywords": "baselined: schema declares a member the SDK type is missing",
+      "metadataTitles": "baselined: schema declares a member the SDK type is missing",
+      "names": "baselined: schema declares a member the SDK type is missing",
+      "options": "baselined: schema declares a member the SDK type is missing",
+      "products": "baselined: schema declares a member the SDK type is missing",
+      "shortDescriptions": "baselined: schema declares a member the SDK type is missing",
+      "shortNames": "baselined: schema declares a member the SDK type is missing",
+      "sku": "baselined: schema declares a member the SDK type is missing",
+      "slugs": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IClusterDrillDown": {
+      "attributeId": "baselined: schema declares a member the SDK type is missing",
+      "displayType": "baselined: schema declares a member the SDK type is missing",
+      "priority": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IClusterOption": {
+      "clusterOptionId": "baselined: schema declares a member the SDK type is missing",
+      "defaultProduct": "baselined: schema declares a member the SDK type is missing",
+      "descriptions": "baselined: schema declares a member the SDK type is missing",
+      "hidden": "baselined: schema declares a member the SDK type is missing",
+      "isRequired": "baselined: schema declares a member the SDK type is missing",
+      "names": "baselined: schema declares a member the SDK type is missing",
+      "products": "baselined: schema declares a member the SDK type is missing",
+      "shortDescriptions": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IDiscount": {
+      "createdAt": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing",
+      "quantityFrom": "baselined: schema declares a member the SDK type is missing",
+      "validFrom": "baselined: schema declares a member the SDK type is missing",
+      "validTo": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IEventActionConfig": {
+      "channelIds": "baselined: schema declares a member the SDK type is missing",
+      "code": "baselined: schema declares a member the SDK type is missing",
+      "createdAt": "baselined: schema declares a member the SDK type is missing",
+      "createdBy": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedBy": "baselined: schema declares a member the SDK type is missing",
+      "names": "baselined: schema declares a member the SDK type is missing",
+      "trigger": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IProduct": {
+      "barCode": "baselined: schema declares a member the SDK type is missing",
+      "categoryId": "baselined: schema declares a member the SDK type is missing",
+      "class": "baselined: schema declares a member the SDK type is missing",
+      "clusterId": "baselined: schema declares a member the SDK type is missing",
+      "containerClass": "baselined: schema declares a member the SDK type is missing",
+      "createdAt": "baselined: schema declares a member the SDK type is missing",
+      "customKeywords": "baselined: schema declares a member the SDK type is missing",
+      "defaultLanguage": "baselined: schema declares a member the SDK type is missing",
+      "descriptions": "baselined: schema declares a member the SDK type is missing",
+      "eanCode": "baselined: schema declares a member the SDK type is missing",
+      "economicOrderQuantity": "baselined: schema declares a member the SDK type is missing",
+      "hidden": "baselined: schema declares a member the SDK type is missing",
+      "keywords": "baselined: schema declares a member the SDK type is missing",
+      "language": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing",
+      "manufacturer": "baselined: schema declares a member the SDK type is missing",
+      "manufacturerCode": "baselined: schema declares a member the SDK type is missing",
+      "metadataCanonicalUrls": "baselined: schema declares a member the SDK type is missing",
+      "metadataDescriptions": "baselined: schema declares a member the SDK type is missing",
+      "metadataKeywords": "baselined: schema declares a member the SDK type is missing",
+      "metadataTitles": "baselined: schema declares a member the SDK type is missing",
+      "minimumQuantity": "baselined: schema declares a member the SDK type is missing",
+      "names": "baselined: schema declares a member the SDK type is missing",
+      "offers": "baselined: schema declares a member the SDK type is missing",
+      "orderable": "baselined: schema declares a member the SDK type is missing",
+      "orderableFrom": "baselined: schema declares a member the SDK type is missing",
+      "orderableTo": "baselined: schema declares a member the SDK type is missing",
+      "package": "baselined: schema declares a member the SDK type is missing",
+      "packageDescriptions": "baselined: schema declares a member the SDK type is missing",
+      "packageUnit": "baselined: schema declares a member the SDK type is missing",
+      "packageUnitQuantity": "baselined: schema declares a member the SDK type is missing",
+      "physical": "baselined: schema declares a member the SDK type is missing",
+      "priceGroup": "baselined: schema declares a member the SDK type is missing",
+      "priority": "baselined: schema declares a member the SDK type is missing",
+      "productId": "baselined: schema declares a member the SDK type is missing",
+      "purchaseMinimumQuantity": "baselined: schema declares a member the SDK type is missing",
+      "purchaseUnit": "baselined: schema declares a member the SDK type is missing",
+      "releaseDate": "baselined: schema declares a member the SDK type is missing",
+      "returnable": "baselined: schema declares a member the SDK type is missing",
+      "shortDescriptions": "baselined: schema declares a member the SDK type is missing",
+      "shortNames": "baselined: schema declares a member the SDK type is missing",
+      "slugs": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing",
+      "status": "baselined: schema declares a member the SDK type is missing",
+      "statusExtra": "baselined: schema declares a member the SDK type is missing",
+      "supplier": "baselined: schema declares a member the SDK type is missing",
+      "supplierCode": "baselined: schema declares a member the SDK type is missing",
+      "taxonomy": "baselined: schema declares a member the SDK type is missing",
+      "turnoverGroup": "baselined: schema declares a member the SDK type is missing",
+      "unit": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IProductOffer": {
+      "formula": "baselined: schema declares a member the SDK type is missing",
+      "validFrom": "baselined: schema declares a member the SDK type is missing",
+      "validTo": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IResource": {
+      "class": "baselined: schema declares a member the SDK type is missing",
+      "hidden": "baselined: schema declares a member the SDK type is missing",
+      "language": "baselined: schema declares a member the SDK type is missing"
+    },
+    "ITenderBaseItem": {
+      "attributedSaleDiscount": "baselined: schema declares a member the SDK type is missing",
+      "attributedSaleMargin": "baselined: schema declares a member the SDK type is missing",
+      "costPrice": "baselined: schema declares a member the SDK type is missing",
+      "customerDiscountPercentage": "baselined: schema declares a member the SDK type is missing",
+      "customerPrice": "baselined: schema declares a member the SDK type is missing",
+      "discountPercentage": "baselined: schema declares a member the SDK type is missing",
+      "expectedDeliveryDate": "baselined: schema declares a member the SDK type is missing",
+      "externalOrderitemId": "baselined: schema declares a member the SDK type is missing",
+      "incentive": "baselined: schema declares a member the SDK type is missing",
+      "marginAmount": "baselined: schema declares a member the SDK type is missing",
+      "marginPercentage": "baselined: schema declares a member the SDK type is missing",
+      "name": "baselined: schema declares a member the SDK type is missing",
+      "notes": "baselined: schema declares a member the SDK type is missing",
+      "orderItemId": "baselined: schema declares a member the SDK type is missing",
+      "originalPrice": "baselined: schema declares a member the SDK type is missing",
+      "priceNet": "baselined: schema declares a member the SDK type is missing",
+      "priority": "baselined: schema declares a member the SDK type is missing",
+      "saleMarginAmount": "baselined: schema declares a member the SDK type is missing",
+      "saleMarginPercentage": "baselined: schema declares a member the SDK type is missing",
+      "sku": "baselined: schema declares a member the SDK type is missing",
+      "supplier": "baselined: schema declares a member the SDK type is missing",
+      "supplierCode": "baselined: schema declares a member the SDK type is missing",
+      "surcharges": "baselined: schema declares a member the SDK type is missing",
+      "taxCode": "baselined: schema declares a member the SDK type is missing",
+      "taxPercentage": "baselined: schema declares a member the SDK type is missing",
+      "totalDiscountPercentage": "baselined: schema declares a member the SDK type is missing",
+      "totalPrice": "baselined: schema declares a member the SDK type is missing",
+      "totalPriceNet": "baselined: schema declares a member the SDK type is missing",
+      "valuePoints": "baselined: schema declares a member the SDK type is missing"
+    },
+    "IncentiveActions": {
+      "ADD_PRODUCT_TO_BONUS_ITEMS": "baselined: schema declares a member the SDK type is missing",
+      "DUPLICATE_CHEAPEST_IN_BONUS_ITEMS": "baselined: schema declares a member the SDK type is missing",
+      "DUPLICATE_PRODUCT_IN_BONUS_ITEMS": "baselined: schema declares a member the SDK type is missing",
+      "GIVE_DISCOUNT_TO_CHEAPEST_ITEM": "baselined: schema declares a member the SDK type is missing",
+      "GIVE_DISCOUNT_TO_ORDER_ITEM": "baselined: schema declares a member the SDK type is missing",
+      "GIVE_DISCOUNT_TO_ORDER_TOTAL": "baselined: schema declares a member the SDK type is missing",
+      "MOVE_PRODUCT_TO_BONUS_ITEMS": "baselined: schema declares a member the SDK type is missing",
+      "SET_SHIPPING_COSTS": "baselined: schema declares a member the SDK type is missing",
+      "SET_SHIPPING_TAXCODE": "baselined: schema declares a member the SDK type is missing",
+      "SET_TRANSACTION_COSTS": "baselined: schema declares a member the SDK type is missing"
+    },
+    "Inventory": {
+      "companyId": "baselined: schema declares a member the SDK type is missing",
+      "createdAt": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing"
+    },
+    "InventoryResponse": {
+      "companyId": "baselined: schema declares a member the SDK type is missing",
+      "createdAt": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing"
+    },
+    "NumberExpressionOperator": {
+      "EQUALS": "baselined: schema declares a member the SDK type is missing",
+      "GREATER_THAN_OR_EQUAL_TO": "baselined: schema declares a member the SDK type is missing",
+      "LOWER_THAN": "baselined: schema declares a member the SDK type is missing",
+      "LOWER_THAN_OR_EQUAL_TO": "baselined: schema declares a member the SDK type is missing",
+      "NOT_EQUALS": "baselined: schema declares a member the SDK type is missing"
+    },
+    "Order": {
+      "invalid": "baselined: schema declares a member the SDK type is missing",
+      "invalidationReason": "baselined: schema declares a member the SDK type is missing",
+      "orderStatus": "baselined: schema declares a member the SDK type is missing",
+      "public": "baselined: schema declares a member the SDK type is missing",
+      "publicVersionNumber": "baselined: schema declares a member the SDK type is missing",
+      "revision": "baselined: schema declares a member the SDK type is missing",
+      "revisionNumber": "baselined: schema declares a member the SDK type is missing",
+      "revisions": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderCreateInput": {
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderItem": {
+      "priority": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderItemCreateInput": {
+      "priority": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderItemUpdateInput": {
+      "priority": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderRevision": {
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedByAdminUser": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedByAdminUserId": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedByContact": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedByContactId": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedByCustomer": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedByCustomerId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderRevisionSearchInput": {
+      "channelIds": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderSearchArguments": {
+      "channelIds": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderSortField": {
+      "VALID_UNTIL": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderStatusSetsSearchInput": {
+      "ids": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderUpdateInput": {
+      "addresses": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "OrderlistCompanySearchInput": {
+      "cocNumber": "baselined: schema declares a member the SDK type is missing",
+      "debtorIds": "baselined: schema declares a member the SDK type is missing",
+      "email": "baselined: schema declares a member the SDK type is missing",
+      "phone": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing",
+      "taxNumber": "baselined: schema declares a member the SDK type is missing"
+    },
+    "PasswordRecoveryLinkInput": {
+      "channelId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "ProductFieldName": {
+      "SHORT_NAMES": "baselined: schema declares a member the SDK type is missing"
+    },
+    "ProductInventory": {
+      "localReservedQuantity": "baselined: schema declares a member the SDK type is missing",
+      "supplierReservedQuantity": "baselined: schema declares a member the SDK type is missing",
+      "total": "baselined: schema declares a member the SDK type is missing",
+      "totalReservedQuantity": "baselined: schema declares a member the SDK type is missing"
+    },
+    "RegisterContactInput": {
+      "attributes": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "RegisterCustomerInput": {
+      "addresses": "baselined: schema declares a member the SDK type is missing",
+      "attributes": "baselined: schema declares a member the SDK type is missing",
+      "debtorId": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "Role": {
+      "roleDefinitionId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "RoleAccess": {
+      "EDITOR": "baselined: schema declares a member the SDK type is missing",
+      "OWNER": "baselined: schema declares a member the SDK type is missing",
+      "VIEWER": "baselined: schema declares a member the SDK type is missing"
+    },
+    "RoleDefinitionSearchInput": {
+      "ids": "baselined: schema declares a member the SDK type is missing",
+      "names": "baselined: schema declares a member the SDK type is missing"
+    },
+    "RoleDefinitionSortableFields": {
+      "CREATED_AT": "baselined: schema declares a member the SDK type is missing",
+      "LAST_MODIFIED_AT": "baselined: schema declares a member the SDK type is missing"
+    },
+    "RoleSortableFields": {
+      "CREATED_AT": "baselined: schema declares a member the SDK type is missing",
+      "LAST_MODIFIED_AT": "baselined: schema declares a member the SDK type is missing",
+      "USER_ID": "baselined: schema declares a member the SDK type is missing"
+    },
+    "SparePartsMachineProductSearchInput": {
+      "applyOrderlists": "baselined: schema declares a member the SDK type is missing",
+      "categoryId": "baselined: schema declares a member the SDK type is missing",
+      "filters": "baselined: schema declares a member the SDK type is missing",
+      "getDescendants": "baselined: schema declares a member the SDK type is missing",
+      "orderlistIds": "baselined: schema declares a member the SDK type is missing"
+    },
+    "SurchargeSearchInput": {
+      "taxCodeValue": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TemplateSortField": {
+      "CREATED_AT": "baselined: schema declares a member the SDK type is missing",
+      "LAST_MODIFIED_AT": "baselined: schema declares a member the SDK type is missing"
+    },
+    "Tender": {
+      "orderStatus": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TenderAddItemInput": {
+      "priority": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TenderBaseItem": {
+      "priority": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TenderMainItem": {
+      "priority": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TenderPaymentInput": {
+      "overruled": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TenderPaymethod": {
+      "id": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TenderPostageInput": {
+      "overruled": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TenderUpdateItemInput": {
+      "priority": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TriggerCustomEventInput": {
+      "channelId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TriggerOrderSendConfirmEventInput": {
+      "channelId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TriggerQuoteSendEventInput": {
+      "channelId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TriggerQuoteSendRequestEventInput": {
+      "channelId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "TriggerQuoteSendValidationEventInput": {
+      "channelId": "baselined: schema declares a member the SDK type is missing"
+    },
+    "UpdateCompanyInput": {
+      "addresses": "baselined: schema declares a member the SDK type is missing",
+      "attributes": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "UpdateContactInput": {
+      "attributes": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "UpdateCustomerInput": {
+      "addresses": "baselined: schema declares a member the SDK type is missing",
+      "attributes": "baselined: schema declares a member the SDK type is missing",
+      "debtorId": "baselined: schema declares a member the SDK type is missing",
+      "sources": "baselined: schema declares a member the SDK type is missing"
+    },
+    "UpdateProductInput": {
+      "shortNames": "baselined: schema declares a member the SDK type is missing"
+    },
+    "UpdateSurchargeInput": {
+      "taxCodeValue": "baselined: schema declares a member the SDK type is missing"
+    },
+    "UpdateWarehouseAddressInput": {
+      "fax": "baselined: schema declares a member the SDK type is missing",
+      "icp": "baselined: schema declares a member the SDK type is missing",
+      "name": "baselined: schema declares a member the SDK type is missing",
+      "url": "baselined: schema declares a member the SDK type is missing"
+    },
+    "ValuesetCreateInput": {
+      "valuesetItems": "baselined: schema declares a member the SDK type is missing"
+    },
+    "WarehouseAddress": {
+      "createdAt": "baselined: schema declares a member the SDK type is missing",
+      "lastModifiedAt": "baselined: schema declares a member the SDK type is missing"
+    },
+    "WarehousesSearchInput": {
+      "sortInputs": "baselined: schema declares a member the SDK type is missing"
+    }
+  },
+  "knownNullabilityFlips": {
+    "Attribute": [
+      "value"
+    ],
+    "BundleAddItemsInput": [
+      "items"
+    ],
+    "Company": [
+      "contacts"
+    ],
+    "CompanySearchReindexInput": [
+      "template"
+    ],
+    "IAttributeTextFilter": [
+      "value"
+    ],
+    "IBaseUser": [
+      "firstName",
+      "lastName"
+    ],
+    "Order": [
+      "exportStatus",
+      "sources"
+    ],
+    "Product": [
+      "inventory"
+    ],
+    "RegisterContactInput": [
+      "email"
+    ],
+    "RegisterCustomerInput": [
+      "email"
+    ],
+    "RoleDefinitionSearchInput": [
+      "offset",
+      "page"
+    ],
+    "RoleSearchInput": [
+      "offset",
+      "page"
+    ],
+    "TenantCreateInput": [
+      "allowQuoteInvalidation",
+      "restrictSalesPricingVisibility"
+    ],
+    "Tender": [
+      "invalid",
+      "public",
+      "revisionNumber",
+      "revisions"
+    ],
+    "TicketCreateInput": [
+      "status"
+    ],
+    "UploadFileInput": [
+      "language"
+    ],
+    "UploadVideoInput": [
+      "language"
+    ],
+    "WarehouseAddress": [
+      "gender",
+      "icp"
+    ],
+    "WarehousesSearchInput": [
+      "offset",
+      "page"
+    ]
+  },
+  "allowedDeprecatedSelections": {
+    "addressesByOrderId": [
+      "Query.addressesByOrderId"
+    ],
+    "adminUserTenant": [
+      "AdminUserTenant.name"
+    ],
+    "adminUserTenantCreate": [
+      "AdminUserTenant.name"
+    ],
+    "adminUserTenantDelete": [
+      "AdminUserTenant.name"
+    ],
+    "bundle": [
+      "Inventory.dateModified"
+    ],
+    "bundleAddItems": [
+      "Inventory.dateModified",
+      "Mutation.bundleAddItems"
+    ],
+    "bundleAddItemsAndReturnBundle": [
+      "Inventory.dateModified"
+    ],
+    "bundleCreate": [
+      "Inventory.dateModified"
+    ],
+    "bundleRemoveItem": [
+      "Mutation.bundleRemoveItem"
+    ],
+    "bundleRemoveItemAndReturnBundle": [
+      "Inventory.dateModified"
+    ],
+    "bundleUpdate": [
+      "Inventory.dateModified"
+    ],
+    "bundles": [
+      "Inventory.dateModified"
+    ],
+    "businessRule": [
+      "BusinessRule.shopId"
+    ],
+    "businessRuleCreate": [
+      "BusinessRule.shopId"
+    ],
+    "businessRuleUpdate": [
+      "BusinessRule.shopId"
+    ],
+    "businessRules": [
+      "BusinessRule.shopId"
+    ],
+    "carrierAssignWarehouse": [
+      "Mutation.carrierAssignWarehouse"
+    ],
+    "carrierUnassignWarehouse": [
+      "Mutation.carrierUnassignWarehouse"
+    ],
+    "cart": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartAcceptPurchaseAuthorizationRequest": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartAddActionCode": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartAddBundle": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartAddItem": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartDeleteItem": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartRemoveActionCode": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartSetContact": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartSetCustomer": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartSetUser": [
+      "Contact.debtorId",
+      "Inventory.dateModified",
+      "Mutation.cartSetUser"
+    ],
+    "cartStart": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartUpdate": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartUpdateAddress": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "cartUpdateItem": [
+      "Contact.debtorId",
+      "Inventory.dateModified"
+    ],
+    "category": [
+      "Inventory.dateModified"
+    ],
+    "categoryAddProductsClusters": [
+      "Inventory.dateModified"
+    ],
+    "categoryCreate": [
+      "Inventory.dateModified"
+    ],
+    "categoryRemoveProductsClusters": [
+      "Inventory.dateModified"
+    ],
+    "categoryUpdate": [
+      "Inventory.dateModified"
+    ],
+    "channel": [
+      "Channel.channelId",
+      "Channel.defaultLetterId",
+      "Channel.shop"
+    ],
+    "channelCreate": [
+      "Channel.channelId",
+      "Channel.defaultLetterId",
+      "Channel.shop"
+    ],
+    "channelUpdate": [
+      "Channel.channelId",
+      "Channel.defaultLetterId",
+      "Channel.shop"
+    ],
+    "channels": [
+      "Channel.channelId",
+      "Channel.defaultLetterId",
+      "Channel.shop"
+    ],
+    "cluster": [
+      "Inventory.dateModified"
+    ],
+    "clusterAssignProducts": [
+      "Inventory.dateModified"
+    ],
+    "clusterCreate": [
+      "Inventory.dateModified"
+    ],
+    "clusterOptionCreate": [
+      "Inventory.dateModified"
+    ],
+    "clusterOptionUpdate": [
+      "Inventory.dateModified"
+    ],
+    "clusterProductCreate": [
+      "Inventory.dateModified"
+    ],
+    "clusterProductUpdate": [
+      "Inventory.dateModified"
+    ],
+    "clusterUnassignProducts": [
+      "Inventory.dateModified"
+    ],
+    "clusterUpdate": [
+      "Inventory.dateModified"
+    ],
+    "companySearch": [
+      "CompanyContactSearch.debtorId",
+      "Query.companySearch"
+    ],
+    "companySearchCleanupOrphanedIndices": [
+      "Mutation.companySearchCleanupOrphanedIndices"
+    ],
+    "companySearchFixAliasWriteIndex": [
+      "Mutation.companySearchFixAliasWriteIndex"
+    ],
+    "companySearchIndexUpdateMapping": [
+      "Mutation.companySearchIndexUpdateMapping"
+    ],
+    "companySearchReindex": [
+      "Mutation.companySearchReindex"
+    ],
+    "crossupsell": [
+      "Inventory.dateModified"
+    ],
+    "crossupsellCreate": [
+      "Inventory.dateModified"
+    ],
+    "crossupsellUpdate": [
+      "Inventory.dateModified"
+    ],
+    "crossupsells": [
+      "Inventory.dateModified"
+    ],
+    "favoriteList": [
+      "Inventory.dateModified"
+    ],
+    "incentiveRuleCreate": [
+      "BusinessRule.shopId"
+    ],
+    "incentiveRuleSetAction": [
+      "BusinessRule.shopId"
+    ],
+    "incentiveRuleSetOrderItemConditions": [
+      "BusinessRule.shopId"
+    ],
+    "logout": [
+      "Mutation.logout"
+    ],
+    "machine": [
+      "Inventory.dateModified"
+    ],
+    "machineCreate": [
+      "Inventory.dateModified"
+    ],
+    "machineUpsert": [
+      "Inventory.dateModified"
+    ],
+    "machines": [
+      "Inventory.dateModified"
+    ],
+    "mediaDocument": [
+      "Query.mediaDocument"
+    ],
+    "mediaDocuments": [
+      "Query.mediaDocuments"
+    ],
+    "mediaImage": [
+      "Query.mediaImage"
+    ],
+    "mediaImages": [
+      "Query.mediaImages"
+    ],
+    "mediaVideo": [
+      "Query.mediaVideo"
+    ],
+    "mediaVideos": [
+      "Query.mediaVideos"
+    ],
+    "order": [
+      "Inventory.dateModified"
+    ],
+    "orderCreate": [
+      "Inventory.dateModified"
+    ],
+    "orderItemCreate": [
+      "Inventory.dateModified"
+    ],
+    "orderItemUpdate": [
+      "Inventory.dateModified"
+    ],
+    "orderRevision": [
+      "Inventory.dateModified"
+    ],
+    "orderRevisionRestore": [
+      "Inventory.dateModified"
+    ],
+    "orderRevisions": [
+      "Inventory.dateModified"
+    ],
+    "orderStatus": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatusCreate": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatusSet": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatusSetAddOrderStatuses": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatusSetCreate": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatusSetRemoveOrderStatuses": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatusSetUpdate": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatusSets": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatusUpdate": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderStatuses": [
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable"
+    ],
+    "orderUpdate": [
+      "Inventory.dateModified"
+    ],
+    "orderUpdateAddress": [
+      "Mutation.orderUpdateAddress"
+    ],
+    "product": [
+      "Inventory.dateModified"
+    ],
+    "products": [
+      "Inventory.dateModified"
+    ],
+    "publishPasswordResetEmailEvent": [
+      "Mutation.publishPasswordResetEmailEvent"
+    ],
+    "shop": [
+      "Query.shop"
+    ],
+    "shopInvalidateCache": [
+      "Mutation.shopInvalidateCache"
+    ],
+    "shops": [
+      "Query.shops"
+    ],
+    "tender": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderAddItems": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderApplyIncentives": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderDeleteBonusItem": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderDeleteItem": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderStart": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderUpdate": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderUpdateAddress": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderUpdateDiscount": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderUpdateInvoiceUser": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderUpdateItem": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderUpdatePayment": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ],
+    "tenderUpdatePostage": [
+      "Inventory.dateModified",
+      "OrderStatus.isArchivable",
+      "OrderStatus.isConfirmable",
+      "OrderStatus.isExportable",
+      "Tender.shopId",
+      "Tender.siteId",
+      "Tender.user",
+      "Tender.userId",
+      "TenderCarrier.amount",
+      "TenderMainItem.id",
+      "TenderTotal.discountOverruled"
+    ]
+  },
+  "exemptSchemaOnlyTypes": "default-skip-all"
+}

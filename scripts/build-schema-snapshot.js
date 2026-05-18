@@ -84,4 +84,12 @@ function main() {
   console.log(`✅ Wrote ${path.relative(ROOT, SNAPSHOT)} (${mb} MB, stamped ${JSON.parse(out).__generatedAt}).`);
 }
 
-main();
+// Exported so the schema-type drift guard (scripts/lib/schema-type-project.js)
+// can reuse the exact UTF-16-BOM-aware introspection reader. Run main() only
+// when invoked directly, never on require — requiring this for the export must
+// not trigger a fetch/regeneration.
+module.exports = { readIntrospection };
+
+if (require.main === module) {
+  main();
+}

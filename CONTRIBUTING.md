@@ -40,6 +40,32 @@ verified by `npm run check:drift`. Never `rimraf src/generated` in a
 default/install hook, and always run `npm run check:drift` after touching
 anything under `src/graphql/` or the generator.
 
+### Hand-authored types are drift-guarded, not generated (FINAL)
+
+`src/type/*.ts` and `src/enum/*.ts` stay **hand-authored** (with their JSDoc) —
+there is no type generator and one will not be added. Instead,
+`npm run check:type-drift` (in `npm run validate` and CI) projects the upstream
+schema and fails on structural divergence: missing/extra fields, enum-value
+changes, nullability flips, and generated operations selecting deprecated
+fields.
+
+This does **not** reopen the closed "no per-operation projection codegen" /
+"partial responses are expected" decisions above — it guards only the static
+type↔schema relationship, nothing about return shapes.
+
+Two invariants:
+
+- **Deprecated schema members are intentionally omitted** from types/enums and
+  must **not** be selected in `src/graphql/**`. The guard excludes
+  `@deprecated` members from its reference, so their absence is correct, never
+  drift. Do not "restore" them.
+- **`scripts/.schema-drift-exceptions.json` is a reviewed debt ledger**, not a
+  dumping ground. It baselines pre-existing drift so only *new* drift fails
+  CI; it must trend **smaller**. Reseed only after a deliberate schema refresh
+  (`node scripts/build-schema-drift-baseline.js`) and justify every diff’d
+  entry in review. Do not silence a *new* finding by appending to it without a
+  written reason.
+
 ### Guarded `prepare` script (FINAL)
 
 `package.json` runs `prepare: node scripts/prepare.js`. This hook is
