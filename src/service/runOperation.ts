@@ -1,4 +1,4 @@
-import { GraphQLClient, GraphQLResponse } from '../client/GraphQLClient';
+import { GraphQLClient, GraphQLResponse, GraphQLFetchOptions } from '../client/GraphQLClient';
 import { GraphQLOperationError } from '../client/GraphQLOperationError';
 
 /**
@@ -69,12 +69,14 @@ export async function runOperation<TData = any>(
   client: GraphQLClient,
   document: string,
   operationName: string,
-  variables: any = {}
+  variables: any = {},
+  fetchOptions?: GraphQLFetchOptions
 ): Promise<ResolvedResponse<TData>> {
   const result = await client.execute<TData>({
     query: document,
     variables: applySdkDefaults(document, variables),
     operationName,
+    fetchOptions,
   });
   const hasData = result.data !== undefined && result.data !== null;
 

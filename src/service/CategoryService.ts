@@ -39,7 +39,7 @@ export interface CategoryQueryVariables {
   /** Filter available attributes input */
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
 }
-import { GraphQLClient } from '../client/GraphQLClient';
+import { GraphQLClient, GraphQLFetchOptions } from '../client/GraphQLClient';
 import { runOperation } from './runOperation';
 import { document as categoriesDoc } from '../generated/operations/categories';
 import { document as categoryDoc } from '../generated/operations/category';
@@ -80,9 +80,9 @@ export function categoryService(client: GraphQLClient) {
        *  - filterAvailableAttributeInput: FilterAvailableAttributeInput - Filter available attributes
        * @returns Promise<Category> The category data
        */
-    async getCategory(variables: CategoryQueryVariables): Promise<Category> {
+    async getCategory(variables: CategoryQueryVariables, fetchOptions?: GraphQLFetchOptions): Promise<Category> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation<{ category: Category }>(client, categoryDoc, 'category', { ...variables, language });
+      const result = await runOperation<{ category: Category }>(client, categoryDoc, 'category', { ...variables, language }, fetchOptions);
       return result.data.category as Category;
     },
     /**
@@ -162,7 +162,7 @@ export class CategoryService {
    * Fetches a single category by ID or slug
    * @param variables Variables for the category query
    */
-  getCategory(variables: CategoryQueryVariables): Promise<Category> { return this._svc.getCategory(variables); }
+  getCategory(variables: CategoryQueryVariables, fetchOptions?: GraphQLFetchOptions): Promise<Category> { return this._svc.getCategory(variables, fetchOptions); }
   /**
    * Creates a new category
    * @param variables Category creation input data

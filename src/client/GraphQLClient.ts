@@ -4,6 +4,44 @@
 import { GraphQLOperationError, GraphQLErrorEntry } from './GraphQLOperationError';
 
 /**
+ * Per-operation fetch hints passed through to the underlying `fetch()` call.
+ *
+ * Deliberately narrow: callers can't reach `method`, `headers`, `body`, or
+ * `signal` — those are SDK invariants. The two slots below cover the
+ * standard `fetch()` extension surface that hosting runtimes have converged
+ * on; the SDK forwards them verbatim and doesn't introspect either.
+ *
+ * NEVER serialised into the GraphQL request body — see `execute()`. Two
+ * callers passing the same `{ query, variables, operationName }` with
+ * different `fetchOptions` (e.g. different `tags`) MUST hit the same cache
+ * entry. The body is the cache key; `fetchOptions` is a transport hint.
+ *
+ * If your host runtime uses a *different* mechanism (e.g. an
+ * application-level proxy keyed by request headers, like propeller-vue's
+ * `/api/graphql` LRU), set `headers` on the GraphQL client config instead
+ * — `fetchOptions` is for runtimes that consume hints directly on
+ * `fetch()`.
+ */
+export interface GraphQLFetchOptions {
+  /** Standard fetch cache mode (`'force-cache' | 'no-store' | ...`). */
+  cache?: RequestCache;
+  /**
+   * Host-framework `fetch()` extension. The de-facto slot used by
+   * Next.js, Cloudflare Workers, and Nitro (when wrapping `undici`) to
+   * carry data-cache hints alongside a request. The SDK passes this
+   * through to `fetch()` unmodified — it has no Next.js dependency.
+   *
+   * Shape (loosely standardised across the runtimes above):
+   *   - `revalidate`: TTL in seconds, or `false` to opt out of caching.
+   *   - `tags`: surgical-invalidation keys the runtime tracks per entry.
+   */
+  next?: {
+    revalidate?: number | false;
+    tags?: readonly string[];
+  };
+}
+
+/**
  * Represents a GraphQL operation (query or mutation).
  *
  * As of v0.4.0, fragment inlining is performed at build time, so operation
@@ -13,6 +51,12 @@ export interface GraphQLOperation {
   operationName?: string;
   query: string;
   variables?: Record<string, any>;
+  /**
+   * Optional fetch hints for THIS operation (e.g. Next.js data-cache control).
+   * Pass-through to the underlying `fetch()` call. NEVER included in the
+   * GraphQL request body — it's a transport hint, not part of the wire payload.
+   */
+  fetchOptions?: GraphQLFetchOptions;
 }
 
 /**
@@ -292,10 +336,14 @@ export class GraphQLClient {
    * services throw `GraphQLOperationError` when `errors` is non-empty.
    */
   async execute<T = any>(operation: GraphQLOperation): Promise<GraphQLResponse<T>> {
-    const { query, variables = {}, operationName } = operation;
+    const { query, variables = {}, operationName, fetchOptions } = operation;
     const actualOperationName = operationName || this.extractOperationName(query);
     const headers = await this.buildHeaders(actualOperationName);
 
+    // The wire payload is `{query, variables, operationName}` only — DO NOT
+    // merge `fetchOptions` in. Transport-level hints (cache, tags) must not
+    // affect the request body, otherwise two callers passing different tags
+    // for the same logical operation would produce different cache entries.
     const body = JSON.stringify({
       query,
       variables,
@@ -310,6 +358,14 @@ export class GraphQLClient {
         method: 'POST',
         headers,
         body,
+        // Per-operation fetch hints. Extracted by named field (NOT spread) so
+        // a caller can't reach `method`/`body`/`headers`/`signal`.
+        cache: fetchOptions?.cache,
+        // `next` is a Next.js fetch extension, not in lib.dom RequestInit. The
+        // suppression is intentional — fail loud if lib.dom ever adds `next`.
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error — next is a host-framework hint, not standard fetch
+        next: fetchOptions?.next,
         signal: controller.signal,
       });
 

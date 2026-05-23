@@ -19,6 +19,7 @@ export type {
   GraphQLOperation,
   GraphQLResponse,
   GraphQLClientConfig,
+  GraphQLFetchOptions,
   AccessTokenProvider,
 } from './GraphQLClient';
 

@@ -4,6 +4,61 @@ All notable changes to `propeller-sdk-v2` are documented here.
 
 ---
 
+## [0.11.0] - 2026-05-23
+
+Adds a per-operation transport hint slot so host frameworks (Next.js, the
+Vue projects' Express SSR proxy, Cloudflare Workers, Nitro) can attach
+data-cache options to the underlying `fetch()` call. Additive, fully
+backward-compatible — existing callers see no behaviour or type changes.
+
+Note on the `next` field name: it looks Next.js-coupled but is in fact the
+de-facto extension slot used by every runtime that extends
+`RequestInit` — Next, Cloudflare Workers, Nitro (via `undici`). The SDK
+forwards it unmodified and has no Next.js dependency. Hosts that use a
+*different* mechanism (e.g. an application-level proxy keyed by request
+headers, like propeller-vue's `/api/graphql` LRU) set `headers` on the
+client config instead — `fetchOptions` is purely for the runtimes that
+consume hints directly on `fetch()`.
+
+### Added
+
+- **`GraphQLFetchOptions` type** (`client/GraphQLClient.ts`). A deliberately
+  narrow shape — `{ cache?: RequestCache; next?: { revalidate?, tags? } }` —
+  that callers can attach to a single operation to control transport behaviour.
+  Exposed via the main entry: `import type { GraphQLFetchOptions } from 'propeller-sdk-v2'`.
+- **`fetchOptions` field on `GraphQLOperation`**. Optional. When set, the SDK
+  extracts `cache` and `next` from it and forwards them to `fetch()`. The
+  shape happens to match the Next.js `fetch` extension, so a Next-aware host
+  can attach `{ next: { revalidate: 300, tags: ['product:42'] } }` without
+  the SDK taking a Next.js dependency.
+- **Optional fifth parameter `fetchOptions` on `runOperation()`** (the helper
+  every service method routes through). Service factories that want to expose
+  cache hints can pass them through with no per-service type change.
+
+### Why the shape is narrow
+
+We deliberately did NOT type `fetchOptions` as `RequestInit` — callers could
+have reached `method` / `body` / `headers` / `signal` and broken SDK
+invariants (the HTTP method, the JSON payload, the auth headers, and the
+30 s timeout signal are all SDK-owned). `Pick<RequestInit, 'next' | 'cache'>`
+was rejected because `next` is not a standard `lib.dom` field — the Pick
+would degenerate. The bespoke `GraphQLFetchOptions` keeps the surface tiny
+and Next-agnostic.
+
+### Cache-key safety
+
+`fetchOptions` is NEVER serialised into the GraphQL request body. The wire
+payload remains `{ query, variables, operationName }`. Two callers passing
+the same operation with different `tags` hit the same cache entry — no
+cache-key pollution.
+
+### Migration
+
+See [`MIGRATION-0.11.0.md`](MIGRATION-0.11.0.md) for the Next.js wiring
+example and a note on `exactOptionalPropertyTypes`.
+
+---
+
 ## [0.10.2] - 2026-05-18
 
 Documentation-quality release. **No runtime behaviour, types, or method
