@@ -54,7 +54,7 @@ cache-key pollution.
 
 ### Migration
 
-See [`MIGRATION-0.11.0.md`](MIGRATION-0.11.0.md) for the Next.js wiring
+See [`MIGRATION-0.11.0.md`](./MIGRATION-0.11.0.md) for the Next.js wiring
 example and a note on `exactOptionalPropertyTypes`.
 
 ---

@@ -30,6 +30,7 @@ const sidebars: SidebarsConfig = {
         'configuration/client-config',
         'configuration/proxy-contract',
         'configuration/authentication',
+        'configuration/cache-hints',
       ],
     },
     {
@@ -39,6 +40,7 @@ const sidebars: SidebarsConfig = {
         'guides/services',
         'guides/operation-variables',
         'guides/direct-graphql',
+        'guides/caching',
         'guides/error-handling',
         'guides/localized-fields',
         'guides/enums-and-serialization',

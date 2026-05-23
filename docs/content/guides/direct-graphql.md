@@ -38,3 +38,18 @@ const data = await client.query<{ viewer: { id: number } }>(
 `client.execute()` never throws and always returns the raw `{ data, errors }`.
 The `query` / `mutate` helpers throw `GraphQLOperationError` on a hard failure —
 see [Error handling](/guides/error-handling).
+
+To attach per-operation transport hints (e.g. Next.js data-cache
+revalidation), set `fetchOptions` on the operation object:
+
+```typescript
+const result = await client.execute({
+  query: productDoc,
+  variables: { productId: 42 },
+  operationName: 'product',
+  fetchOptions: { next: { revalidate: 300, tags: ['catalog', 'product:42'] } },
+});
+```
+
+See [Per-operation cache hints](/configuration/cache-hints) for the type
+and [Caching recipes](/guides/caching) for end-to-end patterns.

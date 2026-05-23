@@ -36,3 +36,16 @@ const cart = await carts.getCart({
   imageVariantFilters: { /* ... */ },
 });
 ```
+
+Service methods accept an optional trailing `fetchOptions` argument for
+per-call transport hints (e.g. Next.js data-cache control). The codegen
+classifier strips this parameter when checking alignment, so adding cache
+hints does not affect type drift. See
+[Per-operation cache hints](/configuration/cache-hints).
+
+```typescript
+const product = await productService(client).getProduct(
+  { productId: 42, language: 'NL' },
+  { next: { revalidate: 300, tags: ['catalog', 'product:42'] } },
+);
+```
