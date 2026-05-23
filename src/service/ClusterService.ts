@@ -15,7 +15,7 @@ import { ClusterUpdateInput } from '../type/ClusterUpdateInput';
 export interface ClusterDeleteVariables {
   id: number;
 }
-import { GraphQLClient } from '../client/GraphQLClient';
+import { GraphQLClient, GraphQLFetchOptions } from '../client/GraphQLClient';
 import { runOperation } from './runOperation';
 import { document as clusterConfigDoc } from '../generated/operations/clusterConfig';
 import { document as clusterDoc } from '../generated/operations/cluster';
@@ -33,8 +33,8 @@ export function clusterService(client: GraphQLClient) {
        * @param clusterId Cluster ID to fetch
        * @returns Promise<Cluster> Cluster config data
        */
-    async getClusterConfig(clusterId: number): Promise<Cluster> {
-      const result = await runOperation<{ cluster: Cluster }>(client, clusterConfigDoc, 'clusterConfig', { clusterId });
+    async getClusterConfig(clusterId: number, fetchOptions?: GraphQLFetchOptions): Promise<Cluster> {
+      const result = await runOperation<{ cluster: Cluster }>(client, clusterConfigDoc, 'clusterConfig', { clusterId }, fetchOptions);
       return result.data.cluster as Cluster;
     },
     /**
@@ -52,8 +52,8 @@ export function clusterService(client: GraphQLClient) {
        * - imageVariantFilters: TransformationsInput - Image transformation filters
        * @returns Promise<Cluster> Cluster data
        */
-    async getCluster(variables: ClusterVariables): Promise<Cluster> {
-      const result = await runOperation<{ cluster: Cluster }>(client, clusterDoc, 'cluster', variables);
+    async getCluster(variables: ClusterVariables, fetchOptions?: GraphQLFetchOptions): Promise<Cluster> {
+      const result = await runOperation<{ cluster: Cluster }>(client, clusterDoc, 'cluster', variables, fetchOptions);
       return result.data.cluster as Cluster;
     },
     /**
@@ -96,12 +96,12 @@ export class ClusterService {
    * Retrieves a specific cluster configuration
    * @param clusterId Cluster ID to fetch
    */
-  getClusterConfig(clusterId: number): Promise<Cluster> { return this._svc.getClusterConfig(clusterId); }
+  getClusterConfig(clusterId: number, fetchOptions?: GraphQLFetchOptions): Promise<Cluster> { return this._svc.getClusterConfig(clusterId, fetchOptions); }
   /**
    * Fetches a single cluster by ID or slug
    * @param variables Variables for cluster query
    */
-  getCluster(variables: ClusterVariables): Promise<Cluster> { return this._svc.getCluster(variables); }
+  getCluster(variables: ClusterVariables, fetchOptions?: GraphQLFetchOptions): Promise<Cluster> { return this._svc.getCluster(variables, fetchOptions); }
   /**
    * Creates a new cluster
    * @param variables Cluster creation variables

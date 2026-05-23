@@ -72,7 +72,7 @@ export interface ProductsQueryVariables {
   /** Filter available attributes input */
   filterAvailableAttributeInput?: FilterAvailableAttributeInput;
 }
-import { GraphQLClient } from '../client/GraphQLClient';
+import { GraphQLClient, GraphQLFetchOptions } from '../client/GraphQLClient';
 import { runOperation } from './runOperation';
 import { document as productDoc } from '../generated/operations/product';
 import { document as productsDoc } from '../generated/operations/products';
@@ -107,9 +107,9 @@ export function productService(client: GraphQLClient) {
        * - imageVariantFilters: TransformationsInput - Image transformation filters
        * @returns Promise<Product> The product data
        */
-    async getProduct(variables: ProductQueryVariables): Promise<Product> {
+    async getProduct(variables: ProductQueryVariables, fetchOptions?: GraphQLFetchOptions): Promise<Product> {
       const language = variables.language ?? client.getDefaultLanguage();
-      const result = await runOperation<{ product: Product }>(client, productDoc, 'product', { ...variables, language });
+      const result = await runOperation<{ product: Product }>(client, productDoc, 'product', { ...variables, language }, fetchOptions);
       return result.data.product as Product;
     },
     /**
@@ -227,7 +227,7 @@ export class ProductService {
     * - mediaDocumentSearchInput: MediaDocumentProductSearchInput - Document search input
     * - imageVariantFilters: TransformationsInput - Image transformation filters
    */
-  getProduct(variables: ProductQueryVariables): Promise<Product> { return this._svc.getProduct(variables); }
+  getProduct(variables: ProductQueryVariables, fetchOptions?: GraphQLFetchOptions): Promise<Product> { return this._svc.getProduct(variables, fetchOptions); }
   /**
    * Fetches a list of products with search criteria
    * @param variables Product search input parameters

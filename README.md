@@ -268,6 +268,38 @@ const data = await client.query<{ viewer: { id: number } }>(
 );
 ```
 
+### Per-operation fetch hints (Next.js cache, etc.)
+
+`v0.11.0` added an optional `fetchOptions` field on `GraphQLOperation`. Use it
+to attach transport-level cache hints to a single call — without these, the
+SDK has no opinion about caching:
+
+```typescript
+import { createClient, type GraphQLFetchOptions } from 'propeller-sdk-v2';
+
+const client = createClient({ endpoint: '...' });
+
+// Anonymous SSR catalog fetch, cached by Next.js for 5 min and bustable by tag.
+const product = await client.execute({
+  query: getProductDocument,
+  variables: { productId: 42 },
+  operationName: 'GetProduct',
+  fetchOptions: {
+    next: {
+      revalidate: 300,
+      tags: ['catalog', 'product', 'product:42'],
+    },
+  },
+});
+```
+
+The shape happens to match Next.js's `fetch` extension; the SDK itself doesn't
+depend on Next. `fetchOptions` is a transport hint — it is **never** serialised
+into the GraphQL request body, so two calls to the same operation with
+different `tags` correctly hit the same Next data-cache entry. See
+[`MIGRATION-0.11.0.md`](MIGRATION-0.11.0.md) for the full pattern and the
+reasoning behind the narrow type.
+
 ## Error handling
 
 Services and the `query` / `mutate` / `queryByName` / `mutateByName` helpers
