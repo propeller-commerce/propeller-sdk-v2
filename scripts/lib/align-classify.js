@@ -219,7 +219,19 @@ function classifyMethod(ctx, methodName) {
 
   const V = new Set(vars.map((v) => v.name));
   const R = new Set(vars.filter((v) => v.required).map((v) => v.name));
-  const params = describeParams(method);
+  // Strip a trailing optional `fetchOptions?: GraphQLFetchOptions` parameter
+  // before classifying. It's an SDK transport hint (per-call cache/next
+  // forwarding to fetch()), not part of the operation contract, so it must
+  // not push an otherwise-aligned method into MISALIGNED. See SDK 0.11.0
+  // release notes for the contract.
+  const rawParams = describeParams(method);
+  const params =
+    rawParams.length > 0 &&
+    rawParams[rawParams.length - 1].name === 'fetchOptions' &&
+    rawParams[rawParams.length - 1].typeText === 'GraphQLFetchOptions' &&
+    rawParams[rawParams.length - 1].optional
+      ? rawParams.slice(0, -1)
+      : rawParams;
   const argShape = describeVarsArg(ro.varsArg);
   const genName = pascal(ro.opName) + 'Variables';
 
