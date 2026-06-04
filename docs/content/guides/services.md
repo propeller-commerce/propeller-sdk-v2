@@ -26,7 +26,7 @@ Core services include `productService`, `orderService`, `cartService`,
 domains. The [API Reference](/api/) lists every one.
 
 ```typescript
-import { cartService } from 'propeller-sdk-v2';
+import { cartService } from '@propeller-commerce/propeller-sdk-v2';
 
 const carts = cartService(client);
 const cart = await carts.getCart({

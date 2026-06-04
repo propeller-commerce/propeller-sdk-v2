@@ -12,7 +12,7 @@ declares. Methods that need more than a single input take one `variables`
 object argument:
 
 ```typescript
-import { productService, type ProductUpdateVariables } from 'propeller-sdk-v2';
+import { productService, type ProductUpdateVariables } from '@propeller-commerce/propeller-sdk-v2';
 
 const products = productService(client);
 

@@ -17,7 +17,7 @@ call `client.execute()` directly — it never throws and always returns the raw
 `{ data, errors }`.
 
 ```typescript
-import { GraphQLOperationError } from 'propeller-sdk-v2';
+import { GraphQLOperationError } from '@propeller-commerce/propeller-sdk-v2';
 
 try {
   const product = await productService.getProduct({ productId: 1 });

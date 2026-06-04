@@ -1,6 +1,6 @@
 {
-  "name": "propeller-sdk-v2",
-  "version": "0.11.0",
+  "name": "@propeller-commerce/propeller-sdk-v2",
+  "version": "0.11.1",
   "description": "TypeScript GraphQL client for Propeller eCommerce V2 Platform - works with React, Vue, Angular and all JavaScript frameworks",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -66,7 +66,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/propeller-commerce/propeller-sdk-v2.git"
+    "url": "git+https://github.com/propeller-commerce/propeller-sdk-v2.git"
   },
   "files": [
     "dist/**/*",

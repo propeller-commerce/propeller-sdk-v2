@@ -10,13 +10,13 @@ A TypeScript GraphQL client for the Propeller Commerce Platform. Ships a typed s
 ## Installation
 
 ```bash
-npm install propeller-sdk-v2
+npm install @propeller-commerce/propeller-sdk-v2
 ```
 
 ## Quick start (v0.10.0)
 
 ```typescript
-import { createClient, productService, ProductStatus, Format, Fit } from 'propeller-sdk-v2';
+import { createClient, productService, ProductStatus, Format, Fit } from '@propeller-commerce/propeller-sdk-v2';
 
 // Initialize once in your app entry point.
 const client = createClient({
@@ -60,7 +60,7 @@ The class form continues to work in v0.10.0 as a thin backward-compatible
 wrapper:
 
 ```typescript
-import { GraphQLClient, ProductService } from 'propeller-sdk-v2';
+import { GraphQLClient, ProductService } from '@propeller-commerce/propeller-sdk-v2';
 const client = new GraphQLClient({ endpoint: '/api/graphql' });
 const productService = new ProductService(client);
 const product = await productService.getProduct({ productId: 1 });
@@ -147,7 +147,7 @@ domains. See [the documentation](https://propeller-commerce.github.io/propeller-
 for the full list.
 
 ```typescript
-import { cartService } from 'propeller-sdk-v2';
+import { cartService } from '@propeller-commerce/propeller-sdk-v2';
 
 const carts = cartService(client);
 const cart = await carts.getCart({
@@ -165,7 +165,7 @@ declares. Methods that need more than a single input take one `variables`
 object argument:
 
 ```typescript
-import { productService, type ProductUpdateVariables } from 'propeller-sdk-v2';
+import { productService, type ProductUpdateVariables } from '@propeller-commerce/propeller-sdk-v2';
 
 const products = productService(client);
 
@@ -243,7 +243,7 @@ that the whole entity was fetched.
 For ad-hoc queries that aren't covered by a service:
 
 ```typescript
-import { GraphQLClient } from 'propeller-sdk-v2';
+import { GraphQLClient } from '@propeller-commerce/propeller-sdk-v2';
 
 const client = new GraphQLClient({
   endpoint: 'https://api.propeller.com/graphql',
@@ -275,7 +275,7 @@ to attach transport-level cache hints to a single call — without these, the
 SDK has no opinion about caching:
 
 ```typescript
-import { createClient, type GraphQLFetchOptions } from 'propeller-sdk-v2';
+import { createClient, type GraphQLFetchOptions } from '@propeller-commerce/propeller-sdk-v2';
 
 const client = createClient({ endpoint: '...' });
 
@@ -312,7 +312,7 @@ call `client.execute()` directly — it never throws and always returns the raw
 `{ data, errors }`.
 
 ```typescript
-import { GraphQLOperationError } from 'propeller-sdk-v2';
+import { GraphQLOperationError } from '@propeller-commerce/propeller-sdk-v2';
 
 try {
   const product = await productService.getProduct({ productId: 1 });
@@ -378,12 +378,12 @@ so your IDE flags call sites.
 
 ```typescript
 // ❌ Deprecated — global singleton
-import { initializeClient, getClient, productService } from 'propeller-sdk-v2';
+import { initializeClient, getClient, productService } from '@propeller-commerce/propeller-sdk-v2';
 initializeClient({ endpoint: '/api/graphql' });
 const products = productService(getClient());
 
 // ✅ Preferred — explicit client
-import { createClient, productService } from 'propeller-sdk-v2';
+import { createClient, productService } from '@propeller-commerce/propeller-sdk-v2';
 const client = createClient({ endpoint: '/api/graphql' });
 const products = productService(client);
 ```
@@ -396,8 +396,8 @@ sends, accessed by field. Read fields directly; localized arrays use the
 `getLocalized` helper (below).
 
 ```typescript
-import type { Product, CreateProductInput } from 'propeller-sdk-v2';
-import { ProductStatus } from 'propeller-sdk-v2';
+import type { Product, CreateProductInput } from '@propeller-commerce/propeller-sdk-v2';
+import { ProductStatus } from '@propeller-commerce/propeller-sdk-v2';
 
 const status: ProductStatus = ProductStatus.A;
 
@@ -420,7 +420,7 @@ For localized arrays (e.g. `product.names: LocalizedString[]`), use the
 `getLocalized` helper:
 
 ```typescript
-import { getLocalized } from 'propeller-sdk-v2';
+import { getLocalized } from '@propeller-commerce/propeller-sdk-v2';
 
 const name = getLocalized(product.names, 'EN', 'NL');         // EN, fall back to NL, then first
 const desc = getLocalized(product.descriptions, locale);      // no fallback
@@ -432,11 +432,11 @@ Enums are top-level exports. Use direct or namespace imports:
 
 ```typescript
 // Direct:
-import { ProductStatus } from 'propeller-sdk-v2';
+import { ProductStatus } from '@propeller-commerce/propeller-sdk-v2';
 const status = ProductStatus.A;
 
 // Namespace (preferred by the audited consumer apps):
-import * as Enums from 'propeller-sdk-v2';
+import * as Enums from '@propeller-commerce/propeller-sdk-v2';
 const status = Enums.ProductStatus.A;
 ```
 

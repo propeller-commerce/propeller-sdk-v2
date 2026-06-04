@@ -93,7 +93,7 @@ const config: Config = {
             },
             {
               label: 'npm',
-              href: 'https://www.npmjs.com/package/propeller-sdk-v2',
+              href: 'https://www.npmjs.com/package/@propeller-commerce/propeller-sdk-v2',
             },
             {
               label: 'Propeller Docs',

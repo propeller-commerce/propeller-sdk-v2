@@ -32,7 +32,7 @@ export interface GraphQLFetchOptions {
 Exposed from the main entry:
 
 ```typescript
-import type { GraphQLFetchOptions } from 'propeller-sdk-v2';
+import type { GraphQLFetchOptions } from '@propeller-commerce/propeller-sdk-v2';
 ```
 
 ## Why the shape is narrow
@@ -80,7 +80,7 @@ The KEEP / SCALAR classifier in the codegen pipeline strips this parameter
 when checking alignment, so adding cache hints does not affect type drift.
 
 ```typescript
-import { productService } from 'propeller-sdk-v2';
+import { productService } from '@propeller-commerce/propeller-sdk-v2';
 
 const products = productService(client);
 const product = await products.getProduct(

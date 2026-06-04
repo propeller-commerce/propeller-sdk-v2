@@ -2,13 +2,13 @@
 id: installation
 title: Installation
 sidebar_position: 1
-description: Install propeller-sdk-v2 from npm.
+description: Install @propeller-commerce/propeller-sdk-v2 from npm.
 ---
 
 # Installation
 
 ```bash
-npm install propeller-sdk-v2
+npm install @propeller-commerce/propeller-sdk-v2
 ```
 
 The package requires **Node.js >= 18** and ships dual ESM + CJS builds, so it

@@ -19,12 +19,12 @@ so your IDE flags call sites.
 
 ```typescript
 // ❌ Deprecated — global singleton
-import { initializeClient, getClient, productService } from 'propeller-sdk-v2';
+import { initializeClient, getClient, productService } from '@propeller-commerce/propeller-sdk-v2';
 initializeClient({ endpoint: '/api/graphql' });
 const products = productService(getClient());
 
 // ✅ Preferred — explicit client
-import { createClient, productService } from 'propeller-sdk-v2';
+import { createClient, productService } from '@propeller-commerce/propeller-sdk-v2';
 const client = createClient({ endpoint: '/api/graphql' });
 const products = productService(client);
 ```

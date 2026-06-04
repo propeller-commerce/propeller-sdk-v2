@@ -1,6 +1,6 @@
 # Propeller SDK v0.10.0 — Examples
 
-Framework-integration and usage examples for `propeller-sdk-v2`. These are
+Framework-integration and usage examples for `@propeller-commerce/propeller-sdk-v2`. These are
 reference snippets to copy into your project, not a runnable app.
 
 All examples use the v0.10.0 API:
@@ -46,7 +46,7 @@ See `custom-graphql-example.ts` for working code.
 ## Install
 
 ```bash
-npm install propeller-sdk-v2
+npm install @propeller-commerce/propeller-sdk-v2
 ```
 
 Then copy the relevant example into your project and adjust the endpoint /

@@ -14,7 +14,7 @@ import {
   getLocalized,
   ProductStatus,
   OrderType,
-} from 'propeller-sdk-v2';
+} from '@propeller-commerce/propeller-sdk-v2';
 
 const client = createClient({
   endpoint: 'https://your-proxy.example.com/api/graphql',

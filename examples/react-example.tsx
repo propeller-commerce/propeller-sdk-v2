@@ -17,7 +17,7 @@ import {
   type Category,
   type ViewerResult,
   type TransformationsInput,
-} from 'propeller-sdk-v2';
+} from '@propeller-commerce/propeller-sdk-v2';
 
 // Create the client once and share it (module scope, context, or a store).
 const client = createClient({
@@ -173,6 +173,6 @@ const App: React.FC = () => (
 export default App;
 
 // Usage:
-// 1. npm install propeller-sdk-v2
+// 1. npm install @propeller-commerce/propeller-sdk-v2
 // 2. createClient(...) once; pass it to the service factories
 // 3. Service methods take a single variables object matching the operation

@@ -5,7 +5,7 @@
  * to keep API keys server-side while maintaining the same client API.
  */
 
-import { createClient, productService } from 'propeller-sdk-v2';
+import { createClient, productService } from '@propeller-commerce/propeller-sdk-v2';
 
 // ============================================================================
 // 🚨 INSECURE MODE (NOT RECOMMENDED FOR PRODUCTION)

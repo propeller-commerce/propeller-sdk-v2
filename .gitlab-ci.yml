@@ -4,6 +4,7 @@
 stages:
   - mirror
   - release
+  - publish
 
 # Mirror to GitHub
 # This job runs whenever code is pushed to develop or main branches
@@ -112,6 +113,52 @@ release_to_github:
         -d "$PAYLOAD")
       echo "GitHub API HTTP ${HTTP}"; cat resp.json
       case "$HTTP" in 2*) echo "Release ${TAG} created.";; *) echo "Release API call failed."; exit 1;; esac
+  when: on_success
+  allow_failure: true
+
+# Publish to the public npm registry as @propeller-commerce/propeller-sdk-v2.
+#
+# Gate mirrors release_to_github so the two release artifacts stay in lockstep:
+#   * package.json "version" parses
+#   * the CHANGELOG.md section for that version is NOT marked "Unreleased"
+#   * idempotent skip if that version is already on npm (the npm analogue of
+#     release_to_github's `git ls-remote --tags` check) — safe on every push
+#
+# prepublishOnly (npm run validate) and prepack (npm run build) run
+# automatically during `npm publish`, so a broken build aborts the publish.
+#
+# Requires CI variable NPM_TOKEN (masked + protected) — an automation/granular
+# token with publish rights to the @propeller-commerce scope.
+release_to_npm:
+  stage: publish
+  image: node:20-alpine
+  only:
+    - master
+    - main
+  needs:
+    - release_to_github
+  before_script:
+    - apk add --no-cache git >/dev/null 2>&1 || true
+  script:
+    - PKG="@propeller-commerce/propeller-sdk-v2"
+    - VERSION=$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' package.json | head -n1)
+    - 'echo "package.json version: ${VERSION}"'
+    - test -n "$VERSION" || { echo "Could not parse version; aborting."; exit 1; }
+    # Unreleased gate: skip if the CHANGELOG section says "Unreleased".
+    - |
+      if grep -Eiq "^##[[:space:]]*\[${VERSION}\][^\n]*unreleased" CHANGELOG.md; then
+        echo "CHANGELOG marks ${VERSION} as Unreleased — skipping npm publish per policy.";
+        exit 0;
+      fi
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+    # Idempotency: if this version is already on npm, do nothing.
+    - |
+      if npm view "${PKG}@${VERSION}" version >/dev/null 2>&1; then
+        echo "${PKG}@${VERSION} already published — nothing to do.";
+        exit 0;
+      fi
+    - npm ci
+    - npm publish --access public
   when: on_success
   allow_failure: true
 

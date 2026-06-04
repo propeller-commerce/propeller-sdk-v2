@@ -11,7 +11,7 @@ For localized arrays (e.g. `product.names: LocalizedString[]`), use the
 `getLocalized` helper:
 
 ```typescript
-import { getLocalized } from 'propeller-sdk-v2';
+import { getLocalized } from '@propeller-commerce/propeller-sdk-v2';
 
 const name = getLocalized(product.names, 'EN', 'NL');         // EN, fall back to NL, then first
 const desc = getLocalized(product.descriptions, locale);      // no fallback

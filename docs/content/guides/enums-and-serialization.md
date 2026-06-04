@@ -13,11 +13,11 @@ Enums are top-level exports. Use direct or namespace imports:
 
 ```typescript
 // Direct:
-import { ProductStatus } from 'propeller-sdk-v2';
+import { ProductStatus } from '@propeller-commerce/propeller-sdk-v2';
 const status = ProductStatus.A;
 
 // Namespace (preferred by the audited consumer apps):
-import * as Enums from 'propeller-sdk-v2';
+import * as Enums from '@propeller-commerce/propeller-sdk-v2';
 const status = Enums.ProductStatus.A;
 ```
 
@@ -28,8 +28,8 @@ methods return plain JSON values typed as those interfaces — what the server
 sends, accessed by field:
 
 ```typescript
-import type { Product, CreateProductInput } from 'propeller-sdk-v2';
-import { ProductStatus } from 'propeller-sdk-v2';
+import type { Product, CreateProductInput } from '@propeller-commerce/propeller-sdk-v2';
+import { ProductStatus } from '@propeller-commerce/propeller-sdk-v2';
 
 const status: ProductStatus = ProductStatus.A;
 const input: CreateProductInput = { /* fields */ };

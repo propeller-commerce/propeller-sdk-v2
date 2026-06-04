@@ -1,8 +1,18 @@
 # Changelog
 
-All notable changes to `propeller-sdk-v2` are documented here.
+All notable changes to `@propeller-commerce/propeller-sdk-v2` are documented here.
 
 ---
+
+## [0.11.1] - 2026-06-04
+
+### Changed
+
+- **Package renamed to `@propeller-commerce/propeller-sdk-v2`** and published to the public
+  npm registry for the first time. Install with
+  `npm install @propeller-commerce/propeller-sdk-v2`. The GitHub repository URL is unchanged.
+  Consumers previously installing via the `github:` URL should switch to
+  `"@propeller-commerce/propeller-sdk-v2": "^0.11"`. No API or runtime behaviour changes.
 
 ## [0.11.0] - 2026-05-23
 

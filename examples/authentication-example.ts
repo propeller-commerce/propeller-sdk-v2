@@ -11,7 +11,7 @@ import {
   userService,
   type Login,
   type ViewerResult,
-} from 'propeller-sdk-v2';
+} from '@propeller-commerce/propeller-sdk-v2';
 
 // Create the client once. Proxy mode keeps API keys server-side.
 const client = createClient({

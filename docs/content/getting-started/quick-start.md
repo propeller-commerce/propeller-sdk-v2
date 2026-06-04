@@ -8,7 +8,7 @@ description: Create a client and call a typed service.
 # Quick start
 
 ```typescript
-import { createClient, productService, ProductStatus, Format, Fit } from 'propeller-sdk-v2';
+import { createClient, productService, ProductStatus, Format, Fit } from '@propeller-commerce/propeller-sdk-v2';
 
 // Initialize once in your app entry point.
 const client = createClient({
@@ -52,7 +52,7 @@ The class form continues to work in v0.10.0 as a thin backward-compatible
 wrapper:
 
 ```typescript
-import { GraphQLClient, ProductService } from 'propeller-sdk-v2';
+import { GraphQLClient, ProductService } from '@propeller-commerce/propeller-sdk-v2';
 const client = new GraphQLClient({ endpoint: '/api/graphql' });
 const productService = new ProductService(client);
 const product = await productService.getProduct({ productId: 1 });

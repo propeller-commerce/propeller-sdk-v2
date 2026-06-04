@@ -13,8 +13,8 @@ directly; localized arrays use the
 [`getLocalized` helper](/guides/localized-fields).
 
 ```typescript
-import type { Product, CreateProductInput } from 'propeller-sdk-v2';
-import { ProductStatus } from 'propeller-sdk-v2';
+import type { Product, CreateProductInput } from '@propeller-commerce/propeller-sdk-v2';
+import { ProductStatus } from '@propeller-commerce/propeller-sdk-v2';
 
 const status: ProductStatus = ProductStatus.A;
 const input: CreateProductInput = { /* fields */ };

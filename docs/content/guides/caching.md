@@ -35,7 +35,7 @@ Both patterns share the same design rules:
 The runtime is Next.js itself, so `fetchOptions.next` is the right slot.
 
 ```typescript title="lib/server.ts"
-import { createClient, type GraphQLFetchOptions } from 'propeller-sdk-v2';
+import { createClient, type GraphQLFetchOptions } from '@propeller-commerce/propeller-sdk-v2';
 import { cookies } from 'next/headers';
 
 const ANONYMOUS_TTL = 300; // 5 minutes
@@ -98,7 +98,7 @@ posts to your `/api/graphql`, not to a runtime that reads cache hints).
 The right transport is **request headers**.
 
 ```typescript title="src/lib/server.ts"
-import { GraphQLClient, createClient } from 'propeller-sdk-v2';
+import { GraphQLClient, createClient } from '@propeller-commerce/propeller-sdk-v2';
 
 const TAG_CATALOG = 'catalog';
 const CACHE_TAGS_HEADER = 'X-Propeller-Cache-Tags';

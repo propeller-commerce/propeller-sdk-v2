@@ -17,7 +17,7 @@ import {
   type ProductSearchInput,
   type OrderCreateInput,
   type TransformationsInput,
-} from 'propeller-sdk-v2';
+} from '@propeller-commerce/propeller-sdk-v2';
 
 // v0.10.0: create the client once (e.g. in main.ts) and provide it.
 export function createPropellerClient(): GraphQLClient {

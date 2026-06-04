@@ -10,7 +10,7 @@ description: Run ad-hoc queries not covered by a service.
 For ad-hoc queries that aren't covered by a service:
 
 ```typescript
-import { GraphQLClient } from 'propeller-sdk-v2';
+import { GraphQLClient } from '@propeller-commerce/propeller-sdk-v2';
 
 const client = new GraphQLClient({
   endpoint: 'https://api.propeller.com/graphql',

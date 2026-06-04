@@ -16,7 +16,7 @@ Create the client at your app entry point and reuse it. Proxy mode keeps your
 API key server-side.
 
 ```typescript
-import { createClient } from 'propeller-sdk-v2';
+import { createClient } from '@propeller-commerce/propeller-sdk-v2';
 
 export const client = createClient({
   endpoint: '/api/graphql',          // your proxy route
@@ -35,7 +35,7 @@ Services group related operations. Prefer the factory form — it tree-shakes,
 so only the operations you call are bundled.
 
 ```typescript
-import { productService } from 'propeller-sdk-v2';
+import { productService } from '@propeller-commerce/propeller-sdk-v2';
 import { client } from './client';
 
 const products = productService(client);
@@ -77,7 +77,7 @@ Service methods throw `GraphQLOperationError` only on a hard failure (errors
 and no data). Partial responses return data and log the errors.
 
 ```typescript
-import { GraphQLOperationError } from 'propeller-sdk-v2';
+import { GraphQLOperationError } from '@propeller-commerce/propeller-sdk-v2';
 
 try {
   const product = await products.getProduct({ productId: 1 });

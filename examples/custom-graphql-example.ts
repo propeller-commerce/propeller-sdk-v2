@@ -15,7 +15,7 @@
  * Bundled SDK operations are still best used through the typed service
  * factories (e.g. `productService(client).getProducts(...)`).
  */
-import { createClient } from 'propeller-sdk-v2';
+import { createClient } from '@propeller-commerce/propeller-sdk-v2';
 
 const client = createClient({
   endpoint: 'https://your-proxy.example.com/api/graphql',
