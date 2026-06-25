@@ -438,6 +438,7 @@ fragment CartPaymethodFields on CartPaymethod {
   type
   taxCode
   price
+  logo
 }
 
 fragment CartCarrierFields on CartCarrier {

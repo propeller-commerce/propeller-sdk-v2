@@ -5,4 +5,5 @@ fragment CartPaymethodFields on CartPaymethod {
   type
   taxCode
   price
+  logo
 }
