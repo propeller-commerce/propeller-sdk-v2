@@ -15,4 +15,6 @@ export interface CartPaymethod {
   taxCode?: TaxCode;
   /** Paymethod price */
   price: number;
+  /** Paymethod logo */
+  logo: string;
 }
