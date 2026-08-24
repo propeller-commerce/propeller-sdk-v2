@@ -1,0 +1,5 @@
+mutation attributeCsvImport($input: AttributeCsvInput!) {
+  attributeCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

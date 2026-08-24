@@ -1,0 +1,7 @@
+fragment ClusterConfigResponseFields on ClusterConfigResponse {
+  id
+  name
+  settings {
+    ... ClusterConfigSettingResponseFields
+  }
+}

@@ -1,0 +1,8 @@
+mutation customerRegister(
+  $customerAttributesInput: AttributeResultSearchInput,
+  $customerRegisterInput: RegisterCustomerInput!
+) {
+  customerRegister(input: $customerRegisterInput) {
+    ...RegisterCustomerResponseFields
+  }
+}

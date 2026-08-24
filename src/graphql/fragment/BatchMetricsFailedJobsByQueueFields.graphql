@@ -1,0 +1,6 @@
+fragment BatchMetricsFailedJobsByQueueFields on BatchMetricsFailedJobsByQueue {
+  queue
+  jobs {
+    ...BatchMetricsFailedJobFields
+  }
+}

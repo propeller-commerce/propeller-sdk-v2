@@ -1,0 +1,11 @@
+fragment AgentResponseFields on AgentResponse {
+  items {
+    ...AgentFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

@@ -1,0 +1,5 @@
+query roles($input: RoleSearchInput!) {
+  roles(input: $input) {
+    ...RoleResponseFields
+  }
+}

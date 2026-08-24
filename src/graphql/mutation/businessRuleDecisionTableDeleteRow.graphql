@@ -1,0 +1,5 @@
+mutation businessRuleDecisionTableDeleteRow($input: BusinessRuleDecisionTableDeleteRowInput!) {
+  businessRuleDecisionTableDeleteRow(input: $input) {
+    ...BusinessRuleDecisionTableFields
+  }
+}

@@ -1,0 +1,5 @@
+query attributeDescriptions($input: AttributeDescriptionSearchInput!) {
+  attributeDescriptions(input: $input) {
+    ...AttributeDescriptionResponseFields
+  }
+}

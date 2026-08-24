@@ -1,0 +1,4 @@
+fragment ForceReleaseLockResponseFields on ForceReleaseLockResponse {
+  released
+  message
+}

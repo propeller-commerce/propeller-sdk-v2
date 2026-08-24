@@ -1,0 +1,11 @@
+mutation gqlApiKeyCreate($input: GqlApiKeyCreateInput!) {
+  gqlApiKeyCreate(input: $input) {
+    id
+    name
+    key
+    active
+    channelId
+    createdAt
+    lastModifiedAt
+  }
+}

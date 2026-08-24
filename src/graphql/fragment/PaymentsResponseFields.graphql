@@ -1,0 +1,11 @@
+fragment PaymentsResponseFields on PaymentsResponse {
+  items {
+    ... PaymentFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

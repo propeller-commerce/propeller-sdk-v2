@@ -1,0 +1,5 @@
+mutation paymentUpdate($searchBy: SearchByInput!, $input: UpdatePaymentInput!) {
+  paymentUpdate(searchBy: $searchBy, input: $input) {
+    ...PaymentFields
+  }
+}

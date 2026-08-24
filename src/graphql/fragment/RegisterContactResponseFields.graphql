@@ -1,0 +1,10 @@
+fragment RegisterContactResponseFields on RegisterContactResponse {
+  contact {
+    ... on Contact { ...ContactFields }
+  }
+  session {
+    accessToken
+    refreshToken
+    expirationTime
+  }
+}

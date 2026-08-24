@@ -1,0 +1,25 @@
+fragment AgentFields on Agent {
+  id
+  names {
+    ...LocalizedStringFields
+  }
+  descriptions {
+    ...LocalizedStringFields
+  }
+  welcomeMessages {
+    ...LocalizedStringFields
+  }
+  buttonLabels {
+    ...LocalizedStringFields
+  }
+  active
+  types
+  trigger
+  interactionMode
+  webhookUrl
+  webhookTimeoutMs
+  createdAt
+  lastModifiedAt
+  createdByAdminUserId
+  lastModifiedByAdminUserId
+}

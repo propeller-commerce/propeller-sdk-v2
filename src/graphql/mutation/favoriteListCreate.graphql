@@ -1,0 +1,5 @@
+mutation favoriteListCreate($input: FavoriteListsCreateInput!) {
+  favoriteListCreate(input: $input) {
+    ...FavoriteListOnlyFields
+  }
+}

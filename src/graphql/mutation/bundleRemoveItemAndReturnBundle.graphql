@@ -1,0 +1,9 @@
+mutation bundleRemoveItemAndReturnBundle($id: String!, $productId: Int!, $taxZone: String, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
+  bundleRemoveItemAndReturnBundle(
+    id: $id
+    productId: $productId
+    taxZone: $taxZone
+  ) {
+    ...BundleFields
+  }
+}

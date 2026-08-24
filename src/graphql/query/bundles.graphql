@@ -1,0 +1,10 @@
+query bundles(
+  $input: BundleSearchInput
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+) {
+  bundles(input: $input) {
+    ...BundlesResponseFields
+  }
+}

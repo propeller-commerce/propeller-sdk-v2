@@ -1,0 +1,5 @@
+query trackAndTrace($id: String!) {
+  trackAndTrace(id: $id) {
+    ...TrackAndTraceFields
+  }
+}

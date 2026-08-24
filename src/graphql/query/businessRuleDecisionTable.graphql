@@ -1,0 +1,5 @@
+query businessRuleDecisionTable($input: BusinessRuleDecisionTableSearchInput!) {
+  businessRuleDecisionTable(input: $input) {
+    ...BusinessRuleDecisionTableFields
+  }
+}

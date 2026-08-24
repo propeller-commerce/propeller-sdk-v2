@@ -1,0 +1,5 @@
+mutation businessRuleDecisionTableAddRow($input: BusinessRuleDecisionTableSearchInput!) {
+  businessRuleDecisionTableAddRow(input: $input) {
+    ...BusinessRuleDecisionTableFields
+  }
+}

@@ -1,0 +1,5 @@
+query purchaseAuthorizationConfig($id: String!) {
+  purchaseAuthorizationConfig(id: $id) {
+    ...PurchaseAuthorizationConfigFields
+  }
+}

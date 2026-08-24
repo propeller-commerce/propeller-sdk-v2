@@ -1,0 +1,4 @@
+fragment IndexEntitiesResponseFields on IndexEntitiesResponse {
+  accepted
+  entityCount
+}

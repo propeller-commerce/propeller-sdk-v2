@@ -1,0 +1,5 @@
+fragment LocalizedVideoFields on LocalizedVideo {
+  language
+  uri
+  mimeType
+}

@@ -1,0 +1,40 @@
+fragment OrderItemFields on OrderItem {
+  id
+  orderId
+  uuid
+  class
+  productId
+  parentOrderItemId
+  quantity
+  sku
+  notes
+  name
+  supplier
+  supplierCode
+  manufacturer
+  manufacturerCode
+  eanCode
+  originalPrice
+  price
+  priceTotal
+  priceNet
+  priceTotalNet
+  customerPrice
+  costPrice
+  discount
+  tax
+  taxPercentage
+  taxCode
+  isBonus
+  minimumQuantity
+  unit
+  package
+  packageUnit
+  packageUnitQuantity
+  purchaseUnit
+  purchaseMinimumQuantity
+  requestDate
+  product {
+    ... ProductCartFields
+  }
+}

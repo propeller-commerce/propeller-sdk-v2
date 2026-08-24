@@ -1,0 +1,15 @@
+mutation categoryMoveAbove(
+  $categoryUuid: String!
+  $targetCategoryUuid: String!
+  $categoryProductSearchInput: CategoryProductSearchInput
+  $language: String
+  $filterAvailableAttributeInput: FilterAvailableAttributeInput
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $attributeResultSearchInput: AttributeResultSearchInput
+) {
+  categoryMoveAbove(categoryUuid: $categoryUuid, targetCategoryUuid: $targetCategoryUuid) {
+    ...CategoryFields
+  }
+}

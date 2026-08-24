@@ -1,0 +1,5 @@
+mutation valuesetItemUpdate($id: Int!, $input: ValuesetItemUpdateInput!) {
+  valuesetItemUpdate(id: $id, input: $input) {
+    ...ValuesetItemFields
+  }
+}

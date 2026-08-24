@@ -1,0 +1,5 @@
+query computedOrderlists($input: ComputedOrderlistsInput!) {
+  computedOrderlists(input: $input) {
+    ...ComputedOrderlistsResponseFields
+  }
+}

@@ -1,0 +1,6 @@
+fragment AttributeDateTimeValueFields on AttributeDateTimeValue {
+  __typename
+  id
+  type
+  dateTimeValue
+}

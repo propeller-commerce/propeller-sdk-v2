@@ -1,0 +1,11 @@
+fragment CartPostageDataFields on CartPostageData {
+  method
+  taxPercentage
+  requestDate
+  price
+  priceNet
+  priceMode
+  carrier
+  partialDeliveryAllowed
+  pickUpLocationId
+}

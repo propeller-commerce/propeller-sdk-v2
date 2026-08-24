@@ -1,0 +1,5 @@
+mutation magicTokenCreate($input: MagicTokenCreateInput!) {
+  magicTokenCreate(input: $input) {
+    ...MagicTokenFields
+  }
+}

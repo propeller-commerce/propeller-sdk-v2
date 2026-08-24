@@ -1,0 +1,22 @@
+fragment ReindexProgressFields on ReindexProgress {
+  phase
+  totalBatches
+  queuedBatches
+  completedBatches
+  failedBatches
+  activeBatches
+  waitingBatches
+  totalDocs
+  totalProducts
+  totalClusters
+  totalCategories
+  progressPercent
+  startedAt
+  indexedDocs
+  indexedProducts
+  indexedClusters
+  indexedCategories
+  docSuccessRate
+  error
+  failedJob
+}

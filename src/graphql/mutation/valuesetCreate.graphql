@@ -1,0 +1,5 @@
+mutation valuesetCreate($input: ValuesetCreateInput!) {
+  valuesetCreate(input: $input) {
+    ...ValuesetFields
+  }
+}

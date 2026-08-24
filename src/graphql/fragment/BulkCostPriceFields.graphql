@@ -1,0 +1,10 @@
+fragment BulkCostPriceFields on BulkCostPrice {
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}

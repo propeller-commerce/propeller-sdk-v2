@@ -1,0 +1,23 @@
+fragment OrderStatusesResponseFields on OrderStatusesResponse {
+  items {
+    id
+    name
+    code
+    type
+    orderType
+    description
+    priority
+    isDefault
+    isPublic
+    isEditable
+    isDeletable
+    createdAt
+    lastModifiedAt
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

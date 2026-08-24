@@ -1,0 +1,5 @@
+mutation payMethodUpdate($id: Int!, $input: PayMethodUpdateInput!) {
+  payMethodUpdate(id: $id, input: $input) {
+    ...PayMethodFields
+  }
+}

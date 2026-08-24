@@ -1,0 +1,4 @@
+fragment ProductSearchAttributeIntegerRangeFilterFields on ProductSearchAttributeIntegerRangeFilter {
+  min
+  max
+}

@@ -1,0 +1,8 @@
+fragment CostPriceFields on CostPrice {
+  id
+  priceId
+  createdAt
+  lastModifiedAt
+  quantityFrom
+  value
+}

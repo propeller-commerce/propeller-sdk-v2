@@ -1,0 +1,7 @@
+mutation agentMessageCreate($input: AgentMessageCreateInput!) {
+  agentMessageCreate(input: $input) {
+    conversationId
+    responseMessage
+    responseMetadata
+  }
+}

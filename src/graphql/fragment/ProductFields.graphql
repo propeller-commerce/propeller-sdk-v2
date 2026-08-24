@@ -1,0 +1,89 @@
+fragment ProductFields on Product {
+  ... IBaseProductFields
+  productId
+  categoryId
+  attributes (input: $attributeResultSearchInput) {
+    ... AttributeResultProductResponseFields
+  }
+  bundles {
+    ... BundleFields
+  }
+  category {
+    ... CategoryMinimalFields
+  }
+  categoryPath {
+    ... CategoryMinimalFields
+  }
+  categoryRelations {
+    ... BaseProductCategoryRelationshipFields
+  }
+  inventory {
+    ... ProductInventoryFields
+  }
+  media {
+    ... ProductMediaFields
+  }
+  price (input: $priceCalculateProductInput) {
+    ... ProductPriceFields
+  }
+  priceData {
+    per
+    list
+    costPrices {
+      quantityFrom
+      value
+      validFrom
+      validTo
+    }
+    suggested
+    store
+    bulkPriceDiscountType
+    defaultTaxCode
+    display
+  }
+  bulkPrices (input: $userBulkPriceProductInput) {
+    ... ProductPriceFields
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  barCode
+  turnoverGroup
+  taxonomy
+  priceGroup
+  orderable
+  returnable
+  physical
+  hasBundle
+  isBundleLeader
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  economicOrderQuantity
+  orderableFrom
+  orderableTo
+  releaseDate
+  createdAt
+  lastModifiedAt
+  containerClass
+  classId
+  width
+  height
+  depth
+  weight
+  surcharges {
+    ... SurchargeFields
+  }
+}

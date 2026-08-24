@@ -1,0 +1,11 @@
+mutation productClusterMoveAbove($relationshipUuid: String!, $targetRelationshipUuid: String!) {
+  productClusterMoveAbove(relationshipUuid: $relationshipUuid, targetRelationshipUuid: $targetRelationshipUuid) {
+    uuid
+    productUuid
+    clusterUuid
+    isDefault
+    sortOrder
+    createdAt
+    lastModifiedAt
+  }
+}

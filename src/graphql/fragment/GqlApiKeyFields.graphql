@@ -1,0 +1,12 @@
+fragment GqlApiKeyFields on GqlApiKey {
+  id
+  name
+  key
+  active
+  roles {
+    ...GqlApiKeyRoleFields
+  }
+  channelId
+  createdAt
+  lastModifiedAt
+}

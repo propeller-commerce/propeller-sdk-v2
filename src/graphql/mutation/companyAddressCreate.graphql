@@ -1,0 +1,5 @@
+mutation companyAddressCreate($input: CompanyAddressCreateInput!) {
+  companyAddressCreate(input: $input) {
+    ...AddressFields
+  }
+}

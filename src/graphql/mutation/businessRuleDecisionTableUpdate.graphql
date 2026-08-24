@@ -1,0 +1,5 @@
+mutation businessRuleDecisionTableUpdate($input: BusinessRuleDecisionTableUpdateInput!) {
+  businessRuleDecisionTableUpdate(input: $input) {
+    ...BusinessRuleDecisionTableFields
+  }
+}

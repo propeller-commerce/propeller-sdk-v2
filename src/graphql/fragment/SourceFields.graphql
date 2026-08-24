@@ -1,0 +1,4 @@
+fragment SourceFields on Source {
+  id
+  name
+}

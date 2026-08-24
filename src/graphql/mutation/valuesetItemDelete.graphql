@@ -1,0 +1,3 @@
+mutation valuesetItemDelete($id: Int!) {
+  valuesetItemDelete(id: $id)
+}

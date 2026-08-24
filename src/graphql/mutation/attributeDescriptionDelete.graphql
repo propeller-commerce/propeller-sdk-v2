@@ -1,0 +1,3 @@
+mutation attributeDescriptionDelete($id: String!) {
+  attributeDescriptionDelete(id: $id)
+}

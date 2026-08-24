@@ -1,0 +1,11 @@
+fragment SurchargeProductResponseFields on SurchargeProductResponse {
+  items {
+    ... SurchargeProductFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

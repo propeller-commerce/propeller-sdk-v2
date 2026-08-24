@@ -1,0 +1,14 @@
+fragment DiscountFields on Discount {
+  categoryId
+  id
+  createdAt
+  lastModifiedAt
+  value
+  quantityFrom
+  validFrom
+  validTo
+  pricesheetId
+  productId
+  priceGroup
+  discountType
+}

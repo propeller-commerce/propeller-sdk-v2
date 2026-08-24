@@ -1,0 +1,3 @@
+mutation trackAndTraceDelete($id: String!) {
+  trackAndTraceDelete(id: $id)
+}

@@ -1,0 +1,8 @@
+fragment ClusterAssignProductsResponseFields on ClusterAssignProductsResponse {
+  cluster {
+    ... ClusterFields
+  }
+  actions {
+    messages
+  }
+}

@@ -1,0 +1,5 @@
+mutation taxUpdate($id: String!, $input: TaxUpdateInput!) {
+  taxUpdate(id: $id, input: $input) {
+    ...TaxFields
+  }
+}

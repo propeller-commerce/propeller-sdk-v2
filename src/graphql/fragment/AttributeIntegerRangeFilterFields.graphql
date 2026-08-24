@@ -1,0 +1,4 @@
+fragment AttributeIntegerRangeFilterFields on AttributeIntegerRangeFilter {
+  min
+  max
+}

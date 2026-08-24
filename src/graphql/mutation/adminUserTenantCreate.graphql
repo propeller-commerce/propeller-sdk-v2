@@ -1,0 +1,5 @@
+mutation adminUserTenantCreate($input: CreateTenantDto!) {
+  adminUserTenantCreate(input: $input) {
+    ...AdminUserTenantFields
+  }
+}

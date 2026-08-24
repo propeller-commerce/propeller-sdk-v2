@@ -1,0 +1,5 @@
+query orders($input: OrderSearchArguments) {
+  orders(input: $input) {
+    ...OrderResponseFields
+  }
+}

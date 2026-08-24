@@ -1,0 +1,3 @@
+mutation clustersBulkRemoveFromCategory($clusterIds: [Int!]!, $categoryId: Int!) {
+  clustersBulkRemoveFromCategory(clusterIds: $clusterIds, categoryId: $categoryId)
+}

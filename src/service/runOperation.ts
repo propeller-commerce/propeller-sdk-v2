@@ -1,0 +1,108 @@
+import { GraphQLClient, GraphQLResponse, GraphQLFetchOptions } from '../client/GraphQLClient';
+import { GraphQLOperationError } from '../client/GraphQLOperationError';
+
+/**
+ * A `GraphQLResponse` whose `data` is guaranteed present. `runOperation`
+ * narrows to this so service methods can read `result.data.<field>` without a
+ * null check — it throws rather than ever returning absent data.
+ */
+export type ResolvedResponse<TData> = GraphQLResponse<TData> & { data: TData };
+
+/**
+ * Variables for which the SDK supplies a safe default when the caller omits
+ * them, even though the operation declares them non-null (review findings
+ * #4/#8). The generated `<Op>Variables` interfaces surface these as optional;
+ * the default below is what makes that honest — a caller doing a plain
+ * `getProduct({ productId })` no longer has to hand-construct an
+ * image-transformation object just to satisfy the wire contract.
+ *
+ * The default is injected only when (a) the operation document actually
+ * declares the variable and (b) the caller did not provide it — so requests
+ * never carry variables the operation doesn't use, and an explicit value
+ * always wins.
+ */
+const SDK_VAR_DEFAULTS: Record<string, () => unknown> = {
+  imageVariantFilters: () => ({ transformations: [] }),
+};
+
+function applySdkDefaults(document: string, variables: any): any {
+  if (variables == null || typeof variables !== 'object') return variables;
+  let out: any = variables;
+  for (const name of Object.keys(SDK_VAR_DEFAULTS)) {
+    const provided = out[name] !== undefined && out[name] !== null;
+    if (provided) continue;
+    // Only inject if the operation declares `$<name>` (cheap textual check —
+    // documents are SDK-generated and always declare variables as `$name:`).
+    if (!new RegExp(`\\$${name}\\b`).test(document)) continue;
+    if (out === variables) out = { ...variables };
+    out[name] = SDK_VAR_DEFAULTS[name]();
+  }
+  return out;
+}
+
+/**
+ * Internal helper used by every service factory and free-function operation.
+ *
+ * Executes a GraphQL document against the client and resolves to a response
+ * whose `data` is non-null and typed by `TData`.
+ *
+ * Error semantics:
+ *   - Errors AND no `data` → throws `GraphQLOperationError` (hard failure).
+ *   - No errors but also no `data` (malformed/empty response) → throws
+ *     `GraphQLOperationError` so callers never silently deref `undefined`.
+ *   - Partial response (data present alongside errors — the normal GraphQL
+ *     contract) → by default returns the data and surfaces the errors via the
+ *     client debug log. Set `throwOnPartialErrors: true` in the client config
+ *     (review finding #7) to throw on partial errors instead of swallowing
+ *     them. Either way, callers wanting the raw errors without throwing can
+ *     use `client.execute({ ... })` directly.
+ *
+ * Internal — not part of the public API. Use the service factories
+ * (`productService(client).getProduct(...)`) or, for the lower-level path,
+ * `client.execute({ ... })`.
+ *
+ * The `TData` type parameter describes the shape of `result.data` for the
+ * operation — service methods pass `runOperation<{ <rootField>: <ReturnType> }>`
+ * so `result.data.<rootField>` is genuinely typed rather than `any`.
+ */
+export async function runOperation<TData = any>(
+  client: GraphQLClient,
+  document: string,
+  operationName: string,
+  variables: any = {},
+  fetchOptions?: GraphQLFetchOptions
+): Promise<ResolvedResponse<TData>> {
+  const result = await client.execute<TData>({
+    query: document,
+    variables: applySdkDefaults(document, variables),
+    operationName,
+    fetchOptions,
+  });
+  const hasData = result.data !== undefined && result.data !== null;
+
+  if (result.errors && result.errors.length > 0) {
+    if (!hasData) {
+      throw new GraphQLOperationError(result.errors, operationName, variables, document);
+    }
+    if (client.getConfig().throwOnPartialErrors) {
+      throw new GraphQLOperationError(result.errors, operationName, variables, document);
+    }
+    if (client.getConfig().debug) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        `[GraphQL Client] Partial response for ${operationName} — returning data alongside ${result.errors.length} error(s)`
+      );
+    }
+  } else if (!hasData) {
+    // No errors but no data either — a malformed/empty response. Throwing
+    // here is what lets the return type promise a non-null `data`.
+    throw new GraphQLOperationError(
+      [{ message: `Operation "${operationName}" returned no data and no errors.` }],
+      operationName,
+      variables,
+      document
+    );
+  }
+
+  return result as ResolvedResponse<TData>;
+}

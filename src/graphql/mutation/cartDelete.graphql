@@ -1,0 +1,3 @@
+mutation cartDelete($id: String!) {
+  cartDelete(id: $id)
+}

@@ -1,0 +1,5 @@
+mutation clusterConfigSettingUpdate($uuid: String!, $input: ClusterConfigSettingUpdateInput!) {
+  clusterConfigSettingUpdate(uuid: $uuid, input: $input) {
+    ...ClusterConfigSettingFields
+  }
+}

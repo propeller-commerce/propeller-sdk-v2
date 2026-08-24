@@ -1,0 +1,8 @@
+fragment ContactRemoveFromCompaniesResponseFields on ContactRemoveFromCompaniesResponse {
+  contact {
+    ... ContactFields
+  }
+  actions {
+    messages
+  }
+}

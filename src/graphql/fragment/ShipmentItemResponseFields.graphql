@@ -1,0 +1,11 @@
+fragment ShipmentItemResponseFields on ShipmentItemResponse {
+  items {
+    ... ShipmentItemFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

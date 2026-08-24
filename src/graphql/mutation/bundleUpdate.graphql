@@ -1,0 +1,5 @@
+mutation bundleUpdate($id: String!, $input: BundleUpdateInput!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
+  bundleUpdate(id: $id, input: $input) {
+    ...BundleFields
+  }
+}

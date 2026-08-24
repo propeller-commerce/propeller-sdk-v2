@@ -1,0 +1,3 @@
+mutation addCompanyManager($userId: Int!, $companyId: Int!) {
+  addCompanyManager(userId: $userId, companyId: $companyId)
+}

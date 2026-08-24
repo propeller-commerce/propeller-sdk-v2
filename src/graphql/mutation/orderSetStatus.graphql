@@ -1,0 +1,5 @@
+mutation orderSetStatus($input: OrderSetStatusInput!) {
+  orderSetStatus(input: $input) {
+    id
+  }
+}

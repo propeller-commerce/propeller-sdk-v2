@@ -1,0 +1,6 @@
+mutation productSearchClustersIndex($input: IndexClustersInput!) {
+  productSearchClustersIndex(input: $input) {
+    accepted
+    entityCount
+  }
+}

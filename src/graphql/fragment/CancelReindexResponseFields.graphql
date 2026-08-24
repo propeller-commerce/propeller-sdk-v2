@@ -1,0 +1,4 @@
+fragment CancelReindexResponseFields on CancelReindexResponse {
+  cancelled
+  removedJobs
+}

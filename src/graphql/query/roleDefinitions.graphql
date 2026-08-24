@@ -1,0 +1,5 @@
+query roleDefinitions($input: RoleDefinitionSearchInput) {
+  roleDefinitions(input: $input) {
+    ...RoleDefinitionResponseFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation warehouseAddressCreate($id: Float!, $input: CreateWarehouseAddressInput!) {
+  warehouseAddressCreate(id: $id, input: $input) {
+    ...WarehouseAddressFields
+  }
+}

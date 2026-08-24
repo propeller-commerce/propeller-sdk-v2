@@ -1,0 +1,7 @@
+fragment ClusterConfigSettingResponseFields on ClusterConfigSettingResponse {
+  id
+  attributeName
+  displayType
+  priority
+  clusterConfigId
+}

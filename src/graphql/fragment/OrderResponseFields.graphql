@@ -1,0 +1,11 @@
+fragment OrderResponseFields on OrderResponse {
+  items {
+    ... OrderDataFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

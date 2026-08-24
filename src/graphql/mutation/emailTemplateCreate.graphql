@@ -1,0 +1,5 @@
+mutation emailTemplateCreate($input: EmailTemplateCreateInput!) {
+  emailTemplateCreate(input: $input) {
+    ...EmailTemplateFields
+  }
+}

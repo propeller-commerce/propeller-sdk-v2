@@ -1,0 +1,56 @@
+fragment ProductGridFields on Product {
+  ... IBaseProductFields
+  productId
+  categoryId
+  attributes (input: $attributeResultSearchInput) {
+    items {
+      ... AttributeResultGridFields
+    }
+  }
+  inventory {
+    ... ProductInventoryFields
+  }
+  media {
+    ... ProductMediaImagesOnlyFields
+  }
+  price (input: $priceCalculateProductInput) {
+    ... ProductGridPriceFields
+  }
+  priceData {
+    per
+    list
+    costPrices {
+      quantityFrom
+      value
+      validFrom
+      validTo
+    }
+    suggested
+    store
+    bulkPriceDiscountType
+    defaultTaxCode
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  packageDescriptions {
+    language
+    value
+  }
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+  containerClass
+}

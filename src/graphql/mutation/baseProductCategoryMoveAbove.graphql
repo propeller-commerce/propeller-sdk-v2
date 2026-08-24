@@ -1,0 +1,12 @@
+mutation baseProductCategoryMoveAbove($relationshipUuid: ID!, $targetRelationshipUuid: ID!) {
+  baseProductCategoryMoveAbove(relationshipUuid: $relationshipUuid, targetRelationshipUuid: $targetRelationshipUuid) {
+    uuid
+    baseProductUuid
+    categoryUuid
+    categoryId
+    isDefault
+    sortOrder
+    createdAt
+    lastModifiedAt
+  }
+}

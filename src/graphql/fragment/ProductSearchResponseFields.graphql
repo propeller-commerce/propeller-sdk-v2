@@ -1,0 +1,24 @@
+fragment ProductSearchResponseFields on ProductSearchResponse {
+  items {
+    id
+    class
+    uuid
+    createdAt
+    lastModifiedAt
+    indexedAt
+    isDeleted
+    status
+    effectivePrice
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+  minPrice
+  maxPrice
+  filters {
+    ...ProductSearchAttributeFilterFields
+  }
+}

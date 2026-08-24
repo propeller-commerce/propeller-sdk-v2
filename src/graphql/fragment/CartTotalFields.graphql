@@ -1,0 +1,9 @@
+fragment CartTotalFields on CartTotal {
+  subTotal
+  subTotalNet
+  discountPercentage
+  totalNet
+  totalGross
+  discountNet
+  discount
+}

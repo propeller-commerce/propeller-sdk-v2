@@ -1,0 +1,7 @@
+fragment BulkPriceFields on BulkPrice {
+  value
+  quantityFrom
+  validFrom
+  validTo
+  priceId
+}

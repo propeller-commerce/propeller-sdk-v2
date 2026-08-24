@@ -1,0 +1,3 @@
+mutation customerAddressDelete($input: CustomerAddressDeleteInput!) {
+  customerAddressDelete(input: $input)
+}

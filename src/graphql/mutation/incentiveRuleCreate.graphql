@@ -1,0 +1,5 @@
+mutation incentiveRuleCreate($input: BusinessRuleCreateInput!) {
+  incentiveRuleCreate(input: $input) {
+    ...BusinessRuleFields
+  }
+}

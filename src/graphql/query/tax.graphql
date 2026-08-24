@@ -1,0 +1,5 @@
+query tax($id: String, $code: Taxcode, $zone: String) {
+  tax(id: $id, code: $code, zone: $zone) {
+    ...TaxFields
+  }
+}

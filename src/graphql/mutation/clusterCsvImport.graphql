@@ -1,0 +1,5 @@
+mutation clusterCsvImport($input: ClusterCsvInput!) {
+  clusterCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

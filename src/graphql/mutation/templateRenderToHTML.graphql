@@ -1,0 +1,3 @@
+mutation templateRenderToHTML($id: String!, $input: TemplateRenderInput!) {
+  templateRenderToHTML(id: $id, input: $input)
+}

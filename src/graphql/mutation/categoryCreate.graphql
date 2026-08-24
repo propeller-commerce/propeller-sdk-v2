@@ -1,0 +1,5 @@
+mutation categoryCreate($input: CreateCategoryInput!, $categoryProductSearchInput: CategoryProductSearchInput, $language: String, $filterAvailableAttributeInput: FilterAvailableAttributeInput, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $imageVariantFilters: TransformationsInput!, $attributeResultSearchInput: AttributeResultSearchInput) {
+  categoryCreate(input: $input) {
+    ...CategoryFields
+  }
+}

@@ -1,0 +1,13 @@
+fragment ProductSearchProductFields on ProductSearchProduct {
+  id
+  class
+  uuid
+  createdAt
+  lastModifiedAt
+  indexedAt
+  isDeleted
+  status
+  effectivePrice
+  productId
+  sku
+}

@@ -1,0 +1,5 @@
+query attributeDescription($id: String!) {
+  attributeDescription(id: $id) {
+    ...AttributeDescriptionFields
+  }
+}

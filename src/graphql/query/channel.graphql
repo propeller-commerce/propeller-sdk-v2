@@ -1,0 +1,5 @@
+query channel($channelId: Int!) {
+  channel(channelId: $channelId) {
+    ...ChannelFields
+  }
+}

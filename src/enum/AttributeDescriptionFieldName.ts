@@ -1,0 +1,25 @@
+/**
+ * @enum AttributeDescriptionFieldName
+ Fields available for AttributeDescription mapping
+ */
+export enum AttributeDescriptionFieldName {
+  NAME = "NAME",
+  DESCRIPTION = "DESCRIPTION",
+  UNIT = "UNIT",
+  LANGUAGE = "LANGUAGE",
+  TYPE = "TYPE",
+  ATTRIBUTE_CLASS = "ATTRIBUTE_CLASS",
+  VALUESET_ID = "VALUESET_ID",
+  GROUP = "GROUP",
+  IS_SEARCHABLE = "IS_SEARCHABLE",
+  IS_PUBLIC = "IS_PUBLIC",
+  IS_SYSTEM = "IS_SYSTEM",
+  IS_HIDDEN = "IS_HIDDEN",
+  TEXT_VALUES = "TEXT_VALUES",
+  TEXT_VALUES_LANGUAGE = "TEXT_VALUES_LANGUAGE",
+  ENUM_VALUES = "ENUM_VALUES",
+  INT_VALUE = "INT_VALUE",
+  DECIMAL_VALUE = "DECIMAL_VALUE",
+  DATE_TIME_VALUE = "DATE_TIME_VALUE",
+  COLOR_VALUE = "COLOR_VALUE",
+}

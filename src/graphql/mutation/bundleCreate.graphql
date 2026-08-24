@@ -1,0 +1,5 @@
+mutation bundleCreate($input: BundleCreateInput!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
+  bundleCreate(input: $input) {
+    ...BundleFields
+  }
+}

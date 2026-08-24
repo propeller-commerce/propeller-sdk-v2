@@ -1,0 +1,6 @@
+fragment CategoryProductSearchResultFields on CategoryProductSearchResult {
+  categoryId
+  response {
+    ...CategorySearchResponseFields
+  }
+}

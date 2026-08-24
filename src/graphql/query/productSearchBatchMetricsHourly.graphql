@@ -1,0 +1,6 @@
+query productSearchBatchMetricsHourly {
+  productSearchBatchMetricsHourly {
+    tenantId
+    totalHours
+  }
+}

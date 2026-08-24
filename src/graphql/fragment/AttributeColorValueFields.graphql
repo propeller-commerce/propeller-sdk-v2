@@ -1,0 +1,6 @@
+fragment AttributeColorValueFields on AttributeColorValue {
+  __typename
+  id
+  type
+  colorValue
+}

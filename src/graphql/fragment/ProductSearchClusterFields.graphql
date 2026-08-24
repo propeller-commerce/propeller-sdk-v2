@@ -1,0 +1,12 @@
+fragment ProductSearchClusterFields on ProductSearchCluster {
+  id
+  class
+  uuid
+  createdAt
+  lastModifiedAt
+  indexedAt
+  isDeleted
+  status
+  effectivePrice
+  clusterId
+}

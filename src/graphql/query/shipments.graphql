@@ -1,0 +1,5 @@
+query shipments($input: ShipmentSearchInput) {
+  shipments(input: $input) {
+    ...ShipmentResponseFields
+  }
+}

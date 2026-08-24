@@ -1,0 +1,9 @@
+fragment ReindexStatusResponseFields on ReindexStatusResponse {
+  reindexId
+  progress {
+    ...ReindexProgressFields
+  }
+  jobs {
+    ...ReindexJobDetailFields
+  }
+}

@@ -1,0 +1,15 @@
+query categoryBySource(
+  $source: SourceInput!
+  $hidden: YesNo
+  $categoryProductSearchInput: CategoryProductSearchInput
+  $language: String
+  $filterAvailableAttributeInput: FilterAvailableAttributeInput
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $attributeResultSearchInput: AttributeResultSearchInput
+) {
+  categoryBySource(source: $source, hidden: $hidden) {
+    ...CategoryFields
+  }
+}

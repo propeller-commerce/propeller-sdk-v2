@@ -1,0 +1,5 @@
+mutation discountUpdate($id: String!, $input: DiscountUpdateInput!) {
+  discountUpdate(id: $id, input: $input) {
+    ...DiscountFields
+  }
+}

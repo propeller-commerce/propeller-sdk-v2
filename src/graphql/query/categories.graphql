@@ -1,0 +1,5 @@
+query categories($filter: CategorySearchInput, $language: String) {
+  categories(filter: $filter) {
+    ...CategoryResponseFields
+  }
+}

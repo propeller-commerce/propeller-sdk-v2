@@ -1,0 +1,15 @@
+fragment BatchMetricsTenantResponseFields on BatchMetricsTenantResponse {
+  tenantId
+  batchCount
+  totalDocuments
+  lastBatchTime
+  lastBatchSize
+  averageBatchSize
+  pendingIds
+  pendingBatches {
+    ...BatchMetricsQueueSummaryFields
+  }
+  categoryFanout {
+    ...BatchMetricsQueueSummaryFields
+  }
+}

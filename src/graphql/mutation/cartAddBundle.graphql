@@ -1,0 +1,10 @@
+mutation cartAddBundle(
+  $id: String!
+  $input: CartAddBundleInput!
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!) {
+  cartAddBundle(id: $id, input: $input) {
+    ...CartFields
+  }
+}

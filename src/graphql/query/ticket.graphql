@@ -1,0 +1,5 @@
+query ticket($id: ID!) {
+  ticket(id: $id) {
+    ...TicketFields
+  }
+}

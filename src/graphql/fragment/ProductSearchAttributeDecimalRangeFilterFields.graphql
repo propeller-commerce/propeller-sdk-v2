@@ -1,0 +1,4 @@
+fragment ProductSearchAttributeDecimalRangeFilterFields on ProductSearchAttributeDecimalRangeFilter {
+  min
+  max
+}

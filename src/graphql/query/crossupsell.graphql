@@ -1,0 +1,5 @@
+query crossupsell($id: String!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $attributeResultSearchInput: AttributeResultSearchInput) {
+  crossupsell(id: $id) {
+    ...CrossupsellFields
+  }
+}

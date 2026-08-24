@@ -1,0 +1,8 @@
+fragment ContactAddToCompaniesResponseFields on ContactAddToCompaniesResponse {
+  contact {
+    ... ContactFields
+  }
+  actions {
+    messages
+  }
+}

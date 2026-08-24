@@ -1,0 +1,8 @@
+fragment ZoneTaxCodeFields on ZoneTaxCode {
+  id
+  priceId
+  createdAt
+  lastModifiedAt
+  zone
+  taxCode
+}

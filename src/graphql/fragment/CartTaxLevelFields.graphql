@@ -1,0 +1,5 @@
+fragment CartTaxLevelFields on CartTaxLevel {
+  taxPercentage
+  price
+  discount
+}

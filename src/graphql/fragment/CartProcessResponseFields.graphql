@@ -1,0 +1,58 @@
+fragment CartProcessResponseFields on CartProcessResponse {
+  cartOrderId
+  cart {
+    cartId
+  }
+  order {
+    id
+    userId
+    accountManagerId
+    cartId
+    channelId
+    uuid
+    debtorId
+    status
+    type
+    source
+    email
+    emailDate
+    remarks
+    reference
+    extra3
+    extra4
+    currency
+    currencyRatio
+    language
+    createdAt
+    statusDate
+    postageData {
+      ... OrderPostageDataFields
+    }
+    paymentData {
+      ... OrderPaymentDataFields
+    }
+    total {
+      ... OrderTotalsFields
+    }
+    items {
+      ... OrderItemFields
+    }
+    shipments {
+      ... ShipmentFields
+    }
+    addresses {
+      ... AddressFields
+    }
+    invoiceUserId
+    validUntil
+    companyId
+    lastModifiedAt
+    originalOrderId
+    exportedAt
+    exportStatus
+    exportMessage
+    orderAddresses {
+      ... OrderAddressFields
+    }
+  }
+}

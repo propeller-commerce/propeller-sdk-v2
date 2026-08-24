@@ -1,0 +1,24 @@
+fragment ExternalAddressFields on ExternalAddress {
+  id
+  firstName
+  middleName
+  lastName
+  gender
+  company
+  street
+  number
+  numberExtension
+  postalCode
+  city
+  region
+  country
+  phone
+  mobile
+  email
+  fax
+  code
+  notes
+  icp
+  url
+  name
+}

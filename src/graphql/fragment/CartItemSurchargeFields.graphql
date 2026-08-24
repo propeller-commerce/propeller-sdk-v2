@@ -1,0 +1,17 @@
+fragment CartItemSurchargeFields on CartItemSurcharge {
+  names {
+    ... LocalizedStringFields
+  }
+  descriptions {
+    ... LocalizedStringFields
+  }
+  type
+  value
+  taxCode
+  taxPercentage
+  quantity
+  price
+  totalPrice
+  priceNet
+  totalPriceNet
+}

@@ -1,0 +1,5 @@
+fragment ReindexLockResponseFields on ReindexLockResponse {
+  isLocked
+  reindexId
+  ttlSeconds
+}

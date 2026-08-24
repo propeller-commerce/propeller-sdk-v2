@@ -1,0 +1,13 @@
+fragment PurchaseAuthorizationConfigFields on PurchaseAuthorizationConfig {
+  id
+  purchaseRole
+  authorizationLimit
+  createdAt
+  lastModifiedAt
+  company {
+    companyId
+  }
+  contact {
+    contactId
+  }
+}

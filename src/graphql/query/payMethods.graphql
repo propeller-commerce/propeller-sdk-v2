@@ -1,0 +1,5 @@
+query payMethods($input: PayMethodSearchInput) {
+  payMethods(input: $input) {
+    ...PayMethodsResponseFields
+  }
+}

@@ -1,0 +1,5 @@
+query attributeResultByClusterId($clusterId: Int!, $input: AttributeResultSearchInput!) {
+  attributeResultByClusterId(clusterId: $clusterId, input: $input) {
+    ...AttributeResultResponseFields
+  }
+}

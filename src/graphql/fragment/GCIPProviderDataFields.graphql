@@ -1,0 +1,11 @@
+fragment GCIPProviderDataFields on GCIPProviderData {
+  uid
+  providerId
+  displayName
+  photoUrl
+  federatedId
+  email
+  rawId
+  screenName
+  phoneNumber
+}

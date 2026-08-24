@@ -1,0 +1,6 @@
+fragment BundlePriceFields on BundlePrice {
+  net
+  gross
+  originalNet
+  originalGross
+}

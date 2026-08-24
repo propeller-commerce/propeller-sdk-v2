@@ -1,0 +1,11 @@
+fragment ClusterConfigSettingFields on ClusterConfigSetting {
+  uuid
+  attributeName
+  configUuid
+  clusterConfigId
+  createdAt
+  lastModifiedAt
+  type
+  displayType
+  priority
+}

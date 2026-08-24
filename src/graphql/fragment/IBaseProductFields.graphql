@@ -1,0 +1,32 @@
+fragment IBaseProductFields on IBaseProduct {
+  uuid
+  type
+  categoryIds
+  createdAt
+  lastModifiedAt
+  hidden
+  names {
+    ... LocalizedStringFields
+  }
+  descriptions {
+    ... LocalizedStringFields
+  }
+  shortDescriptions {
+    ... LocalizedStringFields
+  }
+  slugs {
+    ... LocalizedStringFields
+  }
+  sku
+  categoryId
+  priority
+  metadataTitles {
+    ... LocalizedStringFields
+  }
+  metadataDescriptions {
+    ... LocalizedStringFields
+  }
+  metadataCanonicalUrls {
+    ... LocalizedStringFields
+  }
+}

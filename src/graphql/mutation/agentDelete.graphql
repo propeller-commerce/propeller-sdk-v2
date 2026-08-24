@@ -1,0 +1,3 @@
+mutation agentDelete($id: ID!) {
+  agentDelete(id: $id)
+}

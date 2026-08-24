@@ -1,0 +1,12 @@
+mutation clusterAddToCategory($clusterId: Int!, $categoryId: Int!, $sortOrder: Int, $makeDefault: Boolean!) {
+  clusterAddToCategory(clusterId: $clusterId, categoryId: $categoryId, sortOrder: $sortOrder, makeDefault: $makeDefault) {
+    uuid
+    baseProductUuid
+    categoryUuid
+    categoryId
+    isDefault
+    sortOrder
+    createdAt
+    lastModifiedAt
+  }
+}

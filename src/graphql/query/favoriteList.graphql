@@ -1,0 +1,12 @@
+query favoriteList(
+  $id: String!
+  $language: String
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $attributeResultSearchInput: AttributeResultSearchInput
+) {
+  favoriteList(id: $id) {
+    ...FavoriteListFields
+  }
+}

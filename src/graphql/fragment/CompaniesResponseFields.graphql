@@ -1,0 +1,11 @@
+fragment CompaniesResponseFields on CompaniesResponse {
+  items {
+    ... CompanyFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

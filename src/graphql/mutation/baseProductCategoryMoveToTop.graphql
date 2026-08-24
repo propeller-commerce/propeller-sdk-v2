@@ -1,0 +1,12 @@
+mutation baseProductCategoryMoveToTop($relationshipUuid: ID!) {
+  baseProductCategoryMoveToTop(relationshipUuid: $relationshipUuid) {
+    uuid
+    baseProductUuid
+    categoryUuid
+    categoryId
+    isDefault
+    sortOrder
+    createdAt
+    lastModifiedAt
+  }
+}

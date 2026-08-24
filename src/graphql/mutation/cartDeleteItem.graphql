@@ -1,0 +1,10 @@
+mutation cartDeleteItem(
+  $id: String!
+  $input: CartDeleteItemInput!
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!) {
+  cartDeleteItem(id: $id, input: $input) {
+    ...CartFields
+  }
+}

@@ -1,0 +1,11 @@
+fragment UserResponseFields on UserResponse {
+  items {
+    ... AdminUserFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

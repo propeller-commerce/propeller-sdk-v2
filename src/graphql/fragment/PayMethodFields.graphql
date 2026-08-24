@@ -1,0 +1,10 @@
+fragment PayMethodFields on PayMethod {
+  id
+  createdAt
+  lastModifiedAt
+  names {
+    ... LocalizedStringFields
+  }
+  externalCode
+  logo
+}

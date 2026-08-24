@@ -1,0 +1,11 @@
+fragment PayMethodsResponseFields on PayMethodsResponse {
+  items {
+    ... PayMethodFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

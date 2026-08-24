@@ -1,0 +1,5 @@
+query attributeResultByCompanyId($companyId: Int!, $input: AttributeResultSearchInput!) {
+  attributeResultByCompanyId(companyId: $companyId, input: $input) {
+    ...AttributeResultResponseFields
+  }
+}

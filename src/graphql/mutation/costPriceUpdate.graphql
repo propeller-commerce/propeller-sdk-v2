@@ -1,0 +1,5 @@
+mutation costPriceUpdate($id: String!, $input: CostPriceUpdateInput!) {
+  costPriceUpdate(id: $id, input: $input) {
+    ...CostPriceFields
+  }
+}

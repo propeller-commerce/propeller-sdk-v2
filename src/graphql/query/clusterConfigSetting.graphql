@@ -1,0 +1,5 @@
+query clusterConfigSetting($uuid: String!) {
+  clusterConfigSetting(uuid: $uuid) {
+    ...ClusterConfigSettingFields
+  }
+}

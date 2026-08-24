@@ -1,0 +1,10 @@
+fragment TenderResponseFields on TenderResponse {
+  tender {
+    ... TenderFields
+  }
+  response {
+    data
+    error
+    messages
+  }
+}

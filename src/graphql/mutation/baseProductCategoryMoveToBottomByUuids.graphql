@@ -1,0 +1,12 @@
+mutation baseProductCategoryMoveToBottomByUuids($categoryUuid: ID!, $productUuid: ID!) {
+  baseProductCategoryMoveToBottomByUuids(categoryUuid: $categoryUuid, productUuid: $productUuid) {
+    uuid
+    baseProductUuid
+    categoryUuid
+    categoryId
+    isDefault
+    sortOrder
+    createdAt
+    lastModifiedAt
+  }
+}

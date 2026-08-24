@@ -1,0 +1,5 @@
+query quoteGetPDF($quoteId: Int!) {
+  quoteGetPDF(orderId: $quoteId) {
+    ...Base64FileFields
+  }
+}

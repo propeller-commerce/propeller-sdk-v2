@@ -1,0 +1,21 @@
+fragment CompanyContactSearchFields on CompanyContactSearch {
+  id
+  firstName
+  lastName
+  middleName
+  phone
+  mobile
+  gender
+  email
+  iban
+  bankAccount
+  bic
+  notes
+  primaryCompanyId
+  dateOfBirth
+  createdAt
+  lastModifiedAt
+  attributes {
+    ... CompanyAttributeSearchFields
+  }
+}

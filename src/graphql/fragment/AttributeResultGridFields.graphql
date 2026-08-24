@@ -1,0 +1,23 @@
+fragment AttributeResultGridFields on AttributeResult {
+  attributeDescription {
+    name
+  }
+  value {
+    __typename
+    ... on AttributeTextValue {
+      textValues {
+        language
+        values
+      }
+    }
+    ... on AttributeEnumValue {
+      enumValues
+    }
+    ... on AttributeIntValue {
+      intValue
+    }
+    ... on AttributeDecimalValue {
+      decimalValue
+    }
+  }
+}

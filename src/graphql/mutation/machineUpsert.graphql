@@ -1,0 +1,5 @@
+mutation machineUpsert($input: UpsertSparePartsMachineInput!, $language: String, $sparePartsMachineProductSearchInput: SparePartsMachineProductSearchInput, $filterAvailableAttributeInput: FilterAvailableAttributeInput, $imageVariantFilters: TransformationsInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $attributeResultSearchInput: AttributeResultSearchInput) {
+  machineUpsert(input: $input) {
+    ...SparePartsMachineFields
+  }
+}

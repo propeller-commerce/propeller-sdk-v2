@@ -1,0 +1,4 @@
+fragment CompanyAttributeValueSearchFields on CompanyAttributeValueSearch {
+  id
+  type
+}

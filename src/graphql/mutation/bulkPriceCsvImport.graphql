@@ -1,0 +1,5 @@
+mutation bulkPriceCsvImport($input: BulkPriceCsvInput!) {
+  bulkPriceCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

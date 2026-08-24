@@ -1,0 +1,15 @@
+mutation productUnassignFromCluster(
+  $productId: Int!
+  $attributeResultSearchInput: AttributeResultSearchInput
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $userBulkPriceProductInput: UserBulkPriceProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $language: String
+  $imageVariantFilters: TransformationsInput!
+  $mediaVideoSearchInput: MediaVideoProductSearchInput
+  $mediaDocumentSearchInput: MediaDocumentProductSearchInput
+) {
+  productUnassignFromCluster(productId: $productId) {
+    ...ProductFields
+  }
+}

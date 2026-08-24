@@ -1,0 +1,5 @@
+mutation purchaseAuthorizationConfigUpdate($id: String!, $input: PurchaseAuthorizationConfigUpdateInput) {
+  purchaseAuthorizationConfigUpdate(id: $id, input: $input) {
+    ...PurchaseAuthorizationConfigFields
+  }
+}

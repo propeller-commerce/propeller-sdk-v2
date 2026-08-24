@@ -1,0 +1,6 @@
+fragment ReindexJobDetailFields on ReindexJobDetail {
+  name
+  state
+  progress
+  data
+}

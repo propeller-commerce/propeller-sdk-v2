@@ -1,0 +1,15 @@
+fragment ProductCategoryRelationshipFields on ProductCategoryRelationship {
+  uuid
+  productId
+  categoryId
+  isDefault
+  sortOrder
+  createdAt
+  lastModifiedAt
+  product {
+    ...ProductFields
+  }
+  category {
+    ...CategoryFields
+  }
+}

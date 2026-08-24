@@ -1,0 +1,5 @@
+mutation mediaImageDelete($mediaId: String!) {
+  mediaImageDelete(mediaId: $mediaId) {
+    ...DeleteMediaImageResponseFields
+  }
+}

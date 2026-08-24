@@ -1,0 +1,11 @@
+fragment AttributeDescriptionResponseFields on AttributeDescriptionResponse {
+  items {
+    ... AttributeDescriptionFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

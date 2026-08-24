@@ -1,0 +1,3 @@
+mutation bundleDelete($id: String!) {
+  bundleDelete(id: $id)
+}

@@ -1,0 +1,11 @@
+fragment PaginatedMediaImageResponseFields on PaginatedMediaImageResponse {
+  items {
+    ... MediaImageFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

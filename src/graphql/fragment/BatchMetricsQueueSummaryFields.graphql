@@ -1,0 +1,7 @@
+fragment BatchMetricsQueueSummaryFields on BatchMetricsQueueSummary {
+  total
+  active
+  waiting
+  delayed
+  failed
+}

@@ -1,0 +1,12 @@
+mutation clusterOptionRemoveProducts(
+  $uuid: String!
+  $productIds: [Float!]!
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $language: String
+  $imageVariantFilters: TransformationsInput!
+) {
+  clusterOptionRemoveProducts(uuid: $uuid, productIds: $productIds) {
+    ...ClusterOptionFields
+  }
+}

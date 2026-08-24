@@ -1,0 +1,10 @@
+mutation cartAddActionCode(
+  $id: String!
+  $input: CartActionCodeInput!
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!) {
+  cartAddActionCode(id: $id, input: $input) {
+    ...CartFields
+  }
+}

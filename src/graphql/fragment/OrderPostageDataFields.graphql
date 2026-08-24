@@ -1,0 +1,15 @@
+fragment OrderPostageDataFields on OrderPostageData {
+  method
+  taxPercentage
+  requestDate
+  gross
+  net
+  tax
+  partialDeliveryAllowed
+  pickUpLocationId
+  carrier
+  overruled
+  warehouse {
+  ... WarehouseFields
+  }
+}

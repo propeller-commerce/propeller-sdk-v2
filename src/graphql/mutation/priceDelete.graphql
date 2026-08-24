@@ -1,0 +1,3 @@
+mutation priceDelete($id: String!) {
+  priceDelete(id: $id)
+}

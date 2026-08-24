@@ -1,0 +1,5 @@
+query zoneTaxCode($id: String!) {
+  zoneTaxCode(id: $id) {
+    ...ZoneTaxCodeFields
+  }
+}

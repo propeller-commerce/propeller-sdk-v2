@@ -1,0 +1,9 @@
+fragment BusinessRuleDecisionTableFields on BusinessRuleDecisionTable {
+  type
+  id
+  name
+  description
+  content {
+    hitPolicy
+  }
+}

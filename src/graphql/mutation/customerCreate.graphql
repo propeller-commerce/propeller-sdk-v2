@@ -1,0 +1,5 @@
+mutation customerCreate($input: CustomerInput!, $customerAttributesInput: AttributeResultSearchInput) {
+  customerCreate(input: $input) {
+    ...CustomerFields
+  }
+}

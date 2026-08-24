@@ -1,0 +1,5 @@
+mutation orderlistAddItems($id: Int!, $input: OrderlistItemsInput!) {
+  orderlistAddItems(id: $id, input: $input) {
+    ...OrderlistFields
+  }
+}

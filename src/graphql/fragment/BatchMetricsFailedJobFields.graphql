@@ -1,0 +1,18 @@
+fragment BatchMetricsFailedJobFields on BatchMetricsFailedJob {
+  jobId
+  name
+  tenant
+  productIdsCount
+  clusterIdsCount
+  categoryIdsCount
+  batchSize
+  type
+  id
+  failedReason
+  stacktrace
+  attemptsMade
+  timestamp
+  processedOn
+  finishedOn
+  redisKey
+}

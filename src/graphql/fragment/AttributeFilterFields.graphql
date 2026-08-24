@@ -1,0 +1,32 @@
+fragment AttributeFilterFields on AttributeFilter {
+  id
+  attributeDescription {
+    id
+    name
+    descriptions {
+      language
+      value
+    }
+    units {
+      language
+      value
+    }
+    type
+  }
+  type
+  textFilters {
+    value
+    count
+    countTotal
+    countActive
+    isSelected
+  }
+  integerRangeFilter {
+    min
+    max
+  }
+  decimalRangeFilter {
+    min
+    max
+  }
+}

@@ -1,0 +1,3 @@
+mutation magicTokenDelete($id: String!) {
+  magicTokenDelete(id: $id)
+}

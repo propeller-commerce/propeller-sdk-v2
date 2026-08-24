@@ -1,0 +1,5 @@
+query productSearchByCategory($input: ProductSearchByCategoryInput!) {
+  productSearchByCategory(input: $input) {
+    ...ProductSearchByCategoryResponseFields
+  }
+}

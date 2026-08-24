@@ -1,0 +1,5 @@
+mutation zoneTaxCodeUpdate($id: String!, $input: ZoneTaxCodeUpdateInput!) {
+  zoneTaxCodeUpdate(id: $id, input: $input) {
+    ...ZoneTaxCodeFields
+  }
+}

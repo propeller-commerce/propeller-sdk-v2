@@ -1,0 +1,11 @@
+fragment ZoneTaxCodeResponseFields on ZoneTaxCodeResponse {
+  items {
+    ... ZoneTaxCodeFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

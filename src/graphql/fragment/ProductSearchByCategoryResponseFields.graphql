@@ -1,0 +1,5 @@
+fragment ProductSearchByCategoryResponseFields on ProductSearchByCategoryResponse {
+  results {
+    ...CategoryProductSearchResultFields
+  }
+}

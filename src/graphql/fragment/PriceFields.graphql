@@ -1,0 +1,16 @@
+fragment PriceFields on Price {
+  id
+  createdAt
+  lastModifiedAt
+  productId
+  per
+  list
+  costPrices {
+    ... CostPriceFields
+  }
+  suggested
+  store
+  bulkPriceDiscountType
+  defaultTaxCode
+  display
+}

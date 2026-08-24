@@ -1,0 +1,5 @@
+mutation tenderProcess($id: String!) {
+  tenderProcess(id: $id) {
+    ...TenderProcessResponseFields
+  }
+}

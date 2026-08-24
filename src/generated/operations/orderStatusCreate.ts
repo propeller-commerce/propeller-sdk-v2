@@ -1,0 +1,43 @@
+/* Auto-generated. Do not edit. */
+export const document: string = `fragment OrderStatusFields on OrderStatus {
+  id
+  name
+  code
+  type
+  orderType
+  description
+  priority
+  isDefault
+  isPublic
+  isEditable
+  isDeletable
+  createdAt
+  lastModifiedAt
+  statusSet {
+    id
+    name
+    description
+  }
+  nextStatuses {
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  previousStatuses {
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}
+
+mutation orderStatusCreate(\$input: CreateOrderStatusInput!) {
+  orderStatusCreate(input: \$input) {
+    ...OrderStatusFields
+  }
+}`;

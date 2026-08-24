@@ -1,0 +1,17 @@
+fragment ShipmentFields on Shipment {
+  id
+  createdAt
+  lastModifiedAt
+  expectedDeliveryAt
+  status
+  orderId
+  items {
+    ... ShipmentItemFields
+  }
+  trackAndTraces {
+    ... TrackAndTraceFields
+  }
+  sources {
+    ... SourceFields
+  }
+}

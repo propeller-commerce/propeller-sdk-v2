@@ -1,0 +1,5 @@
+query pricesheet($id: String!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
+  pricesheet(id: $id) {
+    ...PricesheetFields
+  }
+}

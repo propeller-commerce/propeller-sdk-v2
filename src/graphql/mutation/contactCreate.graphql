@@ -1,0 +1,5 @@
+mutation contactCreate($input: CreateContactInput!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput) {
+  contactCreate(input: $input) {
+    ...ContactFields
+  }
+}

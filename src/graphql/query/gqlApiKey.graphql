@@ -1,0 +1,11 @@
+query gqlApiKey($id: String!) {
+  gqlApiKey(id: $id) {
+    id
+    name
+    key
+    active
+    channelId
+    createdAt
+    lastModifiedAt
+  }
+}

@@ -1,0 +1,22 @@
+fragment RoleFields on Role {
+  id
+  roleDefinition {
+    id
+    name
+    descriptions {
+      ... LocalizedStringFields
+    }
+    defaultAccess
+    createdAt
+    lastModifiedAt
+    createdBy
+    lastModifiedBy
+  }
+  roleDefinitionId
+  userId
+  access
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+}

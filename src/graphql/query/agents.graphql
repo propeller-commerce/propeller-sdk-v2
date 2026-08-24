@@ -1,0 +1,10 @@
+query agents($input: AgentSearchInput) {
+  agents(input: $input) {
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

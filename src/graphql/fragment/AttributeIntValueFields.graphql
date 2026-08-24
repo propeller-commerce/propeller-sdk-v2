@@ -1,0 +1,6 @@
+fragment AttributeIntValueFields on AttributeIntValue {
+  __typename
+  id
+  type
+  intValue
+}

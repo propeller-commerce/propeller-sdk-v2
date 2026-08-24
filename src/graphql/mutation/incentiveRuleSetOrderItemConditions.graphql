@@ -1,0 +1,5 @@
+mutation incentiveRuleSetOrderItemConditions($input: IncentiveRuleOrderItemSetCellInput!) {
+  incentiveRuleSetOrderItemConditions(input: $input) {
+    ...BusinessRuleFields
+  }
+}

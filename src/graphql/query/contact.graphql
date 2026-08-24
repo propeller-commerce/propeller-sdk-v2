@@ -1,0 +1,5 @@
+query contact($id: Int!, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput) {
+  contact(id: $id) {
+    ...ContactFields
+  }
+}

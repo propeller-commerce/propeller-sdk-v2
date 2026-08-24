@@ -1,0 +1,6 @@
+mutation productSearchProductsIndex($input: IndexProductsInput!) {
+  productSearchProductsIndex(input: $input) {
+    accepted
+    entityCount
+  }
+}

@@ -1,0 +1,7 @@
+query attribute(
+  $id: String!
+) {
+  attribute(id: $id) {
+    ...AttributeFields
+  }
+}

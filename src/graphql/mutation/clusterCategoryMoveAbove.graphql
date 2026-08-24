@@ -1,0 +1,12 @@
+mutation clusterCategoryMoveAbove($relationshipUuid: String!, $targetRelationshipUuid: String!) {
+  clusterCategoryMoveAbove(relationshipUuid: $relationshipUuid, targetRelationshipUuid: $targetRelationshipUuid) {
+    uuid
+    baseProductUuid
+    categoryUuid
+    categoryId
+    isDefault
+    sortOrder
+    createdAt
+    lastModifiedAt
+  }
+}

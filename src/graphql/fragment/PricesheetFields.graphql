@@ -1,0 +1,47 @@
+fragment PricesheetFields on Pricesheet {
+  id
+  createdAt
+  lastModifiedAt
+  code
+  names {
+    ... LocalizedStringFields
+  }
+  descriptions {
+    ... LocalizedStringFields
+  }
+  priority
+  readonly
+  contactsPaginated {
+    items {
+      ... ContactFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  customersPaginated {
+    items {
+      ... CustomerFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  companiesPaginated {
+    items {
+      ... CompanyFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

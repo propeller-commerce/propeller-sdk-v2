@@ -1,0 +1,3 @@
+mutation restApiKeyDelete($id: String!) {
+  restApiKeyDelete(id: $id)
+}

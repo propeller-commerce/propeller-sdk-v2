@@ -1,0 +1,5 @@
+mutation agentConversationCreate($input: AgentConversationCreateInput!) {
+  agentConversationCreate(input: $input) {
+    id
+  }
+}

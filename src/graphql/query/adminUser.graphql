@@ -1,0 +1,5 @@
+query adminUser($email: String!) {
+  adminUser(email: $email) {
+    ...AdminUserFields
+  }
+}

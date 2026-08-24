@@ -1,0 +1,13 @@
+fragment ProductMediaImagesOnlyFields on ProductMedia {
+  images(search: $imageSearchFilters) {
+    items {
+      ... MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

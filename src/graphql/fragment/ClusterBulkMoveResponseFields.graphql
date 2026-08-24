@@ -1,0 +1,6 @@
+fragment ClusterBulkMoveResponseFields on ClusterBulkMoveResponse {
+  movedCount
+  errors {
+    ...ClusterBulkMoveErrorFields
+  }
+}

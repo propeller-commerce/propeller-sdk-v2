@@ -1,0 +1,5 @@
+fragment AgentMessageFields on AgentMessage {
+  conversationId
+  responseMessage
+  responseMetadata
+}

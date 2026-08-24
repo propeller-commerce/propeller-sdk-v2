@@ -1,0 +1,5 @@
+mutation mediaImageUpdate($input: UpdateMediaImageInput!, $language: String, $imageVariantFilters: TransformationsInput!) {
+  mediaImageUpdate(input: $input) {
+    ...MediaImageFields
+  }
+}

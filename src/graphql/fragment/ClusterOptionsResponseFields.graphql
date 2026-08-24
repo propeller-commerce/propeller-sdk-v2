@@ -1,0 +1,11 @@
+fragment ClusterOptionsResponseFields on ClusterOptionsResponse {
+  items {
+    ...ClusterOptionFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

@@ -1,0 +1,9 @@
+query templateErrorLogStats {
+  templateErrorLogStats {
+    totalCount
+    renderErrorCount
+    customQueryErrorCount
+    oldestEntry
+    newestEntry
+  }
+} 

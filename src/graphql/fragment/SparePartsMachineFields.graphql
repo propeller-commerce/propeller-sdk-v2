@@ -1,0 +1,9 @@
+fragment SparePartsMachineFields on SparePartsMachine {
+  ... SparePartsMachineMinimalFields
+  sparePartProducts (input: $sparePartsMachineProductSearchInput) {
+    ... SparePartsResponseFields
+  }
+  machines {
+    ... SparePartsMachineMinimalFields
+  }
+}

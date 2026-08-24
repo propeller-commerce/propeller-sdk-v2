@@ -1,0 +1,40 @@
+fragment ProductClusterOptionsFields on Product {
+  hidden
+  names {
+    ... LocalizedStringFields
+  }
+  slugs {
+    ... LocalizedStringFields
+  }
+  sku
+  productId
+  inventory {
+    ... ProductInventoryFields
+  }
+  media {
+    ... ProductMediaImagesOnlyFields
+  }
+  price (input: $priceCalculateProductInput) {
+    ... ProductGridPriceFields
+  }
+  priceData {
+    display
+  }
+  manufacturerCode
+  eanCode
+  manufacturer
+  supplier
+  supplierCode
+  status
+  statusExtra
+  orderable
+  package
+  packageUnit
+  packageUnitQuantity
+  minimumQuantity
+  unit
+  purchaseUnit
+  purchaseMinimumQuantity
+  orderableFrom
+  orderableTo
+}

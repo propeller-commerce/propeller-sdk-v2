@@ -1,0 +1,12 @@
+mutation clusterOptionMoveAbove(
+  $clusterOptionUuid: String!
+  $targetClusterOptionUuid: String!
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $language: String
+  $imageVariantFilters: TransformationsInput!
+) {
+  clusterOptionMoveAbove(clusterOptionUuid: $clusterOptionUuid, targetClusterOptionUuid: $targetClusterOptionUuid) {
+    ...ClusterOptionFields
+  }
+}

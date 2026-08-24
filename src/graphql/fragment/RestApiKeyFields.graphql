@@ -1,0 +1,9 @@
+fragment RestApiKeyFields on RestApiKey {
+  id
+  name
+  clientId
+  clientSecret
+  active
+  createdAt
+  lastModifiedAt
+}

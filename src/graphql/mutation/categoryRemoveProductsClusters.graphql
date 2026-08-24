@@ -1,0 +1,5 @@
+mutation categoryRemoveProductsClusters($id: Int!, $input: CategoryRemoveProductsClustersInput!, $categoryProductSearchInput: CategoryProductSearchInput, $language: String, $filterAvailableAttributeInput: FilterAvailableAttributeInput, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $imageVariantFilters: TransformationsInput!, $attributeResultSearchInput: AttributeResultSearchInput) {
+  categoryRemoveProductsClusters(id: $id, input: $input) {
+    ...CategoryRemoveProductsClustersResponseFields
+  }
+}

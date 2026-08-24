@@ -1,0 +1,4 @@
+fragment PublishEmailEventResponseFields on PublishEmailEventResponse {
+  success
+  messageId
+}

@@ -1,0 +1,9 @@
+fragment CompanyListFields on Company {
+  companyId
+  name
+  taxNumber
+  cocNumber
+  debtorId
+  phone
+  email
+}

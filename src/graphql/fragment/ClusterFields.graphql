@@ -1,0 +1,29 @@
+fragment ClusterFields on Cluster {
+  ... IBaseProductFields
+  clusterId
+  categoryId
+  code
+  attributes {
+    ... AttributeResultProductResponseFields
+  }
+  category {
+    ... CategoryMinimalFields
+  }
+  categoryPath {
+    ... CategoryMinimalFields
+  }
+  products {
+    ... ProductFields
+  }
+  createdAt
+  lastModifiedAt
+  options {
+    ... ClusterOptionFields
+  }
+  defaultProduct {
+    ... ProductFields
+  }
+  config {
+    ... ClusterConfigFields
+  }
+}

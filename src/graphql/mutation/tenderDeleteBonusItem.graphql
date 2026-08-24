@@ -1,0 +1,5 @@
+mutation tenderDeleteBonusItem($id: String!, $itemId: String!, $attributeResultSearchInput: AttributeResultSearchInput, $priceCalculateProductInput: PriceCalculateProductInput, $userBulkPriceProductInput: UserBulkPriceProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $mediaVideoSearchInput: MediaVideoProductSearchInput, $mediaDocumentSearchInput: MediaDocumentProductSearchInput, $contactAttributesInput: AttributeResultSearchInput, $contactCompaniesSearchInput: ContactCompaniesSearchInput, $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput, $companyAttributesInput: AttributeResultSearchInput, $customerAttributesInput: AttributeResultSearchInput, $contactSearchArguments: ContactSearchArguments) {
+  tenderDeleteBonusItem(id: $id, itemId: $itemId) {
+    ...TenderFields
+  }
+}

@@ -1,0 +1,5 @@
+query roleDefinition($id: ID!) {
+  roleDefinition(id: $id) {
+    ...RoleDefinitionFields
+  }
+}

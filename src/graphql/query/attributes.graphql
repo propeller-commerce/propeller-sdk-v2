@@ -1,0 +1,5 @@
+query attributes($input: AttributeSearchInput!) {
+  attributes(input: $input) {
+    ...AttributeResponseFields
+  }
+}

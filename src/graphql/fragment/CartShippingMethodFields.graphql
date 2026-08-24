@@ -1,0 +1,4 @@
+fragment CartShippingMethodFields on CartShippingMethod {
+  name
+  code
+}

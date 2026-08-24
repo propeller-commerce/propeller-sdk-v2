@@ -1,0 +1,12 @@
+mutation clusterOptionAssignProducts(
+  $uuid: String!
+  $productIds: [Float!]!
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $language: String
+  $imageVariantFilters: TransformationsInput!
+) {
+  clusterOptionAssignProducts(uuid: $uuid, productIds: $productIds) {
+    ...ClusterOptionFields
+  }
+}

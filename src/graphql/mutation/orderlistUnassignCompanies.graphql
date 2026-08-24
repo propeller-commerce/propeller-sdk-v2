@@ -1,0 +1,5 @@
+mutation orderlistUnassignCompanies($id: Int!, $input: OrderlistCompaniesInput!) {
+  orderlistUnassignCompanies(id: $id, input: $input) {
+    ...OrderlistFields
+  }
+}

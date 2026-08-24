@@ -1,0 +1,7 @@
+fragment BatchMetricsTenantHourlyResponseFields on BatchMetricsTenantHourlyResponse {
+  tenantId
+  hours {
+    ...BatchMetricsHourlyBucketFields
+  }
+  totalHours
+}

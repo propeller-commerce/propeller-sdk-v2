@@ -1,0 +1,7 @@
+mutation productSearchFullReindexStart($skipNegativeCache: Boolean) {
+  productSearchFullReindexStart(skipNegativeCache: $skipNegativeCache) {
+    reindexId
+    newCollection
+    alias
+  }
+}

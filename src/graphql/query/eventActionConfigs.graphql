@@ -1,0 +1,5 @@
+query eventActionConfigs($input: EventActionConfigSearchInput!) {
+  eventActionConfigs(input: $input) {
+    ...EventActionConfigResponseFields
+  }
+}

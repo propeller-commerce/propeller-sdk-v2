@@ -1,0 +1,4 @@
+fragment GqlApiKeyRoleFields on GqlApiKeyRole {
+  roleDefinitionName
+  access
+}

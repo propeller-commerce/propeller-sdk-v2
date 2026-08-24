@@ -1,0 +1,5 @@
+fragment BatchMetricsHourlyBucketFields on BatchMetricsHourlyBucket {
+  hour
+  batchCount
+  totalDocuments
+}

@@ -1,0 +1,28 @@
+fragment CartBaseItemFields on CartBaseItem {
+  itemId
+  parentItemUUID
+  notes
+  price
+  priceNet
+  priceMode
+  totalPrice
+  totalPriceNet
+  sum
+  sumNet
+  totalSum
+  totalSumNet
+  quantity
+  bundleId
+  clusterId
+  productId
+  taxCode
+  incentive {
+    name
+    quantity
+    price
+    code
+  }
+  product {
+    ... ProductCartFields
+  }
+}

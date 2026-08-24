@@ -1,0 +1,13 @@
+fragment InventoryFields on Inventory {
+  id
+  productId
+  quantity
+  costPrice
+  supplier
+  supplierCode
+  sku
+  warehouseId
+  location
+  nextDeliveryDate
+  notes
+}

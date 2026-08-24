@@ -1,0 +1,11 @@
+fragment PurchaseAuthorizationConfigResponseFields on PurchaseAuthorizationConfigResponse {
+  items {
+    ... PurchaseAuthorizationConfigFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

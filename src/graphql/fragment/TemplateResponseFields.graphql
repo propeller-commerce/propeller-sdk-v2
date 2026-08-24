@@ -1,0 +1,11 @@
+fragment TemplateResponseFields on TemplateResponse {
+  items {
+    ... IBaseTemplateFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

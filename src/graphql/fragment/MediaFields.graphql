@@ -1,0 +1,46 @@
+fragment MediaFields on Media {
+  images {
+    items {
+      ... MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  videos {
+    items {
+      ... MediaVideoFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  documents {
+    items {
+      ... MediaDocumentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+  attachments {
+    items {
+      ... MediaAttachmentFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

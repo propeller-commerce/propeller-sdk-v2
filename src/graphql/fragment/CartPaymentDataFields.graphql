@@ -1,0 +1,10 @@
+fragment CartPaymentDataFields on CartPaymentData {
+  method
+  price
+  priceNet
+  priceMode
+  tax
+  taxPercentage
+  status
+  statusDate
+}

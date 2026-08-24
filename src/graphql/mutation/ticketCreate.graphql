@@ -1,0 +1,5 @@
+mutation ticketCreate($input: TicketCreateInput!) {
+  ticketCreate(input: $input) {
+    ...TicketFields
+  }
+}

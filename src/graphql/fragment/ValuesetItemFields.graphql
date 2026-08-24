@@ -1,0 +1,9 @@
+fragment ValuesetItemFields on ValuesetItem {
+  id
+  valuesetId
+  value
+  descriptions {
+    ... LocalizedStringFields
+  }
+  extra
+}

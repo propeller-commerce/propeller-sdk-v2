@@ -1,0 +1,10 @@
+mutation cartAcceptPurchaseAuthorizationRequest(
+  $id: String!
+  $input: CartAcceptPurchaseAuthorizationRequestInput
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!) {
+  cartAcceptPurchaseAuthorizationRequest(id: $id, input: $input) {
+    ...CartFields
+  }
+}

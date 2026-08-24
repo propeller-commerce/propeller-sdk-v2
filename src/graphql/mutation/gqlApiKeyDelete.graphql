@@ -1,0 +1,3 @@
+mutation gqlApiKeyDelete($id: String!) {
+  gqlApiKeyDelete(id: $id)
+}

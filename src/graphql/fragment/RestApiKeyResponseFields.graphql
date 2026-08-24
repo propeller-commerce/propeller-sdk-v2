@@ -1,0 +1,11 @@
+fragment RestApiKeyResponseFields on RestApiKeyResponse {
+  items {
+    ...RestApiKeyFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

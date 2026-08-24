@@ -1,0 +1,27 @@
+import { Gender } from '../enum/Gender';
+import { YesNo } from '../enum/YesNo';
+/**
+ Input for creating a new customer
+ */
+export interface CustomerInput {
+  /** firstName input field */
+  firstName?: string;
+  /** middleName input field */
+  middleName?: string;
+  /** lastName input field */
+  lastName?: string;
+  /** gender input field */
+  gender?: Gender;
+  /** email input field */
+  email?: string;
+  /** phone input field */
+  phone?: string;
+  /** mobile input field */
+  mobile?: string;
+  /** dateOfBirth input field */
+  dateOfBirth?: string;
+  /** mailingList input field */
+  mailingList?: YesNo;
+  /** The primary language of the customer. */
+  primaryLanguage?: string;
+}

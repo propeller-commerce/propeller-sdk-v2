@@ -1,0 +1,5 @@
+query productSearchReindexStatus($reindexId: String!) {
+  productSearchReindexStatus(reindexId: $reindexId) {
+    reindexId
+  }
+}

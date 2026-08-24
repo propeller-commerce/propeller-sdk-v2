@@ -1,0 +1,11 @@
+fragment ClusterConfigsResponseFields on ClusterConfigsResponse {
+  items {
+    ...ClusterConfigFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

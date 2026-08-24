@@ -1,0 +1,5 @@
+mutation pricesheetCsvImport($input: PricesheetCsvInput!) {
+  pricesheetCsvImport(input: $input) {
+    ...CsvImportResponseFields
+  }
+}

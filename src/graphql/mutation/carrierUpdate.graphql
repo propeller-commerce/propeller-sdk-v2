@@ -1,0 +1,5 @@
+mutation carrierUpdate($id: Int!, $input: CarrierUpdateInput!) {
+  carrierUpdate(id: $id, input: $input) {
+    ...CarrierFields
+  }
+}

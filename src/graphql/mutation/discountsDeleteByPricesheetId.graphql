@@ -1,0 +1,3 @@
+mutation discountsDeleteByPricesheetId($pricesheetId: String!) {
+  discountsDeleteByPricesheetId(pricesheetId: $pricesheetId)
+}

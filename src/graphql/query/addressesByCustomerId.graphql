@@ -1,0 +1,5 @@
+query addressesByCustomerId($customerId: Float!, $type: AddressType) {
+  addressesByCustomerId(customerId: $customerId, type: $type) {
+    ...AddressFields
+  }
+}

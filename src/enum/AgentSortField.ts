@@ -1,0 +1,14 @@
+/**
+ * @enum AgentSortField
+ Enumeration for AgentSortField values
+ */
+export enum AgentSortField {
+  ID = "ID",
+  ACTIVE = "ACTIVE",
+  TRIGGER = "TRIGGER",
+  INTERACTION_MODE = "INTERACTION_MODE",
+  CREATED_AT = "CREATED_AT",
+  LAST_MODIFIED_AT = "LAST_MODIFIED_AT",
+  CREATED_BY_ADMIN_USER_ID = "CREATED_BY_ADMIN_USER_ID",
+  LAST_MODIFIED_BY_ADMIN_USER_ID = "LAST_MODIFIED_BY_ADMIN_USER_ID",
+}

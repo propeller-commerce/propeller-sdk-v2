@@ -1,0 +1,10 @@
+query restApiKeys($input: RestApiKeySearchInput) {
+  restApiKeys(input: $input) {
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

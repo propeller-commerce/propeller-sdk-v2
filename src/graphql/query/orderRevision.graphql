@@ -1,0 +1,32 @@
+query orderRevision($orderId: Int!, $revisionNumber: Int!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
+  orderRevision(orderId: $orderId, revisionNumber: $revisionNumber) {
+    orderId
+    revisionNumber
+    createdByContactId
+    createdByCustomerId
+    createdByAdminUserId
+    createdByAdminUser {
+      id
+      firstName
+      lastName
+      email
+    }
+    createdAt
+    createdFromRevisionNumber
+    snapshot {
+      ...OrderFields
+    }
+    createdByContact {
+      contactId
+      firstName
+      lastName
+      email
+    }
+    createdByCustomer {
+      customerId
+      firstName
+      lastName
+      email
+    }
+  }
+}

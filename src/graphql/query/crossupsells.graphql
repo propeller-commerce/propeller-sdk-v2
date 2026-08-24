@@ -1,0 +1,12 @@
+query crossupsells(
+  $input: CrossupsellSearchInput
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $priceCalculateProductInput: PriceCalculateProductInput!
+  $attributeResultSearchInput: AttributeResultSearchInput
+) {
+  crossupsells(input: $input) {
+    ...CrossupsellsResponseFields
+  }
+}

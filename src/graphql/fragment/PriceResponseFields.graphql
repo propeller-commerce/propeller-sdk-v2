@@ -1,0 +1,11 @@
+fragment PriceResponseFields on PriceResponse {
+  items {
+    ... PriceFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

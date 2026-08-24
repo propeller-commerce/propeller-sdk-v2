@@ -1,0 +1,4 @@
+fragment IBaseTemplateFields on IBaseTemplate {
+  ... on DocumentTemplate { ...DocumentTemplateFields }
+  ... on EmailTemplate { ...EmailTemplateFields }
+}

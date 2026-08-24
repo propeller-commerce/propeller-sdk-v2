@@ -1,0 +1,5 @@
+mutation crossupsellCreate($input: CrossupsellCreateInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $attributeResultSearchInput: AttributeResultSearchInput) {
+  crossupsellCreate(input: $input) {
+    ...CrossupsellFields
+  }
+}

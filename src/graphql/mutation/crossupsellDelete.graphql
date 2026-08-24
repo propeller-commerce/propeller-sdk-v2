@@ -1,0 +1,3 @@
+mutation crossupsellDelete($id: String!) {
+  crossupsellDelete(id: $id)
+}

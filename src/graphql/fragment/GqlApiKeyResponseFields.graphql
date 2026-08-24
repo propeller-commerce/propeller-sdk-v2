@@ -1,0 +1,11 @@
+fragment GqlApiKeyResponseFields on GqlApiKeyResponse {
+  items {
+    ...GqlApiKeyFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

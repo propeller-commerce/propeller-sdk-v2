@@ -1,0 +1,11 @@
+query productSearchBatchMetrics {
+  productSearchBatchMetrics {
+    tenantId
+    batchCount
+    totalDocuments
+    lastBatchTime
+    lastBatchSize
+    averageBatchSize
+    pendingIds
+  }
+}

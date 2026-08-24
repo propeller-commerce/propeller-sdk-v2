@@ -1,0 +1,11 @@
+fragment OrderTotalsFields on OrderTotals {
+  gross
+  net
+  tax
+  discountType
+  discountValue
+  taxPercentages {
+    percentage
+    total
+  }
+}

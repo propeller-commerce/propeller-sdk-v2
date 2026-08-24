@@ -1,0 +1,79 @@
+/* Scoped landing-page styles. */
+
+.heroBanner {
+  padding: 5rem 0 4rem;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    var(--ifm-color-primary-darkest) 0%,
+    var(--ifm-color-primary) 100%
+  );
+  color: #fff;
+}
+
+.heroTitle {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  opacity: 0.92;
+  margin-bottom: 2rem;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 3rem 1rem;
+  }
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+}
+
+.cardSection {
+  padding: 3rem 0;
+}
+
+.cardCol {
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  display: block;
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.cardTitle {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+}
+
+.cardBody {
+  margin: 0;
+  color: var(--ifm-color-emphasis-700);
+  font-size: 0.95rem;
+}

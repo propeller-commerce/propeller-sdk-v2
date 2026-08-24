@@ -1,0 +1,11 @@
+fragment MagicTokenFields on MagicToken {
+  id
+  contactId
+  customerId
+  expiresAt
+  lastAccessedAt
+  failedLogins
+  successfulLogins
+  oneTimeUse
+  extra
+}

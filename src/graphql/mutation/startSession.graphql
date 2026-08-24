@@ -1,0 +1,5 @@
+mutation startSession {
+  startSession {
+    ...LoginFields
+  }
+}

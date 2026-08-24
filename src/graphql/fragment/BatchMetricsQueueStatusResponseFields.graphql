@@ -1,0 +1,14 @@
+fragment BatchMetricsQueueStatusResponseFields on BatchMetricsQueueStatusResponse {
+  intake {
+    ...BatchMetricsQueueSummaryFields
+  }
+  processor {
+    ...BatchMetricsQueueSummaryFields
+  }
+  retry {
+    ...BatchMetricsQueueSummaryFields
+  }
+  categoryFanout {
+    ...BatchMetricsQueueSummaryFields
+  }
+}

@@ -1,0 +1,8 @@
+fragment BaseProductsResponseFields on BaseProductsResponse {
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

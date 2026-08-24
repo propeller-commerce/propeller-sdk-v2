@@ -1,0 +1,3 @@
+mutation machineDelete($id: String!) {
+  machineDelete(id: $id)
+}

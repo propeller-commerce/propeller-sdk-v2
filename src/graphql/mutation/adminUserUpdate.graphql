@@ -1,0 +1,5 @@
+mutation adminUserUpdate($email: String!, $input: UpdateUserDto!) {
+  adminUserUpdate(email: $email, input: $input) {
+    ...AdminUserFields
+  }
+}

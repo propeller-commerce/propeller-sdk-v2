@@ -1,0 +1,18 @@
+fragment WarehouseFields on Warehouse {
+  id
+  addressId
+  address {
+    ... WarehouseAddressFields
+  }
+  name
+  description
+  notes
+  isActive
+  isStore
+  isPickupLocation
+  businessHours {
+    ... BusinessHoursFields
+  }
+  createdAt
+  lastModifiedAt
+}

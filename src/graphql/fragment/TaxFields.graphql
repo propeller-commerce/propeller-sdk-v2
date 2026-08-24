@@ -1,0 +1,11 @@
+fragment TaxFields on Tax {
+  id
+  code
+  zone
+  percentage
+  exportCode
+  createdAt
+  createdBy
+  lastModifiedAt
+  lastModifiedBy
+}

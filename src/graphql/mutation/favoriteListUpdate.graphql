@@ -1,0 +1,5 @@
+mutation favoriteListUpdate($id: String!, $input: FavoriteListsUpdateInput!) {
+  favoriteListUpdate(id: $id, input: $input) {
+    ...FavoriteListOnlyFields
+  }
+}

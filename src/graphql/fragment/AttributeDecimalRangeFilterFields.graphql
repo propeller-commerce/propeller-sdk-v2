@@ -1,0 +1,4 @@
+fragment AttributeDecimalRangeFilterFields on AttributeDecimalRangeFilter {
+  min
+  max
+}

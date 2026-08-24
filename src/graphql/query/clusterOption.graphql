@@ -1,0 +1,11 @@
+query clusterOption(
+  $uuid: String!
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $language: String
+  $imageVariantFilters: TransformationsInput!
+) {
+  clusterOption(uuid: $uuid) {
+    ...ClusterOptionFields
+  }
+}

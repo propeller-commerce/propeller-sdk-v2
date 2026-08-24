@@ -1,0 +1,5 @@
+mutation clusterConfigCreate($input: ClusterConfigCreateInput!) {
+  clusterConfigCreate(input: $input) {
+    ...ClusterConfigResponseFields
+  }
+}

@@ -1,0 +1,5 @@
+fragment LocalizedDocumentFields on LocalizedDocument {
+  language
+  originalUrl
+  mimeType
+}

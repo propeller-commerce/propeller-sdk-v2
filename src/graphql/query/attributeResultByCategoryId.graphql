@@ -1,0 +1,5 @@
+query attributeResultByCategoryId($categoryId: Int!, $input: AttributeResultSearchInput!) {
+  attributeResultByCategoryId(categoryId: $categoryId, input: $input) {
+    ...AttributeResultResponseFields
+  }
+}

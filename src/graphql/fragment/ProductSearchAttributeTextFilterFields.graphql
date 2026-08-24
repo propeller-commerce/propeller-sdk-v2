@@ -1,0 +1,7 @@
+fragment ProductSearchAttributeTextFilterFields on ProductSearchAttributeTextFilter {
+  value
+  count
+  countTotal
+  countActive
+  isSelected
+}

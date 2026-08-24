@@ -1,0 +1,22 @@
+fragment CategorySearchResponseFields on CategorySearchResponse {
+  items {
+    id
+    class
+    uuid
+    createdAt
+    lastModifiedAt
+    indexedAt
+    isDeleted
+    status
+    effectivePrice
+  }
+  itemsFound
+  offset
+  page
+  pages
+  minPrice
+  maxPrice
+  filters {
+    ...ProductSearchAttributeFilterFields
+  }
+}

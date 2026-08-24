@@ -1,0 +1,5 @@
+mutation clusterConfigUpdate($input: ClusterConfigUpdateInput!, $clusterConfigId: Int) {
+  clusterConfigUpdate(input: $input, clusterConfigId: $clusterConfigId) {
+    ...ClusterConfigFields
+  }
+}

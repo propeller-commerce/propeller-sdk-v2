@@ -1,0 +1,3 @@
+mutation clusterProductDelete($id: Int!, $productId: Int!) {
+  clusterProductDelete(id: $id, productId: $productId)
+}

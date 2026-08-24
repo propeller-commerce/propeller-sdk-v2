@@ -1,0 +1,3 @@
+mutation orderRevisionsInvalidate($input: OrderRevisionsInvalidateInput!) {
+  orderRevisionsInvalidate(input: $input)
+}

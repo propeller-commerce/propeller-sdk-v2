@@ -1,0 +1,5 @@
+mutation inventoryUpdate($id: Int!, $input: UpdateInventoryInput!) {
+  inventoryUpdate(id: $id, input: $input) {
+    ...InventoryResponseFields
+  }
+}

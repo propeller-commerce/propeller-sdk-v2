@@ -1,0 +1,6 @@
+fragment ClaimsResetAllResponseFields on ClaimsResetAllResponse {
+  successCount
+  errorCount
+  totalProcessed
+  completed
+}

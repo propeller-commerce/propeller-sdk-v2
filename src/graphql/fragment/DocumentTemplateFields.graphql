@@ -1,0 +1,15 @@
+fragment DocumentTemplateFields on DocumentTemplate {
+  id
+  contents { ...LocalizedTemplateContentFields }
+  names { ...LocalizedStringFields }
+  content
+  customQuery
+  queryVariables
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  fileNames { ...LocalizedStringFields }
+  isDefaultOrderPdf
+  isDefaultQuotePdf
+}

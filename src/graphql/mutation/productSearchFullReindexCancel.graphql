@@ -1,0 +1,6 @@
+mutation productSearchFullReindexCancel($reindexId: String!) {
+  productSearchFullReindexCancel(reindexId: $reindexId) {
+    cancelled
+    removedJobs
+  }
+}

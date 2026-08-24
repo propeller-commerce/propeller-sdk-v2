@@ -1,0 +1,3 @@
+mutation tenderDelete($id: String!) {
+  tenderDelete(id: $id)
+}

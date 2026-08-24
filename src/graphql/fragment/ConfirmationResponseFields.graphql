@@ -1,0 +1,4 @@
+fragment ConfirmationResponseFields on ConfirmationResponse {
+  status
+  message
+}

@@ -1,0 +1,5 @@
+query media($language: String, $imageVariantFilters: TransformationsInput!) {
+  media {
+    ...MediaFields
+  }
+}

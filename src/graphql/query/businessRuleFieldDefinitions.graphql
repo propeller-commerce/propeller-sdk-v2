@@ -1,0 +1,5 @@
+query businessRuleFieldDefinitions($name: String!) {
+  businessRuleFieldDefinitions(name: $name) {
+    ...BusinessRuleFieldDefinitionGroupFields
+  }
+}

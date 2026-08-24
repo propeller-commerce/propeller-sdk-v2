@@ -1,0 +1,38 @@
+fragment FavoriteListFields on FavoriteList {
+  id
+  name
+  companyId
+  contactId
+  customerId
+  isDefault
+  slug
+  createdAt
+  updatedAt
+  products {
+    items {
+      ... on Cluster { ...ClusterGridFields }
+      ... on Product { ...ProductGridFields }
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+    minPrice
+    maxPrice
+  }
+  clusters {
+    items {
+      ... ClusterGridFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+    minPrice
+    maxPrice
+  }
+}

@@ -1,0 +1,6 @@
+fragment BatchMetricsFailedJobsResponseFields on BatchMetricsFailedJobsResponse {
+  tenant
+  queues {
+    ...BatchMetricsFailedJobsByQueueFields
+  }
+}

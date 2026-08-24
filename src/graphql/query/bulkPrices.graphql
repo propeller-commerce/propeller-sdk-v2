@@ -1,0 +1,5 @@
+query bulkPrices($input: BulkPriceSearchInput) {
+  bulkPrices(input: $input) {
+    ...BulkPriceResponseFields
+  }
+}

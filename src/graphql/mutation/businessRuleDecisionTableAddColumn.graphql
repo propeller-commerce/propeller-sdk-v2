@@ -1,0 +1,5 @@
+mutation businessRuleDecisionTableAddColumn($input: BusinessRuleDecisionTableAddColumnInput!) {
+  businessRuleDecisionTableAddColumn(input: $input) {
+    ...BusinessRuleDecisionTableFields
+  }
+}

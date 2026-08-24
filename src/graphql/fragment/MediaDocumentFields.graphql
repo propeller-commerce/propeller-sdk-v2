@@ -1,0 +1,25 @@
+fragment MediaDocumentFields on MediaDocument {
+  id
+  productId
+  clusterId
+  categoryId
+  sparePartsMachineId
+  alt {
+    ... LocalizedStringFields
+  }
+  description {
+    ... LocalizedStringFields
+  }
+  tags {
+    ... LocalizedStringArrayFields
+  }
+  type
+  createdAt
+  lastModifiedAt
+  priority
+  documents {
+    language
+    originalUrl
+    mimeType
+  }
+}

@@ -1,0 +1,5 @@
+mutation orderlistAssignUsers($id: Int!, $input: OrderlistUsersInput!) {
+  orderlistAssignUsers(id: $id, input: $input) {
+    ...OrderlistFields
+  }
+}

@@ -1,0 +1,5 @@
+query attributeResultByProductId($productId: Int!, $input: AttributeResultSearchInput!) {
+  attributeResultByProductId(productId: $productId, input: $input) {
+    ...AttributeResultResponseFields
+  }
+}

@@ -1,0 +1,5 @@
+query machines($input: SearchSparePartsMachineInput, $language: String, $sparePartsMachineProductSearchInput: SparePartsMachineProductSearchInput, $filterAvailableAttributeInput: FilterAvailableAttributeInput, $imageVariantFilters: TransformationsInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $attributeResultSearchInput: AttributeResultSearchInput) {
+  machines(input: $input) {
+    ...SparePartsMachineResponseFields
+  }
+}

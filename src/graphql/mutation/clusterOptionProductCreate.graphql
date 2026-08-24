@@ -1,0 +1,16 @@
+mutation clusterOptionProductCreate(
+  $id: Int!
+  $input: CreateProductInput!
+  $attributeResultSearchInput: AttributeResultSearchInput
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $userBulkPriceProductInput: UserBulkPriceProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $language: String
+  $imageVariantFilters: TransformationsInput!
+  $mediaVideoSearchInput: MediaVideoProductSearchInput
+  $mediaDocumentSearchInput: MediaDocumentProductSearchInput
+) {
+  clusterOptionProductCreate(id: $id, input: $input) {
+    ...ProductFields
+  }
+}

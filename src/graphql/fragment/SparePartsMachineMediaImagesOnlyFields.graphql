@@ -1,0 +1,13 @@
+fragment SparePartsMachineMediaImagesOnlyFields on SparePartsMachineMedia {
+  images {
+    items {
+      ... MediaImageFields
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

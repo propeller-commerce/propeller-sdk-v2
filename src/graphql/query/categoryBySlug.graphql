@@ -1,0 +1,15 @@
+query categoryBySlug(
+  $slug: String!
+  $language: String!
+  $hidden: YesNo
+  $categoryProductSearchInput: CategoryProductSearchInput
+  $filterAvailableAttributeInput: FilterAvailableAttributeInput
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $attributeResultSearchInput: AttributeResultSearchInput
+) {
+  categoryBySlug(slug: $slug, language: $language, hidden: $hidden) {
+    ...CategoryFields
+  }
+}

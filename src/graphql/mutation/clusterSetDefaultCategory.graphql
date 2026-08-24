@@ -1,0 +1,16 @@
+mutation clusterSetDefaultCategory(
+  $clusterId: Int!
+  $categoryId: Int!
+  $language: String
+  $attributeResultSearchInput: AttributeResultSearchInput
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $userBulkPriceProductInput: UserBulkPriceProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $mediaVideoSearchInput: MediaVideoProductSearchInput
+  $mediaDocumentSearchInput: MediaDocumentProductSearchInput
+) {
+  clusterSetDefaultCategory(clusterId: $clusterId, categoryId: $categoryId) {
+    ...ClusterFields
+  }
+}

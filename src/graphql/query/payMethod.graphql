@@ -1,0 +1,5 @@
+query payMethod($id: Int!) {
+  payMethod(id: $id) {
+    ...PayMethodFields
+  }
+}

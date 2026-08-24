@@ -1,0 +1,7 @@
+fragment CartCarrierFields on CartCarrier {
+  id
+  name
+  logo
+  price
+  deliveryDeadline
+}

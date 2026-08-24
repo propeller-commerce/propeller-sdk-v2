@@ -1,0 +1,5 @@
+query businessRules($filter: BusinessRuleSearchInput) {
+  businessRules(filter: $filter) {
+    ...BusinessRuleResponseFields
+  }
+}

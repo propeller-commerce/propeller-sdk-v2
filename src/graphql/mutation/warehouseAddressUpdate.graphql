@@ -1,0 +1,5 @@
+mutation warehouseAddressUpdate($id: Float!, $input: UpdateWarehouseAddressInput!) {
+  warehouseAddressUpdate(id: $id, input: $input) {
+    ...WarehouseAddressFields
+  }
+}

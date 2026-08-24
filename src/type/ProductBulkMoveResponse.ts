@@ -1,0 +1,12 @@
+import { ProductBulkMoveError } from './ProductBulkMoveError';
+/**
+ Object class for ProductBulkMoveResponse
+ Response for bulk product move operations.
+ Provides detailed feedback including the count of successfully moved products and any errors.
+ */
+export interface ProductBulkMoveResponse {
+  /** Number of products successfully moved to their target categories */
+  movedCount: number;
+  /** Collection of errors encountered during the bulk move operation */
+  errors: ProductBulkMoveError[];
+}

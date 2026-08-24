@@ -1,0 +1,19 @@
+fragment IEventActionConfigFields on IEventActionConfig {
+  id
+  trigger
+  code
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  names {
+    ... LocalizedStringFields
+  }
+  channelIds
+  ... on EventToEmailConfig {
+    ... EventToEmailConfigFields
+  }
+  ... on EventToWebHookConfig {
+    ... EventToWebHookConfigFields
+  }
+}

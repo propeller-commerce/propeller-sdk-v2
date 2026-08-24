@@ -1,0 +1,5 @@
+mutation magicTokenUpdate($id: String!, $input: MagicTokenUpdateInput!) {
+  magicTokenUpdate(id: $id, input: $input) {
+    ...MagicTokenFields
+  }
+}

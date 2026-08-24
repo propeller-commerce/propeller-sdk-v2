@@ -1,0 +1,14 @@
+query categoryChildren(
+  $categoryId: Int!
+  $categoryProductSearchInput: CategoryProductSearchInput
+  $language: String
+  $filterAvailableAttributeInput: FilterAvailableAttributeInput
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+  $attributeResultSearchInput: AttributeResultSearchInput
+) {
+  categoryChildren(categoryId: $categoryId) {
+    ...CategoryFields
+  }
+}

@@ -1,0 +1,11 @@
+fragment TicketResponseFields on TicketResponse {
+  items {
+    ...TicketFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

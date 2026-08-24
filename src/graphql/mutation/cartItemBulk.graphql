@@ -1,0 +1,5 @@
+mutation cartItemBulk($input: CartItemsBulkUpsertInput!) {
+  cartItemBulk(input: $input) {
+    ...BulkResponseDataFields
+  }
+}

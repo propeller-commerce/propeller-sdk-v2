@@ -1,0 +1,5 @@
+mutation clusterConfigSettingCreate($configUuid: String!, $input: ClusterConfigSettingCreateInput!) {
+  clusterConfigSettingCreate(configUuid: $configUuid, input: $input) {
+    ...ClusterConfigSettingFields
+  }
+}

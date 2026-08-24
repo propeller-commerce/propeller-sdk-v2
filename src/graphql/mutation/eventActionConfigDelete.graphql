@@ -1,0 +1,3 @@
+mutation eventActionConfigDelete($id: String!) {
+  eventActionConfigDelete(id: $id)
+}

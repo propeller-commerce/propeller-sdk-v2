@@ -1,0 +1,15 @@
+fragment CompanyAttributeSearchFields on CompanyAttributeSearch {
+  id
+  value {
+    id
+    type
+  }
+  createdAt
+  lastModifiedAt
+  createdBy
+  lastModifiedBy
+  attributeDescription {
+    id
+    name
+  }
+}

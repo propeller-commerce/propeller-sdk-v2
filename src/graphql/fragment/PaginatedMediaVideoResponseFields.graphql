@@ -1,0 +1,11 @@
+fragment PaginatedMediaVideoResponseFields on PaginatedMediaVideoResponse {
+  items {
+    ... MediaVideoFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

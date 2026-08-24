@@ -1,0 +1,9 @@
+fragment ProductClusterOptionRelationshipFields on ProductClusterOptionRelationship {
+  uuid
+  productUuid
+  clusterOptionUuid
+  isDefault
+  sortOrder
+  createdAt
+  lastModifiedAt
+}

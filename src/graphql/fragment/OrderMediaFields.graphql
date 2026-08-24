@@ -1,0 +1,38 @@
+fragment OrderMediaFields on OrderMedia {
+  attachments {
+    items {
+      id
+      sparePartsMachineId
+      alt {
+        language
+        value
+      }
+      description {
+        language
+        value
+      }
+      tags {
+        language
+        values
+      }
+      type
+      createdAt
+      lastModifiedAt
+      priority
+      attachments {
+        language
+        originalUrl
+        mimeType
+      }
+      orderId
+      companyId
+      customerId
+    }
+    itemsFound
+    offset
+    page
+    pages
+    start
+    end
+  }
+}

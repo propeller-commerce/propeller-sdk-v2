@@ -1,0 +1,3 @@
+fragment LogoutFields on Logout {
+  todo
+}

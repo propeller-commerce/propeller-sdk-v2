@@ -1,0 +1,5 @@
+query orderStatuses($input: OrderStatusesSearchInput) {
+  orderStatuses(input: $input) {
+    ...OrderStatusesResponseFields
+  }
+}

@@ -1,0 +1,5 @@
+mutation crossupsellUpdate($id: String!, $input: CrossupsellUpdateInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!, $attributeResultSearchInput: AttributeResultSearchInput) {
+  crossupsellUpdate(id: $id, input: $input) {
+    ...CrossupsellFields
+  }
+}

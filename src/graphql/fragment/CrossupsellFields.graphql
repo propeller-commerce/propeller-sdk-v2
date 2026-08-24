@@ -1,0 +1,23 @@
+fragment CrossupsellFields on Crossupsell {
+  id
+  createdAt
+  lastModifiedAt
+  type
+  subType
+  productTo {
+    ... on Cluster { ...ClusterGridFields }
+    ... on Product { ...ProductGridFields }
+  }
+  productFrom {
+    ... on Cluster { ...ClusterGridFields }
+    ... on Product { ...ProductGridFields }
+  }
+  clusterTo {
+    ... on Cluster { ...ClusterGridFields }
+    ... on Product { ...ProductGridFields }
+  }
+  clusterFrom {
+    ... on Cluster { ...ClusterGridFields }
+    ... on Product { ...ProductGridFields }
+  }
+}

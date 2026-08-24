@@ -1,0 +1,17 @@
+fragment ProductsResponseFields on ProductsResponse {
+  items {
+    ... on Cluster { ... ClusterGridFields }
+    ... on Product { ... ProductGridFields }
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+  minPrice
+  maxPrice
+  filters (input: $filterAvailableAttributeInput) {
+    ... AttributeFilterFields
+  }
+}

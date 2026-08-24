@@ -1,0 +1,19 @@
+query product(
+  $productId: Int
+  $slug: String
+  $sku: String
+  $language: String
+  $applyOrderlists: Boolean
+  $orderlistIds: [Int!]
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $userBulkPriceProductInput: UserBulkPriceProductInput
+  $attributeResultSearchInput: AttributeResultSearchInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $mediaVideoSearchInput: MediaVideoProductSearchInput
+  $mediaDocumentSearchInput: MediaDocumentProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+) {
+  product(productId: $productId, slug: $slug, sku: $sku, language: $language, applyOrderlists: $applyOrderlists, orderlistIds: $orderlistIds) {
+    ...ProductFields
+  }
+}

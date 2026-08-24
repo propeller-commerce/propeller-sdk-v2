@@ -1,0 +1,30 @@
+/* Auto-generated. Do not edit. */
+export const document: string = `fragment OrderStatusesResponseFields on OrderStatusesResponse {
+  items {
+    id
+    name
+    code
+    type
+    orderType
+    description
+    priority
+    isDefault
+    isPublic
+    isEditable
+    isDeletable
+    createdAt
+    lastModifiedAt
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}
+
+query orderStatuses(\$input: OrderStatusesSearchInput) {
+  orderStatuses(input: \$input) {
+    ...OrderStatusesResponseFields
+  }
+}`;

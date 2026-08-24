@@ -1,0 +1,5 @@
+query productSurcharges($productId: Int!, $input: SurchargeSearchInput) {
+  productSurcharges(productId: $productId, input: $input) {
+    ...SurchargeProductResponseFields
+  }
+}

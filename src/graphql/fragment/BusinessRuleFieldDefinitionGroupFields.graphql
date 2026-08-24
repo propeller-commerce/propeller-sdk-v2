@@ -1,0 +1,13 @@
+fragment BusinessRuleFieldDefinitionGroupFields on BusinessRuleFieldDefinitionGroup {
+  id
+  name
+  isRoot
+  definitions {
+    id
+    name {
+      ... LocalizedStringFields
+    }
+    path
+    type
+  }
+}

@@ -1,0 +1,11 @@
+mutation productClusterOptionMoveBelow($productUuid: String!, $targetProductUuid: String!) {
+  productClusterOptionMoveBelow(productUuid: $productUuid, targetProductUuid: $targetProductUuid) {
+    uuid
+    productUuid
+    clusterOptionUuid
+    isDefault
+    sortOrder
+    createdAt
+    lastModifiedAt
+  }
+}

@@ -1,0 +1,5 @@
+mutation orderStatusSetAddOrderStatuses($id: Int!, $input: AddOrderStatusesToOrderStatusSetInput!) {
+  orderStatusSetAddOrderStatuses(id: $id, input: $input) {
+    ...OrderStatusSetFields
+  }
+}

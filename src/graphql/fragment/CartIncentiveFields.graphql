@@ -1,0 +1,4 @@
+fragment CartIncentiveFields on CartIncentive {
+  name
+  action
+}

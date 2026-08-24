@@ -1,0 +1,11 @@
+mutation contactRegister(
+  $contactAttributesInput: AttributeResultSearchInput,
+  $contactPAConfigInput: ContactPurchaseAuthorizationConfigSearchInput,
+  $companyAttributesInput: AttributeResultSearchInput,
+  $contactRegisterInput: RegisterContactInput!
+  $contactCompaniesSearchInput: ContactCompaniesSearchInput
+) {
+  contactRegister(input: $contactRegisterInput) {
+    ...RegisterContactResponseFields
+  }
+}

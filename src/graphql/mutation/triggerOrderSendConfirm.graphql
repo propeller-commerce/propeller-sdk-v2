@@ -1,0 +1,3 @@
+mutation triggerOrderSendConfirm($input: TriggerOrderSendConfirmEventInput!) {
+  triggerOrderSendConfirm(input: $input)
+}

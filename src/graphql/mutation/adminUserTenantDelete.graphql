@@ -1,0 +1,5 @@
+mutation adminUserTenantDelete($id: Int!) {
+  adminUserTenantDelete(id: $id) {
+    ...AdminUserTenantFields
+  }
+}

@@ -1,0 +1,11 @@
+fragment FavoriteListsResponseFields on FavoriteListsResponse {
+  items {
+    ... FavoriteListOnlyFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

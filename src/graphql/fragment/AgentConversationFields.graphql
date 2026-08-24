@@ -1,0 +1,6 @@
+fragment AgentConversationFields on AgentConversation {
+  id
+  messages {
+    ...AgentMessageFields
+  }
+}

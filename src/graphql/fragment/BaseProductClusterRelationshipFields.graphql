@@ -1,0 +1,15 @@
+fragment BaseProductClusterRelationshipFields on BaseProductClusterRelationship {
+  uuid
+  productUuid
+  clusterUuid
+  isDefault
+  sortOrder
+  createdAt
+  lastModifiedAt
+  product {
+    ...ProductFields
+  }
+  cluster {
+    ...ClusterFields
+  }
+}

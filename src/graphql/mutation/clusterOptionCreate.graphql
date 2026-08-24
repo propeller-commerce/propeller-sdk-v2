@@ -1,0 +1,5 @@
+mutation clusterOptionCreate($clusterId: Int!, $input: ClusterOptionCreateInput!, $priceCalculateProductInput: PriceCalculateProductInput, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
+  clusterOptionCreate(clusterId: $clusterId, input: $input) {
+    ...ClusterOptionFields
+  }
+}

@@ -1,0 +1,11 @@
+query order(
+  $orderId: Int
+  $orderUUID: String
+  $language: String
+  $imageSearchFilters: MediaImageProductSearchInput
+  $imageVariantFilters: TransformationsInput!
+) {
+  order(orderId: $orderId, orderUUID: $orderUUID) {
+    ...OrderFields
+  }
+}

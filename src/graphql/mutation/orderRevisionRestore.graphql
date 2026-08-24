@@ -1,0 +1,5 @@
+mutation orderRevisionRestore($orderId: Int!, $revisionNumber: Int!, $imageSearchFilters: MediaImageProductSearchInput, $language: String, $imageVariantFilters: TransformationsInput!) {
+  orderRevisionRestore(orderId: $orderId, revisionNumber: $revisionNumber) {
+    ...OrderFields
+  }
+}

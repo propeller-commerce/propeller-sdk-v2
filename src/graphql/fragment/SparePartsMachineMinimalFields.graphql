@@ -1,0 +1,15 @@
+fragment SparePartsMachineMinimalFields on SparePartsMachine {
+  id
+  media {
+    ... SparePartsMachineMediaImagesOnlyFields
+  }
+  name (language: $language) {
+    ... LocalizedStringFields
+  }
+  description (language: $language) {
+    ... LocalizedStringFields
+  }
+  slug (language: $language) {
+    ... LocalizedStringFields
+  }
+}

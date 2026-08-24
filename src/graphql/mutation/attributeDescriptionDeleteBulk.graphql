@@ -1,0 +1,5 @@
+mutation attributeDescriptionDeleteBulk($ids: [String!]!) {
+  attributeDescriptionDeleteBulk(ids: $ids) {
+    ...BulkDeleteResponseFields
+  }
+}

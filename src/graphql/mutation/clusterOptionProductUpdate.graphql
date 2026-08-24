@@ -1,0 +1,17 @@
+mutation clusterOptionProductUpdate(
+  $id: Int!
+  $productId: Int!
+  $input: UpdateProductInput!
+  $attributeResultSearchInput: AttributeResultSearchInput
+  $priceCalculateProductInput: PriceCalculateProductInput
+  $userBulkPriceProductInput: UserBulkPriceProductInput
+  $imageSearchFilters: MediaImageProductSearchInput
+  $language: String
+  $imageVariantFilters: TransformationsInput!
+  $mediaVideoSearchInput: MediaVideoProductSearchInput
+  $mediaDocumentSearchInput: MediaDocumentProductSearchInput
+) {
+  clusterOptionProductUpdate(id: $id, productId: $productId, input: $input) {
+    ...ProductFields
+  }
+}

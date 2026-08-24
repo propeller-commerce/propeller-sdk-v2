@@ -1,0 +1,5 @@
+mutation roleDefinitionUpdate($id: ID!, $input: RoleDefinitionUpdateInput!) {
+  roleDefinitionUpdate(id: $id, input: $input) {
+    ...RoleDefinitionFields
+  }
+}

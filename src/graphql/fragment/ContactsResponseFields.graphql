@@ -1,0 +1,11 @@
+fragment ContactsResponseFields on ContactsResponse {
+  items {
+    ... ContactFields
+  }
+  itemsFound
+  offset
+  page
+  pages
+  start
+  end
+}

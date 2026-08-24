@@ -1,0 +1,5 @@
+fragment LocalizedImageFields on LocalizedImage {
+  language
+  originalUrl
+  mimeType
+}
