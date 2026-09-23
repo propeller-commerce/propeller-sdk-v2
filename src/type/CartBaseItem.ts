@@ -26,9 +26,20 @@ export interface CartBaseItem extends ICartBaseItem {
   totalPrice: number;
   /** Total net price for this cart item, including item specific discounts. */
   totalPriceNet: number;
-  /** Gross sum of the main cart price and the prices of its child items per UOM. No item specific discounts are applied to this price. */
+  /**
+   * PER UOM, *not* the line total — despite the name. Gross sum of the main
+   * price and the prices of its child items, for ONE unit, with no item
+   * specific discounts applied.
+   *
+   * For the line total use {@link totalSum}. Summing `sum` across a cart
+   * under-reports every line by a factor of its quantity, and does it silently:
+   * the result is a plausible number and the types are green.
+   */
   sum: number;
-  /** Net sum of the main cart price and the prices of its child items per UOM. No item specific discounts are applied to this price. */
+  /**
+   * PER UOM, *not* the line total — see {@link sum}. For the line total use
+   * {@link totalSumNet}.
+   */
   sumNet: number;
   /** Total gross sum of the main cart price and the prices of its child items. Including item specific discounts. */
   totalSum: number;

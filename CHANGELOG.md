@@ -4,6 +4,46 @@ All notable changes to `@propeller-commerce/propeller-sdk-v2` are documented her
 
 ---
 
+## [0.17.0] - 2026-09-23
+
+Spare-parts machine fields come back in every language the tenant authored,
+instead of only the one the query asked for.
+
+### Changed
+
+- **`SparePartsMachineMinimalFields` no longer passes `(language: $language)`
+  to `name`, `description` and `slug`.** The field argument narrowed each of
+  them to a single language, which defeated the cross-language fallback every
+  consumer implements (`getLocalizedValue` returns the first non-empty entry).
+  A machine authored without a slug in the tree language came back with an
+  empty `slug`, the UI could not build an href, and the row was dropped from
+  the list entirely — a customer saw three of four machines with nothing saying
+  so (PWP-993).
+
+  The query-level `machine(… language: $language)` argument is untouched: it
+  still selects the tree. Only the per-node localized fields widen.
+
+  Affects `machine`, `machines`, `machineCreate` and `machineUpsert`. All four
+  keep `$language` — `MediaImageFields.alt(language: $language)` still
+  references it — so no operation is left with an unused variable.
+
+  **Consumers that assumed `name[0]` is the requested language must resolve by
+  language instead.** `getLocalizedValue` / `getLanguageString` in core-ui
+  already do, so react-ui and vue-ui needed no change.
+
+  Verified against a tenant whose machines are authored EN-only, where both
+  forms return one entry; the multilingual path follows the behaviour recorded
+  in PWP-1010(b) and still wants confirming on a multilingual tenant.
+
+### Documentation
+
+- **`sum` / `sumNet` on `CartMainItem`, `CartBaseItem` and `TenderMainItem` now
+  lead with the warning that they are PER UOM, not line totals**, and point at
+  `totalSum` / `totalSumNet`. The description was always accurate but the name
+  reads like a line total, so `items.reduce((a, l) => a + l.sum, 0)` looks
+  right, compiles green, and returns a number that is wrong by a factor of the
+  quantity — a 30-piece line at €15.09 produced €15.09 (PWP-1006).
+
 ## [0.16.0] - 2026-08-04
 
 Puts product attributes on the grid. `ProductGridFields` now selects a lean

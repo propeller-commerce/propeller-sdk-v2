@@ -14,13 +14,13 @@ fragment SparePartsMachineMinimalFields on SparePartsMachine {
   media {
     ...SparePartsMachineMediaImagesOnlyFields
   }
-  name(language: \$language) {
+  name {
     ...LocalizedStringFields
   }
-  description(language: \$language) {
+  description {
     ...LocalizedStringFields
   }
-  slug(language: \$language) {
+  slug {
     ...LocalizedStringFields
   }
 }

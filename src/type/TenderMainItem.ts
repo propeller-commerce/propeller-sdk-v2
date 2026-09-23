@@ -75,9 +75,20 @@ export interface TenderMainItem extends ITenderBaseItem {
   surcharges?: TenderItemSurcharge[];
   /** The tender/order item's child items. E.g. surcharges, incentives, etc. */
   childItems?: ITenderBaseItem[];
-  /** The gross price per UOM of this tender/order item, with item specific incentives and extra costs applied to this price. VAT excluding */
+  /**
+   * PER UOM, *not* the line total — despite the name. The gross price for ONE
+   * unit of this tender/order item, with item specific incentives and extra
+   * costs applied. VAT EXCLUDING (this API labels the ex-VAT figure "gross").
+   *
+   * For the line total use {@link totalSum}. Summing `sum` across the items
+   * under-reports every line by a factor of its quantity, and does it silently:
+   * the result is a plausible number and the types are green (PWP-1006).
+   */
   sum: number;
-  /** The price per UOM of this tender/order item, with item specific incentives and extra costs applied to this price. VAT including */
+  /**
+   * PER UOM, *not* the line total — see {@link sum}. VAT INCLUDING. For the
+   * line total use {@link totalSumNet}.
+   */
   sumNet: number;
   /** The total gross price of this tender/order item, with item specific incentives and extra costs applied to this price. VAT excluding */
   totalSum: number;

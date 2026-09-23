@@ -3,13 +3,24 @@ fragment SparePartsMachineMinimalFields on SparePartsMachine {
   media {
     ... SparePartsMachineMediaImagesOnlyFields
   }
-  name (language: $language) {
+  # No `(language: $language)` on these three.
+  #
+  # The field argument narrows the result to ONE language, which defeated the
+  # cross-language fallback every consumer relies on: a machine authored without
+  # a slug in the tree language came back with an empty `slug`, so the UI could
+  # not build an href and dropped the whole row - a customer saw three of four
+  # machines with nothing saying so (PWP-993). `machine(language:)` on the query
+  # itself still selects the tree; this only widens what comes back per node.
+  #
+  # `$language` stays referenced by MediaImageFields.alt, so the operations that
+  # declare it (machines, machineCreate, machineUpsert) remain valid.
+  name {
     ... LocalizedStringFields
   }
-  description (language: $language) {
+  description {
     ... LocalizedStringFields
   }
-  slug (language: $language) {
+  slug {
     ... LocalizedStringFields
   }
 }
