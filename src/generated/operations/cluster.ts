@@ -839,13 +839,15 @@ fragment ClusterConfigSettingFields on ClusterConfigSetting {
   priority
 }
 
-query cluster(\$clusterId: Int, \$slug: String, \$language: String, \$applyOrderlists: Boolean, \$orderlistIds: [Int!], \$priceCalculateProductInput: PriceCalculateProductInput, \$userBulkPriceProductInput: UserBulkPriceProductInput, \$attributeResultSearchInput: AttributeResultSearchInput, \$imageSearchFilters: MediaImageProductSearchInput, \$mediaVideoSearchInput: MediaVideoProductSearchInput, \$mediaDocumentSearchInput: MediaDocumentProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
+query cluster(\$clusterId: Int, \$slug: String, \$language: String, \$applyOrderlists: Boolean, \$orderlistIds: [Int!], \$userId: Int, \$companyId: Int, \$priceCalculateProductInput: PriceCalculateProductInput, \$userBulkPriceProductInput: UserBulkPriceProductInput, \$attributeResultSearchInput: AttributeResultSearchInput, \$imageSearchFilters: MediaImageProductSearchInput, \$mediaVideoSearchInput: MediaVideoProductSearchInput, \$mediaDocumentSearchInput: MediaDocumentProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   cluster(
     clusterId: \$clusterId
     slug: \$slug
     language: \$language
     applyOrderlists: \$applyOrderlists
     orderlistIds: \$orderlistIds
+    userId: \$userId
+    companyId: \$companyId
   ) {
     ...ClusterFields
   }

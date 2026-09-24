@@ -709,7 +709,7 @@ fragment SurchargeFields on Surcharge {
   validTo
 }
 
-query product(\$productId: Int, \$slug: String, \$sku: String, \$language: String, \$applyOrderlists: Boolean, \$orderlistIds: [Int!], \$priceCalculateProductInput: PriceCalculateProductInput, \$userBulkPriceProductInput: UserBulkPriceProductInput, \$attributeResultSearchInput: AttributeResultSearchInput, \$imageSearchFilters: MediaImageProductSearchInput, \$mediaVideoSearchInput: MediaVideoProductSearchInput, \$mediaDocumentSearchInput: MediaDocumentProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
+query product(\$productId: Int, \$slug: String, \$sku: String, \$language: String, \$applyOrderlists: Boolean, \$orderlistIds: [Int!], \$userId: Int, \$companyId: Int, \$priceCalculateProductInput: PriceCalculateProductInput, \$userBulkPriceProductInput: UserBulkPriceProductInput, \$attributeResultSearchInput: AttributeResultSearchInput, \$imageSearchFilters: MediaImageProductSearchInput, \$mediaVideoSearchInput: MediaVideoProductSearchInput, \$mediaDocumentSearchInput: MediaDocumentProductSearchInput, \$imageVariantFilters: TransformationsInput!) {
   product(
     productId: \$productId
     slug: \$slug
@@ -717,6 +717,8 @@ query product(\$productId: Int, \$slug: String, \$sku: String, \$language: Strin
     language: \$language
     applyOrderlists: \$applyOrderlists
     orderlistIds: \$orderlistIds
+    userId: \$userId
+    companyId: \$companyId
   ) {
     ...ProductFields
   }

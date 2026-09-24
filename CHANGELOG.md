@@ -3,6 +3,42 @@
 All notable changes to `@propeller-commerce/propeller-sdk-v2` are documented here.
 
 ---
+## [0.18.0] - 2026-09-24
+
+`product` and `cluster` can now be scoped to a contact and a company, so a
+storefront can ask the assortment question the API was always able to answer.
+
+### Added
+
+- **`userId` and `companyId` on the `product` and `cluster` queries.** Both
+  arguments have always existed on the schema — the generated operations simply
+  did not declare or forward them, so there was no way to reach them through the
+  SDK and every call resolved against the bearer token's own identity.
+
+  This is what left a direct link to a product outside the company's POSITIVE
+  orderlist opening normally while listings and search correctly hid it: the
+  listing queries scope by identity, the single-entity ones could not. With the
+  arguments in place, `product(productId:, userId:, companyId:)` answers
+  `PRODUCT_NOT_FOUND` for a product outside the contact's assortment, which is
+  the correct answer and what a host needs in order to 404 the page. (PWP-1015)
+
+  Both are optional and default to undefined, so every existing call is
+  unchanged.
+
+### Notes for consumers
+
+- The API rejects a `companyId` the contact does not belong to ("Unauthorized
+  use of companyId"), so a company restored from storage must be validated
+  against the contact's companies before it is sent.
+- Three adjacent gaps were found while checking this and are deliberately NOT
+  in this release, because each is a behaviour change rather than an additive
+  argument: `product`/`cluster` also accept `hidden`, `clusterConfig` forwards
+  only `clusterId` (so it is not identity-scoped either), and
+  `orderGetPDF`/`quoteGetPDF` accept a `revisionNumber`. Say the word and they
+  can go in one follow-up rather than three.
+
+---
+
 
 ## [0.17.0] - 2026-09-23
 

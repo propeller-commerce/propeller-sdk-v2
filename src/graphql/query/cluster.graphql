@@ -2,8 +2,10 @@ query cluster(
   $clusterId: Int 
   $slug: String
   $language: String 
-  $applyOrderlists: Boolean 
+  $applyOrderlists: Boolean
   $orderlistIds: [Int!]
+  $userId: Int
+  $companyId: Int
   $priceCalculateProductInput: PriceCalculateProductInput
   $userBulkPriceProductInput: UserBulkPriceProductInput
   $attributeResultSearchInput: AttributeResultSearchInput
@@ -11,7 +13,7 @@ query cluster(
   $mediaVideoSearchInput: MediaVideoProductSearchInput
   $mediaDocumentSearchInput: MediaDocumentProductSearchInput
   $imageVariantFilters: TransformationsInput!) {
-  cluster(clusterId: $clusterId, slug: $slug, language: $language, applyOrderlists: $applyOrderlists, orderlistIds: $orderlistIds) {
+  cluster(clusterId: $clusterId, slug: $slug, language: $language, applyOrderlists: $applyOrderlists, orderlistIds: $orderlistIds, userId: $userId, companyId: $companyId) {
     ...ClusterFields
   }
 }

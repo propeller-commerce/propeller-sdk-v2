@@ -1967,6 +1967,8 @@ export interface ClusterVariables {
   language?: string;
   applyOrderlists?: boolean;
   orderlistIds?: number[];
+  userId?: number;
+  companyId?: number;
   priceCalculateProductInput?: PriceCalculateProductInput;
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   attributeResultSearchInput?: AttributeResultSearchInput;
@@ -4200,6 +4202,8 @@ export interface ProductVariables {
   language?: string;
   applyOrderlists?: boolean;
   orderlistIds?: number[];
+  userId?: number;
+  companyId?: number;
   priceCalculateProductInput?: PriceCalculateProductInput;
   userBulkPriceProductInput?: UserBulkPriceProductInput;
   attributeResultSearchInput?: AttributeResultSearchInput;
