@@ -87,6 +87,7 @@ See [MIGRATION-0.10.0.md](./MIGRATION-0.10.0.md) for the full upgrade guide.
 | `getAccessToken` | `() => string \| undefined \| Promise<string \| undefined>` | reads `localStorage['access_token']` in browser | Use this for SSR (`getServerSession`, HTTP-only cookies) or in-memory token stores. |
 | `defaultLanguage` | `string` | — | ISO 639-1 tag (e.g. `'NL'`). Service methods that take an optional top-level `language` and don't receive one fall back to this value before sending the request. An explicit `language` on the call always wins. |
 | `throwOnPartialErrors` | `boolean` | `false` | On a partial response (`data` *and* `errors`), services return the data and debug-log the errors. Set `true` to throw `GraphQLOperationError` instead. `client.execute()` never throws regardless. |
+| `fetch` | `(url: string, init: RequestInit) => Promise<Response>` | global `fetch` | Request transport. Pass a request-scoped fetch during SSR (e.g. Nitro's `event.fetch`) so a relative proxy `endpoint` is handled in-process instead of over the network. |
 
 ### Proxy contract
 

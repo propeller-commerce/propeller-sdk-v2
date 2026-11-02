@@ -21,6 +21,7 @@ export type {
   GraphQLClientConfig,
   GraphQLFetchOptions,
   AccessTokenProvider,
+  FetchImplementation,
 } from './GraphQLClient';
 
 export { GraphQLOperationError } from './GraphQLOperationError';

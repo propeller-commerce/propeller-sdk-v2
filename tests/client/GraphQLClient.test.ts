@@ -256,6 +256,39 @@ describe('GraphQLClient', () => {
     });
   });
 
+  describe('custom fetch', () => {
+    it('sends requests through config.fetch instead of the global fetch', async () => {
+      const customFetch = jest.fn().mockResolvedValue(okResponse({ ok: true }));
+      const c = new GraphQLClient({
+        endpoint: '/api/graphql',
+        fetch: customFetch,
+        getAccessToken: () => 'tok',
+      });
+      const result = await c.execute({ query: 'query X { x }', variables: { a: 1 } });
+
+      expect(result.data).toEqual({ ok: true });
+      expect(fetchSpy).not.toHaveBeenCalled();
+      const [url, init] = customFetch.mock.calls[0];
+      expect(url).toBe('/api/graphql');
+      expect(init.method).toBe('POST');
+      expect(init.headers.Authorization).toBe('Bearer tok');
+      expect(JSON.parse(init.body)).toEqual({
+        query: 'query X { x }',
+        variables: { a: 1 },
+        operationName: 'X',
+      });
+      expect(init.signal).toBeInstanceOf(AbortSignal);
+    });
+
+    it('applies the same error handling to config.fetch', async () => {
+      const customFetch = jest.fn().mockRejectedValue(new TypeError('fetch failed'));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, fetch: customFetch });
+      await expect(c.execute({ query: 'query X { x }' })).rejects.toThrow(
+        'GraphQL request failed: fetch failed'
+      );
+    });
+  });
+
   describe('registered operations', () => {
     it('queryByName resolves a custom query registered via registerQuery', async () => {
       fetchSpy.mockResolvedValueOnce(okResponse({ viewer: { id: 1 } }));

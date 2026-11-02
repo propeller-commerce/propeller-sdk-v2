@@ -1,5 +1,6 @@
-// Note: This client uses the built-in fetch API available in Node.js 18+.
-// For older runtimes, install a fetch polyfill.
+// Note: This client uses the built-in fetch API available in Node.js 18+
+// unless `config.fetch` supplies another implementation. For older runtimes,
+// install a fetch polyfill.
 
 import { GraphQLOperationError, GraphQLErrorEntry } from './GraphQLOperationError';
 
@@ -75,6 +76,14 @@ export interface GraphQLResponse<T = any> {
 export type AccessTokenProvider = () => string | undefined | Promise<string | undefined>;
 
 /**
+ * The subset of `fetch()` the client calls: a URL string and a `RequestInit`,
+ * resolving to a standard `Response`. Narrower than `typeof fetch` so
+ * host-runtime implementations (undici, Nitro's `event.fetch`, test doubles)
+ * fit without matching every overload.
+ */
+export type FetchImplementation = (url: string, init: RequestInit) => Promise<Response>;
+
+/**
  * Configuration for the GraphQL client.
  */
 export interface GraphQLClientConfig {
@@ -126,6 +135,18 @@ export interface GraphQLClientConfig {
    * compatible). The low-level `client.execute()` never throws regardless.
    */
   throwOnPartialErrors?: boolean;
+  /**
+   * `fetch()` implementation used for every request. Defaults to the global
+   * `fetch`, resolved per request (so later polyfills and spies apply).
+   *
+   * Supply a request-scoped fetch during SSR to keep the call in-process:
+   * Nitro's `event.fetch` (Nuxt: `useRequestEvent()!.fetch`) routes a
+   * relative `endpoint` like `/api/graphql` straight to the app's own proxy
+   * handler. With the global `fetch`, SSR needs an absolute URL and makes a
+   * real network round trip to its own public hostname — which fails with
+   * `fetch failed` wherever the server can't reach its own ingress.
+   */
+  fetch?: FetchImplementation;
 }
 
 const DEFAULT_TOKEN_STORAGE_KEY = 'access_token';
@@ -354,7 +375,8 @@ export class GraphQLClient {
     const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
 
     try {
-      const response = await fetch(this.getEndpoint(), {
+      const fetchImpl = this.config.fetch ?? fetch;
+      const response = await fetchImpl(this.getEndpoint(), {
         method: 'POST',
         headers,
         body,
