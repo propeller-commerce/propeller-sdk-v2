@@ -1,5 +1,6 @@
-// Note: This client uses the built-in fetch API available in Node.js 18+.
-// For older runtimes, install a fetch polyfill.
+// Note: This client uses the built-in fetch API available in Node.js 18+
+// unless `config.fetch` supplies another implementation. For older runtimes,
+// install a fetch polyfill.
 
 import { GraphQLOperationError, GraphQLErrorEntry } from './GraphQLOperationError';
 
@@ -75,6 +76,14 @@ export interface GraphQLResponse<T = any> {
 export type AccessTokenProvider = () => string | undefined | Promise<string | undefined>;
 
 /**
+ * The subset of `fetch()` the client calls: a URL string and a `RequestInit`,
+ * resolving to a standard `Response`. Narrower than `typeof fetch` so
+ * host-runtime implementations (undici, Nitro's `event.fetch`, test doubles)
+ * fit without matching every overload.
+ */
+export type FetchImplementation = (url: string, init: RequestInit) => Promise<Response>;
+
+/**
  * Configuration for the GraphQL client.
  */
 export interface GraphQLClientConfig {
@@ -126,6 +135,18 @@ export interface GraphQLClientConfig {
    * compatible). The low-level `client.execute()` never throws regardless.
    */
   throwOnPartialErrors?: boolean;
+  /**
+   * `fetch()` implementation used for every request. Defaults to the global
+   * `fetch`, resolved per request (so later polyfills and spies apply).
+   *
+   * Supply a request-scoped fetch during SSR to keep the call in-process:
+   * Nitro's `event.fetch` (Nuxt: `useRequestEvent()!.fetch`) routes a
+   * relative `endpoint` like `/api/graphql` straight to the app's own proxy
+   * handler. With the global `fetch`, SSR needs an absolute URL and makes a
+   * real network round trip to its own public hostname — which fails with
+   * `fetch failed` wherever the server can't reach its own ingress.
+   */
+  fetch?: FetchImplementation;
 }
 
 const DEFAULT_TOKEN_STORAGE_KEY = 'access_token';
@@ -136,6 +157,11 @@ const DEFAULT_ORDER_EDITOR_MUTATIONS: ReadonlyArray<string> = [
   'triggerQuoteSendRequest',
   'triggerOrderSendConfirm',
 ];
+
+// The `mutation` keyword at the start of any line. Generated documents put
+// their fragments first, so "the document starts with `mutation`" would miss
+// most mutations — and a missed mutation is one that gets sent twice.
+const MUTATION_DOCUMENT = /^\s*mutation\b/m;
 
 function defaultAccessTokenProvider(): string | undefined {
   if (typeof window !== 'undefined' && window.localStorage) {
@@ -334,6 +360,9 @@ export class GraphQLClient {
    * who want to inspect partial responses can do so. The higher-level
    * `query()` / `mutate()` helpers and the `runOperation` helper used by
    * services throw `GraphQLOperationError` when `errors` is non-empty.
+   *
+   * A query whose connection drops (`fetch failed`) is sent once more, within
+   * the same `timeout`, before the error is thrown. Mutations are never resent.
    */
   async execute<T = any>(operation: GraphQLOperation): Promise<GraphQLResponse<T>> {
     const { query, variables = {}, operationName, fetchOptions } = operation;
@@ -354,19 +383,33 @@ export class GraphQLClient {
     const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
 
     try {
-      const response = await fetch(this.getEndpoint(), {
-        method: 'POST',
-        headers,
-        body,
-        // Per-operation fetch hints. Extracted by named field (NOT spread) so
-        // a caller can't reach `method`/`body`/`headers`/`signal`.
-        cache: fetchOptions?.cache,
-        // `next` is a Next.js fetch extension, not in lib.dom RequestInit. The
-        // suppression is intentional — fail loud if lib.dom ever adds `next`.
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error — next is a host-framework hint, not standard fetch
-        next: fetchOptions?.next,
-        signal: controller.signal,
+      const fetchImpl = this.config.fetch ?? fetch;
+      const send = () =>
+        fetchImpl(this.getEndpoint(), {
+          method: 'POST',
+          headers,
+          body,
+          // Per-operation fetch hints. Extracted by named field (NOT spread) so
+          // a caller can't reach `method`/`body`/`headers`/`signal`.
+          cache: fetchOptions?.cache,
+          // `next` is a Next.js fetch extension, not in lib.dom RequestInit. The
+          // suppression is intentional — fail loud if lib.dom ever adds `next`.
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error — next is a host-framework hint, not standard fetch
+          next: fetchOptions?.next,
+          signal: controller.signal,
+        });
+
+      // A dropped connection rejects fetch() with a TypeError (the fetch spec's
+      // network error). A timeout rejects with an AbortError and an HTTP error
+      // status resolves, so neither is retried. Matched by name, not
+      // `instanceof`, so a TypeError from another realm (Jest, a vm sandbox)
+      // still counts. A mutation is never sent twice: the server may have
+      // applied it before the connection dropped. The retry shares the timeout.
+      const response = await send().catch((error) => {
+        if (error?.name !== 'TypeError' || MUTATION_DOCUMENT.test(query)) throw error;
+        this.debugLog(`Connection dropped (${error.message}), retrying ${actualOperationName ?? 'query'} once`);
+        return send();
       });
 
       clearTimeout(timeoutId);

@@ -256,6 +256,78 @@ describe('GraphQLClient', () => {
     });
   });
 
+  describe('custom fetch', () => {
+    it('sends requests through config.fetch instead of the global fetch', async () => {
+      const customFetch = jest.fn().mockResolvedValue(okResponse({ ok: true }));
+      const c = new GraphQLClient({
+        endpoint: '/api/graphql',
+        fetch: customFetch,
+        getAccessToken: () => 'tok',
+      });
+      const result = await c.execute({ query: 'query X { x }', variables: { a: 1 } });
+
+      expect(result.data).toEqual({ ok: true });
+      expect(fetchSpy).not.toHaveBeenCalled();
+      const [url, init] = customFetch.mock.calls[0];
+      expect(url).toBe('/api/graphql');
+      expect(init.method).toBe('POST');
+      expect(init.headers.Authorization).toBe('Bearer tok');
+      expect(JSON.parse(init.body)).toEqual({
+        query: 'query X { x }',
+        variables: { a: 1 },
+        operationName: 'X',
+      });
+      expect(init.signal).toBeInstanceOf(AbortSignal);
+    });
+
+    it('applies the same error handling to config.fetch', async () => {
+      const customFetch = jest.fn().mockRejectedValue(new TypeError('fetch failed'));
+      const c = new GraphQLClient({ endpoint: ENDPOINT, fetch: customFetch });
+      await expect(c.execute({ query: 'query X { x }' })).rejects.toThrow(
+        'GraphQL request failed: fetch failed'
+      );
+    });
+  });
+
+  describe('dropped connection (PWP-1062)', () => {
+    const dropped = () => new TypeError('fetch failed');
+    const clientWith = (send: jest.Mock) => new GraphQLClient({ endpoint: ENDPOINT, fetch: send });
+
+    it('sends a query once more and returns its data', async () => {
+      const send = jest.fn().mockRejectedValueOnce(dropped()).mockResolvedValueOnce(okResponse({ x: 1 }));
+      const result = await clientWith(send).execute({ query: 'query X { x }' });
+      expect(result.data).toEqual({ x: 1 });
+      expect(send).toHaveBeenCalledTimes(2);
+    });
+
+    it('throws when the second attempt drops too', async () => {
+      const send = jest.fn().mockRejectedValue(dropped());
+      await expect(clientWith(send).execute({ query: 'query X { x }' })).rejects.toThrow(
+        'GraphQL request failed: fetch failed'
+      );
+      expect(send).toHaveBeenCalledTimes(2);
+    });
+
+    it('never resends a mutation, including one whose document starts with a fragment', async () => {
+      const send = jest.fn().mockRejectedValue(dropped());
+      const doc = 'fragment F on Cart { cartId }\nmutation cartStart { cartStart { ...F } }';
+      await expect(clientWith(send).execute({ query: doc })).rejects.toThrow(
+        'GraphQL request failed: fetch failed'
+      );
+      expect(send).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not retry an HTTP error status or a timeout', async () => {
+      const http = jest.fn().mockResolvedValue(errorBodyResponse(502, 'Bad Gateway'));
+      await expect(clientWith(http).execute({ query: 'query X { x }' })).rejects.toThrow(/HTTP 502/);
+      expect(http).toHaveBeenCalledTimes(1);
+
+      const abort = jest.fn().mockRejectedValue(Object.assign(new Error('aborted'), { name: 'AbortError' }));
+      await expect(clientWith(abort).execute({ query: 'query X { x }' })).rejects.toThrow(/timeout/);
+      expect(abort).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('registered operations', () => {
     it('queryByName resolves a custom query registered via registerQuery', async () => {
       fetchSpy.mockResolvedValueOnce(okResponse({ viewer: { id: 1 } }));

@@ -3,6 +3,34 @@
 All notable changes to `@propeller-commerce/propeller-sdk-v2` are documented here.
 
 ---
+## [0.18.1] - 2026-11-03
+
+A host can now hand the client its own `fetch()`, and a query no longer fails
+the page when the connection to the API drops once.
+
+### Added
+
+- **`fetch` on `GraphQLClientConfig`.** Supply the `fetch()` the client sends
+  requests with; it defaults to the global `fetch`. Pass a request-scoped fetch
+  during SSR (Nitro's `event.fetch`, in Nuxt `useRequestEvent()!.fetch`) so a
+  relative proxy `endpoint` such as `/api/graphql` is served in-process instead
+  of over the network, which fails with `fetch failed` wherever a server can't
+  reach its own public hostname. A request-scoped fetch belongs to one request,
+  so create the client per request when you pass one. The type is exported as
+  `FetchImplementation`. Contributed by Mark Wienk (TRIMM) in
+  [#1](https://github.com/propeller-commerce/propeller-sdk-v2/pull/1). (PWP-1091)
+
+### Fixed
+
+- **A query is sent once more when the connection drops.** `GraphQL request
+  failed: fetch failed` used to reach the page straight away, so a
+  server-rendered page answered 500 where a reload worked. A query now gets one
+  more attempt, within the same `timeout`, before the error is thrown.
+  Mutations are never resent, since the server may have applied one before the
+  connection dropped; timeouts, HTTP error statuses and GraphQL errors are not
+  retried. (PWP-1062)
+
+---
 ## [0.18.0] - 2026-09-24
 
 `product` and `cluster` can now be scoped to a contact and a company, so a

@@ -43,6 +43,12 @@ drift) without trawling the source.
 HTTP errors (non-2xx) include the response body in the thrown message
 (truncated to 500 chars) so upstream GraphQL parse errors surface clearly.
 
+A query whose connection drops before a response arrives
+(`GraphQL request failed: fetch failed`) is sent once more before that error is
+thrown, within the same `timeout`. Mutations are never resent: the server may
+have applied one before the connection dropped. Timeouts, HTTP error statuses
+and GraphQL errors are not retried.
+
 Set `throwOnPartialErrors: true` in
 [client config](/configuration/client-config) to throw on partial responses
 instead of debug-logging them.
