@@ -9,6 +9,7 @@ fragment CartItemSurchargeFields on CartItemSurcharge {
   value
   taxCode
   taxPercentage
+  taxPercentageDecimal
   quantity
   price
   totalPrice

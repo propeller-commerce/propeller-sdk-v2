@@ -65,6 +65,7 @@ fragment OrderTotalsFields on OrderTotals {
   discountValue
   taxPercentages {
     percentage
+    percentageDecimal
     total
   }
 }

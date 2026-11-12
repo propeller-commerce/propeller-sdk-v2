@@ -185,6 +185,7 @@ fragment OrderTotalsFields on OrderTotals {
   discountValue
   taxPercentages {
     percentage
+    percentageDecimal
     total
   }
 }
@@ -215,6 +216,7 @@ fragment OrderItemFields on OrderItem {
   discount
   tax
   taxPercentage
+  taxPercentageDecimal
   taxCode
   isBonus
   minimumQuantity

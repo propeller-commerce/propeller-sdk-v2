@@ -3,6 +3,36 @@
 All notable changes to `@propeller-commerce/propeller-sdk-v2` are documented here.
 
 ---
+## [0.19.0] - 2026-11-12
+
+VAT rates now come with their decimals: Swiss VAT reads 8.1, not 8.
+
+### Added
+
+- **The exact VAT rate on carts, orders and quotes.** The API rounds the old
+  tax percentage fields to a whole number, so a shop showed "8% VAT" while it
+  charged 8.1%. Each of those fields now has a decimal counterpart, and every
+  `cart*`, `order*` and `tender*` operation requests it:
+
+  | Type | Rounded (deprecated) | Exact |
+  |---|---|---|
+  | `CartTaxLevel`, `CartPostageData`, `CartPaymentData`, `CartItemSurcharge` | `taxPercentage` | `taxPercentageDecimal` |
+  | `OrderItem`, `TenderBaseItem`, `TenderMainItem` | `taxPercentage` | `taxPercentageDecimal` |
+  | `OrderTotalTaxPercentage` (`order.total.taxPercentages`) | `percentage` | `percentageDecimal` |
+
+  Show the decimal field. A whole-number rate arrives as `21`, so it still
+  reads 21%. (PWP-1065)
+
+### Deprecated
+
+- **The rounded `taxPercentage` / `percentage` fields listed above.** They are
+  still requested and typed, so existing code keeps working, and they are marked
+  `@deprecated` to match the API. They will be removed in a later breaking
+  release. `OrderPostageData`, `OrderPaymentData`, `TenderPostage`,
+  `TenderPayment`, `TenderItemSurcharge` and `TenderTaxLevel` already return
+  the exact rate and are unchanged.
+
+---
 ## [0.18.1] - 2026-11-03
 
 A host can now hand the client its own `fetch()`, and a query no longer fails

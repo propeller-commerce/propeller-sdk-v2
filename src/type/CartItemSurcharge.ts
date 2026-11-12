@@ -14,8 +14,13 @@ export interface CartItemSurcharge {
   value: number;
   /** Tax code */
   taxCode: TaxCode;
-  /** Tax percentage */
+  /**
+   * Tax percentage
+   * @deprecated Rounded to a whole number (8.1 becomes 8). Use `taxPercentageDecimal` for the exact rate.
+   */
   taxPercentage?: number;
+  /** Tax percentage, with decimals (e.g. 8.1) */
+  taxPercentageDecimal?: number;
   /** Quantity */
   quantity?: number;
   /** Price */

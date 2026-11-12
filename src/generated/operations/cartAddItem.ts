@@ -101,6 +101,7 @@ fragment CartPaymentDataFields on CartPaymentData {
   priceMode
   tax
   taxPercentage
+  taxPercentageDecimal
   status
   statusDate
 }
@@ -108,6 +109,7 @@ fragment CartPaymentDataFields on CartPaymentData {
 fragment CartPostageDataFields on CartPostageData {
   method
   taxPercentage
+  taxPercentageDecimal
   requestDate
   price
   priceNet
@@ -364,6 +366,7 @@ fragment CartItemSurchargeFields on CartItemSurcharge {
   value
   taxCode
   taxPercentage
+  taxPercentageDecimal
   quantity
   price
   totalPrice
@@ -423,6 +426,7 @@ fragment CartAddressFields on CartAddress {
 
 fragment CartTaxLevelFields on CartTaxLevel {
   taxPercentage
+  taxPercentageDecimal
   price
   discount
 }

@@ -5,6 +5,7 @@ fragment CartPaymentDataFields on CartPaymentData {
   priceMode
   tax
   taxPercentage
+  taxPercentageDecimal
   status
   statusDate
 }

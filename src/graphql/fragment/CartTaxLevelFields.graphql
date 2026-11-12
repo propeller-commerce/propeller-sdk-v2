@@ -1,5 +1,6 @@
 fragment CartTaxLevelFields on CartTaxLevel {
   taxPercentage
+  taxPercentageDecimal
   price
   discount
 }

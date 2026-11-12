@@ -7,8 +7,13 @@ import { Warehouse } from './Warehouse';
 export interface CartPostageData {
   /** Selected shipping method for this cart. Defaults to DELIVERY. */
   method: string;
-  /** Tax percentage */
+  /**
+   * Tax percentage
+   * @deprecated Rounded to a whole number (8.1 becomes 8). Use `taxPercentageDecimal` for the exact rate.
+   */
   taxPercentage?: number;
+  /** Tax percentage, with decimals (e.g. 8.1) */
+  taxPercentageDecimal?: number;
   /** Preferred delivery date for this order as requested by the user. */
   requestDate?: string;
   /** Costs associated with the selected shipping method and business rules that apply to this cart. Excluding VAT. */

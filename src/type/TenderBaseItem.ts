@@ -31,8 +31,13 @@ export interface TenderBaseItem {
   totalPriceNet: number;
   /** The tax code for this tender/order item */
   taxCode: TaxCode;
-  /** The tax percentage for this tender/order item */
+  /**
+   * The tax percentage for this tender/order item
+   * @deprecated Rounded to a whole number (8.1 becomes 8). Use `taxPercentageDecimal` for the exact rate.
+   */
   taxPercentage: number;
+  /** The tax percentage for this tender/order item, with decimals (e.g. 8.1) */
+  taxPercentageDecimal: number;
   /** Customer discount (%) */
   customerDiscountPercentage: number;
   /** Sales discount (%) */

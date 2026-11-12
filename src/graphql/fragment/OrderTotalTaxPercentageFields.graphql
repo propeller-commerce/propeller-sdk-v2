@@ -1,4 +1,5 @@
 fragment OrderTotalTaxPercentageFields on OrderTotalTaxPercentage {
   percentage
+  percentageDecimal
   total
 }

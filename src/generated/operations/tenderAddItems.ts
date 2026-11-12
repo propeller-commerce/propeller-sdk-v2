@@ -100,6 +100,7 @@ fragment TenderFields on Tender {
     totalPriceNet
     taxCode
     taxPercentage
+    taxPercentageDecimal
     customerDiscountPercentage
     discountPercentage
     totalDiscountPercentage
@@ -146,6 +147,7 @@ fragment TenderFields on Tender {
     totalPriceNet
     taxCode
     taxPercentage
+    taxPercentageDecimal
     customerDiscountPercentage
     discountPercentage
     totalDiscountPercentage

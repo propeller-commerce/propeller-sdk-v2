@@ -1,6 +1,7 @@
 fragment CartPostageDataFields on CartPostageData {
   method
   taxPercentage
+  taxPercentageDecimal
   requestDate
   price
   priceNet

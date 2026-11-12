@@ -131,7 +131,8 @@
       "id": "baselined: schema declares a member the SDK type is missing"
     },
     "CartPostageData": {
-      "carrierData": "baselined: schema declares a member the SDK type is missing"
+      "carrierData": "baselined: schema declares a member the SDK type is missing",
+      "taxPercentage": "kept for backward compatibility (PWP-1065): upstream deprecated the rounded Int VAT rate in favour of the *Decimal Float field; remove in the next breaking release"
     },
     "CartSearchInput": {
       "references": "baselined: schema declares a member the SDK type is missing"
@@ -493,7 +494,6 @@
       "supplierCode": "baselined: schema declares a member the SDK type is missing",
       "surcharges": "baselined: schema declares a member the SDK type is missing",
       "taxCode": "baselined: schema declares a member the SDK type is missing",
-      "taxPercentage": "baselined: schema declares a member the SDK type is missing",
       "totalDiscountPercentage": "baselined: schema declares a member the SDK type is missing",
       "totalPrice": "baselined: schema declares a member the SDK type is missing",
       "totalPriceNet": "baselined: schema declares a member the SDK type is missing",
@@ -542,7 +542,8 @@
       "sources": "baselined: schema declares a member the SDK type is missing"
     },
     "OrderItem": {
-      "priority": "baselined: schema declares a member the SDK type is missing"
+      "priority": "baselined: schema declares a member the SDK type is missing",
+      "taxPercentage": "kept for backward compatibility (PWP-1065): upstream deprecated the rounded Int VAT rate in favour of the *Decimal Float field; remove in the next breaking release"
     },
     "OrderItemCreateInput": {
       "priority": "baselined: schema declares a member the SDK type is missing"
@@ -648,10 +649,12 @@
       "priority": "baselined: schema declares a member the SDK type is missing"
     },
     "TenderBaseItem": {
-      "priority": "baselined: schema declares a member the SDK type is missing"
+      "priority": "baselined: schema declares a member the SDK type is missing",
+      "taxPercentage": "kept for backward compatibility (PWP-1065): upstream deprecated the rounded Int VAT rate in favour of the *Decimal Float field; remove in the next breaking release"
     },
     "TenderMainItem": {
-      "priority": "baselined: schema declares a member the SDK type is missing"
+      "priority": "baselined: schema declares a member the SDK type is missing",
+      "taxPercentage": "kept for backward compatibility (PWP-1065): upstream deprecated the rounded Int VAT rate in favour of the *Decimal Float field; remove in the next breaking release"
     },
     "TenderPaymentInput": {
       "overruled": "baselined: schema declares a member the SDK type is missing"
@@ -716,6 +719,18 @@
     },
     "WarehousesSearchInput": {
       "sortInputs": "baselined: schema declares a member the SDK type is missing"
+    },
+    "CartItemSurcharge": {
+      "taxPercentage": "kept for backward compatibility (PWP-1065): upstream deprecated the rounded Int VAT rate in favour of the *Decimal Float field; remove in the next breaking release"
+    },
+    "CartPaymentData": {
+      "taxPercentage": "kept for backward compatibility (PWP-1065): upstream deprecated the rounded Int VAT rate in favour of the *Decimal Float field; remove in the next breaking release"
+    },
+    "CartTaxLevel": {
+      "taxPercentage": "kept for backward compatibility (PWP-1065): upstream deprecated the rounded Int VAT rate in favour of the *Decimal Float field; remove in the next breaking release"
+    },
+    "OrderTotalTaxPercentage": {
+      "percentage": "kept for backward compatibility (PWP-1065): upstream deprecated the rounded Int VAT rate in favour of the *Decimal Float field; remove in the next breaking release"
     }
   },
   "knownNullabilityFlips": {
@@ -824,6 +839,157 @@
       "page"
     ]
   },
-  "allowedDeprecatedSelections": {},
+  "allowedDeprecatedSelections": {
+    "cart": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartAcceptPurchaseAuthorizationRequest": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartAddActionCode": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartAddBundle": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartAddItem": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartDeleteItem": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartRemoveActionCode": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartSetContact": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartSetCustomer": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartStart": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartUpdate": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartUpdateAddress": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "cartUpdateItem": [
+      "CartItemSurcharge.taxPercentage",
+      "CartPaymentData.taxPercentage",
+      "CartPostageData.taxPercentage",
+      "CartTaxLevel.taxPercentage"
+    ],
+    "order": [
+      "OrderItem.taxPercentage",
+      "OrderTotalTaxPercentage.percentage"
+    ],
+    "orderCreate": [
+      "OrderItem.taxPercentage",
+      "OrderTotalTaxPercentage.percentage"
+    ],
+    "orderItemCreate": [
+      "OrderItem.taxPercentage"
+    ],
+    "orderItemUpdate": [
+      "OrderItem.taxPercentage"
+    ],
+    "orderRevision": [
+      "OrderItem.taxPercentage",
+      "OrderTotalTaxPercentage.percentage"
+    ],
+    "orderRevisionRestore": [
+      "OrderItem.taxPercentage",
+      "OrderTotalTaxPercentage.percentage"
+    ],
+    "orderRevisions": [
+      "OrderItem.taxPercentage",
+      "OrderTotalTaxPercentage.percentage"
+    ],
+    "orders": [
+      "OrderTotalTaxPercentage.percentage"
+    ],
+    "orderUpdate": [
+      "OrderItem.taxPercentage",
+      "OrderTotalTaxPercentage.percentage"
+    ],
+    "tender": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderAddItems": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderApplyIncentives": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderDeleteBonusItem": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderDeleteItem": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderStart": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderUpdate": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderUpdateAddress": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderUpdateDiscount": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderUpdateInvoiceUser": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderUpdateItem": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderUpdatePayment": [
+      "TenderMainItem.taxPercentage"
+    ],
+    "tenderUpdatePostage": [
+      "TenderMainItem.taxPercentage"
+    ]
+  },
   "exemptSchemaOnlyTypes": "default-skip-all"
 }

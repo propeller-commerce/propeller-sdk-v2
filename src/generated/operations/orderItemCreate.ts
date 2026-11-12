@@ -25,6 +25,7 @@ export const document: string = `fragment OrderItemFields on OrderItem {
   discount
   tax
   taxPercentage
+  taxPercentageDecimal
   taxCode
   isBonus
   minimumQuantity

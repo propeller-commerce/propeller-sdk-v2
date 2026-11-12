@@ -10,7 +10,7 @@ import { orderService } from '../../src/service/OrderService';
 import { GraphQLOperationError } from '../../src';
 import { GraphQLClient } from '../../src/client/GraphQLClient';
 import { TestHelpers } from '../helpers/testHelpers';
-import { hasLiveCredentials, hasLiveAuth } from '../config';
+import { hasLiveCredentials, hasLiveAuth, testConfig } from '../config';
 
 const describeLive = hasLiveCredentials() && hasLiveAuth() ? describe : describe.skip;
 
@@ -62,6 +62,34 @@ describeLive('OrderService (integration)', () => {
       expect('company' in order).toBe(true);
     } catch (err) {
       expect(err).toBeInstanceOf(GraphQLOperationError);
+    }
+  });
+
+  // PWP-1065: the exact VAT rate (8.1) must arrive next to the rounded one (8).
+  it('getOrder returns the decimal VAT rate on items and tax totals', async () => {
+    if (!testConfig.ORDER_EDITOR_API_KEY) return;
+    // The test user's token gets a 403 on orders; the order-editor key can read them.
+    const orders = orderService(
+      new GraphQLClient({
+        securityMode: 'direct',
+        endpoint: testConfig.GRAPHQL_ENDPOINT,
+        apiKey: testConfig.ORDER_EDITOR_API_KEY,
+        timeout: testConfig.TIMEOUT,
+        defaultLanguage: testConfig.DEFAULT_LANGUAGE,
+      })
+    );
+    const firstId = (await orders.getOrders({ page: 1, offset: 1 })).items[0]?.id;
+    if (firstId === undefined) return; // no order fixture available
+
+    const order = await orders.getOrder({ orderId: firstId });
+    expect(order.items.length + order.total.taxPercentages.length).toBeGreaterThan(0);
+    for (const item of order.items) {
+      expect(typeof item.taxPercentageDecimal).toBe('number');
+      expect(Math.abs(item.taxPercentageDecimal - item.taxPercentage)).toBeLessThan(1);
+    }
+    for (const t of order.total.taxPercentages) {
+      expect(typeof t.percentageDecimal).toBe('number');
+      expect(Math.abs(t.percentageDecimal - t.percentage)).toBeLessThan(1);
     }
   });
 

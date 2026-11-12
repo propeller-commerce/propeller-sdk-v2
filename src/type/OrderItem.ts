@@ -55,8 +55,13 @@ export interface OrderItem {
   discount?: number;
   /** The total tax of the OrderItem */
   tax?: number;
-  /** The tax percentage of the OrderItem */
+  /**
+   * The tax percentage of the OrderItem
+   * @deprecated Rounded to a whole number (8.1 becomes 8). Use `taxPercentageDecimal` for the exact rate.
+   */
   taxPercentage: number;
+  /** The tax percentage of the OrderItem, with decimals (e.g. 8.1) */
+  taxPercentageDecimal: number;
   /** The tax code of the OrderItem */
   taxCode: TaxCode;
   /** Is the OrderItem a bonusItem? */

@@ -13,4 +13,6 @@ export interface ITenderBaseItem {
   quantity: number;
   /** Item price */
   price: number;
+  /** The tax percentage for this tender/order item, with decimals (e.g. 8.1) */
+  taxPercentageDecimal: number;
 }
