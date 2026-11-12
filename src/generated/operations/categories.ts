@@ -27,7 +27,7 @@ fragment CategoryMinimalFields on Category {
   shortDescriptions(language: \$language) {
     ...LocalizedStringFields
   }
-  slugs(language: \$language) {
+  slugs {
     ...LocalizedStringFields
   }
 }

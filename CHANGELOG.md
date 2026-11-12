@@ -3,6 +3,18 @@
 All notable changes to `@propeller-commerce/propeller-sdk-v2` are documented here.
 
 ---
+## [0.19.1] - 2026-11-12
+
+### Fixed
+
+- **Category links in a language the category has no slug in.** `CategoryMinimalFields`
+  (every `categoryPath`, among others) asked for `slugs(language: $language)`,
+  so a category without an English slug came back with none on an English
+  page. The apps' URL builders fall back to the first slug, but there was
+  nothing to fall back to, so breadcrumbs linked `/en/category/1714` and 404'd.
+  The fragment now returns every language's slug; pick the one you need with
+  `find(s => s.language === language) ?? slugs[0]`, as the boilerplates do.
+
 ## [0.19.0] - 2026-11-12
 
 VAT rates now come with their decimals: Swiss VAT reads 8.1, not 8.
