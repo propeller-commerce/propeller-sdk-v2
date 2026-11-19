@@ -80,7 +80,7 @@ See [MIGRATION-0.10.0.md](./MIGRATION-0.10.0.md) for the full upgrade guide.
 | `clientId` | `string` | — | Sent as `X-Client-ID` in proxy mode. |
 | `apiKey` | `string` | — | **Direct mode only.** Ignored in proxy mode (with a warning). |
 | `orderEditorApiKey` | `string` | — | Direct mode only. Used for the mutations in `orderEditorMutations`. |
-| `orderEditorMutations` | `string[]` | `['orderSetStatus', 'passwordResetLink', 'triggerQuoteSendRequest', 'triggerOrderSendConfirm']` | Override to route additional mutations through `orderEditorApiKey`. |
+| `orderEditorMutations` | `string[]` | `['orderSetStatus', 'triggerQuoteSendRequest', 'triggerOrderSendConfirm']` | Override to route additional mutations through `orderEditorApiKey`. |
 | `headers` | `Record<string, string>` | — | Merged into every request. |
 | `timeout` | `number` | `30000` | Request timeout (ms). Triggers `AbortController`. |
 | `debug` | `boolean` | `false` | Gates internal `[GraphQL Client]` logs. Config-validation warnings always fire. |

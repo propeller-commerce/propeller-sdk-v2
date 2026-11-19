@@ -153,7 +153,6 @@ const DEFAULT_TOKEN_STORAGE_KEY = 'access_token';
 
 const DEFAULT_ORDER_EDITOR_MUTATIONS: ReadonlyArray<string> = [
   'orderSetStatus',
-  'passwordResetLink',
   'triggerQuoteSendRequest',
   'triggerOrderSendConfirm',
 ];

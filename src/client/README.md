@@ -75,7 +75,6 @@ The client automatically uses the appropriate API key based on the operation:
 ### Order Editor API Key
 These mutations automatically use the `orderEditorApiKey`:
 - `orderSetStatus`
-- `passwordResetLink` 
 - `triggerQuoteSendRequest`
 - `triggerOrderSendConfirm`
 

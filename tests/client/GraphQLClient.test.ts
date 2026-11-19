@@ -144,6 +144,21 @@ describe('GraphQLClient', () => {
       expect(headers['apikey']).toBe('editor');
     });
 
+    // passwordResetLink returns the reset link in its response: sent with the order-editor
+    // key it lets anyone take over any account. It must never be elevated by default.
+    it('never routes passwordResetLink to orderEditorApiKey by default', async () => {
+      fetchSpy.mockResolvedValueOnce(okResponse({}));
+      const c = new GraphQLClient({
+        endpoint: ENDPOINT,
+        securityMode: 'direct',
+        apiKey: 'standard',
+        orderEditorApiKey: 'editor',
+      });
+      await c.execute({ query: 'mutation passwordResetLink { x }' });
+      const headers = fetchSpy.mock.calls[0][1].headers;
+      expect(headers['apikey']).toBe('standard');
+    });
+
     it('uses orderEditorApiKey for custom-configured mutations', async () => {
       fetchSpy.mockResolvedValueOnce(okResponse({}));
       const c = new GraphQLClient({

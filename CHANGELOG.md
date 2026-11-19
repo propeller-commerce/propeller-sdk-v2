@@ -3,6 +3,16 @@
 All notable changes to `@propeller-commerce/propeller-sdk-v2` are documented here.
 
 ---
+## [0.19.2] - 2026-11-19
+
+### Security
+- **`passwordResetLink` is no longer routed to `orderEditorApiKey` by default.** The
+  mutation returns the reset link in its response, so sending it with the order-editor key
+  let any caller take over any account whose email they knew (security review 2026-11,
+  finding #1). Nothing in the SDK or the UI packages calls it: the forgot-password flow uses
+  `triggerPasswordSendResetEmailEvent`. A project that really needs it elevated can still
+  list it in `orderEditorMutations`.
+
 ## [0.19.1] - 2026-11-12
 
 ### Fixed
